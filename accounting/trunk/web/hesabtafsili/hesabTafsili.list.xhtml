@@ -1,0 +1,154 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<ui:composition template="/template/template-list.xhtml">
+	<ui:param name="title" value="HesabTafsili_list" />
+	<ui:param name="owner" value="#{hesabTafsili}" />
+	<ui:param name="searchpage"
+		value="/hesabtafsili/hesabTafsili.exampleForm.xhtml" />
+	<ui:define name="listsection">
+		<custom:scrollerTop for="hesabTafsilis" />
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<rich:dataTable id="hesabTafsilis"
+				value="#{hesabTafsili.globalDataModel}" headerClass="header"
+				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
+				align="center" rows="#{hesabTafsili.rowsPerPage}">
+
+
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['HesabTafsili_code']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_code']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="code"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.code}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['HesabTafsili_name']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_name']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="name"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.name}" />
+				</rich:column>
+
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['HesabTafsili_organ']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_organ']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="organ"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.organ}" />
+				</rich:column>
+
+
+
+
+
+				<rich:column styleClass="action">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['common_view']}" />
+					</f:facet>
+
+					<h:commandLink action="#{hesabTafsili.view}" immediate="true">
+						<h:graphicImage value="/images/view.png" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{hesabTafsili.ID}" converter="javax.faces.Long" />
+					</h:commandLink>
+				</rich:column>
+			</rich:dataTable>
+		</t:div>
+		<custom:scroller for="hesabTafsilis" />
+
+	</ui:define>
+
+	<ui:define name="buttonsection">
+		<h:commandButton id="hhh" action="#{owner.edit}"
+			styleClass=" gwt-Button" rendered="#{owner.creatable and false}"
+			value="#{messages['common_new']}" immediate="true"
+			image="/images/buttons/btn_add.png" />
+
+		<a4j:commandButton
+			action="#{owner.importFromHesabTafsiliTemplateList}"
+			styleClass=" gwt-Button" onclick="showLoading()"
+			oncomplete="hideLoading()" rendered="#{owner.creatable}"
+			value="importFromHesabTafsiliTemplateList" immediate="true"
+			image="/images/buttons/btn_confirm.png"
+			render="listPanel,recoredCounter">
+		</a4j:commandButton>
+
+		<h:commandButton action="#{owner.exportToExcel}"
+			styleClass=" gwt-Button" value="#{messages['common_excel']}"
+			rendered="#{owner.exportable}" image="/images/excelBtn.png" />
+
+		<t:selectOneMenu value="#{owner.selectedReportName}" rendered="false">
+			<f:selectItems value="#{owner.customReports}" />
+		</t:selectOneMenu>
+		<t:selectOneMenu value="#{owner.exportFormat}" rendered="false">
+			<f:selectItem itemLabel="PDF" itemValue="PDF" />
+			<f:selectItem itemLabel="XLS" itemValue="XLS" />
+		</t:selectOneMenu>
+		<h:commandButton value="#{messages['CustomReport_run_report']}"
+			rendered="false" action="#{owner.runCustomReport}"
+			styleClass=" gwt-Button"
+			image="/images/buttons/btn_report_generate.png">
+		</h:commandButton>
+		<h:commandButton value="#{messages['CustomReport_manage_report']}"
+			rendered="false" action="#{owner.goCustomReport}"
+			image="/images/buttons/btn_report_mgmt.png" styleClass=" gwt-Button">
+			<f:setPropertyActionListener value="#{owner.entityClass.name}"
+				target="#{customReport.reportVO.entityName}" />
+		</h:commandButton>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="HesabMoeenTemplate_view" />
+	<ui:param name="owner" value="#{hesabMoeenTemplate}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<rich:panel	 styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
+				styleClass="inputForm">
+
+
+
+				<h:outputLabel for="hesabKolTemplate" value="#{messages['HesabMoeenTemplate_hesabKolTemplate']} : " />
+				<h:outputText id="hesabKolTemplate" 
+					value="#{hesabMoeenTemplate.entity.hesabKolTemplate.desc}" />
+				  		
+				
+					
+
+					<h:outputLabel for="code" value="#{messages['HesabMoeenTemplate_code']} : " />
+				<h:outputText id="code" value="#{hesabMoeenTemplate.entity.code}" />
+	
+						<h:outputLabel for="name" value="#{messages['HesabMoeenTemplate_name']} : " />
+				<h:outputText id="name" value="#{hesabMoeenTemplate.entity.name}" />
+	
+						<h:outputLabel for="description" value="#{messages['HesabMoeenTemplate_description']} : " />
+				<h:outputText id="description" value="#{hesabMoeenTemplate.entity.description}" />
+	
+						<h:outputLabel for="hidden" value="#{messages['HesabMoeenTemplate_hidden']} : " />
+				<h:outputText id="hidden" value="#{hesabMoeenTemplate.entity.hidden}" />
+	
+						<h:outputLabel for="mahyatMoeen" value="#{messages['HesabMoeenTemplate_mahyatMoeen']} : " />
+				<h:outputText id="mahyatMoeen" value="#{hesabMoeenTemplate.entity.mahyatMoeen}" />
+	
+						<h:outputLabel for="scope" value="#{messages['HesabMoeenTemplate_scope']} : " />
+				<h:outputText id="scope" value="#{hesabMoeenTemplate.entity.scope}" />
+	
+				</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton action="#{owner.back}" styleClass=" gwt-Button"
+			image="/images/listbtn.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_list']}" immediate="true">
+		</h:commandButton>
+
+	</ui:define>	
+</ui:composition>
+
+</html>	

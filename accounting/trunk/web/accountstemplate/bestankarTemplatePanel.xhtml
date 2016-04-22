@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+
+			<p:panel id="bes" header="Basic">
+				<f:facet name="header">
+					<h:outputText value="#{messages['AccountsTemplate_bestankar']}" />
+				</f:facet>
+				<t:panelGrid columns="2" width="90%"
+					columnClasses="dialogViewLableCol,inputCol" styleClass="inputForm">
+
+					<h:panelGroup>
+						<h:outputText value="#{messages['HesabKol_title']}" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<input name="hesabKolNameBestankar" id="hesabKolNameBestankar" readonly="readonly"  style="width:220px"/>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="* " />
+						<h:outputLabel for="hesabMoeenBestankar"
+							value="#{messages['HesabMoeen_title']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<custom:autocomplete-one id="hesabMoeenBestankar" entity="HesabMoeen"
+							property="name" width="220px"
+							onchange="fillDest('hesabMoeenBestankar','hesabTafsiliBestankar','accountingMarkazBestankar','hesabKolNameBestankar');"
+							client="true" extraParams="isCurrentOrgan=true" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="  " />
+						<h:outputLabel for="hesabTafsiliBestankar"
+							value="#{messages['HesabTafsili_title']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<custom:autocomplete-one id="hesabTafsiliBestankar" entity="HesabTafsili"
+							property="name" width="220px" client="true"
+							extraParams="isCurrentOrgan=true"
+							onchange="fillDestTafsili('hesabTafsiliBestankar','hesabTafsiliBestankar2','accountingMarkazBestankar');" />
+					</h:panelGroup>
+
+
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="* " />
+						<h:outputLabel for="tafsilisBestankar"
+							value="#{messages['HesabTafsili_shenavar_list']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<div id="tafsilisBestankar"></div>
+						<rich:list value="#{hesabMoeen.levels}" rendered="true"
+							style="list-style-type: none;font-family:Tahoma;font-size:12px"
+							headerClass="header" var="item" align="center">
+							<script>
+						/* <![CDATA[ */
+							//alert('hesabTafsiliBestankar#{item}_desc');
+							var inpId = 'hesabTafsiliBestankar#{item}_id';
+							var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:220px">').prop('id','hesabTafsiliBestankar#{item}_desc');
+							var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:220px">').prop('id','hesabTafsiliBestankar#{item}_id');
+							$$(inputText).prop('class','m2mInput tafsiliInputBestankar');
+							$$(inputText).attr('onchange','fireTafsiliShenavarOnChange("'+inpId+'","accountingMarkazBestankar");');
+							$$('#tafsilisBestankar').append(inputText);
+							$$('#tafsilisBestankar').append(inputHidden);
+						/* ]]> */
+						</script>
+						</rich:list>
+					</h:panelGroup>
+
+
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="  " />
+						<h:outputLabel for="accountingMarkazBestankar"
+							value="#{messages['AccountingMarkaz_title']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<custom:autocomplete-one id="accountingMarkazBestankar"
+							entity="AccountingMarkaz" property="name" width="220px"
+							client="true" extraParams="isCurrentOrgan=true"
+							onchange="fillDestMarkazAccountingByMarkaz('accountingMarkazBestankar','accountingMarkazBestankar2');" />
+					</h:panelGroup>
+
+
+
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="* " />
+						<h:outputLabel 
+							value="#{messages['AccountingMarkaz_shenavar_list']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<div id="accountingMarkazsBestankar"></div>
+						<rich:list value="#{hesabMoeen.levels}" rendered="true"
+							style="list-style-type: none;font-family:Tahoma;font-size:12px"
+							headerClass="header" var="item" align="center">
+							<script>
+						/* <![CDATA[ */
+							//alert('accountingMarkaz#{item}_desc');
+							var inpId = 'accountingMarkazBestankar#{item}_id';
+							var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:220px">').prop('id','accountingMarkazBestankar#{item}_desc');
+							var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:220px">').prop('id','accountingMarkazBestankar#{item}_id');
+							$$(inputText).prop('class','m2mInput accountingMarkazInputBestankar');
+							$$(inputText).attr('onchange','fireAccountingMarkazShenavarOnChange("'+inpId+'","accountingMarkazBestankar");');
+							$$('#accountingMarkazsBestankar').append(inputText);
+							$$('#accountingMarkazsBestankar').append(inputHidden);
+						/* ]]> */
+						</script>
+						</rich:list>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="  " />
+						<h:outputLabel for="descriptionBestankar"
+							value="#{messages['SanadHesabdariItem_description']}" /> : 
+					</h:panelGroup>
+					<textarea name="descriptionBestankar" id="descriptionBestankar" rows="5"
+						style="width: 200px;" />
+				</t:panelGrid>
+			</p:panel>
+
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		   	$$(document).ready(function() {
+				var moeenId = $$('#hesabMoeenBestankar_id').val();
+				
+				if(moeenId == null || moeenId == '')
+					return;
+				fillDest('hesabMoeenBestankar','hesabTafsiliBestankar','accountingMarkazBestankar','hesabKolNameBestankar');
+			});	
+
+			
+			/* ]]> */
+	</script>
+</html>

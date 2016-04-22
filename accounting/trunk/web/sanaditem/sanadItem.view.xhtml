@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="#{messages['SanadItem_title']}" />
+	<ui:param name="owner" value="#{sanadItem}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<rich:panel
+			style="width: 99%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
+			<t:panelGrid columns="4" width="90%"
+				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
+				styleClass="inputForm">
+
+
+
+				<h:outputLabel for="hesab" value="#{messages['SanadItem_hesab']} : " />
+				<h:outputText id="hesab" 
+					value="#{sanadItem.entity.hesab.desc}" />
+				  		
+				
+					
+				<h:outputLabel for="sanad" value="#{messages['SanadItem_sanad']} : " />
+				<h:outputText id="sanad" 
+					value="#{sanadItem.entity.sanad.desc}" />
+				  		
+				
+					
+
+					<h:outputLabel for="row" value="#{messages['SanadItem_row']} : " />
+				<h:outputText id="row" value="#{sanadItem.entity.row}" />
+	
+						<h:outputLabel for="description" value="#{messages['SanadItem_description']} : " />
+				<h:outputText id="description" value="#{sanadItem.entity.description}" />
+	
+						<h:outputLabel for="type" value="#{messages['SanadItem_type']} : " />
+				<h:outputText id="type" value="#{sanadItem.entity.type}" />
+	
+						<h:outputLabel for="bestankar" value="#{messages['SanadItem_bestankar']} : " />
+				<h:outputText id="bestankar" value="#{sanadItem.entity.bestankar}" />
+	
+						<h:outputLabel for="bedehkar" value="#{messages['SanadItem_bedehkar']} : " />
+				<h:outputText id="bedehkar" value="#{sanadItem.entity.bedehkar}" />
+	
+						<h:outputLabel for="date" value="#{messages['SanadItem_date']} : " />
+				<custom:DateTimePicker type="Date" id="date" value="#{sanadItem.entity.date}" lang="Shamsi"></custom:DateTimePicker>
+					<h:outputText id="dateLable" 
+					value="#{sanadItem.entity.date}" />
+	
+	
+				</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+			<h:commandButton  action="#{sanadItem.back}" value="#{messages['common_back']}" immediate="true"/>
+	</ui:define>	
+</ui:composition>
+
+</html>	

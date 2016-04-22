@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="systemConfig-Accounting" />
+	<ui:param name="owner" value="#{accountingSystemConfig}" />
+	<ui:define name="saveStateSction">
+
+	</ui:define>
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+			<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+				<t:panelGrid columns="2" width="90%"
+					columnClasses="viewLableCol35P,inputCol" styleClass="inputForm">
+
+					<h:panelGroup>
+						<h:outputText value="* " styleClass="required" />
+						<h:outputLabel for="defaultSanadType"
+							value="#{messages['AccountingSystemConfig_defaultSanadType']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<t:selectOneMenu value="#{owner.defaultSanadTypeId}"
+							id="defaultSanadType" required="true"
+							label="#{messages['AccountingSystemConfig_defaultSanadType']}"
+							converter="javax.faces.Long">
+							<f:selectItems value="#{hierarchicalEntities.sanadType}" />
+						</t:selectOneMenu>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="  " />
+						<h:outputLabel for="hesabSoodVaZyanAnbashtehMoeen" value="#{messages['AccountingSystemConfig_hesabSoodVaZyanAnbashtehMoeen']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<custom:autocomplete-one id="hesabSoodVaZyanAnbashtehMoeen" entity="hesabMoeenTemplate" 
+							property="desc" identity="#{owner.hesabSoodVaZyanAnbashtehMoeenId}"  
+							desc="#{owner.hesabSoodVaZyanAnbashtehMoeenDesc}" width="320px" client="true"
+							extraParams="isCurrentOrgan=true"
+							label="#{messages['AccountingSystemConfig_hesabSoodVaZyanAnbashtehMoeen']}" />
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="  " />
+						<h:outputLabel for="hesabSoodVaZyanAnbashtehTafsili"
+							value="#{messages['AccountingSystemConfig_hesabSoodVaZyanAnbashtehTafsili']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<custom:autocomplete-one id="hesabSoodVaZyanAnbashtehTafsili" entity="hesabTafsiliTemplate" 
+							property="desc" identity="#{owner.hesabSoodVaZyanAnbashtehTafsiliId}"
+							desc="#{owner.hesabSoodVaZyanAnbashtehTafsiliDesc}" width="320px" client="true"
+							extraParams="isCurrentOrgan=true" 
+							label="#{messages['AccountingSystemConfig_hesabSoodVaZyanAnbashtehTafsili']}"/>
+					</h:panelGroup>
+
+
+
+					<h:panelGroup>
+						<h:outputText value="* " styleClass="required" />
+						<h:outputLabel for="validateHesabMoeenHasChild"
+							value="#{messages['AccountingSystemConfig_validateHesabMoeenHasChild']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<t:selectOneMenu value="#{owner.validateHesabMoeenHasChild}" id="validateHesabMoeenHasChild" required="true"
+									label="#{messages['AccountingSystemConfig_validateHesabMoeenHasChild']}"
+									converter="seraj.converter.Enum">
+									<f:selectItems value="#{enums.YesNoEnum}" />
+						</t:selectOneMenu> 
+					</h:panelGroup>	
+																		
+					<h:panelGroup>
+						<h:outputText value="* " styleClass="required" />
+						<h:outputLabel for="validateHesabMoeenHasMarkaz"
+							value="#{messages['AccountingSystemConfig_validateHesabMoeenHasMarkaz']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<t:selectOneMenu value="#{owner.validateHesabMoeenHasMarkaz}" id="validateHesabMoeenHasMarkaz" required="true"
+									label="#{messages['AccountingSystemConfig_validateHesabMoeenHasMarkaz']}"
+									converter="seraj.converter.Enum">
+									<f:selectItems value="#{enums.YesNoEnum}" />
+						</t:selectOneMenu> 
+					</h:panelGroup>	
+																		
+				</t:panelGrid>
+			</rich:panel>
+
+	</ui:define>
+
+
+	<ui:define name="buttonsection">
+
+					<h:panelGroup>
+						<h:outputText value="  "  />
+						<h:outputLabel for="srcSaalMaali"
+							value="#{messages['AccountingSystemConfig_srcSaalMaali']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<t:selectOneMenu value="#{owner.srcSaalMaali.id}"
+							id="srcSaalMaali" 
+							label="#{messages['AccountingSystemConfig_srcSaalMaali']}">
+							<f:selectItems value="#{localEntities.saalMaali}" />
+						</t:selectOneMenu>
+					</h:panelGroup>	
+
+
+					<h:panelGroup>
+						<h:outputText value="  "  />
+						<h:outputLabel for="destSaalMaali"
+							value="#{messages['AccountingSystemConfig_destSaalMaali']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<t:selectOneMenu value="#{owner.destSaalMaali.id}"
+							id="destSaalMaali" 
+							label="#{messages['AccountingSystemConfig_destSaalMaali']}">
+							<f:selectItems value="#{localEntities.saalMaali}" />
+						</t:selectOneMenu>
+					</h:panelGroup>	
+		<h:commandButton styleClass="gwt-Button" render="messageGrid"
+			image="/images/buttons/btn_save.png" action="#{owner.configSave}" />
+			
+		<h:commandButton styleClass="gwt-Button" render="messageGrid"
+			value="copyHesabsFromSourceSaalMaaliToDestSaalMaali" 
+			image="/images/buttons/btn_copyHesabsFromSourceSaalMaaliToDestSaalMaali.png"
+			action="#{owner.copyHesabsFromSourceSaalMaaliToDestSaalMaali}" />
+
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

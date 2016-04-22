@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="HesabMoeen_select" />
+	<ui:param name="owner" value="#{hesabMoeen}" />
+	<ui:define name="searchsection">
+
+		<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+			columnClasses="viewLableCol30P,inputCol">
+
+			<h:panelGroup>
+				<h:outputLabel for="hesabKol"
+					value="#{messages['HesabMoeen_hesabKol']}" /> : 
+				</h:panelGroup>
+			<h:panelGroup>
+				<custom:lov id="hesabKol"
+					identity="#{hesabMoeen.filter['hesabKol.id@eq']}"
+					desc="#{hesabMoeen.example.hesabKol.desc}"
+					url="${request.contextPath}/hesabkol/hesabKol.lov.jsf?pId=hesabKol" />
+
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<h:outputLabel for="code" value="#{messages['HesabMoeen_code']}" /> : 
+								</h:panelGroup>
+			<h:inputText id="code" value="#{hesabMoeen.filter['code@lk']}" />
+			<h:panelGroup>
+				<h:outputLabel for="name" value="#{messages['HesabMoeen_name']}" /> : 
+								</h:panelGroup>
+			<h:inputText id="name" value="#{hesabMoeen.filter['name@lk']}" />
+			<h:panelGroup>
+				<h:outputLabel for="type" value="#{messages['HesabMoeen_type']}" /> : 
+								</h:panelGroup>
+			<h:inputText id="type" value="#{hesabMoeen.filter['type@lk']}" />
+			<h:panelGroup>
+				<h:outputLabel for="description"
+					value="#{messages['HesabMoeen_description']}" /> : 
+								</h:panelGroup>
+			<h:inputText id="description"
+				value="#{hesabMoeen.filter['description@lk']}" />
+			<h:panelGroup>
+				<h:outputLabel for="hidden" value="#{messages['HesabMoeen_hidden']}" /> : 
+								</h:panelGroup>
+			<h:inputText id="hidden" value="#{hesabMoeen.filter['hidden@eq']}"
+				converter="javax.faces.Boolean" />
+			<!-- <h:panelGroup>
+				<h:outputLabel for="path" value="#{messages['HesabMoeen_path']}" /> : 
+								</h:panelGroup>
+			<h:inputText id="path" value="#{hesabMoeen.filter['path@lk']}" /> -->
+
+
+		</h:panelGrid>
+
+	</ui:define>
+	<ui:define name="listsection">
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<rich:dataTable id="hesabMoeens" value="#{hesabMoeen.dataModel}"
+				var="item" rowClasses="RowOdd,RowEven" rows="10" style="width:100%"
+				headerClass="header">
+
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeen_hesabKol']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabKol}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeen_name']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.name}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeen_description']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.description}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeen_code']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.code}" />
+				</rich:column>
+			<!-- 	<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeen_path']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.path}" />
+				</rich:column> -->
+				<rich:column>
+					<h:commandButton value="#{messages['lov_select']}"
+						onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false" />
+				</rich:column>
+			</rich:dataTable>
+		</t:div>
+		<custom:scroller onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="hesabMoeens"></custom:scroller>
+	</ui:define>
+</ui:composition>
+</html>

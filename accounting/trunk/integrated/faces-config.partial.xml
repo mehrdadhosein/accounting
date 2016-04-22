@@ -1,0 +1,4 @@
+	<converter>
+           <converter-id>seraj.converter.accountingNumberFormatter</converter-id>
+            <converter-class>ir.serajsamaneh.accounting.converter.AccountingNumberFormatter</converter-class>
+      </converter>

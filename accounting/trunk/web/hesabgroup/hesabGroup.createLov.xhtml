@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-createLov.xhtml">
+	<ui:param name="title" value="HesabGroup_list" />
+	<ui:param name="owner" value="#{hesabGroup}" />
+	<ui:param name="lovSearchpage"
+		value="/hesabgroup/hesabGroup.lovExampleForm.xhtml" />
+
+	<ui:define name="listsection">
+		<rich:dataTable id="hesabGroups" value="#{hesabGroup.dataModel}"
+			headerClass="header" var="item" rowClasses="RowOdd,RowEven"
+			rows="#{hesabGroup.rowsPerPage}" style="width:97%" align="center">
+
+
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText styleClass="headerCellClass"
+						value="#{messages['HesabGroup_name']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass" value="#{item.name}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText styleClass="headerCellClass"
+						value="#{messages['HesabGroup_length']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass" value="#{item.length}" />
+			</rich:column>
+
+
+			<rich:column>
+				<h:commandButton value="#{messages['lov_select']}"
+					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
+			</rich:column>
+		</rich:dataTable>
+		<rich:datascroller for="hesabGroups"
+			binding="#{hesabGroup.datascroller}"></rich:datascroller>
+
+	</ui:define>
+	<ui:define name="quickCreateSection">
+		<ui:include src="/hesabgroup/hesabGroup.quickCreate.xhtml" />
+		<script>
+			function copyInputs(){
+			
+												
+																			document.getElementById('serajForm:name').value=document.getElementById('serajForm:nameSearch').value;
+																				document.getElementById('serajForm:length').value=document.getElementById('serajForm:lengthSearch').value;
+												
+			}
+			function copyCreateToSearch(){
+												
+																			document.getElementById('serajForm:nameSearch').value=document.getElementById('serajForm:name').value;
+																				document.getElementById('serajForm:lengthSearch').value=document.getElementById('serajForm:length').value;
+												}
+		</script>
+
+	</ui:define>
+</ui:composition>
+</html>

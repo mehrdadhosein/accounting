@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Group id="accounting" prefix="/accounting/" title="حسابداری" executeMode="ajax"
+	icon="cartable/accounting/accounting_icon.jpg">
+
+
+	<MenuItem id="sanadHesabdariLocalList" title="سند جدید"
+		url="sanadhesabdari/sanadHesabdari.localEdit.jsf" permission="sanadHesabdari.localEdit"
+		icon="cartable/accounting/table-edit-icon.png"    bean="sanadHesabdari" countMethod="localDataModelCount"/>
+
+	<MenuItem id="sanadHesabdariLocalList" title="اسناد قطعی نشده"
+		url="sanadhesabdari/sanadHesabdari.localList.jsf" permission="sanadHesabdari.localList"
+		icon="cartable/accounting/table-edit-icon.png"    bean="sanadHesabdari" countMethod="localDataModelCount"/>
+ 
+</Group>

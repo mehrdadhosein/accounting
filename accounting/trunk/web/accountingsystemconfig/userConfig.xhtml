@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="systemConfig-Accounting" />
+	<ui:param name="owner" value="#{accountingSystemConfig}" />
+	<ui:define name="saveStateSction">
+
+	</ui:define>
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+					<h:panelGroup>
+						<h:outputText value="  "  />
+						<h:outputLabel for="currentUserSaalMaali"
+							value="#{messages['AccountingSystemConfig_currentUserSaalMaali']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<t:selectOneMenu value="#{owner.saalMaaliId}"
+							id="currentUserSaalMaali" 
+							label="#{messages['AccountingSystemConfig_currentUserSaalMaali']}">
+							<f:selectItems value="#{saalMaali.saalMaaliList}" />
+						</t:selectOneMenu>
+					</h:panelGroup>
+				<script>
+					function refreshApplication(){
+						if(#{owner.successfullAction}){
+							top.location.reload();
+						}
+					}
+					
+					function alertPageRefresh(){
+						if (confirm("#{messages['AccountingSystemConfig_changeSaalMaaliConfirm']}")){
+							showLoading();
+							return true;
+						}
+						return false;
+					}
+				</script>	
+	</ui:define>
+
+
+	<ui:define name="buttonsection">
+		<a4j:commandButton styleClass="gwt-Button" render="messageGrid,editSectionPanel" onclick="return alertPageRefresh();" oncomplete="hideLoading();refreshApplication();"
+			image="/images/buttons/btn_save.png" action="#{owner.userConfigSave}" />
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

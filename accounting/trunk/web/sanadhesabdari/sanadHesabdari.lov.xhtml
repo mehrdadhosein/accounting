@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="#{messages['SanadEntity_List']}" />
+	<ui:param name="owner" value="#{sanadHesabdari}" />
+	<ui:define name="searchsection">
+
+			<h:panelGrid columns="4" styleClass="inputForm"
+				columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2">
+
+
+			<h:panelGroup>
+					<h:outputLabel for="saalMaaliExam"
+						value="#{messages['SanadHesabdari_saalMaali']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="saalMaaliExam"
+						identity="#{sanadHesabdari.filter['saalMaali.id@eq']}"
+						desc="#{sanadHesabdari.example.saalMaali.desc}"
+						url="${request.contextPath}/saalmaali/saalMaali.lov.jsf?pId=saalMaaliExam" />
+
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:outputLabel for="sanadTypeExam"
+						value="#{messages['SanadHesabdari_sanadType']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="sanadTypeExam"
+						identity="#{sanadHesabdari.filter['sanadType.id@eq']}"
+						desc="#{sanadHesabdari.example.sanadTypeName}"
+						url="${request.contextPath}/sanadtype/sanadType.lov.jsf?pId=sanadTypeExam" />
+
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:outputLabel for="serialExam"
+						value="#{messages['SanadHesabdari_serial']}" /> : 
+				</h:panelGroup>
+				<h:inputText id="serialExam" converter="javax.faces.Long"
+					value="#{sanadHesabdari.filter['serial@eq']}" />
+				<h:panelGroup>
+					<h:outputLabel for="descriptionExam"
+						value="#{messages['SanadHesabdari_description']}" /> : 
+				</h:panelGroup>
+				<h:inputText id="descriptionExam"
+					value="#{sanadHesabdari.filter['description@lk']}" />
+				
+				<h:panelGroup>
+					<h:outputLabel for="stateExam"
+						value="#{messages['SanadHesabdari_state']}" /> : 
+				</h:panelGroup>
+				<t:selectOneMenu  id="stateExam"
+						converter="seraj.converter.Enum"  
+						value="#{sanadHesabdari.filter['state@eq']}">
+						<f:selectItems value="#{enums.SanadStateEnum}" />
+				</t:selectOneMenu>
+				
+				
+				<h:panelGroup>
+					<h:outputLabel  for="tarikhAzTa"
+						value="#{messages['SanadHesabdari_tarikhSanad']} :" />  
+				</h:panelGroup>
+				
+				 
+						
+				<h:panelGroup id="tarikhAzTa">
+					<t:panelGrid columns="2" width="90%"
+							columnClasses="viewLableCol7P,inputCol"
+							  >
+					 
+						<h:outputLabel for="aztarikhExample"
+								value="#{messages['from']} : " />
+						<custom:DateTimePicker id="aztarikhExample"
+								value="#{sanadHesabdari.filter['tarikhSanad@ge']}" type="Date"
+								lang="Shamsi">
+						</custom:DateTimePicker>
+					</t:panelGrid>
+					
+					<t:panelGrid columns="2" width="90%"
+							columnClasses="viewLableCol7P,inputCol"
+							  >
+							 
+						<h:outputLabel for="tatarikhExample"
+							value="#{messages['to']} : " />
+						<custom:DateTimePicker id="tatarikhExample"
+							value="#{sanadHesabdari.filter['tarikhSanad@le']}" type="Date"
+							lang="Shamsi">
+						</custom:DateTimePicker>
+					</t:panelGrid>
+				</h:panelGroup>
+				
+				
+				
+				
+			
+		</h:panelGrid>
+
+	</ui:define>	
+	<ui:define name="listsection">
+		<rich:dataTable id="sanads" value="#{sanadHesabdari.dataModel}" var="item"
+			rowClasses="RowOdd,RowEven"  style="width:100%">
+				
+			<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['SanadHesabdari_serial']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['SanadHesabdari_serial']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="serial"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.serial}" />
+				</rich:column>	
+			<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['SanadHesabdari_saalMaali']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['SanadHesabdari_saalMaali']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="saalMaali"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.saalMaali}" />
+				</rich:column>	
+
+			<rich:column>
+				<f:facet name="header">
+					<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+						onclick="showLoading();" oncomplete="hideLoading();"
+						styleClass="headerCellClass"
+						title="#{messages['SanadHesabdari_description']}">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SanadHesabdari_description']}" />
+						<h:graphicImage value="/images/icon_ascending.gif"
+							rendered="#{owner.sortType}"
+							title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+						<h:graphicImage value="/images/icon_descending.gif"
+							rendered="#{!owner.sortType}"
+							title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="description"
+							target="#{owner.sortCol}" />
+					</a4j:commandLink>
+				</f:facet>
+				<h:outputText styleClass="CellClass" value="#{item.description}" />
+			</rich:column>
+
+			<rich:column>
+				<f:facet name="header">
+					<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+						onclick="showLoading();" oncomplete="hideLoading();"
+						styleClass="headerCellClass"
+						title="#{messages['SanadHesabdari_sanadType']}">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SanadHesabdari_sanadType']}" />
+						<h:graphicImage value="/images/icon_ascending.gif"
+							rendered="#{owner.sortType}"
+							title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+						<h:graphicImage value="/images/icon_descending.gif"
+							rendered="#{!owner.sortType}"
+							title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="sanadType"
+							target="#{owner.sortCol}" />
+					</a4j:commandLink>
+				</f:facet>
+				<h:outputText styleClass="CellClass" value="#{item.sanadType}" />
+			</rich:column>
+			
+			<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['SanadHesabdari_state']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['SanadHesabdari_state']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="state"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<t:selectOneMenu value="#{item.state}"
+						converter="seraj.converter.Enum" styleClass="CellClass"
+						label="#{messages['SanadHesabdari_state']}" id="state"
+						displayValueOnly="true">
+						<f:selectItems value="#{enums.SanadStateEnum}" />
+					</t:selectOneMenu>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['SanadHesabdari_tarikhSanad']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['SanadHesabdari_tarikhSanad']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="tarikhSanad"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.tarikhSanadFA}" />
+				</rich:column>
+			
+			<rich:column>
+				<h:commandButton value="#{messages['lov_select']}"
+					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false" />
+			</rich:column>
+		</rich:dataTable>
+		
+	</ui:define>
+</ui:composition>
+</html>

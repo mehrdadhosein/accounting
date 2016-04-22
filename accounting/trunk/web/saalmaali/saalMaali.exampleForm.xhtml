@@ -1,0 +1,50 @@
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<a4j:region>
+<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+	<t:panelGrid columns="1" style="width:100%"
+		columnClasses=",SearchbtnStyle">
+		<t:panelGrid columns="2" width="90%"
+			columnClasses="viewLableCol30P,inputCol"
+			styleClass="inputForm">
+
+				<h:panelGroup>
+					<h:outputLabel for="saal" value="#{messages['SaalMaali_saal']}" /> : 
+				</h:panelGroup>					
+				<h:inputText id="saal" value="#{saalMaali.filter['saal@eq']}" converter="javax.faces.Integer"/>
+						<h:panelGroup>
+					<h:outputLabel for="start" value="#{messages['SaalMaali_start']}" /> : 
+				</h:panelGroup>				
+				<custom:DateTimePicker id="start" value="#{saalMaali.filter['start@eq']}" type="Date" lang="Shamsi"></custom:DateTimePicker>
+	
+						<h:panelGroup>
+					<h:outputLabel for="end" value="#{messages['SaalMaali_end']}" /> : 
+				</h:panelGroup>				
+				<custom:DateTimePicker id="end" value="#{saalMaali.filter['end@eq']}" type="Date" lang="Shamsi"></custom:DateTimePicker>
+				<br/><br/><br/><br/><br/>
+				
+					
+		</t:panelGrid>
+		<t:div>
+		<a4j:commandButton image="/images/searchbtn2.png"  styleClass=" gwt-Button"  render="listPanel" onclick="showLoading()"
+			value="#{messages['common_search']}" action="#{owner.search}" oncomplete="hideLoading();closeSearchDiv();">
+		</a4j:commandButton>
+
+	<h:commandButton id="return"
+		onclick="hideLoading(); closeSearchDiv();return false;"
+		styleClass=" gwt-Button" image="/images/buttons/btn_return.png" />
+		</t:div>		
+	</t:panelGrid>
+</rich:panel>
+</a4j:region>
+</html>

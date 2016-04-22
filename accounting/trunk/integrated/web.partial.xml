@@ -1,0 +1,12 @@
+	 <filter>
+		<filter-name>SaalMaaliFilter</filter-name>
+		<filter-class>ir.serajsamaneh.accounting.filter.SaalMaaliFilter</filter-class>
+	</filter>
+	
+		
+	 <filter-mapping>
+		<filter-name>SaalMaaliFilter</filter-name>
+		<url-pattern>*.jsf</url-pattern>
+		<url-pattern>*.jsfUpload</url-pattern>
+		<url-pattern>*.jsfp</url-pattern>
+	</filter-mapping>

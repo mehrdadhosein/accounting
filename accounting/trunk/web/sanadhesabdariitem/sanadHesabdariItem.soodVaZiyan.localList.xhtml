@@ -1,0 +1,121 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<ui:composition template="/template/template-list.xhtml">
+	<ui:param name="title" value="soorat_sood_ziyan" />
+	<ui:param name="owner" value="#{sanadHesabdariItem}" />
+	<ui:define name="listsection">
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<rich:dataTable id="sanadHesabdariINCOMEItems"
+				value="#{sanadHesabdariItem.incomeGroupByLevel}"
+				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
+				style="width: 97%" align="center"
+				rows="#{sanadHesabdariItem.rowsPerPage}">
+
+				<f:facet name="header">
+					<rich:column colspan="3" rowspan="1" styleClass="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['INCOME']}" />
+					</rich:column>
+				</f:facet>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SanadHesabdariItem_hesabKol']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
+				</rich:column>
+
+
+
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SanadHesabdariItem_bedehkar']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"  converter="seraj.converter.accountingNumberFormatter"   />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SanadHesabdariItem_bestankar']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.bestankar}" converter="seraj.converter.accountingNumberFormatter"   />
+				</rich:column>
+
+			</rich:dataTable>
+			<rich:dataTable id="sanadHesabdariEXPENSEItems"
+				value="#{sanadHesabdariItem.expenseGroupByLevel}"
+				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
+				style="width: 97%" align="center"
+				rows="#{sanadHesabdariItem.rowsPerPage}">
+
+				<f:facet name="header">
+					<rich:column colspan="3" rowspan="1" styleClass="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['EXPENSE']}" />
+					</rich:column>
+				</f:facet>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SanadHesabdariItem_hesabKol']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
+				</rich:column>
+
+
+
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SanadHesabdariItem_bedehkar']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"  converter="seraj.converter.accountingNumberFormatter"   />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SanadHesabdariItem_bestankar']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.bestankar}" converter="seraj.converter.accountingNumberFormatter"   />
+				</rich:column>
+
+			</rich:dataTable>
+		</t:div>
+
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
+				styleClass="inputForm">
+
+				<h:outputLabel for="soodeNaVijeh"
+					value="#{messages['SanadHesabdariItem_soodeNaVijeh']} : " />
+				<h:outputText id="soodeNaVijeh"
+					value="#{sanadHesabdariItem.soodeNaVijeh}"  converter="seraj.converter.accountingNumberFormatter"  />
+
+			</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+
+	</ui:define>
+</ui:composition>
+</html>

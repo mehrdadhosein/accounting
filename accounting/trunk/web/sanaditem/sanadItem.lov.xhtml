@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="#{messages['SanadItemEntity_List']}" />
+	<ui:param name="owner" value="#{sanadItem}" />
+	<ui:define name="searchsection">
+
+			<h:panelGrid columns="4" styleClass="inputForm"
+				columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2">
+
+																<h:outputLabel for="hesab" value="#{messages['SanadItem_hesab']}" />
+								<h:panelGroup>
+								<custom:lov id="hesab" 
+										identity="#{sanadItem.filter['hesab.id@eq']}"
+										desc="#{sanadItem.example.hesab.desc}"
+								  		url="../hesab/hesab.lov.jsf?pId=hesab" />
+									
+								</h:panelGroup>
+									
+												<h:outputLabel for="sanad" value="#{messages['SanadItem_sanad']}" />
+								<h:panelGroup>
+								<custom:lov id="sanad" 
+										identity="#{sanadItem.filter['sanad.id@eq']}"
+										desc="#{sanadItem.example.sanad.desc}"
+								  		url="../sanad/sanad.lov.jsf?pId=sanad" />
+									
+								</h:panelGroup>
+									
+								
+																									<h:outputLabel for="row" value="#{messages['SanadItem_row']}" />
+								<h:inputText id="row" value="#{sanadItem.filter['row@eq']}" converter="javax.faces.Integer"/>
+																														<h:outputLabel for="description" value="#{messages['SanadItem_description']}" />
+								<h:inputText id="description" value="#{sanadItem.filter['description@lk']}" />
+																														<h:outputLabel for="type" value="#{messages['SanadItem_type']}" />
+								<h:inputText id="type" value="#{sanadItem.filter['type@lk']}" />
+																														<h:outputLabel for="bestankar" value="#{messages['SanadItem_bestankar']}" />
+								<h:inputText id="bestankar" value="#{sanadItem.filter['bestankar@eq']}" converter="javax.faces.Double"/>
+																														<h:outputLabel for="bedehkar" value="#{messages['SanadItem_bedehkar']}" />
+								<h:inputText id="bedehkar" value="#{sanadItem.filter['bedehkar@eq']}" converter="javax.faces.Double"/>
+																														<h:outputLabel for="date" value="#{messages['SanadItem_date']}" />
+								<custom:DateTimePicker type="Date" id="date" value="#{sanadItem.filter['date@eq']}" lang="Shamsi"></custom:DateTimePicker>
+					
+													
+
+			</h:panelGrid>
+
+	</ui:define>	
+	<ui:define name="listsection">
+		<rich:dataTable id="sanadItems" value="#{sanadItem.dataModel}" var="item"
+			rowClasses="RowOdd,RowEven" rows="10" style="width:100%">
+
+			
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_sanad']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.sanad}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_description']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.description}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_date']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.date}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_type']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.type}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_row']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.row}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_bedehkar']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.bedehkar}" />
+							</rich:column>
+																											<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_hesab']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.hesab}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_bestankar']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.bestankar}" />
+							</rich:column>
+											<rich:column>
+				<h:commandButton  value="#{messages['lov_select']}"  
+					 onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false"/>
+			</rich:column>
+		</rich:dataTable>
+		<rich:dataScroller for="sanadItems"></rich:dataScroller>
+	</ui:define>
+</ui:composition>
+</html>

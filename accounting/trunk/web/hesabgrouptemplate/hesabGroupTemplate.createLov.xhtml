@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-createLov.xhtml">
+	<ui:param name="title" value="HesabGroupTemplate_list" />
+	<ui:param name="owner" value="#{hesabGroupTemplate}" />
+	<ui:param name="lovSearchpage" value="/hesabgrouptemplate/hesabGroupTemplate.lovExampleForm.xhtml" />
+	
+	<ui:define name="listsection">
+		<rich:dataTable id="hesabGroupTemplates" value="#{hesabGroupTemplate.dataModel}"  headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" rows="#{hesabGroupTemplate.rowsPerPage}" style="width:97%" align="center">
+	
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_name']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.name}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_organ']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.organ}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_mahyatGroup']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.mahyatGroup}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_code']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.code}" />
+			</rich:column>
+						
+			
+			<rich:column>
+				<h:commandButton value="#{messages['lov_select']}"
+					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
+			</rich:column>	
+		</rich:dataTable>
+		<custom:scroller onbegin="showLoading();" oncomplete="hideLoading();"		for="hesabGroupTemplates"></custom:scroller>		
+
+	</ui:define>
+	<ui:define name="quickCreateSection">
+		<ui:include src="/hesabgrouptemplate/hesabGroupTemplate.quickCreate.xhtml" />
+		<script>
+			function copyInputs(){
+			
+													document.getElementById('serajForm:organhidden').value=document.getElementById('serajForm:organSearchhidden').value;
+					document.getElementById('serajForm:organtext').value=document.getElementById('serajForm:organSearchtext').value;
+								
+																			document.getElementById('serajForm:name').value=document.getElementById('serajForm:nameSearch').value;
+																				document.getElementById('serajForm:mahyatGroup').value=document.getElementById('serajForm:mahyatGroupSearch').value;
+																				document.getElementById('serajForm:code').value=document.getElementById('serajForm:codeSearch').value;
+												
+			}
+			function copyCreateToSearch(){
+													document.getElementById('serajForm:organSearchhidden').value=document.getElementById('serajForm:organhidden').value;
+					document.getElementById('serajForm:organSearchtext').value=document.getElementById('serajForm:organtext').value;
+								
+																			document.getElementById('serajForm:nameSearch').value=document.getElementById('serajForm:name').value;
+																				document.getElementById('serajForm:mahyatGroupSearch').value=document.getElementById('serajForm:mahyatGroup').value;
+																				document.getElementById('serajForm:codeSearch').value=document.getElementById('serajForm:code').value;
+												}
+		</script>
+		
+	</ui:define>
+</ui:composition>
+</html>

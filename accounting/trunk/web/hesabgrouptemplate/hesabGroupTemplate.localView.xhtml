@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="HesabGroupTemplate_view" />
+	<ui:param name="owner" value="#{hesabGroupTemplate}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<rich:panel	 styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
+				styleClass="inputForm">
+
+
+
+				<h:outputLabel for="organ" value="#{messages['HesabGroupTemplate_organ']} : " />
+				<h:outputText id="organ" 
+					value="#{hesabGroupTemplate.entity.organ.desc}" />
+				  		
+				
+					
+
+					<h:outputLabel for="name" value="#{messages['HesabGroupTemplate_name']} : " />
+				<h:outputText id="name" value="#{hesabGroupTemplate.entity.name}" />
+	
+						<h:outputLabel for="mahyatGroup" value="#{messages['HesabGroupTemplate_mahyatGroup']} : " />
+				<h:outputText id="mahyatGroup" value="#{hesabGroupTemplate.entity.mahyatGroup}" />
+	
+						<h:outputLabel for="code" value="#{messages['HesabGroupTemplate_code']} : " />
+				<h:outputText id="code" value="#{hesabGroupTemplate.entity.code}" />
+	
+				</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton action="#{owner.localEdit}" styleClass=" gwt-Button"
+			image="/images/edit_btn.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			rendered="#{owner.creatable}" value="#{messages['common_edit']}"
+			immediate="true">
+
+		</h:commandButton>
+
+		<h:commandButton styleClass=" gwt-Button"
+			image="/images/buttons/btn_add.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			rendered="#{owner.creatable}" value="#{messages['common_new']}"
+			action="#{owner.localEdit}" immediate="true">
+			<f:setPropertyActionListener value="#{null}"
+				converter="javax.faces.Long" target="#{owner.ID}" />
+		</h:commandButton>
+
+		<h:commandButton action="#{owner.back}" styleClass=" gwt-Button"
+			image="/images/listbtn.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_list']}" immediate="true" />
+
+	</ui:define>	
+</ui:composition>
+
+</html>	

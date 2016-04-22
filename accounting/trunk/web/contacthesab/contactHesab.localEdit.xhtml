@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="ContactHesab_edit_create" />
+	<ui:param name="owner" value="#{contactHesab}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+
+		<rich:panel  styleClass="emptyDiv" bodyClass="emptyDiv" >
+				<t:panelGrid columns="2" width="90%"
+					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+					styleClass="inputForm">
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="contact" value="#{messages['ContactHesab_contact']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="contact"  required="true" descWidth="250" label="#{messages['ContactHesab_contact']}"
+							identity="#{contactHesab.entity.contact.id}"
+							desc="#{contactHesab.entity.contact.desc}"
+					  		url="${request.contextPath}/contact/contact.lov.jsf?pId=contact" />
+				</h:panelGroup>				  		
+				
+					
+				<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="hesabMoeen" value="#{messages['ContactHesab_hesabMoeen']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="hesabMoeen"  required="true" descWidth="250" label="#{messages['ContactHesab_hesabMoeen']}"
+							identity="#{contactHesab.entity.hesabMoeen.id}"
+							desc="#{contactHesab.entity.hesabMoeen.desc}"
+					  		url="${request.contextPath}/hesabmoeen/hesabMoeen.lov.jsf?pId=hesabMoeen" />
+				</h:panelGroup>				  		
+				
+					
+				<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="hesabTafsili" value="#{messages['ContactHesab_hesabTafsili']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="hesabTafsili"  required="true" descWidth="250" label="#{messages['ContactHesab_hesabTafsili']}"
+							identity="#{contactHesab.entity.hesabTafsili.id}"
+							desc="#{contactHesab.entity.hesabTafsili.desc}"
+					  		url="${request.contextPath}/hesabtafsili/hesabTafsili.lov.jsf?pId=hesabTafsili" />
+				</h:panelGroup>				  		
+				
+					
+
+			</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.editable}"
+			action="#{owner.localSave}" value="#{messages['common_save']}"
+			image="/images/buttons/btn_save.png" />
+
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
+			action="#{owner.back}" value="#{messages['common_back']}"
+			immediate="true" image="/images/listbtn.png" />
+	</ui:define>	
+</ui:composition>
+
+</html>	

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="#{messages['HesabLevelEntity_List']}" />
+	<ui:param name="owner" value="#{hesabLevel}" />
+	<ui:define name="searchsection">
+
+			<h:panelGrid columns="4" styleClass="inputForm"
+				columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2">
+
+																<h:outputLabel for="parent" value="#{messages['HesabLevel_parent']}" />
+								<h:panelGroup>
+								<custom:lov id="parent" 
+										identity="#{hesabLevel.filter['parent.id@eq']}"
+										desc="#{hesabLevel.example.parent.desc}"
+								  		url="../hesablevel/hesabLevel.lov.jsf?pId=parent" />
+									
+								</h:panelGroup>
+									
+								
+																									<h:outputLabel for="length" value="#{messages['HesabLevel_length']}" />
+								<h:inputText id="length" value="#{hesabLevel.filter['length@eq']}" converter="javax.faces.Integer"/>
+																														<h:outputLabel for="level" value="#{messages['HesabLevel_level']}" />
+								<h:inputText id="level" value="#{hesabLevel.filter['level@eq']}" converter="javax.faces.Integer"/>
+																														<h:outputLabel for="name" value="#{messages['HesabLevel_name']}" />
+								<h:inputText id="name" value="#{hesabLevel.filter['name@lk']}" />
+													
+
+			</h:panelGrid>
+
+	</ui:define>	
+	<ui:define name="listsection">
+		<rich:dataTable id="hesabLevels" value="#{hesabLevel.dataModel}" var="item"
+			rowClasses="RowOdd,RowEven" rows="10" style="width:100%">
+
+			
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabLevel_name']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.name}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabLevel_parent']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.parent}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabLevel_length']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.length}" />
+							</rich:column>
+																											<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabLevel_level']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.level}" />
+							</rich:column>
+											<rich:column>
+				<h:commandButton  value="#{messages['lov_select']}"  
+					 onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false"/>
+			</rich:column>
+		</rich:dataTable>
+		<rich:dataScroller for="hesabLevels"></rich:dataScroller>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:rich="http://richfaces.org/rich">
+<style>
+.viewLableCol {
+	width: 12%;
+}
+</style>
+<t:saveState value="#{owner.ID}" />
+<t:saveState value="#{owner.quickLoaded}" />
+
+<rich:panel id="sanadHesabdariInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
+		<t:panelGrid columns="2" width="90%"
+					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+					styleClass="inputForm">
+				<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="saalMaali" value="#{messages['SanadHesabdari_saalMaali']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="saalMaali"  required="true" descWidth="250" label="#{messages['SanadHesabdari_saalMaali']}"
+							identity="#{sanadHesabdari.entity.saalMaali.id}"
+							desc="#{sanadHesabdari.entity.saalMaali.desc}"
+					  		url="${request.contextPath}/saalmaali/saalMaali.lov.jsf?pId=saalMaali" />
+				</h:panelGroup>				  		
+				
+					
+				<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="organ" value="#{messages['SanadHesabdari_organ']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="organ"  required="true" descWidth="250" label="#{messages['SanadHesabdari_organ']}"
+							identity="#{sanadHesabdari.entity.organ.id}"
+							desc="#{sanadHesabdari.entity.organ.desc}"
+					  		url="${request.contextPath}/organ/organ.lov.jsf?pId=organ" />
+				</h:panelGroup>				  		
+				
+					
+
+					<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="number" value="#{messages['SanadHesabdari_number']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="number" label="number" value="#{sanadHesabdari.entity.number}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="description" value="#{messages['SanadHesabdari_description']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="description" label="description" value="#{sanadHesabdari.entity.description}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="tarikhSanad" value="#{messages['SanadHesabdari_tarikhSanad']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker  type="Date" required="true" id="tarikhSanad" value="#{sanadHesabdari.entity.tarikhSanad}" lang="Shamsi"></custom:DateTimePicker>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="state" value="#{messages['SanadHesabdari_state']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="state" label="state" value="#{sanadHesabdari.entity.state}"  size="50"/>
+	
+		</t:panelGrid>
+	<h:commandButton action="#{sanadHesabdari.qSave}"
+		value="#{messages['common_save']}" />
+
+	<h:commandButton value="#{messages['back_to_search']}" id="searchLink"
+		onclick="javascript:copyCreateToSearch();toggleToSearch();return false" />
+
+	<a4j:region rendered="#{!sanadHesabdari.quickLoaded}">
+		<t:inputHidden id="objectId" value="#{owner.quickLoadID}"
+			converter="javax.faces.Long" />
+		<a4j:commandLink id="loadCommand" action="#{sanadHesabdari.load}"
+			style="display:none; visibility: hidden;"
+			value="#{messages['common_load']}" render="sanadHesabdariInput" />
+	</a4j:region>
+
+</rich:panel>
+</html>

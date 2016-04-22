@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="HesabGroup_edit_create" />
+	<ui:param name="owner" value="#{hesabGroup}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+				styleClass="inputForm">
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="code" value="#{messages['HesabGroup_code']}" /> : 
+				</h:panelGroup>
+				<h:inputText required="true" id="code" label="code"
+					value="#{owner.entity.code}" />
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="name" value="#{messages['HesabGroup_name']}" /> : 
+				</h:panelGroup>
+				<h:inputText required="true" id="name" label="name"
+					value="#{hesabGroup.entity.name}" size="50" />
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />				
+					<h:outputLabel for="type" value="#{messages['HesabGroup_type']}" /> : 
+				</h:panelGroup>
+				<h:selectOneMenu required="true" value="#{owner.entity.type}" converter="seraj.converter.Enum"
+					label="#{messages['HesabGroup_type']}" id="type"  style="width:200px">
+					<f:selectItems value="#{enums.HesabTypeEnum}" />
+				</h:selectOneMenu>
+				
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="mahyatGroup"
+						value="#{messages['HesabGroup_mahyatGroup']}" /> : 
+				</h:panelGroup>
+				<h:selectOneMenu  required="true" value="#{hesabGroup.entity.mahyatGroup}" converter="seraj.converter.Enum"
+					label="mahyatGroup" id="mahyatGroup" style="width:200px">
+					<f:selectItems value="#{enums.MahyatGroupEnum}" />
+				</h:selectOneMenu>
+									
+			</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	
+	<ui:define name="buttonsection">
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.editable}"
+			action="#{owner.localSave}" value="#{messages['common_save']}"
+			image="/images/savebtn.png" />
+
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
+			action="#{owner.back}" value="#{messages['common_back']}"
+			immediate="true" image="/images/listbtn.png" />
+	</ui:define>
+</ui:composition>
+
+</html>

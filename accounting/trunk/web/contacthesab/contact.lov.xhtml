@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="Contact_list" />
+	<ui:param name="owner" value="#{contactHesab}" />
+	<ui:define name="searchsection">
+
+		<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+			columnClasses="SearchitemStyle1,SearchitemStyle2">
+
+			<h:outputLabel for="firstName"
+				value="#{messages['Contact_firstName']} : " />
+			<h:inputText id="firstName" value="#{owner.filter['contact.firstName@lk']}" />
+			<h:outputLabel for="lastName"
+				value="#{messages['Contact_lastName']} : " />
+			<h:inputText id="lastName" value="#{owner.filter['contact.lastName@lk']}" />
+			<h:outputLabel for="company"
+				value="#{messages['Contact_company']} : " />
+			<h:inputText id="company" value="#{owner.filter['contact.company@lk']}" />
+			<h:outputLabel for="email" value="#{messages['Contact_email']} : " />
+			<h:inputText id="email" value="#{owner.filter['contact.email@lk']}" />
+			<h:outputLabel for="cmnt" value="#{messages['Contact_cmnt']} : " />
+			<h:inputText id="cmnt" value="#{owner.filter['contact.cmnt@lk']}" />
+
+			<h:outputLabel for="hesabMoeen"
+				value="#{messages['ContactHesab_hesabMoeen']} : " />
+			<h:panelGroup>
+				<custom:lov id="hesabMoeen"
+					identity="#{contactHesab.filter['hesabMoeen.id@eq']}"
+					desc="#{contactHesab.example.hesabMoeen.desc}"
+					url="${request.contextPath}/hesabmoeen/hesabMoeen.lov.jsf?pId=hesabMoeen" />
+
+			</h:panelGroup>
+
+			<h:outputLabel for="hesabTafsili"
+				value="#{messages['ContactHesab_hesabTafsili']} : " />
+			<h:panelGroup>
+				<custom:lov id="hesabTafsili"
+					identity="#{contactHesab.filter['hesabTafsili.id@eq']}"
+					desc="#{contactHesab.example.hesabTafsili.desc}"
+					url="${request.contextPath}/hesabtafsili/hesabTafsili.lov.jsf?pId=hesabTafsili" />
+
+			</h:panelGroup>
+
+
+
+
+		</h:panelGrid>
+
+	</ui:define>
+	<ui:define name="listsection">
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<rich:dataTable id="contactHesabs" value="#{contactHesab.activeSaalMaaliDataModel}"
+				var="item" rowClasses="RowOdd,RowEven" rows="10" style="width:100%"
+				headerClass="header">
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['ContactHesab_contact']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.contact}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['ContactHesab_hesabMoeen']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['ContactHesab_hesabTafsili']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['SaalMaali_title']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.saalMaali}" />
+				</rich:column>
+				
+				<rich:column>
+					<h:commandButton value="#{messages['lov_select']}"
+						onclick="javascript:selectOne(#{item.contact.id},'#{item.contact.desc}');return false" />
+				</rich:column>
+			</rich:dataTable>
+		</t:div>
+		<custom:scroller  for="contactHesabs"></custom:scroller>
+	</ui:define>
+</ui:composition>
+</html>

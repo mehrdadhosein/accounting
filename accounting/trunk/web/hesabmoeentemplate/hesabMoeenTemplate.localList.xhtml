@@ -1,0 +1,201 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<ui:composition template="/template/template-list.xhtml">
+	<ui:param name="title" value="HesabMoeenTemplate_list" />
+	<ui:param name="owner" value="#{hesabMoeenTemplate}" />
+	<ui:param name="searchpage"
+		value="/hesabmoeentemplate/hesabMoeenTemplate.exampleForm.xhtml" />
+	<ui:define name="listsection">
+		<custom:scrollerTop for="hesabMoeenTemplates" />
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<rich:dataTable id="hesabMoeenTemplates"
+				value="#{hesabMoeenTemplate.localDataModel}" headerClass="header"
+				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
+				align="center" rows="#{hesabMoeenTemplate.rowsPerPage}">
+
+
+
+
+
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}"
+							render="hesabMoeenTemplates" onclick="showLoading();"
+							oncomplete="hideLoading();" styleClass="headerCellClass"
+							title="#{messages['HesabMoeenTemplate_name']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabMoeenTemplate_name']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="name"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.name}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}"
+							render="hesabMoeenTemplates" onclick="showLoading();"
+							oncomplete="hideLoading();" styleClass="headerCellClass"
+							title="#{messages['HesabMoeenTemplate_description']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabMoeenTemplate_description']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="description"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.description}" />
+				</rich:column>
+
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}"
+							render="hesabMoeenTemplates" onclick="showLoading();"
+							oncomplete="hideLoading();" styleClass="headerCellClass"
+							title="#{messages['HesabMoeenTemplate_hesabKolTemplate']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabMoeenTemplate_hesabKolTemplate']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="hesabKolTemplate"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass"
+						value="#{item.hesabKolTemplate}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}"
+							render="hesabMoeenTemplates" onclick="showLoading();"
+							oncomplete="hideLoading();" styleClass="headerCellClass"
+							title="#{messages['HesabMoeenTemplate_code']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabMoeenTemplate_code']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="code"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.code}" />
+				</rich:column>
+
+
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['Organ_title']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.organ}" />
+				</rich:column>
+
+
+
+				<rich:column rendered="#{hesabMoeenTemplate.deletable}"
+					styleClass="action">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['common_delete']}" />
+					</f:facet>
+
+					<h:commandLink action="#{hesabMoeenTemplate.delete}"
+						immediate="true" onclick="if(!confirmDelete()) return false;">
+						<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{hesabMoeenTemplate.ID}" converter="javax.faces.Long" />
+					</h:commandLink>
+				</rich:column>
+
+				<rich:column rendered="#{hesabMoeenTemplate.editable}"
+					styleClass="action">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['common_edit']}" />
+					</f:facet>
+
+					<h:commandLink action="#{hesabMoeenTemplate.localEdit}"
+						immediate="true">
+						<h:graphicImage value="/images/edit.png" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{hesabMoeenTemplate.ID}" converter="javax.faces.Long" />
+						<f:setPropertyActionListener
+							value="/hesabmoeentemplate/hesabMoeenTemplate.localList.xhtml"
+							target="#{owner.returnUrl}" />
+					</h:commandLink>
+				</rich:column>
+				<rich:column styleClass="action">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['common_view']}" />
+					</f:facet>
+
+					<h:commandLink action="#{hesabMoeenTemplate.localView}"
+						immediate="true">
+						<h:graphicImage value="/images/view.png" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{hesabMoeenTemplate.ID}" converter="javax.faces.Long" />
+						<f:setPropertyActionListener
+							value="/hesabmoeentemplate/hesabMoeenTemplate.localList.xhtml"
+							target="#{owner.returnUrl}" />
+					</h:commandLink>
+				</rich:column>
+			</rich:dataTable>
+		</t:div>
+		<custom:scroller for="hesabMoeenTemplates" />
+
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton action="#{owner.localEdit}" styleClass=" gwt-Button"
+			rendered="#{owner.creatable}" value="#{messages['common_new']}"
+			immediate="true" image="/images/buttons/btn_add.png">
+			<f:setPropertyActionListener
+				value="/hesabmoeentemplate/hesabMoeenTemplate.localList.xhtml"
+				target="#{owner.returnUrl}" />
+
+		</h:commandButton>
+
+		<h:commandButton action="#{owner.exportToExcel}"
+			styleClass=" gwt-Button" rendered="#{owner.creatable}"
+			value="#{messages['common_excel']}" immediate="true"
+			image="/images/excelBtn.png" />
+
+	</ui:define>
+</ui:composition>
+</html>

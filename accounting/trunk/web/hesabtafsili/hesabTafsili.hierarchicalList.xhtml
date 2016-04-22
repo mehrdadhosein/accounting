@@ -1,0 +1,217 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<ui:composition template="/template/template-list.xhtml">
+	<ui:param name="title" value="HesabTafsili_list" />
+	<ui:param name="owner" value="#{hesabTafsili}" />
+	<ui:param name="searchpage"
+		value="/hesabtafsili/hesabTafsili.localExampleForm.xhtml" />
+	<ui:define name="listsection">
+		<custom:scrollerTop for="hesabTafsilis" />
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<rich:dataTable id="hesabTafsilis"
+				value="#{hesabTafsili.hierarchicalDataModel}" headerClass="header"
+				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
+				align="center" rows="#{hesabTafsili.rowsPerPage}">
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['Organ_title']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.organ}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['HesabTafsili_code']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_code']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="code"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.code}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['HesabTafsili_name']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_name']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="name"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.name}" />
+				</rich:column>
+
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['HesabTafsili_bestankr']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_bestankr']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="bestankr"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.bestankr}"
+						converter="seraj.converter.accountingNumberFormatter" />
+				</rich:column>
+
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['HesabTafsili_bedehkar']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_bedehkar']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="bedehkar"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"
+						converter="seraj.converter.accountingNumberFormatter" />
+				</rich:column>
+
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SaalMaali_title']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.saalMaali}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SaalMaali_title']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass"
+						value="#{item.saalMaali.nameWithOrgan}" />
+				</rich:column>
+
+				<rich:column rendered="#{hesabTafsili.deletable}"
+					styleClass="action">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['common_delete']}" />
+					</f:facet>
+
+					<h:commandLink action="#{hesabTafsili.delete}" immediate="true"
+						onclick="if(!confirmDelete()) return false;">
+						<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{hesabTafsili.ID}" converter="javax.faces.Long" />
+					</h:commandLink>
+				</rich:column>
+
+				<rich:column rendered="#{hesabTafsili.editable}" styleClass="action">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['common_edit']}" />
+					</f:facet>
+
+					<h:commandLink action="#{hesabTafsili.localEdit}" immediate="true">
+						<h:graphicImage value="/images/edit.png" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{hesabTafsili.ID}" converter="javax.faces.Long" />
+						<f:setPropertyActionListener
+							value="/hesabtafsili/hesabTafsili.hierarchicalList.xhtml"
+							target="#{owner.returnUrl}" />
+					</h:commandLink>
+				</rich:column>
+				<rich:column styleClass="action">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['common_view']}" />
+					</f:facet>
+
+					<h:commandLink action="#{hesabTafsili.localView}" immediate="true">
+						<h:graphicImage value="/images/view.png" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{hesabTafsili.ID}" converter="javax.faces.Long" />
+						<f:setPropertyActionListener
+							value="/hesabtafsili/hesabTafsili.hierarchicalList.xhtml"
+							target="#{owner.returnUrl}" />
+					</h:commandLink>
+				</rich:column>
+			</rich:dataTable>
+		</t:div>
+		<custom:scroller for="hesabTafsilis" />
+
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton action="#{owner.localEdit}" styleClass=" gwt-Button"
+			rendered="#{owner.creatable}" value="#{messages['common_new']}"
+			immediate="true" image="/images/buttons/btn_add.png">
+			<f:setPropertyActionListener
+				value="/hesabtafsili/hesabTafsili.hierarchicalList.xhtml"
+				target="#{owner.returnUrl}" />
+		</h:commandButton>
+		<h:commandButton action="#{owner.importFromHesabTafsiliTemplateList}"
+			styleClass=" gwt-Button" onclick="showLoading()"
+			oncomplete="hideLoading()" rendered="#{owner.creatable and false}"
+			value="importFromHesabTafsiliTemplateList" immediate="true"
+			image="/images/buttons/btn_import_hesab.png"
+			render="listPanel,recoredCounter">
+		</h:commandButton>
+
+		<h:commandButton action="#{owner.exportToHierarchicalExcel}"
+			styleClass=" gwt-Button" rendered="#{owner.creatable}"
+			value="#{messages['common_excel']}" immediate="true"
+			image="/images/excelBtn.png" />
+		<h:commandButton action="#{owner.exportToPDF}"
+			styleClass=" gwt-Button" value="#{messages['common_pdf']}"
+			image="/images/pdfBtn.png" />
+	</ui:define>
+</ui:composition>
+</html>

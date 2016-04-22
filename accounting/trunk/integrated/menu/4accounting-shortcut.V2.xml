@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Groups>
+	<Group id="accounting" title="حسابداری"
+		icon="cartable/accounting/accounting_icon.jpg">
+
+		<MenuItem id="hesabOperations" title="نمایش حسابها"
+			url="hesabOperations/hesabOperations.html" permission="hesabOperations"
+			icon="images/shortcut/32/Actions-view-list-tree-icon.png" />
+		<MenuItem id="hesabMoeenEdit" title="حساب معین"
+			url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+			permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png" />
+		<MenuItem id="hesabTafsiliLocalEdit" title="حساب تفصیلی"
+			url="hesabtafsili/hesabTafsili.localEdit.jsf?newReturnUrl=/hesabtafsili/hesabTafsili.localList.xhtml"
+			permission="HesabTafsili.create" icon="images/shortcut/32/folder-documents-icon.png" />
+		<MenuItem id="sanadHesabdariLocalEdit" title="سند جدید"
+			url="sanadhesabdari/sanadHesabdari.localEdit.advanced.jsf?newReturnUrl=/sanadhesabdari/sanadHesabdari.localList.xhtml"
+			permission="sanadHesabdari.localEdit" icon="images/shortcut/32/sales-report-icon.png" />
+		<MenuItem id="sanadHesabdariLocalEdit" title="سند آخر"
+			url="sanadhesabdari/sanadHesabdari.lastSanad.localEdit.jsf?newReturnUrl=/sanadhesabdari/sanadHesabdari.localList.xhtml"
+			permission="sanadHesabdari.localEdit" icon="images/shortcut/32/sales-report-icon.png" />
+		<!-- MenuItem id="markazHazineLocalEdit" title="مرکز هزینه"
+			icon="images/shortcut/32/costCenter-icon.png"
+			url="markazhazine/markazHazine.localEdit.jsf??newReturnUrl=/markazhazine/markazHazine.localList.xhtml"
+			permission="markazHazine.localEdit" /-->
+
+	</Group>
+	<Group id="accountingReports" title="گزارشات حسابداری"
+		icon="cartable/accounting/accounting_icon.jpg">
+
+		<MenuItem id="sanadHesabdariItemdaftarRooznamehLocalList"
+			title="دفتر"
+			url="sanadhesabdariitem/daftar/sanadHesabdariItem.daftarRooznamehLocalList.jsf"
+			permission="sanadHesabdariItem.daftarRooznamehLocalList" icon="images/menu/rozname-icon.png" />
+
+
+		<MenuItem id="sanadHesabdariItemtarazKolAzmayeshiLocalList_two"
+			title="تراز کل آزمایشی"
+			url="sanadhesabdariitem/tarazkol/sanadHesabdariItem.tarazKolAzmayeshiLocalList_two.jsf"
+			permission="tarazKolAzmayeshi.two" icon="images/menu/report.png" />
+
+		<MenuItem id="sanadHesabdariItemtarazMoeenAzmayeshiLocalList_two"
+			title="تراز معین آزمایشی"
+			url="sanadhesabdariitem/tarazmoeen/sanadHesabdariItem.tarazMoeenAzmayeshiLocalList_two.jsf"
+			permission="tarazMoeinAzmayeshi.two" icon="images/menu/report.png" />
+
+		<MenuItem id="sanadHesabdariItemtarazTafsiliAzmayeshiLocalList_two"
+			title="تراز تفصیلی آزمایشی"
+			url="sanadhesabdariitem/taraztafsili/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf"
+			permission="tarazTafsiliAzmayeshi.two" icon="images/menu/report.png" />
+
+		<MenuItem id="sanadHesabdariItemtarazKolLocalView" title="تراز کل"
+			url="sanadhesabdariitem/sanadHesabdariItem.tarazKolLocalView.jsf"
+			permission="sanadHesabdariItem.tarazKolLocalView" icon="images/menu/chart-bar-icon.png" />
+		<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalList" title="صورت سود و زیان"
+			url="sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.localList.jsf"
+			permission="sanadHesabdariItem.soodVaZiyan.localList" icon="images/menu/chart-up-color-icon.png" />
+	</Group>
+</Groups>

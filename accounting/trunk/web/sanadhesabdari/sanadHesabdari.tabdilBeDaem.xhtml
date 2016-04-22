@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="SanadHesabdari_tabdilBeDaem" />
+	<ui:param name="owner" value="#{sanadHesabdari}" />
+	<ui:param name="dwrFormName" value="sanadHesabdari" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol30P,viewValueCol"
+				styleClass="inputForm">
+
+
+
+				<h:outputLabel for="saalMaali"
+					value="#{messages['SanadHesabdari_saalMaali']} : " />
+				<h:outputText id="saalMaali"
+					value="#{sanadHesabdari.currentUserActiveSaalMaali.desc}" />
+
+				<h:outputLabel for="organ"
+					value="#{messages['SanadHesabdari_organ']} : " />
+				<h:outputText id="organ" value="#{user.currentOrgan}" />
+
+				<h:outputLabel for="lastDaemiSerial"
+					value="#{messages['SanadHesabdari_lastDaemiSerial']} : " />
+				<h:outputText id="lastDaemiSerial" value="#{sanadHesabdari.lastDaemiSerial}" />
+
+				<h:outputLabel for="lastDaemiTarikhSanad"
+					value="#{messages['SanadHesabdari_lastDaemiTarikhSanad']} : " />
+				<h:outputText id="lastDaemiTarikhSanadLable"
+					value="#{sanadHesabdari.lastDaemiTarikhSanadFA}" />
+					
+				<h:panelGroup>
+					<h:outputText styleClass="required" value=" " />
+					<h:outputLabel for="tarikhSanadTo"
+						value="#{messages['SanadHesabdari_tarikhSanadTo']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker  id="tarikhSanadTo" type="Date"
+					value="#{sanadHesabdari.tarikhSanadTo}" lang="Shamsi"></custom:DateTimePicker>
+					
+				<h:panelGroup>
+					<h:outputText styleClass="required" value=" " />
+					<h:outputLabel for="serialTo"
+						value="#{messages['SanadHesabdari_serialTo']}" /> : 
+				</h:panelGroup>
+				<h:inputText  id="serialTo" label="serialTo"
+					value="#{sanadHesabdari.serialTo}" />
+									
+
+
+			</t:panelGrid>
+		</rich:panel>
+		
+	</ui:define>
+	<ui:define name="buttonsection">
+		
+		<h:commandButton styleClass=" gwt-Button"
+			 action="#{owner.tabdilBeDaemiByTarikh}" image="/images/buttons/btn_confirm.png"
+		  />
+
+
+	</ui:define>	
+</ui:composition>
+
+</html>

@@ -1,0 +1,171 @@
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<a4j:region>
+	<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+		<t:panelGrid columns="1" style="width:100%"
+			columnClasses=",SearchbtnStyle">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol30P,inputCol" styleClass="inputForm">
+
+				<h:panelGroup>
+					<h:outputLabel for="hesabKolIds"
+						value="#{messages['HesabKol_list']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-multiple id="hesabKolIds" width="220px"
+						selectedIds="#{owner.hesabKolIds}"  entity="HesabKol"
+						property="code, name" ajax="false" extraParams="isLocal=true&amp;currentSaalMaali=true"/>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:outputLabel for="moeens"
+						value="#{messages['HesabMoeen_list']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-multiple id="moeens" width="220px"
+						selectedIds="#{owner.moeenIds}" entity="HesabMoeen"
+						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+				</h:panelGroup>				
+
+				<h:panelGroup>
+					<h:outputLabel 
+						value="#{messages['HesabTafsili_list']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-multiple id="tafsilis" width="220px"
+						selectedIds="#{owner.tafsiliIds}" entity="HesabTafsili"
+						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:outputLabel for="articleTafsiliIds"
+						value="#{messages['HesabTafsili_shenavar_list']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-multiple id="articleTafsiliIds" width="220px"
+						selectedIds="#{owner.articleTafsiliIds}" entity="HesabTafsili"
+						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<h:outputLabel for="description"
+						value="#{messages['SanadHesabdariItem_description']}" /> : 
+				</h:panelGroup>
+					<t:inputText id="description"
+						value="#{owner.filter['description@lk']}">
+				</t:inputText>
+				
+				<h:panelGroup>
+					<h:outputLabel for="saalMaali"
+						value="#{messages['SanadHesabdari_saalMaali']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<t:panelGrid columns="2" width="90%"
+						columnClasses="viewLableCol7P,inputCol">
+						<h:outputLabel/>						
+						<t:selectOneMenu id="saalMaali" styleClass="selectOneMenu"
+							required="true" label="#{messages['SanadHesabdari_saalMaali']}"
+							value="#{owner.filter['sanadHesabdari.saalMaali.id@eq']}"
+							converter="javax.faces.Long">
+							<f:selectItems value="#{saalMaali.saalMaaliList}" />
+						</t:selectOneMenu>
+					</t:panelGrid>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:outputLabel for="tarikhAzTa"
+						value="#{messages['SanadHesabdari_tarikhSanad']}" /> : 
+				</h:panelGroup>
+
+
+				<h:panelGroup id="tarikhAzTa">
+					<t:panelGrid columns="2" width="90%"
+						columnClasses="viewLableCol7P,inputCol">
+
+						<h:outputLabel for="aztarikhExample"
+							value="#{messages['from']} : " />
+						<custom:DateTimePicker id="aztarikhExample"
+							value="#{owner.filter['sanadHesabdari.tarikhSanad@ge']}"
+							type="Date" lang="Shamsi">
+						</custom:DateTimePicker>
+					</t:panelGrid>
+
+					<t:panelGrid columns="2" width="90%"
+						columnClasses="viewLableCol7P,inputCol">
+
+						<h:outputLabel for="tatarikhExample" value="#{messages['to']} : " />
+						<custom:DateTimePicker id="tatarikhExample"
+							value="#{owner.filter['sanadHesabdari.tarikhSanad@le']}"
+							type="Date" lang="Shamsi">
+						</custom:DateTimePicker>
+					</t:panelGrid>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:outputLabel for="serialAzTa"
+						value="#{messages['SanadHesabdari_serial']}" /> : 
+				</h:panelGroup>
+
+
+				<h:panelGroup id="serialAzTa">
+					<t:panelGrid columns="2" width="90%"
+						columnClasses="viewLableCol7P,inputCol">
+
+						<h:outputLabel for="azserialExample"
+							value="#{messages['from']} : " />
+						<t:inputText id="azserialExample"
+							value="#{owner.filter['sanadHesabdari.serial@ge']}"
+							converter="javax.faces.Long">
+						</t:inputText>
+					</t:panelGrid>
+
+					<t:panelGrid columns="2" width="90%"
+						columnClasses="viewLableCol7P,inputCol">
+
+						<h:outputLabel for="taserialExample" value="#{messages['to']} : " />
+						<t:inputText id="taserialExample"
+							value="#{owner.filter['sanadHesabdari.serial@le']}"
+							converter="javax.faces.Long">
+						</t:inputText>
+					</t:panelGrid>
+				</h:panelGroup>
+
+
+
+
+			</t:panelGrid>
+			<t:div>
+				<a4j:commandButton image="/images/searchbtn2.png"
+					styleClass=" gwt-Button" render="listPanel" onclick="showLoading()"
+					value="#{messages['common_search']}" action="#{owner.search}"
+					oncomplete="hideLoading();closeSearchDiv();">
+				</a4j:commandButton>
+
+				<h:commandButton id="return"
+					onclick="hideLoading(); closeSearchDiv();return false;"
+					styleClass=" gwt-Button" image="/images/buttons/btn_return.png" />
+			</t:div>
+		</t:panelGrid>
+	</rich:panel>
+</a4j:region>
+<script>
+	//Initial load of page
+	function tafsilisrendered(){
+		var tafsilis = getURLParameters('tafsiliIds');
+		//alert(tafsilis);
+		populatetafsilis(tafsilis);
+		document.getElementById("tafsilis_id").value=tafsilis;
+	}
+
+</script>
+</html>

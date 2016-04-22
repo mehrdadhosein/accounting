@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="accounting_special_action" />
+	<ui:param name="owner" value="#{saalMaali}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<rich:panel	 styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,viewValueCol"
+				styleClass="inputForm">
+				<h:outputLabel for="saal" value="#{messages['SaalMaali_saal']} : " />
+				<h:outputText id="saal" value="#{saalMaali.currentUserActiveSaalMaali.saal}" />
+	
+				<h:outputLabel for="start" value="#{messages['SaalMaali_start']} : " />
+				<h:outputText id="startLable" value="#{saalMaali.currentUserActiveSaalMaali.startDateFA}" />
+	
+				<h:outputLabel for="end" value="#{messages['SaalMaali_end']} : " />
+				<h:outputText id="endLable"		value="#{saalMaali.currentUserActiveSaalMaali.endDateFA}" />
+
+				<h:outputLabel for="status" value="#{messages['SaalMaali_status']} : " />
+				<h:outputText id="status"		value="#{saalMaali.currentUserActiveSaalMaali.statusDesc}" />
+
+				<h:panelGroup rendered="#{owner.isTemporalAccountsClosed}">
+					<h:outputText styleClass="required" value="  " />
+					<h:outputLabel for="tarikhSanadEkhtetamieh"
+						value="#{messages['SanadHesabdari_tarikhSanad']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker rendered="#{owner.isTemporalAccountsClosed}" required="true" label="#{messages['SanadHesabdari_tarikhSanad']}" 
+					id="tarikhSanadEkhtetamieh" type="Date"			value="#{sanadHesabdari.tarikhSanad}" lang="Shamsi"></custom:DateTimePicker>
+
+				<h:panelGroup rendered="#{owner.isInProgress and !sanadHesabdari.hasSanadEftetahieh}">
+					<h:outputText styleClass="required" value="  " />
+					<h:outputLabel for="tarikhSanadEftetahieh"
+						value="#{messages['SanadHesabdari_tarikhSanad']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker rendered="#{owner.isInProgress and !sanadHesabdari.hasSanadEftetahieh}" required="true" label="#{messages['SanadHesabdari_tarikhSanad']}" 
+					id="tarikhSanadEftetahieh" type="Date"			value="#{sanadHesabdari.tarikhSanad}" lang="Shamsi"></custom:DateTimePicker>
+									
+			</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton action="#{sanadHesabdari.createSanadEftetahieh}" styleClass=" gwt-Button" rendered="#{owner.isInProgress and !sanadHesabdari.hasSanadEftetahieh}"
+			image="/images/buttons/btn_createSanadEftetahieh.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['createSanadEftetahieh']}">
+		</h:commandButton>
+
+		<h:commandButton action="#{sanadHesabdari.editSanadEftetahieh}" styleClass=" gwt-Button" rendered="#{owner.isInProgress and sanadHesabdari.hasSanadEftetahiehMovaghat}"
+			image="/images/buttons/btn_editSanadEftetahieh.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['SanadEftetahiehCreated']}">
+				<f:setPropertyActionListener value="/saalmaali/saalMaali.localSpecialAction.jsf"
+					target="#{sanadHesabdari.returnUrl}" />			
+		</h:commandButton>
+				
+		<h:commandButton action="#{sanadHesabdari.deleteSanadEftetahieh}" styleClass=" gwt-Button" rendered="#{owner.isInProgress and sanadHesabdari.hasSanadEftetahiehMovaghat}"
+			image="/images/buttons/btn_deleteSanadEftetahieh.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['SanadEftetahiehDelete']}">
+		</h:commandButton>
+				
+		<h:commandButton action="#{sanadHesabdari.viewSanadEftetahieh}" styleClass=" gwt-Button" rendered="#{owner.isInProgress and sanadHesabdari.hasSanadEftetahiehDaemi}"
+			image="/images/buttons/btn_viewSanadEftetahieh.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['viewSanadEftetahieh']}">
+				<f:setPropertyActionListener value="/saalmaali/saalMaali.localSpecialAction.jsf"
+					target="#{sanadHesabdari.returnUrl}" />			
+		</h:commandButton>
+		
+		<h:commandButton action="#{sanadHesabdari.closeTemporalAccounts}" styleClass=" gwt-Button" rendered="#{owner.isInProgress}"
+			image="/images/buttons/btn_closeTemporalAccounts.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['closeTemporalAccounts']}" immediate="true">
+		</h:commandButton>
+
+		<h:commandButton action="#{sanadHesabdari.deleteTemporalSanadHesabdari}" styleClass=" gwt-Button" rendered="#{owner.isTemporalAccountsClosed}"
+			image="/images/buttons/btn_deleteTemporalSanadHesabdari.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['deleteTemporalSanadHesabdari']}" immediate="true">
+		</h:commandButton>
+
+		<h:commandButton action="#{sanadHesabdari.createSanadEkhtetamieh}" styleClass=" gwt-Button" rendered="#{owner.isTemporalAccountsClosed}"
+			image="/images/buttons/btn_createSanadEkhtetamieh.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['createSanadEkhtetamieh']}">
+		</h:commandButton>
+		
+		<h:commandButton action="#{sanadHesabdari.editSanadEkhtetamieh}" styleClass=" gwt-Button" rendered="#{sanadHesabdari.hasSanadEkhtetamiehMovaghat}"
+			image="/images/buttons/btn_editSanadEkhtetamieh.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['SanadEkhtetamiehCreated']}">
+				<f:setPropertyActionListener value="/saalmaali/saalMaali.localSpecialAction.jsf"
+					target="#{sanadHesabdari.returnUrl}" />			
+		</h:commandButton>
+				
+		<h:commandButton action="#{sanadHesabdari.deleteSanadEkhtetamieh}" styleClass=" gwt-Button" rendered="#{sanadHesabdari.hasSanadEkhtetamiehMovaghat}"
+			image="/images/buttons/btn_deleteSanadEkhtetamieh.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['SanadEkhtetamiehDelete']}">
+		</h:commandButton>
+				
+		<h:commandButton action="#{sanadHesabdari.viewSanadEkhtetamieh}" styleClass=" gwt-Button" rendered="#{sanadHesabdari.hasSanadEkhtetamiehDaemi or sanadHesabdari.hasSanadEkhtetamiehBarresiShode}"
+			image="/images/buttons/btn_viewSanadEkhtetamieh.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['viewSanadEkhtetamieh']}">
+				<f:setPropertyActionListener value="/saalmaali/saalMaali.localSpecialAction.jsf"
+					target="#{sanadHesabdari.returnUrl}" />
+			
+		</h:commandButton>
+
+
+
+	</ui:define>	
+</ui:composition>
+
+</html>	

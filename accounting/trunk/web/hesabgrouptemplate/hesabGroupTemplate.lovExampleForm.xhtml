@@ -1,0 +1,49 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<style>
+.SearchitemStyle1 {
+	text-align: left;
+	width: 12%;
+	vertical-align: top;
+	font-family: tahoma;
+}
+</style>
+
+
+<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+	<t:panelGrid columns="4" width="90%"
+		columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2"
+		styleClass="inputForm">
+		
+							<h:outputLabel for="organSearch" value="#{messages['HesabGroupTemplate_organ']}" />
+				<h:panelGroup>
+				<custom:lov id="organSearch" 
+						identity="#{hesabGroupTemplate.filter['organ.id@eq']}"
+						desc="#{hesabGroupTemplate.example.organ.desc}"
+				  		url="${request.contextPath}/organ/organ.lov.jsf?pId=organSearch" />
+					
+				</h:panelGroup>
+					
+
+					<h:outputLabel for="nameSearch" value="#{messages['HesabGroupTemplate_name']}" />
+				<h:inputText id="nameSearch" value="#{hesabGroupTemplate.filter['name@lk']}" />
+						<h:outputLabel for="mahyatGroupSearch" value="#{messages['HesabGroupTemplate_mahyatGroup']}" />
+				<h:inputText id="mahyatGroupSearch" value="#{hesabGroupTemplate.filter['mahyatGroup@eq']}" converter="javax.faces.Integer"/>
+						<h:outputLabel for="codeSearch" value="#{messages['HesabGroupTemplate_code']}" />
+				<h:inputText id="codeSearch" value="#{hesabGroupTemplate.filter['code@lk']}" />
+				
+		</t:panelGrid>
+</rich:panel>
+
+</html>

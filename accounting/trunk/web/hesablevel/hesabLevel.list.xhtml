@@ -1,0 +1,91 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<ui:composition template="/template/template-list.xhtml">
+	<ui:param name="title" value="#{messages['HesabLevel_title']}" />
+	<ui:param name="owner" value="#{hesabLevel}" />
+	<ui:param name="searchpage"
+		value="/hesablevel/hesabLevel.exampleForm.xhtml" />
+	<ui:define name="listsection">
+		<rich:dataTable id="hesabLevels" value="#{hesabLevel.dataModel}"   headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" style="width: 100%" rows="#{hesabLevel.rowsPerPage}">
+
+			
+	
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabLevel_name']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.name}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabLevel_parent']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.parent}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabLevel_length']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.length}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabLevel_level']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.level}" />
+			</rich:column>
+						
+			
+			
+			<rich:column rendered="#{hesabLevel.deletable}" styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_delete']}" />
+				</f:facet>
+			
+				<h:commandLink action="#{hesabLevel.delete}"  immediate="true">
+					<h:graphicImage value="/images/remove.gif" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{hesabLevel.ID}"  converter="javax.faces.Long" />
+				</h:commandLink>
+			</rich:column>
+
+			<rich:column rendered="#{hesabLevel.editable}" styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_edit']}" />
+				</f:facet>
+			
+				<h:commandLink action="#{hesabLevel.edit}"  immediate="true">
+					<h:graphicImage value="/images/edit.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{hesabLevel.ID}"  converter="javax.faces.Long" />
+				</h:commandLink>
+			</rich:column>
+			<rich:column styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_view']}" />
+				</f:facet>
+						
+				<h:commandLink action="#{hesabLevel.view}" immediate="true">
+				<h:graphicImage value="/images/view.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{hesabLevel.ID}"  converter="javax.faces.Long" />
+				</h:commandLink>
+			</rich:column >
+		</rich:dataTable>
+		<rich:dataScroller for="hesabLevels" ></rich:dataScroller>
+			
+	</ui:define>
+</ui:composition>
+</html>

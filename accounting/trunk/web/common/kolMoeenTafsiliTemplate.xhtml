@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<h:panelGroup>
+		<h:outputText value="#{messages['HesabKol_title']}" />
+	</h:panelGroup>
+	<h:panelGroup>
+		<input name="hesabKolName" id="hesabKolName" readonly="readonly"
+			style="width: 220px" />
+	</h:panelGroup>
+	
+	<h:panelGroup>
+		<h:outputText styleClass="required" value="  " />
+		<h:outputLabel for="hesabMoeen" value="#{messages['HesabMoeen_title']}" /> : 
+					</h:panelGroup>
+	<h:panelGroup>
+		<custom:autocomplete-one id="hesabMoeen" entity="HesabMoeenTemplate" 
+			property="desc" identity="#{owner.entity.hesabMoeenTemplate.id}"
+			desc="#{owner.entity.hesabMoeenTemplate.desc}" width="320px" client="true"
+			extraParams="isCurrentOrgan=true"
+			label="#{messages['HesabMoeen_title']}"
+			onchange="fillDest('hesabMoeen','hesabTafsili');clearAutocomplete('hesabTafsili');" />
+	</h:panelGroup>
+	
+	<h:panelGroup>
+		<h:outputText styleClass="required" value="  " />
+		<h:outputLabel 
+			value="#{messages['HesabTafsili_title']}" /> : 
+	</h:panelGroup>
+	<h:panelGroup>
+		<custom:autocomplete-one id="hesabTafsili" entity="HesabTafsiliTemplate" onInit="tafsiliInited();"
+			property="desc" identity="#{owner.entity.hesabTafsiliTemplate.id}"
+			desc="#{owner.entity.hesabTafsiliTemplate.desc}" width="320px" client="true"
+			extraParams="isCurrentOrgan=true" />
+	</h:panelGroup>
+	
+	<t:jsValueSet name="moeenKolTemplateMap" value="#{hesabMoeenTemplate.moeenKolTemplateMap}" />
+	
+	<t:jsValueSet name="moeenTafsiliTemplateMap" value="#{hesabMoeenTemplate.moeenTafsiliTemplateMap}" />
+	
+	<script>
+		function tafsiliInited() {
+			var moeenId = $$('#hesabMoeen_id').val();
+	
+			if (moeenId == null || moeenId == '')
+				return;
+				
+			fillDest('hesabMoeen', 'hesabTafsili')
+		}
+		
+		function fillDest(moeen, tafsili) {
+			var moeenId = $$('#hesabMoeen_id').val();
+	
+			if (moeenId == null || moeenId == '')
+				return;
+
+			kolMap = moeenKolTemplateMap[moeenId];
+			$$('#hesabKolName').val(kolMap.label);
+			
+				//clearAutocomplete(tafsili);
+			tafsiliMap = moeenTafsiliTemplateMap[moeenId];
+
+			//alert("unitMap : "+unitMap.length);
+			var filtered = tafsiliMap;
+			//alert(inspect(filtered,10,10));
+			//alert('aaa');
+			$$('#' + tafsili + '_desc').autocomplete('option', 'source', filtered);
+			
+			//$$('#hesabTafsili_desc').autocomplete({source:filtered});
+		}
+	</script>
+</html>

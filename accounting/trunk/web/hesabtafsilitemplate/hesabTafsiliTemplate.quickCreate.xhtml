@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:rich="http://richfaces.ajax4jsf.org/rich">
+<style>
+.viewLableCol {
+	width: 12%;
+}
+</style>
+<t:saveState value="#{owner.ID}" />
+<t:saveState value="#{owner.quickLoaded}" />
+
+<rich:panel id="hesabTafsiliTemplateInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
+		<t:panelGrid columns="2" width="90%"
+					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+					styleClass="inputForm">
+
+					<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="code" value="#{messages['HesabTafsiliTemplate_code']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="code" label="code" value="#{hesabTafsiliTemplate.entity.code}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="name" value="#{messages['HesabTafsiliTemplate_name']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="name" label="name" value="#{hesabTafsiliTemplate.entity.name}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="tafsilType" value="#{messages['HesabTafsiliTemplate_tafsilType']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="tafsilType" label="tafsilType" value="#{hesabTafsiliTemplate.entity.tafsilType}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="description" value="#{messages['HesabTafsiliTemplate_description']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="description" label="description" value="#{hesabTafsiliTemplate.entity.description}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="hidden" value="#{messages['HesabTafsiliTemplate_hidden']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="hidden" label="hidden" value="#{hesabTafsiliTemplate.entity.hidden}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="scope" value="#{messages['HesabTafsiliTemplate_scope']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="scope" label="scope" value="#{hesabTafsiliTemplate.entity.scope}"  size="50"/>
+	
+		</t:panelGrid>
+	<h:commandButton action="#{hesabTafsiliTemplate.qSave}"
+		value="#{messages['common_save']}" />
+
+	<h:commandButton value="#{messages['back_to_search']}" id="searchLink"
+		onclick="javascript:copyCreateToSearch();toggleToSearch();return false" />
+
+	<a4j:region rendered="#{!hesabTafsiliTemplate.quickLoaded}">
+		<t:inputHidden id="objectId" value="#{owner.quickLoadID}"
+			converter="javax.faces.Long" />
+		<a4j:commandButton id="loadCommand" action="#{hesabTafsiliTemplate.load}"
+			style="display:none; visibility: hidden;"
+			value="#{messages['common_load']}" render="hesabTafsiliTemplateInput" />
+	</a4j:region>
+
+</rich:panel>
+</html>

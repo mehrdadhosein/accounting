@@ -1,0 +1,48 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+
+<rich:panel
+	style="width: 99%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
+	<t:panelGrid columns="1" style="width:100%"
+		columnClasses=",SearchbtnStyle">
+		<t:panelGrid columns="6" width="90%"
+			columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2"
+			styleClass="inputForm">
+
+
+				<h:outputLabel for="parent" value="#{messages['HesabLevel_parent']}" />
+				<h:panelGroup>
+				<custom:lov id="parent" 
+						identity="#{hesabLevel.filter['parent.id@eq']}"
+						desc="#{hesabLevel.example.parent.desc}"
+				  		url="${request.contextPath}/hesablevel/hesabLevel.lov.jsf?pId=parent" />
+					
+				</h:panelGroup>
+					
+
+					<h:outputLabel for="length" value="#{messages['HesabLevel_length']}" />
+				<h:inputText id="length" value="#{hesabLevel.filter['length@eq']}" converter="javax.faces.Integer"/>
+						<h:outputLabel for="level" value="#{messages['HesabLevel_level']}" />
+				<h:inputText id="level" value="#{hesabLevel.filter['level@eq']}" converter="javax.faces.Integer"/>
+						<h:outputLabel for="name" value="#{messages['HesabLevel_name']}" />
+				<h:inputText id="name" value="#{hesabLevel.filter['name@lk']}" />
+					
+		</t:panelGrid>
+			<h:commandButton styleClass="ButtonStyle" value="#{messages['common_search']}" actionListener="#{hesabLevel.search}">
+			</h:commandButton>
+	</t:panelGrid>
+</rich:panel>
+
+</html>

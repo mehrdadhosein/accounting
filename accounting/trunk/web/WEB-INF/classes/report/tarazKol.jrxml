@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazKol" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="17"/>
+	<property name="ireport.y" value="0"/>
+	<style name="title" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="12" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
+	<style name="reportTitle" hAlign="Center" vAlign="Middle" fontName="B Tir" fontSize="16" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BTitr.ttf" pdfEncoding="Identity-H"/>
+	<style name="digitBold" isDefault="true" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
+	<style name="text" isDefault="true" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
+	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="organName" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="tarazKolDarayi" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\projects\\etehadieh\\accounting\\resource\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tarazKolBedehi" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="tarazKolSarmaye" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="tarazKolBedehiJasperReport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="tarazKolDarayiJasperReport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="tarazKolSarmayehJasperReport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<field name="sanadHesabdari" class="ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity"/>
+	<field name="hesabTafsili" class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"/>
+	<field name="hesabMoeen" class="ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="bedehkar" class="java.lang.Double"/>
+	<field name="bestankar" class="java.lang.Double"/>
+	<field name="hesabKol" class="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"/>
+	<field name="mandehBedehkar" class="java.lang.Double"/>
+	<field name="mandehBestankar" class="java.lang.Double"/>
+	<variable name="rowCount" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[new Integer(1)]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<variable name="bedehkarSum" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{bedehkar}]]></variableExpression>
+		<initialValueExpression><![CDATA[0d]]></initialValueExpression>
+	</variable>
+	<variable name="bestankarSum" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{bestankar}]]></variableExpression>
+		<initialValueExpression><![CDATA[0d]]></initialValueExpression>
+	</variable>
+	<variable name="mandehBedehkarSum" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{mandehBedehkar}]]></variableExpression>
+		<initialValueExpression><![CDATA[0d]]></initialValueExpression>
+	</variable>
+	<variable name="mandehBestankarSum" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{mandehBestankar}]]></variableExpression>
+		<initialValueExpression><![CDATA[0d]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="802" height="100"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="0" width="802" height="29"/>
+				<textElement>
+					<font fontName="B Titr" size="14" pdfFontName="BTitrBd.ttf"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{organName}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="13" y="0" width="75" height="88"/>
+				<imageExpression class="java.lang.String"><![CDATA["report/images/arm.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="reportTitle" x="0" y="29" width="802" height="29"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="B Titr" size="20" isBold="true" isStrikeThrough="false" pdfFontName="BTitrBd.ttf"/>
+				</textElement>
+				<text><![CDATA[تراز کل]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="303" splitType="Stretch">
+			<subreport>
+				<reportElement x="402" y="0" width="400" height="303"/>
+				<subreportParameter name="title"/>
+				<subreportParameter name="organName"/>
+				<dataSourceExpression><![CDATA[$P{tarazKolDarayi}]]></dataSourceExpression>
+				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{tarazKolDarayiJasperReport}]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="0" width="400" height="150"/>
+				<subreportParameter name="title"/>
+				<subreportParameter name="organName"/>
+				<dataSourceExpression><![CDATA[$P{tarazKolBedehi}]]></dataSourceExpression>
+				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{tarazKolBedehiJasperReport}]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="150" width="400" height="153"/>
+				<dataSourceExpression><![CDATA[$P{tarazKolSarmaye}]]></dataSourceExpression>
+				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{tarazKolSarmayehJasperReport}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="802" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="#{messages['SanadItem_title']}" />
+	<ui:param name="owner" value="#{sanadItem}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+
+		<rich:panel style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
+				<t:panelGrid columns="4" width="90%"
+					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+					styleClass="inputForm">
+
+
+				<h:panelGroup>
+					<h:outputLabel for="hesab" value="#{messages['SanadItem_hesab']}" />
+					<h:outputText styleClass="required"	value="* " />
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="hesab"  required="true"
+							identity="#{sanadItem.entity.hesab.ID}"
+							desc="#{sanadItem.entity.hesab.desc}"
+					  		url="${request.contextPath}/hesab/hesab.lov.jsf?pId=hesab" />
+				</h:panelGroup>				  		
+				
+					
+				<h:panelGroup>
+					<h:outputLabel for="sanad" value="#{messages['SanadItem_sanad']}" />
+					<h:outputText styleClass="required"	value="* " />
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="sanad"  required="true"
+							identity="#{sanadItem.entity.sanad.ID}"
+							desc="#{sanadItem.entity.sanad.desc}"
+					  		url="${request.contextPath}/sanad/sanad.lov.jsf?pId=sanad" />
+				</h:panelGroup>				  		
+				
+					
+
+					<h:panelGroup>
+	 				<h:outputLabel for="row" value="#{messages['SanadItem_row']}" />
+					<h:outputText styleClass="required"	value="* " />
+				</h:panelGroup>
+				<h:inputText  required="true" id="row" label="row" value="#{sanadItem.entity.row}" />
+	
+						<h:panelGroup>
+	 				<h:outputLabel for="description" value="#{messages['SanadItem_description']}" />
+					<h:outputText styleClass="required"	value="* " />
+				</h:panelGroup>
+				<h:inputText  required="true" id="description" label="description" value="#{sanadItem.entity.description}" />
+	
+						<h:panelGroup>
+	 				<h:outputLabel for="type" value="#{messages['SanadItem_type']}" />
+					<h:outputText styleClass="required"	value="* " />
+				</h:panelGroup>
+				<h:inputText  required="true" id="type" label="type" value="#{sanadItem.entity.type}" />
+	
+						<h:panelGroup>
+	 				<h:outputLabel for="bestankar" value="#{messages['SanadItem_bestankar']}" />
+					<h:outputText styleClass="required"	value="* " />
+				</h:panelGroup>
+				<h:inputText  required="true" id="bestankar" label="bestankar" value="#{sanadItem.entity.bestankar}" />
+	
+						<h:panelGroup>
+	 				<h:outputLabel for="bedehkar" value="#{messages['SanadItem_bedehkar']}" />
+					<h:outputText styleClass="required"	value="* " />
+				</h:panelGroup>
+				<h:inputText  required="true" id="bedehkar" label="bedehkar" value="#{sanadItem.entity.bedehkar}" />
+	
+						<h:panelGroup>
+					<h:outputLabel for="date" value="#{messages['SanadItem_date']}" />
+					<h:outputText styleClass="required"	value="* " />
+				</h:panelGroup>
+				<custom:DateTimePicker type="Date" required="true" id="date" value="#{sanadItem.entity.date}" lang="Shamsi"></custom:DateTimePicker>
+	
+				</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+</ui:composition>
+
+</html>	
