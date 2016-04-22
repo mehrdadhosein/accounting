@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="SanadHesabdariItem_select" />
+	<ui:param name="owner" value="#{sanadHesabdariItem}" />
+	<ui:define name="searchsection">
+
+			<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+				columnClasses="viewLableCol30P,inputCol">
+
+												<h:panelGroup>
+					<h:outputLabel for="hesabKol" value="#{messages['SanadHesabdariItem_hesabKol']}" /> : 
+				</h:panelGroup>								
+								<h:panelGroup>
+								<custom:lov id="hesabKol" 
+										identity="#{sanadHesabdariItem.filter['hesabKol.id@eq']}"
+										desc="#{sanadHesabdariItem.example.hesabKol.desc}"
+								  		url="${request.contextPath}/hesabkol/hesabKol.lov.jsf?pId=hesabKol" />
+									
+								</h:panelGroup>
+									
+								<h:panelGroup>
+					<h:outputLabel for="hesabMoeen" value="#{messages['SanadHesabdariItem_hesabMoeen']}" /> : 
+				</h:panelGroup>								
+								<h:panelGroup>
+								<custom:lov id="hesabMoeen" 
+										identity="#{sanadHesabdariItem.filter['hesabMoeen.id@eq']}"
+										desc="#{sanadHesabdariItem.example.hesabMoeen.desc}"
+								  		url="${request.contextPath}/hesabmoeen/hesabMoeen.lov.jsf?pId=hesabMoeen" />
+									
+								</h:panelGroup>
+									
+								<h:panelGroup>
+					<h:outputLabel for="hesabTafsili" value="#{messages['SanadHesabdariItem_hesabTafsili']}" /> : 
+				</h:panelGroup>								
+								<h:panelGroup>
+								<custom:lov id="hesabTafsili" 
+										identity="#{sanadHesabdariItem.filter['hesabTafsili.id@eq']}"
+										desc="#{sanadHesabdariItem.example.hesabTafsili.desc}"
+								  		url="${request.contextPath}/hesabtafsili/hesabTafsili.lov.jsf?pId=hesabTafsili" />
+									
+								</h:panelGroup>
+									
+								
+																									<h:panelGroup>
+									<h:outputLabel for="row" value="#{messages['SanadHesabdariItem_row']}" /> : 
+								</h:panelGroup>	
+								<h:inputText id="row" value="#{sanadHesabdariItem.filter['row@eq']}" converter="javax.faces.Integer"/>
+																														<h:panelGroup>
+									<h:outputLabel for="description" value="#{messages['SanadHesabdariItem_description']}" /> : 
+								</h:panelGroup>
+								<h:inputText id="description" value="#{sanadHesabdariItem.filter['description@lk']}" />
+																														<h:panelGroup>
+									<h:outputLabel for="type" value="#{messages['SanadHesabdariItem_type']}" /> : 
+								</h:panelGroup>
+								<h:inputText id="type" value="#{sanadHesabdariItem.filter['type@lk']}" />
+																														<h:panelGroup>
+									<h:outputLabel for="bestankar" value="#{messages['SanadHesabdariItem_bestankar']}" /> : 
+								</h:panelGroup>	
+								<h:inputText id="bestankar" value="#{sanadHesabdariItem.filter['bestankar@eq']}" converter="javax.faces.Double"/>
+																														<h:panelGroup>
+									<h:outputLabel for="bedehkar" value="#{messages['SanadHesabdariItem_bedehkar']}" /> : 
+								</h:panelGroup>	
+								<h:inputText id="bedehkar" value="#{sanadHesabdariItem.filter['bedehkar@eq']}" converter="javax.faces.Double"/>
+																														<h:panelGroup>
+									<h:outputLabel for="tarikhArticle" value="#{messages['SanadHesabdariItem_tarikhArticle']}" /> : 
+								</h:panelGroup>	
+								<custom:DateTimePicker type="Date" id="tarikhArticle" value="#{sanadHesabdariItem.filter['tarikhArticle@eq']}" lang="Shamsi"></custom:DateTimePicker>
+					
+													
+
+			</h:panelGrid>
+
+	</ui:define>	
+	<ui:define name="listsection">
+	<t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
+		<rich:dataTable id="sanadHesabdariItems" value="#{sanadHesabdariItem.dataModel}" var="item"
+			rowClasses="RowOdd,RowEven" rows="10" style="width:100%" headerClass="header">
+
+			
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_hesabKol']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.hesabKol}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_tarikhArticle']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.tarikhArticle}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_sanadHesabdari']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.sanadHesabdari}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_description']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.description}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_hesabMoeen']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.hesabMoeen}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_hesabTafsili']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.hesabTafsili}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_type']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.type}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_row']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.row}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_bedehkar']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.bedehkar}" />
+							</rich:column>
+																											<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_bestankar']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.bestankar}" />
+							</rich:column>
+											<rich:column>
+				<h:commandButton  value="#{messages['lov_select']}"  
+					 onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false"/>
+			</rich:column>
+		</rich:dataTable>
+		</t:div>
+		<custom:scroller onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="sanadHesabdariItems"></custom:scroller>
+	</ui:define>
+</ui:composition>
+</html>

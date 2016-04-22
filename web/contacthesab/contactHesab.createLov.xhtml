@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-createLov.xhtml">
+	<ui:param name="title" value="ContactHesab_list" />
+	<ui:param name="owner" value="#{contactHesab}" />
+	<ui:param name="lovSearchpage" value="/contacthesab/contactHesab.lovExampleForm.xhtml" />
+	
+	<ui:define name="listsection">
+		<rich:dataTable id="contactHesabs" value="#{contactHesab.dataModel}"  headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" rows="#{contactHesab.rowsPerPage}" style="width:97%" align="center">
+	
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['ContactHesab_hesabMoeen']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeen}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['ContactHesab_hesabTafsili']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsili}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['ContactHesab_contact']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.contact}" />
+			</rich:column>
+						
+			
+			<rich:column>
+				<h:commandButton value="#{messages['lov_select']}"
+					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
+			</rich:column>	
+		</rich:dataTable>
+		<custom:scroller onbegin="showLoading();" oncomplete="hideLoading();"		for="contactHesabs"></custom:scroller>		
+
+	</ui:define>
+	<ui:define name="quickCreateSection">
+		<ui:include src="/contacthesab/contactHesab.quickCreate.xhtml" />
+		<script>
+			function copyInputs(){
+			
+													document.getElementById('serajForm:contacthidden').value=document.getElementById('serajForm:contactSearchhidden').value;
+					document.getElementById('serajForm:contacttext').value=document.getElementById('serajForm:contactSearchtext').value;
+									document.getElementById('serajForm:hesabMoeenhidden').value=document.getElementById('serajForm:hesabMoeenSearchhidden').value;
+					document.getElementById('serajForm:hesabMoeentext').value=document.getElementById('serajForm:hesabMoeenSearchtext').value;
+									document.getElementById('serajForm:hesabTafsilihidden').value=document.getElementById('serajForm:hesabTafsiliSearchhidden').value;
+					document.getElementById('serajForm:hesabTafsilitext').value=document.getElementById('serajForm:hesabTafsiliSearchtext').value;
+								
+											
+			}
+			function copyCreateToSearch(){
+													document.getElementById('serajForm:contactSearchhidden').value=document.getElementById('serajForm:contacthidden').value;
+					document.getElementById('serajForm:contactSearchtext').value=document.getElementById('serajForm:contacttext').value;
+									document.getElementById('serajForm:hesabMoeenSearchhidden').value=document.getElementById('serajForm:hesabMoeenhidden').value;
+					document.getElementById('serajForm:hesabMoeenSearchtext').value=document.getElementById('serajForm:hesabMoeentext').value;
+									document.getElementById('serajForm:hesabTafsiliSearchhidden').value=document.getElementById('serajForm:hesabTafsilihidden').value;
+					document.getElementById('serajForm:hesabTafsiliSearchtext').value=document.getElementById('serajForm:hesabTafsilitext').value;
+								
+											}
+		</script>
+		
+	</ui:define>
+</ui:composition>
+</html>

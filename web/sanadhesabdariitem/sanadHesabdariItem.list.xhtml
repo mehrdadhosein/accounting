@@ -1,0 +1,245 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<ui:composition template="/template/template-list.xhtml">
+	<ui:param name="title" value="SanadHesabdariItem_list" />
+	<ui:param name="owner" value="#{sanadHesabdariItem}" />
+	<ui:param name="searchpage"
+		value="/sanadhesabdariitem/sanadHesabdariItem.exampleForm.xhtml" />
+	<ui:define name="listsection">
+<t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
+		<rich:dataTable id="sanadHesabdariItems" value="#{sanadHesabdariItem.dataModel}"   headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" style="width: 97%" align="center" rows="#{sanadHesabdariItem.rowsPerPage}">
+
+			
+	
+			<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadHesabdariItems" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadHesabdariItem_hesabKol']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadHesabdariItem_hesabKol']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="hesabKol"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabKol}" />
+			</rich:column>
+					<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadHesabdariItems" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadHesabdariItem_tarikhArticle']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadHesabdariItem_tarikhArticle']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="tarikhArticle"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass" value="#{item.tarikhArticleFA}" />
+			</rich:column>				 
+		
+			<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadHesabdariItems" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadHesabdariItem_sanadHesabdari']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadHesabdariItem_sanadHesabdari']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="sanadHesabdari"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.sanadHesabdari}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadHesabdariItems" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadHesabdariItem_description']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadHesabdariItem_description']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="description"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.description}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadHesabdariItems" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadHesabdariItem_hesabMoeen']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadHesabdariItem_hesabMoeen']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="hesabMoeen"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeen}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadHesabdariItems" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadHesabdariItem_hesabTafsili']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadHesabdariItem_hesabTafsili']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="hesabTafsili"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsili}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadHesabdariItems" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadHesabdariItem_type']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadHesabdariItem_type']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="type"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.type}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadHesabdariItems" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadHesabdariItem_row']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadHesabdariItem_row']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="row"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.row}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadHesabdariItems" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadHesabdariItem_bedehkar']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadHesabdariItem_bedehkar']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="bedehkar"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.bedehkar}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadHesabdariItems" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadHesabdariItem_bestankar']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadHesabdariItem_bestankar']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="bestankar"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.bestankar}" />
+			</rich:column>
+						
+			
+			
+			<rich:column rendered="#{sanadHesabdariItem.deletable}" styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_delete']}" />
+				</f:facet>
+			
+				<h:commandLink action="#{sanadHesabdariItem.delete}"  immediate="true" onclick="if(!confirmDelete()) return false;">
+					<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{sanadHesabdariItem.ID}"  converter="javax.faces.Long" />
+				</h:commandLink>
+			</rich:column>
+
+			<rich:column rendered="#{sanadHesabdariItem.editable}" styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_edit']}" />
+				</f:facet>
+			
+				<h:commandLink action="#{sanadHesabdariItem.edit}"  immediate="true">
+					<h:graphicImage value="/images/edit.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{sanadHesabdariItem.ID}"  converter="javax.faces.Long" />
+				</h:commandLink>
+			</rich:column>
+			<rich:column styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_view']}" />
+				</f:facet>
+						
+				<h:commandLink action="#{sanadHesabdariItem.view}" immediate="true">
+				<h:graphicImage value="/images/view.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{sanadHesabdariItem.ID}"  converter="javax.faces.Long" />
+				</h:commandLink>
+			</rich:column >
+		</rich:dataTable>
+</t:div>		
+		<custom:scroller for="sanadHesabdariItems" ></custom:scroller>
+			
+	</ui:define>
+</ui:composition>
+</html>

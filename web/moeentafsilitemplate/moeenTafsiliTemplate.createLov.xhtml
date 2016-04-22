@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-createLov.xhtml">
+	<ui:param name="title" value="MoeenTafsiliTemplate_list" />
+	<ui:param name="owner" value="#{moeenTafsiliTemplate}" />
+	<ui:param name="lovSearchpage" value="/moeentafsilitemplate/moeenTafsiliTemplate.lovExampleForm.xhtml" />
+	
+	<ui:define name="listsection">
+		<rich:dataTable id="moeenTafsiliTemplates" value="#{moeenTafsiliTemplate.dataModel}"  headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" rows="#{moeenTafsiliTemplate.rowsPerPage}" style="width:97%" align="center">
+	
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['MoeenTafsiliTemplate_hesabTafsiliTemplate']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsiliTemplate}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['MoeenTafsiliTemplate_level']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.level}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['MoeenTafsiliTemplate_hesabMoeenTemplate']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeenTemplate}" />
+			</rich:column>
+						
+			
+			<rich:column>
+				<h:commandButton value="#{messages['lov_select']}"
+					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
+			</rich:column>	
+		</rich:dataTable>
+		<custom:scroller onbegin="showLoading();" oncomplete="hideLoading();"		for="moeenTafsiliTemplates"></custom:scroller>		
+
+	</ui:define>
+	<ui:define name="quickCreateSection">
+		<ui:include src="/moeentafsilitemplate/moeenTafsiliTemplate.quickCreate.xhtml" />
+		<script>
+			function copyInputs(){
+			
+													document.getElementById('serajForm:hesabTafsiliTemplatehidden').value=document.getElementById('serajForm:hesabTafsiliTemplateSearchhidden').value;
+					document.getElementById('serajForm:hesabTafsiliTemplatetext').value=document.getElementById('serajForm:hesabTafsiliTemplateSearchtext').value;
+									document.getElementById('serajForm:hesabMoeenTemplatehidden').value=document.getElementById('serajForm:hesabMoeenTemplateSearchhidden').value;
+					document.getElementById('serajForm:hesabMoeenTemplatetext').value=document.getElementById('serajForm:hesabMoeenTemplateSearchtext').value;
+								
+																			document.getElementById('serajForm:level').value=document.getElementById('serajForm:levelSearch').value;
+												
+			}
+			function copyCreateToSearch(){
+													document.getElementById('serajForm:hesabTafsiliTemplateSearchhidden').value=document.getElementById('serajForm:hesabTafsiliTemplatehidden').value;
+					document.getElementById('serajForm:hesabTafsiliTemplateSearchtext').value=document.getElementById('serajForm:hesabTafsiliTemplatetext').value;
+									document.getElementById('serajForm:hesabMoeenTemplateSearchhidden').value=document.getElementById('serajForm:hesabMoeenTemplatehidden').value;
+					document.getElementById('serajForm:hesabMoeenTemplateSearchtext').value=document.getElementById('serajForm:hesabMoeenTemplatetext').value;
+								
+																			document.getElementById('serajForm:levelSearch').value=document.getElementById('serajForm:level').value;
+												}
+		</script>
+		
+	</ui:define>
+</ui:composition>
+</html>

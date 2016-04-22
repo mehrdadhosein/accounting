@@ -1,0 +1,88 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-list.xhtml">
+	<ui:param name="title" value="#{messages['SanadItem_title']}" />
+	<ui:param name="owner" value="#{sanadItem}" />
+	<ui:define name="listsection">
+	<h2>#{messages['incomes']}</h2>
+		<h:panelGrid columns="11">
+			<h:outputLabel for="saalMaali" value="#{messages['SaalMaali_saal']}" />
+			<h:selectOneMenu value="#{sanadItem.saalMaali}" 
+				label="#{messages['SaalMaali_saal']}" id="SaalMaali_saal" converter="javax.faces.Integer">
+				<f:selectItems value="#{saalMaali.activeSaalList}" />
+			</h:selectOneMenu>
+			<h:commandButton styleClass="ButtonStyle"
+				value="#{messages['common_search']}" actionListener="#{sanadItem.search}">
+			</h:commandButton>
+		</h:panelGrid>
+		<rich:dataTable id="incomeItems" value="#{sanadItem.incomeGroupByLevel}"   headerClass="x" styleClass="x"
+			var="item"  rows="#{sanadItem.rowsPerPage}" >
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_hesabKol']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabKolName}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bedehkar']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.bedehkar}" >
+					<f:convertNumber/>
+				</h:outputText>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bestankar']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.bestankar}" >
+					<f:convertNumber/>
+				</h:outputText>
+			</rich:column>
+		</rich:dataTable>
+	<h2>#{messages['expenses']}</h2>
+		<rich:dataTable id="expenseItems" value="#{sanadItem.expenseGroupByLevel}"   headerClass="x" styleClass="x"
+			var="item" rows="#{sanadItem.rowsPerPage}">
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_hesabKol']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabKolName}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bedehkar']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.bedehkar}" >
+					<f:convertNumber/>
+				</h:outputText>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bestankar']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.bestankar}" >
+					<f:convertNumber/>
+				</h:outputText>
+			</rich:column>
+		</rich:dataTable>
+	<h2>#{messages['soodeVijeh']}</h2>
+		<h:outputText value="#{sanadItem.soodeVijeh}" >
+			<f:convertNumber/>
+		</h:outputText>
+	</ui:define>
+	<ui:define name="buttonsection">
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="SanadHesabdariItem_view" />
+	<ui:param name="owner" value="#{sanadHesabdariItem}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<rich:panel	 styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
+				styleClass="inputForm">
+
+
+
+				<h:outputLabel for="hesabKol" value="#{messages['SanadHesabdariItem_hesabKol']} : " />
+				<h:outputText id="hesabKol" 
+					value="#{sanadHesabdariItem.entity.hesabKol.desc}" />
+				  		
+				
+					
+				<h:outputLabel for="hesabMoeen" value="#{messages['SanadHesabdariItem_hesabMoeen']} : " />
+				<h:outputText id="hesabMoeen" 
+					value="#{sanadHesabdariItem.entity.hesabMoeen.desc}" />
+				  		
+				
+					
+				<h:outputLabel for="hesabTafsili" value="#{messages['SanadHesabdariItem_hesabTafsili']} : " />
+				<h:outputText id="hesabTafsili" 
+					value="#{sanadHesabdariItem.entity.hesabTafsili.desc}" />
+				  		
+				
+					
+
+					<h:outputLabel for="row" value="#{messages['SanadHesabdariItem_row']} : " />
+				<h:outputText id="row" value="#{sanadHesabdariItem.entity.row}" />
+	
+						<h:outputLabel for="description" value="#{messages['SanadHesabdariItem_description']} : " />
+				<h:outputText id="description" value="#{sanadHesabdariItem.entity.description}" />
+	
+						<h:outputLabel for="type" value="#{messages['SanadHesabdariItem_type']} : " />
+				<h:outputText id="type" value="#{sanadHesabdariItem.entity.type}" />
+	
+						<h:outputLabel for="bestankar" value="#{messages['SanadHesabdariItem_bestankar']} : " />
+				<h:outputText id="bestankar" value="#{sanadHesabdariItem.entity.bestankar}" />
+	
+						<h:outputLabel for="bedehkar" value="#{messages['SanadHesabdariItem_bedehkar']} : " />
+				<h:outputText id="bedehkar" value="#{sanadHesabdariItem.entity.bedehkar}" />
+	
+						<h:outputLabel for="tarikhArticle" value="#{messages['SanadHesabdariItem_tarikhArticle']} : " />
+					<h:outputText id="tarikhArticleLable" 
+					value="#{sanadHesabdariItem.entity.tarikhArticleFA}" />
+	
+	
+				</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton action="#{owner.back}" styleClass=" gwt-Button"
+			image="/images/listbtn.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_list']}" immediate="true">
+		</h:commandButton>
+
+	</ui:define>	
+</ui:composition>
+
+</html>	

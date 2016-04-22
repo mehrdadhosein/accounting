@@ -1,0 +1,118 @@
+package ir.serajsamaneh.accounting.sanaditem;
+
+import ir.serajsamaneh.accounting.base.BaseAccountingService;
+import ir.serajsamaneh.accounting.enums.HesabTypeEnum;
+import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
+import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class SanadItemService extends BaseAccountingService<SanadItemEntity, Long> {
+
+	@Override
+	protected SanadItemDAO getMyDAO() {
+		return sanadItemDAO;
+	}
+
+	SanadItemDAO sanadItemDAO;
+	HesabKolService hesabKolService;
+	
+	public void setSanadItemDAO(SanadItemDAO sanadItemDAO) {
+		this.sanadItemDAO = sanadItemDAO;
+	}
+
+	public SanadItemDAO getSanadItemDAO() {
+		return sanadItemDAO;
+	}
+	public List<SanadItemDTO> getIncomeGroupByKol(Integer saalMaali){
+		return getItemsGroupByKol(saalMaali, HesabTypeEnum.INCOME.name(),null, null, null);
+	}	
+	public List<SanadItemDTO> getExpenseGroupByKol(Integer saalMaali){
+		return getItemsGroupByKol(saalMaali, HesabTypeEnum.EXPENSE.name(),null, null, null);
+	}	
+	public List<SanadItemDTO> getAssetsGroupByKol(Integer saalMaali){
+		return getItemsGroupByKol(saalMaali, HesabTypeEnum.ASSET.name(),null, null, null);
+	}	
+	public List<SanadItemDTO> getLiabilitiesGroupByKol(Integer saalMaali){
+		return getItemsGroupByKol(saalMaali, HesabTypeEnum.LIABILITY.name(),null, null, null);
+	}	
+	public List<SanadItemDTO> getItemsGroupByKol(Integer saalMaali, String type, Long hesabKolId, Date from, Date to){
+		Map filter = new HashMap();
+		filter.put("type@eq", type); 
+		filter.put("id@eq", hesabKolId);
+		List items = new ArrayList();
+		List<HesabKolEntity> kolList = hesabKolService.getDataList(null, filter);
+		for (HesabKolEntity kol : kolList) {
+			Double[] aggregate = sanadItemDAO.getHesabAggregate(kol.getId(), type, from, to, saalMaali);
+			SanadItemDTO item = new SanadItemDTO();
+			item.setHesabKolName(kol.getName());
+			item.setBedehkar(aggregate[0]);
+			item.setBestankar(aggregate[1]);
+			items.add(item);
+		}
+		return items;
+	}
+	
+	public void setHesabKolService(HesabKolService hesabKolService) {
+		this.hesabKolService = hesabKolService;
+	}
+
+	@Override
+	public String getDifferences(SanadItemEntity entity,
+			SanadItemEntity oldEntity) {
+		String diffes = "";
+
+		if (entity.getRow() != null
+				&& !entity.getRow().equals(oldEntity.getRow()))
+			diffes += "["
+					+ SerajMessageUtil.getMessage("SanadItem" + "_"
+							+ entity.PROP_ROW) + " : " + oldEntity.getRow()
+					+ "" + " --> " + entity.getRow() + "" + "]";
+
+		if (entity.getDesc() != null
+				&& !entity.getDesc().equals(oldEntity.getDesc()))
+			diffes += "["
+					+ SerajMessageUtil.getMessage("SanadItem" + "_"
+							+ entity.PROP_DESCRIPTION) + " : " + oldEntity.getDescription()
+					+ "" + " --> " + entity.getDescription() + "" + "]";
+
+		if (entity.getType() != null
+				&& !entity.getType().equals(oldEntity.getType()))
+			diffes += "["
+					+ SerajMessageUtil.getMessage("SanadItem" + "_"
+							+ entity.PROP_TYPE) + " : " + oldEntity.getType()
+					+ "" + " --> " + entity.getType() + "" + "]";
+
+		if (entity.getBestankar() != null
+				&& !entity.getBestankar().equals(oldEntity.getBestankar()))
+			diffes += "["
+					+ SerajMessageUtil.getMessage("SanadItem" + "_"
+							+ entity.PROP_BESTANKAR) + " : "
+					+ oldEntity.getBestankar() + "" + " --> "
+					+ entity.getBestankar() + "" + "]";
+
+		if (entity.getBedehkar() != null
+				&& !entity.getBedehkar().equals(oldEntity.getBedehkar()))
+			diffes += "["
+					+ SerajMessageUtil.getMessage("SanadItem" + "_"
+							+ entity.PROP_BEDEHKAR) + " : "
+					+ oldEntity.getBedehkar() + "" + " --> "
+					+ entity.getBedehkar() + "" + "]";
+
+		if (entity.getTarikhArticle() != null
+				&& !entity.getTarikhArticle().equals(oldEntity.getTarikhArticle()))
+			diffes += "["
+					+ SerajMessageUtil.getMessage("SanadItem" + "_"
+							+ entity.PROP_TARIKH_ARTICLE) + " : " + oldEntity.getTarikhArticle()
+					+ "" + " --> " + entity.getTarikhArticle() + "" + "]";
+
+		return diffes;
+	}
+
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="ContactHesab_edit_create" />
+	<ui:param name="owner" value="#{contactHesab}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+
+		<rich:panel  styleClass="emptyDiv" bodyClass="emptyDiv" >
+				<t:panelGrid columns="2" width="90%"
+					columnClasses="viewLableCol35P,inputCol"
+					styleClass="inputForm">
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="contact" value="#{messages['ContactHesab_contact']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="contact"  required="true" descWidth="250" label="#{messages['ContactHesab_contact']}"
+							identity="#{contactHesab.entity.contact.id}"
+							desc="#{contactHesab.entity.contact.desc}"
+					  		url="${request.contextPath}/contact/contact.lov.jsf?pId=contact" />
+				</h:panelGroup>				  		
+				
+				<h:panelGroup> 
+					<h:outputText styleClass="required" value="  " />
+					<h:outputLabel  value="#{messages['AccountingMarkaz_title']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-one id="accountingMarkaz" entity="AccountingMarkazTemplate" property="name" 
+					identity="#{owner.entity.accountingMarkazTemplate.id}" desc="#{owner.entity.accountingMarkazTemplate.desc}"
+						width="220px" client="true" extraParams="isHierarchical=true"  label="#{messages['AccountingMarkaz_title']}"/>
+				</h:panelGroup>				
+					
+				<ui:include src="../common/kolMoeenTafsili.xhtml" />			  		
+				
+				
+
+			</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton styleClass=" gwt-Button" rendered="#{contact.editable}"
+			action="#{owner.localSave}" value="#{messages['common_save']}"
+			image="/images/buttons/btn_save.png" />
+
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.entity.id!=null}"
+			action="#{owner.delete}" value="#{messages['common_delete']}"
+			image="/images/buttons/btn_delete.png" />
+
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
+			value="#{messages['common_back']}" onclick="window.close();"
+			immediate="true" image="/images/listbtn.png" />
+	</ui:define>	
+</ui:composition>
+
+</html>	

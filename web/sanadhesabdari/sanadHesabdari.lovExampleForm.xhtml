@@ -1,0 +1,68 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<style>
+.SearchitemStyle1 {
+	text-align: left;
+	width: 12%;
+	vertical-align: top;
+	font-family: tahoma;
+}
+</style>
+<rich:panel
+	style="width: 99%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
+		<h:panelGrid columns="2" styleClass="inputForm"
+			columnClasses="viewLableCol25P,inputCol">
+
+							<h:outputLabel for="saalMaaliSearch" value="#{messages['SanadHesabdari_saalMaali']}" />
+				<h:panelGroup>
+				<custom:lov id="saalMaaliSearch" 
+						identity="#{sanadHesabdari.filter['saalMaali.id@eq']}"
+						desc="#{sanadHesabdari.example.saalMaali.desc}"
+				  		url="${request.contextPath}/saalmaali/saalMaali.lov.jsf?pId=saalMaaliSearch" />
+					
+				</h:panelGroup>
+					
+				<h:outputLabel for="sanadTypeSearch" value="#{messages['SanadHesabdari_sanadType']}" />
+				<h:panelGroup>
+				<custom:lov id="sanadTypeSearch" 
+						identity="#{sanadHesabdari.filter['sanadType.id@eq']}"
+						desc="#{sanadHesabdari.example.sanadTypeName}"
+				  		url="${request.contextPath}/sanadtype/sanadType.lov.jsf?pId=sanadTypeSearch" />
+					
+				</h:panelGroup>
+					
+				<h:outputLabel for="organSearch" value="#{messages['SanadHesabdari_organ']}" />
+				<h:panelGroup>
+				<custom:lov id="organSearch" 
+						identity="#{sanadHesabdari.filter['organ.id@eq']}"
+						desc="#{sanadHesabdari.example.organ.desc}"
+				  		url="${request.contextPath}/organ/organ.lov.jsf?pId=organSearch" />
+					
+				</h:panelGroup>
+					
+
+					<h:outputLabel for="numberSearch" value="#{messages['SanadHesabdari_number']}" />
+				<h:inputText id="numberSearch" value="#{sanadHesabdari.filter['number@lk']}" />
+						<h:outputLabel for="descriptionSearch" value="#{messages['SanadHesabdari_description']}" />
+				<h:inputText id="descriptionSearch" value="#{sanadHesabdari.filter['description@lk']}" />
+						<h:outputLabel for="tarikhSanadSearch" value="#{messages['SanadHesabdari_tarikhSanad']}" />
+				<custom:DateTimePicker type="Date" id="tarikhSanadSearch" value="#{sanadHesabdari.filter['tarikhSanad@eq']}" lang="Shamsi"></custom:DateTimePicker>
+	
+						<h:outputLabel for="stateSearch" value="#{messages['SanadHesabdari_state']}" />
+				<h:inputText id="stateSearch" value="#{sanadHesabdari.filter['state@lk']}" />
+				
+		</h:panelGrid>
+</rich:panel>
+
+</html>

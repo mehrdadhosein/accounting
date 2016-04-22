@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="MarkazHazine_select" />
+	<ui:param name="owner" value="#{markazHazine}" />
+	<ui:define name="searchsection">
+
+		<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+			columnClasses="SearchitemStyle130P,SearchitemStyle2">
+
+			<h:outputLabel for="hesabTafsili"
+				value="#{messages['MarkazHazine_hesabTafsili']}" />
+			<h:panelGroup>
+				<custom:lov id="hesabTafsili"
+					identity="#{markazHazine.filter['hesabTafsili.id@eq']}"
+					desc="#{markazHazine.example.hesabTafsili.desc}"
+					url="${request.contextPath}/hesabtafsili/hesabTafsili.localLov.jsf?pId=hesabTafsili" />
+
+			</h:panelGroup>
+
+
+			<h:outputLabel for="markaztype"
+				value="#{messages['MarkazHazine_markaztype']}" />
+				<t:selectOneMenu id="markaztype" 
+						styleClass="CellClass" value="#{markazHazine.filter['markaztype@eq']}"
+						converter="seraj.converter.Enum">
+						<f:selectItems value="#{enums.MarkazHazineType}" />
+					</t:selectOneMenu>
+			
+			<h:outputLabel for="onvan" value="#{messages['MarkazHazine_onvan']}" />
+			<h:inputText id="onvan" value="#{markazHazine.filter['onvan@lk']}" />
+
+
+		</h:panelGrid>
+
+	</ui:define>
+	<ui:define name="listsection">
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<rich:dataTable id="markazHazines" value="#{markazHazine.localDataModel}"
+				var="item" rowClasses="RowOdd,RowEven" rows="10" style="width:100%"
+				headerClass="header">
+
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['MarkazHazine_hesabTafsili']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['MarkazHazine_onvan']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.onvan}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['MarkazHazine_markaztype']}" />
+					</f:facet>
+					<t:selectOneMenu id="markaztype" displayValueOnly="true"
+						styleClass="CellClass" value="#{item.markaztype}"
+						converter="seraj.converter.Enum">
+						<f:selectItems value="#{enums.MarkazHazineType}" />
+					</t:selectOneMenu>
+					
+				</rich:column>
+				<rich:column>
+					<h:commandButton value="#{messages['lov_select']}"
+						onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false" />
+				</rich:column>
+			</rich:dataTable>
+		</t:div>
+		<custom:scroller onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="markazHazines"></custom:scroller>
+	</ui:define>
+</ui:composition>
+</html>

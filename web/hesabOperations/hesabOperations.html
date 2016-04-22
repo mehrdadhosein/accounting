@@ -1,0 +1,338 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	
+	<script src="../js/jquery/jquery-2.0.3.min.js" language='javascript' type="text/javascript"></script>
+	
+	<link   href="../js/dhtmlx.2.6/dhtmlxTree/codebase/dhtmlxtree.css" rel="STYLESHEET" type="text/css" />
+	<script  src="../js/dhtmlx.2.6/dhtmlxTree/codebase/dhtmlxcommon.js"></script>
+	<script  src="../js/dhtmlx.2.6/dhtmlxTree/codebase/dhtmlxtree.js"></script>
+	<script  src="../js/dhtmlx.2.6/dhtmlxTree/codebase/ext/dhtmlxtree_li.js"></script>
+	<script  src="../js/dhtmlx.2.6/dhtmlxTree/codebase/ext/dhtmlxtree_xw.js"></script>
+	<script  src="../js/dhtmlx.2.6/dhtmlxTree/codebase/ext/dhtmlxtree_rl.js"></script>
+
+	<link   href="../js/dhtmlx.2.6/dhtmlxGrid/codebase/skins/dhtmlxgrid_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
+	<link   href="../js/dhtmlx.2.6/dhtmlxGrid/codebase/dhtmlxgrid.css" rel="STYLESHEET" type="text/css" />
+	<script  src="../js/dhtmlx.2.6/dhtmlxGrid/codebase/dhtmlxgrid.js"></script>
+
+	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxLayout/codebase/skins/dhtmlxlayout_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
+	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxLayout/codebase/dhtmlxlayout.css" rel="STYLESHEET" type="text/css" />
+	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxLayout/codebase/dhtmlxcontainer.js"></script>
+	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxLayout/codebase/dhtmlxlayout.js"></script>
+
+	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxForm/codebase/skins/dhtmlxform_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
+	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxForm/codebase/dhtmlxform.js"></script>	
+
+	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxMessage/codebase/skins/dhtmlxmessage_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
+	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxMessage/codebase/dhtmlxmessage.js"></script>	
+
+	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxWindows/codebase/skins/dhtmlxwindows_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
+	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxWindows/codebase/dhtmlxwindows.css" rel="STYLESHEET" type="text/css" />
+	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxWindows/codebase/dhtmlxcontainer.js"></script>	
+	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxWindows/codebase/dhtmlxwindows.js"></script>	
+
+
+	<link   href="../js/dhtmlx.2.6/_RTL_support/codebase/dhtmlx_rtl.css" rel="STYLESHEET" type="text/css" />
+	<script  src="../js/dhtmlx.2.6/_RTL_support/codebase/dhtmlx_rtl.js"></script>	
+	
+	<link   href="../js/dhtmlx.2.6/dhtmlxMenu/codebase/skins/dhtmlxmenu_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
+	<script  src="../js/dhtmlx.2.6/dhtmlxMenu/codebase/dhtmlxmenu.js"></script>	
+	<script  src="../js/dhtmlx.2.6/dhtmlxMenu/codebase/ext/dhtmlxmenu_ext.js"></script>	
+	
+
+
+	<script src="../dwr/engine.js?p=21" language="javascript" type="text/javascript"	> </script>
+	<script src="../dwr/util.js?p=21" type="text/javascript"	> </script>
+	<script src='../dwr/interface/hesabKol.js' type='text/javascript'	> </script>
+<style type="text/css">
+			html, body{
+				height:100%;
+			}	
+
+.containerTableStyleRTL span {
+    direction: rtl;
+    unicode-bidi: unset; !important
+}
+			
+</style>			
+</head>
+
+<body>
+
+<script>
+	//dhtmlx.image_path='./codebase/imgs/';
+	//alert($("body").height());
+	var hesabOperationTree;
+	var main_layout = new dhtmlXLayoutObject(document.body, '2U');
+
+	var rightLayout = main_layout.cells('b');
+	rightLayout.setWidth('800');
+	
+	var innerRightLayout = rightLayout.attachLayout('2E');
+	var hesabTreeLayout = innerRightLayout.cells('a');
+	hesabTreeLayout.setText('نمایش حسابها');
+	hesabTreeLayout.setHeight('500');
+	
+	var actionsLayout = innerRightLayout.cells('b');
+	actionsLayout.setText('actions');
+	actionsLayout.hideHeader();
+	actionsLayout.setHeight('60');
+	
+	
+	var str = [
+		{ type:"settings" , labelWidth:150, inputWidth:150, position:"absolute"  },
+		{ type:"button" , name:"form_button_daftar_hesab", label:"daftar_hesab", value:"دفتر حساب", width:"150", inputLeft:10, inputTop:10  },
+		{ type:"button" , name:"form_button_taraz_azmayeshi_kol", label:"form_button_taraz_azmayeshi_kol", value:"گردش حساب کل", width:"150", inputLeft:160, inputTop:10  },
+		{ type:"button" , name:"form_button_taraz_azmayeshi_moeen", label:"form_button_taraz_azmayeshi_moeen", value:"گردش حساب معین", width:"150", inputLeft:310, inputTop:10  },
+		{ type:"button" , name:"form_button_taraz_azmayeshi_tafsili", label:"form_button_taraz_azmayeshi_tafsili", value:"گردش حساب تفصیلی", width:"150", inputLeft:460, inputTop:10  },
+		{ type:"button" , name:"form_button_taraz_azmayeshi_shenavar", label:"form_button_taraz_azmayeshi_shenavar", value:"گردش حساب شناور", width:"150", inputLeft:610, inputTop:10  }];
+/*		{ type:"button" , name:"form_button_taraz_azmayeshi_eight", label:"taraz_azmayeshi_eight", value:"taraz_azmayeshi_eight", width:"150", inputLeft:610, inputTop:10  }
+	];*/
+
+	var formActions = actionsLayout.attachForm(str);
+	//formActions.setRTL(true);
+	formActions.attachEvent('onButtonClick', function(name, command){
+		//alert(name+" "+hesabOperationTree.getItemText(hesabOperationTree.getSelectedItemId()));
+		var hesabType = hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"hesabType");
+		//alert(hesabType);
+		if(name=='form_button_daftar_hesab'){
+			//alert(hesabType);
+			if(hesabType=='HesabKolEntity'){
+				var windows = new dhtmlXWindows();
+				var window_1 = windows.createWindow('window_1', 0, 0, 800, $("body").height()-50);
+				window_1.setText(hesabOperationTree.getItemText(hesabOperationTree.getSelectedItemId()));
+				window_1.centerOnScreen();
+				var entityId = hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				var url = '../sanadhesabdariitem/daftar/sanadHesabdariItem.kolLocalList.jsf?searchAction=true&hesabKolIds='+entityId;
+				//alert(url);
+				window_1.attachURL(url);
+				//window_1.setToFullScreen(true);
+				
+			}else if(hesabType=='HesabMoeenEntity'){
+				var windows = new dhtmlXWindows();
+				var window_1 = windows.createWindow('window_1', 0, 0, 800, $("body").height()-50);
+				window_1.setText(hesabOperationTree.getItemText(hesabOperationTree.getSelectedItemId()));
+				window_1.centerOnScreen();
+				var entityId = hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				var url = '../sanadhesabdariitem/daftar/sanadHesabdariItem.moeenLocalList.jsf?searchAction=true&moeenIds='+entityId;
+				//alert(url);
+				window_1.attachURL(url);
+				//window_1.setToFullScreen(true);
+			}else if(hesabType=='HesabTafsiliEntity'){
+				var windows = new dhtmlXWindows();
+				var window_1 = windows.createWindow('window_1', 0, 0, 800, $("body").height()-50);
+				window_1.setText(hesabOperationTree.getItemText(hesabOperationTree.getSelectedItemId()));
+				window_1.centerOnScreen();
+				var entityId = hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+
+				var moeenNodeId = hesabOperationTree.getParentId(hesabOperationTree.getSelectedItemId());
+				var moeenId = hesabOperationTree.getUserData(moeenNodeId,"entityId");
+				
+				var url = '../sanadhesabdariitem/daftar/sanadHesabdariItem.tafsiliLocalList.jsf?searchAction=true&moeenIds='+moeenId+'&tafsiliIds='+entityId;
+				//alert(url);
+				window_1.attachURL(url);
+				//window_1.setToFullScreen(true);
+			}else if(hesabType=='HesabTafsiliEntityShenavar'){
+				var windows = new dhtmlXWindows();
+				var window_1 = windows.createWindow('window_1', 0, 0, 800, $("body").height()-50);
+				window_1.setText(hesabOperationTree.getItemText(hesabOperationTree.getSelectedItemId()));
+				window_1.centerOnScreen();
+				var entityId = hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				var tafsiliNodeId = hesabOperationTree.getParentId(hesabOperationTree.getSelectedItemId());
+				var moeenNodeId = hesabOperationTree.getParentId(tafsiliNodeId);
+				var tafsiliId = hesabOperationTree.getUserData(tafsiliNodeId,"entityId");
+				var moeenId = hesabOperationTree.getUserData(moeenNodeId,"entityId");
+				var url = '../sanadhesabdariitem/daftar/sanadHesabdariItem.tafsiliLocalList.jsf?searchAction=true&moeenIds='+moeenId+'&tafsiliIds='+tafsiliId+'&articleTafsiliIds='+entityId;
+				//alert(url);
+				window_1.attachURL(url);
+				//window_1.setToFullScreen(true);
+			}
+		}else 	if(name=='form_button_taraz_azmayeshi_kol'){
+			//alert(hesabType);
+			var windows = new dhtmlXWindows();
+			var window_1 = windows.createWindow('window_1', 0, 0, 800, $("body").height()-50);
+			window_1.setText('گردش حساب کل');
+			window_1.centerOnScreen();
+			var entityId = '';//hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+			if(hesabType=='HesabKolEntity'){
+				entityId= hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				entityId = entityId=undefined ? '' : entityId;
+			}			
+			var url = '../sanadhesabdariitem/tarazkol/sanadHesabdariItem.tarazKolAzmayeshiLocalList_four.jsf?searchAction=true&hesabKolIds='+entityId;
+			//alert(url);
+			window_1.attachURL(url);
+			//window_1.setToFullScreen(true);
+		}else 	if(name=='form_button_taraz_azmayeshi_moeen'){
+			//alert(hesabType);
+			var windows = new dhtmlXWindows();
+			var window_1 = windows.createWindow('window_1', 0, 0, 800, $("body").height()-50);
+			window_1.setText(hesabOperationTree.getItemText(hesabOperationTree.getSelectedItemId()));
+			window_1.centerOnScreen();
+			var entityId='';
+			var hesabMoeenEntityId='';
+			
+			if(hesabType=='HesabKolEntity'){
+				entityId= hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				entityId = entityId=undefined ? '' : entityId;
+			}else if(hesabType=='HesabMoeenEntity'){
+				hesabMoeenEntityId= hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				hesabMoeenEntityId = hesabMoeenEntityId=undefined ? '' : hesabMoeenEntityId;
+			}
+			var url = '../sanadhesabdariitem/tarazmoeen/sanadHesabdariItem.tarazMoeenAzmayeshiLocalList_four.jsf?searchAction=true&hesabKolIds='+entityId+'&moeenIds='+hesabMoeenEntityId;
+			//alert(url);
+			window_1.attachURL(url);
+			//window_1.setToFullScreen(true);
+		}else 	if(name=='form_button_taraz_azmayeshi_tafsili'){
+			//alert(hesabType);
+			var windows = new dhtmlXWindows();
+			var window_1 = windows.createWindow('window_1', 0, 0, 800, $("body").height()-50);
+			window_1.setText(hesabOperationTree.getItemText(hesabOperationTree.getSelectedItemId()));
+			window_1.centerOnScreen();
+			var hesabKolEntityId='';
+			var hesabMoeenEntityId='';
+			var hesabTafsiliEntityId='';
+			var hesabTafsiliShenavarEntityId='';
+			if(hesabType=='HesabKolEntity'){
+				hesabKolEntityId= hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				hesabKolEntityId = hesabKolEntityId=undefined ? '' : hesabKolEntityId;
+			}else if(hesabType=='HesabMoeenEntity'){
+				hesabMoeenEntityId= hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				hesabMoeenEntityId = hesabMoeenEntityId=undefined ? '' : hesabMoeenEntityId;
+			}else if(hesabType=='HesabTafsiliEntity'){
+				hesabTafsiliEntityId= hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				hesabTafsiliEntityId = hesabTafsiliEntityId=undefined ? '' : hesabTafsiliEntityId;
+				var moeenNodeId = hesabOperationTree.getParentId(hesabOperationTree.getSelectedItemId());	
+				hesabMoeenEntityId = hesabOperationTree.getUserData(moeenNodeId,"entityId");				
+			}else if(hesabType=='HesabTafsiliEntityShenavar'){
+				hesabTafsiliShenavarEntityId = hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				var tafsiliNodeId = hesabOperationTree.getParentId(hesabOperationTree.getSelectedItemId());
+				var moeenNodeId = hesabOperationTree.getParentId(tafsiliNodeId);
+				hesabTafsiliEntityId = hesabOperationTree.getUserData(tafsiliNodeId,"entityId");
+				hesabMoeenEntityId = hesabOperationTree.getUserData(moeenNodeId,"entityId");
+			}
+			var url = '../sanadhesabdariitem/taraztafsili/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_four.jsf?searchAction=true&articleTafsiliIds='+hesabTafsiliShenavarEntityId+'&tafsiliIds='+hesabTafsiliEntityId+'&moeenIds='+hesabMoeenEntityId+'&hesabKolIds='+hesabKolEntityId;
+			//alert(url);
+			window_1.attachURL(url);
+		}else 	if(name=='form_button_taraz_azmayeshi_shenavar'){
+			//alert(hesabType);
+			var windows = new dhtmlXWindows();
+			var window_1 = windows.createWindow('window_1', 0, 0, 800, $("body").height()-50);
+			window_1.setText(hesabOperationTree.getItemText(hesabOperationTree.getSelectedItemId()));
+			window_1.centerOnScreen();
+			var hesabKolEntityId='';
+			var hesabMoeenEntityId='';
+			var hesabTafsiliEntityId='';
+			var hesabTafsiliShenavarEntityId='';
+			if(hesabType=='HesabKolEntity'){
+				hesabKolEntityId= hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				hesabKolEntityId = hesabKolEntityId=undefined ? '' : hesabKolEntityId;
+			}else if(hesabType=='HesabMoeenEntity'){
+				hesabMoeenEntityId= hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				hesabMoeenEntityId = hesabMoeenEntityId=undefined ? '' : hesabMoeenEntityId;
+			}else if(hesabType=='HesabTafsiliEntity'){
+				hesabTafsiliEntityId= hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				hesabTafsiliEntityId = hesabTafsiliEntityId=undefined ? '' : hesabTafsiliEntityId;
+				var moeenNodeId = hesabOperationTree.getParentId(hesabOperationTree.getSelectedItemId());	
+				hesabMoeenEntityId = hesabOperationTree.getUserData(moeenNodeId,"entityId");				
+			}else if(hesabType=='HesabTafsiliEntityShenavar'){
+				hesabTafsiliShenavarEntityId = hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				var tafsiliNodeId = hesabOperationTree.getParentId(hesabOperationTree.getSelectedItemId());
+				var moeenNodeId = hesabOperationTree.getParentId(tafsiliNodeId);
+				hesabTafsiliEntityId = hesabOperationTree.getUserData(tafsiliNodeId,"entityId");
+				hesabMoeenEntityId = hesabOperationTree.getUserData(moeenNodeId,"entityId");
+			}
+			var url = '../sanadhesabdariitem/tarazshenavar/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_four.jsf?searchAction=true&articleTafsiliIds='+hesabTafsiliShenavarEntityId+'&tafsiliIds='+hesabTafsiliEntityId+'&moeenIds='+hesabMoeenEntityId+'&hesabKolIds='+hesabKolEntityId;
+			//alert(url);
+			window_1.attachURL(url);
+		}
+	});
+	
+	
+	leftLayout = main_layout.cells('a');
+	leftLayout.setText('Operation');
+	leftLayout.collapse();
+	
+	var grid_1 = leftLayout.attachGrid();
+	grid_1.setIconsPath('../js/dhtmlx.2.6/dhtmlxGrid/codebase/imgs/');
+	
+	grid_1.setHeader(["Column 1","Column 2"]);
+	//grid_1.setColTypes("ro,ro");
+	
+	grid_1.setColSorting('str,str');
+	grid_1.init();
+	//grid_1.load('./data/grid.xml', 'xml');
+			
+	
+	
+	
+	var hesabOperationStatus = rightLayout.attachStatusBar();
+	hesabOperationStatus.setText('aaa');
+	
+    /*var  mygrid = new dhtmlXGridObject('layoutSection');
+	mygrid.setImagePath("../js/dhtmlx.2.6/dhtmlxGrid/codebase/imgs/");//path to images required by grid
+	mygrid.setHeader("Column A, Column B");//set column names
+	mygrid.setInitWidths("100,250");//set column width in px
+	mygrid.setColAlign("right,left");//set column values align
+	//mygrid.setColTypes("ro,ed");//set column types
+	mygrid.setColSorting("int,str");//set sorting
+	mygrid.init();//initialize grid
+	mygrid.setSkin("dhx_skyblue");//set grid skin*/
+	function createTree() {
+		hesabKol.getHesabHieararchy(function(data){
+			var treeXml = data;
+			hesabOperationTree = hesabTreeLayout.attachTree();
+			/*var hesabOperationTree =  new dhtmlXTreeObject("menuTree", "100%", "100%", 0);*/
+			hesabOperationTree.setIconsPath('../js/dhtmlx/dhtmlxTree/codebase/imgs/');
+			hesabOperationTree.setImagePath("../images/DHTMLTreeImgs/csh_bluebooks/");
+			hesabOperationTree.enableRTL(1);
+			hesabOperationTree.loadXMLString(data);
+			//hesabOperationTree.openAllItemsDynamic();
+			
+			context_menu_tree = new dhtmlXMenuObject();
+			context_menu_tree.setIconsPath('../images/');
+			context_menu_tree.renderAsContextMenu();
+			//context_menu_tree.setRTL(true);
+			context_menu_tree.attachEvent('onClick', function(id, zoneId, casState){
+				//alert('onClick : '+id+" "+zoneId+" "+casState);
+				//alert(hesabOperationTree.getItemText(hesabOperationTree.getSelectedItemId()));
+				var entityId = hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"entityId");
+				var hesabType = hesabOperationTree.getUserData(hesabOperationTree.getSelectedItemId(),"hesabType");
+				if(id=='menuitem_delete')
+					dhtmlxAjax.get("../resources/accountingRestFace/deleteHesab?hesabId="+entityId+"&hesabType="+hesabType,outputResponse);
+				else if(id=='menuitem_disable')
+					dhtmlxAjax.get("../resources/accountingRestFace/disableHesab?hesabId="+entityId+"&hesabType="+hesabType,outputResponse);
+				return false;
+
+			});
+			context_menu_tree.loadXMLString('<menu><item type="item" id="menuitem_new" text="حساب جدید" img="add.png"  enabled="false" ><tooltip>new hesab</tooltip></item><item type="item" id="menuitem_delete" text="حذف حساب" img="delete.png" ><tooltip>delete hesab</tooltip></item><item type="item" id="edit hesab" text="ویرایش حساب" img="edit.png"  enabled="false" ><tooltip>edit hesab</tooltip></item><item type="item" id="menuitem_disable" text="غیر فعال سازی حساب" img="disable1.PNG"  ><tooltip>disable hesab</tooltip></item></menu>');
+			hesabOperationTree.enableContextMenu(context_menu_tree);
+			
+			hesabOperationTree.attachEvent('onClick', function(id, prewid){
+				//alert('onClick');
+			});
+			hesabOperationTree.attachEvent("onBeforeContextMenu", function(itemId) {
+				hesabOperationTree.selectItem(itemId,true);
+				return true
+			}); 
+		});
+	}
+	
+	function outputResponse(loader) {
+		if (loader.xmlDoc.responseText  != null){
+			var result = loader.xmlDoc.responseText;
+			if(result == 'ERROR')
+				dhtmlx.alert('خطا در انجام کار');
+			else{
+				dhtmlx.alert(result);
+				var nodeId = hesabOperationTree.getSelectedItemId();
+				hesabOperationTree.deleteItem(nodeId,true)
+			}
+		}
+		else
+			alert("Response contains no Data");
+	}
+	createTree();
+</script>	
+</body>	
+</html>	

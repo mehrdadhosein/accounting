@@ -1,0 +1,35 @@
+package ir.serajsamaneh.accounting.sanaditem;
+
+import ir.serajsamaneh.accounting.base.BaseAccountingDAO;
+import ir.serajsamaneh.accounting.enums.SanadStateEnum;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.AggregateProjection;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+
+public class SanadItemDAO extends BaseAccountingDAO<SanadItemEntity,Long> {
+	
+	public Double[] getHesabAggregate(Long kolId, String type, Date from, Date to, Integer saalMaali){
+		Criteria criteria = getEmptyCriteria();
+		Map filter = new HashMap();
+		filter.put("hesabMoeen.hesabKol.id@eq", kolId);
+		filter.put("hesabTafsili.type@eq", type);
+		filter.put("sanad.date@ge", from);
+		filter.put("sanad.date@le", to);
+		filter.put("sanad.saalMaali@eq", saalMaali);
+		filter.put("sanad.state@eq", SanadStateEnum.DAEM.name());
+		addFilterCriteria(filter, criteria);
+		AggregateProjection bedehkar = Projections.sum("bedehkar");
+		AggregateProjection bestankar = Projections.sum("bestankar");
+		ProjectionList projectionList = Projections.projectionList().add(bedehkar).add(bestankar);
+		criteria.setProjection(projectionList);
+		Object[] result = (Object[]) criteria.uniqueResult();
+		Double[] ar = new Double[]{(Double) result[0], (Double) result[1]};
+		return ar;
+	}
+}

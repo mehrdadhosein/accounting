@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sanadHesabdari" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="da50d01f-1f33-4ece-a559-bf02651ebe3c">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.awt.ignore.missing.font" value="true"/>
+	<style name="text" isDefault="true" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="Tahoma-8" hAlign="Center" vAlign="Middle" fontName="Tahoma" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="TAHOMA.TTF" pdfEncoding="Identity-H"/>
+	<style name="BNazanin-Column-Detail" isDefault="true" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
+	<parameter name="organ_name" class="java.lang.String"/>
+	<parameter name="sanadHesabdari" class="ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity"/>
+	<parameter name="tanzimKonandeh" class="java.lang.String"/>
+	<parameter name="tayidKonandeh" class="java.lang.String"/>
+	<parameter name="SanadType" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="sanadDesc" class="java.lang.String" isForPrompting="false"/>
+	<field name="sanadHesabdari" class="ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity"/>
+	<field name="hesabTafsili" class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"/>
+	<field name="hesabMoeen" class="ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="bedehkar" class="java.lang.Double"/>
+	<field name="bestankar" class="java.lang.Double"/>
+	<field name="hesabKol" class="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"/>
+	<field name="accountingMarkaz" class="ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity"/>
+	<field name="articleTafsiliDesc" class="java.lang.String"/>
+	<field name="articleAccountingMarkazDesc" class="java.lang.String"/>
+	<variable name="rowCount" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[new Integer(1)]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<variable name="bestankarSUM" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{bestankar}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="bedekarSUM" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{bedehkar}]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="98" splitType="Stretch">
+			<textField>
+				<reportElement uuid="f02ae3ec-7360-4940-abb2-f5dae61e1b4c" x="210" y="0" width="156" height="29"/>
+				<textElement>
+					<font fontName="B Titr" size="14" pdfFontName="BTitrBd.ttf"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{organ_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3819292b-7250-41a9-9436-2b8560736967" x="210" y="29" width="156" height="22"/>
+				<textElement>
+					<font fontName="B Titr" size="20" pdfFontName="BTitrBd.ttf"/>
+				</textElement>
+				<text><![CDATA[سند حسابداری]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ca66b123-a1cc-40f3-938f-aade0df6021b" style="text" x="484" y="15" width="69" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[شماره دائم :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e3139d4e-990b-4881-9e2f-fcae7dabe549" style="text" x="484" y="30" width="69" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[تاریخ سند :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f7b9da8f-c766-48c3-aec7-e45c9489df61" x="404" y="15" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getSerial()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="26cbe4c8-d987-4743-84e6-0b04e71bbb4f" x="404" y="30" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getTarikhSanadFA()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ca66b123-a1cc-40f3-938f-aade0df6021b" style="text" x="484" y="0" width="69" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[شماره موقت :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="3a108437-b087-4e1b-b7cb-14fc3d79428e" x="404" y="0" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getTempSerial()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c631d877-b183-46d3-af5d-7fc9972f28ce" style="text" x="140" y="1" width="43" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[نوع سند : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a26a2a63-8a0c-4f68-b625-6e15fa5c7dca" style="text" x="140" y="30" width="43" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[شرح سند : ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4c69e565-d381-4948-9ab5-8f256ba76f1d" x="-16" y="30" width="157" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sanadDesc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="eee9ffee-b107-4b83-9fd0-6b6c7431f652" x="-16" y="1" width="157" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SanadType}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="85a5e029-6ae5-4bc0-9594-72013e6b887e" mode="Opaque" x="530" y="0" width="25" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ردیف]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5fdb0648-e1e5-485d-90b5-48007e91f358" mode="Opaque" x="120" y="0" width="80" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[شرح آرتیکل]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ad5c3bc7-ba97-4d2e-b214-e0e0415f80ba" mode="Opaque" x="0" y="0" width="60" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[بستانکار]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0e04e083-53e3-4477-9055-f62426b8a196" mode="Opaque" x="60" y="0" width="60" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[بدهکار]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="52f946f3-c252-48a2-8024-4985e2bf227a" mode="Opaque" x="341" y="0" width="60" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[تفضیلی]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="18bc7d84-8b4e-4c0c-b325-fccbca03b0c4" mode="Opaque" x="461" y="0" width="69" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[کل]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="52f946f3-c252-48a2-8024-4985e2bf227a" mode="Opaque" x="240" y="0" width="41" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[مرکز]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="52f946f3-c252-48a2-8024-4985e2bf227a" mode="Opaque" x="281" y="0" width="60" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[شناور]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="18bc7d84-8b4e-4c0c-b325-fccbca03b0c4" mode="Opaque" x="401" y="0" width="60" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[معین]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="52f946f3-c252-48a2-8024-4985e2bf227a" mode="Opaque" x="200" y="0" width="40" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[شناور]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Prevent">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fb895cbb-7ba7-481b-94aa-402b013404cf" stretchType="RelativeToTallestObject" x="0" y="0" width="60" height="19"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="B Nazanin" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{bestankar})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="e8ac467d-6da3-4813-bd4e-45fa3e5ea2cf" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="120" y="0" width="80" height="19"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="B Nazanin" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="877a888f-9435-4a3c-b396-b3c14f01f10d" stretchType="RelativeToTallestObject" x="530" y="0" width="25" height="19"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="B Nazanin" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{rowCount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="68268fc2-dc27-4555-aa39-c149ef526fce" stretchType="RelativeToTallestObject" x="60" y="0" width="60" height="19"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="B Nazanin" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{bedehkar})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="dcaea81a-c4ae-404c-97f3-1922e003ad12" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="341" y="0" width="60" height="19"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="B Nazanin" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hesabTafsili}.getNameWithCode()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fd3ba718-0279-4a51-8dbe-d8732fd9a66b" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="461" y="0" width="69" height="19"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="B Nazanin" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{hesabKol}.getNameWithCode() == null ? "----" :
+    $F{hesabKol}.getNameWithCode())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66e2b528-2cc9-48b0-9d17-116b9fb072e3" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="240" y="0" width="41" height="19"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="B Nazanin" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{accountingMarkaz} == null ? "----" :
+    $F{accountingMarkaz})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="fd3ba718-0279-4a51-8dbe-d8732fd9a66b" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="401" y="0" width="60" height="19"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="B Nazanin" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{hesabMoeen}.getNameWithCode() == null ? "----" :
+    $F{hesabMoeen}.getNameWithCode())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66e2b528-2cc9-48b0-9d17-116b9fb072e3" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="200" y="0" width="40" height="19"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="B Nazanin" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{articleAccountingMarkazDesc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="dcaea81a-c4ae-404c-97f3-1922e003ad12" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="281" y="0" width="60" height="19"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font fontName="B Nazanin" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{articleTafsiliDesc} == "" ? "----" :
+    $F{articleTafsiliDesc})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="544f5ed4-074c-405b-8ec3-5224cf5d0261" style="text" mode="Opaque" x="120" y="0" width="100" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[جمع سند ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement uuid="4e7e4753-a58b-44ad-9f2e-f68281c1ac24" mode="Opaque" x="0" y="0" width="60" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{bestankarSUM})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0">
+				<reportElement uuid="bbd866c4-1954-40e8-a99b-9dc3ec1f5efc" mode="Opaque" x="60" y="0" width="60" height="20" backcolor="#99CCFF"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement>
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{bedekarSUM})]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="02e5cbd0-bc42-4fe6-a766-2f4a0c7ed8da" x="241" y="0" width="100" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="50">
+			<staticText>
+				<reportElement uuid="6e754df0-d736-4df8-b47e-fee8d89eb005" x="475" y="0" width="80" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[تنظیم کننده : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1b6309f6-140c-4cce-b131-c6b9d675bd43" x="56" y="0" width="100" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[مدیر مالی :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ad3c7165-2054-4456-9c39-62ea896b601c" x="356" y="0" width="120" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tanzimKonandeh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="326390a6-bd40-41e7-a7b1-98f039ef30a8" x="156" y="0" width="120" height="20"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tayidKonandeh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f9d61c1c-bd76-477a-bf17-27522ade1b8d" x="240" y="30" width="100" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="7024d5ac-7cc4-4320-871e-49162164b8d4" x="276" y="0" width="80" height="20"/>
+				<box leftPadding="0">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[تایید کننده : ]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="20" splitType="Stretch"/>
+	</summary>
+</jasperReport>

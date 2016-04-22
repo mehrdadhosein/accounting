@@ -1,0 +1,94 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<ui:composition template="/template/template-list.xhtml">
+	<ui:param name="title" value="SanadType_local_archive" />
+	<ui:param name="owner" value="#{sanadType}" />
+	<ui:param name="searchpage"
+		value="/sanadtype/sanadType.exampleForm.xhtml" />
+	<ui:define name="listsection">
+<t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
+		<rich:dataTable id="sanadTypes" value="#{sanadType.localArchiveDataModel}"   headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" style="width: 97%" align="center" rows="#{sanadType.rowsPerPage}">
+
+			
+	
+			<rich:column>
+				<f:facet name="header">
+							<a4j:commandLink action="#{owner.sort}" render="sanadTypes" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['SanadType_name']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['SanadType_name']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="name"
+									target="#{owner.sortCol}" />
+							</a4j:commandLink>
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.name}" />
+			</rich:column>
+						
+			
+			
+			<rich:column rendered="#{sanadType.deletable and false}" styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_delete']}" />
+				</f:facet>
+			
+				<h:commandLink action="#{sanadType.delete}"  immediate="true" onclick="if(!confirmDelete()) return false;">
+					<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{sanadType.ID}"  converter="javax.faces.Long" />
+				</h:commandLink>
+			</rich:column>
+
+			<rich:column rendered="#{sanadType.editable and false}" styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_edit']}" />
+				</f:facet>
+			
+				<h:commandLink action="#{sanadType.localArchiveEdit}"  immediate="true">
+					<h:graphicImage value="/images/edit.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{sanadType.ID}"  converter="javax.faces.Long" />
+					<f:setPropertyActionListener value="/sanadtype/sanadType.localArchiveList.jsf"
+						target="#{owner.returnUrl}" />					
+				</h:commandLink>
+			</rich:column>
+			<rich:column styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_view']}" />
+				</f:facet>
+						
+				<h:commandLink action="#{sanadType.localArchiveView}" immediate="true">
+				<h:graphicImage value="/images/view.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{sanadType.ID}"  converter="javax.faces.Long" />
+					<f:setPropertyActionListener value="/sanadtype/sanadType.localArchiveList.jsf"
+						target="#{owner.returnUrl}" />					
+				</h:commandLink>
+			</rich:column >
+		</rich:dataTable>
+</t:div>		
+		<custom:scroller for="sanadTypes" ></custom:scroller>
+			
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton action="#{owner.exportToExcel}"
+			 styleClass=" gwt-Button"  rendered="#{owner.creatable}"
+			value="#{messages['common_excel']}" immediate="true" image="/images/excelBtn.png"/>
+
+	</ui:define>		
+</ui:composition>
+</html>

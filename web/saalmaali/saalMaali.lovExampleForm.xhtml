@@ -1,0 +1,44 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<style>
+.SearchitemStyle1 {
+	text-align: left;
+	width: 12%;
+	vertical-align: top;
+	font-family: tahoma;
+}
+</style>
+<rich:panel
+	style="width: 99%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
+		<h:panelGrid columns="2" styleClass="inputForm"
+			columnClasses="viewLableCol25P,inputCol">
+
+			
+					<h:outputLabel for="currentSearch" value="#{messages['SaalMaali_current']}" />
+				<h:inputText id="currentSearch" value="#{saalMaali.filter['current@eq']}" converter="javax.faces.Integer"/>
+						<h:outputLabel for="isActiveSearch" value="#{messages['SaalMaali_isActive']}" />
+				<h:inputText id="isActiveSearch" value="#{saalMaali.filter['isActive@eq']}" converter="javax.faces.Integer"/>
+						<h:outputLabel for="saalSearch" value="#{messages['SaalMaali_saal']}" />
+				<h:inputText id="saalSearch" value="#{saalMaali.filter['saal@eq']}" converter="javax.faces.Integer"/>
+						<h:outputLabel for="startSearch" value="#{messages['SaalMaali_start']}" />
+				<custom:DateTimePicker type="Date" id="startSearch" value="#{saalMaali.filter['start@eq']}" lang="Shamsi"></custom:DateTimePicker>
+	
+						<h:outputLabel for="endSearch" value="#{messages['SaalMaali_end']}" />
+				<custom:DateTimePicker type="Date" id="endSearch" value="#{saalMaali.filter['end@eq']}" lang="Shamsi"></custom:DateTimePicker>
+	
+				
+		</h:panelGrid>
+</rich:panel>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="SaalMaali_select" />
+	<ui:param name="owner" value="#{saalMaali}" />
+	<ui:define name="searchsection">
+
+		<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+			columnClasses="SearchitemStyle1,SearchitemStyle2">
+
+
+			<h:outputLabel for="isActive"
+				value="#{messages['SaalMaali_isActive']} : " />
+			<h:inputText id="isActive" value="#{saalMaali.filter['isActive@eq']}"
+				converter="javax.faces.Integer" />
+				
+			<h:outputLabel for="saal" value="#{messages['SaalMaali_saal']} : " />
+			<h:inputText id="saal" value="#{saalMaali.filter['saal@eq']}"
+				converter="javax.faces.Integer" />
+				
+			<h:outputLabel for="start" value="#{messages['SaalMaali_start']} : " />
+			<custom:DateTimePicker type="Date" id="start"
+				value="#{saalMaali.filter['start@eq']}" lang="Shamsi"></custom:DateTimePicker>
+
+			<h:outputLabel for="end" value="#{messages['SaalMaali_end']} : " />
+			<custom:DateTimePicker type="Date" id="end"
+				value="#{saalMaali.filter['end@eq']}" lang="Shamsi"></custom:DateTimePicker>
+
+
+
+		</h:panelGrid>
+
+	</ui:define>
+	<ui:define name="listsection">
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<rich:dataTable id="saalMaalis" value="#{saalMaali.dataModel}"
+				var="item" rowClasses="RowOdd,RowEven" rows="10" style="width:100%"
+				headerClass="header">
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SaalMaali_start']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.startDate}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SaalMaali_end']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.endDate}" />
+				</rich:column>
+				
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SaalMaali_isActive']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.isActive}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SaalMaali_saal']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.saal}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['Organ_title']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.organ}" />
+				</rich:column>
+
+				<rich:column>
+					<h:commandButton value="#{messages['lov_select']}"
+						onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false" />
+				</rich:column>
+			</rich:dataTable>
+		</t:div>
+		<custom:scroller onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="saalMaalis"></custom:scroller>
+	</ui:define>
+</ui:composition>
+</html>

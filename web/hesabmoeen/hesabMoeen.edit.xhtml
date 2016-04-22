@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="HesabMoeen_title" />
+	<ui:param name="owner" value="#{hesabMoeen}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+				styleClass="inputForm">
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="name" value="#{messages['HesabMoeen_name']}" /> : 
+				</h:panelGroup>
+				<h:inputText required="true" id="name" label="name"
+					value="#{hesabMoeen.entity.name}" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="hesabKol"
+						value="#{messages['HesabMoeen_hesabKol']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="hesabKol" required="true" label="#{messages['HesabMoeen_hesabKol']}"
+						identity="#{hesabMoeen.entity.hesabKol.ID}"
+						desc="#{hesabMoeen.entity.hesabKol.desc}"
+						url="${request.contextPath}/hesabkol/hesabKol.lov.jsf?pId=hesabKol" />
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value=" " />
+					<h:outputLabel for="code" value="#{messages['HesabMoeen_code']}" /> : 
+				</h:panelGroup>
+				<h:inputText id="code" label="code"
+					value="#{hesabMoeen.entity.code}" />
+
+
+				<h:panelGroup>
+					<h:outputLabel for="description"
+						value="#{messages['HesabMoeen_description']}" /> : 
+				</h:panelGroup>
+				<h:inputTextarea id="description" label="description"
+					style="width:220px;height:70px"
+					value="#{hesabMoeen.entity.description}" />
+
+				<h:panelGroup>
+					<h:outputLabel for="hidden"
+						value="#{messages['HesabMoeen_hidden']}" /> : 
+				</h:panelGroup>
+				<h:selectBooleanCheckbox id="hidden" label="hidden"
+					value="#{hesabMoeen.entity.hidden}" />
+
+			</t:panelGrid>
+		</rich:panel>
+		<h:inputHidden required="true" id="tafsiliLevels" label="#{messages['MoeenTafsili_list']}"
+						value="#{owner.tafsiliLevelsXML}" size="50" />		
+		<ui:include src="common/tafsiliLevels.gridNew.xhtml" />
+		<script type='text/javascript' language='javascript'>
+		/* <![CDATA[ */
+			createTafsiliLevelsTable(""+document.getElementById('serajForm:tafsiliLevels').value+"");
+			 /* ]]> */
+		</script>		
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton styleClass=" gwt-Button"  rendered="#{owner.editable  and owner.isForMyOrgan}"
+			onclick="showLoading(); populateTafsiliLevelsRecordsXML('serajForm:tafsiliLevels','#tafsiliLevels');"
+			action="#{owner.save}" image="/images/buttons/btn_save.png">
+		</h:commandButton>
+
+
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
+			action="#{owner.back}" value="#{messages['common_back']}"
+			immediate="true" image="/images/listbtn.png" />
+	</ui:define>
+	
+</ui:composition>
+
+</html>

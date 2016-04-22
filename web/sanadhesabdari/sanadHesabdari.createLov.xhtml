@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-createLov.xhtml">
+	<ui:param name="title" value="SanadHesabdari_list" />
+	<ui:param name="owner" value="#{sanadHesabdari}" />
+	<ui:param name="lovSearchpage" value="/sanadhesabdari/sanadHesabdari.lovExampleForm.xhtml" />
+	
+	<ui:define name="listsection">
+		<rich:dataTable id="sanadHesabdaris" value="#{sanadHesabdari.dataModel}"  headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" rows="#{sanadHesabdari.rowsPerPage}" style="width:97%" align="center">
+	
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_description']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.description}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_organ']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.organ}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_sanadType']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.sanadType}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_state']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.state}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_tarikhSanad']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.tarikhSanad}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_number']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.number}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_saalMaali']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.saalMaali}" />
+			</rich:column>
+						
+			
+			<rich:column>
+				<h:commandButton value="#{messages['lov_select']}"
+					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
+			</rich:column>	
+		</rich:dataTable>
+		<custom:scroller for="sanadHesabdaris" binding="#{sanadHesabdari.datascroller}"></custom:scroller>
+
+	</ui:define>
+	<ui:define name="quickCreateSection">
+		<ui:include src="/sanadhesabdari/sanadHesabdari.quickCreate.xhtml" />
+		<script>
+			function copyInputs(){
+			
+													document.getElementById('serajForm:saalMaalihidden').value=document.getElementById('serajForm:saalMaaliSearchhidden').value;
+					document.getElementById('serajForm:saalMaalitext').value=document.getElementById('serajForm:saalMaaliSearchtext').value;
+									document.getElementById('serajForm:sanadTypehidden').value=document.getElementById('serajForm:sanadTypeSearchhidden').value;
+					document.getElementById('serajForm:sanadTypetext').value=document.getElementById('serajForm:sanadTypeSearchtext').value;
+									document.getElementById('serajForm:organhidden').value=document.getElementById('serajForm:organSearchhidden').value;
+					document.getElementById('serajForm:organtext').value=document.getElementById('serajForm:organSearchtext').value;
+								
+																			document.getElementById('serajForm:number').value=document.getElementById('serajForm:numberSearch').value;
+																				document.getElementById('serajForm:description').value=document.getElementById('serajForm:descriptionSearch').value;
+																				document.getElementById('serajForm:tarikhSanad').value=document.getElementById('serajForm:tarikhSanadSearch').value;
+																				document.getElementById('serajForm:state').value=document.getElementById('serajForm:stateSearch').value;
+												
+			}
+			function copyCreateToSearch(){
+													document.getElementById('serajForm:saalMaaliSearchhidden').value=document.getElementById('serajForm:saalMaalihidden').value;
+					document.getElementById('serajForm:saalMaaliSearchtext').value=document.getElementById('serajForm:saalMaalitext').value;
+									document.getElementById('serajForm:sanadTypeSearchhidden').value=document.getElementById('serajForm:sanadTypehidden').value;
+					document.getElementById('serajForm:sanadTypeSearchtext').value=document.getElementById('serajForm:sanadTypetext').value;
+									document.getElementById('serajForm:organSearchhidden').value=document.getElementById('serajForm:organhidden').value;
+					document.getElementById('serajForm:organSearchtext').value=document.getElementById('serajForm:organtext').value;
+								
+																			document.getElementById('serajForm:numberSearch').value=document.getElementById('serajForm:number').value;
+																				document.getElementById('serajForm:descriptionSearch').value=document.getElementById('serajForm:description').value;
+																				document.getElementById('serajForm:tarikhSanadSearch').value=document.getElementById('serajForm:tarikhSanad').value;
+																				document.getElementById('serajForm:stateSearch').value=document.getElementById('serajForm:state').value;
+												}
+		</script>
+		
+	</ui:define>
+</ui:composition>
+</html>

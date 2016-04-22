@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="ContactHesab_select" />
+	<ui:param name="owner" value="#{contactHesab}" />
+	<ui:define name="searchsection">
+
+		<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+			columnClasses="SearchitemStyle1,SearchitemStyle2">
+
+			<h:outputLabel for="contact"
+				value="#{messages['ContactHesab_contact']} : " />
+			<h:panelGroup>
+				<custom:lov id="contact"
+					identity="#{contactHesab.filter['contact.id@eq']}"
+					desc="#{contactHesab.example.contact.desc}"
+					url="${request.contextPath}/contact/contact.lov.jsf?pId=contact" />
+
+			</h:panelGroup>
+
+			<h:outputLabel for="hesabMoeen"
+				value="#{messages['ContactHesab_hesabMoeen']} : " />
+			<h:panelGroup>
+				<custom:lov id="hesabMoeen"
+					identity="#{contactHesab.filter['hesabMoeen.id@eq']}"
+					desc="#{contactHesab.example.hesabMoeen.desc}"
+					url="${request.contextPath}/hesabmoeen/hesabMoeen.lov.jsf?pId=hesabMoeen" />
+
+			</h:panelGroup>
+
+			<h:outputLabel for="hesabTafsili"
+				value="#{messages['ContactHesab_hesabTafsili']} : " />
+			<h:panelGroup>
+				<custom:lov id="hesabTafsili"
+					identity="#{contactHesab.filter['hesabTafsili.id@eq']}"
+					desc="#{contactHesab.example.hesabTafsili.desc}"
+					url="${request.contextPath}/hesabtafsili/hesabTafsili.lov.jsf?pId=hesabTafsili" />
+
+			</h:panelGroup>
+
+
+
+
+		</h:panelGrid>
+
+	</ui:define>
+	<ui:define name="listsection">
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<rich:dataTable id="contactHesabs" value="#{contactHesab.dataModel}"
+				var="item" rowClasses="RowOdd,RowEven" rows="10" style="width:100%"
+				headerClass="header">
+
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['ContactHesab_hesabMoeen']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['ContactHesab_hesabTafsili']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['ContactHesab_contact']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.contact}" />
+				</rich:column>
+				<rich:column>
+					<h:commandButton value="#{messages['lov_select']}"
+						onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false" />
+				</rich:column>
+			</rich:dataTable>
+		</t:div>
+		<custom:scroller onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="contactHesabs"></custom:scroller>
+	</ui:define>
+</ui:composition>
+</html>

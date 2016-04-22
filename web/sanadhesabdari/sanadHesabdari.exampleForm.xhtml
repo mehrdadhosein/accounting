@@ -1,0 +1,184 @@
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+<a4j:region>
+	<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+		<t:panelGrid columns="1" style="width:100%"
+			columnClasses=",SearchbtnStyle">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol30P,inputCol" styleClass="inputForm">
+
+
+				<h:panelGroup>
+					<h:outputLabel for="saalMaali"
+						value="#{messages['SanadHesabdari_saalMaali']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="saalMaali"
+						identity="#{sanadHesabdari.filter['saalMaali.id@eq']}"
+						desc="#{sanadHesabdari.example.saalMaali.desc}"
+						url="${request.contextPath}/saalmaali/saalMaali.lov.jsf?pId=saalMaali" />
+				</h:panelGroup>
+
+
+				<h:panelGroup>
+					<h:outputLabel for="organ"
+						value="#{messages['SanadHesabdari_organ']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="organ"
+						identity="#{sanadHesabdari.filter['organ.id@eq']}"
+						desc="#{sanadHesabdari.example.organ.desc}"
+						url="${request.contextPath}/organ/organ.lov.jsf?pId=organ" />
+
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:outputLabel for="tempSerial"
+						value="#{messages['SanadHesabdari_tempSerial']}" /> : 
+				</h:panelGroup>
+				<h:inputText id="tempSerial" converter="javax.faces.Long"
+					value="#{owner.filter['tempSerial@eq']}" />
+					
+				<h:panelGroup>
+					<h:outputLabel for="serial"
+						value="#{messages['SanadHesabdari_serial']}" /> : 
+				</h:panelGroup>
+				<h:inputText id="serial" converter="javax.faces.Long"
+					value="#{sanadHesabdari.filter['serial@eq']}" />
+
+				<h:panelGroup>
+					<h:outputLabel for="sanadType"
+						value="#{messages['SanadHesabdari_sanadType']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-one id="sanadType"
+						width="200px" label="#{messages['SanadHesabdari_sanadType']}"
+						identity="#{owner.filter['sanadType.id@eq']}"
+						desc="#{owner.example.sanadType.desc}" entity="sanadType"
+						property="name" client="true" extraParams="isLocal=true" />
+				</h:panelGroup>
+				
+				<h:panelGroup>
+					<h:outputLabel for="atfNumber"
+						value="#{messages['Sanad_atfNumber']}" /> : 
+				</h:panelGroup>
+				<h:inputText id="atfNumber" converter="javax.faces.Long"
+					value="#{sanadHesabdari.filter['atfNumber@eq']}" />
+
+				<h:panelGroup>
+					<h:outputLabel for="farieNumber"
+						value="#{messages['Sanad_farieNumber']}" /> : 
+				</h:panelGroup>
+				<h:inputText id="farieNumber" converter="javax.faces.Long"
+					value="#{sanadHesabdari.filter['farieNumber@eq']}" />
+
+				<h:panelGroup>
+					<h:outputLabel for="description"
+						value="#{messages['SanadHesabdari_description']}" /> : 
+				</h:panelGroup>
+				<h:inputText id="description"
+					value="#{sanadHesabdari.filter['description@lk']}" />
+
+				<h:panelGroup>
+					<h:outputLabel for="bedehkar"
+						value="#{messages['SanadHesabdariItem_bedehkar']}" /> : 
+				</h:panelGroup>
+				<h:inputText id="bedehkar"  converter="javax.faces.Double"
+					value="#{owner.filter['sanadHesabdariItem.bedehkar@eq']}" />
+
+				<h:panelGroup>
+					<h:outputLabel for="bestankar"
+						value="#{messages['SanadHesabdariItem_bestankar']}" /> : 
+				</h:panelGroup>
+				<h:inputText id="bestankar"  converter="javax.faces.Double"
+					value="#{owner.filter['sanadHesabdariItem.bestankar@eq']}" />
+
+
+					
+				<h:panelGroup>
+					<h:outputLabel for="tarikhAzTa"
+						value="#{messages['SanadHesabdari_tarikhSanad']}" /> : 
+				</h:panelGroup>
+
+
+				<h:panelGroup id="tarikhAzTa">
+					<t:panelGrid columns="2" width="90%"
+						columnClasses="viewLableCol7P,inputCol">
+
+						<h:outputLabel for="aztarikhExample"
+							value="#{messages['from']} : " />
+						<custom:DateTimePicker id="aztarikhExample"
+							value="#{sanadHesabdari.filter['tarikhSanad@ge']}" type="Date"
+							lang="Shamsi">
+						</custom:DateTimePicker>
+					</t:panelGrid>
+
+					<t:panelGrid columns="2" width="90%"
+						columnClasses="viewLableCol7P,inputCol">
+
+						<h:outputLabel for="tatarikhExample" value="#{messages['to']} : " />
+						<custom:DateTimePicker id="tatarikhExample"
+							value="#{sanadHesabdari.filter['tarikhSanad@le']}" type="Date"
+							lang="Shamsi">
+						</custom:DateTimePicker>
+					</t:panelGrid>
+				</h:panelGroup>
+
+
+				<h:panelGroup>
+					<h:outputLabel for="serialAzTa"
+						value="#{messages['SanadHesabdari_serial']}" /> : 
+				</h:panelGroup>
+
+
+
+				<h:panelGroup id="serialAzTa">
+					<t:panelGrid columns="2" width="90%"
+						columnClasses="viewLableCol7P,inputCol">
+
+						<h:outputLabel for="azserialExample"
+							value="#{messages['from']} : " />
+						<t:inputText id="azserialExample"
+							value="#{owner.filter['serial@ge']}" converter="javax.faces.Long">
+						</t:inputText>
+					</t:panelGrid>
+
+					<t:panelGrid columns="2" width="90%"
+						columnClasses="viewLableCol7P,inputCol">
+
+						<h:outputLabel for="taserialExample" value="#{messages['to']} : " />
+						<t:inputText id="taserialExample"
+							value="#{owner.filter['serial@le']}" converter="javax.faces.Long">
+						</t:inputText>
+					</t:panelGrid>
+				</h:panelGroup>
+
+
+
+			</t:panelGrid>
+			<t:div>
+				<a4j:commandButton image="/images/searchbtn2.png"
+					styleClass=" gwt-Button" render="listPanel"
+					onclick="showLoading();" value="#{messages['common_search']}"
+					action="#{owner.search}"
+					oncomplete="hideLoading();closeSearchDiv();">
+				</a4j:commandButton>
+
+				<h:commandButton id="return"
+					onclick="hideLoading(); closeSearchDiv();return false;"
+					styleClass=" gwt-Button" image="/images/buttons/btn_return.png" />
+			</t:div>
+		</t:panelGrid>
+	</rich:panel>
+</a4j:region>
+</html>

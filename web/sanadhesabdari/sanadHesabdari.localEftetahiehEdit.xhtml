@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="sanad_hesabdari_eftetahieh" />
+	<ui:param name="owner" value="#{sanadHesabdari}" />
+	<ui:param name="dwrFormName" value="sanadHesabdari" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="scriptAndStyleSection">
+		<script
+			src="${request.contextPath}/static/bootstrap/js/bootstrap-modal.js"></script>
+<style>
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.modal-open .dropdown-menu {
+  z-index: 2050;
+}
+.modal-open .dropdown.open {
+  *z-index: 2050;
+}
+.modal-open .popover {
+  z-index: 2060;
+}
+.modal-open .tooltip {
+  z-index: 2070;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000000;
+}
+.modal-backdrop.fade {
+  opacity: 0;
+}
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: 560px;
+  margin: -250px 0 0 -280px;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  /* IE6-7 */
+
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.modal.fade {
+  -webkit-transition: opacity .3s linear, top .3s ease-out;
+  -moz-transition: opacity .3s linear, top .3s ease-out;
+  -ms-transition: opacity .3s linear, top .3s ease-out;
+  -o-transition: opacity .3s linear, top .3s ease-out;
+  transition: opacity .3s linear, top .3s ease-out;
+  top: -25%;
+}
+.modal.fade.in {
+  top: 50%;
+}
+.modal-header {
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
+}
+.modal-header .close {
+  margin-top: 2px;
+}
+.modal-body {
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 15px;
+}
+.modal-form {
+  margin-bottom: 0;
+}
+.modal-footer {
+  padding: 14px 15px 15px;
+  margin-bottom: 0;
+  text-align: right;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: inset 0 1px 0 #ffffff;
+  -moz-box-shadow: inset 0 1px 0 #ffffff;
+  box-shadow: inset 0 1px 0 #ffffff;
+  *zoom: 1;
+}
+.modal-footer:before,
+.modal-footer:after {
+  display: table;
+  content: "";
+}
+.modal-footer:after {
+  clear: both;
+}
+.modal-footer .btn + .btn {
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+.modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+
+
+</style>			
+	</ui:define>
+
+	<ui:define name="editsection">
+
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+				styleClass="inputForm">
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="  " />
+					<h:outputLabel for="tempSerial"
+						value="#{messages['SanadHesabdari_tempSerial']}" /> : 
+				</h:panelGroup>
+				<t:outputText id="tempSerial" label="tempSerial"
+					style="width:250px" value="#{sanadHesabdari.entity.tempSerial}"
+					size="50" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="saalMaali"
+						value="#{messages['SanadHesabdari_saalMaali']} : " />
+				</h:panelGroup>
+				<t:selectOneMenu id="saalMaali" styleClass="selectOneMenu" required="true" label="#{messages['SanadHesabdari_saalMaali']}"
+					value="#{owner.entity.saalMaali.id}" converter="javax.faces.Long">
+					<f:selectItems value="#{saalMaali.activeSaalList}" />
+				</t:selectOneMenu>
+				
+                
+                
+                 <h:panelGroup>
+					<h:outputText styleClass="required" value="  " />
+					<h:outputLabel for="primaryNumber" value="#{messages['Sanad_atfNumber']}" /> : 
+				</h:panelGroup>
+				<h:inputText  id="atfNumber" label="#{messages['Sanad_atfNumber']}"
+					value="#{sanadHesabdari.entity.atfNumber}" style="width:200px"/>
+					
+					<h:panelGroup>
+					
+					<h:outputLabel for="farieNumber" value="#{messages['Sanad_farieNumber']}" /> : 
+				</h:panelGroup>
+				<h:inputText  id="farieNumber" label="#{messages['Sanad_farieNumber']}"
+					value="#{sanadHesabdari.entity.farieNumber}" style="width:200px"/>
+					
+					
+					
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="  " />
+					<h:outputLabel for="description"
+						value="#{messages['SanadHesabdari_description']}" /> : 
+				</h:panelGroup>
+				<t:inputTextarea id="description" label="description"
+					style="width:250px" value="#{sanadHesabdari.entity.description}"
+					size="50" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="tarikhSanad"
+						value="#{messages['SanadHesabdari_tarikhSanad']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker required="true" id="tarikhSanad" type="Date"
+					value="#{sanadHesabdari.entity.tarikhSanad}" lang="Shamsi"></custom:DateTimePicker>
+
+
+			</t:panelGrid>
+		</rich:panel>
+		<ui:include src="../common/sanadHesabdari.gridNew.advanced.xhtml" />
+		<ui:include src="/dlg/attachFileDLG.xhtml" />		
+		<h:inputHidden required="true" id="sanadItems" 
+					label="#{messages['SanadHesabdariItem_list']}" value="#{owner.sanadItemsXML}" />
+
+		<script>
+		createSanadHesabdariTable(""+document.getElementById('serajForm:sanadItems').value+"");
+		</script>							
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.editable}" onclick=" populateRecordsXML('serajForm:sanadItems','#sanadHesabdariGrid');" 
+			action="#{owner.saveEftetahiehMovaghat}" value="#{messages['common_save']}"
+			image="/images/savebtn.png" />
+
+		<h:commandButton styleClass=" gwt-Button" value="excel" image="/images/excelBtn.png"
+			 action="#{owner.exportSanadSanadToExcel}" />	
+			 
+		<h:commandButton styleClass=" gwt-Button"
+			rendered="#{owner.editable and owner.isMovaghat}" action="#{sanadHesabdari.saveEftetahiehBarresiShode}"
+			value="#{messages['sanad_save_barrasiShode']}"  onclick=" populateRecordsXML('serajForm:sanadItems','#sanadHesabdariGrid');"
+			image="/images/buttons/btn_confirm.png"/>
+
+
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
+			action="#{owner.back}" value="#{messages['common_back']}"
+			immediate="true" image="/images/listbtn.png" />
+			
+	</ui:define>
+</ui:composition>
+
+</html>

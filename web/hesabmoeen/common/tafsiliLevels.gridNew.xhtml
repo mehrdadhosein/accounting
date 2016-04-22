@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<script type='text/javascript'
+	src='${request.contextPath}/dwr/interface/hesabMoeen.js?p=21'> </script>
+<script type='text/javascript'
+	src='${request.contextPath}/hesabmoeen/common/tafsiliLevels.gridNew.js?p=21'> </script>
+<style>
+.dialogViewLableCol {
+	text-align: left;
+	width: 33%;
+	vertical-align: middle;
+	font-family: tahoma;
+	color: gray;
+	font-size: 12px;
+	padding-left: 10px;
+}
+</style>
+<t:div id="dialog" forceId="true" style="display:none">
+	<t:panelGrid columns="1" width="90%"
+		columnClasses="inputCol" styleClass="inputForm">
+
+		<h:panelGroup>
+			<custom:autocomplete-multiple id="tafsilies" width="400px"
+				entity="HesabTafsili"
+				property="code, name" ajax="false" extraParams="isCurrentOrgan=true" />
+		</h:panelGroup>
+
+
+	</t:panelGrid>
+</t:div>
+
+<table id="tafsiliLevels">
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+<div id="pcustbut"></div>
+
+<script type="text/javascript">
+		//setTafsiliLevelsGlobalRowId('#tafsiliLevels',0);
+		var lastRow = -1; 
+		function createTafsiliLevels(xmlData) { 		
+	$$('#tafsiliLevels')
+			.jqGrid(
+					{
+						direction :'rtl',
+			            datatype: 'xmlstring',
+			            datastr: xmlData,
+						height: '100%',
+						colNames : [
+									'id', 
+									'#{messages['MoeenTafsili_level']}', 
+									'#{messages['MoeenTafsili_list']}', 
+									'#{messages['hesabTafsiliIds']}', 
+									'#{messages['common_edit']}' 
+									],
+						colModel : [ 
+							{name :'id', index :'id', width :20, sorttype :'int'}, 
+							{name :'level', index :'level', width :80, sorttype :'int'}, 
+							{name :'hesabTafsiliListStr', index :'hesabTafsiliListStr', width :600, sorttype :'string'}, 
+							{name :'hesabTafsiliIds', index :'hesabTafsiliIds', width :50, sorttype :'string'}, 
+							{name :'editAct', index :'editAct', width :45, sortable :false}
+						],
+						multiselect :false,
+						viewrecords: true, 
+						autowidth: false, 
+						pager: '#pcustbut',
+						rowNum:50, 
+						rownumbers: true,
+
+						onSelectRow: function(id){ 
+							$$('#tafsiliLevels').jqGrid('editRow',id,true);
+							if(lastRow != -1)if(id!=lastRow)
+								$$('#tafsiliLevels').jqGrid('saveRow',lastRow, false, 'clientArray');
+							lastRow=id;   
+						}, 
+						caption :'#{messages['HesabTafsili_list']}'
+					});
+	$$('#tafsiliLevels').jqGrid('navGrid','#pcustbut',{edit:false,add:false,del:false,search:true,page:false, searchtext:'جستجو'}); 
+
+
+		$$('#tafsiliLevels').jqGrid('hideCol','hesabTafsiliIds'); 
+	}
+
+	
+	function createTafsiliLevelsTable(tafsiliLevelsList){
+		var tafsiliLevelsItems=new Array('level','hesabTafsiliListStr','hesabTafsiliIds');
+		setItems("#tafsiliLevels",tafsiliLevelsItems);
+		createTafsiliLevels(tafsiliLevelsList);
+}
+	
+
+
+</script>
+</html>

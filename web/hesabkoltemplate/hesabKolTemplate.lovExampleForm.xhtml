@@ -1,0 +1,53 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<style>
+.SearchitemStyle1 {
+	text-align: left;
+	width: 12%;
+	vertical-align: top;
+	font-family: tahoma;
+}
+</style>
+
+
+<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+	<t:panelGrid columns="4" width="90%"
+		columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2"
+		styleClass="inputForm">
+		
+							<h:outputLabel for="hesabGroupSearch" value="#{messages['HesabKolTemplate_hesabGroup']}" />
+				<h:panelGroup>
+				<custom:lov id="hesabGroupSearch" 
+						identity="#{hesabKolTemplate.filter['hesabGroup.id@eq']}"
+						desc="#{hesabKolTemplate.example.hesabGroupTemplate.desc}"
+				  		url="${request.contextPath}/hesabgroup/hesabGroup.lov.jsf?pId=hesabGroupSearch" />
+					
+				</h:panelGroup>
+					
+
+					<h:outputLabel for="codeSearch" value="#{messages['HesabKolTemplate_code']}" />
+				<h:inputText id="codeSearch" value="#{hesabKolTemplate.filter['code@lk']}" />
+						<h:outputLabel for="nameSearch" value="#{messages['HesabKolTemplate_name']}" />
+				<h:inputText id="nameSearch" value="#{hesabKolTemplate.filter['name@lk']}" />
+						<h:outputLabel for="descriptionSearch" value="#{messages['HesabKolTemplate_description']}" />
+				<h:inputText id="descriptionSearch" value="#{hesabKolTemplate.filter['description@lk']}" />
+						<h:outputLabel for="hiddenSearch" value="#{messages['HesabKolTemplate_hidden']}" />
+				<h:inputText id="hiddenSearch" value="#{hesabKolTemplate.filter['hidden@eq']}" converter="javax.faces.Integer"/>
+						<h:outputLabel for="mahyatKolSearch" value="#{messages['HesabKolTemplate_mahyatKol']}" />
+				<h:inputText id="mahyatKolSearch" value="#{hesabKolTemplate.filter['mahyatKol@eq']}" converter="javax.faces.Integer"/>
+				
+		</t:panelGrid>
+</rich:panel>
+
+</html>

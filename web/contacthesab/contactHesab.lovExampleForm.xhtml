@@ -1,0 +1,61 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<style>
+.SearchitemStyle1 {
+	text-align: left;
+	width: 12%;
+	vertical-align: top;
+	font-family: tahoma;
+}
+</style>
+
+
+<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+	<t:panelGrid columns="4" width="90%"
+		columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2"
+		styleClass="inputForm">
+		
+							<h:outputLabel for="contactSearch" value="#{messages['ContactHesab_contact']}" />
+				<h:panelGroup>
+				<custom:lov id="contactSearch" 
+						identity="#{contactHesab.filter['contact.id@eq']}"
+						desc="#{contactHesab.example.contact.desc}"
+				  		url="${request.contextPath}/contact/contact.lov.jsf?pId=contactSearch" />
+					
+				</h:panelGroup>
+					
+				<h:outputLabel for="hesabMoeenSearch" value="#{messages['ContactHesab_hesabMoeen']}" />
+				<h:panelGroup>
+				<custom:lov id="hesabMoeenSearch" 
+						identity="#{contactHesab.filter['hesabMoeen.id@eq']}"
+						desc="#{contactHesab.example.hesabMoeen.desc}"
+				  		url="${request.contextPath}/hesabmoeen/hesabMoeen.lov.jsf?pId=hesabMoeenSearch" />
+					
+				</h:panelGroup>
+					
+				<h:outputLabel for="hesabTafsiliSearch" value="#{messages['ContactHesab_hesabTafsili']}" />
+				<h:panelGroup>
+				<custom:lov id="hesabTafsiliSearch" 
+						identity="#{contactHesab.filter['hesabTafsili.id@eq']}"
+						desc="#{contactHesab.example.hesabTafsili.desc}"
+				  		url="${request.contextPath}/hesabtafsili/hesabTafsili.lov.jsf?pId=hesabTafsiliSearch" />
+					
+				</h:panelGroup>
+					
+
+			
+		</t:panelGrid>
+</rich:panel>
+
+</html>

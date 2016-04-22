@@ -1,0 +1,82 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-list.xhtml">
+	<ui:param name="title" value="#{messages['SanadItem_title']}" />
+	<ui:param name="owner" value="#{sanadItem}" />
+	<ui:define name="listsection">
+		<h:panelGrid columns="9">
+			<h:outputLabel for="saalMaali" value="#{messages['SaalMaali_saal']}" />
+			<h:selectOneMenu value="#{sanadItem.saalMaali}" 
+				label="#{messages['SaalMaali_saal']}" id="SaalMaali_saal" converter="javax.faces.Integer">
+				<f:selectItems value="#{saalMaali.activeSaalList}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel for="hesab" value="#{messages['SanadItem_hesabTafsili']}" />
+			<h:panelGroup>
+				<custom:lov id="hesab"
+					identity="#{sanadItem.hesabKolId}"
+					desc="#{sanadItem.example.hesab.desc}"
+					url="${request.contextPath}/hesabkol/hesabKol.lov.jsf?pId=hesab" />
+			</h:panelGroup>
+			<h:outputLabel for="type" value="#{messages['HesabTafsili_type']}" />
+			<h:selectOneMenu id="type" value="#{sanadItem.type}" 
+				label="#{messages['HesabTafsili_type']}">
+				<f:selectItems value="#{enums.HesabTypeEnum}" />
+			</h:selectOneMenu>
+			<h:outputLabel for="level" value="#{messages['HesabTafsili_level']}" />
+			<h:selectOneMenu id="level" value="#{sanadItem.level}" 
+				label="#{messages['HesabTafsili_level']}" converter="javax.faces.Integer">
+				<f:selectItems value="#{hesabLevel.levelItems}" />
+			</h:selectOneMenu>
+			<h:commandButton styleClass="ButtonStyle" value="#{messages['common_search']}" actionListener="#{sanadItem.search}">
+			</h:commandButton>
+		</h:panelGrid>
+		<rich:dataTable id="sanadItems" value="#{sanadItem.itemsGroupByLevel}"   headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" style="width: 100%" rows="#{sanadItem.rowsPerPage}">
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_hesab']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesab}" />
+			</rich:column>
+		
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bedehkar']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.bedehkar}" >
+					<f:convertNumber/>
+				</h:outputText>
+
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bestankar']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.bestankar}" >
+					<f:convertNumber/>
+				</h:outputText>
+
+			</rich:column>
+						
+			
+		</rich:dataTable>
+		<rich:dataScroller for="sanadItems" ></rich:dataScroller>
+			
+	</ui:define>
+</ui:composition>
+</html>

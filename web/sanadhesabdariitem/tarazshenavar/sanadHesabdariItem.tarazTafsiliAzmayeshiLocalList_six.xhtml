@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-list.xhtml">
+
+	<ui:param name="title" value="tarazAzmayeshiShenavar" />
+	<ui:param name="owner" value="#{sanadHesabdariItem}" />
+	<ui:param name="searchpage" value="/sanadhesabdariitem/taraztafsili/tarazAzmayeshi.exampleForm.xhtml" />
+	<ui:define name="fixsection">
+
+	</ui:define>
+
+	<ui:define name="listsection">
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<rich:dataTable id="sanadHesabdariItems"
+				value="#{sanadHesabdariItem.tarazShenavarAzmayeshi}" headerClass="header"
+				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
+				align="center">
+
+								
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}"
+							render="sanadHesabdariItems" onclick="showLoading();"
+							oncomplete="hideLoading();" styleClass="headerCellClass"
+							title="#{messages['HesabTafsili_code']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_code']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="hesabTafsili.code"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.code}" />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}"
+							render="sanadHesabdariItems" onclick="showLoading();"
+							oncomplete="hideLoading();" styleClass="headerCellClass"
+							title="#{messages['HesabTafsili_shenavar']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_shenavar']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="hesabTafsili.code"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.desc}" />
+				</rich:column>
+				
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SanadHesabdariItem_mandeh_bedehkar_ebtedaye_dore']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.mandehBedehkarEbtedayDore}"  converter="seraj.converter.accountingNumberFormatter"   />
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SanadHesabdariItem_mandeh_bestankar_ebtedaye_dore']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.mandehBestankarEbtedayDore}"  converter="seraj.converter.accountingNumberFormatter"   />
+				</rich:column>
+
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}"
+							render="sanadHesabdariItems" onclick="showLoading();"
+							oncomplete="hideLoading();" styleClass="headerCellClass"
+							title="#{messages['SanadHesabdariItem_bedehkarGardesh']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['SanadHesabdariItem_bedehkarGardesh']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="bedehkar"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"  converter="seraj.converter.accountingNumberFormatter"   />
+					<f:facet name="footer">
+						<h:outputText value="#{owner.totalBedehkar}"    converter="seraj.converter.accountingNumberFormatter" />
+					</f:facet>					
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}"
+							render="sanadHesabdariItems" onclick="showLoading();"
+							oncomplete="hideLoading();" styleClass="headerCellClass"
+							title="#{messages['SanadHesabdariItem_bestankarGardesh']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['SanadHesabdariItem_bestankarGardesh']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="bestankar"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.bestankar}" converter="seraj.converter.accountingNumberFormatter"   />
+					<f:facet name="footer">
+						<h:outputText value="#{owner.totalBestankar}"    converter="seraj.converter.accountingNumberFormatter" />
+					</f:facet>					
+				</rich:column>
+
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}"
+							render="sanadHesabdariItems" onclick="showLoading();"
+							oncomplete="hideLoading();" styleClass="headerCellClass"
+							title="#{messages['SanadHesabdariItem_mandeh_bedehkar']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['SanadHesabdariItem_mandeh_bedehkar']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="bedehkar"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.mandehBedehkar}"  converter="seraj.converter.accountingNumberFormatter"  />
+					<f:facet name="footer">
+						<h:outputText value="#{owner.totalMandehBedehkar}"    converter="seraj.converter.accountingNumberFormatter" />
+					</f:facet>					
+				</rich:column>
+
+				<rich:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}"
+							render="sanadHesabdariItems" onclick="showLoading();"
+							oncomplete="hideLoading();" styleClass="headerCellClass"
+							title="#{messages['SanadHesabdariItem_mandeh_bestankar']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['SanadHesabdariItem_mandeh_bestankar']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="bestankar"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.mandehBestankar}"  converter="seraj.converter.accountingNumberFormatter"   />
+					<f:facet name="footer">
+						<h:outputText value="#{owner.totalMandehBestankar}"    converter="seraj.converter.accountingNumberFormatter" />
+					</f:facet>						
+				</rich:column>				
+				<rich:column styleClass="action">
+
+					<f:facet name="header">
+						<h:outputText value="" />
+					</f:facet>
+
+					<h:outputLink  rendered="#{item.hesabTafsili.id!=null}"
+						onclick="openDaftarShenavar('#{item.hesabTafsili.id}'); return false;">
+						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarShenavar']}" />
+					</h:outputLink>
+				</rich:column>
+			</rich:dataTable>
+		</t:div>
+<script>
+/* <![CDATA[ */
+function openDaftarShenavar(hesabTafsiliShenavarEntityId){
+	//alert(hesabKolId);
+	fromDate = document.getElementById('serajForm:aztarikhExample').value;
+	toDate = document.getElementById('serajForm:tatarikhExample').value;	
+	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	tafsiliIds = document.getElementById('tafsilis_id').value;	
+	moeens = document.getElementById('moeens_id').value;	
+	var url = '../daftar/sanadHesabdariItem.shenavarLocalList.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+hesabTafsiliShenavarEntityId+'&fromDate='+fromDate+'&toDate='+toDate;
+	popupFullscreen(url, 'daftartarazTafsili');
+}
+/* ]]> */
+</script>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton action="#{owner.exportTarazShenavarAzmayeshiToExcel}"
+					styleClass=" gwt-Button" value="#{messages['common_excel']}"
+					rendered="#{owner.exportable}" image="/images/excelBtn.png" />
+
+		<h:commandButton action="#{owner.printLocalTarazShenavarAzmayeshi}" styleClass=" gwt-Button"
+			image="/images/print.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_print']}">
+			<f:setPropertyActionListener value="six"
+				target="#{owner.columnsCount}" />			
+		</h:commandButton>
+		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf" styleClass=" gwt-Button"
+			image="/images/buttons/btn_two_column.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_print']}">
+		</h:commandButton>		
+		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_four.jsf" styleClass=" gwt-Button"
+			image="/images/buttons/btn_four_column.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_print']}">
+		</h:commandButton>		
+		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_six.jsf" styleClass=" gwt-Button"
+			image="/images/buttons/btn_six_column.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_print']}">
+		</h:commandButton>		
+		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_eight.jsf" styleClass=" gwt-Button"
+			image="/images/buttons/btn_eight_column.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_print']}">
+		</h:commandButton>		
+	</ui:define>
+</ui:composition>
+</html>

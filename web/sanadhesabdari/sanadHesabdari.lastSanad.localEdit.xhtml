@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="SanadHesabdari_edit_create" />
+	<ui:param name="owner" value="#{sanadHesabdari}" />
+	<ui:param name="dwrFormName" value="sanadHesabdari" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="scriptAndStyleSection">
+	</ui:define>
+
+	<ui:define name="editsection">
+<t:saveState value="#{owner.sanadTypeIds}" />
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+				styleClass="inputForm">
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="  " />
+					<h:outputLabel for="tempSerial"
+						value="#{messages['SanadHesabdari_tempSerial']}" /> : 
+				</h:panelGroup>
+				<t:outputText id="tempSerial" label="tempSerial"
+					style="width:250px" value="#{sanadHesabdari.lastSanadEntity.tempSerial}"
+					size="50" />
+                
+                 <h:panelGroup>
+					<h:outputText styleClass="required" value="  " />
+					<h:outputLabel for="primaryNumber" value="#{messages['Sanad_atfNumber']}" /> : 
+				</h:panelGroup>
+				<p:inputText  id="atfNumber" label="#{messages['Sanad_atfNumber']}"
+					value="#{sanadHesabdari.lastSanadEntity.atfNumber}" style="width:200px"/>
+					
+					<h:panelGroup>
+					
+					<h:outputLabel for="farieNumber" value="#{messages['Sanad_farieNumber']}" /> : 
+				</h:panelGroup>
+				<p:inputText  id="farieNumber" label="#{messages['Sanad_farieNumber']}"
+					value="#{sanadHesabdari.lastSanadEntity.farieNumber}" style="width:200px"/>
+					
+					
+					
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="  " />
+					<h:outputLabel for="description"
+						value="#{messages['SanadHesabdari_description']}" /> : 
+				</h:panelGroup>
+				<t:inputTextarea id="description" label="description"
+					style="width:200px;Height:70px"  value="#{sanadHesabdari.lastSanadEntity.description}"
+					size="70" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="tarikhSanad"
+						value="#{messages['SanadHesabdari_tarikhSanad']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker required="true" id="tarikhSanad" type="Date"
+					value="#{sanadHesabdari.lastSanadEntity.tarikhSanad}" lang="Shamsi"></custom:DateTimePicker>
+
+
+			</t:panelGrid>
+		</rich:panel>
+		<ui:include src="../common/sanadHesabdari.gridNew.advanced.xhtml" />
+		<ui:include src="/dlg/attachFileDLG.xhtml" />		
+		<h:inputHidden required="true" id="sanadItems" 
+					label="#{messages['SanadHesabdariItem_list']}" value="#{owner.sanadItemsXML}" />
+
+		<script>
+			createSanadHesabdariTable(""+document.getElementById('serajForm:sanadItems').value+"");
+			$$(document).keydown(function(event) {
+				//alert(event.which);
+				//alert(event.ctrlKey);
+			    if(event.which == 114) { //F3 open create article dialog
+					clearSanadHesabdariDialog('#sanadHesabdariGrid');
+					var dlg = $$('#sanadHesabdariDialog');
+					dlg.dialog({title:'#{messages['SanadHesabdariItem_title']}', width: '60%', autoOpen: true,close: function() {$$(this).off('keydown');} ,buttons: { '#{messages['common_close']}': function() { dlg.dialog('close'); },'#{messages['common_add']}': function() { addSanadHesabdariRowData('#sanadHesabdariGrid');dlg.dialog('close'); }}});
+					$$('#sanadHesabdariDialog').on('keydown', function(e) {
+						
+						 var code = (e.keyCode ? e.keyCode : e.which);
+						 //alert(code);
+						 if(code == 45) { //INS key adds article to sanadGrid
+							//alert('new : 45');
+								var result = addSanadHesabdariRowData('#sanadHesabdariGrid');
+								if(result){
+									clearSanadHesabdariDialog('#sanadHesabdariGrid');
+									$$('#hesabMoeen_desc').focus();
+								}
+							return false;
+						 }
+					});						
+					return false;
+				}
+			});			
+		$$(window).keypress(function(event) {
+			if (!(event.which == 115 &amp;&amp; event.ctrlKey) &amp;&amp; !(event.which == 19)) return true;
+			//alert("Ctrl-S pressed");
+			event.preventDefault();
+			clickLink('serajForm:saveMovaghat');
+			return false;
+		});			
+		</script>							
+	</ui:define>
+	<ui:define name="shortKeySection">
+		<div id="shortKeyDialog"  style="display:none">
+			<table>
+				<tr>
+					<td>F3</td>
+					<td>:</td>
+					<td>#{messages['SanadHesabdari_newArticle']}</td>
+				</tr>
+					<td>CTRL+S</td>
+					<td>:</td>
+					<td>#{messages['SanadHesabdari_saveSanad']}</td>
+				<tr>
+					<td>INS</td>
+					<td>:</td>
+					<td>#{messages['SanadHesabdari_insertNewArticle']}</td>
+				</tr>
+					<td>F2</td>
+					<td>:</td>
+					<td>#{messages['SanadHesabdari_updateArticle']}</td>				
+				<tr>
+				</tr>
+				
+			</table>
+		</div>
+	</ui:define>	
+	<ui:define name="buttonsection">
+		<h:commandButton id="saveMovaghat" styleClass=" gwt-Button" rendered="#{owner.editable}" onclick=" populateRecordsXML('serajForm:sanadItems','#sanadHesabdariGrid');" 
+			action="#{owner.saveMovaghat}" value="#{messages['common_save']}"
+			image="/images/buttons/btn_save_temp.png" />
+
+		<h:commandButton styleClass=" gwt-Button"
+			rendered="#{owner.editable}" action="#{sanadHesabdari.saveBarresiShode}"
+			value="#{messages['sanad_save_daem']}"  onclick=" populateRecordsXML('serajForm:sanadItems','#sanadHesabdariGrid');"
+			image="/images/buttons/btn_confirm.png"/>
+
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
+			action="#{owner.back}" value="#{messages['common_back']}"
+			immediate="true" image="/images/listbtn.png" />
+	</ui:define>
+</ui:composition>
+
+</html>

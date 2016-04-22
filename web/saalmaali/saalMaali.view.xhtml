@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="SaalMaali_view" />
+	<ui:param name="owner" value="#{saalMaali}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
+				styleClass="inputForm">
+
+
+				<h:outputLabel for="isActive"
+					value="#{messages['SaalMaali_state']} : " />
+				<h:panelGroup rendered="#{!saalMaali.entity.isActive}">
+				<h:graphicImage value="/images/disabled.png" style="border:0"  
+							  ></h:graphicImage>
+				<h:outputText id="notActive" value="  #{messages['SaalMaali_notActive']}" />
+				</h:panelGroup>
+							 
+				<h:panelGroup rendered="#{saalMaali.entity.isActive}">
+					<h:graphicImage value="/images/enabled.png" style="border:0"  
+							   ></h:graphicImage>	
+					<h:outputText id="isActive" value="  #{messages['SaalMaali_isActive']}" />
+				</h:panelGroup>
+				
+				
+				<h:outputLabel for="saal" value="#{messages['SaalMaali_saal']} : " />
+				<h:outputText id="saal" value="#{saalMaali.entity.saal}" />
+
+				<h:outputLabel for="start" value="#{messages['SaalMaali_start']} : " />
+				<h:outputText id="startLable" value="#{saalMaali.entity.startDateFA}" />
+
+
+				<h:outputLabel for="end" value="#{messages['SaalMaali_end']} : " />
+				<h:outputText id="endLable" value="#{saalMaali.entity.endDateFA}" />
+
+
+			</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+</ui:composition>
+
+</html>

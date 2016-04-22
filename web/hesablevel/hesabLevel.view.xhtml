@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="#{messages['HesabLevel_title']}" />
+	<ui:param name="owner" value="#{hesabLevel}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<rich:panel
+			style="width: 99%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
+			<t:panelGrid columns="4" width="90%"
+				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
+				styleClass="inputForm">
+
+
+
+				<h:outputLabel for="parent" value="#{messages['HesabLevel_parent']} : " />
+				<h:outputText id="parent" 
+					value="#{hesabLevel.entity.parent.desc}" />
+				  		
+				
+					
+
+					<h:outputLabel for="length" value="#{messages['HesabLevel_length']} : " />
+				<h:outputText id="length" value="#{hesabLevel.entity.length}" />
+	
+						<h:outputLabel for="level" value="#{messages['HesabLevel_level']} : " />
+				<h:outputText id="level" value="#{hesabLevel.entity.level}" />
+	
+						<h:outputLabel for="name" value="#{messages['HesabLevel_name']} : " />
+				<h:outputText id="name" value="#{hesabLevel.entity.name}" />
+	
+				</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+			<h:commandButton  action="#{hesabLevel.back}" value="#{messages['common_back']}" immediate="true"/>
+	</ui:define>	
+</ui:composition>
+
+</html>	

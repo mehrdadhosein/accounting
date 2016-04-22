@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="HesabKol_view" />
+	<ui:param name="owner" value="#{hesabKol}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
+				styleClass="inputForm">
+
+				<h:outputLabel for="hesabGroup"
+					value="#{messages['HesabKol_hesabGroup']} : " />
+				<h:outputText id="hesabGroup"
+					value="#{hesabKol.entity.hesabGroup.desc}" />
+
+				<h:outputLabel for="code" value="#{messages['HesabKol_code']} : " />
+				<h:outputText id="code" value="#{hesabKol.entity.code}" />
+
+				<h:outputLabel for="name" value="#{messages['HesabKol_name']} : " />
+				<h:outputText id="name" value="#{hesabKol.entity.name}" />
+
+
+				<h:outputLabel for="description"
+					value="#{messages['HesabKol_description']} : " />
+				<h:outputText id="description"
+					value="#{hesabKol.entity.description}" />
+
+
+			</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+</ui:composition>
+
+</html>

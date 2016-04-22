@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:rich="http://richfaces.org/rich">
+<style>
+.viewLableCol {
+	width: 12%;
+}
+</style>
+<t:saveState value="#{owner.ID}" />
+<t:saveState value="#{owner.quickLoaded}" />
+
+<rich:panel id="saalMaaliInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
+		<t:panelGrid columns="2" width="90%"
+					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+					styleClass="inputForm">
+
+					<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="current" value="#{messages['SaalMaali_current']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="current" label="current" value="#{saalMaali.entity.current}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="isActive" value="#{messages['SaalMaali_isActive']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="isActive" label="isActive" value="#{saalMaali.entity.isActive}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="saal" value="#{messages['SaalMaali_saal']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="saal" label="saal" value="#{saalMaali.entity.saal}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="start" value="#{messages['SaalMaali_start']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker type="Date" required="true" id="start" value="#{saalMaali.entity.startDate}" lang="Shamsi"></custom:DateTimePicker>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="end" value="#{messages['SaalMaali_end']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker type="Date" required="true" id="end" value="#{saalMaali.entity.endDate}" lang="Shamsi"></custom:DateTimePicker>
+	
+		</t:panelGrid>
+	<h:commandButton action="#{saalMaali.qSave}"
+		value="#{messages['common_save']}" />
+
+	<h:commandButton value="#{messages['back_to_search']}" id="searchLink"
+		onclick="javascript:copyCreateToSearch();toggleToSearch();return false" />
+
+	<a4j:region rendered="#{!saalMaali.quickLoaded}">
+		<t:inputHidden id="objectId" value="#{owner.quickLoadID}"
+			converter="javax.faces.Long" />
+		<a4j:commandLink id="loadCommand" action="#{saalMaali.load}"
+			style="display:none; visibility: hidden;"
+			value="#{messages['common_load']}" render="saalMaaliInput" />
+	</a4j:region>
+
+</rich:panel>
+</html>

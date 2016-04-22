@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-createLov.xhtml">
+	<ui:param name="title" value="SanadHesabdariItem_list" />
+	<ui:param name="owner" value="#{sanadHesabdariItem}" />
+	<ui:param name="lovSearchpage" value="/sanadhesabdariitem/sanadHesabdariItem.lovExampleForm.xhtml" />
+	
+	<ui:define name="listsection">
+		<rich:dataTable id="sanadHesabdariItems" value="#{sanadHesabdariItem.dataModel}"  headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" rows="#{sanadHesabdariItem.rowsPerPage}" style="width:97%" align="center">
+	
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_hesabKol']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabKol}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_tarikhArticle']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.tarikhArticle}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_sanadHesabdari']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.sanadHesabdari}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_description']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.description}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_hesabMoeen']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeen}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_hesabTafsili']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsili}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_type']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.type}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_row']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.row}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_bedehkar']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.bedehkar}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdariItem_bestankar']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.bestankar}" />
+			</rich:column>
+						
+			
+			<rich:column>
+				<h:commandButton value="#{messages['lov_select']}"
+					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
+			</rich:column>	
+		</rich:dataTable>
+		<rich:datascroller for="sanadHesabdariItems" binding="#{sanadHesabdariItem.datascroller}"></rich:datascroller>
+
+	</ui:define>
+	<ui:define name="quickCreateSection">
+		<ui:include src="/sanadhesabdariitem/sanadHesabdariItem.quickCreate.xhtml" />
+		<script>
+			function copyInputs(){
+			
+													document.getElementById('serajForm:hesabKolhidden').value=document.getElementById('serajForm:hesabKolSearchhidden').value;
+					document.getElementById('serajForm:hesabKoltext').value=document.getElementById('serajForm:hesabKolSearchtext').value;
+									document.getElementById('serajForm:hesabMoeenhidden').value=document.getElementById('serajForm:hesabMoeenSearchhidden').value;
+					document.getElementById('serajForm:hesabMoeentext').value=document.getElementById('serajForm:hesabMoeenSearchtext').value;
+									document.getElementById('serajForm:hesabTafsilihidden').value=document.getElementById('serajForm:hesabTafsiliSearchhidden').value;
+					document.getElementById('serajForm:hesabTafsilitext').value=document.getElementById('serajForm:hesabTafsiliSearchtext').value;
+								
+																			document.getElementById('serajForm:row').value=document.getElementById('serajForm:rowSearch').value;
+																				document.getElementById('serajForm:description').value=document.getElementById('serajForm:descriptionSearch').value;
+																				document.getElementById('serajForm:type').value=document.getElementById('serajForm:typeSearch').value;
+																				document.getElementById('serajForm:bestankar').value=document.getElementById('serajForm:bestankarSearch').value;
+																				document.getElementById('serajForm:bedehkar').value=document.getElementById('serajForm:bedehkarSearch').value;
+																				document.getElementById('serajForm:tarikhArticle').value=document.getElementById('serajForm:tarikhArticleSearch').value;
+												
+			}
+			function copyCreateToSearch(){
+													document.getElementById('serajForm:hesabKolSearchhidden').value=document.getElementById('serajForm:hesabKolhidden').value;
+					document.getElementById('serajForm:hesabKolSearchtext').value=document.getElementById('serajForm:hesabKoltext').value;
+									document.getElementById('serajForm:hesabMoeenSearchhidden').value=document.getElementById('serajForm:hesabMoeenhidden').value;
+					document.getElementById('serajForm:hesabMoeenSearchtext').value=document.getElementById('serajForm:hesabMoeentext').value;
+									document.getElementById('serajForm:hesabTafsiliSearchhidden').value=document.getElementById('serajForm:hesabTafsilihidden').value;
+					document.getElementById('serajForm:hesabTafsiliSearchtext').value=document.getElementById('serajForm:hesabTafsilitext').value;
+								
+																			document.getElementById('serajForm:rowSearch').value=document.getElementById('serajForm:row').value;
+																				document.getElementById('serajForm:descriptionSearch').value=document.getElementById('serajForm:description').value;
+																				document.getElementById('serajForm:typeSearch').value=document.getElementById('serajForm:type').value;
+																				document.getElementById('serajForm:bestankarSearch').value=document.getElementById('serajForm:bestankar').value;
+																				document.getElementById('serajForm:bedehkarSearch').value=document.getElementById('serajForm:bedehkar').value;
+																				document.getElementById('serajForm:tarikhArticleSearch').value=document.getElementById('serajForm:tarikhArticle').value;
+												}
+		</script>
+		
+	</ui:define>
+</ui:composition>
+</html>

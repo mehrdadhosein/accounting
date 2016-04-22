@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+              http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+              http://www.springframework.org/schema/aop
+              http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+              http://www.springframework.org/schema/tx
+              http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+              http://www.directwebremoting.org/schema/spring-dwr
+    		  http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+	
+	<bean id="sanadHesabdariDAO" class="ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="sanadHesabdariService" class="ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariService"
+		autowire="byName" >
+		<property name="sanadHesabdariDAO" ref="sanadHesabdariDAO" />
+	</bean>
+		
+	<bean id="sanadHesabdari" class="ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariForm" autowire="byName"
+		scope="request" >
+		<property name="sanadHesabdariService" ref="sanadHesabdariService" />
+
+		<dwr:remote javascript="sanadHesabdari">
+			<dwr:include method="getSanadHesabdariItemList"/>		
+			
+			<dwr:convert type="bean" class="ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemVO">
+				<dwr:include method="id"/>
+				<dwr:include method="row"/>
+				<dwr:include method="description"/>
+				<dwr:include method="type"/>
+				<dwr:include method="bestankar"/>
+				<dwr:include method="bedehkar"/>
+				<dwr:include method="tarikhArticle"/>
+				<dwr:include method="hesabTafsiliName"/>
+				<dwr:include method="hesabTafsiliID"/>
+				<dwr:include method="hesabTafsiliLevelNames"/>
+				<dwr:include method="hesabTafsiliLevels"/>
+				<dwr:include method="hesabTafsiliDescs"/>
+
+				<dwr:include method="accountingMarkazName"/>
+				<dwr:include method="accountingMarkazID"/>
+				<dwr:include method="accountingMarkazLevelNames"/>
+				<dwr:include method="accountingMarkazLevels"/>
+				<dwr:include method="accountingMarkazDescs"/>
+
+				<dwr:include method="hesabKolName"/>
+				<dwr:include method="hesabKolID"/>
+				<dwr:include method="hesabMoeenName"/>
+				<dwr:include method="hesabMoeenID"/>
+				<dwr:include method="markazHazineName"/>
+				<dwr:include method="markazHazineID"/>
+				<dwr:include method="projectName"/>
+				<dwr:include method="projectID"/>
+			</dwr:convert>	
+
+		</dwr:remote>
+		<aop:scoped-proxy/>		
+	</bean>
+</beans>

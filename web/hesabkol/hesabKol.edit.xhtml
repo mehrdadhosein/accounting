@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="HesabKol_title" />
+	<ui:param name="owner" value="#{hesabKol}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+
+		<rich:panel  styleClass="emptyDiv" bodyClass="emptyDiv" >
+				<t:panelGrid columns="2" width="90%"
+					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+					styleClass="inputForm">
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="group" value="#{messages['HesabKol_group']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<h:selectOneMenu value="#{hesabKol.entity.hesabGroup.ID}" id="group" required="true"  style="width:200px"
+						label="#{messages['HesabKol_type']}" converter="javax.faces.Long">
+						<f:selectItems value="#{hesabKol.hesabGroup}"/>
+					</h:selectOneMenu>
+				</h:panelGroup>
+
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="name" value="#{messages['HesabKol_name']}" /> : 
+				</h:panelGroup>
+				<h:inputText required="true" id="name" label="name"
+					value="#{hesabKol.entity.name}" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="code" value="#{messages['HesabKol_code']}" /> : 
+				</h:panelGroup>
+				<h:inputText required="true" id="code" label="code"
+					value="#{hesabKol.entity.code}" />
+
+
+				<h:panelGroup>
+					<h:outputLabel for="description"
+						value="#{messages['HesabKol_description']}" /> : 
+				</h:panelGroup>
+				<h:inputTextarea id="description" label="description"
+					value="#{hesabKol.entity.description}" />
+
+				<h:panelGroup>
+					<h:outputLabel for="hidden" value="#{messages['HesabKol_hidden']}" /> : 
+				</h:panelGroup>
+				<h:selectBooleanCheckbox id="hidden" label="hidden"
+					value="#{hesabKol.entity.hidden}" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="mahyatKol"
+						value="#{messages['HesabKol_mahyatKol']}" /> : 
+				</h:panelGroup>
+				<h:selectOneMenu  required="true" value="#{hesabKol.entity.mahyatKol}" converter="seraj.converter.Enum"
+					label="mahyatKol" id="mahyatKol" style="width:200px">
+					<f:selectItems value="#{enums.MahyatKolEnum}" />
+				</h:selectOneMenu>					
+					
+			</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.editable  and owner.isForMyOrgan}"
+			action="#{owner.save}" value="#{messages['common_save']}"
+			image="/images/savebtn.png" />
+
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
+			action="#{owner.back}" value="#{messages['common_back']}"
+			immediate="true" image="/images/listbtn.png" />
+	</ui:define>	
+</ui:composition>
+
+</html>

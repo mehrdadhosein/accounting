@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="AccountsTemplate_edit_create" />
+	<ui:param name="owner" value="#{accountsTemplate}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+<style>
+.dialogViewLableCol {
+	text-align: left;
+	width: 33%;
+	vertical-align: middle;
+	font-family: tahoma;
+	color: gray;
+	font-size: 12px;
+	padding-left: 10px;
+}
+
+</style>	
+		<script type="text/javascript">
+
+/* <![CDATA[ */
+       	$$(function() {
+			$$.ajax({
+				  url: '${request.contextPath}/entities?entity=HesabTafsiliTemplate&property=name&all=true&autocomplete=true&isHierarchical=true&level=1',
+				  cache: false,
+				  success: function(result){
+					$$('input.tafsiliInputBedehkar').each(function( i ) {
+						var id_desc = $( this ).prop('id');
+						var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
+						renderOne(id,result,'0');	
+					});					    
+				  },
+				  error: function(jqXHR, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+			});
+			$$.ajax({
+				  url: '${request.contextPath}/entities?entity=HesabTafsiliTemplate&property=name&all=true&autocomplete=true&isHierarchical=true&level=1',
+				  cache: false,
+				  success: function(result){
+					$$('input.tafsiliInputBestankar').each(function( i ) {
+						var id_desc = $( this ).prop('id');
+						var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
+						renderOne(id,result,'0');	
+					});					    
+				  },
+				  error: function(jqXHR, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+			});
+	       	$$(function() {
+				$$.ajax({
+					  url: '${request.contextPath}/entities?entity=AccountingMarkazTemplate&property=name&all=true&autocomplete=true&isHierarchical=true&level=1',
+					  cache: false,
+					  success: function(result){
+						$$('input.accountingMarkazInputBedehkar').each(function( i ) {
+							var id_desc = $( this ).prop('id');
+							var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
+							renderOne(id,result,'0');	
+						});					    
+					  },
+					  error: function(jqXHR, textStatus, errorThrown){
+							alert(errorThrown);
+						}
+				});
+       		});
+	       	$$(function() {
+				$$.ajax({
+					  url: '${request.contextPath}/entities?entity=AccountingMarkazTemplate&property=name&all=true&autocomplete=true&isHierarchical=true&level=1',
+					  cache: false,
+					  success: function(result){
+						$$('input.accountingMarkazInputBestankar').each(function( i ) {
+							var id_desc = $( this ).prop('id');
+							var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
+							renderOne(id,result,'0');	
+						});					    
+					  },
+					  error: function(jqXHR, textStatus, errorThrown){
+							alert(errorThrown);
+						}
+				});
+       		});
+			
+       	});
+
+/* ]]> */
+</script>
+
+		<t:panelGrid columns="1" width="90%" styleClass="inputForm">
+
+			<p:panel id="mainInfo" header="Basic">
+				<f:facet name="header">
+					<h:outputText value="#{messages['AccountsTemplate_mainInfo']}" />
+				</f:facet>
+				<t:panelGrid columns="2" width="90%"
+					columnClasses="dialogViewLableCol,inputCol" styleClass="inputForm">
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="* " />
+						<h:outputLabel for="actionName"
+							value="#{messages['AccountsTemplate_actionName']}" /> : 
+					</h:panelGroup>
+					<h:inputText required="true" id="actionName" label="actionName"
+						value="#{accountsTemplate.entity.actionName}" size="50" />
+
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="* " />
+						<h:outputLabel for="actionId"
+							value="#{messages['AccountsTemplate_actionId']}" /> : 
+					</h:panelGroup>
+					<h:inputText required="true" id="actionId" label="actionId"
+						value="#{accountsTemplate.entity.actionId}" size="50" />
+						
+					<h:panelGroup> 
+						<h:outputText styleClass="required" value="  " />
+						<h:outputLabel for="templateAccountingMarkaz" value="#{messages['AccountingMarkaz_title']}" /> : 
+					</h:panelGroup>
+					<h:panelGroup>
+						<custom:autocomplete-one id="templateAccountingMarkaz" entity="AccountingMarkazTemplate" property="name" identity="#{accountsTemplate.entity.accountingMarkazTemplate.id}"
+							width="220px" client="true" extraParams="isCurrentOrgan=true" desc="#{accountsTemplate.entity.accountingMarkazTemplate.desc}"/>
+					</h:panelGroup>
+										
+				</t:panelGrid>
+			</p:panel>
+		<h:inputHidden required="true" id="sanadItems" 
+					label="#{messages['SanadHesabdariItem_list']}" value="#{owner.sanadItemsXML}" />			
+		<ui:include src="accountsTemplate.gridNew.advanced.xhtml" />			
+	</t:panelGrid>
+
+
+		<script type="text/javascript">
+		/* <![CDATA[ */
+			createSanadHesabdariTable(""+document.getElementById('serajForm:sanadItems').value+"");
+		/* ]]> */
+		
+	</script>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton styleClass=" gwt-Button" rendered="#{accountsTemplate.editable or true}" onclick="populateRecordsXML('serajForm:sanadItems','#sanadHesabdariGrid');"
+			action="#{owner.localSave}" value="#{messages['common_save']}"
+			image="/images/savebtn.png" />
+
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
+			action="#{owner.back}" value="#{messages['common_back']}"
+			immediate="true" image="/images/listbtn.png" />
+	</ui:define>
+</ui:composition>
+
+</html>

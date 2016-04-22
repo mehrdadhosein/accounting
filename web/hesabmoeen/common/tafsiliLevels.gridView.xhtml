@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+ <t:div>
+ 				<style type="text/css" media="screen">
+    				th.ui-th-column div{
+				        white-space:normal !important;
+				        height:auto !important;
+				        padding:2px;
+				    }
+				    .dialogViewLableCol {
+						text-align: left;
+						width: 33%;
+						vertical-align: middle;
+						font-family: tahoma;
+						color: gray;
+						font-size: 12px;
+						padding-left: 10px;
+					}
+				</style>
+				     
+						<h:inputHidden   id="contractRoomTypeItem" value="#{reservationContract.contractRoomTypeXML}" />
+												
+						 
+					
+						<table id="contractRoomTypeGrid">
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+						</table>
+						<div id="contractRoomTypePcustbut"> </div>
+							 
+						
+			 
+						<script type="text/javascript" language="javascript">
+							/* <![CDATA[ */
+						    	  
+						   		
+							setGridGlobalRowId("#contractRoomTypeGrid",0);
+							var lastRow = 0; 
+							function createContractRoomTypeGrid(xmlData) { 
+								 
+								$$("#contractRoomTypeGrid")
+								.jqGrid(
+										{
+											direction :"rtl",
+								            datatype: "xmlstring",
+								            datastr: xmlData,
+											height: "80%",
+								            shrinkToFit: true,
+											width: "100%",
+											colNames : [
+														'#{messages['common_id']}', 
+														'#{messages['ContractRoomType_roomType']}', 
+														'#{messages['ContractRoomType_roomType']}', 
+														'#{messages['ContractRoomType_count']}',
+														'#{messages['ContractRoomType_pricePerRoom']}',
+														'#{messages['ContractRoomType_extraAdultRate']}', 
+														'#{messages['ContractRoomType_extraChildRate']}', 
+														'#{messages['ContractRoomType_containsBreakFast']}', 
+														'#{messages['ContractRoomType_containsLaunch']}', 
+														'#{messages['ContractRoomType_containsDinner']}', 
+														'#{messages['ContractRoomType_containsLaundry']}', 
+														'#{messages['ContractRoomType_containsAirportTransfer']}', 
+														'#{messages['ContractRoomType_containsCofeeShop']}', 
+														'#{messages['ContractRoomType_containsCityTour']}', 
+														'#{messages['common_delete']}', 
+														'#{messages['common_edit']}' 
+														],
+											colModel : [ 
+												{name :'id', index :'id', width :2, sorttype :"int"}, 
+												{name :'roomTypeId', index :'roomTypeId', width :2, sorttype :"int"}, 
+												{name :'roomTypeName', index :'roomTypeName', width :200, sorttype :"string"}, 
+												{name :'count', index :'count', width :40, sorttype :"int",align:'center'}, 
+												{name :'pricePerRoom', index :'pricePerRoom', width :150, sorttype :"string"}, 
+												{name :'extraAdultRate', index :'extraAdultRate', width :150  }, 
+												{name :'extraChildRate', index :'extraChildRate', width :150  }, 
+												{name :'containsBreakFast', index :'containsBreakFast', width :40 ,editable:false, formatoptions: {disabled : true},
+													 edittype:"checkbox", formatter:'checkbox',align:'center'}, 
+												{name :'containsLaunch', index :'containsLaunch', width :40 ,editable:false, formatoptions: {disabled : true},
+														 edittype:"checkbox", formatter:'checkbox',align:'center'}, 
+												{name :'containsDinner', index :'containsDinner', width :40 ,editable:false, formatoptions: {disabled : true},
+															 edittype:"checkbox", formatter:'checkbox',align:'center'}, 
+												{name :'containsLaundry', index :'containsLaundry', width :40 ,editable:false, formatoptions: {disabled : true},
+																 edittype:"checkbox", formatter:'checkbox',align:'center'},  
+												{name :'containsAirportTransfer', index :'containsAirportTransfer', width :40 ,editable:false, formatoptions: {disabled : true},
+																	 edittype:"checkbox", formatter:'checkbox',align:'center'}, 
+												{name :'containsCofeeShop', index :'containsCofeeShop', width :40 ,editable:false, formatoptions: {disabled : true},
+																		 edittype:"checkbox", formatter:'checkbox',align:'center'}, 
+												{name :'containsCityTour', index :'containsCityTour', width :40 ,editable:false, formatoptions: {disabled : true},
+																			 edittype:"checkbox", formatter:'checkbox',align:'center'},  
+												{name :'act', index :'act', width :30, sortable :false  ,align:'center'}, 
+												{name :'editAct', index :'editAct', width :45, sortable :false,align:'center'}
+											],
+											multiselect :false,
+											viewrecords: true, 
+											autowidth: false, 
+											pager: '#contractRoomTypePcustbut',
+											rowNum:15, 
+											rownumbers: true,
+											sortname: 'roomTypeId', 
+											onSelectRow: function(id){ 
+												$$('#contractRoomTypeGrid').jqGrid('editRow',id,true);
+												if(lastRow != -1)if(id!=lastRow)
+													$$("#contractRoomTypeGrid").jqGrid('saveRow',lastRow, false, 'clientArray');
+												lastRow=id;   
+											},
+											  
+											 caption :'#{messages['common_items']}'
+										});
+								$$("#contractRoomTypeGrid").jqGrid('navGrid','#contractRoomTypePcustbut',{edit:true,add:false,del:false,search:true,page:false, searchtext:"#{messages['common_search']} "}); 
+								 
+					
+								$$("#contractRoomTypeGrid").jqGrid('hideCol',"id"); 
+								$$("#contractRoomTypeGrid").jqGrid('hideCol',"roomTypeId"); 
+								$$("#contractRoomTypeGrid").jqGrid('hideCol',"act"); 
+								$$("#contractRoomTypeGrid").jqGrid('hideCol',"editAct"); 
+								 
+					
+						}
+							
+							
+					
+						function createContractRoomTypeItemsTable(marketableItemList){
+								var gridItems=new Array("id","roomTypeId","roomTypeName","count", "pricePerRoom","extraAdultRate","extraChildRate", 
+										"containsBreakFast", "containsLaunch", 	"containsDinner", "containsLaundry", "containsAirportTransfer", 
+										"containsCofeeShop", "containsCityTour");
+								setItems("#contractRoomTypeGrid",gridItems);
+								createContractRoomTypeGrid(marketableItemList);
+								var cnt = $$('#contractRoomTypeGrid').jqGrid('getGridParam', 'records');
+								setGridGlobalRowId('#contractRoomTypeGrid',cnt);
+						}
+					 
+						createContractRoomTypeItemsTable(""+document.getElementById('serajForm:contractRoomTypeItem').value+"");
+						/* ]]> */  
+					</script>	
+				   
+</t:div>
+
+
+</html>

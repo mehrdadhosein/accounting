@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="HesabGroupTemplate_select" />
+	<ui:param name="owner" value="#{hesabGroupTemplate}" />
+	<ui:define name="searchsection">
+
+			<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+				columnClasses="SearchitemStyle1,SearchitemStyle2">
+
+																<h:outputLabel for="organ" value="#{messages['HesabGroupTemplate_organ']} : " /> 
+								<h:panelGroup>
+								<custom:lov id="organ" 
+										identity="#{hesabGroupTemplate.filter['organ.id@eq']}"
+										desc="#{hesabGroupTemplate.example.organ.desc}"
+								  		url="${request.contextPath}/organ/organ.lov.jsf?pId=organ" />
+									
+								</h:panelGroup>
+									
+								
+																									<h:outputLabel for="name" value="#{messages['HesabGroupTemplate_name']} : " />
+								<h:inputText id="name" value="#{hesabGroupTemplate.filter['name@lk']}" />
+																														<h:outputLabel for="mahyatGroup" value="#{messages['HesabGroupTemplate_mahyatGroup']} : " />
+								<h:inputText id="mahyatGroup" value="#{hesabGroupTemplate.filter['mahyatGroup@eq']}" converter="javax.faces.Integer"/>
+																														<h:outputLabel for="code" value="#{messages['HesabGroupTemplate_code']} : " />
+								<h:inputText id="code" value="#{hesabGroupTemplate.filter['code@lk']}" />
+													
+
+			</h:panelGrid>
+
+	</ui:define>	
+	<ui:define name="listsection">
+	<t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
+		<rich:dataTable id="hesabGroupTemplates" value="#{hesabGroupTemplate.dataModel}" var="item"
+			rowClasses="RowOdd,RowEven" rows="10" style="width:100%" headerClass="header">
+
+			
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_name']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.name}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_organ']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.organ}" />
+							</rich:column>
+																			<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_mahyatGroup']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.mahyatGroup}" />
+							</rich:column>
+																											<rich:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_code']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.code}" />
+							</rich:column>
+											<rich:column>
+				<h:commandButton  value="#{messages['lov_select']}"  
+					 onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false"/>
+			</rich:column>
+		</rich:dataTable>
+		</t:div>
+		<custom:scroller onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="hesabGroupTemplates"></custom:scroller>
+	</ui:define>
+</ui:composition>
+</html>
