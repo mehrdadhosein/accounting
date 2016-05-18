@@ -8,9 +8,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:rich="http://richfaces.org/rich"
 	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/template-list.xhtml">
@@ -20,12 +21,16 @@
 		value="/hesabclassification/hesabClassification.exampleForm.xhtml" />
 	<ui:define name="listsection">
 <t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
-		<rich:dataTable id="hesabClassifications" value="#{hesabClassification.localArchiveDataModel}"   headerClass="header"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="hesabClassifications" value="#{hesabClassification.localArchiveDataModel}"   headerClass="header"
 			var="item" rowClasses="RowOdd,RowEven" style="width: 97%" align="center" rows="#{hesabClassification.rowsPerPage}">
 
 			
 	
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabClassifications" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -41,9 +46,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabKol}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabClassifications" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -59,9 +64,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.name}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabClassifications" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -77,9 +82,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.description}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabClassifications" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -95,9 +100,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeen}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabClassifications" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -113,11 +118,11 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsili}" />
-			</rich:column>
+			</p:column>
 						
 			
 			
-			<rich:column rendered="#{hesabClassification.deletable and false}" styleClass="action">
+			<p:column rendered="#{hesabClassification.deletable and false}" styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_delete']}" />
 				</f:facet>
@@ -126,9 +131,9 @@
 					<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
 					<f:setPropertyActionListener value="#{item.id}"  target="#{hesabClassification.ID}"  converter="javax.faces.Long" />
 				</h:commandLink>
-			</rich:column>
+			</p:column>
 
-			<rich:column rendered="#{hesabClassification.editable and false}" styleClass="action">
+			<p:column rendered="#{hesabClassification.editable and false}" styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_edit']}" />
 				</f:facet>
@@ -139,8 +144,8 @@
 					<f:setPropertyActionListener value="/hesabclassification/hesabClassification.localArchiveList.jsf"
 						target="#{owner.returnUrl}" />					
 				</h:commandLink>
-			</rich:column>
-			<rich:column styleClass="action">
+			</p:column>
+			<p:column styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_view']}" />
 				</f:facet>
@@ -151,10 +156,10 @@
 					<f:setPropertyActionListener value="/hesabclassification/hesabClassification.localArchiveList.jsf"
 						target="#{owner.returnUrl}" />					
 				</h:commandLink>
-			</rich:column >
-		</rich:dataTable>
+			</p:column >
+		</p:dataTable>
 </t:div>		
-		<custom:scroller for="hesabClassifications" ></custom:scroller>
+		<custom:dataTableRowCount for="hesabClassifications" ></custom:dataTableRowCount>
 			
 	</ui:define>
 	<ui:define name="buttonsection">

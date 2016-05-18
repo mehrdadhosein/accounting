@@ -8,7 +8,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 	
 <ui:composition template="/template/template-edit.xhtml">
 	<ui:param name="title" value="SanadHesabdariItem_edit_create" />
@@ -19,9 +20,9 @@
 	<ui:define name="editsection">
 
 		<rich:panel  styleClass="emptyDiv" bodyClass="emptyDiv" >
-				<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-					styleClass="inputForm">
+				<p:panelGrid layout="grid"  columns="2" width="90%"
+					columnClasses="viewLableColResponsive,inputCol"
+					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 
 				<h:panelGroup>
@@ -65,31 +66,31 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="row" value="#{messages['SanadHesabdariItem_row']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="row" label="row" value="#{sanadHesabdariItem.entity.row}"  size="50"/>
+				<p:inputText  required="true" id="row" label="row" value="#{sanadHesabdariItem.entity.row}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="description" value="#{messages['SanadHesabdariItem_description']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="description" label="description" value="#{sanadHesabdariItem.entity.description}"  size="50"/>
+				<p:inputText  required="true" id="description" label="description" value="#{sanadHesabdariItem.entity.description}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="type" value="#{messages['SanadHesabdariItem_type']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="type" label="type" value="#{sanadHesabdariItem.entity.type}"  size="50"/>
+				<p:inputText  required="true" id="type" label="type" value="#{sanadHesabdariItem.entity.type}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="bestankar" value="#{messages['SanadHesabdariItem_bestankar']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="bestankar" label="bestankar" value="#{sanadHesabdariItem.entity.bestankar}"  size="50"/>
+				<p:inputText  required="true" id="bestankar" label="bestankar" value="#{sanadHesabdariItem.entity.bestankar}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="bedehkar" value="#{messages['SanadHesabdariItem_bedehkar']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="bedehkar" label="bedehkar" value="#{sanadHesabdariItem.entity.bedehkar}"  size="50"/>
+				<p:inputText  required="true" id="bedehkar" label="bedehkar" value="#{sanadHesabdariItem.entity.bedehkar}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
@@ -97,7 +98,7 @@
 				</h:panelGroup>
 				<custom:DateTimePicker type="Date" required="true" id="tarikhArticle" value="#{sanadHesabdariItem.entity.tarikhArticle}" lang="Shamsi"></custom:DateTimePicker>
 	
-				</t:panelGrid>
+				</p:panelGrid>
 		</rich:panel>
 	</ui:define>
 </ui:composition>

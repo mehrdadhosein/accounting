@@ -7,7 +7,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-createLov.xhtml">
 	<ui:param name="title" value="HesabMoeen_list" />
@@ -82,27 +83,27 @@
 		<script>
 			function copyInputs(){
 			
-													document.getElementById('serajForm:hesabKolhidden').value=document.getElementById('serajForm:hesabKolSearchhidden').value;
-					document.getElementById('serajForm:hesabKoltext').value=document.getElementById('serajForm:hesabKolSearchtext').value;
+													document.getElementById('hesabKolhidden').value=document.getElementById('hesabKolSearchhidden').value;
+					document.getElementById('hesabKoltext').value=document.getElementById('hesabKolSearchtext').value;
 								
-																			document.getElementById('serajForm:code').value=document.getElementById('serajForm:codeSearch').value;
-																				document.getElementById('serajForm:name').value=document.getElementById('serajForm:nameSearch').value;
-																				document.getElementById('serajForm:type').value=document.getElementById('serajForm:typeSearch').value;
-																				document.getElementById('serajForm:description').value=document.getElementById('serajForm:descriptionSearch').value;
-																				document.getElementById('serajForm:hidden').value=document.getElementById('serajForm:hiddenSearch').value;
-																				document.getElementById('serajForm:path').value=document.getElementById('serajForm:pathSearch').value;
+																			document.getElementById('code').value=document.getElementById('codeSearch').value;
+																				document.getElementById('name').value=document.getElementById('nameSearch').value;
+																				document.getElementById('type').value=document.getElementById('typeSearch').value;
+																				document.getElementById('description').value=document.getElementById('descriptionSearch').value;
+																				document.getElementById('hidden').value=document.getElementById('hiddenSearch').value;
+																				document.getElementById('path').value=document.getElementById('pathSearch').value;
 												
 			}
 			function copyCreateToSearch(){
-													document.getElementById('serajForm:hesabKolSearchhidden').value=document.getElementById('serajForm:hesabKolhidden').value;
-					document.getElementById('serajForm:hesabKolSearchtext').value=document.getElementById('serajForm:hesabKoltext').value;
+													document.getElementById('hesabKolSearchhidden').value=document.getElementById('hesabKolhidden').value;
+					document.getElementById('hesabKolSearchtext').value=document.getElementById('hesabKoltext').value;
 								
-																			document.getElementById('serajForm:codeSearch').value=document.getElementById('serajForm:code').value;
-																				document.getElementById('serajForm:nameSearch').value=document.getElementById('serajForm:name').value;
-																				document.getElementById('serajForm:typeSearch').value=document.getElementById('serajForm:type').value;
-																				document.getElementById('serajForm:descriptionSearch').value=document.getElementById('serajForm:description').value;
-																				document.getElementById('serajForm:hiddenSearch').value=document.getElementById('serajForm:hidden').value;
-																				document.getElementById('serajForm:pathSearch').value=document.getElementById('serajForm:path').value;
+																			document.getElementById('codeSearch').value=document.getElementById('code').value;
+																				document.getElementById('nameSearch').value=document.getElementById('name').value;
+																				document.getElementById('typeSearch').value=document.getElementById('type').value;
+																				document.getElementById('descriptionSearch').value=document.getElementById('description').value;
+																				document.getElementById('hiddenSearch').value=document.getElementById('hidden').value;
+																				document.getElementById('pathSearch').value=document.getElementById('path').value;
 												}
 		</script>
 		

@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <style>
 .SearchitemStyle1 {
@@ -22,9 +23,9 @@
 
 
 <rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-	<t:panelGrid columns="4" width="90%"
+	<p:panelGrid layout="grid" columns="4" width="90%"
 		columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2"
-		styleClass="inputForm">
+		styleClass="inputForm ui-noborder ui-panelgrid-blank">
 		
 							<h:outputLabel for="hesabTafsiliTemplateSearch" value="#{messages['MoeenTafsiliTemplate_hesabTafsiliTemplate']}" />
 				<h:panelGroup>
@@ -46,9 +47,9 @@
 					
 
 					<h:outputLabel for="levelSearch" value="#{messages['MoeenTafsiliTemplate_level']}" />
-				<h:inputText id="levelSearch" value="#{moeenTafsiliTemplate.filter['level@eq']}" converter="javax.faces.Integer"/>
+				<p:inputText id="levelSearch" value="#{moeenTafsiliTemplate.filter['level@eq']}" converter="javax.faces.Integer"/>
 				
-		</t:panelGrid>
+		</p:panelGrid>
 </rich:panel>
 
 </html>

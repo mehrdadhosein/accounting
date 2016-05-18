@@ -7,15 +7,16 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <a4j:region>
 	<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-		<t:panelGrid columns="1" style="width:100%"
+		<p:panelGrid layout="grid" columns="1" style="width:100%"
 			columnClasses=",SearchbtnStyle">
-			<t:panelGrid columns="2" width="90%"
-				columnClasses="viewLableCol30P,inputCol" styleClass="inputForm">
+			<p:panelGrid layout="grid" columns="2" width="90%"
+				columnClasses="viewLableColResponsive,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 
 
@@ -37,15 +38,15 @@
 					<h:outputLabel for="onvan"
 						value="#{messages['MarkazHazine_onvan']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="onvan" value="#{markazHazine.filter['onvan@lk']}" />
+				<p:inputText id="onvan" value="#{markazHazine.filter['onvan@lk']}" />
 
-			</t:panelGrid>
+			</p:panelGrid>
 			<a4j:commandButton image="/images/searchbtn2.png"
 				styleClass=" gwt-Button" render="listPanel"
 				onclick="showLoading()" value="#{messages['common_search']}"
 				action="#{owner.search}" oncomplete="hideLoading();closeSearchDiv();">
 			</a4j:commandButton>
-		</t:panelGrid>
+		</p:panelGrid>
 	</rich:panel>
 </a4j:region>
 </html>

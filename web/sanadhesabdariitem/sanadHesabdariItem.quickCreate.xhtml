@@ -19,8 +19,8 @@
 
 <rich:panel id="sanadHesabdariItemInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
 		<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-					styleClass="inputForm">
+					columnClasses="viewLableColResponsive,inputCol"
+					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 				<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 					<h:outputLabel for="hesabKol" value="#{messages['SanadHesabdariItem_hesabKol']}" /> : 
@@ -62,31 +62,31 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="row" value="#{messages['SanadHesabdariItem_row']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="row" label="row" value="#{sanadHesabdariItem.entity.row}"  size="50"/>
+				<p:inputText  required="true" id="row" label="row" value="#{sanadHesabdariItem.entity.row}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="description" value="#{messages['SanadHesabdariItem_description']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="description" label="description" value="#{sanadHesabdariItem.entity.description}"  size="50"/>
+				<p:inputText  required="true" id="description" label="description" value="#{sanadHesabdariItem.entity.description}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="type" value="#{messages['SanadHesabdariItem_type']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="type" label="type" value="#{sanadHesabdariItem.entity.type}"  size="50"/>
+				<p:inputText  required="true" id="type" label="type" value="#{sanadHesabdariItem.entity.type}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="bestankar" value="#{messages['SanadHesabdariItem_bestankar']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="bestankar" label="bestankar" value="#{sanadHesabdariItem.entity.bestankar}"  size="50"/>
+				<p:inputText  required="true" id="bestankar" label="bestankar" value="#{sanadHesabdariItem.entity.bestankar}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="bedehkar" value="#{messages['SanadHesabdariItem_bedehkar']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="bedehkar" label="bedehkar" value="#{sanadHesabdariItem.entity.bedehkar}"  size="50"/>
+				<p:inputText  required="true" id="bedehkar" label="bedehkar" value="#{sanadHesabdariItem.entity.bedehkar}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />

@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/template-list.xhtml">
@@ -18,16 +19,20 @@
 	<ui:param name="searchpage"		value="/sanadhesabdari/sanadHesabdari.localActiveExampleForm.xhtml" />
 	<ui:define name="listsection">
 
-		<custom:scrollerTop for="sanadHesabdaris" />	
+			
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="sanadHesabdaris"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadHesabdaris"
 				value="#{sanadHesabdari.localEftetahiehDataModel}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center" rows="#{sanadHesabdari.rowsPerPage}">
 
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -46,8 +51,8 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.tempSerial}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -66,10 +71,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.tarikhSanadFA}" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -88,8 +93,8 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.description}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -108,11 +113,11 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.saalMaali}" />
-				</rich:column>
+				</p:column>
 
 
 
-				<rich:column rendered="#{owner.deletable}"
+				<p:column rendered="#{owner.deletable}"
 					styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
@@ -125,9 +130,9 @@
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{sanadHesabdari.ID}" converter="javax.faces.Long" />
 					</h:commandLink>
-				</rich:column>
+				</p:column>
 
-				<rich:column rendered="#{sanadHesabdari.editable}"
+				<p:column rendered="#{sanadHesabdari.editable}"
 					styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
@@ -143,8 +148,8 @@
 							value="/sanadhesabdari/sanadHesabdari.localEftetahiehList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-				<rich:column styleClass="action">
+				</p:column>
+				<p:column styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -159,10 +164,10 @@
 							value="/sanadhesabdari/sanadHesabdari.localEftetahiehList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</t:div>
-		<custom:scroller for="sanadHesabdaris" />
+		<custom:dataTableRowCount for="sanadHesabdaris" />
 
 	</ui:define>
 	<ui:define name="buttonsection">

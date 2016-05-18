@@ -7,14 +7,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-lov.xhtml">
 	<ui:param name="title" value="HesabKolTemplate_select" />
 	<ui:param name="owner" value="#{hesabKolTemplate}" />
 	<ui:define name="searchsection">
 
-			<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+			<h:panelGrid columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"> width="90%"
 				columnClasses="SearchitemStyle1,SearchitemStyle2">
 
 																<h:outputLabel for="hesabGroup" value="#{messages['HesabKolTemplate_hesabGroup']} : " /> 
@@ -28,15 +29,15 @@
 									
 								
 																									<h:outputLabel for="code" value="#{messages['HesabKolTemplate_code']} : " />
-								<h:inputText id="code" value="#{hesabKolTemplate.filter['code@lk']}" />
+								<p:inputText id="code" value="#{hesabKolTemplate.filter['code@lk']}" />
 																														<h:outputLabel for="name" value="#{messages['HesabKolTemplate_name']} : " />
-								<h:inputText id="name" value="#{hesabKolTemplate.filter['name@lk']}" />
+								<p:inputText id="name" value="#{hesabKolTemplate.filter['name@lk']}" />
 																														<h:outputLabel for="description" value="#{messages['HesabKolTemplate_description']} : " />
-								<h:inputText id="description" value="#{hesabKolTemplate.filter['description@lk']}" />
+								<p:inputText id="description" value="#{hesabKolTemplate.filter['description@lk']}" />
 																														<h:outputLabel for="hidden" value="#{messages['HesabKolTemplate_hidden']} : " />
-								<h:inputText id="hidden" value="#{hesabKolTemplate.filter['hidden@eq']}" converter="javax.faces.Integer"/>
+								<p:inputText id="hidden" value="#{hesabKolTemplate.filter['hidden@eq']}" converter="javax.faces.Integer"/>
 																														<h:outputLabel for="mahyatKol" value="#{messages['HesabKolTemplate_mahyatKol']} : " />
-								<h:inputText id="mahyatKol" value="#{hesabKolTemplate.filter['mahyatKol@eq']}" converter="javax.faces.Integer"/>
+								<p:inputText id="mahyatKol" value="#{hesabKolTemplate.filter['mahyatKol@eq']}" converter="javax.faces.Integer"/>
 													
 
 			</h:panelGrid>
@@ -90,8 +91,8 @@
 			</rich:column>
 		</rich:dataTable>
 		</t:div>
-		<custom:scroller onpagechange="showLoading();"
-			oncomplete="hideLoading();" for="hesabKolTemplates"></custom:scroller>
+		<custom:dataTableRowCount onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="hesabKolTemplates"></custom:dataTableRowCount>
 	</ui:define>
 </ui:composition>
 </html>

@@ -8,7 +8,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-list.xhtml">
 
@@ -21,7 +22,11 @@
 
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="sanadHesabdariItems"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadHesabdariItems"
 				value="#{sanadHesabdariItem.tarazKolAzmayeshi}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center">
@@ -29,7 +34,7 @@
 
 
 								
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -48,9 +53,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabKol.code}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -69,10 +74,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -94,9 +99,9 @@
 					<f:facet name="footer">
 						<h:outputText value="#{owner.totalBedehkar}"    converter="seraj.converter.accountingNumberFormatter" />
 					</f:facet>					
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -118,9 +123,9 @@
 					<f:facet name="footer">
 						<h:outputText value="#{owner.totalBestankar}"    converter="seraj.converter.accountingNumberFormatter" />
 					</f:facet>					
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -142,9 +147,9 @@
 					<f:facet name="footer">
 						<h:outputText value="#{owner.totalMandehBedehkar}"    converter="seraj.converter.accountingNumberFormatter" />
 					</f:facet>					
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -166,8 +171,8 @@
 					<f:facet name="footer">
 						<h:outputText value="#{owner.totalMandehBestankar}"    converter="seraj.converter.accountingNumberFormatter" />
 					</f:facet>						
-				</rich:column>				
-				<rich:column styleClass="action">
+				</p:column>				
+				<p:column styleClass="action">
 
 					<f:facet name="header">
 						<h:outputText value="" />
@@ -177,8 +182,8 @@
 						onclick="openDaftarKol('#{item.hesabKol.id}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarKol']}" />
 					</h:outputLink>
-				</rich:column>				
-				<rich:column styleClass="action">
+				</p:column>				
+				<p:column styleClass="action">
 
 					<f:facet name="header">
 						<h:outputText value="" />
@@ -188,22 +193,22 @@
 						onclick="openTarazMoeen('#{item.hesabKol.id}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazMoeen']}" />
 					</h:outputLink>
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</t:div>
 <script>
 /* <![CDATA[ */
 function openTarazMoeen(hesabKolId){
 	//alert(hesabKolId);
-	fromDate = document.getElementById('serajForm:aztarikhExample').value;
-	toDate = document.getElementById('serajForm:tatarikhExample').value;
+	fromDate = document.getElementById('aztarikhExample').value;
+	toDate = document.getElementById('tatarikhExample').value;
 	var url = '../tarazmoeen/sanadHesabdariItem.tarazMoeenAzmayeshiLocalList_four.jsf?searchAction=true&hesabKolIds='+hesabKolId+'&fromDate='+fromDate+'&toDate='+toDate;
 	popupFullscreen(url, 'tarazMoeen');
 }
 function openDaftarKol(hesabKolEntityId){
 	//alert(hesabKolId);
-	fromDate = document.getElementById('serajForm:aztarikhExample').value;
-	toDate = document.getElementById('serajForm:tatarikhExample').value;	
+	fromDate = document.getElementById('aztarikhExample').value;
+	toDate = document.getElementById('tatarikhExample').value;	
 	var url = '../daftar/sanadHesabdariItem.kolLocalList.jsf?searchAction=true&hesabKolIds='+hesabKolEntityId+'&fromDate='+fromDate+'&toDate='+toDate;	
 	popupFullscreen(url, 'daftarKol');
 }

@@ -19,14 +19,14 @@
 
 <rich:panel id="sanadTypeInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
 		<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-					styleClass="inputForm">
+					columnClasses="viewLableColResponsive,inputCol"
+					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 					<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="name" value="#{messages['SanadType_name']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="name" label="name" value="#{sanadType.entity.name}"  size="50"/>
+				<p:inputText  required="true" id="name" label="name" value="#{sanadType.entity.name}"  size="50"/>
 	
 		</t:panelGrid>
 	<h:commandButton action="#{sanadType.qSave}"

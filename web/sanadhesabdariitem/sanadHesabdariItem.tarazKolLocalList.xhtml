@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/template-view.xhtml">
@@ -19,17 +20,21 @@
 		value="/sanadhesabdariitem/sanadHesabdariItem.exampleForm.xhtml" />
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="sanadHesabdariDarayiItems"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadHesabdariDarayiItems"
 				value="#{sanadHesabdariItem.tarazKolDarayi}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center" rows="#{sanadHesabdariItem.rowsPerPage}">
 				<f:facet name="header">
-					<rich:column colspan="3" rowspan="1" styleClass="header">
+					<p:column colspan="3" rowspan="1" styleClass="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['AnbargardaniKala_countTagNumber']}" />
-					</rich:column>
+					</p:column>
 				</f:facet>
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -48,9 +53,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabKol.code}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -69,10 +74,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -91,9 +96,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"  converter="seraj.converter.accountingNumberFormatter"   />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -112,9 +117,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bestankar}" converter="seraj.converter.accountingNumberFormatter"   />
-				</rich:column>
+				</p:column>
 
-				<rich:column styleClass="action">
+				<p:column styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -129,13 +134,17 @@
 							value="/sanadhesabdariitem/sanadHesabdariItem.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-			</rich:dataTable>
-			<rich:dataTable id="sanadHesabdariBedehiItems"
+				</p:column>
+			</p:dataTable>
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadHesabdariBedehiItems"
 				value="#{sanadHesabdariItem.tarazKolBedehi}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center" rows="#{sanadHesabdariItem.rowsPerPage}">
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -154,9 +163,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabKol.code}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -175,10 +184,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -197,9 +206,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"  converter="seraj.converter.accountingNumberFormatter"   />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -218,9 +227,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bestankar}" converter="seraj.converter.accountingNumberFormatter"   />
-				</rich:column>
+				</p:column>
 
-				<rich:column styleClass="action">
+				<p:column styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -235,13 +244,17 @@
 							value="/sanadhesabdariitem/sanadHesabdariItem.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-			</rich:dataTable>
-			<rich:dataTable id="sanadHesabdariSarmayeItems"
+				</p:column>
+			</p:dataTable>
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadHesabdariSarmayeItems"
 				value="#{sanadHesabdariItem.tarazKolSarmaye}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center" rows="#{sanadHesabdariItem.rowsPerPage}">
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -260,9 +273,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabKol.code}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -281,10 +294,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -303,9 +316,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"  converter="seraj.converter.accountingNumberFormatter"   />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -324,9 +337,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bestankar}" converter="seraj.converter.accountingNumberFormatter"   />
-				</rich:column>
+				</p:column>
 
-				<rich:column styleClass="action">
+				<p:column styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -341,8 +354,8 @@
 							value="/sanadhesabdariitem/sanadHesabdariItem.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</t:div>
 		
 

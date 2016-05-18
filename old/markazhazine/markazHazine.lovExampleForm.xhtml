@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <style>
 .SearchitemStyle1 {
@@ -22,9 +23,9 @@
 
 
 <rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-	<t:panelGrid columns="4" width="90%"
+	<p:panelGrid layout="grid" columns="4" width="90%"
 		columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2"
-		styleClass="inputForm">
+		styleClass="inputForm ui-noborder ui-panelgrid-blank">
 		
 							<h:outputLabel for="hesabTafsiliSearch" value="#{messages['MarkazHazine_hesabTafsili']}" />
 				<h:panelGroup>
@@ -37,18 +38,18 @@
 					
 
 					<h:outputLabel for="markaztypeSearch" value="#{messages['MarkazHazine_markaztype']}" />
-				<h:inputText id="markaztypeSearch" value="#{markazHazine.filter['markaztype@eq']}" converter="seraj.converter.Enum"/>
+				<p:inputText id="markaztypeSearch" value="#{markazHazine.filter['markaztype@eq']}" converter="seraj.converter.Enum"/>
 				
 				
 				
 				
 				
 						<h:outputLabel for="onvanSearch" value="#{messages['MarkazHazine_onvan']}" />
-				<h:inputText id="onvanSearch" value="#{markazHazine.filter['onvan@lk']}" />
+				<p:inputText id="onvanSearch" value="#{markazHazine.filter['onvan@lk']}" />
 				
 				
 				
-		</t:panelGrid>
+		</p:panelGrid>
 </rich:panel>
 
 </html>

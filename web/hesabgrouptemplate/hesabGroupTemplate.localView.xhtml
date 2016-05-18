@@ -8,7 +8,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-view.xhtml">
 
@@ -20,9 +21,9 @@
 	<ui:define name="viewsection">
 
 		<rich:panel	 styleClass="emptyDiv" bodyClass="emptyDiv">
-			<t:panelGrid columns="2" width="90%"
-				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
-				styleClass="inputForm">
+			<p:panelGrid layout="grid"  columns="2" width="90%"
+				columnClasses="viewLableColResponsive,inputCol"
+				styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 
 
@@ -42,7 +43,7 @@
 						<h:outputLabel for="code" value="#{messages['HesabGroupTemplate_code']} : " />
 				<h:outputText id="code" value="#{hesabGroupTemplate.entity.code}" />
 	
-				</t:panelGrid>
+				</p:panelGrid>
 		</rich:panel>
 	</ui:define>
 	<ui:define name="buttonsection">

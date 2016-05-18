@@ -8,7 +8,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 	
 <ui:composition template="/template/template-edit.xhtml">
 	<ui:param name="title" value="AccountingMarkaz_edit_create" />
@@ -19,22 +20,22 @@
 	<ui:define name="editsection">
 
 		<rich:panel  styleClass="emptyDiv" bodyClass="emptyDiv" >
-			<t:panelGrid columns="2" width="90%"
-				columnClasses="viewLableCol30P,inputCol"
-				styleClass="inputForm">
+			<p:panelGrid layout="grid"  columns="2" width="90%"
+				columnClasses="viewLableColResponsive,inputCol"
+				styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 				<h:panelGroup>
 					<h:outputText styleClass="required" value="*  " />
 					<h:outputLabel for="code" value="#{messages['AccountingMarkaz_code']}" /> :  
 				</h:panelGroup>
-				<h:inputText id="code" label="code" required="true"
+				<p:inputText id="code" label="code" required="true"
 					value="#{accountingMarkaz.entity.code}" size="50" />
 
 				<h:panelGroup>
 					<h:outputText styleClass="required" value="* " />
 					<h:outputLabel for="name" value="#{messages['AccountingMarkaz_name']}" /> : 
 				</h:panelGroup>
-				<h:inputText required="true" id="name" label="name"
+				<p:inputText required="true" id="name" label="name"
 					value="#{accountingMarkaz.entity.name}" size="50" />
 
 				<h:panelGroup>
@@ -42,7 +43,7 @@
 					<h:outputLabel for="description"
 						value="#{messages['AccountingMarkaz_description']}" /> : 
 				</h:panelGroup>
-				<h:inputText  id="description" label="description"
+				<p:inputText  id="description" label="description"
 					value="#{accountingMarkaz.entity.description}" size="50" />
 
 				<h:panelGroup>
@@ -72,7 +73,7 @@
 				<h:selectBooleanCheckbox id="hidden" label="hidden"
 					value="#{accountingMarkaz.entity.hidden}" />
 
-			</t:panelGrid>
+			</p:panelGrid>
 		</rich:panel>
 	</ui:define>
 	<ui:define name="buttonsection">

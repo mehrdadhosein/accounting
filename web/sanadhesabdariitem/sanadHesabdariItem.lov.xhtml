@@ -7,14 +7,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-lov.xhtml">
 	<ui:param name="title" value="SanadHesabdariItem_select" />
 	<ui:param name="owner" value="#{sanadHesabdariItem}" />
 	<ui:define name="searchsection">
 
-			<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+			<h:panelGrid columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"> width="90%"
 				columnClasses="viewLableCol30P,inputCol">
 
 												<h:panelGroup>
@@ -54,23 +55,23 @@
 																									<h:panelGroup>
 									<h:outputLabel for="row" value="#{messages['SanadHesabdariItem_row']}" /> : 
 								</h:panelGroup>	
-								<h:inputText id="row" value="#{sanadHesabdariItem.filter['row@eq']}" converter="javax.faces.Integer"/>
+								<p:inputText id="row" value="#{sanadHesabdariItem.filter['row@eq']}" converter="javax.faces.Integer"/>
 																														<h:panelGroup>
 									<h:outputLabel for="description" value="#{messages['SanadHesabdariItem_description']}" /> : 
 								</h:panelGroup>
-								<h:inputText id="description" value="#{sanadHesabdariItem.filter['description@lk']}" />
+								<p:inputText id="description" value="#{sanadHesabdariItem.filter['description@lk']}" />
 																														<h:panelGroup>
 									<h:outputLabel for="type" value="#{messages['SanadHesabdariItem_type']}" /> : 
 								</h:panelGroup>
-								<h:inputText id="type" value="#{sanadHesabdariItem.filter['type@lk']}" />
+								<p:inputText id="type" value="#{sanadHesabdariItem.filter['type@lk']}" />
 																														<h:panelGroup>
 									<h:outputLabel for="bestankar" value="#{messages['SanadHesabdariItem_bestankar']}" /> : 
 								</h:panelGroup>	
-								<h:inputText id="bestankar" value="#{sanadHesabdariItem.filter['bestankar@eq']}" converter="javax.faces.Double"/>
+								<p:inputText id="bestankar" value="#{sanadHesabdariItem.filter['bestankar@eq']}" converter="javax.faces.Double"/>
 																														<h:panelGroup>
 									<h:outputLabel for="bedehkar" value="#{messages['SanadHesabdariItem_bedehkar']}" /> : 
 								</h:panelGroup>	
-								<h:inputText id="bedehkar" value="#{sanadHesabdariItem.filter['bedehkar@eq']}" converter="javax.faces.Double"/>
+								<p:inputText id="bedehkar" value="#{sanadHesabdariItem.filter['bedehkar@eq']}" converter="javax.faces.Double"/>
 																														<h:panelGroup>
 									<h:outputLabel for="tarikhArticle" value="#{messages['SanadHesabdariItem_tarikhArticle']}" /> : 
 								</h:panelGroup>	
@@ -153,8 +154,8 @@
 			</rich:column>
 		</rich:dataTable>
 		</t:div>
-		<custom:scroller onpagechange="showLoading();"
-			oncomplete="hideLoading();" for="sanadHesabdariItems"></custom:scroller>
+		<custom:dataTableRowCount onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="sanadHesabdariItems"></custom:dataTableRowCount>
 	</ui:define>
 </ui:composition>
 </html>

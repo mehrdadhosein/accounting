@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/template-list.xhtml">
@@ -19,21 +20,25 @@
 	<ui:define name="listsection">
 	<t:saveState value="#{owner.sanadTypeIds}" />
 		
-		<custom:scrollerTop for="sanadHesabdaris" />
+		
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="sanadHesabdaris"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadHesabdaris"
 				value="#{sanadHesabdari.localMovaghatDataModel}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center"  rows="#{owner.rowsPerPage}">
 
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText styleClass="headerCellClass" value="" />
 				</f:facet>
 				<t:selectBooleanCheckbox id="checked" value="#{item.checked}" />
-			</rich:column>
+			</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -52,8 +57,8 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.tempSerial}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -72,10 +77,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.tarikhSanadFA}" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -94,8 +99,8 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.description}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -114,25 +119,25 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.saalMaali}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 							<h:outputText styleClass="headerCellClass"
 								value="#{messages['SanadHesabdari_bedehkarSum']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bedehkarSum}" converter="seraj.converter.CurrencyToNumber"/>
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 							<h:outputText styleClass="headerCellClass"
 								value="#{messages['SanadHesabdari_bestankarSum']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bestankarSum}"  converter="seraj.converter.CurrencyToNumber"/>
-				</rich:column>
+				</p:column>
 				
-				<rich:column rendered="#{owner.deletable}"
+				<p:column rendered="#{owner.deletable}"
 					styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
@@ -145,9 +150,9 @@
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{sanadHesabdari.ID}" converter="javax.faces.Long" />
 					</h:commandLink>
-				</rich:column>
+				</p:column>
 
-				<rich:column rendered="#{sanadHesabdari.editable and !owner.isInMultipleLevelMode}"
+				<p:column rendered="#{sanadHesabdari.editable and !owner.isInMultipleLevelMode}"
 					styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
@@ -163,9 +168,9 @@
 							value="/sanadhesabdari/sanadHesabdari.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
+				</p:column>
 
-				<rich:column rendered="#{sanadHesabdari.editable and owner.isInMultipleLevelMode}"
+				<p:column rendered="#{sanadHesabdari.editable and owner.isInMultipleLevelMode}"
 					styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
@@ -181,8 +186,8 @@
 							value="/sanadhesabdari/sanadHesabdari.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-				<rich:column styleClass="action"  rendered="#{!owner.isInMultipleLevelMode}">
+				</p:column>
+				<p:column styleClass="action"  rendered="#{!owner.isInMultipleLevelMode}">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -197,8 +202,8 @@
 							value="/sanadhesabdari/sanadHesabdari.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-				<rich:column styleClass="action"  rendered="#{owner.isInMultipleLevelMode}">
+				</p:column>
+				<p:column styleClass="action"  rendered="#{owner.isInMultipleLevelMode}">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -213,10 +218,10 @@
 							value="/sanadhesabdari/sanadHesabdari.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</t:div>
-		<custom:scroller for="sanadHesabdaris" />
+		<custom:dataTableRowCount for="sanadHesabdaris" />
 
 	</ui:define>
 	<ui:define name="buttonsection">
@@ -244,7 +249,7 @@
 					styleClass=" gwt-Button" value="#{messages['common_pdf']}"
 					 image="/images/pdfBtn.png" />
 
-		<h:commandButton styleClass=" gwt-Button" onclick="checkAll('serajForm:sanadHesabdaris');return false;"
+		<h:commandButton styleClass=" gwt-Button" onclick="checkAll('sanadHesabdaris');return false;"
 			image="/images/buttons/btn_selectAll.png" />
 			
 		<h:commandButton styleClass=" gwt-Button" onclick="if(!confirmDelete()) return false;showLoading();"

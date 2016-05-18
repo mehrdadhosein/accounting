@@ -7,15 +7,16 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <a4j:region>
 	<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-		<t:panelGrid columns="1" style="width:100%"
+		<p:panelGrid layout="grid" columns="1" style="width:100%"
 			columnClasses=",SearchbtnStyle">
-			<t:panelGrid columns="2" width="90%"
-				columnClasses="viewLableCol30P,inputCol" styleClass="inputForm">
+			<p:panelGrid layout="grid" columns="2" width="90%"
+				columnClasses="viewLableColResponsive,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 
 				<h:panelGroup>
@@ -32,14 +33,14 @@
 					<h:outputLabel for="tempSerial"
 						value="#{messages['SanadHesabdari_tempSerial']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="tempSerial" converter="javax.faces.Long"
+				<p:inputText id="tempSerial" converter="javax.faces.Long"
 					value="#{owner.filter['tempSerial@eq']}" />
 					
 				<h:panelGroup>
 					<h:outputLabel for="serial"
 						value="#{messages['SanadHesabdari_serial']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="serial" converter="javax.faces.Long"
+				<p:inputText id="serial" converter="javax.faces.Long"
 					value="#{owner.filter['serial@eq']}" />
 					  
 				<h:panelGroup>
@@ -55,35 +56,35 @@
 				<h:outputLabel for="atfNumber"
 						value="#{messages['Sanad_atfNumber']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="atfNumber" converter="javax.faces.Long"
+				<p:inputText id="atfNumber" converter="javax.faces.Long"
 					value="#{owner.filter['atfNumber@eq']}" />
 					
 					<h:panelGroup>
 					<h:outputLabel for="farieNumber"
 						value="#{messages['Sanad_farieNumber']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="farieNumber" converter="javax.faces.Long"
+				<p:inputText id="farieNumber" converter="javax.faces.Long"
 					value="#{owner.filter['farieNumber@eq']}" />
 					
 				<h:panelGroup>
 					<h:outputLabel for="description"
 						value="#{messages['SanadHesabdari_description']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="description"
+				<p:inputText id="description"
 					value="#{owner.filter['description@lk']}" />
 
 				<h:panelGroup>
 					<h:outputLabel for="bedehkar"
 						value="#{messages['SanadHesabdariItem_bedehkar']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="bedehkar"  converter="javax.faces.Double"
+				<p:inputText id="bedehkar"  converter="javax.faces.Double"
 					value="#{owner.filter['sanadHesabdariItem.bedehkar@eq']}" />
 
 				<h:panelGroup>
 					<h:outputLabel for="bestankar"
 						value="#{messages['SanadHesabdariItem_bestankar']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="bestankar"  converter="javax.faces.Double"
+				<p:inputText id="bestankar"  converter="javax.faces.Double"
 					value="#{owner.filter['sanadHesabdariItem.bestankar@eq']}" />
 
 
@@ -94,7 +95,7 @@
 				
 				
 				<h:panelGroup id="tarikhAzTa">
-					<t:panelGrid columns="2" width="90%"
+					<p:panelGrid layout="grid" columns="2" width="90%"
 							columnClasses="viewLableCol7P,inputCol"
 							  >
 					 
@@ -104,9 +105,9 @@
 								value="#{owner.filter['tarikhSanad@ge']}" type="Date"
 								lang="Shamsi">
 						</custom:DateTimePicker>
-					</t:panelGrid>
+					</p:panelGrid>
 					
-					<t:panelGrid columns="2" width="90%"
+					<p:panelGrid layout="grid" columns="2" width="90%"
 							columnClasses="viewLableCol7P,inputCol"
 							  >
 							 
@@ -116,7 +117,7 @@
 							value="#{owner.filter['tarikhSanad@le']}" type="Date"
 							lang="Shamsi">
 						</custom:DateTimePicker>
-					</t:panelGrid>
+					</p:panelGrid>
 				</h:panelGroup>
 
 
@@ -129,7 +130,7 @@
 				
 				
 				<h:panelGroup id="serialAzTa">
-					<t:panelGrid columns="2" width="90%"
+					<p:panelGrid layout="grid" columns="2" width="90%"
 							columnClasses="viewLableCol7P,inputCol">
 					 
 						<h:outputLabel for="azserialExample"
@@ -137,9 +138,9 @@
 						<t:inputText id="azserialExample"
 								value="#{owner.filter['serial@ge']}" converter="javax.faces.Long">
 						</t:inputText>
-					</t:panelGrid>
+					</p:panelGrid>
 					
-					<t:panelGrid columns="2" width="90%"
+					<p:panelGrid layout="grid" columns="2" width="90%"
 							columnClasses="viewLableCol7P,inputCol">
 							 
 						<h:outputLabel for="taserialExample"
@@ -147,11 +148,11 @@
 						<t:inputText id="taserialExample"
 							value="#{owner.filter['serial@le']}"  converter="javax.faces.Long">
 						</t:inputText>
-					</t:panelGrid>
+					</p:panelGrid>
 				</h:panelGroup>			
 				 
 
-			</t:panelGrid>
+			</p:panelGrid>
 			<t:div>
 				<a4j:commandButton image="/images/searchbtn2.png"
 					styleClass=" gwt-Button" render="listPanel" onclick="showLoading();"
@@ -163,7 +164,7 @@
 					onclick="hideLoading(); closeSearchDiv();return false;"
 					styleClass=" gwt-Button" image="/images/buttons/btn_return.png" />
 			</t:div>
-		</t:panelGrid>
+		</p:panelGrid>
 	</rich:panel>
 </a4j:region>
 </html>

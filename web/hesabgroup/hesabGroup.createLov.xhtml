@@ -7,7 +7,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-createLov.xhtml">
 	<ui:param name="title" value="HesabGroup_list" />
@@ -53,14 +54,14 @@
 			function copyInputs(){
 			
 												
-																			document.getElementById('serajForm:name').value=document.getElementById('serajForm:nameSearch').value;
-																				document.getElementById('serajForm:length').value=document.getElementById('serajForm:lengthSearch').value;
+																			document.getElementById('name').value=document.getElementById('nameSearch').value;
+																				document.getElementById('length').value=document.getElementById('lengthSearch').value;
 												
 			}
 			function copyCreateToSearch(){
 												
-																			document.getElementById('serajForm:nameSearch').value=document.getElementById('serajForm:name').value;
-																				document.getElementById('serajForm:lengthSearch').value=document.getElementById('serajForm:length').value;
+																			document.getElementById('nameSearch').value=document.getElementById('name').value;
+																				document.getElementById('lengthSearch').value=document.getElementById('length').value;
 												}
 		</script>
 

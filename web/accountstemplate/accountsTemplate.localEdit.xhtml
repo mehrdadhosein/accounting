@@ -100,20 +100,20 @@
 /* ]]> */
 </script>
 
-		<t:panelGrid columns="1" width="90%" styleClass="inputForm">
+		<p:panelGrid layout="grid"  columns="1" width="90%" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 			<p:panel id="mainInfo" header="Basic">
 				<f:facet name="header">
 					<h:outputText value="#{messages['AccountsTemplate_mainInfo']}" />
 				</f:facet>
-				<t:panelGrid columns="2" width="90%"
-					columnClasses="dialogViewLableCol,inputCol" styleClass="inputForm">
+				<p:panelGrid layout="grid"  columns="2" width="90%"
+					columnClasses="dialogViewLableCol,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 					<h:panelGroup>
 						<h:outputText styleClass="required" value="* " />
 						<h:outputLabel for="actionName"
 							value="#{messages['AccountsTemplate_actionName']}" /> : 
 					</h:panelGroup>
-					<h:inputText required="true" id="actionName" label="actionName"
+					<p:inputText required="true" id="actionName" label="actionName"
 						value="#{accountsTemplate.entity.actionName}" size="50" />
 
 					<h:panelGroup>
@@ -121,7 +121,7 @@
 						<h:outputLabel for="actionId"
 							value="#{messages['AccountsTemplate_actionId']}" /> : 
 					</h:panelGroup>
-					<h:inputText required="true" id="actionId" label="actionId"
+					<p:inputText required="true" id="actionId" label="actionId"
 						value="#{accountsTemplate.entity.actionId}" size="50" />
 						
 					<h:panelGroup> 
@@ -133,23 +133,23 @@
 							width="220px" client="true" extraParams="isCurrentOrgan=true" desc="#{accountsTemplate.entity.accountingMarkazTemplate.desc}"/>
 					</h:panelGroup>
 										
-				</t:panelGrid>
+				</p:panelGrid>
 			</p:panel>
 		<h:inputHidden required="true" id="sanadItems" 
 					label="#{messages['SanadHesabdariItem_list']}" value="#{owner.sanadItemsXML}" />			
 		<ui:include src="accountsTemplate.gridNew.advanced.xhtml" />			
-	</t:panelGrid>
+	</p:panelGrid>
 
 
 		<script type="text/javascript">
 		/* <![CDATA[ */
-			createSanadHesabdariTable(""+document.getElementById('serajForm:sanadItems').value+"");
+			createSanadHesabdariTable(""+document.getElementById('sanadItems').value+"");
 		/* ]]> */
 		
 	</script>
 	</ui:define>
 	<ui:define name="buttonsection">
-		<h:commandButton styleClass=" gwt-Button" rendered="#{accountsTemplate.editable or true}" onclick="populateRecordsXML('serajForm:sanadItems','#sanadHesabdariGrid');"
+		<h:commandButton styleClass=" gwt-Button" rendered="#{accountsTemplate.editable or true}" onclick="populateRecordsXML('sanadItems','#sanadHesabdariGrid');"
 			action="#{owner.localSave}" value="#{messages['common_save']}"
 			image="/images/savebtn.png" />
 

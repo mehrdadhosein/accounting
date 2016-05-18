@@ -19,8 +19,8 @@
 
 <rich:panel id="sanadHesabdariInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
 		<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-					styleClass="inputForm">
+					columnClasses="viewLableColResponsive,inputCol"
+					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 				<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 					<h:outputLabel for="saalMaali" value="#{messages['SanadHesabdari_saalMaali']}" /> : 
@@ -50,13 +50,13 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="number" value="#{messages['SanadHesabdari_number']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="number" label="number" value="#{sanadHesabdari.entity.number}"  size="50"/>
+				<p:inputText  required="true" id="number" label="number" value="#{sanadHesabdari.entity.number}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="description" value="#{messages['SanadHesabdari_description']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="description" label="description" value="#{sanadHesabdari.entity.description}"  size="50"/>
+				<p:inputText  required="true" id="description" label="description" value="#{sanadHesabdari.entity.description}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
@@ -68,7 +68,7 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="state" value="#{messages['SanadHesabdari_state']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="state" label="state" value="#{sanadHesabdari.entity.state}"  size="50"/>
+				<p:inputText  required="true" id="state" label="state" value="#{sanadHesabdari.entity.state}"  size="50"/>
 	
 		</t:panelGrid>
 	<h:commandButton action="#{sanadHesabdari.qSave}"

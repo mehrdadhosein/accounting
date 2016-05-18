@@ -8,7 +8,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-view.xhtml">
 
@@ -20,7 +21,11 @@
 
 	<ui:define name="viewsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="sanadHesabdariItems"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadHesabdariItems"
 				value="#{sanadHesabdariItem.tarazTafsiliAzmayeshi}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center" rows="#{sanadHesabdariItem.rowsPerPage}">
@@ -28,7 +33,7 @@
 
 
 								
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -47,9 +52,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.code}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -68,10 +73,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.desc}" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -90,9 +95,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"  converter="seraj.converter.accountingNumberFormatter"   />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -111,11 +116,11 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bestankar}" converter="seraj.converter.accountingNumberFormatter"   />
-				</rich:column>
+				</p:column>
 
-			</rich:dataTable>
+			</p:dataTable>
 		</t:div>
-		<custom:scroller for="sanadHesabdariItems" />
+		<custom:dataTableRowCount for="sanadHesabdariItems" />
 
 	</ui:define>
 	<ui:define name="buttonsection">

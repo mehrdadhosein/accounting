@@ -8,7 +8,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 	
 <ui:composition template="/template/template-edit.xhtml">
 	<ui:param name="title" value="HesabGroupTemplate_edit_create" />
@@ -19,9 +20,9 @@
 	<ui:define name="editsection">
 
 		<rich:panel  styleClass="emptyDiv" bodyClass="emptyDiv" >
-				<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-					styleClass="inputForm">
+				<p:panelGrid layout="grid"  columns="2" width="90%"
+					columnClasses="viewLableColResponsive,inputCol"
+					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 
 				<h:panelGroup>
@@ -41,21 +42,21 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="name" value="#{messages['HesabGroupTemplate_name']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="name" label="name" value="#{hesabGroupTemplate.entity.name}"  size="50"/>
+				<p:inputText  required="true" id="name" label="name" value="#{hesabGroupTemplate.entity.name}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="mahyatGroup" value="#{messages['HesabGroupTemplate_mahyatGroup']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="mahyatGroup" label="mahyatGroup" value="#{hesabGroupTemplate.entity.mahyatGroup}"  size="50"/>
+				<p:inputText  required="true" id="mahyatGroup" label="mahyatGroup" value="#{hesabGroupTemplate.entity.mahyatGroup}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="code" value="#{messages['HesabGroupTemplate_code']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="code" label="code" value="#{hesabGroupTemplate.entity.code}"  size="50"/>
+				<p:inputText  required="true" id="code" label="code" value="#{hesabGroupTemplate.entity.code}"  size="50"/>
 	
-				</t:panelGrid>
+				</p:panelGrid>
 		</rich:panel>
 	</ui:define>
 </ui:composition>

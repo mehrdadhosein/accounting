@@ -21,20 +21,20 @@
 	style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
 	<t:panelGrid columns="2" width="90%"
 		columnClasses="viewLableCol30P,inputCol"
-		styleClass="inputForm">
+		styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 				<h:panelGroup>
 					<h:outputText styleClass="required" value="  " />
 					<h:outputLabel for="code" value="#{messages['HesabTafsili_code']} " /> : 
 				</h:panelGroup>
-				<h:inputText id="code" label="code"
+				<p:inputText id="code" label="code"
 					value="#{hesabTafsili.entity.code}" size="50" />
 
 				<h:panelGroup>
 					<h:outputText styleClass="required" value="* " />
 					<h:outputLabel for="name" value="#{messages['HesabTafsili_name']} " /> : 
 				</h:panelGroup>
-				<h:inputText required="true" id="name" label="name"
+				<p:inputText required="true" id="name" label="name"
 					value="#{hesabTafsili.entity.name}" size="50" />
 
 				<h:panelGroup>
@@ -52,7 +52,7 @@
 					<h:outputLabel for="description"
 						value="#{messages['HesabTafsili_description']} " /> : 
 				</h:panelGroup>
-				<h:inputText  id="description" label="description"
+				<p:inputText  id="description" label="description"
 					value="#{hesabTafsili.entity.description}" size="50" />
 
 				<h:panelGroup>

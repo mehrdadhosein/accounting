@@ -20,14 +20,14 @@
 <rich:panel id="hesabGroupInput"
 	style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
 	<t:panelGrid columns="2" width="90%"
-		columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-		styleClass="inputForm">
+		columnClasses="viewLableColResponsive,inputCol"
+		styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 		<h:panelGroup>
 			<h:outputText styleClass="required" value="* " />
 			<h:outputLabel for="name" value="#{messages['HesabGroup_name']}" /> : 
 				</h:panelGroup>
-		<h:inputText required="true" id="name" label="name"
+		<p:inputText required="true" id="name" label="name"
 			value="#{hesabGroup.entity.name}" size="50" />
 
 

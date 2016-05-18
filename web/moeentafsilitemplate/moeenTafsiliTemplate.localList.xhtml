@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/template-list.xhtml">
@@ -19,12 +20,16 @@
 		value="/moeentafsilitemplate/moeenTafsiliTemplate.exampleForm.xhtml" />
 	<ui:define name="listsection">
 <t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
-		<rich:dataTable id="moeenTafsiliTemplates" value="#{moeenTafsiliTemplate.localDataModel}"   headerClass="header"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="moeenTafsiliTemplates" value="#{moeenTafsiliTemplate.localDataModel}"   headerClass="header"
 			var="item" rowClasses="RowOdd,RowEven" style="width: 97%" align="center" rows="#{moeenTafsiliTemplate.rowsPerPage}">
 
 			
 	
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="moeenTafsiliTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -40,9 +45,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsiliTemplate}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="moeenTafsiliTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -58,9 +63,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.level}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="moeenTafsiliTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -76,11 +81,11 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeenTemplate}" />
-			</rich:column>
+			</p:column>
 						
 			
 			
-			<rich:column rendered="#{moeenTafsiliTemplate.deletable}" styleClass="action">
+			<p:column rendered="#{moeenTafsiliTemplate.deletable}" styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_delete']}" />
 				</f:facet>
@@ -89,9 +94,9 @@
 					<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
 					<f:setPropertyActionListener value="#{item.id}"  target="#{moeenTafsiliTemplate.ID}"  converter="javax.faces.Long" />
 				</h:commandLink>
-			</rich:column>
+			</p:column>
 
-			<rich:column rendered="#{moeenTafsiliTemplate.editable}" styleClass="action">
+			<p:column rendered="#{moeenTafsiliTemplate.editable}" styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_edit']}" />
 				</f:facet>
@@ -102,8 +107,8 @@
 					<f:setPropertyActionListener value="/moeentafsilitemplate/moeenTafsiliTemplate.localList.xhtml"
 						target="#{owner.returnUrl}" />					
 				</h:commandLink>
-			</rich:column>
-			<rich:column styleClass="action">
+			</p:column>
+			<p:column styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_view']}" />
 				</f:facet>
@@ -114,10 +119,10 @@
 					<f:setPropertyActionListener value="/moeentafsilitemplate/moeenTafsiliTemplate.localList.xhtml"
 						target="#{owner.returnUrl}" />					
 				</h:commandLink>
-			</rich:column >
-		</rich:dataTable>
+			</p:column >
+		</p:dataTable>
 </t:div>		
-		<custom:scroller for="moeenTafsiliTemplates"/>
+		<custom:dataTableRowCount for="moeenTafsiliTemplates"/>
 			
 	</ui:define>
 	<ui:define name="buttonsection">

@@ -7,14 +7,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-lov.xhtml">
 	<ui:param name="title" value="#{messages['SanadEntity_List']}" />
 	<ui:param name="owner" value="#{sanadHesabdari}" />
 	<ui:define name="searchsection">
 
-			<h:panelGrid columns="4" styleClass="inputForm"
+			<h:panelGrid columns="4" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 				columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2">
 
 
@@ -46,13 +47,13 @@
 					<h:outputLabel for="serialExam"
 						value="#{messages['SanadHesabdari_serial']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="serialExam" converter="javax.faces.Long"
+				<p:inputText id="serialExam" converter="javax.faces.Long"
 					value="#{sanadHesabdari.filter['serial@eq']}" />
 				<h:panelGroup>
 					<h:outputLabel for="descriptionExam"
 						value="#{messages['SanadHesabdari_description']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="descriptionExam"
+				<p:inputText id="descriptionExam"
 					value="#{sanadHesabdari.filter['description@lk']}" />
 				
 				<h:panelGroup>

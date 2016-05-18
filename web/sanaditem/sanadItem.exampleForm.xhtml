@@ -5,16 +5,17 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <rich:panel
 	style="width: 99%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
-	<t:panelGrid columns="1" style="width:100%"
+	<p:panelGrid layout="grid" columns="1" style="width:100%"
 		columnClasses=",SearchbtnStyle">
-		<t:panelGrid columns="10" width="90%"
-			columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2"
-			styleClass="inputForm">
+		<p:panelGrid layout="grid" columns="10" width="90%"
+			columnClasses="viewLableColResponsive,inputCol"
+			styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 			<h:outputLabel for="saalMaali" value="#{messages['SaalMaali_saal']}" />
 			<h:selectOneMenu value="#{sanadItem.saalMaali}" 
@@ -35,12 +36,12 @@
 			<custom:DateTimePicker id="toDate" type="Date"
 				value="#{sanadItem.filter['sanad.date@le']}" lang="Shamsi"></custom:DateTimePicker>
 
-		</t:panelGrid>
+		</p:panelGrid>
 		<h:commandButton styleClass="ButtonStyle"
 			value="#{messages['common_search']}"
 			actionListener="#{sanadItem.search}">
 		</h:commandButton>
-	</t:panelGrid>
+	</p:panelGrid>
 </rich:panel>
 
 </html>

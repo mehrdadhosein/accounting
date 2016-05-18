@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/template-list.xhtml">
@@ -18,23 +19,27 @@
 	<ui:param name="searchpage"
 		value="/hesabkol/hesabKol.exampleForm.xhtml" />
 	<ui:define name="listsection">
-		<custom:scrollerTop for="hesabKols" />
+		
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="hesabKols" value="#{hesabKol.dataModel}"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="hesabKols" value="#{hesabKol.dataModel}"
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
 				style="width: 97%" align="center" rows="#{hesabKol.rowsPerPage}">
 
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['Organ_title']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.organ}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -52,9 +57,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.code}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -72,10 +77,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.name}" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -95,9 +100,9 @@
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bestankr}"
 						converter="seraj.converter.accountingNumberFormatter" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -117,9 +122,9 @@
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"
 						converter="seraj.converter.accountingNumberFormatter" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -138,18 +143,18 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabGroup}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['SaalMaali_title']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass"
 						value="#{item.saalMaali.nameWithOrgan}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column rendered="false">
+				<p:column rendered="false">
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -170,12 +175,12 @@
 						value="#{item.type}" converter="seraj.converter.Enum">
 						<f:selectItems value="#{enums.HesabTypeEnum}" />
 					</t:selectOneMenu>
-				</rich:column>
+				</p:column>
 
 
 
 
-				<rich:column rendered="#{hesabKol.deletable}" styleClass="action">
+				<p:column rendered="#{hesabKol.deletable}" styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_delete']}" />
@@ -190,9 +195,9 @@
 							value="/hesabkol/hesabKol.hierarchicalList.jsf"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
+				</p:column>
 
-				<rich:column rendered="#{hesabKol.editable}" styleClass="action">
+				<p:column rendered="#{hesabKol.editable}" styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_edit']}" />
@@ -206,8 +211,8 @@
 							value="/hesabkol/hesabKol.hierarchicalList.jsf"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-				<rich:column styleClass="action">
+				</p:column>
+				<p:column styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -221,10 +226,10 @@
 							value="/hesabkol/hesabKol.hierarchicalList.jsf"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</t:div>
-		<custom:scroller for="hesabKols" />
+		<custom:dataTableRowCount for="hesabKols" />
 
 	</ui:define>
 	<ui:define name="buttonsection">

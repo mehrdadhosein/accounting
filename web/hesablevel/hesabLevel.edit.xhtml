@@ -8,7 +8,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-edit.xhtml">
 	<ui:param name="title" value="#{messages['HesabLevel_title']}" />
@@ -20,9 +21,9 @@
 
 		<rich:panel
 			style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
-			<t:panelGrid columns="4" width="90%"
-				columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-				styleClass="inputForm">
+			<p:panelGrid layout="grid"  columns="4" width="90%"
+				columnClasses="viewLableColResponsive,inputCol"
+				styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 
 				<h:panelGroup>
@@ -44,24 +45,24 @@
 						value="#{messages['HesabLevel_length']}" />
 					<h:outputText styleClass="required" value="* " />
 				</h:panelGroup>
-				<h:inputText required="true" id="length" label="length"
+				<p:inputText required="true" id="length" label="length"
 					value="#{hesabLevel.entity.length}" />
 
 				<h:panelGroup rendered="false">
 					<h:outputLabel for="level" value="#{messages['HesabLevel_level']}" />
 					<h:outputText styleClass="required" value="* " />
 				</h:panelGroup>
-				<h:inputText  rendered="false" required="true" id="level" label="level"
+				<p:inputText  rendered="false" required="true" id="level" label="level"
 					value="#{hesabLevel.entity.level}" />
 
 				<h:panelGroup>
 					<h:outputLabel for="name" value="#{messages['HesabLevel_name']}" />
 					<h:outputText styleClass="required" value="* " />
 				</h:panelGroup>
-				<h:inputText required="true" id="name" label="name"
+				<p:inputText required="true" id="name" label="name"
 					value="#{hesabLevel.entity.name}" />
 
-			</t:panelGrid>
+			</p:panelGrid>
 		</rich:panel>
 	</ui:define>
 </ui:composition>

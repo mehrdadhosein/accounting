@@ -19,8 +19,8 @@
 
 <rich:panel id="markazHazineInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
 		<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-					styleClass="inputForm">
+					columnClasses="viewLableColResponsive,inputCol"
+					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 				<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 					<h:outputLabel for="hesabTafsili" value="#{messages['MarkazHazine_hesabTafsili']}" /> : 
@@ -38,13 +38,13 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="markaztype" value="#{messages['MarkazHazine_markaztype']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="markaztype" label="markaztype" value="#{markazHazine.entity.markaztype}"  size="50"/>
+				<p:inputText  required="true" id="markaztype" label="markaztype" value="#{markazHazine.entity.markaztype}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="onvan" value="#{messages['MarkazHazine_onvan']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="onvan" label="onvan" value="#{markazHazine.entity.onvan}"  size="50"/>
+				<p:inputText  required="true" id="onvan" label="onvan" value="#{markazHazine.entity.onvan}"  size="50"/>
 	
 		</t:panelGrid>
 	<h:commandButton action="#{markazHazine.qSave}"
