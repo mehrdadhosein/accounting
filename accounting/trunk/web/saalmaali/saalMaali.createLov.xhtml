@@ -7,7 +7,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-createLov.xhtml">
 	<ui:param name="title" value="SaalMaali_list" />
@@ -60,7 +61,7 @@
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
 			</rich:column>	
 		</rich:dataTable>
-		<custom:scroller for="saalMaalis" binding="#{saalMaali.datascroller}"></custom:scroller>
+		<custom:dataTableRowCount for="saalMaalis" binding="#{saalMaali.datascroller}"></custom:dataTableRowCount>
 
 	</ui:define>
 	<ui:define name="quickCreateSection">
@@ -69,20 +70,20 @@
 			function copyInputs(){
 			
 												
-																			document.getElementById('serajForm:current').value=document.getElementById('serajForm:currentSearch').value;
-																				document.getElementById('serajForm:isActive').value=document.getElementById('serajForm:isActiveSearch').value;
-																				document.getElementById('serajForm:saal').value=document.getElementById('serajForm:saalSearch').value;
-																				document.getElementById('serajForm:start').value=document.getElementById('serajForm:startSearch').value;
-																				document.getElementById('serajForm:end').value=document.getElementById('serajForm:endSearch').value;
+																			document.getElementById('current').value=document.getElementById('currentSearch').value;
+																				document.getElementById('isActive').value=document.getElementById('isActiveSearch').value;
+																				document.getElementById('saal').value=document.getElementById('saalSearch').value;
+																				document.getElementById('start').value=document.getElementById('startSearch').value;
+																				document.getElementById('end').value=document.getElementById('endSearch').value;
 												
 			}
 			function copyCreateToSearch(){
 												
-																			document.getElementById('serajForm:currentSearch').value=document.getElementById('serajForm:current').value;
-																				document.getElementById('serajForm:isActiveSearch').value=document.getElementById('serajForm:isActive').value;
-																				document.getElementById('serajForm:saalSearch').value=document.getElementById('serajForm:saal').value;
-																				document.getElementById('serajForm:startSearch').value=document.getElementById('serajForm:start').value;
-																				document.getElementById('serajForm:endSearch').value=document.getElementById('serajForm:end').value;
+																			document.getElementById('currentSearch').value=document.getElementById('current').value;
+																				document.getElementById('isActiveSearch').value=document.getElementById('isActive').value;
+																				document.getElementById('saalSearch').value=document.getElementById('saal').value;
+																				document.getElementById('startSearch').value=document.getElementById('start').value;
+																				document.getElementById('endSearch').value=document.getElementById('end').value;
 												}
 		</script>
 		

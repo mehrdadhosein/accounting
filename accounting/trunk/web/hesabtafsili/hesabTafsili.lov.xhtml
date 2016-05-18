@@ -7,26 +7,27 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-lov.xhtml">
 	<ui:param name="title" value="HesabTafsili_list" />
 	<ui:param name="owner" value="#{hesabTafsili}" />
 	<ui:define name="searchsection">
 
-		<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+		<h:panelGrid columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"> width="90%"
 			columnClasses="viewLableCol30P,inputCol">
 
 
 			<h:panelGroup>
 				<h:outputLabel for="code" value="#{messages['HesabTafsili_code']}: " />  
 			</h:panelGroup>
-			<h:inputText id="code" value="#{hesabTafsili.filter['code@lk']}" />
+			<p:inputText id="code" value="#{hesabTafsili.filter['code@lk']}" />
 
 			<h:panelGroup>
 				<h:outputLabel for="name" value="#{messages['HesabTafsili_name']}: " />  
 			</h:panelGroup>
-			<h:inputText id="name" value="#{hesabTafsili.filter['name@lk']}" />
+			<p:inputText id="name" value="#{hesabTafsili.filter['name@lk']}" />
 
 		</h:panelGrid>
 
@@ -77,8 +78,8 @@
 				</rich:column>
 			</rich:dataTable>
 		</t:div>
-		<custom:scroller onpagechange="showLoading();"
-			oncomplete="hideLoading();" for="hesabTafsilis"></custom:scroller>
+		<custom:dataTableRowCount onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="hesabTafsilis"></custom:dataTableRowCount>
 	</ui:define>
 </ui:composition>
 </html>

@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <style>
 .SearchitemStyle1 {
@@ -22,25 +23,25 @@
 
 
 <rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-	<t:panelGrid columns="4" width="90%"
+	<p:panelGrid layout="grid" columns="4" width="90%"
 		columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2"
-		styleClass="inputForm">
+		styleClass="inputForm ui-noborder ui-panelgrid-blank">
 		
 			
 					<h:outputLabel for="codeSearch" value="#{messages['HesabTafsiliTemplate_code']}" />
-				<h:inputText id="codeSearch" value="#{hesabTafsiliTemplate.filter['code@lk']}" />
+				<p:inputText id="codeSearch" value="#{hesabTafsiliTemplate.filter['code@lk']}" />
 						<h:outputLabel for="nameSearch" value="#{messages['HesabTafsiliTemplate_name']}" />
-				<h:inputText id="nameSearch" value="#{hesabTafsiliTemplate.filter['name@lk']}" />
+				<p:inputText id="nameSearch" value="#{hesabTafsiliTemplate.filter['name@lk']}" />
 						<h:outputLabel for="tafsilTypeSearch" value="#{messages['HesabTafsiliTemplate_tafsilType']}" />
-				<h:inputText id="tafsilTypeSearch" value="#{hesabTafsiliTemplate.filter['tafsilType@lk']}" />
+				<p:inputText id="tafsilTypeSearch" value="#{hesabTafsiliTemplate.filter['tafsilType@lk']}" />
 						<h:outputLabel for="descriptionSearch" value="#{messages['HesabTafsiliTemplate_description']}" />
-				<h:inputText id="descriptionSearch" value="#{hesabTafsiliTemplate.filter['description@lk']}" />
+				<p:inputText id="descriptionSearch" value="#{hesabTafsiliTemplate.filter['description@lk']}" />
 						<h:outputLabel for="hiddenSearch" value="#{messages['HesabTafsiliTemplate_hidden']}" />
-				<h:inputText id="hiddenSearch" value="#{hesabTafsiliTemplate.filter['hidden@eq']}" converter="javax.faces.Boolean"/>
+				<p:inputText id="hiddenSearch" value="#{hesabTafsiliTemplate.filter['hidden@eq']}" converter="javax.faces.Boolean"/>
 						<h:outputLabel for="scopeSearch" value="#{messages['HesabTafsiliTemplate_scope']}" />
-				<h:inputText id="scopeSearch" value="#{hesabTafsiliTemplate.filter['scope@eq']}" converter="javax.faces.Integer"/>
+				<p:inputText id="scopeSearch" value="#{hesabTafsiliTemplate.filter['scope@eq']}" converter="javax.faces.Integer"/>
 				
-		</t:panelGrid>
+		</p:panelGrid>
 </rich:panel>
 
 </html>

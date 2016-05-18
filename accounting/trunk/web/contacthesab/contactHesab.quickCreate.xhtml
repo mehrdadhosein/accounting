@@ -8,7 +8,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich">
+	xmlns:rich="http://richfaces.org/rich">
 <style>
 .viewLableCol {
 	width: 12%;
@@ -19,8 +19,8 @@
 
 <rich:panel id="contactHesabInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
 		<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-					styleClass="inputForm">
+					columnClasses="viewLableColResponsive,inputCol"
+					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 				<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 					<h:outputLabel for="contact" value="#{messages['ContactHesab_contact']}" /> : 

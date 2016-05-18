@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/template-list.xhtml">
@@ -19,12 +20,16 @@
 		value="/contacthesab/contactHesab.exampleForm.xhtml" />
 	<ui:define name="listsection">
 <t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
-		<rich:dataTable id="contactHesabs" value="#{contactHesab.localDataModel}"   headerClass="header"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="contactHesabs" value="#{contactHesab.localDataModel}"   headerClass="header"
 			var="item" rowClasses="RowOdd,RowEven" style="width: 97%" align="center" rows="#{contactHesab.rowsPerPage}">
 
 			
 	
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="contactHesabs" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -40,9 +45,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeen}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="contactHesabs" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -58,36 +63,36 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsili}" />
-			</rich:column>
+			</p:column>
 		
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['Contact_identity']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.contact.desc}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['ShakhsHaghighi_codeMelli']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.contact.codeMelli}" />
-				</rich:column>
+				</p:column>
 
 				
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 							<h:outputText styleClass="headerCellClass"
 								value="#{messages['Contact_cmnt']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.contact.cmnt}" />
-				</rich:column>
+				</p:column>
 
 
 
-				<rich:column rendered="#{contact.deletable}" styleClass="action">
+				<p:column rendered="#{contact.deletable}" styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_delete']}" />
@@ -99,9 +104,9 @@
 						<f:setPropertyActionListener value="#{item.contact.id}"
 							target="#{contact.ID}" converter="javax.faces.Long" />
 					</h:commandLink>
-				</rich:column>
+				</p:column>
 
-				<rich:column rendered="#{contact.editable}" styleClass="action">
+				<p:column rendered="#{contact.editable}" styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_edit']}" />
@@ -115,8 +120,8 @@
 							value="/contacthesab/contactHesab.contactLocalList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-				<rich:column styleClass="action">
+				</p:column>
+				<p:column styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -130,12 +135,12 @@
 							value="/contacthesab/contactHesab.contactLocalList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
+				</p:column>
 
 
-		</rich:dataTable>
+		</p:dataTable>
 </t:div>		
-		<custom:scroller for="contactHesabs"/>
+		<custom:dataTableRowCount for="contactHesabs"/>
 			
 	</ui:define>
 	<ui:define name="buttonsection">

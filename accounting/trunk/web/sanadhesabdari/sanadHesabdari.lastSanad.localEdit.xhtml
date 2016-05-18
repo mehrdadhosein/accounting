@@ -24,9 +24,9 @@
 	<ui:define name="editsection">
 <t:saveState value="#{owner.sanadTypeIds}" />
 		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-			<t:panelGrid columns="2" width="90%"
-				columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-				styleClass="inputForm">
+			<p:panelGrid layout="grid"  columns="2" width="90%"
+				columnClasses="viewLableColResponsive,inputCol"
+				styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 
 				<h:panelGroup>
@@ -72,7 +72,7 @@
 					value="#{sanadHesabdari.lastSanadEntity.tarikhSanad}" lang="Shamsi"></custom:DateTimePicker>
 
 
-			</t:panelGrid>
+			</p:panelGrid>
 		</rich:panel>
 		<ui:include src="../common/sanadHesabdari.gridNew.advanced.xhtml" />
 		<ui:include src="/dlg/attachFileDLG.xhtml" />		
@@ -80,7 +80,7 @@
 					label="#{messages['SanadHesabdariItem_list']}" value="#{owner.sanadItemsXML}" />
 
 		<script>
-			createSanadHesabdariTable(""+document.getElementById('serajForm:sanadItems').value+"");
+			createSanadHesabdariTable(""+document.getElementById('sanadItems').value+"");
 			$$(document).keydown(function(event) {
 				//alert(event.which);
 				//alert(event.ctrlKey);
@@ -109,7 +109,7 @@
 			if (!(event.which == 115 &amp;&amp; event.ctrlKey) &amp;&amp; !(event.which == 19)) return true;
 			//alert("Ctrl-S pressed");
 			event.preventDefault();
-			clickLink('serajForm:saveMovaghat');
+			clickLink('saveMovaghat');
 			return false;
 		});			
 		</script>							
@@ -140,13 +140,13 @@
 		</div>
 	</ui:define>	
 	<ui:define name="buttonsection">
-		<h:commandButton id="saveMovaghat" styleClass=" gwt-Button" rendered="#{owner.editable}" onclick=" populateRecordsXML('serajForm:sanadItems','#sanadHesabdariGrid');" 
+		<h:commandButton id="saveMovaghat" styleClass=" gwt-Button" rendered="#{owner.editable}" onclick=" populateRecordsXML('sanadItems','#sanadHesabdariGrid');" 
 			action="#{owner.saveMovaghat}" value="#{messages['common_save']}"
 			image="/images/buttons/btn_save_temp.png" />
 
 		<h:commandButton styleClass=" gwt-Button"
 			rendered="#{owner.editable}" action="#{sanadHesabdari.saveBarresiShode}"
-			value="#{messages['sanad_save_daem']}"  onclick=" populateRecordsXML('serajForm:sanadItems','#sanadHesabdariGrid');"
+			value="#{messages['sanad_save_daem']}"  onclick=" populateRecordsXML('sanadItems','#sanadHesabdariGrid');"
 			image="/images/buttons/btn_confirm.png"/>
 
 		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"

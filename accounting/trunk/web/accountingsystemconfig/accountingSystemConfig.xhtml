@@ -15,7 +15,7 @@
 	<ui:param name="title" value="systemConfig-Accounting" />
 	<ui:param name="owner" value="#{accountingSystemConfig}" />
 	<ui:define name="saveStateSction">
-
+		<t:saveState value="#{owner.device}" />
 	</ui:define>
 	<ui:define name="fixsection">
 	</ui:define>
@@ -23,7 +23,7 @@
 	<ui:define name="editsection">
 			<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
 				<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol35P,inputCol" styleClass="inputForm">
+					columnClasses="viewLableCol35P,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 					<h:panelGroup>
 						<h:outputText value="* " styleClass="required" />

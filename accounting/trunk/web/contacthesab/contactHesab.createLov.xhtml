@@ -7,7 +7,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-createLov.xhtml">
 	<ui:param name="title" value="ContactHesab_list" />
@@ -46,7 +47,7 @@
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
 			</rich:column>	
 		</rich:dataTable>
-		<custom:scroller onbegin="showLoading();" oncomplete="hideLoading();"		for="contactHesabs"></custom:scroller>		
+		<custom:dataTableRowCount onbegin="showLoading();" oncomplete="hideLoading();"		for="contactHesabs"></custom:dataTableRowCount>		
 
 	</ui:define>
 	<ui:define name="quickCreateSection">
@@ -54,22 +55,22 @@
 		<script>
 			function copyInputs(){
 			
-													document.getElementById('serajForm:contacthidden').value=document.getElementById('serajForm:contactSearchhidden').value;
-					document.getElementById('serajForm:contacttext').value=document.getElementById('serajForm:contactSearchtext').value;
-									document.getElementById('serajForm:hesabMoeenhidden').value=document.getElementById('serajForm:hesabMoeenSearchhidden').value;
-					document.getElementById('serajForm:hesabMoeentext').value=document.getElementById('serajForm:hesabMoeenSearchtext').value;
-									document.getElementById('serajForm:hesabTafsilihidden').value=document.getElementById('serajForm:hesabTafsiliSearchhidden').value;
-					document.getElementById('serajForm:hesabTafsilitext').value=document.getElementById('serajForm:hesabTafsiliSearchtext').value;
+													document.getElementById('contacthidden').value=document.getElementById('contactSearchhidden').value;
+					document.getElementById('contacttext').value=document.getElementById('contactSearchtext').value;
+									document.getElementById('hesabMoeenhidden').value=document.getElementById('hesabMoeenSearchhidden').value;
+					document.getElementById('hesabMoeentext').value=document.getElementById('hesabMoeenSearchtext').value;
+									document.getElementById('hesabTafsilihidden').value=document.getElementById('hesabTafsiliSearchhidden').value;
+					document.getElementById('hesabTafsilitext').value=document.getElementById('hesabTafsiliSearchtext').value;
 								
 											
 			}
 			function copyCreateToSearch(){
-													document.getElementById('serajForm:contactSearchhidden').value=document.getElementById('serajForm:contacthidden').value;
-					document.getElementById('serajForm:contactSearchtext').value=document.getElementById('serajForm:contacttext').value;
-									document.getElementById('serajForm:hesabMoeenSearchhidden').value=document.getElementById('serajForm:hesabMoeenhidden').value;
-					document.getElementById('serajForm:hesabMoeenSearchtext').value=document.getElementById('serajForm:hesabMoeentext').value;
-									document.getElementById('serajForm:hesabTafsiliSearchhidden').value=document.getElementById('serajForm:hesabTafsilihidden').value;
-					document.getElementById('serajForm:hesabTafsiliSearchtext').value=document.getElementById('serajForm:hesabTafsilitext').value;
+													document.getElementById('contactSearchhidden').value=document.getElementById('contacthidden').value;
+					document.getElementById('contactSearchtext').value=document.getElementById('contacttext').value;
+									document.getElementById('hesabMoeenSearchhidden').value=document.getElementById('hesabMoeenhidden').value;
+					document.getElementById('hesabMoeenSearchtext').value=document.getElementById('hesabMoeentext').value;
+									document.getElementById('hesabTafsiliSearchhidden').value=document.getElementById('hesabTafsilihidden').value;
+					document.getElementById('hesabTafsiliSearchtext').value=document.getElementById('hesabTafsilitext').value;
 								
 											}
 		</script>

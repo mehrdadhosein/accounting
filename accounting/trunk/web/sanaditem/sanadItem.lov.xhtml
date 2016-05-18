@@ -7,14 +7,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-lov.xhtml">
 	<ui:param name="title" value="#{messages['SanadItemEntity_List']}" />
 	<ui:param name="owner" value="#{sanadItem}" />
 	<ui:define name="searchsection">
 
-			<h:panelGrid columns="4" styleClass="inputForm"
+			<h:panelGrid columns="4" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 				columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2">
 
 																<h:outputLabel for="hesab" value="#{messages['SanadItem_hesab']}" />
@@ -37,15 +38,15 @@
 									
 								
 																									<h:outputLabel for="row" value="#{messages['SanadItem_row']}" />
-								<h:inputText id="row" value="#{sanadItem.filter['row@eq']}" converter="javax.faces.Integer"/>
+								<p:inputText id="row" value="#{sanadItem.filter['row@eq']}" converter="javax.faces.Integer"/>
 																														<h:outputLabel for="description" value="#{messages['SanadItem_description']}" />
-								<h:inputText id="description" value="#{sanadItem.filter['description@lk']}" />
+								<p:inputText id="description" value="#{sanadItem.filter['description@lk']}" />
 																														<h:outputLabel for="type" value="#{messages['SanadItem_type']}" />
-								<h:inputText id="type" value="#{sanadItem.filter['type@lk']}" />
+								<p:inputText id="type" value="#{sanadItem.filter['type@lk']}" />
 																														<h:outputLabel for="bestankar" value="#{messages['SanadItem_bestankar']}" />
-								<h:inputText id="bestankar" value="#{sanadItem.filter['bestankar@eq']}" converter="javax.faces.Double"/>
+								<p:inputText id="bestankar" value="#{sanadItem.filter['bestankar@eq']}" converter="javax.faces.Double"/>
 																														<h:outputLabel for="bedehkar" value="#{messages['SanadItem_bedehkar']}" />
-								<h:inputText id="bedehkar" value="#{sanadItem.filter['bedehkar@eq']}" converter="javax.faces.Double"/>
+								<p:inputText id="bedehkar" value="#{sanadItem.filter['bedehkar@eq']}" converter="javax.faces.Double"/>
 																														<h:outputLabel for="date" value="#{messages['SanadItem_date']}" />
 								<custom:DateTimePicker type="Date" id="date" value="#{sanadItem.filter['date@eq']}" lang="Shamsi"></custom:DateTimePicker>
 					

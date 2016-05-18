@@ -7,19 +7,20 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-lov.xhtml">
 	<ui:param name="title" value="SanadType_select" />
 	<ui:param name="owner" value="#{sanadType}" />
 	<ui:define name="searchsection">
 
-			<h:panelGrid columns="4" styleClass="inputForm" width="90%"
+			<h:panelGrid columns="4" styleClass="inputForm ui-noborder ui-panelgrid-blank"> width="90%"
 				columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2">
 
 												
 																									<h:outputLabel for="name" value="#{messages['SanadType_name']}" />
-								<h:inputText id="name" value="#{sanadType.filter['name@lk']}" />
+								<p:inputText id="name" value="#{sanadType.filter['name@lk']}" />
 													
 
 			</h:panelGrid>
@@ -43,8 +44,8 @@
 			</rich:column>
 		</rich:dataTable>
 		</t:div>
-		<custom:scroller onpagechange="showLoading();"
-			oncomplete="hideLoading();" for="sanadTypes"></custom:scroller>
+		<custom:dataTableRowCount onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="sanadTypes"></custom:dataTableRowCount>
 	</ui:define>
 </ui:composition>
 </html>

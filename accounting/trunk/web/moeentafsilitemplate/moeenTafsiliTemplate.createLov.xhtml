@@ -7,7 +7,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-createLov.xhtml">
 	<ui:param name="title" value="MoeenTafsiliTemplate_list" />
@@ -46,7 +47,7 @@
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
 			</rich:column>	
 		</rich:dataTable>
-		<custom:scroller onbegin="showLoading();" oncomplete="hideLoading();"		for="moeenTafsiliTemplates"></custom:scroller>		
+		<custom:dataTableRowCount onbegin="showLoading();" oncomplete="hideLoading();"		for="moeenTafsiliTemplates"></custom:dataTableRowCount>		
 
 	</ui:define>
 	<ui:define name="quickCreateSection">
@@ -54,21 +55,21 @@
 		<script>
 			function copyInputs(){
 			
-													document.getElementById('serajForm:hesabTafsiliTemplatehidden').value=document.getElementById('serajForm:hesabTafsiliTemplateSearchhidden').value;
-					document.getElementById('serajForm:hesabTafsiliTemplatetext').value=document.getElementById('serajForm:hesabTafsiliTemplateSearchtext').value;
-									document.getElementById('serajForm:hesabMoeenTemplatehidden').value=document.getElementById('serajForm:hesabMoeenTemplateSearchhidden').value;
-					document.getElementById('serajForm:hesabMoeenTemplatetext').value=document.getElementById('serajForm:hesabMoeenTemplateSearchtext').value;
+													document.getElementById('hesabTafsiliTemplatehidden').value=document.getElementById('hesabTafsiliTemplateSearchhidden').value;
+					document.getElementById('hesabTafsiliTemplatetext').value=document.getElementById('hesabTafsiliTemplateSearchtext').value;
+									document.getElementById('hesabMoeenTemplatehidden').value=document.getElementById('hesabMoeenTemplateSearchhidden').value;
+					document.getElementById('hesabMoeenTemplatetext').value=document.getElementById('hesabMoeenTemplateSearchtext').value;
 								
-																			document.getElementById('serajForm:level').value=document.getElementById('serajForm:levelSearch').value;
+																			document.getElementById('level').value=document.getElementById('levelSearch').value;
 												
 			}
 			function copyCreateToSearch(){
-													document.getElementById('serajForm:hesabTafsiliTemplateSearchhidden').value=document.getElementById('serajForm:hesabTafsiliTemplatehidden').value;
-					document.getElementById('serajForm:hesabTafsiliTemplateSearchtext').value=document.getElementById('serajForm:hesabTafsiliTemplatetext').value;
-									document.getElementById('serajForm:hesabMoeenTemplateSearchhidden').value=document.getElementById('serajForm:hesabMoeenTemplatehidden').value;
-					document.getElementById('serajForm:hesabMoeenTemplateSearchtext').value=document.getElementById('serajForm:hesabMoeenTemplatetext').value;
+													document.getElementById('hesabTafsiliTemplateSearchhidden').value=document.getElementById('hesabTafsiliTemplatehidden').value;
+					document.getElementById('hesabTafsiliTemplateSearchtext').value=document.getElementById('hesabTafsiliTemplatetext').value;
+									document.getElementById('hesabMoeenTemplateSearchhidden').value=document.getElementById('hesabMoeenTemplatehidden').value;
+					document.getElementById('hesabMoeenTemplateSearchtext').value=document.getElementById('hesabMoeenTemplatetext').value;
 								
-																			document.getElementById('serajForm:levelSearch').value=document.getElementById('serajForm:level').value;
+																			document.getElementById('levelSearch').value=document.getElementById('level').value;
 												}
 		</script>
 		

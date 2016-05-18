@@ -8,9 +8,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:rich="http://richfaces.ajax4jsf.org/rich"
+	xmlns:rich="http://richfaces.org/rich"
 	
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/template-list.xhtml">
@@ -20,12 +21,16 @@
 		value="/hesabmoeentemplate/hesabMoeenTemplate.exampleForm.xhtml" />
 	<ui:define name="listsection">
 <t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
-		<rich:dataTable id="hesabMoeenTemplates" value="#{hesabMoeenTemplate.localArchiveDataModel}"   headerClass="header"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="hesabMoeenTemplates" value="#{hesabMoeenTemplate.localArchiveDataModel}"   headerClass="header"
 			var="item" rowClasses="RowOdd,RowEven" style="width: 97%" align="center" rows="#{hesabMoeenTemplate.rowsPerPage}">
 
 			
 	
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabMoeenTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -41,9 +46,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.name}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabMoeenTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -59,9 +64,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.description}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabMoeenTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -77,9 +82,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hidden}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabMoeenTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -95,9 +100,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabKolTemplate}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabMoeenTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -113,9 +118,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.mahyatMoeen}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabMoeenTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -131,9 +136,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.code}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="hesabMoeenTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -149,11 +154,11 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.scope}" />
-			</rich:column>
+			</p:column>
 						
 			
 			
-			<rich:column rendered="#{hesabMoeenTemplate.deletable and false}" styleClass="action">
+			<p:column rendered="#{hesabMoeenTemplate.deletable and false}" styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_delete']}" />
 				</f:facet>
@@ -162,9 +167,9 @@
 					<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
 					<f:setPropertyActionListener value="#{item.id}"  target="#{hesabMoeenTemplate.ID}"  converter="javax.faces.Long" />
 				</h:commandLink>
-			</rich:column>
+			</p:column>
 
-			<rich:column rendered="#{hesabMoeenTemplate.editable and false}" styleClass="action">
+			<p:column rendered="#{hesabMoeenTemplate.editable and false}" styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_edit']}" />
 				</f:facet>
@@ -175,8 +180,8 @@
 					<f:setPropertyActionListener value="/hesabmoeentemplate/hesabMoeenTemplate.localArchiveList.jsf"
 						target="#{owner.returnUrl}" />					
 				</h:commandLink>
-			</rich:column>
-			<rich:column styleClass="action">
+			</p:column>
+			<p:column styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_view']}" />
 				</f:facet>
@@ -187,10 +192,10 @@
 					<f:setPropertyActionListener value="/hesabmoeentemplate/hesabMoeenTemplate.localArchiveList.jsf"
 						target="#{owner.returnUrl}" />					
 				</h:commandLink>
-			</rich:column >
-		</rich:dataTable>
+			</p:column >
+		</p:dataTable>
 </t:div>		
-		<custom:scroller for="hesabMoeenTemplates" ></custom:scroller>
+		<custom:dataTableRowCount for="hesabMoeenTemplates" ></custom:dataTableRowCount>
 			
 	</ui:define>
 	<ui:define name="buttonsection">

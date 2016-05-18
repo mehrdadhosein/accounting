@@ -7,7 +7,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-createLov.xhtml">
 	<ui:param name="title" value="SanadHesabdari_list" />
@@ -74,7 +75,7 @@
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
 			</rich:column>	
 		</rich:dataTable>
-		<custom:scroller for="sanadHesabdaris" binding="#{sanadHesabdari.datascroller}"></custom:scroller>
+		<custom:dataTableRowCount for="sanadHesabdaris" binding="#{sanadHesabdari.datascroller}"></custom:dataTableRowCount>
 
 	</ui:define>
 	<ui:define name="quickCreateSection">
@@ -82,31 +83,31 @@
 		<script>
 			function copyInputs(){
 			
-													document.getElementById('serajForm:saalMaalihidden').value=document.getElementById('serajForm:saalMaaliSearchhidden').value;
-					document.getElementById('serajForm:saalMaalitext').value=document.getElementById('serajForm:saalMaaliSearchtext').value;
-									document.getElementById('serajForm:sanadTypehidden').value=document.getElementById('serajForm:sanadTypeSearchhidden').value;
-					document.getElementById('serajForm:sanadTypetext').value=document.getElementById('serajForm:sanadTypeSearchtext').value;
-									document.getElementById('serajForm:organhidden').value=document.getElementById('serajForm:organSearchhidden').value;
-					document.getElementById('serajForm:organtext').value=document.getElementById('serajForm:organSearchtext').value;
+													document.getElementById('saalMaalihidden').value=document.getElementById('saalMaaliSearchhidden').value;
+					document.getElementById('saalMaalitext').value=document.getElementById('saalMaaliSearchtext').value;
+									document.getElementById('sanadTypehidden').value=document.getElementById('sanadTypeSearchhidden').value;
+					document.getElementById('sanadTypetext').value=document.getElementById('sanadTypeSearchtext').value;
+									document.getElementById('organhidden').value=document.getElementById('organSearchhidden').value;
+					document.getElementById('organtext').value=document.getElementById('organSearchtext').value;
 								
-																			document.getElementById('serajForm:number').value=document.getElementById('serajForm:numberSearch').value;
-																				document.getElementById('serajForm:description').value=document.getElementById('serajForm:descriptionSearch').value;
-																				document.getElementById('serajForm:tarikhSanad').value=document.getElementById('serajForm:tarikhSanadSearch').value;
-																				document.getElementById('serajForm:state').value=document.getElementById('serajForm:stateSearch').value;
+																			document.getElementById('number').value=document.getElementById('numberSearch').value;
+																				document.getElementById('description').value=document.getElementById('descriptionSearch').value;
+																				document.getElementById('tarikhSanad').value=document.getElementById('tarikhSanadSearch').value;
+																				document.getElementById('state').value=document.getElementById('stateSearch').value;
 												
 			}
 			function copyCreateToSearch(){
-													document.getElementById('serajForm:saalMaaliSearchhidden').value=document.getElementById('serajForm:saalMaalihidden').value;
-					document.getElementById('serajForm:saalMaaliSearchtext').value=document.getElementById('serajForm:saalMaalitext').value;
-									document.getElementById('serajForm:sanadTypeSearchhidden').value=document.getElementById('serajForm:sanadTypehidden').value;
-					document.getElementById('serajForm:sanadTypeSearchtext').value=document.getElementById('serajForm:sanadTypetext').value;
-									document.getElementById('serajForm:organSearchhidden').value=document.getElementById('serajForm:organhidden').value;
-					document.getElementById('serajForm:organSearchtext').value=document.getElementById('serajForm:organtext').value;
+													document.getElementById('saalMaaliSearchhidden').value=document.getElementById('saalMaalihidden').value;
+					document.getElementById('saalMaaliSearchtext').value=document.getElementById('saalMaalitext').value;
+									document.getElementById('sanadTypeSearchhidden').value=document.getElementById('sanadTypehidden').value;
+					document.getElementById('sanadTypeSearchtext').value=document.getElementById('sanadTypetext').value;
+									document.getElementById('organSearchhidden').value=document.getElementById('organhidden').value;
+					document.getElementById('organSearchtext').value=document.getElementById('organtext').value;
 								
-																			document.getElementById('serajForm:numberSearch').value=document.getElementById('serajForm:number').value;
-																				document.getElementById('serajForm:descriptionSearch').value=document.getElementById('serajForm:description').value;
-																				document.getElementById('serajForm:tarikhSanadSearch').value=document.getElementById('serajForm:tarikhSanad').value;
-																				document.getElementById('serajForm:stateSearch').value=document.getElementById('serajForm:state').value;
+																			document.getElementById('numberSearch').value=document.getElementById('number').value;
+																				document.getElementById('descriptionSearch').value=document.getElementById('description').value;
+																				document.getElementById('tarikhSanadSearch').value=document.getElementById('tarikhSanad').value;
+																				document.getElementById('stateSearch').value=document.getElementById('state').value;
 												}
 		</script>
 		

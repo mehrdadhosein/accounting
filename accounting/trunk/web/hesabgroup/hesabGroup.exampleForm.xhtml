@@ -7,24 +7,25 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <a4j:region>
 	<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-		<t:panelGrid columns="1" style="width:100%"
+		<p:panelGrid layout="grid" columns="1" style="width:100%"
 			columnClasses=",SearchbtnStyle">
-			<t:panelGrid columns="2" width="90%"
-				columnClasses="viewLableCol30P,inputCol" styleClass="inputForm">
+			<p:panelGrid layout="grid" columns="2" width="90%"
+				columnClasses="viewLableColResponsive,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 
 
 				<h:panelGroup>
 					<h:outputLabel for="name" value="#{messages['HesabGroup_name']}" /> : 
 				</h:panelGroup>
-				<h:inputText id="name" value="#{hesabGroup.filter['name@lk']}" />
+				<p:inputText id="name" value="#{hesabGroup.filter['name@lk']}" />
 
-			</t:panelGrid>
+			</p:panelGrid>
 			<t:div>
 				<a4j:commandButton image="/images/searchbtn2.png"
 					styleClass=" gwt-Button" render="listPanel" onclick="showLoading()"
@@ -36,7 +37,7 @@
 					onclick="hideLoading(); closeSearchDiv();return false;"
 					styleClass=" gwt-Button" image="/images/buttons/btn_return.png" />
 			</t:div>
-		</t:panelGrid>
+		</p:panelGrid>
 	</rich:panel>
 </a4j:region>
 </html>

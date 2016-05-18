@@ -7,14 +7,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-lov.xhtml">
 	<ui:param name="title" value="MoeenTafsiliTemplate_select" />
 	<ui:param name="owner" value="#{moeenTafsiliTemplate}" />
 	<ui:define name="searchsection">
 
-			<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+			<h:panelGrid columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"> width="90%"
 				columnClasses="SearchitemStyle1,SearchitemStyle2">
 
 																<h:outputLabel for="hesabTafsiliTemplate" value="#{messages['MoeenTafsiliTemplate_hesabTafsiliTemplate']} : " /> 
@@ -37,7 +38,7 @@
 									
 								
 																									<h:outputLabel for="level" value="#{messages['MoeenTafsiliTemplate_level']} : " />
-								<h:inputText id="level" value="#{moeenTafsiliTemplate.filter['level@eq']}" converter="javax.faces.Integer"/>
+								<p:inputText id="level" value="#{moeenTafsiliTemplate.filter['level@eq']}" converter="javax.faces.Integer"/>
 													
 
 			</h:panelGrid>
@@ -73,8 +74,8 @@
 			</rich:column>
 		</rich:dataTable>
 		</t:div>
-		<custom:scroller onpagechange="showLoading();"
-			oncomplete="hideLoading();" for="moeenTafsiliTemplates"></custom:scroller>
+		<custom:dataTableRowCount onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="moeenTafsiliTemplates"></custom:dataTableRowCount>
 	</ui:define>
 </ui:composition>
 </html>

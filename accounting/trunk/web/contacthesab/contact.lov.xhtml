@@ -7,29 +7,30 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-lov.xhtml">
 	<ui:param name="title" value="Contact_list" />
 	<ui:param name="owner" value="#{contactHesab}" />
 	<ui:define name="searchsection">
 
-		<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+		<h:panelGrid columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"> width="90%"
 			columnClasses="SearchitemStyle1,SearchitemStyle2">
 
 			<h:outputLabel for="firstName"
 				value="#{messages['Contact_firstName']} : " />
-			<h:inputText id="firstName" value="#{owner.filter['contact.firstName@lk']}" />
+			<p:inputText id="firstName" value="#{owner.filter['contact.firstName@lk']}" />
 			<h:outputLabel for="lastName"
 				value="#{messages['Contact_lastName']} : " />
-			<h:inputText id="lastName" value="#{owner.filter['contact.lastName@lk']}" />
+			<p:inputText id="lastName" value="#{owner.filter['contact.lastName@lk']}" />
 			<h:outputLabel for="company"
 				value="#{messages['Contact_company']} : " />
-			<h:inputText id="company" value="#{owner.filter['contact.company@lk']}" />
+			<p:inputText id="company" value="#{owner.filter['contact.company@lk']}" />
 			<h:outputLabel for="email" value="#{messages['Contact_email']} : " />
-			<h:inputText id="email" value="#{owner.filter['contact.email@lk']}" />
+			<p:inputText id="email" value="#{owner.filter['contact.email@lk']}" />
 			<h:outputLabel for="cmnt" value="#{messages['Contact_cmnt']} : " />
-			<h:inputText id="cmnt" value="#{owner.filter['contact.cmnt@lk']}" />
+			<p:inputText id="cmnt" value="#{owner.filter['contact.cmnt@lk']}" />
 
 			<h:outputLabel for="hesabMoeen"
 				value="#{messages['ContactHesab_hesabMoeen']} : " />
@@ -99,7 +100,7 @@
 				</rich:column>
 			</rich:dataTable>
 		</t:div>
-		<custom:scroller  for="contactHesabs"></custom:scroller>
+		<custom:dataTableRowCount  for="contactHesabs"></custom:dataTableRowCount>
 	</ui:define>
 </ui:composition>
 </html>

@@ -7,7 +7,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-createLov.xhtml">
 	<ui:param name="title" value="SanadHesabdariItem_list" />
@@ -103,35 +104,35 @@
 		<script>
 			function copyInputs(){
 			
-													document.getElementById('serajForm:hesabKolhidden').value=document.getElementById('serajForm:hesabKolSearchhidden').value;
-					document.getElementById('serajForm:hesabKoltext').value=document.getElementById('serajForm:hesabKolSearchtext').value;
-									document.getElementById('serajForm:hesabMoeenhidden').value=document.getElementById('serajForm:hesabMoeenSearchhidden').value;
-					document.getElementById('serajForm:hesabMoeentext').value=document.getElementById('serajForm:hesabMoeenSearchtext').value;
-									document.getElementById('serajForm:hesabTafsilihidden').value=document.getElementById('serajForm:hesabTafsiliSearchhidden').value;
-					document.getElementById('serajForm:hesabTafsilitext').value=document.getElementById('serajForm:hesabTafsiliSearchtext').value;
+													document.getElementById('hesabKolhidden').value=document.getElementById('hesabKolSearchhidden').value;
+					document.getElementById('hesabKoltext').value=document.getElementById('hesabKolSearchtext').value;
+									document.getElementById('hesabMoeenhidden').value=document.getElementById('hesabMoeenSearchhidden').value;
+					document.getElementById('hesabMoeentext').value=document.getElementById('hesabMoeenSearchtext').value;
+									document.getElementById('hesabTafsilihidden').value=document.getElementById('hesabTafsiliSearchhidden').value;
+					document.getElementById('hesabTafsilitext').value=document.getElementById('hesabTafsiliSearchtext').value;
 								
-																			document.getElementById('serajForm:row').value=document.getElementById('serajForm:rowSearch').value;
-																				document.getElementById('serajForm:description').value=document.getElementById('serajForm:descriptionSearch').value;
-																				document.getElementById('serajForm:type').value=document.getElementById('serajForm:typeSearch').value;
-																				document.getElementById('serajForm:bestankar').value=document.getElementById('serajForm:bestankarSearch').value;
-																				document.getElementById('serajForm:bedehkar').value=document.getElementById('serajForm:bedehkarSearch').value;
-																				document.getElementById('serajForm:tarikhArticle').value=document.getElementById('serajForm:tarikhArticleSearch').value;
+																			document.getElementById('row').value=document.getElementById('rowSearch').value;
+																				document.getElementById('description').value=document.getElementById('descriptionSearch').value;
+																				document.getElementById('type').value=document.getElementById('typeSearch').value;
+																				document.getElementById('bestankar').value=document.getElementById('bestankarSearch').value;
+																				document.getElementById('bedehkar').value=document.getElementById('bedehkarSearch').value;
+																				document.getElementById('tarikhArticle').value=document.getElementById('tarikhArticleSearch').value;
 												
 			}
 			function copyCreateToSearch(){
-													document.getElementById('serajForm:hesabKolSearchhidden').value=document.getElementById('serajForm:hesabKolhidden').value;
-					document.getElementById('serajForm:hesabKolSearchtext').value=document.getElementById('serajForm:hesabKoltext').value;
-									document.getElementById('serajForm:hesabMoeenSearchhidden').value=document.getElementById('serajForm:hesabMoeenhidden').value;
-					document.getElementById('serajForm:hesabMoeenSearchtext').value=document.getElementById('serajForm:hesabMoeentext').value;
-									document.getElementById('serajForm:hesabTafsiliSearchhidden').value=document.getElementById('serajForm:hesabTafsilihidden').value;
-					document.getElementById('serajForm:hesabTafsiliSearchtext').value=document.getElementById('serajForm:hesabTafsilitext').value;
+													document.getElementById('hesabKolSearchhidden').value=document.getElementById('hesabKolhidden').value;
+					document.getElementById('hesabKolSearchtext').value=document.getElementById('hesabKoltext').value;
+									document.getElementById('hesabMoeenSearchhidden').value=document.getElementById('hesabMoeenhidden').value;
+					document.getElementById('hesabMoeenSearchtext').value=document.getElementById('hesabMoeentext').value;
+									document.getElementById('hesabTafsiliSearchhidden').value=document.getElementById('hesabTafsilihidden').value;
+					document.getElementById('hesabTafsiliSearchtext').value=document.getElementById('hesabTafsilitext').value;
 								
-																			document.getElementById('serajForm:rowSearch').value=document.getElementById('serajForm:row').value;
-																				document.getElementById('serajForm:descriptionSearch').value=document.getElementById('serajForm:description').value;
-																				document.getElementById('serajForm:typeSearch').value=document.getElementById('serajForm:type').value;
-																				document.getElementById('serajForm:bestankarSearch').value=document.getElementById('serajForm:bestankar').value;
-																				document.getElementById('serajForm:bedehkarSearch').value=document.getElementById('serajForm:bedehkar').value;
-																				document.getElementById('serajForm:tarikhArticleSearch').value=document.getElementById('serajForm:tarikhArticle').value;
+																			document.getElementById('rowSearch').value=document.getElementById('row').value;
+																				document.getElementById('descriptionSearch').value=document.getElementById('description').value;
+																				document.getElementById('typeSearch').value=document.getElementById('type').value;
+																				document.getElementById('bestankarSearch').value=document.getElementById('bestankar').value;
+																				document.getElementById('bedehkarSearch').value=document.getElementById('bedehkar').value;
+																				document.getElementById('tarikhArticleSearch').value=document.getElementById('tarikhArticle').value;
 												}
 		</script>
 		

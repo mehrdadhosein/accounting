@@ -7,14 +7,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-lov.xhtml">
 	<ui:param name="title" value="MarkazHazine_select" />
 	<ui:param name="owner" value="#{markazHazine}" />
 	<ui:define name="searchsection">
 
-		<h:panelGrid columns="2" styleClass="inputForm" width="90%"
+		<h:panelGrid columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"> width="90%"
 			columnClasses="SearchitemStyle130P,SearchitemStyle2">
 
 			<h:outputLabel for="hesabTafsili"
@@ -30,11 +31,11 @@
 
 			<h:outputLabel for="markaztype"
 				value="#{messages['MarkazHazine_markaztype']}" />
-			<h:inputText id="markaztype"
+			<p:inputText id="markaztype"
 				value="#{markazHazine.filter['markaztype@eq']}"
 				converter="javax.faces.Integer" />
 			<h:outputLabel for="onvan" value="#{messages['MarkazHazine_onvan']}" />
-			<h:inputText id="onvan" value="#{markazHazine.filter['onvan@lk']}" />
+			<p:inputText id="onvan" value="#{markazHazine.filter['onvan@lk']}" />
 
 
 		</h:panelGrid>
@@ -74,8 +75,8 @@
 				</rich:column>
 			</rich:dataTable>
 		</t:div>
-		<custom:scroller onpagechange="showLoading();"
-			oncomplete="hideLoading();" for="markazHazines"></custom:scroller>
+		<custom:dataTableRowCount onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="markazHazines"></custom:dataTableRowCount>
 	</ui:define>
 </ui:composition>
 </html>

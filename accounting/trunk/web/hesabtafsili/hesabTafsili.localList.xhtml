@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/template-list.xhtml">
@@ -19,14 +20,18 @@
 		value="/hesabtafsili/hesabTafsili.localExampleForm.xhtml" />
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="hesabTafsilis"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="hesabTafsilis"
 				value="#{hesabTafsili.localDataModel}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center" rows="#{hesabTafsili.rowsPerPage}">
 
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -45,9 +50,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.code}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -66,10 +71,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.name}" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -88,10 +93,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bestankr}"   converter="seraj.converter.accountingNumberFormatter" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabTafsilis"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -110,26 +115,26 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"  converter="seraj.converter.accountingNumberFormatter"   />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 							<h:outputText styleClass="headerCellClass"
 								value="#{messages['SaalMaali_title']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.saalMaali}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 								value="#{messages['SaalMaali_title']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.saalMaali.nameWithOrgan}"   />
-				</rich:column>
+				</p:column>
 				
-				<rich:column rendered="#{hesabTafsili.deletable}"
+				<p:column rendered="#{hesabTafsili.deletable}"
 					styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
@@ -142,9 +147,9 @@
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{hesabTafsili.ID}" converter="javax.faces.Long" />
 					</h:commandLink>
-				</rich:column>
+				</p:column>
 
-				<rich:column rendered="#{hesabTafsili.editable}" styleClass="action">
+				<p:column rendered="#{hesabTafsili.editable}" styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_edit']}" />
@@ -158,8 +163,8 @@
 							value="/hesabtafsili/hesabTafsili.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-				<rich:column styleClass="action">
+				</p:column>
+				<p:column styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -173,10 +178,10 @@
 							value="/hesabtafsili/hesabTafsili.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</t:div>
-		<custom:scroller for="hesabTafsilis" />
+		<custom:dataTableRowCount for="hesabTafsilis" />
 
 	</ui:define>
 	<ui:define name="buttonsection">

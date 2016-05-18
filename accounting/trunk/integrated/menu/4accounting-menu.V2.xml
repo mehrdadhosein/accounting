@@ -290,9 +290,6 @@
 				<MenuItem id="sanadHesabdarilist" value="سند" valueClick="sanadhesabdari/sanadHesabdari.list.jsf" pagetitle="سند نظارت سراسری"
 					permission="sanadHesabdari.list" icon="images/menu/sales-report-icon.png" />
 
-				<MenuItem id="markazHazinelist" value="مرکز هزینه " valueClick="markazhazine/markazHazine.list.jsf" pagetitle="نظارت سراسری مرکز هزینه"
-					permission="markazHazine.list" icon="images/menu/costCenter-icon.png" />
-
 				<MenuItem id="hesabTafsililist" value="حساب تفصیلی" valueClick="hesabtafsili/hesabTafsili.list.jsf" pagetitle="نظارت سراسری حساب تفصیلی"
 					permission="hesabTafsili.list" icon="images/menu/folder-documents-icon.png" />
 

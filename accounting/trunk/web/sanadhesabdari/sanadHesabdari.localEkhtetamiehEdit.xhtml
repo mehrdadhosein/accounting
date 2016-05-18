@@ -8,7 +8,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-edit.xhtml">
 	<ui:param name="title" value="SanadHesabdari_edit_ekhtetamieh" />
@@ -145,9 +146,9 @@
 	<ui:define name="editsection">
 
 		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-			<t:panelGrid columns="2" width="90%"
-				columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-				styleClass="inputForm">
+			<p:panelGrid layout="grid"  columns="2" width="90%"
+				columnClasses="viewLableColResponsive,inputCol"
+				styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 
 				<h:panelGroup>
@@ -175,14 +176,14 @@
 					<h:outputText styleClass="required" value="  " />
 					<h:outputLabel for="primaryNumber" value="#{messages['Sanad_atfNumber']}" /> : 
 				</h:panelGroup>
-				<h:inputText  id="atfNumber" label="#{messages['Sanad_atfNumber']}"
+				<p:inputText  id="atfNumber" label="#{messages['Sanad_atfNumber']}"
 					value="#{sanadHesabdari.entity.atfNumber}" style="width:200px"/>
 					
 					<h:panelGroup>
 					
 					<h:outputLabel for="farieNumber" value="#{messages['Sanad_farieNumber']}" /> : 
 				</h:panelGroup>
-				<h:inputText  id="farieNumber" label="#{messages['Sanad_farieNumber']}"
+				<p:inputText  id="farieNumber" label="#{messages['Sanad_farieNumber']}"
 					value="#{sanadHesabdari.entity.farieNumber}" style="width:200px"/>
 					
 					
@@ -205,7 +206,7 @@
 					value="#{sanadHesabdari.entity.tarikhSanad}" lang="Shamsi"></custom:DateTimePicker>
 
 
-			</t:panelGrid>
+			</p:panelGrid>
 		</rich:panel>
 		<ui:include src="../common/sanadHesabdari.gridNew.advanced.xhtml" />
 		<ui:include src="/dlg/attachFileDLG.xhtml" />		
@@ -213,11 +214,11 @@
 					label="#{messages['SanadHesabdariItem_list']}" value="#{owner.sanadItemsXML}" />
 
 		<script>
-		createSanadHesabdariTable(""+document.getElementById('serajForm:sanadItems').value+"");
+		createSanadHesabdariTable(""+document.getElementById('sanadItems').value+"");
 		</script>							
 	</ui:define>
 	<ui:define name="buttonsection">
-		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.editable}" onclick=" populateRecordsXML('serajForm:sanadItems','#sanadHesabdariGrid');" 
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.editable}" onclick=" populateRecordsXML('sanadItems','#sanadHesabdariGrid');" 
 			action="#{owner.saveEkhtetamiehMovaghat}" value="#{messages['common_save']}"
 			image="/images/savebtn.png" />
 
@@ -226,7 +227,7 @@
 			 
 		<h:commandButton styleClass=" gwt-Button"
 			rendered="#{owner.editable and owner.isMovaghat}" action="#{sanadHesabdari.saveEkhtetamiehBarresiShode}"
-			value="#{messages['sanad_save_barrasiShode']}"  onclick=" populateRecordsXML('serajForm:sanadItems','#sanadHesabdariGrid');"
+			value="#{messages['sanad_save_barrasiShode']}"  onclick=" populateRecordsXML('sanadItems','#sanadHesabdariGrid');"
 			image="/images/buttons/btn_confirm.png"/>
 
 

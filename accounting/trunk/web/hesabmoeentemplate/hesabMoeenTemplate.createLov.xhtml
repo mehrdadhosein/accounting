@@ -7,7 +7,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-createLov.xhtml">
 	<ui:param name="title" value="HesabMoeenTemplate_list" />
@@ -74,7 +75,7 @@
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
 			</rich:column>	
 		</rich:dataTable>
-		<custom:scroller onbegin="showLoading();" oncomplete="hideLoading();"		for="hesabMoeenTemplates"></custom:scroller>		
+		<custom:dataTableRowCount onbegin="showLoading();" oncomplete="hideLoading();"		for="hesabMoeenTemplates"></custom:dataTableRowCount>		
 
 	</ui:define>
 	<ui:define name="quickCreateSection">
@@ -82,27 +83,27 @@
 		<script>
 			function copyInputs(){
 			
-													document.getElementById('serajForm:hesabKolTemplatehidden').value=document.getElementById('serajForm:hesabKolTemplateSearchhidden').value;
-					document.getElementById('serajForm:hesabKolTemplatetext').value=document.getElementById('serajForm:hesabKolTemplateSearchtext').value;
+													document.getElementById('hesabKolTemplatehidden').value=document.getElementById('hesabKolTemplateSearchhidden').value;
+					document.getElementById('hesabKolTemplatetext').value=document.getElementById('hesabKolTemplateSearchtext').value;
 								
-																			document.getElementById('serajForm:code').value=document.getElementById('serajForm:codeSearch').value;
-																				document.getElementById('serajForm:name').value=document.getElementById('serajForm:nameSearch').value;
-																				document.getElementById('serajForm:description').value=document.getElementById('serajForm:descriptionSearch').value;
-																				document.getElementById('serajForm:hidden').value=document.getElementById('serajForm:hiddenSearch').value;
-																				document.getElementById('serajForm:mahyatMoeen').value=document.getElementById('serajForm:mahyatMoeenSearch').value;
-																				document.getElementById('serajForm:scope').value=document.getElementById('serajForm:scopeSearch').value;
+																			document.getElementById('code').value=document.getElementById('codeSearch').value;
+																				document.getElementById('name').value=document.getElementById('nameSearch').value;
+																				document.getElementById('description').value=document.getElementById('descriptionSearch').value;
+																				document.getElementById('hidden').value=document.getElementById('hiddenSearch').value;
+																				document.getElementById('mahyatMoeen').value=document.getElementById('mahyatMoeenSearch').value;
+																				document.getElementById('scope').value=document.getElementById('scopeSearch').value;
 												
 			}
 			function copyCreateToSearch(){
-													document.getElementById('serajForm:hesabKolTemplateSearchhidden').value=document.getElementById('serajForm:hesabKolTemplatehidden').value;
-					document.getElementById('serajForm:hesabKolTemplateSearchtext').value=document.getElementById('serajForm:hesabKolTemplatetext').value;
+													document.getElementById('hesabKolTemplateSearchhidden').value=document.getElementById('hesabKolTemplatehidden').value;
+					document.getElementById('hesabKolTemplateSearchtext').value=document.getElementById('hesabKolTemplatetext').value;
 								
-																			document.getElementById('serajForm:codeSearch').value=document.getElementById('serajForm:code').value;
-																				document.getElementById('serajForm:nameSearch').value=document.getElementById('serajForm:name').value;
-																				document.getElementById('serajForm:descriptionSearch').value=document.getElementById('serajForm:description').value;
-																				document.getElementById('serajForm:hiddenSearch').value=document.getElementById('serajForm:hidden').value;
-																				document.getElementById('serajForm:mahyatMoeenSearch').value=document.getElementById('serajForm:mahyatMoeen').value;
-																				document.getElementById('serajForm:scopeSearch').value=document.getElementById('serajForm:scope').value;
+																			document.getElementById('codeSearch').value=document.getElementById('code').value;
+																				document.getElementById('nameSearch').value=document.getElementById('name').value;
+																				document.getElementById('descriptionSearch').value=document.getElementById('description').value;
+																				document.getElementById('hiddenSearch').value=document.getElementById('hidden').value;
+																				document.getElementById('mahyatMoeenSearch').value=document.getElementById('mahyatMoeen').value;
+																				document.getElementById('scopeSearch').value=document.getElementById('scope').value;
 												}
 		</script>
 		

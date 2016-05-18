@@ -8,14 +8,15 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 
 <script type='text/javascript'
-	src='${request.contextPath}/dwr/interface/#{dwrFormName}.js?p=21'> </script>
-<script type='text/javascript'	src='${request.contextPath}/common/sanadHesabdari.grid.js?p=21'> </script>
-<script type='text/javascript'	src='${request.contextPath}/common/sanadHesabdari.gridNew.advanced.js?p=21'> </script>
+	src='${request.contextPath}/dwr/interface/#{dwrFormName}.js?p=23'> </script>
+<script type='text/javascript'	src='${request.contextPath}/common/sanadHesabdari.grid.js?p=23'> </script>
+<script type='text/javascript'	src='${request.contextPath}/common/sanadHesabdari.gridNew.advanced.js?p=23'> </script>
 <style>
 .dialogViewLableCol {
 	text-align: left;
@@ -98,7 +99,7 @@
 </script>			
 <t:div id="sanadHesabdariDialog" forceId="true" style="display:none">
 	<t:panelGrid columns="2" width="90%"
-		columnClasses="dialogViewLableCol,inputCol" styleClass="inputForm">
+		columnClasses="dialogViewLableCol,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 		<h:panelGroup>
 			<h:outputText value="#{messages['HesabKol_title']}" />

@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <style>
 .SearchitemStyle1 {
@@ -21,16 +22,16 @@
 </style>
 <rich:panel
 	style="width: 99%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
-		<h:panelGrid columns="2" styleClass="inputForm"
+		<h:panelGrid columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 			columnClasses="viewLableCol25P,inputCol">
 
 			
 					<h:outputLabel for="currentSearch" value="#{messages['SaalMaali_current']}" />
-				<h:inputText id="currentSearch" value="#{saalMaali.filter['current@eq']}" converter="javax.faces.Integer"/>
+				<p:inputText id="currentSearch" value="#{saalMaali.filter['current@eq']}" converter="javax.faces.Integer"/>
 						<h:outputLabel for="isActiveSearch" value="#{messages['SaalMaali_isActive']}" />
-				<h:inputText id="isActiveSearch" value="#{saalMaali.filter['isActive@eq']}" converter="javax.faces.Integer"/>
+				<p:inputText id="isActiveSearch" value="#{saalMaali.filter['isActive@eq']}" converter="javax.faces.Integer"/>
 						<h:outputLabel for="saalSearch" value="#{messages['SaalMaali_saal']}" />
-				<h:inputText id="saalSearch" value="#{saalMaali.filter['saal@eq']}" converter="javax.faces.Integer"/>
+				<p:inputText id="saalSearch" value="#{saalMaali.filter['saal@eq']}" converter="javax.faces.Integer"/>
 						<h:outputLabel for="startSearch" value="#{messages['SaalMaali_start']}" />
 				<custom:DateTimePicker type="Date" id="startSearch" value="#{saalMaali.filter['start@eq']}" lang="Shamsi"></custom:DateTimePicker>
 	

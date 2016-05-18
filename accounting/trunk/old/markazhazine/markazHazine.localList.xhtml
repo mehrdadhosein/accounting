@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 
 <ui:composition template="/template/template-list.xhtml">
@@ -19,7 +20,11 @@
 		value="/markazhazine/markazHazine.localExampleForm.xhtml" />
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="markazHazines"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="markazHazines"
 				value="#{markazHazine.localDataModel}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center" rows="#{markazHazine.rowsPerPage}">
@@ -28,7 +33,7 @@
 
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="markazHazines"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -47,11 +52,11 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.onvan}" />
-				</rich:column>
+				</p:column>
 
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="sandoghs"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -69,11 +74,11 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.organ}" />
-				</rich:column>
+				</p:column>
 
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="markazHazines"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -97,11 +102,11 @@
 						<f:selectItems value="#{enums.MarkazHazineType}" />
 					</t:selectOneMenu>
 
-				</rich:column>
+				</p:column>
 
 
 
-				<rich:column rendered="#{markazHazine.deletable}"
+				<p:column rendered="#{markazHazine.deletable}"
 					styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
@@ -114,9 +119,9 @@
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{markazHazine.ID}" converter="javax.faces.Long" />
 					</h:commandLink>
-				</rich:column>
+				</p:column>
 
-				<rich:column rendered="#{markazHazine.editable}" styleClass="action">
+				<p:column rendered="#{markazHazine.editable}" styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_edit']}" />
@@ -130,8 +135,8 @@
 							value="/markazhazine/markazHazine.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-				<rich:column styleClass="action">
+				</p:column>
+				<p:column styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -145,10 +150,10 @@
 							value="/markazhazine/markazHazine.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</t:div>
-		<custom:scroller for="markazHazines" />
+		<custom:dataTableRowCount for="markazHazines" />
 
 	</ui:define>
 	<ui:define name="buttonsection">

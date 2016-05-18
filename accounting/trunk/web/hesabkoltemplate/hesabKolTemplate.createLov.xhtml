@@ -7,7 +7,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-createLov.xhtml">
 	<ui:param name="title" value="HesabKolTemplate_list" />
@@ -67,7 +68,7 @@
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
 			</rich:column>	
 		</rich:dataTable>
-		<custom:scroller onbegin="showLoading();" oncomplete="hideLoading();"		for="hesabKolTemplates"></custom:scroller>		
+		<custom:dataTableRowCount onbegin="showLoading();" oncomplete="hideLoading();"		for="hesabKolTemplates"></custom:dataTableRowCount>		
 
 	</ui:define>
 	<ui:define name="quickCreateSection">
@@ -75,25 +76,25 @@
 		<script>
 			function copyInputs(){
 			
-													document.getElementById('serajForm:hesabGrouphidden').value=document.getElementById('serajForm:hesabGroupSearchhidden').value;
-					document.getElementById('serajForm:hesabGrouptext').value=document.getElementById('serajForm:hesabGroupSearchtext').value;
+													document.getElementById('hesabGrouphidden').value=document.getElementById('hesabGroupSearchhidden').value;
+					document.getElementById('hesabGrouptext').value=document.getElementById('hesabGroupSearchtext').value;
 								
-																			document.getElementById('serajForm:code').value=document.getElementById('serajForm:codeSearch').value;
-																				document.getElementById('serajForm:name').value=document.getElementById('serajForm:nameSearch').value;
-																				document.getElementById('serajForm:description').value=document.getElementById('serajForm:descriptionSearch').value;
-																				document.getElementById('serajForm:hidden').value=document.getElementById('serajForm:hiddenSearch').value;
-																				document.getElementById('serajForm:mahyatKol').value=document.getElementById('serajForm:mahyatKolSearch').value;
+																			document.getElementById('code').value=document.getElementById('codeSearch').value;
+																				document.getElementById('name').value=document.getElementById('nameSearch').value;
+																				document.getElementById('description').value=document.getElementById('descriptionSearch').value;
+																				document.getElementById('hidden').value=document.getElementById('hiddenSearch').value;
+																				document.getElementById('mahyatKol').value=document.getElementById('mahyatKolSearch').value;
 												
 			}
 			function copyCreateToSearch(){
-													document.getElementById('serajForm:hesabGroupSearchhidden').value=document.getElementById('serajForm:hesabGrouphidden').value;
-					document.getElementById('serajForm:hesabGroupSearchtext').value=document.getElementById('serajForm:hesabGrouptext').value;
+													document.getElementById('hesabGroupSearchhidden').value=document.getElementById('hesabGrouphidden').value;
+					document.getElementById('hesabGroupSearchtext').value=document.getElementById('hesabGrouptext').value;
 								
-																			document.getElementById('serajForm:codeSearch').value=document.getElementById('serajForm:code').value;
-																				document.getElementById('serajForm:nameSearch').value=document.getElementById('serajForm:name').value;
-																				document.getElementById('serajForm:descriptionSearch').value=document.getElementById('serajForm:description').value;
-																				document.getElementById('serajForm:hiddenSearch').value=document.getElementById('serajForm:hidden').value;
-																				document.getElementById('serajForm:mahyatKolSearch').value=document.getElementById('serajForm:mahyatKol').value;
+																			document.getElementById('codeSearch').value=document.getElementById('code').value;
+																				document.getElementById('nameSearch').value=document.getElementById('name').value;
+																				document.getElementById('descriptionSearch').value=document.getElementById('description').value;
+																				document.getElementById('hiddenSearch').value=document.getElementById('hidden').value;
+																				document.getElementById('mahyatKolSearch').value=document.getElementById('mahyatKol').value;
 												}
 		</script>
 		

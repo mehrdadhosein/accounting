@@ -30,6 +30,7 @@
 		<t:saveState value="#{owner.useCase}" />
 		<t:saveState value="#{owner.dataModel.page}" />
 		<t:saveState value="#{owner.uniqueGUID}" />
+		<t:saveState value="#{owner.device}" />
 		<t:saveState value="#{owner.hesabKolIds}" />
 		<t:saveState value="#{owner.moeenIds}" />
 		<t:saveState value="#{owner.tafsiliIds}" />
@@ -50,7 +51,7 @@
 
 
 		<h:commandButton 
-			onclick="document.getElementById('serajForm:mandehAzGhablPanel').style.display = 'block';  return false;"
+			onclick="document.getElementById('mandehAzGhablPanel').style.display = 'block';  return false;"
 			styleClass=" gwt-Button" 
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['common_print']}" immediate="true" image="/images/print.png" />
@@ -85,14 +86,18 @@
 				
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="sanadHesabdariItems"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadHesabdariItems"
 				value="#{sanadHesabdariItem.daftarKolHierarchicalDataModel}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center"  rows="#{owner.rowsPerPage}">
 
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -111,9 +116,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.sanadHesabdari.tempSerial}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -132,9 +137,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.sanadHesabdari.serial}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -153,10 +158,10 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.sanadHesabdari.tarikhSanad}" />
-				</rich:column>
+				</p:column>
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -175,9 +180,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
-				</rich:column>
+				</p:column>
 								
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -196,9 +201,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.hesabKol.code}" />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -217,11 +222,11 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.description}" />
-				</rich:column>
+				</p:column>
 
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -240,9 +245,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"  converter="seraj.converter.accountingNumberFormatter"  />
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
 							render="sanadHesabdariItems" onclick="showLoading();"
@@ -261,9 +266,9 @@
 						</a4j:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bestankar}" converter="seraj.converter.accountingNumberFormatter"  />
-				</rich:column>
+				</p:column>
 
-				<rich:column styleClass="action">
+				<p:column styleClass="action">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['common_view']}" />
@@ -273,15 +278,15 @@
 						onclick="viewSanad(#{item.sanadHesabdari.id});return false;">
 						<h:graphicImage value="/images/view.png" style="border:0"/>
 					</h:commandLink>	
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</t:div>
-		<custom:scroller for="sanadHesabdariItems" />
+		<custom:dataTableRowCount for="sanadHesabdariItems" />
 		
 		<rich:panel id="mandehAzGhablPanel"
 				style="z-index:1;display:none;border: #6694E3 3px solid; left:30%;top:5%;width:50%;max-height:90%;overflow: scroll;background-color:#F3F3F3;position:fixed">
 				<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol30P,viewValueCol" styleClass="inputForm">
+					columnClasses="viewLableCol30P,viewValueCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 					<h:outputLabel value="#{messages['SanadHesabdari_MandehAzGhabl_Is_Calculate']} :"/> 
 					<p:selectBooleanCheckbox label="#{messages['SanadHesabdari_MandehAzGhabl_Is_Calculate']}" value="#{owner.isCalculateMandehAzGhabl}" />
 				</t:panelGrid>
@@ -298,7 +303,7 @@
 				<script>
 					function closeFoodReportDiv() {
 						hideGlassyDiv();
-						document.getElementById('serajForm:mandehAzGhablPanel').style.display = 'none';
+						document.getElementById('mandehAzGhablPanel').style.display = 'none';
 						return false;
 					}
 				</script>

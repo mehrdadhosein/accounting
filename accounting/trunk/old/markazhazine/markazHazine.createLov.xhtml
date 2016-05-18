@@ -7,7 +7,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-createLov.xhtml">
 	<ui:param name="title" value="MarkazHazine_list" />
@@ -50,7 +51,7 @@
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
 			</rich:column>	
 		</rich:dataTable>
-		<custom:scroller onbegin="showLoading();" oncomplete="hideLoading();"		for="markazHazines"></custom:scroller>		
+		<custom:dataTableRowCount onbegin="showLoading();" oncomplete="hideLoading();"		for="markazHazines"></custom:dataTableRowCount>		
 
 	</ui:define>
 	<ui:define name="quickCreateSection">
@@ -58,19 +59,19 @@
 		<script>
 			function copyInputs(){
 			
-													document.getElementById('serajForm:hesabTafsilihidden').value=document.getElementById('serajForm:hesabTafsiliSearchhidden').value;
-					document.getElementById('serajForm:hesabTafsilitext').value=document.getElementById('serajForm:hesabTafsiliSearchtext').value;
+													document.getElementById('hesabTafsilihidden').value=document.getElementById('hesabTafsiliSearchhidden').value;
+					document.getElementById('hesabTafsilitext').value=document.getElementById('hesabTafsiliSearchtext').value;
 								
-																			document.getElementById('serajForm:markaztype').value=document.getElementById('serajForm:markaztypeSearch').value;
-																				document.getElementById('serajForm:onvan').value=document.getElementById('serajForm:onvanSearch').value;
+																			document.getElementById('markaztype').value=document.getElementById('markaztypeSearch').value;
+																				document.getElementById('onvan').value=document.getElementById('onvanSearch').value;
 												
 			}
 			function copyCreateToSearch(){
-													document.getElementById('serajForm:hesabTafsiliSearchhidden').value=document.getElementById('serajForm:hesabTafsilihidden').value;
-					document.getElementById('serajForm:hesabTafsiliSearchtext').value=document.getElementById('serajForm:hesabTafsilitext').value;
+													document.getElementById('hesabTafsiliSearchhidden').value=document.getElementById('hesabTafsilihidden').value;
+					document.getElementById('hesabTafsiliSearchtext').value=document.getElementById('hesabTafsilitext').value;
 								
-																			document.getElementById('serajForm:markaztypeSearch').value=document.getElementById('serajForm:markaztype').value;
-																				document.getElementById('serajForm:onvanSearch').value=document.getElementById('serajForm:onvan').value;
+																			document.getElementById('markaztypeSearch').value=document.getElementById('markaztype').value;
+																				document.getElementById('onvanSearch').value=document.getElementById('onvan').value;
 												}
 		</script>
 		

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Groups>
+	<Group id="accounting" title="حسابداری"
+		icon="cartable/accounting/accounting_icon.jpg">
+		<MenuItem id="hesabMoeenEdit" title="یک"
+			url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+			permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png">
+			<MenuItem id="hesabMoeenEdit" title="دو یک"
+				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+				permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png" />
+		</MenuItem>
+		<MenuItem id="hesabMoeenEdit" title="دو"
+			url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+			permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png">
+			<MenuItem id="hesabMoeenEdit" title="دو یک"
+				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+				permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png" />
+		</MenuItem>
+	</Group>
+	<Group id="accounting2" title="حسابداری"
+		icon="cartable/accounting/accounting_icon.jpg">
+		<MenuItem id="hesabMoeenEdit" title="یک"
+			url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+			permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png" />
+		<MenuItem id="hesabMoeenEdit" title="دو"
+			url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+			permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png">
+			<MenuItem id="hesabMoeenEdit" title="دو یک"
+				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+				permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png">
+			</MenuItem>
+			<MenuItem id="hesabMoeenEdit" title="دو دو"
+				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+				permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png">
+			</MenuItem>
+		</MenuItem>
+	</Group>
+</Groups>		

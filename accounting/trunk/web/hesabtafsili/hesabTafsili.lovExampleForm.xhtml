@@ -9,7 +9,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk">
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
 
 <style>
 .SearchitemStyle1 {
@@ -21,21 +22,21 @@
 </style>
 <rich:panel  styleClass="emptyDiv"
 	style="width: 99%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
-	<h:panelGrid columns="2" styleClass="inputForm"
+	<h:panelGrid columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 		columnClasses="viewLableCol25P,inputCol">
 
 
 		<h:outputLabel for="codeSearch"
 			value="#{messages['HesabTafsili_code']} :" />
-		<h:inputText id="codeSearch" value="#{owner.filter['code@lk']}" />
+		<p:inputText id="codeSearch" value="#{owner.filter['code@lk']}" />
 		
 		<h:outputLabel for="nameSearch"
 			value="#{messages['HesabTafsili_name']} :" />
-		<h:inputText id="nameSearch" value="#{owner.filter['name@lk']}" />
+		<p:inputText id="nameSearch" value="#{owner.filter['name@lk']}" />
 
 		<h:outputLabel for="descriptionSearch"
 			value="#{messages['HesabTafsili_description']} :" />
-		<h:inputText id="descriptionSearch"
+		<p:inputText id="descriptionSearch"
 			value="#{owner.filter['description@lk']}" />
 
 	</h:panelGrid>

@@ -19,26 +19,26 @@
 
 <rich:panel id="saalMaaliInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
 		<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
-					styleClass="inputForm">
+					columnClasses="viewLableColResponsive,inputCol"
+					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 					<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="current" value="#{messages['SaalMaali_current']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="current" label="current" value="#{saalMaali.entity.current}"  size="50"/>
+				<p:inputText  required="true" id="current" label="current" value="#{saalMaali.entity.current}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="isActive" value="#{messages['SaalMaali_isActive']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="isActive" label="isActive" value="#{saalMaali.entity.isActive}"  size="50"/>
+				<p:inputText  required="true" id="isActive" label="isActive" value="#{saalMaali.entity.isActive}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="saal" value="#{messages['SaalMaali_saal']}" /> : 
 				</h:panelGroup>
-				<h:inputText  required="true" id="saal" label="saal" value="#{saalMaali.entity.saal}"  size="50"/>
+				<p:inputText  required="true" id="saal" label="saal" value="#{saalMaali.entity.saal}"  size="50"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
