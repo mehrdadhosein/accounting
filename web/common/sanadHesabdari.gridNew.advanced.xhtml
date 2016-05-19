@@ -700,6 +700,7 @@
 		return '#sanadHesabdariGrid';
 	}
 
+	$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-50);
 	$$(window).bind('resize', function() {
 
 		$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-50);
