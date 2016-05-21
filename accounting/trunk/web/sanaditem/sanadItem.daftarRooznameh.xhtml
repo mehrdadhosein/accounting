@@ -16,7 +16,7 @@
 	<ui:param name="title" value="#{messages['SanadItem_title']}" />
 	<ui:param name="owner" value="#{sanadItem}" />
 	<ui:define name="listsection">
-		<h:panelGrid columns="11">
+		<p:panelGrid columns="11">
 			<h:outputLabel for="saalMaali" value="#{messages['SaalMaali_saal']}" />
 			<h:selectOneMenu value="#{sanadItem.saalMaali}" 
 				label="#{messages['SaalMaali_saal']}" id="SaalMaali_saal" converter="javax.faces.Integer">
@@ -43,32 +43,36 @@
 				value="#{sanadItem.toDate}" lang="Shamsi"></custom:DateTimePicker>
 			<h:commandButton styleClass="ButtonStyle" value="#{messages['common_search']}" actionListener="#{sanadItem.search}">
 			</h:commandButton>
-		</h:panelGrid>
-		<rich:dataTable id="sanadItems" value="#{sanadItem.rooznameh}"   headerClass="header"
+		</p:panelGrid>
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadItems" value="#{sanadItem.rooznameh}"   headerClass="header"
 			var="item" rowClasses="RowOdd,RowEven" style="width: 100%" rows="#{sanadItem.rowsPerPage}">
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_date']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.sanad.date}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_hesabKol']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeen.hesabKol}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_description']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.description}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bedehkar']}" />
 				</f:facet>
@@ -76,9 +80,9 @@
 					<f:convertNumber/>
 				</h:outputText>
 
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bestankar']}" />
 				</f:facet>
@@ -86,9 +90,9 @@
 					<f:convertNumber/>
 				</h:outputText>
 
-			</rich:column>
+			</p:column>
 						
-		</rich:dataTable>
+		</p:dataTable>
 		
 
 	</ui:define>

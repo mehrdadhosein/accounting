@@ -16,23 +16,27 @@
 	<ui:param name="lovSearchpage" value="/sanadtype/sanadType.lovExampleForm.xhtml" />
 	
 	<ui:define name="listsection">
-		<rich:dataTable id="sanadTypes" value="#{sanadType.dataModel}"  headerClass="header"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadTypes" value="#{sanadType.dataModel}"  headerClass="header"
 			var="item" rowClasses="RowOdd,RowEven" rows="#{sanadType.rowsPerPage}" style="width:97%" align="center">
 	
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadType_name']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.name}" />
-			</rich:column>
+			</p:column>
 						
 			
-			<rich:column>
+			<p:column>
 				<h:commandButton value="#{messages['lov_select']}"
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
-			</rich:column>	
-		</rich:dataTable>
+			</p:column>	
+		</p:dataTable>
 		<custom:dataTableRowCount for="sanadTypes" binding="#{sanadType.datascroller}"></custom:dataTableRowCount>
 
 	</ui:define>

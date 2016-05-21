@@ -18,27 +18,31 @@
 
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="hesabTafsilis"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="hesabTafsilis"
 				value="#{hesabTafsili.localDataModel}" var="item"
 				rowClasses="RowOdd,RowEven" rows="10" style="width:100%"
 				headerClass="header">
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['HesabTafsili_name']} " />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.name} " />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['HesabTafsili_description']} " />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.description} " />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['HesabTafsili_tafsilType']} " />
@@ -48,20 +52,20 @@
 						converter="seraj.converter.Enum">
 						<f:selectItems value="#{enums.TafsilTypeEnum}" />
 					</t:selectOneMenu>
-				</rich:column>
+				</p:column>
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['HesabTafsili_code']} " />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.code}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<h:commandButton value="#{messages['lov_select']}"
 						onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false" />
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</t:div>
 		<custom:dataTableRowCount onbegin="showLoading();" oncomplete="hideLoading();"
 			for="hesabTafsilis"></custom:dataTableRowCount>

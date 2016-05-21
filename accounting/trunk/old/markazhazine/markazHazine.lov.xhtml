@@ -15,7 +15,7 @@
 	<ui:param name="owner" value="#{markazHazine}" />
 	<ui:define name="searchsection">
 
-		<h:panelGrid columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"  width="90%"
+		<p:panelGrid layout="grid" columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"  width="90%"
 			 columnClasses="SearchitemStyle130P,SearchitemStyle2">
 
 			<h:outputLabel for="hesabTafsili"
@@ -38,42 +38,46 @@
 			<p:inputText id="onvan" value="#{markazHazine.filter['onvan@lk']}" />
 
 
-		</h:panelGrid>
+		</p:panelGrid>
 
 	</ui:define>
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<rich:dataTable id="markazHazines" value="#{markazHazine.dataModel}"
+			<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="markazHazines" value="#{markazHazine.dataModel}"
 				var="item" rowClasses="RowOdd,RowEven" rows="10" style="width:100%"
 				headerClass="header">
 
 
-				<rich:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['MarkazHazine_hesabTafsili']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['MarkazHazine_onvan']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.onvan}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['MarkazHazine_markaztype']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.markaztype}" />
-				</rich:column>
-				<rich:column>
+				</p:column>
+				<p:column>
 					<h:commandButton value="#{messages['lov_select']}"
 						onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false" />
-				</rich:column>
-			</rich:dataTable>
+				</p:column>
+			</p:dataTable>
 		</t:div>
 		<custom:dataTableRowCount onpagechange="showLoading();"
 			oncomplete="hideLoading();" for="markazHazines"></custom:dataTableRowCount>

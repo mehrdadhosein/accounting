@@ -15,7 +15,7 @@
 	<ui:param name="owner" value="#{sanadItem}" />
 	<ui:define name="searchsection">
 
-			<h:panelGrid columns="4" styleClass="inputForm ui-noborder ui-panelgrid-blank" 
+			<p:panelGrid columns="4" styleClass="inputForm ui-noborder ui-panelgrid-blank" 
 				 columnClasses="SearchitemStyle1,SearchitemStyle2,SearchitemStyle1,SearchitemStyle2">
 
 																<h:outputLabel for="hesab" value="#{messages['SanadItem_hesab']}" />
@@ -52,67 +52,71 @@
 					
 													
 
-			</h:panelGrid>
+			</p:panelGrid>
 
 	</ui:define>	
 	<ui:define name="listsection">
-		<rich:dataTable id="sanadItems" value="#{sanadItem.dataModel}" var="item"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadItems" value="#{sanadItem.dataModel}" var="item"
 			rowClasses="RowOdd,RowEven" rows="10" style="width:100%">
 
 			
-																			<rich:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_sanad']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.sanad}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_description']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.description}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_date']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.date}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_type']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.type}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_row']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.row}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_bedehkar']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.bedehkar}" />
-							</rich:column>
-																											<rich:column>
+							</p:column>
+																											<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_hesab']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.hesab}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['SanadItem_bestankar']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.bestankar}" />
-							</rich:column>
-											<rich:column>
+							</p:column>
+											<p:column>
 				<h:commandButton  value="#{messages['lov_select']}"  
 					 onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false"/>
-			</rich:column>
-		</rich:dataTable>
+			</p:column>
+		</p:dataTable>
 		<rich:dataScroller for="sanadItems"></rich:dataScroller>
 	</ui:define>
 </ui:composition>

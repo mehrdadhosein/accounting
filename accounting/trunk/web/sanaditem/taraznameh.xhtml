@@ -16,7 +16,7 @@
 	<ui:param name="owner" value="#{sanadItem}" />
 	<ui:define name="listsection">
 	<h2>#{messages['assets']}</h2>
-		<h:panelGrid columns="11">
+		<p:panelGrid columns="11">
 			<h:outputLabel for="saalMaali" value="#{messages['SaalMaali_saal']}" />
 			<h:selectOneMenu value="#{sanadItem.saalMaali}" 
 				label="#{messages['SaalMaali_saal']}" id="SaalMaali_saal" converter="javax.faces.Integer">
@@ -25,59 +25,67 @@
 			<h:commandButton styleClass="ButtonStyle"
 				value="#{messages['common_search']}" actionListener="#{sanadItem.search}">
 			</h:commandButton>
-		</h:panelGrid>
-		<rich:dataTable id="incomeItems" value="#{sanadItem.assetsGroupByLevel}"   headerClass="x" styleClass="x"
+		</p:panelGrid>
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="incomeItems" value="#{sanadItem.assetsGroupByLevel}"   headerClass="x" styleClass="x"
 			var="item"  rows="#{sanadItem.rowsPerPage}" >
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_hesabKol']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabKolName}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bedehkar']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.bedehkar}" >
 					<f:convertNumber/>
 				</h:outputText>
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bestankar']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.bestankar}" >
 					<f:convertNumber/>
 				</h:outputText>
-			</rich:column>
-		</rich:dataTable>
+			</p:column>
+		</p:dataTable>
 	<h2>#{messages['liabilities']}</h2>
-		<rich:dataTable id="expenseItems" value="#{sanadItem.liabilitiesGroupByLevel}"   headerClass="x" styleClass="x"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="expenseItems" value="#{sanadItem.liabilitiesGroupByLevel}"   headerClass="x" styleClass="x"
 			var="item" rows="#{sanadItem.rowsPerPage}">
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_hesabKol']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabKolName}" />
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bedehkar']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.bedehkar}" >
 					<f:convertNumber/>
 				</h:outputText>
-			</rich:column>
-			<rich:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadItem_bestankar']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.bestankar}" >
 					<f:convertNumber/>
 				</h:outputText>
-			</rich:column>
-		</rich:dataTable>
+			</p:column>
+		</p:dataTable>
 	<h2>#{messages['soodeVijeh']}</h2>
 		<h:outputText value="#{sanadItem.soodeVijeh}" >
 			<f:convertNumber/>

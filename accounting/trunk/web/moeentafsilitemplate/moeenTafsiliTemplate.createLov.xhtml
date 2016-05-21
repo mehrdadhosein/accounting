@@ -16,37 +16,41 @@
 	<ui:param name="lovSearchpage" value="/moeentafsilitemplate/moeenTafsiliTemplate.lovExampleForm.xhtml" />
 	
 	<ui:define name="listsection">
-		<rich:dataTable id="moeenTafsiliTemplates" value="#{moeenTafsiliTemplate.dataModel}"  headerClass="header"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="moeenTafsiliTemplates" value="#{moeenTafsiliTemplate.dataModel}"  headerClass="header"
 			var="item" rowClasses="RowOdd,RowEven" rows="#{moeenTafsiliTemplate.rowsPerPage}" style="width:97%" align="center">
 	
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['MoeenTafsiliTemplate_hesabTafsiliTemplate']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsiliTemplate}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['MoeenTafsiliTemplate_level']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.level}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['MoeenTafsiliTemplate_hesabMoeenTemplate']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeenTemplate}" />
-			</rich:column>
+			</p:column>
 						
 			
-			<rich:column>
+			<p:column>
 				<h:commandButton value="#{messages['lov_select']}"
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
-			</rich:column>	
-		</rich:dataTable>
+			</p:column>	
+		</p:dataTable>
 		<custom:dataTableRowCount onbegin="showLoading();" oncomplete="hideLoading();"		for="moeenTafsiliTemplates"></custom:dataTableRowCount>		
 
 	</ui:define>

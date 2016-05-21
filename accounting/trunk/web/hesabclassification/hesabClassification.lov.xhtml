@@ -15,8 +15,8 @@
 	<ui:param name="owner" value="#{hesabClassification}" />
 	<ui:define name="searchsection">
 
-			<h:panelGrid columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"  width="90%"
-				 columnClasses="SearchitemStyle1,SearchitemStyle2">
+			<p:panelGrid layout="grid" columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"  width="90%"
+				 columnClasses="viewLableColResponsive,inputCol">
 
 																<h:outputLabel for="hesabKol" value="#{messages['HesabClassification_hesabKol']} : " /> 
 								<h:panelGroup>
@@ -52,50 +52,54 @@
 								<p:inputText id="description" value="#{hesabClassification.filter['description@lk']}" />
 													
 
-			</h:panelGrid>
+			</p:panelGrid>
 
 	</ui:define>	
 	<ui:define name="listsection">
 	<t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
-		<rich:dataTable id="hesabClassifications" value="#{hesabClassification.dataModel}" var="item"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="hesabClassifications" value="#{hesabClassification.dataModel}" var="item"
 			rowClasses="RowOdd,RowEven" rows="10" style="width:100%" headerClass="header">
 
 			
-																			<rich:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['HesabClassification_hesabKol']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.hesabKol}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['HesabClassification_name']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.name}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['HesabClassification_description']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.description}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['HesabClassification_hesabMoeen']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.hesabMoeen}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['HesabClassification_hesabTafsili']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.hesabTafsili}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 				<h:commandButton  value="#{messages['lov_select']}"  
 					 onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false"/>
-			</rich:column>
-		</rich:dataTable>
+			</p:column>
+		</p:dataTable>
 		</t:div>
 		<custom:dataTableRowCount onpagechange="showLoading();"
 			oncomplete="hideLoading();" for="hesabClassifications"></custom:dataTableRowCount>
