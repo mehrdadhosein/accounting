@@ -16,44 +16,48 @@
 	<ui:param name="lovSearchpage" value="/hesabgrouptemplate/hesabGroupTemplate.lovExampleForm.xhtml" />
 	
 	<ui:define name="listsection">
-		<rich:dataTable id="hesabGroupTemplates" value="#{hesabGroupTemplate.dataModel}"  headerClass="header"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="hesabGroupTemplates" value="#{hesabGroupTemplate.dataModel}"  headerClass="header"
 			var="item" rowClasses="RowOdd,RowEven" rows="#{hesabGroupTemplate.rowsPerPage}" style="width:97%" align="center">
 	
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_name']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.name}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_organ']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.organ}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_mahyatGroup']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.mahyatGroup}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_code']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.code}" />
-			</rich:column>
+			</p:column>
 						
 			
-			<rich:column>
+			<p:column>
 				<h:commandButton value="#{messages['lov_select']}"
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
-			</rich:column>	
-		</rich:dataTable>
+			</p:column>	
+		</p:dataTable>
 		<custom:dataTableRowCount onbegin="showLoading();" oncomplete="hideLoading();"		for="hesabGroupTemplates"></custom:dataTableRowCount>		
 
 	</ui:define>

@@ -16,65 +16,69 @@
 	<ui:param name="lovSearchpage" value="/sanadhesabdari/sanadHesabdari.lovExampleForm.xhtml" />
 	
 	<ui:define name="listsection">
-		<rich:dataTable id="sanadHesabdaris" value="#{sanadHesabdari.dataModel}"  headerClass="header"
+		<p:dataTable 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"
+			first="#{room.currentPage}" dir="rtl"
+			 id="sanadHesabdaris" value="#{sanadHesabdari.dataModel}"  headerClass="header"
 			var="item" rowClasses="RowOdd,RowEven" rows="#{sanadHesabdari.rowsPerPage}" style="width:97%" align="center">
 	
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_description']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.description}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_organ']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.organ}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_sanadType']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.sanadType}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_state']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.state}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_tarikhSanad']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.tarikhSanad}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_number']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.number}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['SanadHesabdari_saalMaali']}" />
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.saalMaali}" />
-			</rich:column>
+			</p:column>
 						
 			
-			<rich:column>
+			<p:column>
 				<h:commandButton value="#{messages['lov_select']}"
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
-			</rich:column>	
-		</rich:dataTable>
+			</p:column>	
+		</p:dataTable>
 		<custom:dataTableRowCount for="sanadHesabdaris" binding="#{sanadHesabdari.datascroller}"></custom:dataTableRowCount>
 
 	</ui:define>
