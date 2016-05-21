@@ -1497,4 +1497,10 @@ public class SanadHesabdariService extends
 			getSaalMaaliService().checkSaalMaaliIsInProgress(entity.getSaalMaali());
 		super.update(entity);
 	}
+	
+	@Override
+	public SanadHesabdariEntity load(Long id) {
+		// TODO Auto-generated method stub
+		return super.load(id);
+	}
 }
