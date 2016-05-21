@@ -29,7 +29,7 @@
 		<p:dataTable 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
-			first="#{room.currentPage}" dir="rtl"
+			first="#{owner.currentPage}" dir="rtl"
 			 id="incomeItems" value="#{sanadItem.incomeGroupByLevel}"   headerClass="x" styleClass="x"
 			var="item"  rows="#{sanadItem.rowsPerPage}" >
 			<p:column>
@@ -59,7 +59,7 @@
 		<p:dataTable 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
-			first="#{room.currentPage}" dir="rtl"
+			first="#{owner.currentPage}" dir="rtl"
 			 id="expenseItems" value="#{sanadItem.expenseGroupByLevel}"   headerClass="x" styleClass="x"
 			var="item" rows="#{sanadItem.rowsPerPage}">
 		
