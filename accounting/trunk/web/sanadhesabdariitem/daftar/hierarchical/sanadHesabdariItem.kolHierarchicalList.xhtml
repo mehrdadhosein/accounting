@@ -89,7 +89,7 @@
 			<p:dataTable 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
-			first="#{room.currentPage}" dir="rtl"
+			first="#{owner.currentPage}" dir="rtl"
 			 id="sanadHesabdariItems"
 				value="#{sanadHesabdariItem.daftarKolHierarchicalDataModel}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
@@ -286,7 +286,7 @@
 		<rich:panel id="mandehAzGhablPanel"
 				style="z-index:1;display:none;border: #6694E3 3px solid; left:30%;top:5%;width:50%;max-height:90%;overflow: scroll;background-color:#F3F3F3;position:fixed">
 				<t:panelGrid columns="2" width="90%"
-					columnClasses="viewLableCol30P,viewValueCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
+					columnClasses="viewLableColResponsive,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 					<h:outputLabel value="#{messages['SanadHesabdari_MandehAzGhabl_Is_Calculate']} :"/> 
 					<p:selectBooleanCheckbox label="#{messages['SanadHesabdari_MandehAzGhabl_Is_Calculate']}" value="#{owner.isCalculateMandehAzGhabl}" />
 				</t:panelGrid>
