@@ -349,14 +349,14 @@
 
 		<rich:panel id="mandehAzGhablPanel"
 			style="z-index:1;display:none;border: #6694E3 3px solid; left:30%;top:5%;width:50%;max-height:90%;overflow: scroll;background-color:#F3F3F3;position:fixed">
-			<t:panelGrid columns="2" width="90%"
+			<p:panelGrid columns="2" layout="grid" width="90%"
 				columnClasses="viewLableColResponsive,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 				<h:outputLabel
 					value="#{messages['SanadHesabdari_MandehAzGhabl_Is_Calculate']} :" />
 				<p:selectBooleanCheckbox
 					label="#{messages['SanadHesabdari_MandehAzGhabl_Is_Calculate']}"
 					value="#{owner.isCalculateMandehAzGhabl}" />
-			</t:panelGrid>
+			</p:panelGrid>
 
 			<h:commandButton action="#{owner.printDaftarRooznameh}"
 				styleClass=" gwt-Button" image="/images/print.png"

@@ -27,7 +27,7 @@
 }
 </style>
 <t:div id="dialog" forceId="true" style="display:none">
-	<t:panelGrid columns="1" width="90%"
+	<p:panelGrid columns="1" width="90%"
 		columnClasses="inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 		<h:panelGroup>
@@ -37,7 +37,7 @@
 		</h:panelGroup>
 
 
-	</t:panelGrid>
+	</p:panelGrid>
 </t:div>
 
 <table id="tafsiliLevels">
@@ -74,7 +74,7 @@
 						],
 						multiselect :false,
 						viewrecords: true, 
-						autowidth: false, 
+						autowidth: true, 
 						pager: '#pcustbut',
 						rowNum:50, 
 						rownumbers: true,

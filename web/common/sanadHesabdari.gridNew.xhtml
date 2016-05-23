@@ -29,8 +29,8 @@
 </style>
 
 <t:div id="sanadHesabdariDialog" forceId="true" style="display:none">
-	<t:panelGrid columns="2" width="90%"
-		columnClasses="dialogViewLableCol,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
+	<p:panelGrid columns="2" layout="grid" width="90%"
+		columnClasses="viewLableColResponsive,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 		<h:panelGroup>
 			<h:outputText value="#{messages['HesabKol_title']}" />
@@ -81,7 +81,7 @@
 		<textarea  name="description" id="description" rows="5"  style="width: 200px;"/>
 			
 
-	</t:panelGrid>
+	</p:panelGrid>
 </t:div>
  
 <table id="sanadHesabdariGrid">
@@ -171,7 +171,7 @@
 						],
 						multiselect :false,
 						viewrecords: true, 
-						autowidth: false, 
+						autowidth: true, 
 						pager: '#sanadHesabdariPcustbut',
 						rowNum:50, 
 						rownumbers: true,

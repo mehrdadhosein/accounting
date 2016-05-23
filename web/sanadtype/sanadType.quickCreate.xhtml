@@ -18,7 +18,7 @@
 <t:saveState value="#{owner.quickLoaded}" />
 
 <rich:panel id="sanadTypeInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
-		<t:panelGrid columns="2" width="90%"
+		<p:panelGrid columns="2" layout="grid" width="90%"
 					columnClasses="viewLableColResponsive,inputCol"
 					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
@@ -28,7 +28,7 @@
 				</h:panelGroup>
 				<p:inputText  required="true" id="name" label="name" value="#{sanadType.entity.name}"  size="50"/>
 	
-		</t:panelGrid>
+		</p:panelGrid>
 	<h:commandButton action="#{sanadType.qSave}"
 		value="#{messages['common_save']}" />
 
