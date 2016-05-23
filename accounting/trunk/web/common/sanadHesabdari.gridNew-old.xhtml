@@ -27,8 +27,8 @@
 }
 </style>
 <t:div id="sanadHesabdariDialog" forceId="true" style="display:none">
-	<t:panelGrid columns="2" width="90%"
-		columnClasses="dialogViewLableCol,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
+	<p:panelGrid columns="2" layout="grid" width="90%"
+		columnClasses="viewLableColResponsive,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 		<h:panelGroup>
 			<h:outputText styleClass="required" value="* " />
@@ -63,7 +63,7 @@
 		<textarea  name="description" id="description" rows="5"  style="width: 200px;"/>
 			
 
-	</t:panelGrid>
+	</p:panelGrid>
 </t:div>
 	    <div style="display:none;left:30%;position:fixed;width:80%;height:85%;overflow:scroll" class="modal hide" id="hesabLov">
 		    <div class="modal-header">
@@ -146,7 +146,7 @@ function setTafsili(id,desc){
 						],
 						multiselect :false,
 						viewrecords: true, 
-						autowidth: false, 
+						autowidth: true, 
 						pager: '#sanadHesabdariPcustbut',
 						rowNum:50, 
 						rownumbers: true,

@@ -18,7 +18,7 @@
 <t:saveState value="#{owner.quickLoaded}" />
 
 <rich:panel id="hesabGroupTemplateInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
-		<t:panelGrid columns="2" width="90%"
+		<p:panelGrid columns="2" layout="grid" width="90%"
 					columnClasses="viewLableColResponsive,inputCol"
 					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 				<h:panelGroup>
@@ -52,7 +52,7 @@
 				</h:panelGroup>
 				<p:inputText  required="true" id="code" label="code" value="#{hesabGroupTemplate.entity.code}"  size="50"/>
 	
-		</t:panelGrid>
+		</p:panelGrid>
 	<h:commandButton action="#{hesabGroupTemplate.qSave}"
 		value="#{messages['common_save']}" />
 

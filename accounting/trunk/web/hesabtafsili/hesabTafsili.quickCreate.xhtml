@@ -19,7 +19,7 @@
 
 <rich:panel id="hesabTafsiliInput" styleClass="emptyDiv"
 	style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
-	<t:panelGrid columns="2" width="90%"
+	<p:panelGrid columns="2" layout="grid" width="90%"
 		columnClasses="viewLableColResponsive,inputCol"
 		styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
@@ -72,7 +72,7 @@
 				<h:selectBooleanCheckbox id="hidden" label="hidden"
 					value="#{hesabTafsili.entity.hidden}" />
 
-	</t:panelGrid>
+	</p:panelGrid>
 
 	<h:commandButton styleClass=" gwt-Button"
 		rendered="#{owner.editable}" action="#{hesabTafsili.qSave}"

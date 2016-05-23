@@ -15,8 +15,8 @@
 				<f:facet name="header">
 					<h:outputText value="#{messages['AccountsTemplate_bedehkar']}" />
 				</f:facet>
-				<t:panelGrid columns="2" width="90%"
-					columnClasses="dialogViewLableCol,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
+				<p:panelGrid columns="2" layout="grid" width="90%"
+					columnClasses="viewLableColResponsive,inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 					<h:panelGroup>
 						<h:outputText value="#{messages['HesabKol_title']}" />
@@ -122,7 +122,7 @@
 					</h:panelGroup>
 					<textarea name="descriptionBedehkar" id="descriptionBedehkar" rows="5"
 						style="width: 200px;" />
-				</t:panelGrid>
+				</p:panelGrid>
 			</p:panel>
 
 	<script type="text/javascript">

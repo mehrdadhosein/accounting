@@ -111,7 +111,7 @@
 		</t:div>
 
 		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-			<t:panelGrid columns="2" width="90%"
+			<p:panelGrid columns="2" layout="grid" width="90%"
 				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
 				styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
@@ -120,7 +120,7 @@
 				<h:outputText id="soodeNaVijeh"
 					value="#{sanadHesabdariItem.soodeNaVijeh}"  converter="seraj.converter.accountingNumberFormatter"  />
 
-			</t:panelGrid>
+			</p:panelGrid>
 		</rich:panel>
 	</ui:define>
 	<ui:define name="buttonsection">

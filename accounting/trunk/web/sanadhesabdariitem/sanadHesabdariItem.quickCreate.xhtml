@@ -18,7 +18,7 @@
 <t:saveState value="#{owner.quickLoaded}" />
 
 <rich:panel id="sanadHesabdariItemInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
-		<t:panelGrid columns="2" width="90%"
+		<p:panelGrid columns="2" layout="grid" width="90%"
 					columnClasses="viewLableColResponsive,inputCol"
 					styleClass="inputForm ui-noborder ui-panelgrid-blank">
 				<h:panelGroup>
@@ -94,7 +94,7 @@
 				</h:panelGroup>
 				<custom:DateTimePicker type="Date" required="true" id="tarikhArticle" value="#{sanadHesabdariItem.entity.tarikhArticle}" lang="Shamsi"></custom:DateTimePicker>
 	
-		</t:panelGrid>
+		</p:panelGrid>
 	<h:commandButton action="#{sanadHesabdariItem.qSave}"
 		value="#{messages['common_save']}" />
 
