@@ -1423,13 +1423,17 @@ public class SanadHesabdariService extends
 		}
 		
 
-		SanadHesabdariEntity sanadHesabdariEftetahiehEntity = SanadHesabdariUtil.createMergedSanadHesabdari(currentOrgan, tarikhSanadEftetahieh, sanadEftetahiehArticles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEftetahieh"),null, false, SanadStateEnum.MOVAGHAT, false);
-		sanadHesabdariEftetahiehEntity.setSanadFunction(SanadFunctionEnum.EFTEFAHIE);
-
-		List<SanadHesabdariItemEntity> mergedArticles = sanadHesabdariEftetahiehEntity.getSanadHesabdariItem();
+		List<SanadHesabdariItemEntity> mergedArticles = SanadHesabdariUtil.createMergedArticles(sanadEftetahiehArticles,	false);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : mergedArticles) {
 			sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEftetahieh", activeSaalmaali.getDesc()));
 		}
+		
+		SanadHesabdariEntity sanadHesabdariEftetahiehEntity = SanadHesabdariUtil.createSanadHesabdari(currentOrgan, tarikhSanadEftetahieh, mergedArticles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEftetahieh"), null, SanadStateEnum.MOVAGHAT, false);
+
+//		SanadHesabdariEntity sanadHesabdariEftetahiehEntity = SanadHesabdariUtil.createMergedSanadHesabdari(currentOrgan, tarikhSanadEftetahieh, sanadEftetahiehArticles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEftetahieh"),null, false, SanadStateEnum.MOVAGHAT, false);
+		sanadHesabdariEftetahiehEntity.setSanadFunction(SanadFunctionEnum.EFTEFAHIE);
+
+//		List<SanadHesabdariItemEntity> mergedArticles = sanadHesabdariEftetahiehEntity.getSanadHesabdariItem();
 
 		duplicateEntity(sanadHesabdariEftetahiehEntity.getOldEntity(), sanadHesabdariEftetahiehEntity);
 		saveMovaghat(sanadHesabdariEftetahiehEntity, new ArrayList<TempUploadedFileEntity>(), currentOrgan, activeSaalmaali, false);
