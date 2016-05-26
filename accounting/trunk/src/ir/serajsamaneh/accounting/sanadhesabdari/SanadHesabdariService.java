@@ -1471,6 +1471,9 @@ public class SanadHesabdariService extends
 		getSaalMaaliService().checkSaalMaaliIsInProgress(sanadHesabdariEntity.getSaalMaali());
 		if(sanadHesabdariEntity.getState().equals(SanadStateEnum.BARRESI_SHODE) || sanadHesabdariEntity.getState().equals(SanadStateEnum.DAEM))
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_confirmedCannotDelete",sanadHesabdariEntity));
+//		sanadHesabdariEntity.getSanadHesabdariItem().clear();
+//		update(sanadHesabdariEntity);
+//		getMyDAO().flush();
 		super.delete(id);
 	}	
 	
