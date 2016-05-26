@@ -66,7 +66,7 @@
 			<column name='daeemKonnadeSanad_id' />
 		</many-to-one>
 
-		<list name='sanadHesabdariItem'  cascade="all-delete-orphan" fetch="subselect">
+		<list name='sanadHesabdariItem'  cascade="all-delete-orphan" fetch="subselect" inverse="true">
 			<key column='sanad_hesabdari_id' foreign-key='fk_snd_hsd_itm_snd_hsd' />
 			<list-index column="idx"/>
 			<one-to-many	class='ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity' />
