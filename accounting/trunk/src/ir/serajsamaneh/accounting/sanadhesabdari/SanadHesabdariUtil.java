@@ -103,8 +103,7 @@ public class SanadHesabdariUtil {
 	public static SanadHesabdariEntity createMergedSanadHesabdari(OrganEntity organEntity,
 			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) {
 		
-		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,
-				concatDescriptions);
+		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions);
 		
 		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress);
 	}
