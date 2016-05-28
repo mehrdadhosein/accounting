@@ -6,14 +6,14 @@
 			url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
 			permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png">
 			<MenuItem id="hesabMoeenEdit" title="دو یک"
-				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.jsp"
 				permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png" />
 		</MenuItem>
 		<MenuItem id="hesabMoeenEdit" title="دو"
 			url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
 			permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png">
 			<MenuItem id="hesabMoeenEdit" title="دو یک"
-				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.jsp"
 				permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png" />
 		</MenuItem>
 	</Group>
@@ -26,11 +26,11 @@
 			url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
 			permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png">
 			<MenuItem id="hesabMoeenEdit" title="دو یک"
-				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.jsp"
 				permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png">
 			</MenuItem>
-			<MenuItem id="hesabMoeenEdit" title="دو دو"
-				url="hesabmoeen/hesabMoeen.edit.jsf?newReturnUrl=/hesabmoeen/hesabMoeen.list.xhtml"
+			<MenuItem id="hesabMoeenEdit" title="دو هشت"
+				url="/erp/mobile/menu.html"
 				permission="HesabMoeen.create" icon="images/shortcut/32/folder-vectors-icon.png">
 			</MenuItem>
 		</MenuItem>
