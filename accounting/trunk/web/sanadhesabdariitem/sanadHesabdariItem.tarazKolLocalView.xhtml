@@ -22,7 +22,7 @@
 	<ui:define name="viewsection">
 
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<p:dataTable 
+			<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
 			 dir="rtl"
@@ -164,7 +164,7 @@
 					<h:outputText styleClass="CellClass" value="#{item.mandehBestankar}"  converter="seraj.converter.accountingNumberFormatter"   />
 				</p:column>
 			</p:dataTable>
-			<p:dataTable 
+			<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
 			 dir="rtl"
@@ -307,7 +307,7 @@
 				</p:column>
 				
 			</p:dataTable>
-			<p:dataTable 
+			<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
 			 dir="rtl"

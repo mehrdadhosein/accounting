@@ -26,7 +26,7 @@
 				value="#{messages['common_search']}" actionListener="#{sanadItem.search}">
 			</h:commandButton>
 		</p:panelGrid>
-		<p:dataTable 
+		<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
 			 dir="rtl"
@@ -56,7 +56,7 @@
 			</p:column>
 		</p:dataTable>
 	<h2>#{messages['liabilities']}</h2>
-		<p:dataTable 
+		<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
 			 dir="rtl"

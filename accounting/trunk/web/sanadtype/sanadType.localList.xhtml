@@ -21,10 +21,10 @@
 	<ui:define name="listsection">
 		
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<p:dataTable 
+			<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
-			first="#{owner.currentPage}" dir="rtl"
+			 dir="rtl"
 			 id="sanadTypes" value="#{sanadType.localDataModel}"
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
 				style="width: 97%" align="center" rows="#{sanadType.rowsPerPage}">
