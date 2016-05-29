@@ -21,7 +21,7 @@
 		value="/hesabtafsilitemplate/hesabTafsiliTemplate.exampleForm.xhtml" />
 	<ui:define name="listsection">
 <t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
-		<p:dataTable 
+		<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
 			 dir="rtl"

@@ -20,7 +20,7 @@
 		value="/sanadhesabdariitem/sanadHesabdariItem.exampleForm.xhtml" />
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<p:dataTable 
+			<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
 			 dir="rtl"
@@ -136,7 +136,7 @@
 					</h:commandLink>
 				</p:column>
 			</p:dataTable>
-			<p:dataTable 
+			<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
 			 dir="rtl"
@@ -246,7 +246,7 @@
 					</h:commandLink>
 				</p:column>
 			</p:dataTable>
-			<p:dataTable 
+			<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			rowsPerPageTemplate="5,10,15"
 			 dir="rtl"
