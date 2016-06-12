@@ -15,8 +15,7 @@
 		</property>
 		<property name='description' type='string' column='description'>
 		</property>
-		<property name='hidden' type='java.lang.Boolean' column='hidden'>
-		</property>
+		<property name='hidden' type='java.lang.Boolean' column='hidden'/>
 		<many-to-one name='hesabGroup'
 			class='ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity'
 			not-null='true' cascade='none' foreign-key='fk_hsb_kl_hsb_grp_id'>
