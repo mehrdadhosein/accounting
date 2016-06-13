@@ -141,6 +141,8 @@ public class HesabTemplateRelationsUtil {
 			List<HesabMoeenTemplateEntity> list = getHesabMoeenTemplateService().getActiveMoeens(organEntity);
 			for (HesabMoeenTemplateEntity hesabMoeenTemplateEntity : list) {
 				ListOrderedMap moeenItemTemplateMap = new ListOrderedMap();
+				if(hesabMoeenTemplateEntity.getHesabKolTemplate() == null)
+					continue;
 				moeenItemTemplateMap.put("value",hesabMoeenTemplateEntity.getHesabKolTemplate().getID());
 				moeenItemTemplateMap.put("label",hesabMoeenTemplateEntity.getHesabKolTemplate().getDesc());
 				moeenKolTemplateMap.put(hesabMoeenTemplateEntity.getId(),moeenItemTemplateMap);
