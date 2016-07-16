@@ -403,8 +403,8 @@ public class SanadHesabdariService extends
 			
 			if(!hesabKol.getSaalMaali().equals(entity.getSaalMaali())
 					|| !hesabMoeen.getSaalMaali().equals(entity.getSaalMaali())
-					|| (hesabTafsili!=null && !hesabTafsili.getSaalMaali().equals(entity.getSaalMaali()))
-					|| (accountingMarkaz!=null && !accountingMarkaz.getSaalMaali().equals(entity.getSaalMaali()))
+					|| (hesabTafsili!=null && hesabTafsili.getId()!=null && !hesabTafsili.getSaalMaali().equals(entity.getSaalMaali()))
+					|| (accountingMarkaz!=null && accountingMarkaz.getId()!=null && !accountingMarkaz.getSaalMaali().equals(entity.getSaalMaali()))
 					)
 				throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleSaalMaaliConflict", entity.getDesc(), sanadHesabdariItemEntity.getDesc()));
 			
@@ -654,6 +654,7 @@ public class SanadHesabdariService extends
 		}
 		entity.setState(SanadStateEnum.BARRESI_SHODE);
 		save(entity, organEntity, null, true, validateSaalMaaliInProgress);
+		checkSanadArticlesSaalMaaliSameLess(entity);
 		logSanadHesabdariAction(entity, isNew, SerajMessageUtil.getMessage("CONFIRMED_SANAD"));
 	}
 
@@ -749,6 +750,7 @@ public class SanadHesabdariService extends
 		entity.setState(SanadStateEnum.DAEM);
 		
 		update(entity, false);
+		checkSanadArticlesSaalMaaliSameLess(entity);
 		logSanadHesabdariAction(entity, false, SerajMessageUtil.getMessage("Tabdil_To_Daemi"));
 	}
 
@@ -1048,7 +1050,8 @@ public class SanadHesabdariService extends
 				HesabMoeenEntity hesabMoeen = sanadHesabdariItemEntity.getHesabMoeen();
 				HesabTafsiliEntity hesabTafsili = sanadHesabdariItemEntity.getHesabTafsili();
 				AccountingMarkazEntity accountingMarkaz = sanadHesabdariItemEntity.getAccountingMarkaz();
-				
+				if(accountingMarkaz!=null && accountingMarkaz.getId()!=null && !sanadHesabdariCloseTemporalAccountsEntity.getSaalMaali().equals(accountingMarkaz.getSaalMaali()))
+					throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_saalMaali_Not_equal_accountingMarkaz_saalMaali", sanadHesabdariCloseTemporalAccountsEntity, accountingMarkaz));
 				String mapKey = SanadHesabdariUtil.createMapKey(sanadHesabdariItemEntity);
 				
 //				String mapKey = hesabKol.getCode()+"_"+hesabMoeen.getCode()+"-"+(hesabTafsili!=null && hesabTafsili.getId()!=null ? hesabTafsili.getCode() : "");
