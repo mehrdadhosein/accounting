@@ -490,7 +490,7 @@ public class SanadHesabdariForm extends
 	
 	public String saveEftetahiehMovaghat() {
 		if(getEntity().getSanadFunction() == null)
-			getEntity().setSanadFunction(SanadFunctionEnum.EFTEFAHIE);
+			getEntity().setSanadFunction(SanadFunctionEnum.EFTETAHIE);
 		
 		checkEftetahiehIsFirstSanad();
 		checkEftetahiehUniqueNess();
@@ -511,7 +511,7 @@ public class SanadHesabdariForm extends
 	private void checkEftetahiehIsFirstSanad() {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
-		localFilter.put("sanadFunction@neq", SanadFunctionEnum.EFTEFAHIE);
+		localFilter.put("sanadFunction@neq", SanadFunctionEnum.EFTETAHIE);
 		localFilter.put("organ.id@neq", getCurrentOrgan().getId());
 		if(getMyService().getDataList(null, localFilter).size() > 0){
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_allready_sanad_created",getSaalMaaliService().load(getEntity().getSaalMaali().getId())));
@@ -527,7 +527,7 @@ public class SanadHesabdariForm extends
 			Map<String, Object> localFilter = new HashMap<String, Object>();
 			localFilter.put("saalMaali.id@eq", getEntity().getSaalMaali().getId());
 			localFilter.put("organ.id@eq", getCurrentOrgan().getId());
-			checkUniqueNess(getEntity(), SanadHesabdariEntity.PROP_SANAD_TYPE, SanadFunctionEnum.EFTEFAHIE);
+			checkUniqueNess(getEntity(), SanadHesabdariEntity.PROP_SANAD_TYPE, SanadFunctionEnum.EFTETAHIE);
 		}catch(DuplicateException e){
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_eftetahieh_allready_created",getSaalMaaliService().load(getEntity().getSaalMaali().getId())));
 		}
@@ -559,7 +559,11 @@ public class SanadHesabdariForm extends
 		List<SanadHesabdariItemEntity> sortedSanadHesabdariItem = SanadHesabdariUtil.getSortedSanadHesabdariItem(sanadHesabdariItemList);
 		getEntity().getSanadHesabdariItem().addAll(sortedSanadHesabdariItem);
 		
-		getMyService().saveBarrasiShode(getEntity(),getCurrentOrgan(), getIsInMultipleLevelMode(), true);
+		boolean validateSaalMaaliInProgress = true;
+		if(getEntity().getSanadFunction().equals(SanadFunctionEnum.EKHTETAMIE))
+			validateSaalMaaliInProgress=false;
+			
+		getMyService().saveBarrasiShode(getEntity(),getCurrentOrgan(), getIsInMultipleLevelMode(), validateSaalMaaliInProgress);
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getLocalListUrl();
 	}
@@ -568,10 +572,17 @@ public class SanadHesabdariForm extends
 	public String saveBarresiShodeBatch() {
 		
 		List<SanadHesabdariEntity> sanadHesabdariList = getSelectedItems();
+		
+		
 		for (SanadHesabdariEntity sanadHesabdariEntity : sanadHesabdariList) {
+			
+			boolean validateSaalMaaliInProgress = true;
+			if(sanadHesabdariEntity.getSanadFunction().equals(SanadFunctionEnum.EKHTETAMIE))
+				validateSaalMaaliInProgress=false;
+			
 			SanadHesabdariEntity e = getMyService().load(sanadHesabdariEntity.getId());
 			getMyService().duplicateEntity(e.getOldEntity(), e);
-			getMyService().saveBarrasiShode(e,getCurrentOrgan(), getIsInMultipleLevelMode(), true);
+			getMyService().saveBarrasiShode(e,getCurrentOrgan(), getIsInMultipleLevelMode(), validateSaalMaaliInProgress);
 		}		
 		clearPage();
 		addInfoMessage("SUCCESSFUL_ACTION");
@@ -587,7 +598,7 @@ public class SanadHesabdariForm extends
 
 	public String saveEftetahiehBarresiShode() {
 		if(getEntity().getSanadFunction() == null)
-			getEntity().setSanadFunction(SanadFunctionEnum.EFTEFAHIE);
+			getEntity().setSanadFunction(SanadFunctionEnum.EFTETAHIE);
 
 		checkEftetahiehUniqueNess();
 		saveBarresiShode();
@@ -680,7 +691,7 @@ public class SanadHesabdariForm extends
 		
 		getFilter().put("state@eq", SanadStateEnum.MOVAGHAT);
 		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
-		getFilter().put("sanadFunction@eq", SanadFunctionEnum.EFTEFAHIE);
+		getFilter().put("sanadFunction@eq", SanadFunctionEnum.EFTETAHIE);
 		return getLocalDataModel();
 	}
 	

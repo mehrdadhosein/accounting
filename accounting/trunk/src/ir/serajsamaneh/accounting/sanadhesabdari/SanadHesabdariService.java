@@ -231,7 +231,10 @@ public class SanadHesabdariService extends
 	
 	@Transactional
 	public void save(SanadHesabdariEntity entity, OrganEntity organEntity, SaalMaaliEntity saalMaaliEntity, boolean validateHesabDependencies) {
-		save(entity, organEntity, saalMaaliEntity, validateHesabDependencies, true);
+		boolean validateSaalMaaliInProgress = true;
+		if(entity.getSanadFunction().equals(SanadFunctionEnum.EKHTETAMIE))
+			validateSaalMaaliInProgress=false;
+		save(entity, organEntity, saalMaaliEntity, validateHesabDependencies, validateSaalMaaliInProgress);
 	}
 	@Transactional
 	public void save(SanadHesabdariEntity entity, OrganEntity organEntity, SaalMaaliEntity saalMaaliEntity, boolean validateHesabDependencies, boolean validateSaalMaaliInProgress) {
@@ -734,7 +737,10 @@ public class SanadHesabdariService extends
 
 	@Transactional
 	public void tabdilBeDaemi(SanadHesabdariEntity entity, SaalMaaliEntity saalMaaliEntity) {
-		tabdilBeDaemi(entity, saalMaaliEntity, true);
+		boolean validateSaalMaaliInProgress = true;
+		if(entity.getSanadFunction().equals(SanadFunctionEnum.EKHTETAMIE))
+			validateSaalMaaliInProgress=false;
+		tabdilBeDaemi(entity, saalMaaliEntity, validateSaalMaaliInProgress);
 	}
 	
 	@Transactional
@@ -1190,14 +1196,15 @@ public class SanadHesabdariService extends
 			
 			List<SanadHesabdariEntity> sanadHesabdariList = getListOfSanadHesabdariDaemi(
 					saalMaaliEntity, organEntity);
-			Map<String, SanadHesabdariItemEntity> sanadEkhtetamiehSanadHesabdariItemsMap = new HashMap<String, SanadHesabdariItemEntity>();
+//			Map<String, SanadHesabdariItemEntity> sanadEkhtetamiehSanadHesabdariItemsMap = new HashMap<String, SanadHesabdariItemEntity>();
 			
 //			SanadHesabdariEntity sanadHesabdariEkhtetamiehEntity = new SanadHesabdariEntity();
 
 			
 			List<SanadHesabdariItemEntity> articles = new ArrayList<SanadHesabdariItemEntity>();
 			for (SanadHesabdariEntity sanadHesabdariEntity : sanadHesabdariList) {
-				for(SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariEntity.getSanadHesabdariItem()){
+				List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadHesabdariEntity.getSanadHesabdariItem();
+				for(SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems){
 					
 					HesabKolEntity hesabKol = sanadHesabdariItemEntity.getHesabKol();
 					
@@ -1236,50 +1243,24 @@ public class SanadHesabdariService extends
 					
 					articles.add(entity);
 					
-//					HesabMoeenEntity hesabMoeen = sanadHesabdariItemEntity.getHesabMoeen();
-//					HesabTafsiliEntity hesabTafsili = sanadHesabdariItemEntity.getHesabTafsili();
-//					String mapKey = hesabKol.getCode()+"_"+hesabMoeen.getCode()+"-"+(hesabTafsili!=null && hesabTafsili.getId()!=null ? hesabTafsili.getCode() : "");
-//					SanadHesabdariItemEntity entity = sanadEkhtetamiehSanadHesabdariItemsMap.get(mapKey);
-//					if(entity == null){
-//						entity = new SanadHesabdariItemEntity();
-//						entity.setHesabKol(hesabKol);
-//						entity.setHesabMoeen(hesabMoeen);
-//						entity.setHesabTafsili(hesabTafsili);
-//						entity.setBedehkar(sanadHesabdariItemEntity.getBestankar());
-//						entity.setBestankar(sanadHesabdariItemEntity.getBedehkar());
-//						entity.setDescription("-");
-//					}else{
-//						entity.setBedehkar(entity.getBedehkar() + sanadHesabdariItemEntity.getBestankar());
-//						entity.setBestankar(entity.getBestankar() + sanadHesabdariItemEntity.getBedehkar());
-//					}
-//					sanadEkhtetamiehSanadHesabdariItemsMap.put(mapKey, entity);
 				}
 			}
 			
-//			List<SanadHesabdariItemEntity> mergedArticles = SanadHesabdariUtil.createMergedArticles(articles, false);
-
-//			Set<Entry<String,SanadHesabdariItemEntity>> entrySet = sanadEkhtetamiehSanadHesabdariItemsMap.entrySet();
-//			
-//			List<SanadHesabdariItemEntity> hesabdariItemEntities = new ArrayList<SanadHesabdariItemEntity>();
-//			for (Entry<String, SanadHesabdariItemEntity> entry : entrySet) {
-//				SanadHesabdariItemEntity value = entry.getValue();
-//				hesabdariItemEntities.add(value);
-//			}
 			
-			SanadHesabdariEntity sanadHesabdariEkhtetamiehEntity = SanadHesabdariUtil.createMergedSanadHesabdari(organEntity, tarikhSanad, articles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEkhtetamieh"),null, false, SanadStateEnum.MOVAGHAT, false);
+			SanadHesabdariEntity sanadHesabdariEkhtetamiehEntity = SanadHesabdariUtil.createMergedEkhtetamiehSanadHesabdari(organEntity, tarikhSanad, articles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEkhtetamieh"),null, false, SanadStateEnum.MOVAGHAT, false);
 			sanadHesabdariEkhtetamiehEntity.setSanadFunction(SanadFunctionEnum.EKHTETAMIE);
-			List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadHesabdariEkhtetamiehEntity.getSanadHesabdariItem();
-			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
-				sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEkhtetamieh", saalMaaliEntity.getDesc()));
-			}
+//			List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadHesabdariEkhtetamiehEntity.getSanadHesabdariItem();
+//			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
+//				sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEkhtetamieh", saalMaaliEntity.getDesc()));
+//			}
 			
 			duplicateEntity(sanadHesabdariEkhtetamiehEntity.getOldEntity(), sanadHesabdariEkhtetamiehEntity);
 			saveMovaghat(sanadHesabdariEkhtetamiehEntity, new ArrayList<TempUploadedFileEntity>(), organEntity, saalMaaliEntity, false);
 			
-			saveBarrasiShode(sanadHesabdariEkhtetamiehEntity, organEntity, isInMultipleLevelMode, false);
-			duplicateEntity(sanadHesabdariEkhtetamiehEntity.getOldEntity(), sanadHesabdariEkhtetamiehEntity);
-			
-			tabdilBeDaemi(sanadHesabdariEkhtetamiehEntity, saalMaaliEntity, false);
+//			saveBarrasiShode(sanadHesabdariEkhtetamiehEntity, organEntity, isInMultipleLevelMode, false);
+//			duplicateEntity(sanadHesabdariEkhtetamiehEntity.getOldEntity(), sanadHesabdariEkhtetamiehEntity);
+//			
+//			tabdilBeDaemi(sanadHesabdariEkhtetamiehEntity, saalMaaliEntity, false);
 			
 			saalMaaliEntity.setStatus(SaalMaaliStatusEnum.SanadEkhtetamiehCreated);
 			getSaalMaaliService().save(saalMaaliEntity);
@@ -1318,7 +1299,7 @@ public class SanadHesabdariService extends
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("organ.id@eq", organEntity.getId());
-		localFilter.put("sanadFunction@eq",SanadFunctionEnum.EFTEFAHIE);
+		localFilter.put("sanadFunction@eq",SanadFunctionEnum.EFTETAHIE);
 		SanadHesabdariEntity sanadHesabdariEntity = load(null, localFilter);
 		return sanadHesabdariEntity;
 	}
@@ -1326,7 +1307,7 @@ public class SanadHesabdariService extends
 	public List<SanadHesabdariEntity> getSanadEftetahiehha(SaalMaaliEntity saalMaaliEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		localFilter.put("sanadFunction@eq",SanadFunctionEnum.EFTEFAHIE);
+		localFilter.put("sanadFunction@eq",SanadFunctionEnum.EFTETAHIE);
 		return getDataList(null, localFilter);
 	}
 	
@@ -1434,7 +1415,7 @@ public class SanadHesabdariService extends
 		SanadHesabdariEntity sanadHesabdariEftetahiehEntity = SanadHesabdariUtil.createSanadHesabdari(currentOrgan, tarikhSanadEftetahieh, mergedArticles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEftetahieh"), null, SanadStateEnum.MOVAGHAT, false);
 
 //		SanadHesabdariEntity sanadHesabdariEftetahiehEntity = SanadHesabdariUtil.createMergedSanadHesabdari(currentOrgan, tarikhSanadEftetahieh, sanadEftetahiehArticles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEftetahieh"),null, false, SanadStateEnum.MOVAGHAT, false);
-		sanadHesabdariEftetahiehEntity.setSanadFunction(SanadFunctionEnum.EFTEFAHIE);
+		sanadHesabdariEftetahiehEntity.setSanadFunction(SanadFunctionEnum.EFTETAHIE);
 
 //		List<SanadHesabdariItemEntity> mergedArticles = sanadHesabdariEftetahiehEntity.getSanadHesabdariItem();
 

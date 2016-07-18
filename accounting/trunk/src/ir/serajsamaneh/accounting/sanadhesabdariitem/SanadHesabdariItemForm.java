@@ -3,6 +3,7 @@ package ir.serajsamaneh.accounting.sanadhesabdariitem;
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.converter.CSVtoListOfLongConverter;
 import ir.serajsamaneh.core.exception.MaxExcelRecordExportException;
 import ir.serajsamaneh.core.organ.OrganEntity;
@@ -67,7 +68,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		return sanadHesabdariItemService;
 	}
 	
-	Long saalMaaliId;
+	
 	Date fromDate;
 	Date toDate;
 	
@@ -121,13 +122,6 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		this.moeenIds = moeenIds;
 	}
 
-	public Long getSaalMaaliId() {
-		return saalMaaliId;
-	}
-
-	public void setSaalMaaliId(Long saalMaaliId) {
-		this.saalMaaliId = saalMaaliId;
-	}
 
 	public Date getFromDate() {
 		if (fromDate == null){
@@ -291,7 +285,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		getFilter().put("articleTafsili.hesabTafsili.id@in",getArticleTafsiliIds());
 		getFilter().put("accountingMarkaz.id@in",getAccountingMarkazIds());	
 		
-		getFilter().put("sanadHesabdari.saalMaali.id@eq",	getCurrentUserActiveSaalMaali().getId());
+		getFilter().put("sanadHesabdari.saalMaali.id@eq",	getSelectedSaalMaali().getId());
 
 		getFilter().put("sanadHesabdari.tarikhSanad@ge",getFromDate());
 		getFilter().put("sanadHesabdari.tarikhSanad@le", getToDate());
@@ -421,6 +415,19 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		this.totalBestankar = totalBestankar;
 	}
 
+	Boolean searchBySaalMaali;
+	Long saalMaaliId;
+	public Long getSaalMaaliId() {
+		return saalMaaliId;
+	}
+
+	public void setSaalMaaliId(Long saalMaaliId) {
+		this.saalMaaliId = saalMaaliId;
+	}
+	
+	public SaalMaaliEntity getSelectedSaalMaali(){
+		return getCurrentUserActiveSaalMaali();
+	}
 	public List<SanadHesabdariItemEntity> getTarazKolAzmayeshi() {
 		if(!FacesContext.getCurrentInstance().getRenderResponse())
 			return new ArrayList<SanadHesabdariItemEntity>();
@@ -440,7 +447,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 	private List<SanadHesabdariItemEntity> extractTarazKolAzmayeshi(OrganEntity organEntity) {
 		populateFilterFromRequest();
-		List<SanadHesabdariItemEntity> tarazKolAzmayeshi = getMyService().getTarazKolAzmayeshi(getCurrentUserActiveSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(),null,organEntity);
+		List<SanadHesabdariItemEntity> tarazKolAzmayeshi = getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(),null,organEntity);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : tarazKolAzmayeshi) {
 			totalBedehkar += sanadHesabdariItemEntity.getBedehkar();
 			totalBestankar += sanadHesabdariItemEntity.getBestankar();			
@@ -470,7 +477,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 	private List<SanadHesabdariItemEntity> extractTarazMoeenAzmayeshi(OrganEntity organEntity) {
 		populateFilterFromRequest();
-		List<SanadHesabdariItemEntity> tarazMoeenAzmayeshi = getMyService().getTarazMoeenAzmayeshi(getCurrentUserActiveSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(), getMoeenIds(),null,organEntity);
+		List<SanadHesabdariItemEntity> tarazMoeenAzmayeshi = getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(), getMoeenIds(),null,organEntity);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : tarazMoeenAzmayeshi) {
 			totalBedehkar += sanadHesabdariItemEntity.getBedehkar();
 			totalBestankar += sanadHesabdariItemEntity.getBestankar();	
@@ -539,7 +546,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 	private List<SanadHesabdariItemEntity> extractTarazTafsiliAzmayeshi(OrganEntity organEntity) {
 		populateFilterFromRequest();
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = getMyService().getTarazTafsiliAzmayeshi(getCurrentUserActiveSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity);
+		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : tarazTafsiliAzmayeshi) {
 			totalBedehkar += sanadHesabdariItemEntity.getBedehkar();
 			totalBestankar += sanadHesabdariItemEntity.getBestankar();
@@ -551,7 +558,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	
 	private List<SanadHesabdariItemEntity> extractTarazShenavarAzmayeshi(OrganEntity organEntity) {
 		populateFilterFromRequest();
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = getMyService().getTarazShenavarAzmayeshi(getCurrentUserActiveSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity);
+		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = getMyService().getTarazShenavarAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : tarazTafsiliAzmayeshi) {
 			totalBedehkar += sanadHesabdariItemEntity.getBedehkar();
 			totalBestankar += sanadHesabdariItemEntity.getBestankar();
@@ -563,7 +570,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	
 	private List<SanadHesabdariItemEntity> extractTarazAccountingMarkazAzmayeshi(OrganEntity organEntity) {
 		populateFilterFromRequest();
-		List<SanadHesabdariItemEntity> tarazAccountingMarkazAzmayeshi = getMyService().getTarazAccountingMarkazAzmayeshi(getCurrentUserActiveSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity);
+		List<SanadHesabdariItemEntity> tarazAccountingMarkazAzmayeshi = getMyService().getTarazAccountingMarkazAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : tarazAccountingMarkazAzmayeshi) {
 			totalBedehkar += sanadHesabdariItemEntity.getBedehkar();
 			totalBestankar += sanadHesabdariItemEntity.getBestankar();
@@ -574,23 +581,23 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public List<SanadHesabdariItemEntity> getTarazKolDarayi() {
-		return getMyService().getTarazKolAzmayeshi(getCurrentUserActiveSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.ASSET,getCurrentOrgan());
+		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.ASSET,getCurrentOrgan());
 	}
 	
 	public List<SanadHesabdariItemEntity> getTarazKolBedehi() {
-		return getMyService().getTarazKolAzmayeshi(getCurrentUserActiveSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.LIABILITY,getCurrentOrgan());
+		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.LIABILITY,getCurrentOrgan());
 	}
 	
 	public List<SanadHesabdariItemEntity> getTarazKolSarmaye() {
-		return getMyService().getTarazKolAzmayeshi(getCurrentUserActiveSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EQUITY,getCurrentOrgan());
+		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EQUITY,getCurrentOrgan());
 	}
 	
 	public List<SanadHesabdariItemEntity> getIncomeGroupByLevel( ){
-		return getMyService().getTarazKolAzmayeshi(getCurrentUserActiveSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.INCOME,getCurrentOrgan());
+		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.INCOME,getCurrentOrgan());
 	}
 	
 	public List<SanadHesabdariItemEntity> getExpenseGroupByLevel(){
-		return getMyService().getTarazKolAzmayeshi(getCurrentUserActiveSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EXPENSE,getCurrentOrgan());
+		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EXPENSE,getCurrentOrgan());
 	}
 
 	
@@ -944,7 +951,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("organName", organName); 
 		parameters.put("creatorUser", getCurrentUser().getShakhsName()); 
-		parameters.put("saalMaali", getCurrentUserActiveSaalMaali().getSaal().toString());
+		parameters.put("saalMaali", getSelectedSaalMaali().getSaal().toString());
 		parameters.put("fromDate", DateConverter.toShamsiDate(getFromDate(),SerajDateTimePickerType.Date));
 		parameters.put("toDate", DateConverter.toShamsiDate(getToDate(),SerajDateTimePickerType.Date));
 		parameters.put("creationDate", DateConverter.toShamsiDate(DateConverter.getCurrentDateTime(),SerajDateTimePickerType.DateHorMin));
@@ -1054,7 +1061,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("organName", organName);
 		parameters.put("creatorUser", getCurrentUser().getShakhsName()); 
-		parameters.put("saalMaali", getCurrentUserActiveSaalMaali().getSaal().toString());
+		parameters.put("saalMaali", getSelectedSaalMaali().getSaal().toString());
 		parameters.put("fromDate", DateConverter.toShamsiDate(getFromDate(),SerajDateTimePickerType.Date));
 		parameters.put("toDate", DateConverter.toShamsiDate(getToDate(),SerajDateTimePickerType.Date));
 		parameters.put("creationDate", DateConverter.toShamsiDate(DateConverter.getCurrentDateTime(),SerajDateTimePickerType.DateHorMin));
@@ -1390,7 +1397,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		
 		
 		if(getFromDate() == null)
-			setFromDate(getCurrentUserActiveSaalMaali().getStartDate());
+			setFromDate(getSelectedSaalMaali().getStartDate());
 		
 		if(getToDate() == null)
 			setToDate(DateConverter.getCurrentDate());
@@ -1398,7 +1405,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		
 		parameters.put("organName", organName);
 		parameters.put("creatorUser", getCurrentUser().getShakhsName()); 
-		parameters.put("saalMaali", getCurrentUserActiveSaalMaali().getSaal().toString());
+		parameters.put("saalMaali", getSelectedSaalMaali().getSaal().toString());
 		parameters.put("fromDate", DateConverter.toShamsiDate(getFromDate(),SerajDateTimePickerType.Date));
 		parameters.put("toDate", DateConverter.toShamsiDate(getToDate(),SerajDateTimePickerType.Date));
 		parameters.put("creationDate", DateConverter.toShamsiDate(DateConverter.getCurrentDateTime(),SerajDateTimePickerType.DateHorMin));
@@ -1444,7 +1451,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			mandehFilter.put("sanadHesabdari.tarikhSanad@le", null);
 			mandehFilter.put("sanadHesabdari.tarikhSanad@ge", null);
 			mandehFilter.put("sanadHesabdari.tarikhSanad@lt", getFromDate());
-			mandehFilter.put("sanadHesabdari.tarikhSanad@ge", getCurrentUserActiveSaalMaali().getStartDate());
+			mandehFilter.put("sanadHesabdari.tarikhSanad@ge", getSelectedSaalMaali().getStartDate());
 			
 			List<SanadHesabdariItemEntity> mandehAzGhablList = getMyService().getDataList(null, mandehFilter, getDefaultSortCol(), getDefaultSortType(), FlushMode.MANUAL, false);
 			

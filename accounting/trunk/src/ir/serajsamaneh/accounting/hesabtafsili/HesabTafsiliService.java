@@ -243,16 +243,20 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			if(hesabMoeenTemplateSet!=null)
 				for (HesabMoeenTemplateEntity hesabMoeenTemplateEntity : hesabMoeenTemplateSet){
 					HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(hesabMoeenTemplateEntity.getCode(), activeSaalMaaliEntity);
-					addMoeenToMoeenTafsiliSet(entity, hesabMoeenEntity.getId());
+					if(hesabMoeenEntity!=null)//maybe there no hesabMoeen for this template in activeSaalMaaliEntity
+						addMoeenToMoeenTafsiliSet(entity, hesabMoeenEntity.getId());
 				}
 			
 			Set<HesabTafsiliTemplateEntity> hesabTafsiliTemplateSet = entity.getHesabClassification().getHesabTafsiliTemplate();
 			if(hesabTafsiliTemplateSet!=null)
 				for (HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity : hesabTafsiliTemplateSet) {
 					HesabTafsiliEntity hesabTafsiliByCode = loadHesabTafsiliByCode(hesabTafsiliTemplateEntity.getCode(), activeSaalMaaliEntity);
-					entity.addToparents(hesabTafsiliByCode); 
-					hesabTafsiliByCode.addTochilds(entity);
-					save(hesabTafsiliByCode);
+
+					if(hesabTafsiliByCode!=null){//maybe there no hesabTafsili for this template in activeSaalMaaliEntity
+						entity.addToparents(hesabTafsiliByCode); 
+						hesabTafsiliByCode.addTochilds(entity);
+						save(hesabTafsiliByCode);
+					}
 				}
 		}
 		

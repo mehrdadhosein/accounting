@@ -139,7 +139,7 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 	}
 	
 	public Boolean getIsEftetahieh(){
-		return getSanadFunction().equals(SanadFunctionEnum.EFTEFAHIE);
+		return getSanadFunction().equals(SanadFunctionEnum.EFTETAHIE);
 	}
 
 	public Boolean getIsSanadDeletable(){
