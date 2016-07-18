@@ -132,7 +132,7 @@ public class SanadHesabdariItemService extends
 		Map<String, Object> filter = new HashMap<String, Object>();
 		
 		filter.put("sanadHesabdari.state@eqORsanadHesabdari.state@eq",Arrays.asList(SanadStateEnum.DAEM,SanadStateEnum.BARRESI_SHODE));
-		filter.put("sanadHesabdari.sanadFunction@neq@sanadHesabdari.sanadFunction@neq",Arrays.asList(SanadFunctionEnum.EFTEFAHIE,SanadFunctionEnum.EKHTETAMIE));
+		filter.put("sanadHesabdari.sanadFunction@neq@sanadHesabdari.sanadFunction@neq",Arrays.asList(SanadFunctionEnum.EFTETAHIE,SanadFunctionEnum.EKHTETAMIE));
 		
 		if(organEntity!=null)
 			filter.put("sanadHesabdari.organ.id@eq", organEntity.getId());
@@ -140,7 +140,7 @@ public class SanadHesabdariItemService extends
 		filter.put("hesabKol.hesabGroup.type@eq", hesabType);
 		filter.put("hesabKol.id@in", hesabKolIds);
 		
-		if(saalMaaliEntity.getId() != null){
+		if(saalMaaliEntity!=null && saalMaaliEntity.getId() != null){
 			filter.put("sanadHesabdari.saalMaali.id@eq", saalMaaliEntity.getId());
 			if(fromDate==null)
 				filter.put("sanadHesabdari.tarikhSanad@ge",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
@@ -150,8 +150,11 @@ public class SanadHesabdariItemService extends
 				filter.put("sanadHesabdari.tarikhSanad@le",getSaalMaaliService().getLastDateOfSaalMaali(saalMaaliEntity));
 			else
 				filter.put("sanadHesabdari.tarikhSanad@le",toDate);
-		}else
-			return tarazKolAzmayeshiList;
+		}else{
+			filter.put("sanadHesabdari.tarikhSanad@ge",fromDate);
+			filter.put("sanadHesabdari.tarikhSanad@le",toDate);
+//			return tarazKolAzmayeshiList;
+		}
 
 		List<Object[]> rawList = getMyDAO().getTarazKolAzmayeshi(filter);
 		Map<Long, SanadHesabdariItemEntity> tarazKolAzmayeshiMandeh = getTarazKolAzmayeshiMandeh(saalMaaliEntity,hesabKolIds, fromDate, hesabType, organEntity);
@@ -218,7 +221,7 @@ public class SanadHesabdariItemService extends
 		Map<String, Object> filter = new HashMap<String, Object>();
 		
 		filter.put("sanadHesabdari.state@eqORsanadHesabdari.state@eq", Arrays.asList(SanadStateEnum.DAEM,SanadStateEnum.BARRESI_SHODE));
-		filter.put("sanadHesabdari.sanadFunction@neq@sanadHesabdari.sanadFunction@neq",Arrays.asList(SanadFunctionEnum.EFTEFAHIE,SanadFunctionEnum.EKHTETAMIE));
+		filter.put("sanadHesabdari.sanadFunction@neq@sanadHesabdari.sanadFunction@neq",Arrays.asList(SanadFunctionEnum.EFTETAHIE,SanadFunctionEnum.EKHTETAMIE));
 		
 		if(organEntity!=null)
 			filter.put("sanadHesabdari.organ.id@eq", organEntity.getId());
@@ -226,15 +229,19 @@ public class SanadHesabdariItemService extends
 		filter.put("hesabKol.hesabGroup.type@eq", hesabType);
 		filter.put("hesabKol.id@in", hesabKolIds);
 		
-		if(saalMaaliEntity.getId() != null){
+		if(saalMaaliEntity!=null && saalMaaliEntity.getId() != null){
 			filter.put("sanadHesabdari.saalMaali.id@eq", saalMaaliEntity.getId());
 			if(fromDate!=null)
 				filter.put("sanadHesabdari.tarikhSanad@le",fromDate);
 			else
 				filter.put("sanadHesabdari.tarikhSanad@le",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
 			filter.put("sanadHesabdari.tarikhSanad@ge",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
-		}else
-			return tarazKolAzmayeshiMap;
+		}else{
+			if(fromDate!=null)
+				filter.put("sanadHesabdari.tarikhSanad@le",fromDate);
+			else
+				return tarazKolAzmayeshiMap;
+		}
 		
 		List<Object[]> rawList = getMyDAO().getTarazKolAzmayeshi(filter);
 		for (Object[] object : rawList) {
@@ -427,15 +434,19 @@ public class SanadHesabdariItemService extends
 		filter.put("hesabMoeen.id@in", moeenIds);
 		filter.put("hesabKol.id@in", hesabKolIds);
 		
-		if(saalMaaliEntity.getId() != null){
+		if(saalMaaliEntity!=null && saalMaaliEntity.getId() != null){
 			filter.put("sanadHesabdari.saalMaali.id@eq", saalMaaliEntity.getId());
 			if(fromDate!=null)
 				filter.put("sanadHesabdari.tarikhSanad@le",fromDate);
 			else
 				filter.put("sanadHesabdari.tarikhSanad@le",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
 			filter.put("sanadHesabdari.tarikhSanad@ge",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
-		}else
-			return tarazMoeenAzmayeshiMap;
+		}else{
+			if(fromDate!=null)
+				filter.put("sanadHesabdari.tarikhSanad@le",fromDate);
+			else
+				return tarazMoeenAzmayeshiMap;
+		}
 		
 		List<Object[]> rawList = getMyDAO().getTarazMoeenAzmayeshi(filter);
 		for (Object[] a : rawList) {
@@ -482,15 +493,19 @@ public class SanadHesabdariItemService extends
 		filter.put("hesabMoeen.id@in", moeenIds);
 		filter.put("hesabKol.id@in", hesabKolIds);
 		
-		if(saalMaaliEntity.getId() != null){
+		if(saalMaaliEntity!=null && saalMaaliEntity.getId() != null){
 			filter.put("sanadHesabdari.saalMaali.id@eq", saalMaaliEntity.getId());
 			if(fromDate!=null)
 				filter.put("sanadHesabdari.tarikhSanad@le",fromDate);
 			else
 				filter.put("sanadHesabdari.tarikhSanad@le",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
 			filter.put("sanadHesabdari.tarikhSanad@ge",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
-		}else
-			return tarazTafsiliAzmayeshiMap;
+		}else{
+			if(fromDate!=null)
+				filter.put("sanadHesabdari.tarikhSanad@le",fromDate);
+			else
+				return tarazTafsiliAzmayeshiMap;
+		}
 		
 		List<Object[]> rawList = getMyDAO().getTarazTafsiliAzmayeshi(filter);
 		for (Object[] object : rawList) {
@@ -545,15 +560,19 @@ public class SanadHesabdariItemService extends
 		filter.put("hesabMoeen.id@in", moeenIds);
 		filter.put("hesabKol.id@in", hesabKolIds);
 		
-		if(saalMaaliEntity.getId() != null){
+		if(saalMaaliEntity!=null && saalMaaliEntity.getId() != null){
 			filter.put("sanadHesabdari.saalMaali.id@eq", saalMaaliEntity.getId());
 			if(fromDate!=null)
 				filter.put("sanadHesabdari.tarikhSanad@le",fromDate);
 			else
 				filter.put("sanadHesabdari.tarikhSanad@le",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
 			filter.put("sanadHesabdari.tarikhSanad@ge",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
-		}else
-			return tarazAccountingMarkazAzmayeshiMap;
+		}else{
+			if(fromDate!=null)
+				filter.put("sanadHesabdari.tarikhSanad@le",fromDate);
+			else
+				return tarazAccountingMarkazAzmayeshiMap;
+		}
 		
 		List<Object[]> rawList = getMyDAO().getTarazAccountingMarkazAzmayeshi(filter);
 		for (Object[] object : rawList) {
@@ -608,7 +627,7 @@ public class SanadHesabdariItemService extends
 		filter.put("hesabKol.id@in", hesabKolIds);
 		
 		List<SanadHesabdariItemEntity> tarazMoeenAzmayeshiList = new ArrayList<SanadHesabdariItemEntity>();
-		if(saalMaaliEntity.getId() != null){
+		if(saalMaaliEntity!=null && saalMaaliEntity.getId() != null){
 			filter.put("sanadHesabdari.saalMaali.id@eq", saalMaaliEntity.getId());
 			if(fromDate==null)
 				filter.put("sanadHesabdari.tarikhSanad@ge",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
@@ -618,8 +637,11 @@ public class SanadHesabdariItemService extends
 				filter.put("sanadHesabdari.tarikhSanad@le",getSaalMaaliService().getLastDateOfSaalMaali(saalMaaliEntity));
 			else
 				filter.put("sanadHesabdari.tarikhSanad@le",toDate);
-		}else
-			return tarazMoeenAzmayeshiList;
+		}else{
+			filter.put("sanadHesabdari.tarikhSanad@ge",fromDate);
+			filter.put("sanadHesabdari.tarikhSanad@le",toDate);
+//			return tarazKolAzmayeshiList;
+		}
 
 		List<Object[]> rawList = getMyDAO().getTarazMoeenAzmayeshi(filter);
 		Map<Long, SanadHesabdariItemEntity> tarazMoeenAzmayeshiMandeh = getTarazMoeenAzmayeshiMandeh(saalMaaliEntity, fromDate,hesabKolIds, moeenIds, hesabType, organEntity);
@@ -844,7 +866,7 @@ public class SanadHesabdariItemService extends
 		if(accountingMarkazIds!=null && !accountingMarkazIds.isEmpty())
 			filter.put("accountingMarkaz.id@in", accountingMarkazIds);
 		
-		if(saalMaaliEntity.getId() != null){
+		if(saalMaaliEntity!=null && saalMaaliEntity.getId() != null){
 			filter.put("sanadHesabdari.saalMaali.id@eq", saalMaaliEntity.getId());
 			if(fromDate==null)
 				filter.put("sanadHesabdari.tarikhSanad@ge",getSaalMaaliService().getFirstDateOfSaalMaali(saalMaaliEntity));
@@ -854,8 +876,11 @@ public class SanadHesabdariItemService extends
 				filter.put("sanadHesabdari.tarikhSanad@le",getSaalMaaliService().getLastDateOfSaalMaali(saalMaaliEntity));
 			else
 				filter.put("sanadHesabdari.tarikhSanad@le",toDate);
-		}else
-			throw new NoSaalMaaliFoundException();
+		}else{
+			filter.put("sanadHesabdari.tarikhSanad@ge",fromDate);
+			filter.put("sanadHesabdari.tarikhSanad@le",toDate);
+//			throw new NoSaalMaaliFoundException();
+		}
 		return filter;
 	}
 	

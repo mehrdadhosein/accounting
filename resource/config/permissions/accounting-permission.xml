@@ -3,6 +3,7 @@
 	<roles>
 		<role id="1" name="حسابدار" />
 		<role id="2" name="نظارت سراسری حسابداری" />
+		<role id="3" name="AccountingSuperUser" />
 	</roles>
 	<classification id="1" name="حسابداری">
 		<classification id="3" name="گزارشات حسابداری">
@@ -168,59 +169,59 @@
 		</classification>	
 		<classification id="65" name="الگوی حساب">
 			<classification id="651" name="الگوی حساب کل">
-				<permission id="6511" action="HesabKolTemplate.create" name="ساخت الگوی حساب کل"						role="1" />
-				<permission id="6512" action="HesabKolTemplate.delete" name="حذف الگوی حساب کل"						role="1" />
-				<permission id="6513" action="HesabKolTemplate.view" name="مشاهده الگوی حساب کل"						role="1" />
-				<permission id="6514" action="hesabKolTemplate.edit" name="صفحه ویرایش الگوی حساب کل"				role="1" />
-				<permission id="6515" action="hesabKolTemplate.list" name="صفحه فهرست الگوی حساب کل"					role="1" />
-				<permission id="6516" action="hesabKolTemplate.lov" name="صفحه انتخاب الگوی حساب کل"					role="1" />
-				<permission id="6517" action="hesabKolTemplate.quickCreate" name="صفحه ساخت سریع الگوی حساب کل"		role="1" />
-				<permission id="6518" action="hesabKolTemplate.view" name="صفحه مشاهده الگوی حساب کل"				role="1" />
-				<permission id="6519" action="hesabKolTemplate.localList" name="صفحه فهرست محلی الگوی حساب کل"		role="1" />
-				<permission id="6520" action="hesabKolTemplate.localEdit" name="صفحه ویرایش محلی الگوی حساب کل"		role="1" />
-				<permission id="6521" action="hesabKolTemplate.localView" name="صفحه مشاهده محلی الگوی حساب کل"		role="1" />
+				<permission id="6511" action="HesabKolTemplate.create" name="ساخت الگوی حساب کل"						role="3" />
+				<permission id="6512" action="HesabKolTemplate.delete" name="حذف الگوی حساب کل"						role="3" />
+				<permission id="6513" action="HesabKolTemplate.view" name="مشاهده الگوی حساب کل"						role="3" />
+				<permission id="6514" action="hesabKolTemplate.edit" name="صفحه ویرایش الگوی حساب کل"				role="3" />
+				<permission id="6515" action="hesabKolTemplate.list" name="صفحه فهرست الگوی حساب کل"					role="3" />
+				<permission id="6516" action="hesabKolTemplate.lov" name="صفحه انتخاب الگوی حساب کل"					role="3" />
+				<permission id="6517" action="hesabKolTemplate.quickCreate" name="صفحه ساخت سریع الگوی حساب کل"		role="3" />
+				<permission id="6518" action="hesabKolTemplate.view" name="صفحه مشاهده الگوی حساب کل"				role="3" />
+				<permission id="6519" action="hesabKolTemplate.localList" name="صفحه فهرست محلی الگوی حساب کل"		role="3" />
+				<permission id="6520" action="hesabKolTemplate.localEdit" name="صفحه ویرایش محلی الگوی حساب کل"		role="3" />
+				<permission id="6521" action="hesabKolTemplate.localView" name="صفحه مشاهده محلی الگوی حساب کل"		role="3" />
 			</classification>
 	
 			<classification id="661" name="الگوی گروه حساب">
-				<permission id="6611" action="HesabGroupTemplate.create" name="ساخت الگوی گروه حساب"						role="1" />
-				<permission id="6612" action="HesabGroupTemplate.delete" name="حذف الگوی گروه حساب"						role="1" />
-				<permission id="6613" action="HesabGroupTemplate.view" name="مشاهده الگوی گروه حساب"						role="1" />
-				<permission id="6614" action="hesabGroupTemplate.edit" name="صفحه ویرایش الگوی گروه حساب"				role="1" />
-				<permission id="6615" action="hesabGroupTemplate.list" name="صفحه فهرست الگوی گروه حساب"					role="1" />
-				<permission id="6616" action="hesabGroupTemplate.lov" name="صفحه انتخاب الگوی گروه حساب"					role="1" />
-				<permission id="6617" action="hesabGroupTemplate.quickCreate" name="صفحه ساخت سریع الگوی گروه حساب"		role="1" />
-				<permission id="6618" action="hesabGroupTemplate.view" name="صفحه مشاهده الگوی گروه حساب"				role="1" />
-				<permission id="6619" action="hesabGroupTemplate.localList" name="صفحه فهرست محلی الگوی گروه حساب"		role="1" />
-				<permission id="6620" action="hesabGroupTemplate.localEdit" name="صفحه ویرایش محلی الگوی گروه حساب"		role="1" />
-				<permission id="6621" action="hesabGroupTemplate.localView" name="صفحه مشاهده محلی الگوی گروه حساب"		role="1" />
+				<permission id="6611" action="HesabGroupTemplate.create" name="ساخت الگوی گروه حساب"						role="3" />
+				<permission id="6612" action="HesabGroupTemplate.delete" name="حذف الگوی گروه حساب"						role="3" />
+				<permission id="6613" action="HesabGroupTemplate.view" name="مشاهده الگوی گروه حساب"						role="3" />
+				<permission id="6614" action="hesabGroupTemplate.edit" name="صفحه ویرایش الگوی گروه حساب"				role="3" />
+				<permission id="6615" action="hesabGroupTemplate.list" name="صفحه فهرست الگوی گروه حساب"					role="3" />
+				<permission id="6616" action="hesabGroupTemplate.lov" name="صفحه انتخاب الگوی گروه حساب"					role="3" />
+				<permission id="6617" action="hesabGroupTemplate.quickCreate" name="صفحه ساخت سریع الگوی گروه حساب"		role="3" />
+				<permission id="6618" action="hesabGroupTemplate.view" name="صفحه مشاهده الگوی گروه حساب"				role="3" />
+				<permission id="6619" action="hesabGroupTemplate.localList" name="صفحه فهرست محلی الگوی گروه حساب"		role="3" />
+				<permission id="6620" action="hesabGroupTemplate.localEdit" name="صفحه ویرایش محلی الگوی گروه حساب"		role="3" />
+				<permission id="6621" action="hesabGroupTemplate.localView" name="صفحه مشاهده محلی الگوی گروه حساب"		role="3" />
 			</classification>
 			
 			<classification id="671" name="الگوی حساب معین">
-				<permission id="6711" action="HesabMoeenTemplate.create" name="ساخت الگوی حساب معین"						role="1" />
-				<permission id="6712" action="HesabMoeenTemplate.delete" name="حذف الگوی حساب معین"						role="1" />
-				<permission id="6713" action="HesabMoeenTemplate.view" name="مشاهده الگوی حساب معین"						role="1" />
-				<permission id="6714" action="hesabMoeenTemplate.edit" name="صفحه ویرایش الگوی حساب معین"				role="1" />
-				<permission id="6715" action="hesabMoeenTemplate.list" name="صفحه فهرست الگوی حساب معین"					role="1" />
-				<permission id="6716" action="hesabMoeenTemplate.lov" name="صفحه انتخاب الگوی حساب معین"					role="1" />
-				<permission id="6717" action="hesabMoeenTemplate.quickCreate" name="صفحه ساخت سریع الگوی حساب معین"		role="1" />
-				<permission id="6718" action="hesabMoeenTemplate.view" name="صفحه مشاهده الگوی حساب معین"				role="1" />
-				<permission id="6719" action="hesabMoeenTemplate.localList" name="صفحه فهرست محلی الگوی حساب معین"		role="1" />
-				<permission id="6720" action="hesabMoeenTemplate.localEdit" name="صفحه ویرایش محلی الگوی حساب معین"		role="1" />
-				<permission id="6721" action="hesabMoeenTemplate.localView" name="صفحه مشاهده محلی الگوی حساب معین"		role="1" />
+				<permission id="6711" action="HesabMoeenTemplate.create" name="ساخت الگوی حساب معین"						role="3" />
+				<permission id="6712" action="HesabMoeenTemplate.delete" name="حذف الگوی حساب معین"						role="3" />
+				<permission id="6713" action="HesabMoeenTemplate.view" name="مشاهده الگوی حساب معین"						role="3" />
+				<permission id="6714" action="hesabMoeenTemplate.edit" name="صفحه ویرایش الگوی حساب معین"				role="3" />
+				<permission id="6715" action="hesabMoeenTemplate.list" name="صفحه فهرست الگوی حساب معین"					role="3" />
+				<permission id="6716" action="hesabMoeenTemplate.lov" name="صفحه انتخاب الگوی حساب معین"					role="3" />
+				<permission id="6717" action="hesabMoeenTemplate.quickCreate" name="صفحه ساخت سریع الگوی حساب معین"		role="3" />
+				<permission id="6718" action="hesabMoeenTemplate.view" name="صفحه مشاهده الگوی حساب معین"				role="3" />
+				<permission id="6719" action="hesabMoeenTemplate.localList" name="صفحه فهرست محلی الگوی حساب معین"		role="3" />
+				<permission id="6720" action="hesabMoeenTemplate.localEdit" name="صفحه ویرایش محلی الگوی حساب معین"		role="3" />
+				<permission id="6721" action="hesabMoeenTemplate.localView" name="صفحه مشاهده محلی الگوی حساب معین"		role="3" />
 			</classification>		
 	
 			<classification id="691" name="الگوی حساب تفصیلی">
-				<permission id="6911" action="HesabTafsiliTemplate.create" name="ساخت الگوی حساب تفصیلی"						role="1" />
-				<permission id="6912" action="HesabTafsiliTemplate.delete" name="حذف الگوی حساب تفصیلی"						role="1" />
-				<permission id="6913" action="HesabTafsiliTemplate.view" name="مشاهده الگوی حساب تفصیلی"						role="1" />
-				<permission id="6914" action="hesabTafsiliTemplate.edit" name="صفحه ویرایش الگوی حساب تفصیلی"				role="1" />
-				<permission id="6915" action="hesabTafsiliTemplate.list" name="صفحه فهرست الگوی حساب تفصیلی"					role="1" />
-				<permission id="6916" action="hesabTafsiliTemplate.lov" name="صفحه انتخاب الگوی حساب تفصیلی"					role="1" />
-				<permission id="6917" action="hesabTafsiliTemplate.quickCreate" name="صفحه ساخت سریع الگوی حساب تفصیلی"		role="1" />
-				<permission id="6918" action="hesabTafsiliTemplate.view" name="صفحه مشاهده الگوی حساب تفصیلی"				role="1" />
-				<permission id="6919" action="hesabTafsiliTemplate.localList" name="صفحه فهرست محلی الگوی حساب تفصیلی"		role="1" />
-				<permission id="6920" action="hesabTafsiliTemplate.localEdit" name="صفحه ویرایش محلی الگوی حساب تفصیلی"		role="1" />
-				<permission id="6921" action="hesabTafsiliTemplate.localView" name="صفحه مشاهده محلی الگوی حساب تفصیلی"		role="1" />
+				<permission id="6911" action="HesabTafsiliTemplate.create" name="ساخت الگوی حساب تفصیلی"						role="3" />
+				<permission id="6912" action="HesabTafsiliTemplate.delete" name="حذف الگوی حساب تفصیلی"						role="3" />
+				<permission id="6913" action="HesabTafsiliTemplate.view" name="مشاهده الگوی حساب تفصیلی"						role="3" />
+				<permission id="6914" action="hesabTafsiliTemplate.edit" name="صفحه ویرایش الگوی حساب تفصیلی"				role="3" />
+				<permission id="6915" action="hesabTafsiliTemplate.list" name="صفحه فهرست الگوی حساب تفصیلی"					role="3" />
+				<permission id="6916" action="hesabTafsiliTemplate.lov" name="صفحه انتخاب الگوی حساب تفصیلی"					role="3" />
+				<permission id="6917" action="hesabTafsiliTemplate.quickCreate" name="صفحه ساخت سریع الگوی حساب تفصیلی"		role="3" />
+				<permission id="6918" action="hesabTafsiliTemplate.view" name="صفحه مشاهده الگوی حساب تفصیلی"				role="3" />
+				<permission id="6919" action="hesabTafsiliTemplate.localList" name="صفحه فهرست محلی الگوی حساب تفصیلی"		role="3" />
+				<permission id="6920" action="hesabTafsiliTemplate.localEdit" name="صفحه ویرایش محلی الگوی حساب تفصیلی"		role="3" />
+				<permission id="6921" action="hesabTafsiliTemplate.localView" name="صفحه مشاهده محلی الگوی حساب تفصیلی"		role="3" />
 			</classification>		
 	
 			<classification id="695" name="عملیات ویژه">

@@ -2,7 +2,7 @@ package ir.serajsamaneh.accounting.enumeration;
 
 
 public enum SanadFunctionEnum {
-	OMOMI,EFTEFAHIE,BASTAN_HESABHA,EKHTETAMIE,TADIL_MAHIAT_AVAL_DORE;
+	OMOMI,EFTETAHIE,BASTAN_HESABHA,EKHTETAMIE,TADIL_MAHIAT_AVAL_DORE;
 	public Integer value(){
 		return this.ordinal();
 	}
