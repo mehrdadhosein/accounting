@@ -13,6 +13,7 @@ import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
@@ -77,7 +78,7 @@ public class HesabMoeenService extends
 	@Transactional
 	public void save(HesabMoeenEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
 		commonSave(entity, activeSaalMaaliEntity);
-		super.save(entity);
+		save(entity);
 		boolean isNew=(entity.getID()!=null?false:true);
 		logAction(isNew, entity);
 	}
@@ -148,7 +149,7 @@ public class HesabMoeenService extends
 	
 	@Transactional
 	public void updateValues(HesabMoeenEntity entity) {
-		super.save(entity);
+		save(entity);
 	}
 	
 
@@ -161,7 +162,7 @@ public class HesabMoeenService extends
 				localFilter, false);
 		checkUniqueNess(entity, HesabMoeenEntity.PROP_CODE, entity.getCode(),
 				localFilter, false);
-		super.saveOrUpdate(entity);
+		saveOrUpdate(entity);
 	}
 	
 	static Long maxKalaCode = null;
@@ -237,6 +238,8 @@ public class HesabMoeenService extends
 	@Override
 	@Transactional
 	public void saveOrUpdate(HesabMoeenEntity entity) {
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
 		super.saveOrUpdate(entity);
@@ -245,6 +248,8 @@ public class HesabMoeenService extends
 	@Override
 	@Transactional
 	public void saveOrUpdateStateLess(HesabMoeenEntity entity) {
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
 		super.saveOrUpdateStateLess(entity);
@@ -433,6 +438,14 @@ public class HesabMoeenService extends
 	public void disableHesab(Long hesabId){
 		HesabMoeenEntity hesabMoeenEntity = load(hesabId);
 		hesabMoeenEntity.setHidden(true);
-		super.save(hesabMoeenEntity);
+		save(hesabMoeenEntity);
+	}
+	
+	@Override
+	public void save(HesabMoeenEntity entity) {
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
+
+		super.save(entity);
 	}
 }

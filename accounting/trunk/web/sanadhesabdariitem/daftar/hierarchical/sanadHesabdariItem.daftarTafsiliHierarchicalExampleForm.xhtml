@@ -134,7 +134,23 @@
 					</p:panelGrid>
 				</h:panelGroup>
 
-
+				<h:panelGroup>
+					<h:outputLabel for="searchBySaalMaali"
+						value="#{messages['SanadHesabdariItem_searchBySaalMaali']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<t:selectBooleanCheckbox id="searchBySaalMaali" onclick="toggleSaalMaaliSelect('searchBySaalMaali')"
+						value="#{owner.searchBySaalMaali}" />
+				</h:panelGroup>
+				<h:panelGroup/>
+				<t:div id="saalMaaliPanel">
+					<h:selectOneMenu id="saalMaali" 
+						styleClass="selectOneMenu"
+						value="#{owner.saalMaaliId}"
+						converter="javax.faces.Long">
+								<f:selectItems value="#{hierarchicalEntities.saalMaali}" />
+					</h:selectOneMenu>				
+				</t:div>
 
 
 			</p:panelGrid>
@@ -174,6 +190,22 @@
 		populatemoeens(moeens);
 		document.getElementById("moeens_id").value=moeens;
 	}
+	destElement = document.getElementById('saalMaaliPanel');
+	destElement.style.display = 'none';
+	
+	function toggleSaalMaaliSelect(checkBox) {
+		srcElement = document.getElementById(checkBox);
+		destElement = document.getElementById('saalMaaliPanel');
+		if (srcElement.checked) {
+			//alert(srcElement.checked)
+			destElement.style.display = '';
+		}
+		if (!srcElement.checked) {
+			//alert(srcElement.checked)
+			destElement.style.display = 'none';
+		}
 
+		return;
+	}
 </script>
 </html>

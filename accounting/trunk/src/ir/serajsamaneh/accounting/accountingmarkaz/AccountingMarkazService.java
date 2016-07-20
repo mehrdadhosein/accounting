@@ -16,6 +16,7 @@ import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.security.ActionLogUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
@@ -192,6 +193,8 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	
 	@Override
 	public void saveOrUpdate(AccountingMarkazEntity entity) {
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("AccountingMarkaz_code"));
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
 		super.saveOrUpdate(entity);
@@ -206,7 +209,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	@Transactional
 	public void save(AccountingMarkazEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
 		commonSave(entity, activeSaalMaaliEntity);
-		super.save(entity);
+		save(entity);
 	}
 	public void saveStateLess(AccountingMarkazEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
 		commonSave(entity, activeSaalMaaliEntity);
@@ -217,6 +220,9 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	private void commonSave(AccountingMarkazEntity entity,
 			SaalMaaliEntity activeSaalMaaliEntity) {
 
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("AccountingMarkaz_code"));
+		
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
 
@@ -273,7 +279,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	
 	@Transactional
 	public void updateValues(AccountingMarkazEntity entity) {
-		super.save(entity);
+		save(entity);
 	}
 
 
@@ -393,5 +399,12 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		AccountingMarkazEntity accountingMarkazEntity = load(null, localFilter);
 		return accountingMarkazEntity;
+	}
+	
+	@Override
+	public void save(AccountingMarkazEntity entity) {
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("AccountingMarkaz_code"));
+		super.save(entity);
 	}
 }

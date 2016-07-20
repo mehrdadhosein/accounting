@@ -58,6 +58,10 @@
 					permission="sanadHesabdari.localList" icon="images/menu/icon_news_archive.jpg"
 					separator="true" />
 
+				<MenuItem id="sanadHesabdarilocalDeletedList" value="اسناد حذف شده"
+					valueClick="sanadhesabdari/sanadHesabdari.localDeletedList.jsf"
+					permission="sanadHesabdari.localDeletedList" icon="images/menu/icon_news_archive.jpg"/>
+
 				<MenuItem id="sanadHesabdarihierarchicalArchiveList" value="بایگانی سلسله مراتبی" 
 					valueClick="sanadhesabdari/sanadHesabdari.hierarchicalArchiveList.jsf"
 					permission="sanadHesabdari.localList" icon="images/menu/icon_news_archive.jpg" />

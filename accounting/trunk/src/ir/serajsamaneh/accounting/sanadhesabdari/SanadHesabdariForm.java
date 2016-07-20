@@ -804,6 +804,12 @@ public class SanadHesabdariForm extends
 		return getLocalDataModel();
 	}
 	
+	public DataModel<SanadHesabdariEntity> getLocalDeletedDataModel() {
+		
+		getFilter().put("state@eq", SanadStateEnum.EBTAL);
+		return getLocalDataModel();
+	}
+	
 	@Override
 	public DataModel<SanadHesabdariEntity> getHierarchicalDataModel() {
 		getFilter().put("state@notIn", Arrays.asList(SanadStateEnum.TEMP, SanadStateEnum.MERGED));

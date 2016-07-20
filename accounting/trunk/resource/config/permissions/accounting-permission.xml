@@ -71,6 +71,7 @@
 				<permission id="225" action="sanadHesabdari.localEdit" name="ویرایش محلی سند حسابداری"	role="1" />
 				<permission id="226" action="sanadHesabdari.globalList" name=" لیست سند حسابداری سراسری"	role="2" />
 				<permission id="227" action="sanadHesabdari.automaticSanadEdit" name="ویرایش سند خودکار"	role="" />
+				<permission id="228" action="sanadHesabdari.localDeletedList" name="لیست اسناد حسابداری حذف شده"	role="1" />
 			</classification>
 			<classification id="25" name="آرتیکل">
 				<permission id="251" action="SanadHesabdariItem.create" name="ساخت آرتیکل"						role="1" />

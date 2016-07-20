@@ -81,7 +81,8 @@ public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends 
 	}
 	
 	public Boolean checkIfMustValidateHesabMoeenHasChild(OrganEntity organ){
-		return YesNoEnum.getName(new Integer(getSystemConfigService().getValue(organ, null, "validateHesabMoeenHasChild"))).equals(YesNoEnum.YES);
+		String validateHesabMoeenHasChild = getSystemConfigService().getValue(organ, null, "validateHesabMoeenHasChild");
+		return YesNoEnum.getName(new Integer(validateHesabMoeenHasChild)).equals(YesNoEnum.YES);
 	}
 	
 	public Boolean checkIfMustValidateHesabMoeenHasMarkaz(OrganEntity organ){

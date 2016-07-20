@@ -282,7 +282,10 @@ public class SanadHesabdariService extends
 	}
 
 	public SanadTypeEntity getDefaultSanadType(OrganEntity organEntity) {
-		return getSanadTypeService().load(new Long(getSystemConfigService().getValue(organEntity, null, "defaultSanadTypeId")));
+		String defaultSanadTypeId = getSystemConfigService().getValue(organEntity, null, "defaultSanadTypeId");
+		if(defaultSanadTypeId == null)
+			throw new FatalException(SerajMessageUtil.getMessage("AccountingNotConfigured"));
+		return getSanadTypeService().load(new Long(defaultSanadTypeId));
 	}
 
 	private void updateBedehkarBestankarSum(SanadHesabdariEntity entity) {
@@ -1471,9 +1474,15 @@ public class SanadHesabdariService extends
 		SanadHesabdariEntity sanadHesabdariEntity = load(id);
 		getSaalMaaliService().checkSaalMaaliIsInProgress(sanadHesabdariEntity.getSaalMaali());
 		if(sanadHesabdariEntity.getIsSanadHesabdariManualyDeletable())
-			super.delete(id);
+			doEbtalSanad(sanadHesabdariEntity);			//super.delete(id);
 		else
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_cannotDelete",sanadHesabdariEntity));
+	}
+	
+	@Transactional(readOnly=false)
+	private void doEbtalSanad(SanadHesabdariEntity entity){
+		entity.setState(SanadStateEnum.EBTAL);
+		save(entity);
 	}
 	
 	@Override
