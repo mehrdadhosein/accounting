@@ -6,7 +6,6 @@ import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.moeenaccountingmarkaz.MoeenAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.base.BaseEntityForm;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
@@ -121,6 +120,7 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 		HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali());
 		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
 		HesabRelationsUtil.resetAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
+		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
 	

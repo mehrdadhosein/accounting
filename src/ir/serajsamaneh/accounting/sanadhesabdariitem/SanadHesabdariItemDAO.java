@@ -124,6 +124,27 @@ public class SanadHesabdariItemDAO  extends BaseHibernateDAO<SanadHesabdariItemE
 		return list;
 	}
 	
+	public List<Object[]> getTarazAccountingMarkazShenavarAzmayeshi(Map<String,Object> filter) {
+		
+		Criteria criteria = getEmptyCriteria();
+		Map<String, String> aliasMap = addFilterCriteria(filter, criteria);
+		
+		String accountingMarkazId = newCreateAlias(criteria, aliasMap, "articleAccountingMarkaz.accountingMarkaz.id", JoinType.INNER_JOIN /*CriteriaSpecification.INNER_JOIN*/);
+		String accountingMarkazCode = newCreateAlias(criteria, aliasMap, "articleAccountingMarkaz.accountingMarkaz.code", JoinType.INNER_JOIN /*CriteriaSpecification.INNER_JOIN*/);		
+		
+		ProjectionList projections = Projections.projectionList();
+		projections.add(Projections.groupProperty(accountingMarkazId));
+		projections.add(Projections.groupProperty(accountingMarkazCode));
+		projections.add(Projections.sum("bestankar"));
+		projections.add(Projections.sum("bedehkar"));
+		
+		criteria.setProjection(projections);
+		criteria.addOrder(Order.asc(accountingMarkazCode));
+		
+		List<Object[]> list = criteria.list();
+		return list;
+	}
+	
 	public Double[] getHesabAggregate(Long kolId, HesabTypeEnum hesabTypeEnum, Date from, Date to, Map<String, Object> filter){
 		Criteria criteria = getEmptyCriteria();
 		filter.put("hesabMoeen.hesabKol.id@eq", kolId);

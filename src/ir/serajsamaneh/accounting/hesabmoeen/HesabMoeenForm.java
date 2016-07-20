@@ -1,7 +1,6 @@
 package ir.serajsamaneh.accounting.hesabmoeen;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
-import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
@@ -148,7 +147,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		HesabRelationsUtil.resetMoeenKolMap(getCurrentUserActiveSaalMaali());
 		HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali());
 		HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali());
-		
+		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
 

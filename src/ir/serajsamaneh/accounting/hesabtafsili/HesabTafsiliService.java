@@ -18,6 +18,7 @@ import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
@@ -176,6 +177,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	
 	@Override
 	public void saveOrUpdate(HesabTafsiliEntity entity) {
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
 		super.saveOrUpdate(entity);
@@ -195,7 +198,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	@Transactional
 	public void save(HesabTafsiliEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
 		commonSave(entity, new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), activeSaalMaaliEntity);
-		super.save(entity);
+		save(entity);
 	}
 	
 	public void saveStateLess(HesabTafsiliEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
@@ -205,6 +208,10 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 
 	@Transactional
 	private void commonSave(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity) {
+		
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
+		
 		if(entity.getId()!=null && entity.getSaalMaali()!=null && entity.getSaalMaali().getId()!=null && !entity.getSaalMaali().equals(activeSaalMaaliEntity))
 			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_hesabConflict"));
 		if (entity.getId() == null) {
@@ -360,7 +367,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 
 	@Transactional
 	public void updateValues(HesabTafsiliEntity entity) {
-		super.save(entity);
+		save(entity);
 	}
 	
 
@@ -646,7 +653,13 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	public void disableHesab(Long hesabId){
 		HesabTafsiliEntity hesabTafsiliEntity = load(hesabId);
 		hesabTafsiliEntity.setHidden(true);
-		super.save(hesabTafsiliEntity);
+		save(hesabTafsiliEntity);
 	}
 
+	@Override
+	public void save(HesabTafsiliEntity entity) {
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabTafsili_code"));
+		super.save(entity);
+	}
 }

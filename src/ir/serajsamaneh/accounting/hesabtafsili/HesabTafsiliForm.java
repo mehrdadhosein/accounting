@@ -174,6 +174,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali());
 		HesabRelationsUtil.resetTafsiliChildMap(getCurrentUserActiveSaalMaali());
 		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
+		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
 	

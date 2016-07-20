@@ -2,7 +2,6 @@ package ir.serajsamaneh.accounting.hesabkol;
 
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
-import ir.serajsamaneh.accounting.accountingmarkaz.BaseAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateService;
 import ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity;
@@ -21,6 +20,7 @@ import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.exception.NoRecordFoundException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
@@ -29,7 +29,6 @@ import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import ir.serajsamaneh.erpcore.util.HesabTreeUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -195,7 +194,7 @@ public class HesabKolService extends
 	public void save(HesabKolEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
 		commonSave(entity, activeSaalMaaliEntity);
 
-		super.save(entity);
+		save(entity);
 		boolean isNew=(entity.getID()!=null?false:true);
 		logAction(isNew, entity);
 	}
@@ -209,6 +208,9 @@ public class HesabKolService extends
 	private void commonSave(HesabKolEntity entity,
 			SaalMaaliEntity activeSaalMaaliEntity) {
 		
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabKol_code"));
+
 		if(entity.getId()!=null && entity.getSaalMaali()!=null && entity.getSaalMaali().getId()!=null && !entity.getSaalMaali().equals(activeSaalMaaliEntity))
 			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_hesabConflict"));
 		
@@ -250,9 +252,15 @@ public class HesabKolService extends
 	
 	@Transactional
 	public void updateValues(HesabKolEntity entity) {
-		super.save(entity);
+		save(entity);
 	}
 	
+	@Override
+	public void save(HesabKolEntity entity) {
+		if(!isInteger(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabKol_code"));
+		super.save(entity);
+	}
 //	public HesabKolEntity getHesabKolByCode(String hesabCode, OrganEntity organEntity) {
 //
 //		Map<String, Object> localFilter = new HashMap<String, Object>();
