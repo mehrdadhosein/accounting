@@ -35,5 +35,11 @@ public class MoeenAccountingMarkazEntity extends BaseMoeenAccountingMarkazEntity
 		this.entityId = entityId;
 	}
 
+	@Override
+	public String toString() {
+		if(getAccountingMarkaz()!=null)
+			return getAccountingMarkaz().getDesc();
+		return "";
+	}
 
 }

@@ -173,7 +173,7 @@
 				continue;
 			}
 			if(fieldId == 'accountingMarkazLevels'){
-				$$('input.tafsiliInput').each(function( i ) {
+				$$('input.accountingMarkazInput').each(function( i ) {
 					var id_desc = $( this ).prop('id');
 					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
 					$$('#'+id+"_desc").val('');
