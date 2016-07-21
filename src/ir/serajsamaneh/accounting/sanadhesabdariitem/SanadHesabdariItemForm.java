@@ -688,7 +688,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	private String printDaftarMoeen(String organName) {
 		setDefaultSortType(true);
 		
-		List<String> orderByCols = Arrays.asList("sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
+		List<String> orderByCols = Arrays.asList("hesabMoeen.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarMoeenList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
 		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
 		setToDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@le"));		
@@ -734,7 +734,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	private String printDaftarKol(String organName) {
 		setDefaultSortType(true);
 		
-		List<String> orderByCols = Arrays.asList("sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
+		List<String> orderByCols = Arrays.asList("hesabKol.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
 		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
 		setToDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@le"));
@@ -825,7 +825,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	private String printDaftarTafsili(String organName) {
 		setDefaultSortType(true);
 		
-		List<String> orderByCols = Arrays.asList("sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
+		List<String> orderByCols = Arrays.asList("hesabTafsili.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarTafsiliList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
 		
 		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
@@ -884,9 +884,12 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	private String printDaftarAccountingMarkaz(String organName) {
 		setDefaultSortType(true);
 		
-		List<String> orderByCols = Arrays.asList("sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
+		List<String> orderByCols = Arrays.asList("accountingMarkaz.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarAccountingMarkazList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
-		
+		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : daftarAccountingMarkazList) {
+			if(sanadHesabdariItemEntity.getAccountingMarkaz()!=null)
+				System.out.println(sanadHesabdariItemEntity.getAccountingMarkaz().getCode());
+		}
 		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
 		setToDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@le"));		
 		Map<String, Object> parameters = populateReportParameters(organName);

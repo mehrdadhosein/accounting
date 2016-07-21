@@ -46,7 +46,11 @@
 				<h:outputText id="description"
 					value="#{hesabMoeen.entity.description}" />
 
-
+				<h:outputLabel for="accountingMarkazList"
+						value="#{messages['HesabMoeen_accountingMarkazList']} : " />
+				<h:outputText id="accountingMarkazList"
+					value="#{owner.entity.moeenAccountingMarkaz}" />
+					
 			</p:panelGrid>
 		</rich:panel>
 	</ui:define>

@@ -56,6 +56,12 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 			return "";
 		return getHesabTafsili().getCode();
 	}
+	
+	public String getAccountingMarkazCode() {
+		if(getAccountingMarkaz() == null)
+			return "";
+		return getAccountingMarkaz().getCode();
+	}
 /*
 	
 	public MarkazHazineEntity getMarkazHazine() {

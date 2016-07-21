@@ -641,8 +641,8 @@
 		
 
 		
-		$$('[id="bedehkar"]').keyup();
-		$$('[id="bestankar"]').keyup();
+		//$$('[id="bedehkar"]').keyup();
+		//$$('[id="bestankar"]').keyup();
 		$$('#sanadHesabdariDialog').dialog({title:title, width: '60%', autoOpen: true, modal:true,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_update']}': function() { changeRowData(gridId,rowId);}}});
 		$$('#sanadHesabdariDialog').on('keydown', function(e) {
 			

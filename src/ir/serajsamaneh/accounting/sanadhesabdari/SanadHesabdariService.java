@@ -688,8 +688,8 @@ public class SanadHesabdariService extends
 			if(hesabTafsili!=null && !hesabTafsili.getHesabMoeenList().contains(hesabMoeen))
 				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_tafsiliDoesnotBelongToMoeen",tempSerial+" ("+DateConverter.toShamsiDate(sanadHesabdariEntity.getTarikhSanad())+")",sanadHesabdariItemEntity.getDescription(), hesabTafsili.getDesc(), hesabMoeen.getDesc()));
 			
-//			if(accountingMarkazEntity!=null && !accountingMarkazEntity.getHesabMoeenList().contains(hesabMoeen))
-//				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_accountingMarkazDoesnotBelongToMoeen",tempSerial+" ("+DateConverter.toShamsiDate(sanadHesabdariEntity.getTarikhSanad())+")", accountingMarkazEntity.getDesc(), hesabMoeen.getDesc()));
+			if(accountingMarkazEntity!=null && !accountingMarkazEntity.getHesabMoeenList().contains(hesabMoeen))
+				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_accountingMarkazDoesnotBelongToMoeen",tempSerial+" ("+DateConverter.toShamsiDate(sanadHesabdariEntity.getTarikhSanad())+")",sanadHesabdariItemEntity.getDescription(),  accountingMarkazEntity.getDesc(), hesabMoeen.getDesc()));
 			
 			ArticleTafsiliEntity articleTafsiliEntityTWO = sanadHesabdariItemEntity.getArticleTafsiliByLevel(2);
 			if(hesabTafsili!=null && articleTafsiliEntityTWO!=null){

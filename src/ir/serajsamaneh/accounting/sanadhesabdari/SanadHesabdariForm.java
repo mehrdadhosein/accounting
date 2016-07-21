@@ -310,7 +310,16 @@ public class SanadHesabdariForm extends
 
 	}
 
-	protected List<SanadHesabdariItemEntity> getSanadHesabdariItemList(
+	protected List<SanadHesabdariItemEntity> initSanadHesabdariItemList(String sanadItemInput, Boolean isInMultipleLevelMode, SanadHesabdariEntity sanadHesabdariEntity){
+		List<SanadHesabdariItemEntity> sanadHesabdariItemList = getSanadHesabdariItemList(sanadItemInput, isInMultipleLevelMode);
+		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItemList) {
+			sanadHesabdariItemEntity.setSanadHesabdari(sanadHesabdariEntity);
+		}
+		
+		return sanadHesabdariItemList;
+	}
+
+	private List<SanadHesabdariItemEntity> getSanadHesabdariItemList(
 			String sanadItemInput, Boolean isInMultipleLevelMode) {
 		List<Map<String, String>> list = JQueryUtil
 				.convertJQueryXMLToList(sanadItemInput);
@@ -452,7 +461,8 @@ public class SanadHesabdariForm extends
 		if(getEntity().getSanadFunction() == null)
 			getEntity().setSanadFunction(SanadFunctionEnum.OMOMI);
 
-		List<SanadHesabdariItemEntity> sanadHesabdariItemList = getSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode());
+//		List<SanadHesabdariItemEntity> sanadHesabdariItemList = getSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode());
+		List<SanadHesabdariItemEntity> sanadHesabdariItemList = initSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode(), getEntity());
 		if (getEntity().getSanadHesabdariItem() == null)
 			getEntity().setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
 		else
@@ -471,7 +481,8 @@ public class SanadHesabdariForm extends
 	//just for administrative operations
 	public String saveAdmin() {
 		
-		List<SanadHesabdariItemEntity> sanadHesabdariItemList = getSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode());
+//		List<SanadHesabdariItemEntity> sanadHesabdariItemList = getSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode());
+		List<SanadHesabdariItemEntity> sanadHesabdariItemList = initSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode(), getEntity());
 		if (getEntity().getSanadHesabdariItem() == null)
 			getEntity().setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
 		else
@@ -551,7 +562,8 @@ public class SanadHesabdariForm extends
 	public String saveBarresiShode() {
 
 		
-		List<SanadHesabdariItemEntity> sanadHesabdariItemList = getSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode());
+//		List<SanadHesabdariItemEntity> sanadHesabdariItemList = getSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode());
+		List<SanadHesabdariItemEntity> sanadHesabdariItemList = initSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode(), getEntity());
 		if (getEntity().getSanadHesabdariItem() == null)
 			getEntity().setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
 		else
