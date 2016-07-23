@@ -5,7 +5,6 @@ import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
 import ir.serajsamaneh.accounting.enumeration.MahyatKolEnum;
 import ir.serajsamaneh.accounting.hesabgroup.HesabGroupDAO;
-import ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity;
 import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateDAO;
 import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateDAO;
@@ -13,7 +12,6 @@ import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateDAO;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
 import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
 import java.util.HashMap;
@@ -113,7 +111,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 		hesabMoeenTemplateEntity.setName(hesabMoeenName);
 		hesabMoeenTemplateEntity.setCode(hesabMoeenCode);
 		hesabMoeenTemplateEntity.setHidden(false);
-		hesabMoeenTemplateEntity.setHesabKolTemplate(getHesabKolTemplateByCode(hesabKolCode));
+		hesabMoeenTemplateEntity.setHesabKolTemplate(getHesabKolTemplateByCode(hesabKolCode, organ));
 		if(hesabMoeenTemplateEntity.getHesabKolTemplate() == null)
 			System.out.println(hesabMoeenTemplateEntity.getHesabKolTemplate());
 		
@@ -138,7 +136,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 	public void createHesabKolTemplate(String hesabKolCode, String hesabKolName,
 			String hesabGroupCode, String mahyatKol, OrganEntity organEntity) {
 		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(hesabGroupCode);
-		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateByCode(hesabKolCode);
+		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateByCode(hesabKolCode, organEntity);
 		if (hesabKolTemplateEntity == null){
 			hesabKolTemplateEntity = new HesabKolTemplateEntity();
 			hesabKolTemplateEntity.setHidden(false);
@@ -172,11 +170,11 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 	}
 	
 	@Transactional
-	public HesabKolTemplateEntity getHesabKolTemplateByCode(String hesabCode) {
+	public HesabKolTemplateEntity getHesabKolTemplateByCode(String hesabCode, OrganEntity currentOrgan) {
 
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
-		// localFilter.put("organ.id@eq", getCurrentOrgan().getId());
+		localFilter.put("organ.id@eq", currentOrgan.getId());
 		List<HesabKolTemplateEntity> dataList = getDataList(null, localFilter,null, null, FlushMode.MANUAL,false);
 		if (dataList.size() == 1)
 			return dataList.get(0);

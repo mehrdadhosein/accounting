@@ -225,14 +225,22 @@ function openTarazTafsili(hesabMoeenEntityId){
 	//alert(hesabKolId);
 	fromDate = document.getElementById('aztarikhExample').value;
 	toDate = document.getElementById('tatarikhExample').value;	
-	var url = '../taraztafsili/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_six.jsf?searchAction=true&moeenIds='+hesabMoeenEntityId+'&fromDate='+fromDate+'&toDate='+toDate;	
+	hesabKolIds = document.getElementById("hesabKolIds_id").value;
+	tafsiliIds = document.getElementById('tafsilis_id').value;
+	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+
+	var url = '../taraztafsili/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_six.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate;	
 	popupFullscreen(url, 'tarazTafsili');
 }
 function openDaftarMoeen(hesabMoeenEntityId){
 	//alert(hesabKolId);
 	fromDate = document.getElementById('aztarikhExample').value;
-	toDate = document.getElementById('tatarikhExample').value;	
-	var url = '../daftar/sanadHesabdariItem.moeenLocalList.jsf?searchAction=true&moeenIds='+hesabMoeenEntityId+'&fromDate='+fromDate+'&toDate='+toDate;	
+	toDate = document.getElementById('tatarikhExample').value;
+	hesabKolIds = document.getElementById("hesabKolIds_id").value;
+	tafsiliIds = document.getElementById('tafsilis_id').value;
+	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+
+	var url = '../daftar/sanadHesabdariItem.moeenLocalList.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate;	
 	popupFullscreen(url, 'daftarMoeen');
 }
 /* ]]> */

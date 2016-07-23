@@ -101,9 +101,9 @@ public class HesabMoeenEntity extends BaseHesabMoeenEntity {
 		String message= SerajMessageUtil.getMessage("HesabMoeen_name")+":"+this.getName()+" , "+
 			   SerajMessageUtil.getMessage("HesabMoeen_hesabKol")+":"+this.getHesabKol()+" , "+
 			   SerajMessageUtil.getMessage("HesabMoeen_code")+":"+this.getCode()+" , "+
-			   SerajMessageUtil.getMessage("HesabMoeen_description")+":"+this.getDescription()+" , "+
+			   this.getDescription()!=null ? (SerajMessageUtil.getMessage("HesabMoeen_description")+":"+this.getDescription()+" , ") : ""+
 			   SerajMessageUtil.getMessage("HesabMoeen_hidden")+":"+this.getHidden();
-		if (this.getTafsiliList()!=null) {
+		if (!this.getTafsiliList().isEmpty()) {
 			message+=",[";
 			for (HesabTafsiliEntity tafsili : getTafsiliList()) {
 				message+=tafsili.toString()+",";

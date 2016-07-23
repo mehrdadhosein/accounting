@@ -40,7 +40,7 @@
 	</p:panelGrid>
 </t:div>
 
-<table id="tafsiliLevels">
+<table id="tafsiliLevelsTable">
 	<tr>
 		<td>&nbsp;</td>
 	</tr>
@@ -48,10 +48,10 @@
 <div id="pcustbut"></div>
 
 <script type="text/javascript">
-		//setTafsiliLevelsGlobalRowId('#tafsiliLevels',0);
+		//settafsiliLevelsTableGlobalRowId('#tafsiliLevelsTable',0);
 		var lastRow = -1; 
 		function createTafsiliLevels(xmlData) { 		
-	$$('#tafsiliLevels')
+	$$('#tafsiliLevelsTable')
 			.jqGrid(
 					{
 						direction :'rtl',
@@ -80,23 +80,24 @@
 						rownumbers: true,
 
 						onSelectRow: function(id){ 
-							$$('#tafsiliLevels').jqGrid('editRow',id,true);
+							$$('#tafsiliLevelsTable').jqGrid('editRow',id,true);
 							if(lastRow != -1)if(id!=lastRow)
-								$$('#tafsiliLevels').jqGrid('saveRow',lastRow, false, 'clientArray');
+								$$('#tafsiliLevelsTable').jqGrid('saveRow',lastRow, false, 'clientArray');
 							lastRow=id;   
 						}, 
 						caption :'#{messages['HesabTafsili_list']}'
 					});
-	$$('#tafsiliLevels').jqGrid('navGrid','#pcustbut',{edit:false,add:false,del:false,search:true,page:false, searchtext:'جستجو'}); 
+	$$('#tafsiliLevelsTable').jqGrid('navGrid','#pcustbut',{edit:false,add:false,del:false,search:true,page:false, searchtext:'جستجو'}); 
 
 
-		$$('#tafsiliLevels').jqGrid('hideCol','hesabTafsiliIds'); 
+		$$('#tafsiliLevelsTable').jqGrid('hideCol','id'); 
+		$$('#tafsiliLevelsTable').jqGrid('hideCol','hesabTafsiliIds'); 
 	}
 
 	
 	function createTafsiliLevelsTable(tafsiliLevelsList){
 		var tafsiliLevelsItems=new Array('level','hesabTafsiliListStr','hesabTafsiliIds');
-		setItems("#tafsiliLevels",tafsiliLevelsItems);
+		setItems("#tafsiliLevelsTable",tafsiliLevelsItems);
 		createTafsiliLevels(tafsiliLevelsList);
 }
 	

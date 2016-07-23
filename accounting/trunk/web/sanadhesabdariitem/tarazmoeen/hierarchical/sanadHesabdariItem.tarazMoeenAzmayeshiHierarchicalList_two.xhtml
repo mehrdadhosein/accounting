@@ -161,7 +161,11 @@ function openTarazTafsili(hesabMoeenEntityId){
 	fromDate = document.getElementById('aztarikhExample').value;
 	toDate = document.getElementById('tatarikhExample').value;	
 	selectedOrganId = document.getElementById('organ').value;
-	var url = '../../taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&moeenIds='+hesabMoeenEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
+	hesabKolIds = document.getElementById("hesabKolIds_id").value;
+	tafsiliIds = document.getElementById('tafsilis_id').value;
+	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+
+	var url = '../../taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
 	popupFullscreen(url, 'tarazTafsili');
 }
 function openDaftarMoeen(hesabMoeenEntityId){
@@ -169,7 +173,11 @@ function openDaftarMoeen(hesabMoeenEntityId){
 	fromDate = document.getElementById('aztarikhExample').value;
 	toDate = document.getElementById('tatarikhExample').value;	
 	selectedOrganId = document.getElementById('organ').value;
-	var url = '../../daftar/hierarchical/sanadHesabdariItem.moeenHierarchicalList.jsf?searchAction=true&moeenIds='+hesabMoeenEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
+	hesabKolIds = document.getElementById("hesabKolIds_id").value;
+	tafsiliIds = document.getElementById('tafsilis_id').value;
+	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+
+	var url = '../../daftar/hierarchical/sanadHesabdariItem.moeenHierarchicalList.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
 	popupFullscreen(url, 'daftarMoeen');
 }
 /* ]]> */

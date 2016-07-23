@@ -138,8 +138,8 @@ public class HesabKolTemplateService extends
 	}
 	
 	@Transactional
-	public HesabKolTemplateEntity getHesabKolTemplateByCode(String hesabCode) {
-		return getMyDAO().getHesabKolTemplateByCode(hesabCode);
+	public HesabKolTemplateEntity getHesabKolTemplateByCode(String hesabCode, OrganEntity organEntity) {
+		return getMyDAO().getHesabKolTemplateByCode(hesabCode, organEntity);
 	}
 
 	public HesabKolTemplateEntity load(String code, OrganEntity organEntity) {

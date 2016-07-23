@@ -50,7 +50,28 @@
 						selectedIds="#{owner.moeenIds}" entity="HesabMoeen"
 						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
 				</h:panelGroup>
-												
+
+				<h:panelGroup>
+					<h:outputLabel 
+						value="#{messages['HesabTafsili_list']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-multiple id="tafsilis" width="220px"
+						selectedIds="#{owner.tafsiliIds}" entity="HesabTafsili"
+						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+				</h:panelGroup>
+
+							
+				<h:panelGroup>
+					<h:outputLabel for="articleTafsiliIds"
+						value="#{messages['HesabTafsili_shenavar_list']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-multiple id="articleTafsiliIds" width="220px"
+						selectedIds="#{owner.articleTafsiliIds}" entity="HesabTafsili"
+						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+				</h:panelGroup>
+																
 				<h:panelGroup>
 					<h:outputLabel  for="tarikhAzTa"
 						value="#{messages['SanadHesabdari_tarikhSanad']}" /> : 
@@ -130,20 +151,35 @@
 </rich:panel>
 </a4j:region>
 <script>
-	//Initial load of page
-	function hesabKolIdsrendered(){
-		var hesabKolIds = getURLParameters('hesabKolIds');
-		//alert(hesabKolIds);
-		populatehesabKolIds(hesabKolIds);
-		document.getElementById("hesabKolIds_id").value=hesabKolIds;
-	}
 
-	function moeensrendered(){
-		var moeens = getURLParameters('moeenIds');
-		//alert(moeens);
-		populatemoeens(moeens);
-		document.getElementById("moeens_id").value=moeens;
-	}
+//Initial load of page
+function tafsilisrendered(){
+	var tafsilis = getURLParameters('tafsiliIds');
+	//alert(tafsilis);
+	populatetafsilis(tafsilis);
+	document.getElementById("tafsilis_id").value=tafsilis;
+}
+
+function moeensrendered(){
+	var moeens = getURLParameters('moeenIds');
+	//alert(moeens);
+	populatemoeens(moeens);
+	document.getElementById("moeens_id").value=moeens;
+}
+
+function hesabKolIdsrendered(){
+	var hesabKolIds = getURLParameters('hesabKolIds');
+	//alert(hesabKolIds);
+	populatehesabKolIds(hesabKolIds);
+	document.getElementById("hesabKolIds_id").value=hesabKolIds;
+}
+
+function articleTafsiliIdsrendered(){
+	var articleTafsiliIds = getURLParameters('articleTafsiliIds');
+	//alert(articleTafsiliIds);
+	populatearticleTafsiliIds(articleTafsiliIds);
+	document.getElementById("articleTafsiliIds_id").value=articleTafsiliIds;
+}
 
 </script>
 </html>
