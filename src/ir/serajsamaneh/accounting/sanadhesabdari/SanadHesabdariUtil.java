@@ -10,7 +10,6 @@ import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
-import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenForm;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
@@ -23,6 +22,7 @@ import ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity;
 import ir.serajsamaneh.accounting.sanadtype.SanadTypeService;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.organ.OrganEntity;
+import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 
@@ -46,7 +46,15 @@ public class SanadHesabdariUtil {
 	static HesabMoeenService hesabMoeenService;
 	static HesabKolService hesabKolService;
 	static AccountingMarkazService accountingMarkazService;
+	static SystemConfigService systemConfigService;
 	
+	public static SystemConfigService getSystemConfigService() {
+		if(systemConfigService == null)
+			systemConfigService = SpringUtils.getBean("systemConfigService");		
+		return systemConfigService;
+	}
+
+
 	public static AccountingMarkazService getAccountingMarkazService() {
 		if(accountingMarkazService == null)
 			accountingMarkazService = SpringUtils.getBean("accountingMarkazService");		
@@ -103,7 +111,7 @@ public class SanadHesabdariUtil {
 	public static SanadHesabdariEntity createMergedEkhtetamiehSanadHesabdari(OrganEntity organEntity,
 			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) {
 		
-		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions);
+		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organEntity);
 		SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().getSaalmaaliByDate(sanadHesabdariDate, organEntity);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : mergedArticles) {
 			sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEkhtetamieh", saalMaaliEntity.getDesc()));
@@ -114,15 +122,15 @@ public class SanadHesabdariUtil {
 	public static SanadHesabdariEntity createMergedSanadHesabdari(OrganEntity organEntity,
 			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) {
 		
-		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions);
+		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organEntity);
 		
 		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress);
 	}
 
 	public static List<SanadHesabdariItemEntity> createMergedArticles(
-			List<SanadHesabdariItemEntity> articles, boolean concatDescriptions) {
+			List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
 		
-		Map<String, SanadHesabdariItemEntity> articlesMap = mergeArtcilesToArticleMap(articles, concatDescriptions);
+		Map<String, SanadHesabdariItemEntity> articlesMap = mergeArtcilesToArticleMap(articles, concatDescriptions, currentOrgan);
 		
 		List<SanadHesabdariItemEntity> mergedArticles = extractSanadArticles(articlesMap);
 		return mergedArticles;
@@ -186,12 +194,12 @@ public class SanadHesabdariUtil {
 		return sanadHesabdariItemList;
 	}
 	
-	protected static Map<String, SanadHesabdariItemEntity> mergeArtcilesToArticleMap(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions) {
+	protected static Map<String, SanadHesabdariItemEntity> mergeArtcilesToArticleMap(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
 		
 		Map<String, SanadHesabdariItemEntity> articlesMap = new HashMap<String, SanadHesabdariItemEntity>();
 		
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : articles) {
-			String mapKey = createMapKey(sanadHesabdariItemEntity);
+			String mapKey = createMapKey(sanadHesabdariItemEntity, currentOrgan);
 		
 			
 			SanadHesabdariItemEntity previousSanad = articlesMap.get(mapKey);
@@ -243,9 +251,21 @@ public class SanadHesabdariUtil {
 		return articlesMap;
 	}
 
-
+	public static  List<Integer> getLevels(OrganEntity currentOrgan){
+		String maxSanadHesabdariTafsilLevel = getSystemConfigService().getValue(currentOrgan, null, "maxSanadHesabdariTafsilLevel");
+		ArrayList<Integer> levelList = new ArrayList<Integer>();
+		if(maxSanadHesabdariTafsilLevel!=null){
+			Integer maxLevels = new Integer(maxSanadHesabdariTafsilLevel);
+			for(int i=2; i<maxLevels; ++i)
+				levelList.add(i);
+			return levelList;
+		}
+		
+		return levelList;
+	}
+	
 	public static String createMapKey(
-			SanadHesabdariItemEntity sanadHesabdariItemEntity) {
+			SanadHesabdariItemEntity sanadHesabdariItemEntity, OrganEntity currentOrgan) {
 		String mapKey ="";
 		
 		String kolCode = sanadHesabdariItemEntity.getHesabKol().getCode();
@@ -257,7 +277,7 @@ public class SanadHesabdariUtil {
 		String tafsiliCode = sanadHesabdariItemEntity.getHesabTafsili()!=null ? sanadHesabdariItemEntity.getHesabTafsili().getCode() : "";
 		mapKey+="_"+tafsiliCode;
 		
-		for(Integer level : new HesabMoeenForm().getLevels()) {
+		for(Integer level : getLevels(currentOrgan)) {
 			ArticleTafsiliEntity articleTafsiliEntity = sanadHesabdariItemEntity.getArticleTafsiliByLevel(level);
 			mapKey+="_"+(articleTafsiliEntity!=null ? articleTafsiliEntity.getHesabTafsili().getCode() : "");
 		}
@@ -265,7 +285,7 @@ public class SanadHesabdariUtil {
 		String markazCode = sanadHesabdariItemEntity.getAccountingMarkaz() != null ? sanadHesabdariItemEntity.getAccountingMarkaz().getCode() :"";
 		mapKey+="_"+markazCode;
 		
-		for(Integer level : new HesabMoeenForm().getLevels()) {
+		for(Integer level : getLevels(currentOrgan)) {
 			ArticleAccountingMarkazEntity articleAccountingMarkazEntity = sanadHesabdariItemEntity.getArticleAccountingMarkaz(level);
 			mapKey+="_"+(articleAccountingMarkazEntity !=null ? articleAccountingMarkazEntity.getAccountingMarkaz().getCode() : "");
 		}

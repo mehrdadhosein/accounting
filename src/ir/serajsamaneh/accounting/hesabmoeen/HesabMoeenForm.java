@@ -6,6 +6,7 @@ import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
 import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariUtil;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.InCorrectInputException;
@@ -235,7 +236,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 			return "<?xml version='1.0' encoding='UTF-8'?><rows>\n<page>1</page>\n<total>1</total>\n<records>0</records>\n</rows>\n";
 
 		String xmlString = "<?xml version='1.0' encoding='UTF-8'?>\n";
-		HesabMoeenEntity hesabMoeenEntity = getMyService().load(hesabMoeenId);
+//		HesabMoeenEntity hesabMoeenEntity = getMyService().load(hesabMoeenId);
 		xmlString += "<rows>\n";
 		xmlString += "<page>1</page>\n";
 		xmlString += "<total>1</total>\n";
@@ -306,7 +307,8 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	}
 
 	public  List<Integer> getLevels(){
-		return Arrays.asList(2,3);
+//		return Arrays.asList(2,3);
+		return SanadHesabdariUtil.getLevels(getCurrentOrgan());
 	}
 	
 	public  Integer getMaxLevel(){

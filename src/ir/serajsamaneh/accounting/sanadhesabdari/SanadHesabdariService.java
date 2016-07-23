@@ -932,7 +932,7 @@ public class SanadHesabdariService extends
 		Double sanadHesabdariItemCloseTemporalAccountsBestankar = 0d;
 		
 		for (SanadHesabdariEntity sanadHesabdariEntity : sanadHesabdariList) {
-			Map<String, Double> resultMap = addSingleSanadToTemporalSanad(sanadHesabdariCloseTemporalAccountsItemsMap,	sanadHesabdariCloseTemporalAccountsEntity, 	sanadHesabdariEntity);
+			Map<String, Double> resultMap = addSingleSanadToTemporalSanad(sanadHesabdariCloseTemporalAccountsItemsMap,	sanadHesabdariCloseTemporalAccountsEntity, 	sanadHesabdariEntity, organEntity);
 			Double sanadHesabdariItemCloseTemporalAccountsBestankarLocal = resultMap.get("sanadHesabdariItemCloseTemporalAccountsBestankarLocal");
 			Double sanadHesabdariItemCloseTemporalAccountsBedehkarLocal = resultMap.get("sanadHesabdariItemCloseTemporalAccountsBedehkarLocal");
 			
@@ -949,33 +949,9 @@ public class SanadHesabdariService extends
 			sanadHesabdariItemList.add(value);
 		}
 		
-
-		
-//		HesabTafsiliEntity hesabAmalkardTafsili = getHesabTafsiliService().loadHesabTafsiliByCode("960101",saalMaaliEntity);
-//		HesabMoeenEntity   hesabAmalkardMoeen   = getHesabMoeenService().loadHesabMoeenByCode("9601",saalMaaliEntity);
-//		HesabKolEntity   hesabAmalkardKol   = getHesabKolService().loadHesabKolByCode("96",saalMaaliEntity);
-//		
-//		if(hesabAmalkardTafsili==null || hesabAmalkardMoeen==null || hesabAmalkardKol == null)
-//			throw new FatalException("Hesab amalkard not defined");
-//		
-//		SanadHesabdariItemEntity amalkardItemEntityOne = createamAlkardItemEntity(sanadHesabdariCloseTemporalAccountsEntity,
-//				sanadHesabdariItemCloseTemporalAccountsBedehkar,
-//				sanadHesabdariItemCloseTemporalAccountsBestankar,
-//				hesabAmalkardTafsili, hesabAmalkardMoeen, hesabAmalkardKol);
-//		sanadHesabdariCloseTemporalAccountsEntity.getSanadHesabdariItem().add(amalkardItemEntityOne);
-//	
-//		SanadHesabdariItemEntity amalkardItemEntityTwo = createamAlkardItemEntity(
-//				sanadHesabdariCloseTemporalAccountsEntity,
-//				sanadHesabdariItemCloseTemporalAccountsBestankar,
-//				sanadHesabdariItemCloseTemporalAccountsBedehkar,
-//				hesabAmalkardTafsili, hesabAmalkardMoeen, hesabAmalkardKol);
-//		sanadHesabdariCloseTemporalAccountsEntity.getSanadHesabdariItem().add(amalkardItemEntityTwo);
-		
 		HesabMoeenEntity   hesabSoodVaZyanAnbashtehMoeen   = getHesabSoodVaZyanAnbashtehMoeen(saalMaaliEntity);
 		HesabKolEntity   hesabSoodVaZyanAnbashtehKol   = hesabSoodVaZyanAnbashtehMoeen.getHesabKol();
 		HesabTafsiliEntity hesabSoodVaZyanAnbashtehTafsili = getHesabSoodVaZyanAnbashtehTafsiliId(saalMaaliEntity);
-//		if(getHesabSoodVaZyanAnbashtehTafsiliId()!=null)
-//			hesabSoodVaZyanAnbashtehTafsili = getHesabTafsiliService().load(getHesabSoodVaZyanAnbashtehTafsiliId());
 
 		SanadHesabdariItemEntity soodVaZyanAnbashtehItemEntity = createamAlkardItemEntity(
 				sanadHesabdariCloseTemporalAccountsEntity,
@@ -986,8 +962,7 @@ public class SanadHesabdariService extends
 		sanadHesabdariItemList.add(soodVaZyanAnbashtehItemEntity);		
 		
 		/**************** Merging Articles***************************/
-//		List<SanadHesabdariItemEntity> sortedSanadHesabdariItem = SanadHesabdariUtil.getSortedSanadHesabdariItem(sanadHesabdariItemList);
-		List<SanadHesabdariItemEntity> mergedArticles = SanadHesabdariUtil.createMergedArticles(sanadHesabdariItemList, false);
+		List<SanadHesabdariItemEntity> mergedArticles = SanadHesabdariUtil.createMergedArticles(sanadHesabdariItemList, false, organEntity);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : mergedArticles) {
 			sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_closeTemporalAccounts", saalMaaliEntity.getDesc()));
 		}
@@ -1039,7 +1014,7 @@ public class SanadHesabdariService extends
 	@Transactional(readOnly=false)
 	private Map<String, Double> addSingleSanadToTemporalSanad(
 			Map<String, SanadHesabdariItemEntity> sanadHesabdariCloseTemporalAccountsItemsMap,
-			SanadHesabdariEntity sanadHesabdariCloseTemporalAccountsEntity, SanadHesabdariEntity sanadHesabdariEntity) {
+			SanadHesabdariEntity sanadHesabdariCloseTemporalAccountsEntity, SanadHesabdariEntity sanadHesabdariEntity, OrganEntity currentOrgan) {
 		
 		List<SanadHesabdariItemEntity> sanadHesabdariItem = sanadHesabdariEntity.getSanadHesabdariItem();
 		
@@ -1061,7 +1036,7 @@ public class SanadHesabdariService extends
 				AccountingMarkazEntity accountingMarkaz = sanadHesabdariItemEntity.getAccountingMarkaz();
 				if(accountingMarkaz!=null && accountingMarkaz.getId()!=null && !sanadHesabdariCloseTemporalAccountsEntity.getSaalMaali().equals(accountingMarkaz.getSaalMaali()))
 					throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_saalMaali_Not_equal_accountingMarkaz_saalMaali", sanadHesabdariCloseTemporalAccountsEntity, accountingMarkaz));
-				String mapKey = SanadHesabdariUtil.createMapKey(sanadHesabdariItemEntity);
+				String mapKey = SanadHesabdariUtil.createMapKey(sanadHesabdariItemEntity, currentOrgan);
 				
 //				String mapKey = hesabKol.getCode()+"_"+hesabMoeen.getCode()+"-"+(hesabTafsili!=null && hesabTafsili.getId()!=null ? hesabTafsili.getCode() : "");
 				
@@ -1410,7 +1385,7 @@ public class SanadHesabdariService extends
 		}
 		
 
-		List<SanadHesabdariItemEntity> mergedArticles = SanadHesabdariUtil.createMergedArticles(sanadEftetahiehArticles,	false);
+		List<SanadHesabdariItemEntity> mergedArticles = SanadHesabdariUtil.createMergedArticles(sanadEftetahiehArticles,	false, currentOrgan);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : mergedArticles) {
 			sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEftetahieh", activeSaalmaali.getDesc()));
 		}
