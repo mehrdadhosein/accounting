@@ -53,9 +53,9 @@
 					<h:outputLabel for="description"
 						value="#{messages['SanadHesabdariItem_description']}" /> : 
 				</h:panelGroup>
-					<t:inputText id="description"
+					<p:inputText id="description"
 						value="#{owner.filter['description@lk']}">
-				</t:inputText>
+				</p:inputText>
 
 
 				<h:panelGroup>
@@ -99,20 +99,20 @@
 
 						<h:outputLabel for="azserialExample"
 							value="#{messages['from']} : " />
-						<t:inputText id="azserialExample"
+						<p:inputText id="azserialExample"
 							value="#{owner.filter['sanadHesabdari.serial@ge']}"
 							converter="javax.faces.Long">
-						</t:inputText>
+						</p:inputText>
 					</p:panelGrid>
 
 					<p:panelGrid layout="grid" columns="2" width="90%"
 						columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9">
 
 						<h:outputLabel for="taserialExample" value="#{messages['to']} : " />
-						<t:inputText id="taserialExample"
+						<p:inputText id="taserialExample"
 							value="#{owner.filter['sanadHesabdari.serial@le']}"
 							converter="javax.faces.Long">
-						</t:inputText>
+						</p:inputText>
 					</p:panelGrid>
 				</h:panelGroup>
 

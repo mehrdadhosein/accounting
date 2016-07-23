@@ -145,9 +145,9 @@
 					 
 						<h:outputLabel for="azserialExample"
 								value="#{messages['from']} : " />
-						<t:inputText id="azserialExample"
+						<p:inputText id="azserialExample"
 								value="#{owner.filter['serial@ge']}" converter="javax.faces.Long">
-						</t:inputText>
+						</p:inputText>
 					</p:panelGrid>
 					
 					<p:panelGrid layout="grid" columns="2" width="90%"
@@ -155,9 +155,9 @@
 							 
 						<h:outputLabel for="taserialExample"
 							value="#{messages['to']} : " />
-						<t:inputText id="taserialExample"
+						<p:inputText id="taserialExample"
 							value="#{owner.filter['serial@le']}"  converter="javax.faces.Long">
-						</t:inputText>
+						</p:inputText>
 					</p:panelGrid>
 				</h:panelGroup>			
 				 

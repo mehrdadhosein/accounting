@@ -236,6 +236,10 @@ function openTarazMoeen(hesabKolId){
 	fromDate = document.getElementById('aztarikhExample').value;
 	toDate = document.getElementById('tatarikhExample').value;
 	selectedOrganId = document.getElementById('organ').value;
+	moeens = document.getElementById('moeens_id').value;
+	tafsiliIds = document.getElementById('tafsilis_id').value;
+	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	
 	var url = '../../tarazmoeen/hierarchical/sanadHesabdariItem.tarazMoeenAzmayeshiHierarchicalList_eight.jsf?searchAction=true&hesabKolIds='+hesabKolId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;
 	popupFullscreen(url, 'tarazMoeen');
 }
@@ -244,6 +248,10 @@ function openDaftarKol(hesabKolEntityId){
 	fromDate = document.getElementById('aztarikhExample').value;
 	toDate = document.getElementById('tatarikhExample').value;
 	selectedOrganId = document.getElementById('organ').value;
+	moeens = document.getElementById('moeens_id').value;
+	tafsiliIds = document.getElementById('tafsilis_id').value;
+	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+
 	var url = '../../daftar/hierarchical/sanadHesabdariItem.kolHierarchicalList.jsf?searchAction=true&hesabKolIds='+hesabKolEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
 	popupFullscreen(url, 'daftarKol');
 }

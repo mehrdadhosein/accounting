@@ -4,19 +4,14 @@ import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
 import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
-import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.organ.OrganEntity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
-import org.w3c.dom.Element;
 
 public class HesabMoeenTemplateService extends
 		BaseEntityService<HesabMoeenTemplateEntity, Long> {
@@ -94,13 +89,13 @@ public class HesabMoeenTemplateService extends
 		hesabMoeenTemplateEntity.setCode(hesabMoeenCode);
 		hesabMoeenTemplateEntity.setOrgan(organEntity);
 		hesabMoeenTemplateEntity.setHidden(hidden);
-		hesabMoeenTemplateEntity.setHesabKolTemplate(getHesabKolTemplateService().getHesabKolTemplateByCode(hesabKolCode));
+		hesabMoeenTemplateEntity.setHesabKolTemplate(getHesabKolTemplateService().getHesabKolTemplateByCode(hesabKolCode, organEntity));
 		checkHesabUniqueNess(hesabMoeenTemplateEntity, organEntity);
 		getHesabMoeenTemplateDAO().saveOrUpdate(hesabMoeenTemplateEntity);
 		getLogger().info("hesabMoeen created : "+hesabMoeenCode);
 		
 	}
-
+ 
 	public HesabMoeenTemplateEntity loadByCode(String code, OrganEntity organEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
