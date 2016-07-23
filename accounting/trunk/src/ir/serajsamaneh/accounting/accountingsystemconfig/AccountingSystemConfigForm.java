@@ -1,7 +1,5 @@
 package ir.serajsamaneh.accounting.accountingsystemconfig;
 
-import javax.faces.context.FacesContext;
-
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
@@ -11,13 +9,14 @@ import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.exception.RequiredFieldNotSetException;
 import ir.serajsamaneh.core.security.ActionLogUtil;
-import ir.serajsamaneh.core.security.SecurityUtil;
 import ir.serajsamaneh.core.systemconfig.SystemConfigForm;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.enumeration.ActionTypeEnum;
 import ir.serajsamaneh.enumeration.YesNoEnum;
+
+import javax.faces.context.FacesContext;
 
 public class AccountingSystemConfigForm extends SystemConfigForm{
 	
@@ -62,8 +61,21 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	String hesabSoodVaZyanAnbashtehTafsiliDesc;
 	YesNoEnum validateHesabMoeenHasChild;
 	YesNoEnum validateHesabMoeenHasMarkaz;
+	Integer maxSanadHesabdariTafsilLevel;
 	
 
+
+	public Integer getMaxSanadHesabdariTafsilLevel() {
+		if(maxSanadHesabdariTafsilLevel==null)
+			if(getSystemConfigService().getValue(getCurrentOrgan(), null, "maxSanadHesabdariTafsilLevel")!=null){
+				maxSanadHesabdariTafsilLevel= new Integer(getSystemConfigService().getValue(getCurrentOrgan(), null, "maxSanadHesabdariTafsilLevel"));
+		}	
+		return maxSanadHesabdariTafsilLevel;
+	}
+
+	public void setMaxSanadHesabdariTafsilLevel(Integer maxSanadHesabdariTafsilLevel) {
+		this.maxSanadHesabdariTafsilLevel = maxSanadHesabdariTafsilLevel;
+	}
 
 	public YesNoEnum getValidateHesabMoeenHasMarkaz() {
 		if(validateHesabMoeenHasMarkaz==null)
@@ -173,6 +185,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		String oldhesabSoodVaZyanAnbashtehTafsiliId=getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehTafsiliId");
 		String oldvalidateHesabMoeenHasChild=getSystemConfigService().getValue(getCurrentOrgan(), null, "validateHesabMoeenHasChild");
 		String oldvalidateHesabMoeenHasMarkaz=getSystemConfigService().getValue(getCurrentOrgan(), null, "validateHesabMoeenHasMarkaz");
+		String oldmaxSanadHesabdariTafsilLevel=getSystemConfigService().getValue(getCurrentOrgan(), null, "maxSanadHesabdariTafsilLevel");
 		//Insert New Value
 		getSystemConfigService().insertKeyValue("defaultSanadTypeId",getDefaultSanadTypeId().toString(), null, getCurrentOrgan());
 		HesabMoeenTemplateEntity defaultSanadTypeIdValue = getHesabMoeenTemplateService().load(getDefaultSanadTypeId());
@@ -196,6 +209,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 //		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasChildValue.name()));
 //		
 		getSystemConfigService().insertKeyValue("validateHesabMoeenHasMarkaz",	getValidateHesabMoeenHasMarkaz().value().toString(), null, getCurrentOrgan());
+		getSystemConfigService().insertKeyValue("maxSanadHesabdariTafsilLevel",	getMaxSanadHesabdariTafsilLevel().toString(), null, getCurrentOrgan());
 //		 YesNoEnum oldvalidateHesabMoeenHasMarkazValue = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasMarkaz)); 
 //		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasMarkazValue.name()));
 		
@@ -224,6 +238,11 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 			 YesNoEnum yesNoEnum = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasMarkaz)); 
 			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_validateHesabMoeenHasMarkaz")+" : "+SerajMessageUtil.getMessage(yesNoEnum.name())+"-->"+SerajMessageUtil.getMessage(getValidateHesabMoeenHasMarkaz().name())+"]";
 		}
+
+		if(oldmaxSanadHesabdariTafsilLevel!=null && !oldmaxSanadHesabdariTafsilLevel.equals(getMaxSanadHesabdariTafsilLevel())){
+			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_maxSanadHesabdariTafsilLevel")+" : "+oldmaxSanadHesabdariTafsilLevel+"-->"+maxSanadHesabdariTafsilLevel+"]";
+		}
+		
 		addInfoMessage("SUCCESSFUL_ACTION");
 		//Log Action
 		ActionLogUtil.logAction(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name()),
