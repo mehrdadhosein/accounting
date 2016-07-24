@@ -177,7 +177,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	
 	@Override
 	public void saveOrUpdate(HesabTafsiliEntity entity) {
-		if(!isInteger(entity.getCode()))
+		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
@@ -205,12 +205,18 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		commonSave(entity, new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), activeSaalMaaliEntity);
 		super.saveStateLess(entity);
 	}
+	
+	@Override
+	public void saveStateLess(HesabTafsiliEntity entity) {
+		if(!isLong(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
+
+		super.saveStateLess(entity);
+	}
 
 	@Transactional
 	private void commonSave(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity) {
 		
-		if(!isInteger(entity.getCode()))
-			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
 		
 		if(entity.getId()!=null && entity.getSaalMaali()!=null && entity.getSaalMaali().getId()!=null && !entity.getSaalMaali().equals(activeSaalMaaliEntity))
 			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_hesabConflict"));
@@ -276,6 +282,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		checkCycleInTafsiliHierarchy(entity, childTafsiliIds);
 		
 		createOrUpdateRelatedHesabTafsiliTemplate(entity, activeSaalMaaliEntity.getOrgan());
+		
+		
 	}
 
 	@Transactional
@@ -658,7 +666,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 
 	@Override
 	public void save(HesabTafsiliEntity entity) {
-		if(!isInteger(entity.getCode()))
+		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabTafsili_code"));
 		super.save(entity);
 	}

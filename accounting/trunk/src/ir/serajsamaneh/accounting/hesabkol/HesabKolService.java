@@ -208,7 +208,7 @@ public class HesabKolService extends
 	private void commonSave(HesabKolEntity entity,
 			SaalMaaliEntity activeSaalMaaliEntity) {
 		
-		if(!isInteger(entity.getCode()))
+		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabKol_code"));
 
 		if(entity.getId()!=null && entity.getSaalMaali()!=null && entity.getSaalMaali().getId()!=null && !entity.getSaalMaali().equals(activeSaalMaaliEntity))
@@ -257,7 +257,7 @@ public class HesabKolService extends
 	
 	@Override
 	public void save(HesabKolEntity entity) {
-		if(!isInteger(entity.getCode()))
+		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabKol_code"));
 		super.save(entity);
 	}

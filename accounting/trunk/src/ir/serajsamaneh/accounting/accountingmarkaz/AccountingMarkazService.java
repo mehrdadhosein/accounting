@@ -193,7 +193,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	
 	@Override
 	public void saveOrUpdate(AccountingMarkazEntity entity) {
-		if(!isInteger(entity.getCode()))
+		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("AccountingMarkaz_code"));
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
@@ -220,7 +220,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	private void commonSave(AccountingMarkazEntity entity,
 			SaalMaaliEntity activeSaalMaaliEntity) {
 
-		if(!isInteger(entity.getCode()))
+		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("AccountingMarkaz_code"));
 		
 		if(entity.getHidden() == null)
@@ -403,7 +403,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	
 	@Override
 	public void save(AccountingMarkazEntity entity) {
-		if(!isInteger(entity.getCode()))
+		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("AccountingMarkaz_code"));
 		super.save(entity);
 	}
