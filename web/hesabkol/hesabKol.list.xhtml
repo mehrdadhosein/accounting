@@ -221,7 +221,7 @@
 
 		<h:commandButton action="#{owner.importFromHesabKolTemplateList}"
 			styleClass=" gwt-Button" onclick="showLoading()"
-			rendered="#{owner.creatable}"
+			rendered="#{owner.creatable and permissionProvider.importFromHesabKolTemplate}"
 			value="importFromHesabKolTemplateList" immediate="true"
 			image="/images/buttons/btn_import_hesab.png">
 		</h:commandButton>
