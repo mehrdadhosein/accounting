@@ -78,6 +78,12 @@
 					
 			</p:panelGrid>
 		</rich:panel>
+		<script>
+			function showListPage(){
+				link ="hesabKol.list.jsf";
+				popupFullscreen(link,'viewSanad');
+			}
+		</script>
 	</ui:define>
 	<ui:define name="buttonsection">
 		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.editable  and owner.isForMyOrgan}"
@@ -87,6 +93,13 @@
 		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
 			action="#{owner.back}" value="#{messages['common_back']}"
 			immediate="true" image="/images/listbtn.png" />
+
+		<p:commandButton id="viewList"
+			style="vertical-align:top"
+			onclick="showListPage(); return false;"
+			styleClass=" gwt-Button"
+			value="#{messages['common_list_view']}"
+			ajax="false" />
 	</ui:define>	
 </ui:composition>
 

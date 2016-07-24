@@ -22,6 +22,7 @@ import ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity;
 import ir.serajsamaneh.accounting.sanadtype.SanadTypeService;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.organ.OrganEntity;
+import ir.serajsamaneh.core.security.ActionLogUtil;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
@@ -31,6 +32,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.springframework.util.StringUtils;
 
@@ -395,4 +404,60 @@ public class SanadHesabdariUtil {
 			return null;
 		return getAccountingMarkazService().loadAccountingMarkazByCode(accountingMarkazTemplateEntity.getCode(), saalMaaliEntity);
 	}
+
+	public static byte[] printSanad(SanadHesabdariEntity sanadHesabdariEntity) throws JRException {
+
+		Map<String, Object> parameters = new HashMap<String, Object>();
+//		try {
+			parameters.put("sanadHesabdari", sanadHesabdariEntity);
+			parameters.put("organ_name", sanadHesabdariEntity.getOrgan().getName());
+			parameters.put("tanzimKonandeh", sanadHesabdariEntity.getTanzimKonnadeSanad());
+			parameters.put("tayidKonandeh", sanadHesabdariEntity.getTaiedKonnadeSanad());
+			parameters.put("sanadDesc",  sanadHesabdariEntity.getDescription());
+			
+			if(sanadHesabdariEntity.getSanadType() != null)
+				parameters.put("SanadType", sanadHesabdariEntity.getSanadType().getName());
+			
+
+			
+			List<SanadHesabdariItemEntity> sanadItemList = sanadHesabdariEntity
+					.getSanadHesabdariItem();
+			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
+					sanadItemList);
+
+//			String filePath = "/WEB-INF/classes/report/PrintSanad.jrxml";
+			String reportPath = SanadHesabdariUtil.class.getClassLoader().getResource("/report/PrintSanad.jrxml").getFile();
+//			String reportPath = getLocalFilePath(filePath);
+
+			JasperReport jasperReport;
+			jasperReport = JasperCompileManager.compileReport(reportPath);
+
+			JasperPrint jasperPrint = JasperFillManager.fillReport(
+					jasperReport, parameters, ds);
+
+			byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
+			return pdf;
+//			String contentType = "application/pdf";
+//			downloadStream(pdf, contentType, "Sanad_" + sanadHesabdariEntity.getDesc()
+//					+ ".pdf");
+//		} catch (JRException e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//		logPrintAction(sanadHesabdariEntity);
+//		return null;
+	}
+	
+	public static void logPrintAction(SanadHesabdariEntity sanadHesabdariEntity) {
+		String message = SerajMessageUtil.getMessage("SanadHesabdariEntity_title");
+		try {
+			
+				ActionLogUtil.logActionStateLess(SerajMessageUtil.getMessage("PRINT_SANAD"), message,
+						sanadHesabdariEntity.getDesc(), null,"");
+			} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
 }
