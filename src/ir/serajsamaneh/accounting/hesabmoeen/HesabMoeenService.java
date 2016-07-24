@@ -238,7 +238,7 @@ public class HesabMoeenService extends
 	@Override
 	@Transactional
 	public void saveOrUpdate(HesabMoeenEntity entity) {
-		if(!isInteger(entity.getCode()))
+		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
@@ -248,7 +248,7 @@ public class HesabMoeenService extends
 	@Override
 	@Transactional
 	public void saveOrUpdateStateLess(HesabMoeenEntity entity) {
-		if(!isInteger(entity.getCode()))
+		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
@@ -443,7 +443,7 @@ public class HesabMoeenService extends
 	
 	@Override
 	public void save(HesabMoeenEntity entity) {
-		if(!isInteger(entity.getCode()))
+		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabMoeen_code"));
 
 		super.save(entity);

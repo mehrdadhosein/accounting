@@ -1,12 +1,11 @@
 package ir.serajsamaneh.accounting.hesabgroup;
 
-import ir.serajsamaneh.accounting.hesabgrouptemplate.BaseHesabGroupTemplateEntity;
 import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateEntity;
 import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.base.BaseEntityService;
+import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.core.security.ActionLogUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 import java.util.HashMap;
@@ -120,6 +119,9 @@ public class HesabGroupService extends
 	private void commonSave(HesabGroupEntity entity,
 			SaalMaaliEntity activeSaalMaaliEntity, OrganEntity organEntity) {
 
+		if(!isLong(entity.getCode()))
+			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabGroup_code"));
+		
 		if (entity.getSaalMaali() == null	|| entity.getSaalMaali().getId() == null)
 			entity.setSaalMaali(activeSaalMaaliEntity);
 

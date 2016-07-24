@@ -32,7 +32,7 @@
 				<h:panelGroup>
 					<h:selectOneMenu value="#{hesabKol.entity.hesabGroup.ID}" id="group" required="true"  style="width:200px"
 						label="#{messages['HesabKol_type']}" converter="javax.faces.Long">
-						<f:selectItems value="#{hesabKol.hesabGroup}"/>
+						<f:selectItems value="#{hierarchicalEntities.hesabGroup}"/>
 					</h:selectOneMenu>
 				</h:panelGroup>
 
