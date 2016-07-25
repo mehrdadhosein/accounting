@@ -169,6 +169,7 @@
 				<permission id="643" action="tarazAccountingMarkazAzmayeshi.six" name="تراز مرکز آزمايشي-شش ستوني"	role="1" />
 				<permission id="644" action="tarazAccountingMarkazAzmayeshi.eight" name="تراز مرکز آزمايشي-هشت ستوني"	role="1" />
 		</classification>	
+		
 		<classification id="65" name="الگوی حساب">
 			<classification id="651" name="الگوی حساب کل">
 				<permission id="6511" action="HesabKolTemplate.create" name="ساخت الگوی حساب کل"						role="3" />
@@ -273,10 +274,17 @@
 			</classification>		
 	
 		<classification id="710" name="تنظیمات">
-			<permission id="711" action="accounting.config"		name="تنظیمات حسابداری" role="1" />
-			<permission id="712" action="user.config"		name="تنظیمات شخصی حسابداری" role="1" />
-			<permission id="713" action="menu.viewSaalMaali"		name="مشاهده سال مالی در صفحه نخست" role="1,2" />
+			<permission id="7101" action="accounting.config"		name="تنظیمات حسابداری" role="1" />
+			<permission id="7102" action="user.config"		name="تنظیمات شخصی حسابداری" role="1" />
+			<permission id="7103" action="menu.viewSaalMaali"		name="مشاهده سال مالی در صفحه نخست" role="1,2" />
 		</classification>
+
+	    <classification id="720" name="تراز مرکز  شناور آزمایشی">
+	            <permission id="7201" action="tarazAccountingMarkazShenavarAzmayeshi.two" name="تراز مرکز  شناور آزمایشی-دو ستوني"	role="1" />
+				<permission id="7202" action="tarazAccountingMarkazShenavarAzmayeshi.four" name="تراز مرکز  شناور آزمایشی-چهار ستوني"	role="1" />
+				<permission id="7203" action="tarazAccountingMarkazShenavarAzmayeshi.six" name="تراز مرکز  شناور آزمایشی-شش ستوني"	role="1" />
+				<permission id="7204" action="tarazAccountingMarkazShenavarAzmayeshi.eight" name="تراز مرکز  شناور آزمایشی-هشت ستوني"	role="1" />
+		</classification>		
 	</classification>
 
 
