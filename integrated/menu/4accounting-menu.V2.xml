@@ -208,7 +208,7 @@
 						</MenuItem>
 										
 				</MenuItem>
-				<MenuItem value="تراز شناور آزمایشی" permission=""
+				<MenuItem value="تراز تفصیل شناور آزمایشی" permission=""
 					icon="images/menu/tarazTafsili-icon.png">
 					<MenuItem id="sanadHesabdariItemtarazShenavarAzmayeshiLocalList_two" value="دو ستونی" pagetitle="تراز شناور آزمایشی دو ستونی"
 						valueClick="sanadhesabdariitem/tarazshenavar/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf"
@@ -223,7 +223,7 @@
 						valueClick="sanadhesabdariitem/tarazshenavar/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_eight.jsf"
 						permission="tarazTafsiliAzmayeshi.eight" icon="images/menu/report.png"/>
 
-						<MenuItem value="تراز شناور آزمایشی سلسله مراتبی" permission=""
+						<MenuItem value="تراز تفصیل شناور آزمایشی سلسله مراتبی" permission=""
 							icon="images/menu/Documents-icon.png">
 							<MenuItem id="sanadHesabdariItemtarazShenavarAzmayeshiHierarchicalList_two" value="دو ستونی" pagetitle="تراز شناور آزمایشی دو ستونی"
 								valueClick="sanadhesabdariitem/tarazshenavar/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_two.jsf"
@@ -271,7 +271,39 @@
 							permission="tarazAccountingMarkazAzmayeshi.eight" icon="images/menu/report.png"/>
 					</MenuItem>	
 										
-				</MenuItem>				
+				</MenuItem>		
+				<MenuItem value="تراز مرکز شناور آزمايشي" permission=""
+					icon="images/menu/tarazAccountingMarkaz-icon.png">
+					<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiLocalList_two" value="دو ستوني" pagetitle="تراز مرکز  شناور آزمایشی دو ستوني"
+						valueClick="sanadhesabdariitem/tarazaccountingmarkazshenavar/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiLocalList_two.jsf"
+						permission="tarazAccountingMarkazShenavarAzmayeshi.two" icon="images/menu/report.png"/>
+					<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiLocalList_four" value="چهار ستوني" pagetitle="تراز مرکز  شناور آزمایشی چهار ستوني"
+						valueClick="sanadhesabdariitem/tarazaccountingmarkazshenavar/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiLocalList_four.jsf"
+						permission="tarazAccountingMarkazShenavarAzmayeshi.four" icon="images/menu/report.png"/>
+					<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiLocalList_six" value="شش ستوني" pagetitle="تراز مرکز  شناور آزمایشی شش ستوني"
+						valueClick="sanadhesabdariitem/tarazaccountingmarkazshenavar/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiLocalList_six.jsf"
+						permission="tarazAccountingMarkazShenavarAzmayeshi.six" icon="images/menu/report.png"/>
+					<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiLocalList_eight" value="هشت ستوني" pagetitle="تراز مرکز  شناور آزمایشی هشت ستوني"
+						valueClick="sanadhesabdariitem/tarazaccountingmarkazshenavar/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiLocalList_eight.jsf"
+						permission="tarazAccountingMarkazShenavarAzmayeshi.eight" icon="images/menu/report.png"/>
+
+					<MenuItem value="تراز مرکز  شناور آزمايشي سلسله مراتبي" permission=""
+						icon="images/menu/Documents-icon.png">
+						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiHierarchicalList_two" value="دو ستوني" pagetitle="تراز مرکز  شناور آزمایشی دو ستوني"
+							valueClick="sanadhesabdariitem/tarazaccountingmarkazshenavar/hierarchical/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiHierarchicalList_two.jsf"
+							permission="tarazAccountingMarkazShenavarAzmayeshi.two" icon="images/menu/report.png"/>
+						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiHierarchicalList_four" value="چهار ستوني" pagetitle="تراز مرکز  شناور آزمایشی چهار ستوني"
+							valueClick="sanadhesabdariitem/tarazaccountingmarkazshenavar/hierarchical/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiHierarchicalList_four.jsf"
+							permission="tarazAccountingMarkazShenavarAzmayeshi.four" icon="images/menu/report.png"/>
+						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiHierarchicalList_six" value="شش ستوني" pagetitle="تراز مرکز  شناور آزمایشی شش ستوني"
+							valueClick="sanadhesabdariitem/tarazaccountingmarkazshenavar/hierarchical/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiHierarchicalList_six.jsf"
+							permission="tarazAccountingMarkazShenavarAzmayeshi.six" icon="images/menu/report.png"/>
+						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiHierarchicalList_eight" value="هشت ستوني" pagetitle="تراز مرکز  شناور آزمایشی هشت ستوني"
+							valueClick="sanadhesabdariitem/tarazaccountingmarkazshenavar/hierarchical/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiHierarchicalList_eight.jsf"
+							permission="tarazAccountingMarkazShenavarAzmayeshi.eight" icon="images/menu/report.png"/>
+					</MenuItem>	
+										
+				</MenuItem>						
 				<MenuItem id="sanadHesabdariItemtarazKolLocalView" value="تراز نامه"
 					valueClick="sanadhesabdariitem/sanadHesabdariItem.tarazKolLocalView.jsf"
 					permission="sanadHesabdariItem.tarazKolLocalView" icon="images/menu/chart-bar-icon.png" />
