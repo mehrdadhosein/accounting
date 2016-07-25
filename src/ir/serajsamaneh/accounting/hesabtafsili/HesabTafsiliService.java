@@ -128,21 +128,21 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 				&& !entity.getCode().equals(oldEntity.getCode()))
 			diffes += "["
 					+ SerajMessageUtil.getMessage("HesabTafsili" + "_"
-							+ entity.PROP_CODE) + " : " + oldEntity.getCode()
+							+ HesabTafsiliEntity.PROP_CODE) + " : " + oldEntity.getCode()
 					+ "" + " --> " + entity.getCode() + "" + "]";
 
 		if (entity.getName() != null
 				&& !entity.getName().equals(oldEntity.getName()))
 			diffes += "["
 					+ SerajMessageUtil.getMessage("HesabTafsili" + "_"
-							+ entity.PROP_NAME) + " : " + oldEntity.getName()
+							+ HesabTafsiliEntity.PROP_NAME) + " : " + oldEntity.getName()
 					+ "" + " --> " + entity.getName() + "" + "]";
 
 		if (entity.getTafsilType() != null
 				&& !entity.getTafsilType().equals(oldEntity.getTafsilType()))
 			diffes += "["
 					+ SerajMessageUtil.getMessage("HesabTafsili" + "_"
-							+ entity.PROP_TAFSIL_TYPE) + " : "
+							+ HesabTafsiliEntity.PROP_TAFSIL_TYPE) + " : "
 					+ oldEntity.getTafsilType() + "" + " --> "
 					+ entity.getTafsilType() + "" + "]";
 
@@ -151,7 +151,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 				&& !entity.getDescription().equals(oldEntity.getDescription()))
 			diffes += "["
 					+ SerajMessageUtil.getMessage("HesabTafsili" + "_"
-							+ entity.PROP_DESCRIPTION) + " : "
+							+ HesabTafsiliEntity.PROP_DESCRIPTION) + " : "
 					+ oldEntity.getDescription() + "" + " --> "
 					+ entity.getDescription() + "" + "]";
 
@@ -159,7 +159,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 				&& !entity.getHidden().equals(oldEntity.getHidden()))
 			diffes += "["
 					+ SerajMessageUtil.getMessage("HesabTafsili" + "_"
-							+ entity.PROP_HIDDEN) + " : "
+							+ HesabTafsiliEntity.PROP_HIDDEN) + " : "
 					+ oldEntity.getHidden() + "" + " --> " + entity.getHidden()
 					+ "" + "]";
 
@@ -190,19 +190,19 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 	
 	@Transactional
-	public void save(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity) {
-		commonSave(entity, moeenIds, childTafsiliIds, childAccountingMarkazIds, activeSaalMaaliEntity);
+	public void save(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> parentTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity) {
+		commonSave(entity, moeenIds, childTafsiliIds, parentTafsiliIds, childAccountingMarkazIds, activeSaalMaaliEntity);
 		save(entity);
 	}
 	
 	@Transactional
 	public void save(HesabTafsiliEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
-		commonSave(entity, new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), activeSaalMaaliEntity);
+		commonSave(entity, new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), activeSaalMaaliEntity);
 		save(entity);
 	}
 	
 	public void saveStateLess(HesabTafsiliEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
-		commonSave(entity, new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), activeSaalMaaliEntity);
+		commonSave(entity, new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), activeSaalMaaliEntity);
 		super.saveStateLess(entity);
 	}
 	
@@ -215,7 +215,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 
 	@Transactional
-	private void commonSave(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity) {
+	private void commonSave(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> parentTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity) {
 		
 		
 		if(entity.getId()!=null && entity.getSaalMaali()!=null && entity.getSaalMaali().getId()!=null && !entity.getSaalMaali().equals(activeSaalMaaliEntity))
@@ -243,6 +243,11 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		entity.getChilds().clear();
 		for (Long tafsiliId : childTafsiliIds) {
 			entity.getChilds().add(load(tafsiliId));
+		}
+		
+		entity.getParents().clear();
+		for (Long tafsiliId : parentTafsiliIds) {
+			entity.getParents().add(load(tafsiliId));
 		}
 		
 		entity.getChildAccountingMarkaz().clear();
@@ -280,6 +285,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		checkHesabUniqueNess(entity, activeSaalMaaliEntity);
 		
 		checkCycleInTafsiliHierarchy(entity, childTafsiliIds);
+		checkCycleInTafsiliHierarchy(entity, parentTafsiliIds);
 		
 		createOrUpdateRelatedHesabTafsiliTemplate(entity, activeSaalMaaliEntity.getOrgan());
 		

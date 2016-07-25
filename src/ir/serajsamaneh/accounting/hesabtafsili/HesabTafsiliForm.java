@@ -111,6 +111,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 
 	List<Long> moeenIds;
 	List<Long> childTafsiliIds;
+	List<Long> parentTafsiliIds;
 	List<Long> childAccountingMarkazIds;
 
 	public List<Long> getChildAccountingMarkazIds() {
@@ -149,6 +150,23 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	}
 
 
+	public List<Long> getParentTafsiliIds() {
+		if(parentTafsiliIds==null){
+			parentTafsiliIds = new ArrayList<Long>();
+			Set<HesabTafsiliEntity> tafsilies = getEntity().getParents();
+			if(tafsilies!=null){
+				for (HesabTafsiliEntity tafsiliEntity : tafsilies) {
+					parentTafsiliIds.add(tafsiliEntity.getId());
+				}
+			}
+		}
+		return parentTafsiliIds;
+	}
+
+	public void setParentTafsiliIds(List<Long> parentTafsiliIds) {
+		this.parentTafsiliIds = parentTafsiliIds;
+	}
+
 	public List<Long> getMoeenIds() {
 		if(moeenIds==null){
 			moeenIds = new ArrayList<Long>();
@@ -168,7 +186,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	@Override
 	public String save() {
 		getEntity().setOrgan(getCurrentOrgan()); 
-		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali());
+		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getParentTafsiliIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali());
 		HesabRelationsUtil.resetTafsiliMoeenMap(getCurrentUserActiveSaalMaali());
 		HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali());
 		HesabRelationsUtil.resetTafsiliChildMap(getCurrentUserActiveSaalMaali());
