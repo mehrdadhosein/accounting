@@ -116,7 +116,7 @@
 						<h:outputLabel for="azserialExample"
 							value="#{messages['from']} : " />
 						<p:inputText id="azserialExample"
-							value="#{owner.filter['sanadHesabdari.serial@ge']}"
+							value="#{owner.fromSerial}"
 							converter="javax.faces.Long">
 						</p:inputText>
 					</p:panelGrid>
@@ -126,7 +126,7 @@
 
 						<h:outputLabel for="taserialExample" value="#{messages['to']} : " />
 						<p:inputText id="taserialExample"
-							value="#{owner.filter['sanadHesabdari.serial@le']}"
+							value="#{owner.toSerial}"
 							converter="javax.faces.Long">
 						</p:inputText>
 					</p:panelGrid>

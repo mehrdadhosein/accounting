@@ -87,6 +87,16 @@
 				</h:panelGroup>
 
 				<h:panelGroup>
+					<h:outputLabel for="parentTafsilies"
+						value="#{messages['HesabTafsili_parents']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-multiple id="parentTafsilies" width="220px"
+						selectedIds="#{hesabTafsili.parentTafsiliIds}" entity="HesabTafsili"
+						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+				</h:panelGroup>
+
+				<h:panelGroup>
 					<h:outputLabel for="childAccountingMarkazes"
 						value="#{messages['HesabTafsili_childAccountingMarkazs']}" /> : 
 				</h:panelGroup>
