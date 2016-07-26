@@ -143,19 +143,18 @@
 
 
 
+
 				<h:panelGroup id="serialAzTa">
 
 						<h:outputLabel for="azserialExample"
 							value="#{messages['from']} : " />
 						<p:inputText id="azserialExample"
-							value="#{owner.fromSerial}"
-							converter="javax.faces.Long">
+							value="#{owner.filter['serial@ge']}" converter="javax.faces.Long">
 						</p:inputText>
 
 						<h:outputLabel for="taserialExample" value="#{messages['to']} : " />
 						<p:inputText id="taserialExample"
-							value="#{owner.toSerial}"
-							converter="javax.faces.Long">
+							value="#{owner.filter['serial@le']}" converter="javax.faces.Long">
 						</p:inputText>
 				</h:panelGroup>
 
