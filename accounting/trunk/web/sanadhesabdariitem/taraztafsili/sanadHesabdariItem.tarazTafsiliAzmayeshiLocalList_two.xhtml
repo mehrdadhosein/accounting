@@ -8,30 +8,30 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-list.xhtml">
 
 	<ui:param name="title" value="tarazAzmayeshiTafsili" />
 	<ui:param name="owner" value="#{sanadHesabdariItem}" />
-	<ui:param name="searchpage" value="/sanadhesabdariitem/taraztafsili/tarazAzmayeshi.exampleForm.xhtml" />
+	<ui:param name="searchpage"
+		value="/sanadhesabdariitem/taraztafsili/tarazAzmayeshi.exampleForm.xhtml" />
 	<ui:define name="fixsection">
 
 	</ui:define>
 
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
-			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15"
-			 dir="rtl"
-			 id="sanadHesabdariItems"
-				value="#{sanadHesabdariItem.tarazTafsiliAzmayeshi}" headerClass="header"
-				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
-				align="center">
+			<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}"
+				paginator="true"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				 dir="rtl" id="sanadHesabdariItems"
+				value="#{sanadHesabdariItem.tarazTafsiliAzmayeshi}"
+				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
+				style="width: 97%" align="center">
 
-							
+
 				<p:column>
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}"
@@ -50,7 +50,8 @@
 								target="#{owner.sortCol}" />
 						</a4j:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.code}" />
+					<h:outputText styleClass="CellClass"
+						value="#{item.hesabTafsili.code}" />
 				</p:column>
 
 				<p:column>
@@ -71,16 +72,18 @@
 								target="#{owner.sortCol}" />
 						</a4j:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.desc}" />
+					<h:outputText styleClass="CellClass"
+						value="#{item.hesabTafsili.desc}" />
 				</p:column>
 
 
 				<p:column>
 					<f:facet name="header">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['HesabTafsili_shenavar_list']}" />
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabTafsili_shenavar_list']}" />
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.articleTafsiliDesc}" />
+					<h:outputText styleClass="CellClass"
+						value="#{item.articleTafsiliDesc}" />
 				</p:column>
 
 				<p:column>
@@ -101,10 +104,12 @@
 								target="#{owner.sortCol}" />
 						</a4j:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.mandehBedehkar}"  converter="seraj.converter.accountingNumberFormatter"  />
+					<h:outputText styleClass="CellClass" value="#{item.mandehBedehkar}"
+						converter="seraj.converter.accountingNumberFormatter" />
 					<f:facet name="footer">
-						<h:outputText value="#{owner.totalMandehBedehkar}"    converter="seraj.converter.accountingNumberFormatter" />
-					</f:facet>					
+						<h:outputText value="#{owner.totalMandehBedehkar}"
+							converter="seraj.converter.accountingNumberFormatter" />
+					</f:facet>
 				</p:column>
 
 				<p:column>
@@ -125,10 +130,13 @@
 								target="#{owner.sortCol}" />
 						</a4j:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.mandehBestankar}"  converter="seraj.converter.accountingNumberFormatter"   />
+					<h:outputText styleClass="CellClass"
+						value="#{item.mandehBestankar}"
+						converter="seraj.converter.accountingNumberFormatter" />
 					<f:facet name="footer">
-						<h:outputText value="#{owner.totalMandehBestankar}"    converter="seraj.converter.accountingNumberFormatter" />
-					</f:facet>						
+						<h:outputText value="#{owner.totalMandehBestankar}"
+							converter="seraj.converter.accountingNumberFormatter" />
+					</f:facet>
 				</p:column>
 				<p:column styleClass="action">
 
@@ -138,80 +146,112 @@
 
 					<h:outputLink rendered="#{item.hesabTafsili.id!=null}"
 						onclick="openTarazShenavar('#{item.hesabTafsili.id}'); return false;">
-						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazShenavar']}" />
+						<h:outputText
+							value="#{messages['SanadHesabdariItem_tarazShenavar']}" />
 					</h:outputLink>
-				</p:column>				
+				</p:column>
 				<p:column styleClass="action">
 
 					<f:facet name="header">
 						<h:outputText value="" />
 					</f:facet>
 
-					<h:outputLink  rendered="#{item.hesabTafsili.id!=null}"
+					<h:outputLink rendered="#{item.hesabTafsili.id!=null}"
 						onclick="openDaftarTafsili('#{item.hesabTafsili.id}'); return false;">
-						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarTafsili']}" />
+						<h:outputText
+							value="#{messages['SanadHesabdariItem_daftarTafsili']}" />
 					</h:outputLink>
 				</p:column>
 			</p:dataTable>
 		</t:div>
-<script>
-/* <![CDATA[ */
+		<script>
+			/* <![CDATA[ */
 
-             
- function openTarazShenavar(hesabTafsiliEntityId){
-	//alert(hesabKolId);
-	fromDate = document.getElementById('aztarikhExample').value;
-	toDate = document.getElementById('tatarikhExample').value;	
-	moeens = document.getElementById('moeens_id').value;
-	var url = '../tarazshenavar/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&fromDate='+fromDate+'&toDate='+toDate;	
-	popupFullscreen(url, 'tarazShenavar');
-}
+			function openTarazShenavar(hesabTafsiliEntityId) {
+				//alert(hesabKolId);
+				fromDate = document.getElementById('aztarikhExample').value;
+				toDate = document.getElementById('tatarikhExample').value;
+				moeens = document.getElementById('moeens_id').value;
+				var url = '../tarazshenavar/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf?searchAction=true&moeenIds='
+						+ moeens
+						+ '&tafsiliIds='
+						+ hesabTafsiliEntityId
+						+ '&fromDate=' + fromDate + '&toDate=' + toDate;
+				popupFullscreen(url, 'tarazShenavar');
+			}
 
-function openDaftarTafsili(hesabTafsiliEntityId){
-	//alert(hesabKolId);
-	fromDate = document.getElementById('aztarikhExample').value;
-	toDate = document.getElementById('tatarikhExample').value;	
-	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
-	moeens = document.getElementById('moeens_id').value;	
-	var url = '../daftar/sanadHesabdariItem.tafsiliLocalList.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate;
-	popupFullscreen(url, 'daftartarazTafsili');
-}
-/* ]]> */
-</script>
+			function openDaftarTafsili(hesabTafsiliEntityId) {
+				//alert(hesabKolId);
+				fromDate = document.getElementById('aztarikhExample').value;
+				toDate = document.getElementById('tatarikhExample').value;
+				articleTafsiliIds = document
+						.getElementById('articleTafsiliIds_id').value;
+				moeens = document.getElementById('moeens_id').value;
+				var url = '../daftar/sanadHesabdariItem.tafsiliLocalList.jsf?searchAction=true&moeenIds='
+						+ moeens
+						+ '&tafsiliIds='
+						+ hesabTafsiliEntityId
+						+ '&articleTafsiliIds='
+						+ articleTafsiliIds
+						+ '&fromDate=' + fromDate + '&toDate=' + toDate;
+				popupFullscreen(url, 'daftartarazTafsili');
+			}
+			/* ]]> */
+		</script>
 	</ui:define>
 	<ui:define name="buttonsection">
-		<h:commandButton action="#{owner.exportTarazTafsiliAzmayeshiToExcel}"
+	</ui:define>
+	<ui:define name="topSection">
+
+		<style>
+.ui-shadow {
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0);
+}
+</style>
+		<t:div id="topsectiondiv" style="text-align:center">
+			<h:panelGroup id="topsection" style="font-family: tahoma;">
+				<h:commandButton
+					action="#{owner.exportTarazTafsiliAzmayeshiToExcel}"
 					styleClass=" gwt-Button" value="#{messages['common_excel']}"
 					rendered="#{owner.exportable}" image="/images/excelBtn.png" />
 
-		<h:commandButton action="#{owner.printLocalTarazTafsiliAzmayeshi}" styleClass=" gwt-Button"
-			image="/images/print.png"
-			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
-			value="#{messages['common_print']}">
-			<f:setPropertyActionListener value="two"
-				target="#{owner.columnsCount}" />
-			
-		</h:commandButton>
-		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf" styleClass=" gwt-Button"
-			image="/images/buttons/btn_two_column.png"
-			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
-			value="#{messages['common_print']}">
-		</h:commandButton>		
-		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_four.jsf" styleClass=" gwt-Button"
-			image="/images/buttons/btn_four_column.png"
-			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
-			value="#{messages['common_print']}">
-		</h:commandButton>		
-		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_six.jsf" styleClass=" gwt-Button"
-			image="/images/buttons/btn_six_column.png"
-			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
-			value="#{messages['common_print']}">
-		</h:commandButton>		
-		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_eight.jsf" styleClass=" gwt-Button"
-			image="/images/buttons/btn_eight_column.png"
-			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
-			value="#{messages['common_print']}">
-		</h:commandButton>			
+				<h:commandButton action="#{owner.printLocalTarazTafsiliAzmayeshi}"
+					styleClass=" gwt-Button" image="/images/print.png"
+					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+					value="#{messages['common_print']}">
+					<f:setPropertyActionListener value="two"
+						target="#{owner.columnsCount}" />
+
+				</h:commandButton>
+				<h:commandButton
+					action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf"
+					styleClass=" gwt-Button" image="/images/buttons/btn_two_column.png"
+					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+					value="#{messages['common_print']}">
+				</h:commandButton>
+				<h:commandButton
+					action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_four.jsf"
+					styleClass=" gwt-Button"
+					image="/images/buttons/btn_four_column.png"
+					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+					value="#{messages['common_print']}">
+				</h:commandButton>
+				<h:commandButton
+					action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_six.jsf"
+					styleClass=" gwt-Button" image="/images/buttons/btn_six_column.png"
+					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+					value="#{messages['common_print']}">
+				</h:commandButton>
+				<h:commandButton
+					action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_eight.jsf"
+					styleClass=" gwt-Button"
+					image="/images/buttons/btn_eight_column.png"
+					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+					value="#{messages['common_print']}">
+				</h:commandButton>
+			</h:panelGroup>
+		</t:div>
+		<p:sticky target="topsectiondiv" />
 	</ui:define>
 </ui:composition>
 </html>

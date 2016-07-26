@@ -32,7 +32,6 @@ import java.util.Set;
 
 import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 public class HesabTafsiliService extends
 BaseEntityService<HesabTafsiliEntity, Long> {
@@ -184,9 +183,10 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		super.saveOrUpdate(entity);
 	}
 	
-	private synchronized String generateHesabTafsiliCode(HesabTafsiliEntity entity) {
+	private synchronized Long generateHesabTafsiliCode(HesabTafsiliEntity entity) {
 			Long maxHesabTafsiliCode = getMyDAO().getMaxHesabTafsiliCode();
-			return new Long(++maxHesabTafsiliCode).toString();
+//			return new Long(++maxHesabTafsiliCode).toString();
+			return ++maxHesabTafsiliCode;
 	}
 	
 	@Transactional
@@ -268,7 +268,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			Set<HesabTafsiliTemplateEntity> hesabTafsiliTemplateSet = entity.getHesabClassification().getHesabTafsiliTemplate();
 			if(hesabTafsiliTemplateSet!=null)
 				for (HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity : hesabTafsiliTemplateSet) {
-					HesabTafsiliEntity hesabTafsiliByCode = loadHesabTafsiliByCode(hesabTafsiliTemplateEntity.getCode(), activeSaalMaaliEntity);
+					HesabTafsiliEntity hesabTafsiliByCode = loadHesabTafsiliByCode(new Long(hesabTafsiliTemplateEntity.getCode()), activeSaalMaaliEntity);
 
 					if(hesabTafsiliByCode!=null){//maybe there no hesabTafsili for this template in activeSaalMaaliEntity
 						entity.addToparents(hesabTafsiliByCode); 
@@ -278,7 +278,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 				}
 		}
 		
-		if (!StringUtils.hasText(entity.getCode())) {
+//		if (!StringUtils.hasText(entity.getCode())) {
+		if (entity.getCode()==null) {
 			
 			entity.setCode(generateHesabTafsiliCode(entity));
 		}
@@ -294,7 +295,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 
 	@Transactional
 	private void createOrUpdateRelatedHesabTafsiliTemplate(HesabTafsiliEntity entity, OrganEntity organEntity) {
-		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCode(entity.getCode(), organEntity);
+		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCode(entity.getCode().toString(), organEntity);
 		if(hesabTafsiliTemplateEntity == null){
 			hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByName(entity.getName(), organEntity);
 			if(hesabTafsiliTemplateEntity!=null)
@@ -303,7 +304,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().createHesabTafsiliTemplate(entity.getCode(), entity.getName(), organEntity, entity.getTafsilType(), entity.getDescription());
 		}
 		else{
-			hesabTafsiliTemplateEntity.setCode(entity.getCode());
+			hesabTafsiliTemplateEntity.setCode(entity.getCode().toString());
 			hesabTafsiliTemplateEntity.setName(entity.getName());
 			hesabTafsiliTemplateEntity.setTafsilType(entity.getTafsilType());
 			hesabTafsiliTemplateEntity.setDescription(entity.getDescription());
@@ -332,7 +333,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		
 		Set<HesabTafsiliEntity> childs = entity.getChilds();
 		for (HesabTafsiliEntity hesabTafsiliEntity : childs) {
-			hesabTafsiliTemplateEntity.getChilds().add(getHesabTafsiliTemplateService().loadByCode(hesabTafsiliEntity.getCode(), organEntity));
+			hesabTafsiliTemplateEntity.getChilds().add(getHesabTafsiliTemplateService().loadByCode(hesabTafsiliEntity.getCode().toString(), organEntity));
 		}
 		try{
 			getHesabTafsiliTemplateService().save(hesabTafsiliTemplateEntity);
@@ -398,7 +399,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 //		else throw new IllegalStateException();
 //	}
 
-	public HesabTafsiliEntity getHesabTafsiliByCodeAndSaalMaali(String hesabCode, SaalMaaliEntity saalMaaliEntity){
+	public HesabTafsiliEntity getHesabTafsiliByCodeAndSaalMaali(Long hesabCode, SaalMaaliEntity saalMaaliEntity){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
@@ -574,7 +575,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		hesabTafsiliEntity = new HesabTafsiliEntity();
 		hesabTafsiliEntity.setBedehkar(0d);
 		hesabTafsiliEntity.setBestankr(0d);
-		hesabTafsiliEntity.setCode(hesabTafsiliTemplateEntity.getCode());
+		hesabTafsiliEntity.setCode(new Long(hesabTafsiliTemplateEntity.getCode()));
 		hesabTafsiliEntity.setDescription(hesabTafsiliTemplateEntity.getDescription());
 		hesabTafsiliEntity.setHesabTafsiliTemplate(hesabTafsiliTemplateEntity);
 		hesabTafsiliEntity.setHidden(hesabTafsiliTemplateEntity.getHidden());
@@ -630,13 +631,17 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 
 	public HesabTafsiliEntity loadHesabTafsiliByCode(String code,	SaalMaaliEntity saalMaaliEntity) {
+		return loadHesabTafsiliByCode(new Long(code), saalMaaliEntity, FlushMode.MANUAL);
+	}
+	
+	public HesabTafsiliEntity loadHesabTafsiliByCode(Long code,	SaalMaaliEntity saalMaaliEntity) {
 		return loadHesabTafsiliByCode(code, saalMaaliEntity, FlushMode.MANUAL);
 	}
 	
 	public HesabTafsiliEntity loadHesabTafsiliByName(String name,	SaalMaaliEntity saalMaaliEntity) {
 		return loadHesabTafsiliByName(name, saalMaaliEntity, FlushMode.MANUAL);
 	}
-	public HesabTafsiliEntity loadHesabTafsiliByCode(String code,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode) {
+	public HesabTafsiliEntity loadHesabTafsiliByCode(Long code,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq",code);
 //		localFilter.put("organ.id@eq",saalMaaliEntity.getOrgan().getId());

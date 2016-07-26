@@ -551,7 +551,7 @@ public class HesabKolService extends
 					continue;//not important exception
 				}
 			}
-			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCode(destHesabTafsiliEntity.getCode(), destSaalMaali.getOrgan());
+			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCode(destHesabTafsiliEntity.getCode().toString(), destSaalMaali.getOrgan());
 			if(hesabTafsiliTemplateEntity == null)
 				hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().createHesabTafsiliTemplate(destHesabTafsiliEntity.getCode(), destHesabTafsiliEntity.getName(), destSaalMaali.getOrgan(), destHesabTafsiliEntity.getTafsilType(), destHesabTafsiliEntity.getDescription());			
 		}

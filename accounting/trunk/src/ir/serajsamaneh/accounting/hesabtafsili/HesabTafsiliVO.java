@@ -8,7 +8,7 @@ public class HesabTafsiliVO {
 	}
 	
 	String moeen;
-	String code;
+	Long code;
 	String name;
 	
 	public String getName() {
@@ -23,10 +23,10 @@ public class HesabTafsiliVO {
 	public void setMoeen(String moeen) {
 		this.moeen = moeen;
 	}
-	public String getCode() {
+	public Long getCode() {
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 

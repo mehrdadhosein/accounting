@@ -251,7 +251,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		
 		if(hesabTafsiliTemplateId !=null){
 			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().load(hesabTafsiliTemplateId);
-			HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(hesabTafsiliTemplateEntity.getCode(), getCurrentUserActiveSaalMaali());
+			HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(new Long(hesabTafsiliTemplateEntity.getCode()), getCurrentUserActiveSaalMaali());
 			hesabTafsiliId = hesabTafsiliEntity.getId();
 		}
 		

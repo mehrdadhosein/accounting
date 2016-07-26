@@ -28,7 +28,7 @@
 					<h:outputText styleClass="required" value="   " />
 					<h:outputLabel for="code" value="#{messages['HesabTafsili_code']}" /> :  
 				</h:panelGroup>
-				<p:inputText id="code" label="code"  
+				<p:inputText id="code" label="code"  converter="javax.faces.Long"
 					value="#{hesabTafsili.entity.code}" size="50" />
 
 				<h:panelGroup>

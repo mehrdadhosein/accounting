@@ -28,7 +28,7 @@
 		</p:panelGrid>
 		<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15"
+			
 			 dir="rtl"
 			 id="incomeItems" value="#{sanadItem.incomeGroupByLevel}"   headerClass="x" styleClass="x"
 			var="item"  rows="#{sanadItem.rowsPerPage}" >
@@ -58,7 +58,7 @@
 	<h2>#{messages['expenses']}</h2>
 		<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15"
+			
 			 dir="rtl"
 			 id="expenseItems" value="#{sanadItem.expenseGroupByLevel}"   headerClass="x" styleClass="x"
 			var="item" rows="#{sanadItem.rowsPerPage}">
