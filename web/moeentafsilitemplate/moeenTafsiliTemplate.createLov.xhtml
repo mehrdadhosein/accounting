@@ -18,7 +18,7 @@
 	<ui:define name="listsection">
 		<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15"
+			
 			 dir="rtl"
 			 id="moeenTafsiliTemplates" value="#{moeenTafsiliTemplate.dataModel}"  headerClass="header"
 			var="item" rowClasses="RowOdd,RowEven" rows="#{moeenTafsiliTemplate.rowsPerPage}" style="width:97%" align="center">

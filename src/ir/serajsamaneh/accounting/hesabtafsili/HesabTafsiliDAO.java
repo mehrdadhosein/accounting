@@ -31,13 +31,21 @@ public class HesabTafsiliDAO extends BaseHibernateDAO<HesabTafsiliEntity,Long> {
 
 		Long maxCode = 0l;
 		for (HesabTafsiliEntity kalaEntity : list) {
-			String codeStr = kalaEntity.getCode();
-			if(StringUtils.hasText(codeStr)){
-				Long codeLong = new Long(codeStr);
+			Long codeLong = kalaEntity.getCode();
+			if(codeLong!=null){
+//				Long codeLong = new Long(codeStr);
 				maxCode = Math.max(maxCode.longValue(), codeLong.longValue());
 			}
 
 		}
+//		for (HesabTafsiliEntity kalaEntity : list) {
+//			String codeStr = kalaEntity.getCode();
+//			if(StringUtils.hasText(codeStr)){
+//				Long codeLong = new Long(codeStr);
+//				maxCode = Math.max(maxCode.longValue(), codeLong.longValue());
+//			}
+//			
+//		}
 		if (maxCode == null)
 			return getLocationStart() + 0l;
 		return maxCode;

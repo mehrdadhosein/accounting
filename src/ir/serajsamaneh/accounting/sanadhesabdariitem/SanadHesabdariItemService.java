@@ -126,10 +126,10 @@ public class SanadHesabdariItemService extends
 		return sanadHesabdariItemDAO;
 	}
 
-	public List<SanadHesabdariItemEntity> getTarazKolAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial) {
+	public List<SanadHesabdariItemEntity> getTarazKolAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
 		List<SanadHesabdariItemEntity> tarazKolAzmayeshiList = new ArrayList<SanadHesabdariItemEntity>();
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter = populateTarazFilter(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial);
+		localFilter = populateTarazFilter(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter);
 		
 //		localFilter.put("sanadHesabdari.state@eqORsanadHesabdari.state@eq",Arrays.asList(SanadStateEnum.DAEM,SanadStateEnum.BARRESI_SHODE));
 //		localFilter.put("sanadHesabdari.sanadFunction@neq@sanadHesabdari.sanadFunction@neq",Arrays.asList(SanadFunctionEnum.EFTETAHIE,SanadFunctionEnum.EKHTETAMIE));
@@ -686,9 +686,9 @@ public class SanadHesabdariItemService extends
 		return tarazAccountingMarkazAzmayeshiMap;
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazMoeenAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial) {
+	public List<SanadHesabdariItemEntity> getTarazMoeenAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
 		Map<String, Object> localFilter =  new HashMap<String, Object>();
-		localFilter = populateTarazFilter(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial);
+		localFilter = populateTarazFilter(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter);
 		List<SanadHesabdariItemEntity> tarazMoeenAzmayeshiList = new ArrayList<SanadHesabdariItemEntity>();
 		
 //		List<SanadStateEnum> sanadStates = new ArrayList<SanadStateEnum>();
@@ -758,11 +758,11 @@ public class SanadHesabdariItemService extends
 		return tarazMoeenAzmayeshiList;
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazTafsiliAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial) {
+	public List<SanadHesabdariItemEntity> getTarazTafsiliAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
 		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshiList = new ArrayList<SanadHesabdariItemEntity>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
-				articleTafsiliIds,accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial);
+				articleTafsiliIds,accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter);
 		
 		List<Object[]> rawList = getMyDAO().getTarazTafsiliAzmayeshi(filter);
 		Map<Long, SanadHesabdariItemEntity> tarazTafsiliAzmayeshiMandeh = getTarazTafsiliAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity);
@@ -809,11 +809,11 @@ public class SanadHesabdariItemService extends
 		return tarazTafsiliAzmayeshiList;
 	}
 
-	public List<SanadHesabdariItemEntity> getTarazTafsiliShenavarAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial) {
+	public List<SanadHesabdariItemEntity> getTarazTafsiliShenavarAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
 		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshiList = new ArrayList<SanadHesabdariItemEntity>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
-				articleTafsiliIds,accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial);
+				articleTafsiliIds,accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter);
 		
 		filter.put("articleTafsili.level@eq", 2);
 		
@@ -862,11 +862,11 @@ public class SanadHesabdariItemService extends
 		return tarazTafsiliAzmayeshiList;
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazAccountingMarkazAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial) {
+	public List<SanadHesabdariItemEntity> getTarazAccountingMarkazAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
 		List<SanadHesabdariItemEntity> tarazAccountingMarkazAzmayeshiList = new ArrayList<SanadHesabdariItemEntity>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
-				articleTafsiliIds,accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial);
+				articleTafsiliIds,accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter);
 		
 		
 		List<Object[]> rawList = getMyDAO().getTarazAccountingMarkazAzmayeshi(filter);
@@ -913,11 +913,11 @@ public class SanadHesabdariItemService extends
 		}
 		return tarazAccountingMarkazAzmayeshiList;
 	}
-	public List<SanadHesabdariItemEntity> getTarazAccountingMarkazShenavarAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial) {
+	public List<SanadHesabdariItemEntity> getTarazAccountingMarkazShenavarAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
 		List<SanadHesabdariItemEntity> tarazAccountingMarkazAzmayeshiList = new ArrayList<SanadHesabdariItemEntity>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
-				articleTafsiliIds,accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial);
+				articleTafsiliIds,accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter);
 		
 		filter.put("articleTafsili.level@eq", 2);
 		List<Object[]> rawList = getMyDAO().getTarazAccountingMarkazShenavarAzmayeshi(filter);
@@ -969,9 +969,11 @@ public class SanadHesabdariItemService extends
 			SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,
 			List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds,
 			List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType,
-			OrganEntity organEntity, Long fromSerial, Long toSerial) {
+			OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
 		Map<String, Object> localFilter =  new HashMap<String, Object>();
 
+		localFilter.putAll(sanadhesabdariItemFilter);
+		
 		localFilter.put("sanadHesabdari.state@eqORsanadHesabdari.state@eq",Arrays.asList(SanadStateEnum.DAEM,SanadStateEnum.BARRESI_SHODE));
 		localFilter.put("sanadHesabdari.sanadFunction@neq@sanadHesabdari.sanadFunction@neq",Arrays.asList(SanadFunctionEnum.EFTETAHIE,SanadFunctionEnum.EKHTETAMIE));
 

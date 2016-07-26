@@ -44,7 +44,7 @@ public class HesabVO {
 	}
 	public HesabVO(HesabTafsiliEntity hesabTafsili, String hesabType, String icon) {
 		this.entityId = hesabTafsili.getId().toString();
-		this.code = hesabTafsili.getCode();
+		this.code = hesabTafsili.getCode().toString();
 		this.name=hesabTafsili.getName();
 		this.description=hesabTafsili.getDescription();
 		this.bedehkar=hesabTafsili.getBedehkar();

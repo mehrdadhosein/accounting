@@ -283,7 +283,7 @@ public class SanadHesabdariUtil {
 		String moeenCode = sanadHesabdariItemEntity.getHesabMoeen().getCode();
 		mapKey+="_"+moeenCode;
 		
-		String tafsiliCode = sanadHesabdariItemEntity.getHesabTafsili()!=null ? sanadHesabdariItemEntity.getHesabTafsili().getCode() : "";
+		String tafsiliCode = sanadHesabdariItemEntity.getHesabTafsili()!=null ? sanadHesabdariItemEntity.getHesabTafsili().getCode().toString() : "";
 		mapKey+="_"+tafsiliCode;
 		
 		for(Integer level : getLevels(currentOrgan)) {
@@ -392,10 +392,10 @@ public class SanadHesabdariUtil {
 	public static HesabTafsiliEntity getHesabTafsiliByTemplate(HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity, SaalMaaliEntity saalMaaliEntity){
 		if(hesabTafsiliTemplateEntity==null)
 			return null;
-		return getHesabTafsiliService().loadHesabTafsiliByCode(hesabTafsiliTemplateEntity.getCode(), saalMaaliEntity);
+		return getHesabTafsiliService().loadHesabTafsiliByCode(new Long(hesabTafsiliTemplateEntity.getCode()), saalMaaliEntity);
 	}
 	
-	public static HesabTafsiliEntity getHesabTafsiliByCodeAndSaalMaali(String code, SaalMaaliEntity saalMaaliEntity){
+	public static HesabTafsiliEntity getHesabTafsiliByCodeAndSaalMaali(Long code, SaalMaaliEntity saalMaaliEntity){
 		return getHesabTafsiliService().loadHesabTafsiliByCode(code, saalMaaliEntity);
 	}
 	

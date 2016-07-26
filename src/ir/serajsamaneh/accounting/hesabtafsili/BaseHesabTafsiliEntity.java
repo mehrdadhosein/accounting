@@ -1,11 +1,8 @@
 package ir.serajsamaneh.accounting.hesabtafsili;
 
-import java.io.Serializable;
 import ir.serajsamaneh.core.base.BaseEntity;
-import serajcomponent.DateConverter;
-import serajcomponent.SerajDateTimePickerType;
 
-import java.util.HashSet;
+import java.io.Serializable;
 
 
 
@@ -73,7 +70,7 @@ public abstract class BaseHesabTafsiliEntity  extends BaseEntity<Long>   impleme
 	private java.lang.Long id;
 
 	// fields
-	private java.lang.String code;
+	private java.lang.Long code;
 	private java.lang.String name;
 	private java.lang.String description;
 	private java.lang.Double bedehkar;
@@ -119,7 +116,7 @@ public abstract class BaseHesabTafsiliEntity  extends BaseEntity<Long>   impleme
 	/**
 	 * Return the value associated with the column: code
 	 */
-	public java.lang.String getCode () {
+	public java.lang.Long getCode () {
 		return code;
 	}
 
@@ -127,7 +124,7 @@ public abstract class BaseHesabTafsiliEntity  extends BaseEntity<Long>   impleme
 	 * Set the value related to the column: code
 	 * @param code the code value
 	 */
-	public void setCode (java.lang.String code) {
+	public void setCode (java.lang.Long code) {
 		this.code = code;
 	}
 
