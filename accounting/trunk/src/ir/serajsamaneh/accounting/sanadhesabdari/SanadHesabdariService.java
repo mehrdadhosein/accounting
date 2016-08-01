@@ -1479,4 +1479,13 @@ public class SanadHesabdariService extends
 		// TODO Auto-generated method stub
 		return super.load(id);
 	}
+
+	public SanadHesabdariEntity loadBySerial(Long sanadHesabdariSerial, OrganEntity currentOrgan, SaalMaaliEntity activeSaalMaali) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("serial@eq", sanadHesabdariSerial);
+		localFilter.put("organ.id@eq", currentOrgan.getId());
+		localFilter.put("saalMaali.id@eq", activeSaalMaali.getId());
+		localFilter.put("state@neq", SanadStateEnum.EBTAL);
+		return load(null, localFilter);
+	}
 }

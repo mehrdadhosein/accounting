@@ -31,10 +31,16 @@ import ir.serajsamaneh.core.tempuploadedfile.TempUploadedFileEntity;
 import ir.serajsamaneh.core.tempuploadedfile.TempUploadedFileService;
 import ir.serajsamaneh.core.util.JQueryUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
+import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.enumeration.YesNoEnum;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,6 +60,8 @@ import org.springframework.util.StringUtils;
 
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
+
+import com.opencsv.CSVReader;
 
 public class SanadHesabdariForm extends
 		BaseAccountingForm<SanadHesabdariEntity, Long> {
@@ -1361,5 +1369,130 @@ public class SanadHesabdariForm extends
 	
 	public Boolean getIsSanadDeletable(){
 		return getEntity().getDeletable().equals(YesNoEnum.YES);
+	}
+	
+	public void importSanadHesabdariFromCSVFileV1(){
+        String csvFile = "/Users/mkyong/csv/country.csv";
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";
+        try {
+
+            br = new BufferedReader(new FileReader(csvFile));
+            while ((line = br.readLine()) != null) {
+
+                // use comma as separator
+                String[] country = line.split(cvsSplitBy);
+
+                System.out.println("Country [code= " + country[4] + " , name=" + country[5] + "]");
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+	}
+	
+	public static void main(String[] args) {
+//		importSanadHesabdariFromCSVFileV2();
+	}
+	
+	public static final String UTF8_BOM = "\uFEFF";
+	
+	private static String removeUTF8BOM(String s) {
+		if (s.startsWith(UTF8_BOM)) {
+			s = s.substring(1);
+		}
+		return s;
+	}
+	
+	public void importSanadHesabdariFromCSVFileV2(){
+		String csvFile = getClass().getResource("/sanadImport/sanad1.csv").getFile();
+//        String csvFile = "E:\\temp\\sanad1.csv";
+
+//        CSVReader reader = null;
+        try {
+//        	BufferedReader in = new BufferedReader(
+//        	           new InputStreamReader(
+//        	                      new FileInputStream(csvFile), "UTF-8"));
+//            reader = new CSVReader(in,';');
+            
+            CSVReader reader=new CSVReader(
+            	    new InputStreamReader(new FileInputStream(csvFile), "UTF-8"), 
+            	    ';', '\'', 1);
+            	    
+            String[] line;
+            Long sanadHesabdariSerial = null;
+            
+            List<SanadHesabdariItemEntity> sanadHesabdariItemList = new ArrayList<SanadHesabdariItemEntity>();
+            while ((line = reader.readNext()) != null) {
+            	int radif = new Integer(removeUTF8BOM(line[0]));
+            	int atf = new Integer(line[1]);
+            	sanadHesabdariSerial = new Long(line[2]);
+            	String moeenCode = line[3];
+            	Long tafsilCode = null;
+            	
+            	if(StringUtil.hasText(line[4]))
+            		tafsilCode = new Long(line[4]);
+            	
+            	String markazCode = line[5];
+            	String hesabDescription = line[6];
+            	String hesabName= line[7];
+            	String tarikh = line[8];
+            	String articleDescription = line[9];
+            	Double bedehkar = StringUtil.hasText(line[10]) ? new Double(line[10].replace(",", "")) : 0d;
+            	Double bestankar = StringUtil.hasText(line[11]) ? new Double(line[11].replace(",", "")) : 0d;
+//                System.out.println("Country [id= " + line[0] + ", code= " + line[1] + " , name=" + line[2] + "]");
+            	
+            	SanadHesabdariItemEntity sanadHesabdariItemEntity = new SanadHesabdariItemEntity();
+            	HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(moeenCode, getCurrentUserActiveSaalMaali());
+            	if(hesabMoeenEntity == null)
+            		throw new FatalException("moeenCode not found : "+moeenCode);
+				sanadHesabdariItemEntity.setHesabMoeen(hesabMoeenEntity);
+				sanadHesabdariItemEntity.setHesabKol(hesabMoeenEntity.getHesabKol());
+            	if(tafsilCode != null)
+            		sanadHesabdariItemEntity.setHesabTafsili(getHesabTafsiliService().loadHesabTafsiliByCode(tafsilCode, getCurrentUserActiveSaalMaali()));
+            	if(StringUtil.hasText(markazCode))
+            		sanadHesabdariItemEntity.setAccountingMarkaz(getAccountingMarkazService().loadAccountingMarkazByCode(markazCode, getCurrentUserActiveSaalMaali()));
+            	sanadHesabdariItemEntity.setDescription(articleDescription);
+            	sanadHesabdariItemEntity.setBedehkar(bedehkar);
+            	sanadHesabdariItemEntity.setBestankar(bestankar);
+            	
+            	sanadHesabdariItemList.add(sanadHesabdariItemEntity);
+            }
+  
+            
+        	SanadHesabdariEntity sanadHesabdariEntity = getMyService().loadBySerial(sanadHesabdariSerial, getCurrentOrgan(), getCurrentUserActiveSaalMaali());
+        	if(sanadHesabdariEntity == null){
+        		sanadHesabdariEntity = new SanadHesabdariEntity();
+        		sanadHesabdariEntity.setSaalMaali(getCurrentUserActiveSaalMaali());
+        		sanadHesabdariEntity.setSerial(sanadHesabdariSerial);
+
+        		if (sanadHesabdariEntity.getSanadHesabdariItem() == null)
+        			sanadHesabdariEntity.setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
+        		else
+        			sanadHesabdariEntity.getSanadHesabdariItem().clear();
+
+        		List<SanadHesabdariItemEntity> sortedSanadHesabdariItem = SanadHesabdariUtil.getSortedSanadHesabdariItem(sanadHesabdariItemList);
+        		sanadHesabdariEntity.getSanadHesabdariItem().addAll(sortedSanadHesabdariItem);
+
+        		
+        		getMyService().saveMovaghat(sanadHesabdariEntity, getTemporalZamimeha(),getCurrentOrgan(), getCurrentUserActiveSaalMaali());
+        	}
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+        }
 	}
 }
