@@ -368,6 +368,7 @@ public class SanadHesabdariUtil {
 		localFilter.put("tarikhSanad@eq", sanadHesabDariDate);
 		localFilter.put("sanadType.id@eq", sanadTypeId);
 		localFilter.put("organ.id@eq", organ.getId());
+		localFilter.put("state@neq", SanadStateEnum.EBTAL);
 		SanadHesabdariEntity sanadHesabdariEntity = getSanadHesabdariService().load(null, localFilter);
 		return sanadHesabdariEntity;
 	}
