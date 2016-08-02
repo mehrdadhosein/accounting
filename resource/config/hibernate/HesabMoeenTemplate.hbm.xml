@@ -23,8 +23,6 @@
 	      </property>
       <property  name='hidden' type='boolean' column='hidden' not-null="true">
 	      </property>
-      <property  name='mahyatMoeen' type='integer' column='mahyat_moeen'>
-	      </property>
       <property  name='scope' type='HesabScopeEnum' column='scope'>
 	      </property>
 
