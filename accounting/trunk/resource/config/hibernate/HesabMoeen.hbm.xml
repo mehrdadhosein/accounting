@@ -22,8 +22,7 @@
 			cascade='none' foreign-key='fk_hsb_mn_hsb_kl_id'>
 			<column name='hesab_kol_id' />
 		</many-to-one>
-		<!-- property name='mahyatMoeen' type='integer' column='mahyat_moeen'-->
-		</property>
+		<!-- property name='mahyatMoeen' type='integer' column='mahyat_moeen'/-->
 		<set name='moeenTafsili' inverse='true' cascade="all-delete-orphan">
 			<key column='hesab_moeen_id' foreign-key='fk_mn_tf_hsb_mn_key' />
 			<one-to-many
