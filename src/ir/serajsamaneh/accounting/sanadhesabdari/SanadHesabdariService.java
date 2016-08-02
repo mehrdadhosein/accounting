@@ -1458,7 +1458,7 @@ public class SanadHesabdariService extends
 	@Transactional(readOnly=false)
 	private void doEbtalSanad(SanadHesabdariEntity entity){
 		entity.setState(SanadStateEnum.EBTAL);
-		save(entity);
+		save(entity, null, false);
 	}
 	
 	@Override
