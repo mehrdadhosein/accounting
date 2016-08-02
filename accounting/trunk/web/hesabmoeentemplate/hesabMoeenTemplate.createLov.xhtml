@@ -52,12 +52,6 @@
 				<h:outputText styleClass="CellClass"  value="#{item.hesabKolTemplate}" />
 			</p:column>
 		
-			<p:column>
-				<f:facet name="header">
-					<h:outputText  styleClass="headerCellClass" value="#{messages['HesabMoeenTemplate_mahyatMoeen']}" />
-				</f:facet>
-				<h:outputText styleClass="CellClass"  value="#{item.mahyatMoeen}" />
-			</p:column>
 		
 			<p:column>
 				<f:facet name="header">
@@ -94,7 +88,6 @@
 																				document.getElementById('name').value=document.getElementById('nameSearch').value;
 																				document.getElementById('description').value=document.getElementById('descriptionSearch').value;
 																				document.getElementById('hidden').value=document.getElementById('hiddenSearch').value;
-																				document.getElementById('mahyatMoeen').value=document.getElementById('mahyatMoeenSearch').value;
 																				document.getElementById('scope').value=document.getElementById('scopeSearch').value;
 												
 			}
@@ -106,7 +99,6 @@
 																				document.getElementById('nameSearch').value=document.getElementById('name').value;
 																				document.getElementById('descriptionSearch').value=document.getElementById('description').value;
 																				document.getElementById('hiddenSearch').value=document.getElementById('hidden').value;
-																				document.getElementById('mahyatMoeenSearch').value=document.getElementById('mahyatMoeen').value;
 																				document.getElementById('scopeSearch').value=document.getElementById('scope').value;
 												}
 		</script>

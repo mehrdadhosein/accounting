@@ -76,7 +76,7 @@ public class SanadHesabdariItemTemplateEntity extends BaseSanadHesabdariItemTemp
 	String applyAutomaticTafsiliName;
 	public String getApplyAutomaticTafsiliName() {
 		if(applyAutomaticTafsiliName == null)
-			applyAutomaticTafsiliName = SerajMessageUtil.getMessage(getApplyAutomaticTafsili().name());
+			applyAutomaticTafsiliName = SerajMessageUtil.getMessage(getApplyAutomaticTafsili().nameWithClass());
 		return applyAutomaticTafsiliName;
 	}
 }

@@ -8,7 +8,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-view.xhtml">
@@ -20,41 +20,47 @@
 
 	<ui:define name="viewsection">
 
-		<rich:panel	 styleClass="emptyDiv" bodyClass="emptyDiv">
-			<p:panelGrid layout="grid"  columns="2" width="90%"
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<p:panelGrid layout="grid" columns="2" width="90%"
 				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
 				styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 
 
-				<h:outputLabel for="hesabKolTemplate" value="#{messages['HesabMoeenTemplate_hesabKolTemplate']} : " />
-				<h:outputText id="hesabKolTemplate" 
+				<h:outputLabel for="hesabKolTemplate"
+					value="#{messages['HesabMoeenTemplate_hesabKolTemplate']} : " />
+				<h:outputText id="hesabKolTemplate"
 					value="#{hesabMoeenTemplate.entity.hesabKolTemplate.desc}" />
-				  		
-				
-					
 
-					<h:outputLabel for="code" value="#{messages['HesabMoeenTemplate_code']} : " />
+
+
+
+				<h:outputLabel for="code"
+					value="#{messages['HesabMoeenTemplate_code']} : " />
 				<h:outputText id="code" value="#{hesabMoeenTemplate.entity.code}" />
-	
-						<h:outputLabel for="name" value="#{messages['HesabMoeenTemplate_name']} : " />
+
+				<h:outputLabel for="name"
+					value="#{messages['HesabMoeenTemplate_name']} : " />
 				<h:outputText id="name" value="#{hesabMoeenTemplate.entity.name}" />
-	
-						<h:outputLabel for="description" value="#{messages['HesabMoeenTemplate_description']} : " />
-				<h:outputText id="description" value="#{hesabMoeenTemplate.entity.description}" />
-	
-						<h:outputLabel for="hidden" value="#{messages['HesabMoeenTemplate_hidden']} : " />
-				<h:outputText id="hidden" value="#{hesabMoeenTemplate.entity.hidden}" />
-	
-						<h:outputLabel for="mahyatMoeen" value="#{messages['HesabMoeenTemplate_mahyatMoeen']} : " />
-				<h:outputText id="mahyatMoeen" value="#{hesabMoeenTemplate.entity.mahyatMoeen}" />
-	
-						<h:outputLabel for="scope" value="#{messages['HesabMoeenTemplate_scope']} : " />
+
+				<h:outputLabel for="description"
+					value="#{messages['HesabMoeenTemplate_description']} : " />
+				<h:outputText id="description"
+					value="#{hesabMoeenTemplate.entity.description}" />
+
+				<h:outputLabel for="hidden"
+					value="#{messages['HesabMoeenTemplate_hidden']} : " />
+				<h:outputText id="hidden"
+					value="#{hesabMoeenTemplate.entity.hidden}" />
+
+
+				<h:outputLabel for="scope"
+					value="#{messages['HesabMoeenTemplate_scope']} : " />
 				<h:outputText id="scope" value="#{hesabMoeenTemplate.entity.scope}" />
-	
-				</p:panelGrid>
+
+			</p:panelGrid>
 		</rich:panel>
 	</ui:define>
 </ui:composition>
 
-</html>	
+</html>

@@ -40,7 +40,7 @@ public class SaalMaaliEntity extends BaseSaalMaaliEntity {
 				+ " , " + SerajMessageUtil.getMessage("SaalMaali_end")+ "=" +DateConverter.toShamsiDate(getEndDate(), SerajDateTimePickerType.DateHorMin) 
 				+ " , " + SerajMessageUtil.getMessage("SaalMaali_organ")+ "=" + getOrgan()  
 				+ " , " + SerajMessageUtil.getMessage("SaalMaali_isActive")+ "=" +getIsActive().toString()
-				+ " , " + SerajMessageUtil.getMessage("SaalMaali_status")+ "=" +SerajMessageUtil.getMessage(getStatus().name())
+				+ " , " + SerajMessageUtil.getMessage("SaalMaali_status")+ "=" +SerajMessageUtil.getMessage(getStatus().nameWithClass())
 				+ "]";
 	}
 	

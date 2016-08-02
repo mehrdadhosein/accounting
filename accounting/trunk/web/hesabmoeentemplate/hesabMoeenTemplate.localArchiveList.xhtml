@@ -102,23 +102,6 @@
 				<h:outputText styleClass="CellClass"  value="#{item.hesabKolTemplate}" />
 			</p:column>
 		
-			<p:column>
-				<f:facet name="header">
-							<a4j:commandLink action="#{owner.sort}" render="hesabMoeenTemplates" 
-								onclick="showLoading();"	oncomplete="hideLoading();"
-								styleClass="headerCellClass" title="#{messages['HesabMoeenTemplate_mahyatMoeen']}">
-								<h:outputText styleClass="headerCellClass"
-									value="#{messages['HesabMoeenTemplate_mahyatMoeen']}" />
-								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
-									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
-								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
-									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
-								<f:setPropertyActionListener value="mahyatMoeen"
-									target="#{owner.sortCol}" />
-							</a4j:commandLink>
-				</f:facet>
-				<h:outputText styleClass="CellClass"  value="#{item.mahyatMoeen}" />
-			</p:column>
 		
 			<p:column>
 				<f:facet name="header">

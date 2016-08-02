@@ -53,7 +53,7 @@ public class HesabGroupTemplateEntity extends BaseHesabGroupTemplateEntity {
 	public String getCompleteInfo() {
 		return SerajMessageUtil.getMessage("HesabGroupTemplate_name")+":"+this.getName()+" , "+
 			   SerajMessageUtil.getMessage("HesabGroupTemplate_code")+":"+this.getCode()+" , "+
-			   SerajMessageUtil.getMessage("HesabGroup_type")+":"+SerajMessageUtil.getMessage(this.getType().name())+" , "+
-			   SerajMessageUtil.getMessage("HesabGroup_mahyatGroup")+":"+SerajMessageUtil.getMessage(this.getMahyatGroup().name());
+			   SerajMessageUtil.getMessage("HesabGroup_type")+":"+SerajMessageUtil.getMessage(this.getType().nameWithClass())+" , "+
+			   SerajMessageUtil.getMessage("HesabGroup_mahyatGroup")+":"+SerajMessageUtil.getMessage(this.getMahyatGroup().nameWithClass());
 	}
 }

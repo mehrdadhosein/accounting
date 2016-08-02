@@ -225,7 +225,7 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 		manageActiveSatatusOfOtherSaalMaaliEntities(entity, currentOrgan);
 		
 		super.save(entity);
-		String action = (entity.getId()!=null?(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name())):(SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.name())));
+		String action = (entity.getId()!=null?(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name())):(SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.nameWithClass())));
 		ActionLogUtil.logAction(action, 
 				SerajMessageUtil.getMessage("SaalMaali_title"),
 				"",

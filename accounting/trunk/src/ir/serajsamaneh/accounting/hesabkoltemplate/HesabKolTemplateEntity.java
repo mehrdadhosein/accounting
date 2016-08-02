@@ -62,6 +62,6 @@ public class HesabKolTemplateEntity extends BaseHesabKolTemplateEntity {
 			   SerajMessageUtil.getMessage("HesabKolTemplate_name")+":"+this.getName()+" , "+
 			   SerajMessageUtil.getMessage("HesabKolTemplate_description")+":"+this.getDescription()+" , "+
 			   SerajMessageUtil.getMessage("HesabKolTemplate_hidden")+":"+this.getHidden()+" , "+
-			   SerajMessageUtil.getMessage("HesabKolTemplate_mahyatKol")+":"+SerajMessageUtil.getMessage(this.getMahyatKol().name());
+			   SerajMessageUtil.getMessage("HesabKolTemplate_mahyatKol")+":"+SerajMessageUtil.getMessage(this.getMahyatKol().nameWithClass());
 	}
 }

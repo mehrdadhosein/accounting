@@ -64,7 +64,7 @@ public class AccountsTemplateService extends
 	@Override
 	@Transactional
 	public void save(AccountsTemplateEntity entity) {
-		String action=(entity.getId()!=null?SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name()):SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.name()));
+		String action=(entity.getId()!=null?SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass()):SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.nameWithClass()));
 		super.save(entity);
 		ActionLogUtil.logAction(action,
 				SerajMessageUtil.getMessage(this.getEntityName()+"_title"), 

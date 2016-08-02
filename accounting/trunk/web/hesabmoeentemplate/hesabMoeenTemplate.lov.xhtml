@@ -7,7 +7,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/template-lov.xhtml">
@@ -15,93 +15,107 @@
 	<ui:param name="owner" value="#{hesabMoeenTemplate}" />
 	<ui:define name="searchsection">
 
-			<p:panelGrid layout="grid" columns="2" styleClass="inputForm ui-noborder ui-panelgrid-blank"  width="90%"
-				 columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9">
+		<p:panelGrid layout="grid" columns="2"
+			styleClass="inputForm ui-noborder ui-panelgrid-blank" width="90%"
+			columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9">
 
-																<h:outputLabel for="hesabKolTemplate" value="#{messages['HesabMoeenTemplate_hesabKolTemplate']} : " /> 
-								<h:panelGroup>
-								<custom:lov id="hesabKolTemplate" 
-										identity="#{hesabMoeenTemplate.filter['hesabKolTemplate.id@eq']}"
-										desc="#{hesabMoeenTemplate.example.hesabKolTemplate.desc}"
-								  		url="${request.contextPath}/hesabkoltemplate/hesabKolTemplate.lov.jsf?pId=hesabKolTemplate" />
-									
-								</h:panelGroup>
-									
-								
-																									<h:outputLabel for="code" value="#{messages['HesabMoeenTemplate_code']} : " />
-								<p:inputText id="code" value="#{hesabMoeenTemplate.filter['code@lk']}" />
-																														<h:outputLabel for="name" value="#{messages['HesabMoeenTemplate_name']} : " />
-								<p:inputText id="name" value="#{hesabMoeenTemplate.filter['name@lk']}" />
-																														<h:outputLabel for="description" value="#{messages['HesabMoeenTemplate_description']} : " />
-								<p:inputText id="description" value="#{hesabMoeenTemplate.filter['description@lk']}" />
-																														<h:outputLabel for="hidden" value="#{messages['HesabMoeenTemplate_hidden']} : " />
-								<p:inputText id="hidden" value="#{hesabMoeenTemplate.filter['hidden@eq']}" converter="javax.faces.Boolean"/>
-																														<h:outputLabel for="mahyatMoeen" value="#{messages['HesabMoeenTemplate_mahyatMoeen']} : " />
-								<p:inputText id="mahyatMoeen" value="#{hesabMoeenTemplate.filter['mahyatMoeen@eq']}" converter="javax.faces.Integer"/>
-																														<h:outputLabel for="scope" value="#{messages['HesabMoeenTemplate_scope']} : " />
-								<p:inputText id="scope" value="#{hesabMoeenTemplate.filter['scope@eq']}" converter="javax.faces.Integer"/>
-													
+			<h:outputLabel for="hesabKolTemplate"
+				value="#{messages['HesabMoeenTemplate_hesabKolTemplate']} : " />
+			<h:panelGroup>
+				<custom:lov id="hesabKolTemplate"
+					identity="#{hesabMoeenTemplate.filter['hesabKolTemplate.id@eq']}"
+					desc="#{hesabMoeenTemplate.example.hesabKolTemplate.desc}"
+					url="${request.contextPath}/hesabkoltemplate/hesabKolTemplate.lov.jsf?pId=hesabKolTemplate" />
 
-			</p:panelGrid>
+			</h:panelGroup>
 
-	</ui:define>	
+
+			<h:outputLabel for="code"
+				value="#{messages['HesabMoeenTemplate_code']} : " />
+			<p:inputText id="code"
+				value="#{hesabMoeenTemplate.filter['code@lk']}" />
+			<h:outputLabel for="name"
+				value="#{messages['HesabMoeenTemplate_name']} : " />
+			<p:inputText id="name"
+				value="#{hesabMoeenTemplate.filter['name@lk']}" />
+			<h:outputLabel for="description"
+				value="#{messages['HesabMoeenTemplate_description']} : " />
+			<p:inputText id="description"
+				value="#{hesabMoeenTemplate.filter['description@lk']}" />
+			<h:outputLabel for="hidden"
+				value="#{messages['HesabMoeenTemplate_hidden']} : " />
+			<p:inputText id="hidden"
+				value="#{hesabMoeenTemplate.filter['hidden@eq']}"
+				converter="javax.faces.Boolean" />
+			<h:outputLabel for="scope"
+				value="#{messages['HesabMoeenTemplate_scope']} : " />
+			<p:inputText id="scope"
+				value="#{hesabMoeenTemplate.filter['scope@eq']}"
+				converter="javax.faces.Integer" />
+
+
+		</p:panelGrid>
+
+	</ui:define>
 	<ui:define name="listsection">
-	<t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
-		<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
-			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			
-			 dir="rtl"
-			 id="hesabMoeenTemplates" value="#{hesabMoeenTemplate.dataModel}" var="item"
-			rowClasses="RowOdd,RowEven" rows="10" style="width:100%" headerClass="header">
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}"
+				paginator="true"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				dir="rtl" id="hesabMoeenTemplates"
+				value="#{hesabMoeenTemplate.dataModel}" var="item"
+				rowClasses="RowOdd,RowEven" rows="10" style="width:100%"
+				headerClass="header">
 
-			
-																			<p:column>
-								<f:facet name="header">
-									<h:outputText styleClass="headerCellClass" value="#{messages['HesabMoeenTemplate_name']}" />
-								</f:facet>
-								<h:outputText  styleClass="CellClass" value="#{item.name}" />
-							</p:column>
-																			<p:column>
-								<f:facet name="header">
-									<h:outputText styleClass="headerCellClass" value="#{messages['HesabMoeenTemplate_description']}" />
-								</f:facet>
-								<h:outputText  styleClass="CellClass" value="#{item.description}" />
-							</p:column>
-																			<p:column>
-								<f:facet name="header">
-									<h:outputText styleClass="headerCellClass" value="#{messages['HesabMoeenTemplate_hidden']}" />
-								</f:facet>
-								<h:outputText  styleClass="CellClass" value="#{item.hidden}" />
-							</p:column>
-																											<p:column>
-								<f:facet name="header">
-									<h:outputText styleClass="headerCellClass" value="#{messages['HesabMoeenTemplate_hesabKolTemplate']}" />
-								</f:facet>
-								<h:outputText  styleClass="CellClass" value="#{item.hesabKolTemplate}" />
-							</p:column>
-																			<p:column>
-								<f:facet name="header">
-									<h:outputText styleClass="headerCellClass" value="#{messages['HesabMoeenTemplate_mahyatMoeen']}" />
-								</f:facet>
-								<h:outputText  styleClass="CellClass" value="#{item.mahyatMoeen}" />
-							</p:column>
-																			<p:column>
-								<f:facet name="header">
-									<h:outputText styleClass="headerCellClass" value="#{messages['HesabMoeenTemplate_code']}" />
-								</f:facet>
-								<h:outputText  styleClass="CellClass" value="#{item.code}" />
-							</p:column>
-																			<p:column>
-								<f:facet name="header">
-									<h:outputText styleClass="headerCellClass" value="#{messages['HesabMoeenTemplate_scope']}" />
-								</f:facet>
-								<h:outputText  styleClass="CellClass" value="#{item.scope}" />
-							</p:column>
-											<p:column>
-				<h:commandButton  value="#{messages['lov_select']}"  
-					 onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false"/>
-			</p:column>
-		</p:dataTable>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeenTemplate_name']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.name}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeenTemplate_description']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.description}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeenTemplate_hidden']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hidden}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeenTemplate_hesabKolTemplate']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass"
+						value="#{item.hesabKolTemplate}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeenTemplate_code']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.code}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabMoeenTemplate_scope']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.scope}" />
+				</p:column>
+				<p:column>
+					<h:commandButton value="#{messages['lov_select']}"
+						onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false" />
+				</p:column>
+			</p:dataTable>
 		</t:div>
 		<custom:dataTableRowCount onpagechange="showLoading();"
 			oncomplete="hideLoading();" for="hesabMoeenTemplates"></custom:dataTableRowCount>

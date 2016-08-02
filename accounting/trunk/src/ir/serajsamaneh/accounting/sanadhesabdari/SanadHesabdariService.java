@@ -339,7 +339,7 @@ public class SanadHesabdariService extends
 		save(entity, organEntity, saalMaaliEntity);
 		checkSanadArticlesSaalMaaliSameLess(entity);
 		manageZamimeh(entity, zamimeha);
-		logSanadHesabdariAction(entity, isNew, SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name()));
+		logSanadHesabdariAction(entity, isNew, SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass()));
 	}
 	
 	@Transactional
@@ -352,7 +352,7 @@ public class SanadHesabdariService extends
 						"", "",sanadHesabdariEntity.getCompleteInfo());
 			} else {
 				String differences = getDifferences(sanadHesabdariEntity);
-//				String actionName = SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name());
+//				String actionName = SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass());
 				ActionLogUtil.logAction(actionName, getEntityTitle(),
 						sanadHesabdariEntity.getCompleteInfo(),sanadHesabdariEntity.getOldEntity().getCompleteInfo(),differences);
 
@@ -373,7 +373,7 @@ public class SanadHesabdariService extends
 		save(entity, organEntity, saalMaaliEntity, true, validateSaalMaaliInProgress);
 		checkSanadArticlesSaalMaaliSameLess(entity);
 		manageZamimeh(entity, zamimeha);
-		logSanadHesabdariAction(entity, isNew, SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name()));
+		logSanadHesabdariAction(entity, isNew, SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass()));
 		logSanadHesabdariItemAction(entity);
 	}
 
@@ -389,7 +389,7 @@ public class SanadHesabdariService extends
 //			itemDesc+=SerajMessageUtil.getMessage("SanadHesabdariItem_description")+":"+SHIE.getDescription()+" , ";
 //			itemDesc+="]";
 //		}
-//		String action=(entity.getID()!=null?(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name())):(SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.name())));
+//		String action=(entity.getID()!=null?(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name())):(SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.nameWithClass())));
 //		ActionLogUtil.logAction(action,
 //				SerajMessageUtil.getMessage("SanadHesabdariItem_list"),
 //				"",

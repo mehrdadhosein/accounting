@@ -6,7 +6,6 @@ import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 

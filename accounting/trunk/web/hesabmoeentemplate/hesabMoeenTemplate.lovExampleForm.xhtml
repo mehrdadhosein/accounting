@@ -9,7 +9,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
 
 <style>
@@ -26,31 +26,42 @@
 	<p:panelGrid layout="grid" columns="2" width="90%"
 		columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
 		styleClass="inputForm ui-noborder ui-panelgrid-blank">
-		
-							<h:outputLabel for="hesabKolTemplateSearch" value="#{messages['HesabMoeenTemplate_hesabKolTemplate']}" />
-				<h:panelGroup>
-				<custom:lov id="hesabKolTemplateSearch" 
-						identity="#{hesabMoeenTemplate.filter['hesabKolTemplate.id@eq']}"
-						desc="#{hesabMoeenTemplate.example.hesabKolTemplate.desc}"
-				  		url="${request.contextPath}/hesabkoltemplate/hesabKolTemplate.lov.jsf?pId=hesabKolTemplateSearch" />
-					
-				</h:panelGroup>
-					
 
-					<h:outputLabel for="codeSearch" value="#{messages['HesabMoeenTemplate_code']}" />
-				<p:inputText id="codeSearch" value="#{hesabMoeenTemplate.filter['code@lk']}" />
-						<h:outputLabel for="nameSearch" value="#{messages['HesabMoeenTemplate_name']}" />
-				<p:inputText id="nameSearch" value="#{hesabMoeenTemplate.filter['name@lk']}" />
-						<h:outputLabel for="descriptionSearch" value="#{messages['HesabMoeenTemplate_description']}" />
-				<p:inputText id="descriptionSearch" value="#{hesabMoeenTemplate.filter['description@lk']}" />
-						<h:outputLabel for="hiddenSearch" value="#{messages['HesabMoeenTemplate_hidden']}" />
-				<p:inputText id="hiddenSearch" value="#{hesabMoeenTemplate.filter['hidden@eq']}" converter="javax.faces.Boolean"/>
-						<h:outputLabel for="mahyatMoeenSearch" value="#{messages['HesabMoeenTemplate_mahyatMoeen']}" />
-				<p:inputText id="mahyatMoeenSearch" value="#{hesabMoeenTemplate.filter['mahyatMoeen@eq']}" converter="javax.faces.Integer"/>
-						<h:outputLabel for="scopeSearch" value="#{messages['HesabMoeenTemplate_scope']}" />
-				<p:inputText id="scopeSearch" value="#{hesabMoeenTemplate.filter['scope@eq']}" converter="javax.faces.Integer"/>
-				
-		</p:panelGrid>
+		<h:outputLabel for="hesabKolTemplateSearch"
+			value="#{messages['HesabMoeenTemplate_hesabKolTemplate']}" />
+		<h:panelGroup>
+			<custom:lov id="hesabKolTemplateSearch"
+				identity="#{hesabMoeenTemplate.filter['hesabKolTemplate.id@eq']}"
+				desc="#{hesabMoeenTemplate.example.hesabKolTemplate.desc}"
+				url="${request.contextPath}/hesabkoltemplate/hesabKolTemplate.lov.jsf?pId=hesabKolTemplateSearch" />
+
+		</h:panelGroup>
+
+
+		<h:outputLabel for="codeSearch"
+			value="#{messages['HesabMoeenTemplate_code']}" />
+		<p:inputText id="codeSearch"
+			value="#{hesabMoeenTemplate.filter['code@lk']}" />
+		<h:outputLabel for="nameSearch"
+			value="#{messages['HesabMoeenTemplate_name']}" />
+		<p:inputText id="nameSearch"
+			value="#{hesabMoeenTemplate.filter['name@lk']}" />
+		<h:outputLabel for="descriptionSearch"
+			value="#{messages['HesabMoeenTemplate_description']}" />
+		<p:inputText id="descriptionSearch"
+			value="#{hesabMoeenTemplate.filter['description@lk']}" />
+		<h:outputLabel for="hiddenSearch"
+			value="#{messages['HesabMoeenTemplate_hidden']}" />
+		<p:inputText id="hiddenSearch"
+			value="#{hesabMoeenTemplate.filter['hidden@eq']}"
+			converter="javax.faces.Boolean" />
+		<h:outputLabel for="scopeSearch"
+			value="#{messages['HesabMoeenTemplate_scope']}" />
+		<p:inputText id="scopeSearch"
+			value="#{hesabMoeenTemplate.filter['scope@eq']}"
+			converter="javax.faces.Integer" />
+
+	</p:panelGrid>
 </rich:panel>
 
 </html>
