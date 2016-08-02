@@ -174,7 +174,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public void itemdesc(String newvalue) {
 		String entityName = SerajMessageUtil.getMessage(getEntityName() + "_title");
 		ActionLogUtil.logAction(
-				SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.name()),
+				SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.nameWithClass()),
 				entityName, newvalue,"","");
 	}
 	public void configSave(){
@@ -206,12 +206,12 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		
 		getSystemConfigService().insertKeyValue("validateHesabMoeenHasChild",	getValidateHesabMoeenHasChild().value().toString(), null, getCurrentOrgan());
 //		YesNoEnum oldvalidateHesabMoeenHasChildValue = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasChild));
-//		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasChildValue.name()));
+//		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasChildValue.nameWithClass()));
 //		
 		getSystemConfigService().insertKeyValue("validateHesabMoeenHasMarkaz",	getValidateHesabMoeenHasMarkaz().value().toString(), null, getCurrentOrgan());
 		getSystemConfigService().insertKeyValue("maxSanadHesabdariTafsilLevel",	getMaxSanadHesabdariTafsilLevel().toString(), null, getCurrentOrgan());
 //		 YesNoEnum oldvalidateHesabMoeenHasMarkazValue = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasMarkaz)); 
-//		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasMarkazValue.name()));
+//		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasMarkazValue.nameWithClass()));
 		
 		if(olddefaultSanadTypeId!=null&&!olddefaultSanadTypeId.equals(getDefaultSanadTypeId().toString())){
 			HesabMoeenTemplateEntity oldEntity = getHesabMoeenTemplateService().load(new Long(olddefaultSanadTypeId));
@@ -232,11 +232,11 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		}
 		if(oldvalidateHesabMoeenHasChild!=null&&!oldvalidateHesabMoeenHasChild.equals(getValidateHesabMoeenHasChild().value().toString())){
 			YesNoEnum yesNoEnum = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasChild));
-			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_validateHesabMoeenHasChild")+" : "+SerajMessageUtil.getMessage(yesNoEnum.name())+"-->"+SerajMessageUtil.getMessage(getValidateHesabMoeenHasChild().name())+"]";
+			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_validateHesabMoeenHasChild")+" : "+SerajMessageUtil.getMessage(yesNoEnum.nameWithClass())+"-->"+SerajMessageUtil.getMessage(getValidateHesabMoeenHasChild().nameWithClass())+"]";
 		}
 		if(oldvalidateHesabMoeenHasMarkaz!=null&&!oldvalidateHesabMoeenHasMarkaz.equals(getValidateHesabMoeenHasMarkaz().value().toString())){
 			 YesNoEnum yesNoEnum = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasMarkaz)); 
-			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_validateHesabMoeenHasMarkaz")+" : "+SerajMessageUtil.getMessage(yesNoEnum.name())+"-->"+SerajMessageUtil.getMessage(getValidateHesabMoeenHasMarkaz().name())+"]";
+			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_validateHesabMoeenHasMarkaz")+" : "+SerajMessageUtil.getMessage(yesNoEnum.nameWithClass())+"-->"+SerajMessageUtil.getMessage(getValidateHesabMoeenHasMarkaz().nameWithClass())+"]";
 		}
 
 		if(oldmaxSanadHesabdariTafsilLevel!=null && !oldmaxSanadHesabdariTafsilLevel.equals(getMaxSanadHesabdariTafsilLevel())){
@@ -245,7 +245,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		
 		addInfoMessage("SUCCESSFUL_ACTION");
 		//Log Action
-		ActionLogUtil.logAction(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name()),
+		ActionLogUtil.logAction(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass()),
 				SerajMessageUtil.getMessage("PayrollSystemConfig_configPayroll") , 
 				"", 
 				"", 
@@ -314,7 +314,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		
 		getSystemConfigService().insertKeyValue("saalMaaliId", getSaalMaaliId()!=null ? getSaalMaaliId().toString() : null , getCurrentUser(), getCurrentOrgan());
 		String entityName = SerajMessageUtil.getMessage(getSaalMaaliService().getEntityName() + "_title");
-		ActionLogUtil.logAction(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name()), entityName, 
+		ActionLogUtil.logAction(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass()), entityName, 
 				saalMaaliEntity!=null ? saalMaaliEntity.getSaal().toString() : "" , "", saalMaaliEntity!=null ? saalMaaliEntity.getLog() : "", getCurrentUser());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		setSuccessfullAction(true);

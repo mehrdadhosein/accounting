@@ -18,6 +18,10 @@ public enum SanadFunctionEnum {
 	public String toString() {
 		return this.name();
 	}
+	
+    public final String nameWithClass() {
+        return getClass().getSimpleName()+"_"+name();
+    }
 
 
 }

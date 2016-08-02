@@ -1,13 +1,9 @@
 package ir.serajsamaneh.accounting.hesabmoeentemplate;
 
-import java.io.Serializable;
-
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.organ.OrganEntity;
-import serajcomponent.DateConverter;
-import serajcomponent.SerajDateTimePickerType;
 
-import java.util.HashSet;
+import java.io.Serializable;
 
 
 
@@ -22,13 +18,17 @@ import java.util.HashSet;
 
 public abstract class BaseHesabMoeenTemplateEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1419132120432429872L;
 	public static String REF = "HesabMoeenTemplateEntity";
 	public static String PROP_NAME = "name";
 	public static String PROP_DESCRIPTION = "description";
 	public static String PROP_HIDDEN = "hidden";
 	public static String PROP_ID = "id";
 	public static String PROP_HESAB_KOL_TEMPLATE = "hesabKolTemplate";
-	public static String PROP_MAHYAT_MOEEN = "mahyatMoeen";
+//	public static String PROP_MAHYAT_MOEEN = "mahyatMoeen";
 	public static String PROP_CODE = "code";
 	public static String PROP_SCOPE = "scope";
 
@@ -71,7 +71,7 @@ public abstract class BaseHesabMoeenTemplateEntity  extends BaseEntity<Long>   i
 	private java.lang.String code;
 	private java.lang.String name;
 	private java.lang.String description;
-	private java.lang.Integer mahyatMoeen;
+//	private java.lang.Integer mahyatMoeen;
 	// many to one
 	private ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity hesabKolTemplate;
 	OrganEntity organ;
@@ -91,13 +91,13 @@ public abstract class BaseHesabMoeenTemplateEntity  extends BaseEntity<Long>   i
 
 
 
-	public java.lang.Integer getMahyatMoeen() {
-		return mahyatMoeen;
-	}
-
-	public void setMahyatMoeen(java.lang.Integer mahyatMoeen) {
-		this.mahyatMoeen = mahyatMoeen;
-	}
+//	public java.lang.Integer getMahyatMoeen() {
+//		return mahyatMoeen;
+//	}
+//
+//	public void setMahyatMoeen(java.lang.Integer mahyatMoeen) {
+//		this.mahyatMoeen = mahyatMoeen;
+//	}
 
 	/**
 	 * Return the unique identifier of this class

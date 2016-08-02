@@ -96,7 +96,7 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 
 	public String getSanadFunctionName() {
 		if (getSanadFunction() != null)
-			return SerajMessageUtil.getMessage(getSanadFunction().name());
+			return SerajMessageUtil.getMessage(getSanadFunction().nameWithClass());
 		return "";
 	}
 

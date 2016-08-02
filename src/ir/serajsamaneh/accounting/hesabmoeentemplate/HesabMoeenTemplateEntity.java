@@ -2,7 +2,6 @@ package ir.serajsamaneh.accounting.hesabmoeentemplate;
 
 import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
-import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
@@ -78,7 +77,7 @@ public class HesabMoeenTemplateEntity extends BaseHesabMoeenTemplateEntity {
 			   SerajMessageUtil.getMessage("HesabMoeenTemplate_name")+":"+this.getName()+" , "+
 			   SerajMessageUtil.getMessage("HesabMoeenTemplate_description")+":"+this.getDescription()+" , "+
 			   SerajMessageUtil.getMessage("HesabMoeenTemplate_hidden")+":"+this.getHidden()+" , "+
-			   SerajMessageUtil.getMessage("HesabMoeenTemplate_mahyatMoeen")+":"+this.getMahyatMoeen()+" , "+
-			   SerajMessageUtil.getMessage("HesabMoeenTemplate_scope")+":"+SerajMessageUtil.getMessage(this.getScope().name());
+//			   SerajMessageUtil.getMessage("HesabMoeenTemplate_mahyatMoeen")+":"+this.getMahyatMoeen()+" , "+
+			   SerajMessageUtil.getMessage("HesabMoeenTemplate_scope")+":"+SerajMessageUtil.getMessage(this.getScope().nameWithClass());
 	}
 }

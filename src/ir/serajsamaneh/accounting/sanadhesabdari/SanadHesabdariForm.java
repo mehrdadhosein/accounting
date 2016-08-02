@@ -36,12 +36,15 @@ import ir.serajsamaneh.enumeration.YesNoEnum;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -54,6 +57,7 @@ import javax.faces.model.SelectItem;
 
 import net.sf.jasperreports.engine.JRException;
 
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import org.springframework.util.StringUtils;
@@ -1416,8 +1420,23 @@ public class SanadHesabdariForm extends
 		return s;
 	}
 	
-	public void importSanadHesabdariFromCSVFileV2(){
-		String csvFile = getClass().getResource("/sanadImport/sanad1.csv").getFile();
+	public void importSanadHesabdariFromCSVFileBatch(){
+		URL resource = getClass().getResource("/sanadImport");
+		if (resource == null)
+			return;
+		File dir = new File(resource.getFile());
+
+		FilenameFilter filter = new WildcardFileFilter("sanad*.csv");
+		String[] list = dir.list(filter);
+
+		for (String fileName : list) {
+			String csvFile = dir.getAbsolutePath() + "/" + fileName;
+			importSanadHesabdariFromCSVFileV2(csvFile);
+		}
+	}
+	public void importSanadHesabdariFromCSVFileV2(String csvFile){
+		System.out.println("importing : "+csvFile);
+//		String csvFile = getClass().getResource("/sanadImport/sanad1.csv").getFile();
 //        String csvFile = "E:\\temp\\sanad1.csv";
 
 //        CSVReader reader = null;
@@ -1482,6 +1501,10 @@ public class SanadHesabdariForm extends
         			sanadHesabdariEntity.setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
         		else
         			sanadHesabdariEntity.getSanadHesabdariItem().clear();
+
+        		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItemList) {
+        			sanadHesabdariItemEntity.setSanadHesabdari(sanadHesabdariEntity);
+        		}
 
         		List<SanadHesabdariItemEntity> sortedSanadHesabdariItem = SanadHesabdariUtil.getSortedSanadHesabdariItem(sanadHesabdariItemList);
         		sanadHesabdariEntity.getSanadHesabdariItem().addAll(sortedSanadHesabdariItem);

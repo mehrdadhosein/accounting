@@ -14,60 +14,68 @@
 <t:saveState value="#{owner.ID}" />
 <t:saveState value="#{owner.quickLoaded}" />
 
-<rich:panel id="hesabMoeenTemplateInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
-		<p:panelGrid columns="2" layout="grid" width="90%"
-					columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
-					styleClass="inputForm ui-noborder ui-panelgrid-blank">
-				<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-					<h:outputLabel for="hesabKolTemplate" value="#{messages['HesabMoeenTemplate_hesabKolTemplate']}" /> : 
+<rich:panel id="hesabMoeenTemplateInput"
+	style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);">
+	<p:panelGrid columns="2" layout="grid" width="90%"
+		columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
+		styleClass="inputForm ui-noborder ui-panelgrid-blank">
+		<h:panelGroup>
+			<h:outputText styleClass="required" value="* " />
+			<h:outputLabel for="hesabKolTemplate"
+				value="#{messages['HesabMoeenTemplate_hesabKolTemplate']}" /> : 
 				</h:panelGroup>
-				<h:panelGroup>
-					<custom:lov id="hesabKolTemplate"  required="true" descWidth="250" label="#{messages['HesabMoeenTemplate_hesabKolTemplate']}"
-							identity="#{hesabMoeenTemplate.entity.hesabKolTemplate.id}"
-							desc="#{hesabMoeenTemplate.entity.hesabKolTemplate.desc}"
-					  		url="${request.contextPath}/hesabkoltemplate/hesabKolTemplate.lov.jsf?pId=hesabKolTemplate" />
-				</h:panelGroup>				  		
-				
-					
+		<h:panelGroup>
+			<custom:lov id="hesabKolTemplate" required="true" descWidth="250"
+				label="#{messages['HesabMoeenTemplate_hesabKolTemplate']}"
+				identity="#{hesabMoeenTemplate.entity.hesabKolTemplate.id}"
+				desc="#{hesabMoeenTemplate.entity.hesabKolTemplate.desc}"
+				url="${request.contextPath}/hesabkoltemplate/hesabKolTemplate.lov.jsf?pId=hesabKolTemplate" />
+		</h:panelGroup>
 
-					<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-	 				<h:outputLabel for="code" value="#{messages['HesabMoeenTemplate_code']}" /> : 
+
+
+		<h:panelGroup>
+			<h:outputText styleClass="required" value="* " />
+			<h:outputLabel for="code"
+				value="#{messages['HesabMoeenTemplate_code']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="code" label="code" value="#{hesabMoeenTemplate.entity.code}"  size="50"/>
-	
-						<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-	 				<h:outputLabel for="name" value="#{messages['HesabMoeenTemplate_name']}" /> : 
+		<p:inputText required="true" id="code" label="code"
+			value="#{hesabMoeenTemplate.entity.code}" size="50" />
+
+		<h:panelGroup>
+			<h:outputText styleClass="required" value="* " />
+			<h:outputLabel for="name"
+				value="#{messages['HesabMoeenTemplate_name']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="name" label="name" value="#{hesabMoeenTemplate.entity.name}"  size="50"/>
-	
-						<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-	 				<h:outputLabel for="description" value="#{messages['HesabMoeenTemplate_description']}" /> : 
+		<p:inputText required="true" id="name" label="name"
+			value="#{hesabMoeenTemplate.entity.name}" size="50" />
+
+		<h:panelGroup>
+			<h:outputText styleClass="required" value="* " />
+			<h:outputLabel for="description"
+				value="#{messages['HesabMoeenTemplate_description']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="description" label="description" value="#{hesabMoeenTemplate.entity.description}"  size="50"/>
-	
-						<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-	 				<h:outputLabel for="hidden" value="#{messages['HesabMoeenTemplate_hidden']}" /> : 
+		<p:inputText required="true" id="description" label="description"
+			value="#{hesabMoeenTemplate.entity.description}" size="50" />
+
+		<h:panelGroup>
+			<h:outputText styleClass="required" value="* " />
+			<h:outputLabel for="hidden"
+				value="#{messages['HesabMoeenTemplate_hidden']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="hidden" label="hidden" value="#{hesabMoeenTemplate.entity.hidden}"  size="50"/>
-	
-						<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-	 				<h:outputLabel for="mahyatMoeen" value="#{messages['HesabMoeenTemplate_mahyatMoeen']}" /> : 
+		<p:inputText required="true" id="hidden" label="hidden"
+			value="#{hesabMoeenTemplate.entity.hidden}" size="50" />
+
+
+		<h:panelGroup>
+			<h:outputText styleClass="required" value="* " />
+			<h:outputLabel for="scope"
+				value="#{messages['HesabMoeenTemplate_scope']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="mahyatMoeen" label="mahyatMoeen" value="#{hesabMoeenTemplate.entity.mahyatMoeen}"  size="50"/>
-	
-						<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-	 				<h:outputLabel for="scope" value="#{messages['HesabMoeenTemplate_scope']}" /> : 
-				</h:panelGroup>
-				<p:inputText  required="true" id="scope" label="scope" value="#{hesabMoeenTemplate.entity.scope}"  size="50"/>
-	
-		</p:panelGrid>
+		<p:inputText required="true" id="scope" label="scope"
+			value="#{hesabMoeenTemplate.entity.scope}" size="50" />
+
+	</p:panelGrid>
 	<h:commandButton action="#{hesabMoeenTemplate.qSave}"
 		value="#{messages['common_save']}" />
 
@@ -77,7 +85,8 @@
 	<a4j:region rendered="#{!hesabMoeenTemplate.quickLoaded}">
 		<t:inputHidden id="objectId" value="#{owner.quickLoadID}"
 			converter="javax.faces.Long" />
-		<a4j:commandButton id="loadCommand" action="#{hesabMoeenTemplate.load}"
+		<a4j:commandButton id="loadCommand"
+			action="#{hesabMoeenTemplate.load}"
 			style="display:none; visibility: hidden;"
 			value="#{messages['common_load']}" render="hesabMoeenTemplateInput" />
 	</a4j:region>

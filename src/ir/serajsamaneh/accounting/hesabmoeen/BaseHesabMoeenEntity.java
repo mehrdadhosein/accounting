@@ -26,7 +26,7 @@ public abstract class BaseHesabMoeenEntity  extends BaseEntity<Long>   implement
 	public static String PROP_HIDDEN = "hidden";
 	public static String PROP_SAAL_MAALI = "saalMaali";
 	public static String PROP_CODE = "code";
-	public static String PROP_MAHYAT_MOEEN = "mahyatMoeen";
+//	public static String PROP_MAHYAT_MOEEN = "mahyatMoeen";
 	public static String PROP_NAME = "name";
 	public static String PROP_HESAB_KOL = "hesabKol";
 	public static String PROP_ORGAN = "organ";
@@ -78,7 +78,7 @@ public abstract class BaseHesabMoeenEntity  extends BaseEntity<Long>   implement
 	private java.lang.String description;
 	private java.lang.Double bedehkar;
 	private java.lang.Double bestankr;
-	private java.lang.Integer mahyatMoeen;
+//	private java.lang.Integer mahyatMoeen;
 
 	// many to one
 	private ir.serajsamaneh.accounting.hesabkol.HesabKolEntity hesabKol;
@@ -92,13 +92,13 @@ public abstract class BaseHesabMoeenEntity  extends BaseEntity<Long>   implement
 
 
 
-	public java.lang.Integer getMahyatMoeen() {
-		return mahyatMoeen;
-	}
-
-	public void setMahyatMoeen(java.lang.Integer mahyatMoeen) {
-		this.mahyatMoeen = mahyatMoeen;
-	}
+//	public java.lang.Integer getMahyatMoeen() {
+//		return mahyatMoeen;
+//	}
+//
+//	public void setMahyatMoeen(java.lang.Integer mahyatMoeen) {
+//		this.mahyatMoeen = mahyatMoeen;
+//	}
 
 	/**
 	 * Return the unique identifier of this class
