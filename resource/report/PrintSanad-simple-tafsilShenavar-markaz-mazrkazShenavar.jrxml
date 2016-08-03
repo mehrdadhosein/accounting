@@ -296,7 +296,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement>
-					<font fontName="B Nazanin" size="9" isBold="false"/>
+					<font fontName="Tahoma" size="7" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>

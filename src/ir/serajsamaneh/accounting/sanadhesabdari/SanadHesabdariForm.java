@@ -362,37 +362,24 @@ public class SanadHesabdariForm extends
 	}
 
 	public String printSanad() {
-
-//		Map<String, Object> parameters = new HashMap<String, Object>();
+		
 		try {
-//			parameters.put("sanadHesabdari", getEntity());
-//			parameters.put("organ_name", getEntity().getOrgan().getName());
-//			parameters.put("tanzimKonandeh", getEntity().getTanzimKonnadeSanad());
-//			parameters.put("tayidKonandeh", getEntity().getTaiedKonnadeSanad());
-//			parameters.put("sanadDesc",  getEntity().getDescription());
-//			
-//			if(getEntity().getSanadType() != null)
-//				parameters.put("SanadType", getEntity().getSanadType().getName());
-//			
-//
-//			
-//			List<SanadHesabdariItemEntity> sanadItemList = getEntity()
-//					.getSanadHesabdariItem();
-//			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
-//					sanadItemList);
-//
-//			String filePath = "/WEB-INF/classes/report/PrintSanad.jrxml";
-//			String reportPath = getLocalFilePath(filePath);
-//
-//			JasperReport jasperReport;
-//			jasperReport = JasperCompileManager.compileReport(reportPath);
-//
-//			JasperPrint jasperPrint = JasperFillManager.fillReport(
-//					jasperReport, parameters, ds);
-//
-//			byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
 			
 			byte[] pdf=SanadHesabdariUtil.printSanad(getEntity());
+			String contentType = "application/pdf";
+			downloadStream(pdf, contentType, "Sanad_" + getEntity().getDesc()
+					+ ".pdf");
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+		logPrintAction(getEntity());
+		return null;
+	}
+	public String printSanad(String reportFileName) {
+
+		try {
+			
+			byte[] pdf=SanadHesabdariUtil.printSanad(getEntity(), reportFileName);
 			String contentType = "application/pdf";
 			downloadStream(pdf, contentType, "Sanad_" + getEntity().getDesc()
 					+ ".pdf");

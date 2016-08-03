@@ -71,16 +71,29 @@
 
 			</p:panelGrid>
 		</rich:panel>
-		<ui:include src="../common/sanadHesabdari.gridView.xhtml" />				
+		<ui:include src="../common/sanadHesabdari.gridView.xhtml" />
+<style>
+	.ui-menuitem
+	{
+		 width: auto !important;
+	}
+	.ui-menuitem-link{
+		width:100% !important;
+	}	
+</style>						
 	</ui:define>
 	<ui:define name="buttonsection">
 		
 		<h:commandButton styleClass=" gwt-Button" value="excel" image="/images/excelBtn.png"
 			 action="#{owner.exportSanadSanadToExcel}" />	
 			 
-		<h:commandButton styleClass=" gwt-Button"
-			 action="#{owner.printSanad}" image="/images/buttons/btn_print.png"
-		  />
+		<p:menuButton value="#{messages['SanadHesabdari_print']}"  dir="rtl" style="vertical-align:top">
+			<p:menuitem action="#{owner.printSanad('PrintSanad-simple')}" value="#{messages['SanadHesabdari_printSimple']}" ajax="false"   dir="rtl"/>		
+			<p:menuitem action="#{owner.printSanad('PrintSanad-simple-tafsilShenavar')}" value="#{messages['SanadHesabdari_printSanad-simple-tafsilShenavar']}" ajax="true"   dir="rtl"/>
+			<p:menuitem action="#{owner.printSanad('PrintSanad-simple-tafsilShenavar-markaz')}" value="#{messages['SanadHesabdari_printSanad-simple-tafsilShenavar-markaz']}"  ajax="true"  dir="rtl"/>
+			<p:menuitem action="#{owner.printSanad('PrintSanad-simple-tafsilShenavar-markaz-mazrkazShenavar')}" value="#{messages['SanadHesabdari_printSanad-simple-tafsilShenavar-markaz-mazrkazShenavar']}" ajax="false"   dir="rtl"/>		
+		</p:menuButton>
+		
 		<h:commandButton action="#{owner.back}" styleClass=" gwt-Button"
 			image="/images/listbtn.png"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"

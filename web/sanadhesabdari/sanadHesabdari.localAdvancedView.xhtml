@@ -94,7 +94,15 @@
 				<h:outputLink value="#{zamimehItem.path}" target="_blank" styleClass="CellClass">${zamimehItem.title}</h:outputLink>
 			</t:dataList>
 		</t:div>
-			
+<style>
+	.ui-menuitem
+	{
+		 width: auto !important;
+	}
+	.ui-menuitem-link{
+		width:100% !important;
+	}	
+</style>			
 	</ui:define>
 	<ui:define name="buttonsection">
 		<h:commandButton action="#{owner.localAdvancedEdit}" styleClass=" gwt-Button"
@@ -114,11 +122,13 @@
 				converter="javax.faces.Long" target="#{owner.ID}" />
 		</h:commandButton>
 		
-		<h:commandButton styleClass=" gwt-Button"
-			 action="#{owner.printSanad}" image="/images/buttons/btn_print.png"
-		  />
-		  
-
+		<p:menuButton value="#{messages['SanadHesabdari_print']}"  dir="rtl" style="vertical-align:top">
+			<p:menuitem action="#{owner.printSanad('PrintSanad-simple')}" value="#{messages['SanadHesabdari_printSimple']}" ajax="false"   dir="rtl"/>		
+			<p:menuitem action="#{owner.printSanad('PrintSanad-simple-tafsilShenavar')}" value="#{messages['SanadHesabdari_printSanad-simple-tafsilShenavar']}" ajax="true"   dir="rtl"/>
+			<p:menuitem action="#{owner.printSanad('PrintSanad-simple-tafsilShenavar-markaz')}" value="#{messages['SanadHesabdari_printSanad-simple-tafsilShenavar-markaz']}"  ajax="true"  dir="rtl"/>
+			<p:menuitem action="#{owner.printSanad('PrintSanad-simple-tafsilShenavar-markaz-mazrkazShenavar')}" value="#{messages['SanadHesabdari_printSanad-simple-tafsilShenavar-markaz-mazrkazShenavar']}" ajax="false"   dir="rtl"/>		
+		</p:menuButton>	
+						
 		<h:commandButton styleClass=" gwt-Button" value="excel" image="/images/excelBtn.png"
 			 action="#{owner.exportSanadSanadToExcel}" />		  
 
@@ -127,7 +137,7 @@
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['common_list']}" immediate="true" />
 
-			<a class="fancybox-buttons" data-fancybox-group="button" data-fancybox-type="iframe" data-width="100%" data-height="90%" href="../jersey/accountingRestFace/printSanadHesabdari?sanadHesabdariId=#{sanadHesabdari.entity.id}">#{messages['common_printPreview']}</a>
+			<button style="vertical-align:top" type="button" class="fancybox-buttons ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left" data-fancybox-group="button" data-fancybox-type="iframe" data-width="100%" data-height="90%" href="../jersey/accountingRestFace/printSanadHesabdari?sanadHesabdariId=#{sanadHesabdari.entity.id}">#{messages['common_printPreview']}</button>
 	</ui:define>
 </ui:composition>
 
