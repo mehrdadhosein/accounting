@@ -13,6 +13,7 @@ import ir.serajsamaneh.core.exception.NoOrganFoundException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.user.UserEntity;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.enumeration.YesNoEnum;
 
 import java.io.Serializable;
@@ -82,6 +83,8 @@ public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends 
 	
 	public Boolean checkIfMustValidateHesabMoeenHasChild(OrganEntity organ){
 		String validateHesabMoeenHasChild = getSystemConfigService().getValue(organ, null, "validateHesabMoeenHasChild");
+		if(validateHesabMoeenHasChild == null)
+			throw new FatalException(SerajMessageUtil.getMessage("Accounting_system_config_is_not_compelete"));
 		return YesNoEnum.getName(new Integer(validateHesabMoeenHasChild)).equals(YesNoEnum.YES);
 	}
 	
