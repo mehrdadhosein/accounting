@@ -119,6 +119,7 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 		
 
 		getMyService().save(getEntity(), getCurrentOrgan());
+		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
 	

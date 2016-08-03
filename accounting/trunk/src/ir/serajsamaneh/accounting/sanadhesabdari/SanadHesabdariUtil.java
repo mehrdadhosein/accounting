@@ -407,6 +407,10 @@ public class SanadHesabdariUtil {
 	}
 
 	public static byte[] printSanad(SanadHesabdariEntity sanadHesabdariEntity) throws JRException {
+		String reportFileName = "PrintSanad";
+		return printSanad(sanadHesabdariEntity, reportFileName);
+	}
+	public static byte[] printSanad(SanadHesabdariEntity sanadHesabdariEntity, String reportFileName) throws JRException {
 
 		Map<String, Object> parameters = new HashMap<String, Object>();
 //		try {
@@ -427,7 +431,8 @@ public class SanadHesabdariUtil {
 					sanadItemList);
 
 //			String filePath = "/WEB-INF/classes/report/PrintSanad.jrxml";
-			String reportPath = SanadHesabdariUtil.class.getClassLoader().getResource("/report/PrintSanad.jrxml").getFile();
+			
+			String reportPath = SanadHesabdariUtil.class.getClassLoader().getResource("/report/" + reportFileName+".jrxml").getFile();
 //			String reportPath = getLocalFilePath(filePath);
 
 			JasperReport jasperReport;

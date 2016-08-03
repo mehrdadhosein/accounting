@@ -623,8 +623,11 @@ public class SanadHesabdariService extends
 			
 			HesabKolEntity hesabKol = getHesabKolService().load(sanadHesabdariItemEntity.getHesabKol().getId());
 			MahyatKolEnum mahyatKol = hesabKol.getMahyatKol();
-			if(mahyatKol.equals(MahyatKolEnum.Undefined))
-				throw new MahyatKolNotDefinedException(hesabKol);
+			
+			if(hesabKol.getHesabGroup().getType().equals(HesabTypeEnum.EXPENSE) || hesabKol.getHesabGroup().getType().equals(HesabTypeEnum.INCOME))
+				if(mahyatKol.equals(MahyatKolEnum.Undefined))
+					throw new MahyatKolNotDefinedException(hesabKol);
+			
 			hesabKol.setBedehkar(hesabKol.getBedehkar()!= null ? hesabKol.getBedehkar()+bedehkar  : bedehkar);
 			hesabKol.setBestankr(hesabKol.getBestankr()!= null ? hesabKol.getBestankr()+bestankar : bestankar);
 
@@ -834,8 +837,10 @@ public class SanadHesabdariService extends
 			
 			HesabKolEntity hesabKol = sanadHesabdariItemEntity.getHesabKol();
 			MahyatKolEnum mahyatKol = hesabKol.getMahyatKol();
-			if(mahyatKol.equals(MahyatKolEnum.Undefined))
-				throw new MahyatKolNotDefinedException(hesabKol);
+			
+			if(hesabKol.getHesabGroup().getType().equals(HesabTypeEnum.EXPENSE) || hesabKol.getHesabGroup().getType().equals(HesabTypeEnum.INCOME))
+				if(mahyatKol.equals(MahyatKolEnum.Undefined))
+					throw new MahyatKolNotDefinedException(hesabKol);
 
 			hesabKol.setBedehkar(hesabKol.getBedehkar()-bedehkar);
 			hesabKol.setBestankr(hesabKol.getBestankr()-bestankar);

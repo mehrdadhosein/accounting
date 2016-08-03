@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazKol" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazKol" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="00a9b8a6-422d-47d2-9a86-5ba5a812137e">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="17"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="title" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="12" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
 	<style name="reportTitle" hAlign="Center" vAlign="Middle" fontName="B Tir" fontSize="16" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BTitr.ttf" pdfEncoding="Identity-H"/>
@@ -51,23 +51,23 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="100" splitType="Stretch">
+		<band height="100">
 			<rectangle>
-				<reportElement x="0" y="0" width="802" height="100"/>
+				<reportElement uuid="ccebe3c0-d2aa-4f6d-be2d-8dcae180243e" x="0" y="0" width="555" height="88"/>
 			</rectangle>
 			<textField>
-				<reportElement x="0" y="0" width="802" height="29"/>
+				<reportElement uuid="1e529af1-1699-4958-ac0d-afc16bbbfa82" x="0" y="0" width="555" height="29"/>
 				<textElement>
 					<font fontName="B Titr" size="14" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{organName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{organName}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="13" y="0" width="75" height="88"/>
-				<imageExpression class="java.lang.String"><![CDATA["report/images/arm.jpg"]]></imageExpression>
+				<reportElement uuid="63376fe4-edd5-4de7-89de-31f4dbe58b42" x="13" y="0" width="75" height="88"/>
+				<imageExpression><![CDATA["report/images/arm.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="reportTitle" x="0" y="29" width="802" height="29"/>
+				<reportElement uuid="acf2e0ad-d293-436c-9bbd-e25cb6906312" style="reportTitle" x="0" y="29" width="555" height="29"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="B Titr" size="20" isBold="true" isStrikeThrough="false" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
@@ -75,48 +75,36 @@
 			</staticText>
 		</band>
 	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="24" splitType="Stretch"/>
-	</columnHeader>
 	<detail>
-		<band height="303" splitType="Stretch">
+		<band height="600" splitType="Stretch">
 			<subreport>
-				<reportElement x="402" y="0" width="400" height="303"/>
+				<reportElement uuid="098d60ac-2fd4-458a-8699-598f77293827" x="280" y="0" width="275" height="600"/>
 				<subreportParameter name="title"/>
 				<subreportParameter name="organName"/>
 				<dataSourceExpression><![CDATA[$P{tarazKolDarayi}]]></dataSourceExpression>
-				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{tarazKolDarayiJasperReport}]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{tarazKolDarayiJasperReport}]]></subreportExpression>
 			</subreport>
-			<subreport>
-				<reportElement x="0" y="0" width="400" height="150"/>
+			<subreport runToBottom="false">
+				<reportElement uuid="ae230931-3c42-4f5c-b18c-b4049fb0c3a4" x="0" y="0" width="280" height="300"/>
 				<subreportParameter name="title"/>
 				<subreportParameter name="organName"/>
 				<dataSourceExpression><![CDATA[$P{tarazKolBedehi}]]></dataSourceExpression>
-				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{tarazKolBedehiJasperReport}]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{tarazKolBedehiJasperReport}]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="0" y="150" width="400" height="153"/>
+				<reportElement uuid="658a8c3d-8d39-4069-885a-e0e5b7133d90" x="0" y="300" width="280" height="300"/>
 				<dataSourceExpression><![CDATA[$P{tarazKolSarmaye}]]></dataSourceExpression>
-				<subreportExpression class="net.sf.jasperreports.engine.JasperReport"><![CDATA[$P{tarazKolSarmayehJasperReport}]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{tarazKolSarmayehJasperReport}]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="802" height="20"/>
+				<reportElement uuid="9955ac43-a9f2-42fe-af92-280a79b683d7" x="0" y="0" width="555" height="20"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
 </jasperReport>

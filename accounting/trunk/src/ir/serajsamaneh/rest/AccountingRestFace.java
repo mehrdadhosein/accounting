@@ -12,8 +12,6 @@ import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 
-import java.util.UUID;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -143,7 +141,6 @@ public class AccountingRestFace {
 //			return Response.ok(tempPDF, MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","inline; filename = doc.pdf").build();
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

@@ -200,17 +200,15 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 	public SaalMaaliEntity getPreviousSaalMaali(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(saalMaaliEntity.getStartDate());
-//		Map<String, Object> filter = new HashMap<String, Object>();
-//		filter.put("organ.id@eq", currentOrgan.getId());
 		calendar.add(Calendar.DAY_OF_YEAR, -1);
-//		filter.put("endDate@eq", calendar.getTime());
-		
 		return getSaalmaaliByDate(calendar.getTime(), currentOrgan);
-		
-//		List<SaalMaaliEntity> dataList = getDataList(null, filter);
-//		if(dataList.size() == 1)
-//			return dataList.get(0);
-//		return null;
+	}
+	
+	public SaalMaaliEntity getPreviousSaalMaali(Date tarikh, OrganEntity currentOrgan){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(tarikh);
+		calendar.add(Calendar.DAY_OF_YEAR, -1);
+		return getSaalmaaliByDate(calendar.getTime(), currentOrgan);
 	}
 	
 	@Transactional
@@ -248,32 +246,37 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 		}
 	}
 	
-	public void checkSaalMaaliStartDate(SaalMaaliEntity entity, OrganEntity currentOrgan)
-	{   
-		SaalMaaliEntity lastSaalMaali = getMyDAO().getLastSaalMaali(currentOrgan);
-		if(lastSaalMaali == null)
+	public void checkSaalMaaliStartDate(SaalMaaliEntity entity, OrganEntity currentOrgan){
+		try{
+			SaalMaaliEntity previousSaalMaali = getPreviousSaalMaali(entity.getStartDate(), currentOrgan);
+
+//		SaalMaaliEntity lastSaalMaali = getMyDAO().getLastSaalMaali(currentOrgan);
+//		if(previousSaalMaali == null)
+//			return;
+
+			Calendar previousSaalMaaliEndDateCal = Calendar.getInstance();
+			previousSaalMaaliEndDateCal.setTime(previousSaalMaali.getEndDate());
+			previousSaalMaaliEndDateCal.set(Calendar.HOUR, 0);
+			previousSaalMaaliEndDateCal.set(Calendar.MINUTE, 0);
+			previousSaalMaaliEndDateCal.set(Calendar.SECOND, 0);
+			previousSaalMaaliEndDateCal.set(Calendar.MILLISECOND, 0);
+			previousSaalMaaliEndDateCal.set(Calendar.AM_PM,Calendar.AM);
+			
+			Calendar currentSaalMaaliCal = Calendar.getInstance();
+			currentSaalMaaliCal.setTime(entity.getStartDate());
+			currentSaalMaaliCal.set(Calendar.HOUR, 0);
+			currentSaalMaaliCal.set(Calendar.MINUTE, 0);
+			currentSaalMaaliCal.set(Calendar.SECOND, 0);
+			currentSaalMaaliCal.set(Calendar.MILLISECOND, 0);
+			currentSaalMaaliCal.set(Calendar.AM_PM,Calendar.AM);
+			
+	
+			currentSaalMaaliCal.add(Calendar.DAY_OF_YEAR, -1);
+			if(!currentSaalMaaliCal.getTime().equals(previousSaalMaaliEndDateCal.getTime()))
+				throw new SaalMaaliStartDateException();
+		}catch(NoSaalMaaliFoundException e){
 			return;
-
-		Calendar lastSaalMaaliEndDateCal = Calendar.getInstance();
-		lastSaalMaaliEndDateCal.setTime(lastSaalMaali.getEndDate());
-		lastSaalMaaliEndDateCal.set(Calendar.HOUR, 0);
-		lastSaalMaaliEndDateCal.set(Calendar.MINUTE, 0);
-		lastSaalMaaliEndDateCal.set(Calendar.SECOND, 0);
-		lastSaalMaaliEndDateCal.set(Calendar.MILLISECOND, 0);
-		lastSaalMaaliEndDateCal.set(Calendar.AM_PM,Calendar.AM);
-		
-		Calendar entityStartDateCal = Calendar.getInstance();
-		entityStartDateCal.setTime(entity.getStartDate());
-		entityStartDateCal.set(Calendar.HOUR, 0);
-		entityStartDateCal.set(Calendar.MINUTE, 0);
-		entityStartDateCal.set(Calendar.SECOND, 0);
-		entityStartDateCal.set(Calendar.MILLISECOND, 0);
-		entityStartDateCal.set(Calendar.AM_PM,Calendar.AM);
-		
-
-		entityStartDateCal.add(Calendar.DAY_OF_YEAR, -1);
-		if(!entityStartDateCal.getTime().equals(lastSaalMaaliEndDateCal.getTime()))
-			throw new SaalMaaliStartDateException();
+		}		
 	}
 
 	public void checkSaalMaaliIsInProgress(SaalMaaliEntity saalmaali) {

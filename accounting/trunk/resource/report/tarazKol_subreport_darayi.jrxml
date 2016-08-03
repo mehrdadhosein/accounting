@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazKol_subreport_darayi" pageWidth="420" pageHeight="800" columnWidth="420" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" uuid="637c79ca-895f-4855-a4b6-f927cd4d0fdd">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazKol_subreport_darayi" pageWidth="275" pageHeight="600" columnWidth="275" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" uuid="637c79ca-895f-4855-a4b6-f927cd4d0fdd">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -34,7 +34,7 @@
 	<title>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement style="reportTitle" x="0" y="0" width="380" height="30" uuid="95ace4b3-3b88-4b3d-bcec-30608e2fbbfe"/>
+				<reportElement uuid="95ace4b3-3b88-4b3d-bcec-30608e2fbbfe" style="reportTitle" x="0" y="0" width="275" height="30"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -58,7 +58,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="348" y="0" width="32" height="20" uuid="e7f85d1b-7b2a-4149-8635-dada5ef45048"/>
+				<reportElement uuid="e7f85d1b-7b2a-4149-8635-dada5ef45048" style="text" stretchType="RelativeToTallestObject" x="248" y="0" width="27" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -66,10 +66,11 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$V{rowCount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="150" height="20" uuid="89b7c926-6595-41c0-acd9-4a00863232f7"/>
+				<reportElement uuid="89b7c926-6595-41c0-acd9-4a00863232f7" x="0" y="0" width="100" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -77,10 +78,11 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{mandehByMahiyatHesabStr}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="150" y="0" width="198" height="20" uuid="7ebdcf35-fbff-4db7-a4c2-01074c29bb4d"/>
+				<reportElement uuid="7ebdcf35-fbff-4db7-a4c2-01074c29bb4d" x="100" y="0" width="148" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -88,6 +90,7 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{hesabKol}.getName()]]></textFieldExpression>
 			</textField>
 		</band>
@@ -96,9 +99,9 @@
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="56" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="150" y="0" width="100" height="20" uuid="89bef9be-c825-41b3-8b4d-06b564cc5927"/>
+				<reportElement uuid="89bef9be-c825-41b3-8b4d-06b564cc5927" x="100" y="0" width="100" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -106,10 +109,11 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<text><![CDATA[جمع کل]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="0" width="150" height="20" uuid="c40978a4-7de9-4ee1-bb58-5508af02959b"/>
+				<reportElement uuid="c40978a4-7de9-4ee1-bb58-5508af02959b" x="0" y="0" width="100" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -117,6 +121,7 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{darayiBedehkarSum})]]></textFieldExpression>
 			</textField>
 		</band>
