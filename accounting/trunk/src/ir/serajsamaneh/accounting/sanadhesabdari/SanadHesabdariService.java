@@ -348,7 +348,7 @@ public class SanadHesabdariService extends
 		try {
 			if (isNew) {
 				ActionLogUtil.logAction(SerajMessageUtil
-						.getMessage(ActionTypeEnum.CREATE.name()), getEntityTitle(),
+						.getMessage(ActionTypeEnum.CREATE.nameWithClass()), getEntityTitle(),
 						"", "",sanadHesabdariEntity.getCompleteInfo());
 			} else {
 				String differences = getDifferences(sanadHesabdariEntity);
@@ -389,7 +389,7 @@ public class SanadHesabdariService extends
 //			itemDesc+=SerajMessageUtil.getMessage("SanadHesabdariItem_description")+":"+SHIE.getDescription()+" , ";
 //			itemDesc+="]";
 //		}
-//		String action=(entity.getID()!=null?(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.name())):(SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.nameWithClass())));
+//		String action=(entity.getID()!=null?(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass())):(SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.nameWithClass())));
 //		ActionLogUtil.logAction(action,
 //				SerajMessageUtil.getMessage("SanadHesabdariItem_list"),
 //				"",
