@@ -245,7 +245,9 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			entity.getChilds().add(load(tafsiliId));
 		}
 		
-		entity.getParents().clear();
+		if(entity.getParents()!=null)
+			entity.getParents().clear();
+		
 		for (Long tafsiliId : parentTafsiliIds) {
 			entity.getParents().add(load(tafsiliId));
 		}

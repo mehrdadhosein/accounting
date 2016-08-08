@@ -124,9 +124,9 @@ public class HesabKolTemplateService extends
 	}
 
 	@Transactional(readOnly = false)
-	public void createHesabKolTemplate(String hesabKolCode, String hesabKolName,
+	public HesabKolTemplateEntity createHesabKolTemplate(String hesabKolCode, String hesabKolName,
 			String hesabGroupCode, String mahyatKol, OrganEntity organEntity) {
-		getMyDAO().createHesabKolTemplate(hesabKolCode, hesabKolName, hesabGroupCode, mahyatKol, organEntity);
+		return getMyDAO().createHesabKolTemplate(hesabKolCode, hesabKolName, hesabGroupCode, mahyatKol, organEntity);
 	}
 
 	
@@ -142,7 +142,7 @@ public class HesabKolTemplateService extends
 		return getMyDAO().getHesabKolTemplateByCode(hesabCode, organEntity);
 	}
 
-	public HesabKolTemplateEntity load(String code, OrganEntity organEntity) {
+	public HesabKolTemplateEntity loadHierarchical(String code, OrganEntity organEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
@@ -150,6 +150,14 @@ public class HesabKolTemplateService extends
 		return load(null, localFilter);
 	}
 
+	public HesabKolTemplateEntity loadLocal(String code, OrganEntity organEntity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("code@eq", code);
+		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
+		localFilter.put("organ.id@eq", organEntity.getId());
+		return load(null, localFilter);
+	}
+	
 
 	public List<HesabKolTemplateEntity> getCurrentHesabKolTemplateList(OrganEntity organEntity) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();

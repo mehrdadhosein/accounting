@@ -133,7 +133,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 	}
 
 	@Transactional(readOnly = false)
-	public void createHesabKolTemplate(String hesabKolCode, String hesabKolName,
+	public HesabKolTemplateEntity createHesabKolTemplate(String hesabKolCode, String hesabKolName,
 			String hesabGroupCode, String mahyatKol, OrganEntity organEntity) {
 		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(hesabGroupCode);
 		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateByCode(hesabKolCode, organEntity);
@@ -148,6 +148,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 		hesabKolTemplateEntity.setOrgan(organEntity);
 		saveOrUpdate(hesabKolTemplateEntity);
 		getLogger().info("hesabKol created : "+hesabKolCode);
+		return hesabKolTemplateEntity;
 	}
 	
 
@@ -191,7 +192,17 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 
 		if(entity.getOrgan()!=null && entity.getOrgan().getId()!=null)
 			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrgan());
+
+		checkHesabTemplateUniqueNess(entity);
+		
 		super.saveOrUpdate(entity);
+	}
+
+	private void checkHesabTemplateUniqueNess(HesabKolTemplateEntity entity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("organ.id@eq", entity.getOrgan().getId());
+		checkUniqueNess(entity, HesabKolTemplateEntity.PROP_CODE, entity.getCode(), localFilter, false);
+		checkUniqueNess(entity, HesabKolTemplateEntity.PROP_NAME, entity.getName(), localFilter, false);
 	}
 
 	@Override
@@ -201,6 +212,9 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 
 		if(entity.getOrgan()!=null && entity.getOrgan().getId()!=null)
 			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrgan());
+
+		checkHesabTemplateUniqueNess(entity);
+		
 		super.save(entity);
 	}
 
