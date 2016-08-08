@@ -1,5 +1,6 @@
 package ir.serajsamaneh.accounting.hesabmoeentemplate;
 
+import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
@@ -26,6 +27,13 @@ public class HesabMoeenTemplateDAO  extends BaseHibernateDAO<HesabMoeenTemplateE
 			throw new IllegalStateException();
 	}
 
+	private void checkHesabTemplateUniqueNess(HesabMoeenTemplateEntity entity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("organ.id@eq", entity.getOrgan().getId());
+		checkUniqueNess(entity, HesabMoeenTemplateEntity.PROP_CODE, entity.getCode(), localFilter, false);
+		checkUniqueNess(entity, HesabMoeenTemplateEntity.PROP_NAME, entity.getName(), localFilter, false);
+	}
+	
 	@Override
 	public void saveOrUpdate(HesabMoeenTemplateEntity entity) {
 		
@@ -36,6 +44,7 @@ public class HesabMoeenTemplateDAO  extends BaseHibernateDAO<HesabMoeenTemplateE
 			HesabTemplateRelationsUtil.resetAccountingMarkazTemplateMap(entity.getOrgan());
 		}
 
+		checkHesabTemplateUniqueNess(entity);
 		super.saveOrUpdate(entity);
 	}
 
@@ -48,6 +57,7 @@ public class HesabMoeenTemplateDAO  extends BaseHibernateDAO<HesabMoeenTemplateE
 			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(entity.getOrgan());
 			HesabTemplateRelationsUtil.resetAccountingMarkazTemplateMap(entity.getOrgan());
 		}
+		checkHesabTemplateUniqueNess(entity);
 		super.save(entity);
 	}
 }

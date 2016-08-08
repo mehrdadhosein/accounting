@@ -1420,6 +1420,8 @@ public class SanadHesabdariForm extends
 			String csvFile = dir.getAbsolutePath() + "/" + fileName;
 			importSanadHesabdariFromCSVFileV2(csvFile);
 		}
+		
+		clearPage();
 	}
 	public void importSanadHesabdariFromCSVFileV2(String csvFile){
 		System.out.println("importing : "+csvFile);
@@ -1483,7 +1485,7 @@ public class SanadHesabdariForm extends
         		sanadHesabdariEntity = new SanadHesabdariEntity();
         		sanadHesabdariEntity.setSaalMaali(getCurrentUserActiveSaalMaali());
         		sanadHesabdariEntity.setSerial(sanadHesabdariSerial);
-
+        		sanadHesabdariEntity.setTarikhSanad(getCurrentUserActiveSaalMaali().getStartDate());
         		if (sanadHesabdariEntity.getSanadHesabdariItem() == null)
         			sanadHesabdariEntity.setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
         		else

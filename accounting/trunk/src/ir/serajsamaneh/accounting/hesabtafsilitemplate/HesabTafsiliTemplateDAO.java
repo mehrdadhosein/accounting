@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
 import ir.serajsamaneh.accounting.hesabgroup.HesabGroupDAO;
+import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateDAO;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
@@ -79,9 +80,16 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("scope@eq", HesabScopeEnum.GLOBAL);
 		checkUniqueNess(hesabTafsiliTemplateEntity, HesabTafsiliTemplateEntity.PROP_CODE, hesabTafsiliTemplateEntity.getCode(),	localFilter, false);
-		super.saveOrUpdate(hesabTafsiliTemplateEntity);
+		saveOrUpdate(hesabTafsiliTemplateEntity);
 	}
 
+	private void checkHesabTemplateUniqueNess(HesabTafsiliTemplateEntity entity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("organ.id@eq", entity.getOrgan().getId());
+		checkUniqueNess(entity, HesabTafsiliTemplateEntity.PROP_CODE, entity.getCode(), localFilter, false);
+		checkUniqueNess(entity, HesabTafsiliTemplateEntity.PROP_NAME, entity.getName(), localFilter, false);
+	}
+	
 	public HesabTafsiliTemplateEntity getGlobalHesabTafsiliByCode(String hesabCode){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
@@ -101,6 +109,8 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 			HesabTemplateRelationsUtil.resetTafsiliChildTemplateMap(entity.getOrgan());
 			HesabTemplateRelationsUtil.resetTafsiliAccountingMarkazChildTemplateMap(entity.getOrgan());
 		}
+		
+		checkHesabTemplateUniqueNess(entity);
 		super.saveOrUpdate(entity);
 	}
 
@@ -112,6 +122,7 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 			HesabTemplateRelationsUtil.resetTafsiliChildTemplateMap(entity.getOrgan());
 			HesabTemplateRelationsUtil.resetTafsiliAccountingMarkazChildTemplateMap(entity.getOrgan());
 		}
+		checkHesabTemplateUniqueNess(entity);
 		super.save(entity);
 	}
 }

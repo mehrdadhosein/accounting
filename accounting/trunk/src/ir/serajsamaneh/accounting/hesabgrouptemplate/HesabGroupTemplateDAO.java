@@ -1,5 +1,6 @@
 package ir.serajsamaneh.accounting.hesabgrouptemplate;
 
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
 import ir.serajsamaneh.core.organ.OrganEntity;
 
@@ -32,5 +33,23 @@ public class HesabGroupTemplateDAO  extends BaseHibernateDAO<HesabGroupTemplateE
 	}
 	
 
+	private void checkHesabTemplateUniqueNess(HesabGroupTemplateEntity entity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("organ.id@eq", entity.getOrgan().getId());
+		checkUniqueNess(entity, HesabGroupTemplateEntity.PROP_CODE, entity.getCode(), localFilter, false);
+		checkUniqueNess(entity, HesabGroupTemplateEntity.PROP_NAME, entity.getName(), localFilter, false);
+	}
+	
+	@Override
+	public void saveOrUpdate(HesabGroupTemplateEntity entity) {
+		checkHesabTemplateUniqueNess(entity);
+		super.saveOrUpdate(entity);
+	}
+	
+	@Override
+	public void save(HesabGroupTemplateEntity entity) {
+		checkHesabTemplateUniqueNess(entity);
+		super.save(entity);
+	}
 
 }
