@@ -48,7 +48,7 @@
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="moeens" width="220px" label="#{messages['HesabClassification_moeens']}"
 						selectedIds="#{owner.moeenIds}" entity="HesabMoeenTemplate"
-						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
 				</h:panelGroup>
 
 
@@ -59,7 +59,7 @@
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="tafsilies" width="220px" label="#{messages['HesabClassification_hesabTafsilies']}"
 						selectedIds="#{owner.tafsiliIds}" entity="HesabTafsiliTemplate"
-						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
 				</h:panelGroup>
 								
 				
