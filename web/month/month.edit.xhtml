@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="Month_edit_create" />
+	<ui:param name="owner" value="#{month}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+
+		<rich:panel  styleClass="emptyDiv" bodyClass="emptyDiv" >
+				<t:panelGrid columns="2" width="90%"
+					columnClasses="viewLableCol,inputCol,viewLableCol,inputCol"
+					styleClass="inputForm">
+
+
+				<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="saalMaali" value="#{messages['Month_saalMaali']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="saalMaali"  required="true" descWidth="250" 
+							identity="#{month.entity.saalMaali.id}"
+							desc="#{month.entity.saalMaali.desc}"
+					  		url="${request.contextPath}/saalmaali/saalMaali.lov.jsf?pId=saalMaali" />
+				</h:panelGroup>				  		
+				
+					
+
+					<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="name" value="#{messages['Month_name']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="name" label="name" value="#{month.entity.name}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="description" value="#{messages['Month_description']}" /> : 
+				</h:panelGroup>
+				<h:inputText  required="true" id="description" label="description" value="#{month.entity.description}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="startDate" value="#{messages['Month_startDate']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker  required="true" id="startDate" value="#{month.entity.startDate}" lang="Shamsi"></custom:DateTimePicker>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="endDate" value="#{messages['Month_endDate']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker  required="true" id="endDate" value="#{month.entity.endDate}" lang="Shamsi"></custom:DateTimePicker>
+	
+				</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+</ui:composition>
+
+</html>	

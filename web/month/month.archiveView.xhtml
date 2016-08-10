@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="Month_view" />
+	<ui:param name="owner" value="#{month}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<rich:panel	 styleClass="emptyDiv" bodyClass="emptyDiv">
+			<t:panelGrid columns="2" width="90%"
+				columnClasses="viewLableCol,viewValueCol,viewLableCol,viewValueCol"
+				styleClass="inputForm">
+
+
+
+				<h:outputLabel for="saalMaali" value="#{messages['Month_saalMaali']} : " />
+				<h:outputText id="saalMaali" 
+					value="#{month.entity.saalMaali.desc}" />
+				  		
+				
+					
+
+					<h:outputLabel for="name" value="#{messages['Month_name']} : " />
+				<h:outputText id="name" value="#{month.entity.name}" />
+	
+						<h:outputLabel for="description" value="#{messages['Month_description']} : " />
+				<h:outputText id="description" value="#{month.entity.description}" />
+	
+						<h:outputLabel for="startDate" value="#{messages['Month_startDate']} : " />
+					<h:outputText id="startDateLable" 
+					value="#{month.entity.startDateFA}" />
+	
+	
+						<h:outputLabel for="endDate" value="#{messages['Month_endDate']} : " />
+					<h:outputText id="endDateLable" 
+					value="#{month.entity.endDateFA}" />
+	
+	
+				</t:panelGrid>
+		</rich:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton action="#{owner.back}" styleClass=" gwt-Button"
+			image="/images/listbtn.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_list']}" immediate="true">
+		</h:commandButton>
+
+	</ui:define>	
+</ui:composition>
+
+</html>	
