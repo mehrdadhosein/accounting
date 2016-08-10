@@ -83,7 +83,7 @@ public class HesabMoeenTemplateForm extends
 
 		if (isHierarchical !=null && isHierarchical.equals("true")){
 			getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-			getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+//			getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 			params.put("isLocal","false");
 		}
 		
