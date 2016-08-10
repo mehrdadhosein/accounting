@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition template="/template/template-createLov.xhtml">
+	<ui:param name="title" value="Month_list" />
+	<ui:param name="owner" value="#{month}" />
+	<ui:param name="lovSearchpage" value="/month/month.lovExampleForm.xhtml" />
+	
+	<ui:define name="listsection">
+		<rich:dataTable id="months" value="#{month.dataModel}"  headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" rows="#{month.rowsPerPage}" style="width:97%" align="center">
+	
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['Month_name']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.name}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['Month_description']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.description}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['Month_endDate']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.endDate}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['Month_startDate']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.startDate}" />
+			</rich:column>
+		
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['Month_saalMaali']}" />
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.saalMaali}" />
+			</rich:column>
+						
+			
+			<rich:column>
+				<h:commandButton value="#{messages['lov_select']}"
+					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
+			</rich:column>	
+		</rich:dataTable>
+		<custom:scroller onbegin="showLoading();" oncomplete="hideLoading();"		for="months"></custom:scroller>		
+
+	</ui:define>
+	<ui:define name="quickCreateSection">
+		<ui:include src="/month/month.quickCreate.xhtml" />
+		<script>
+			function copyInputs(){
+			
+													document.getElementById('serajForm:saalMaalihidden').value=document.getElementById('serajForm:saalMaaliSearchhidden').value;
+					document.getElementById('serajForm:saalMaalitext').value=document.getElementById('serajForm:saalMaaliSearchtext').value;
+								
+																			document.getElementById('serajForm:name').value=document.getElementById('serajForm:nameSearch').value;
+																				document.getElementById('serajForm:description').value=document.getElementById('serajForm:descriptionSearch').value;
+																				document.getElementById('serajForm:startDate').value=document.getElementById('serajForm:startDateSearch').value;
+																				document.getElementById('serajForm:endDate').value=document.getElementById('serajForm:endDateSearch').value;
+												
+			}
+			function copyCreateToSearch(){
+													document.getElementById('serajForm:saalMaaliSearchhidden').value=document.getElementById('serajForm:saalMaalihidden').value;
+					document.getElementById('serajForm:saalMaaliSearchtext').value=document.getElementById('serajForm:saalMaalitext').value;
+								
+																			document.getElementById('serajForm:nameSearch').value=document.getElementById('serajForm:name').value;
+																				document.getElementById('serajForm:descriptionSearch').value=document.getElementById('serajForm:description').value;
+																				document.getElementById('serajForm:startDateSearch').value=document.getElementById('serajForm:startDate').value;
+																				document.getElementById('serajForm:endDateSearch').value=document.getElementById('serajForm:endDate').value;
+												}
+		</script>
+		
+	</ui:define>
+</ui:composition>
+</html>
