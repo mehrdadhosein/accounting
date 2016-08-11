@@ -1,7 +1,9 @@
 package ir.serajsamaneh.accounting.month;
 
 import java.io.Serializable;
+
 import ir.serajsamaneh.core.base.BaseEntity;
+import ir.serajsamaneh.core.organ.OrganEntity;
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
 
@@ -27,6 +29,7 @@ public abstract class BaseMonthEntity  extends BaseEntity<Long>   implements Ser
 	public static String PROP_START_DATE = "startDate";
 	public static String PROP_ID = "id";
 	public static String PROP_SAAL_MAALI = "saalMaali";
+	public static String PROP_MONTH = "month";
 
 
 	// constructors
@@ -71,8 +74,17 @@ public abstract class BaseMonthEntity  extends BaseEntity<Long>   implements Ser
 
 	// many to one
 	private ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity saalMaali;
+	private OrganEntity organ;
 
 
+
+	public OrganEntity getOrgan() {
+		return organ;
+	}
+
+	public void setOrgan(OrganEntity organ) {
+		this.organ = organ;
+	}
 
 	/**
 	 * Return the unique identifier of this class

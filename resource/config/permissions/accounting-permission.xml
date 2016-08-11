@@ -284,7 +284,21 @@
 				<permission id="7202" action="tarazAccountingMarkazShenavarAzmayeshi.four" name="تراز مرکز  شناور آزمایشی-چهار ستوني"	role="1" />
 				<permission id="7203" action="tarazAccountingMarkazShenavarAzmayeshi.six" name="تراز مرکز  شناور آزمایشی-شش ستوني"	role="1" />
 				<permission id="7204" action="tarazAccountingMarkazShenavarAzmayeshi.eight" name="تراز مرکز  شناور آزمایشی-هشت ستوني"	role="1" />
-		</classification>		
+		</classification>	
+		
+				<classification id="730" name="ماه">
+				<permission id="7301" action="Month.create" name="ساخت   ماه"						role="1" />
+				<permission id="7302" action="Month.delete" name="حذف ماه"						role="1" />
+				<permission id="7303" action="Month.view" name="مشاهده  ماه"						role="1" />
+				<permission id="7304" action="month.edit" name="صفحه ویرایش  ماه"				role="1" />
+				<permission id="7305" action="month.list" name="صفحه فهرست  ماه"					role="1" />
+				<permission id="7306" action="month.lov" name="صفحه انتخاب  ماه"					role="1" />
+				<permission id="7307" action="month.quickCreate" name="صفحه ساخت سریع  ماه"		role="1" />
+				<permission id="7308" action="month.view" name="صفحه مشاهده  ماه"				role="1" />
+				<permission id="7309" action="month.localList" name="صفحه فهرست محلی  ماه"		role="1" />
+				<permission id="7310" action="month.localEdit" name="صفحه ویرایش محلی  ماه"		role="1" />
+				<permission id="7312" action="month.localView" name="صفحه مشاهده محلی  ماه"		role="1" />
+			</classification>		
 	</classification>
 
 

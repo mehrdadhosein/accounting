@@ -6,21 +6,10 @@ import javax.faces.model.DataModel;
 
 public class MonthForm   extends BaseEntityForm<MonthEntity,Long>  {
 
-
-
-
-
-
 	@Override
 	protected MonthService getMyService() {
 		return monthService;
 	}
-
-
-
-
-
-	
 	MonthService monthService;
 	
 	public void setMonthService(MonthService monthService) {
@@ -33,10 +22,10 @@ public class MonthForm   extends BaseEntityForm<MonthEntity,Long>  {
 
 
 	public String localSave() {
-		save();
+		getEntity().setOrgan(getCurrentOrgan());
+		getMyService().save(getEntity(),getCurrentOrgan());
 		return getLocalViewUrl();
 	}
-
 	public DataModel getLocalDataModel() {
 		return getDataModel();
 	}
