@@ -18,6 +18,11 @@
       <many-to-one  name='saalMaali' class='ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity' not-null='true' cascade='none' foreign-key='fk_month_saal_maali_id'>
 	         <column name='saal_maali_id'/>
       </many-to-one>
+      
+      <many-to-one name='organ' class='ir.serajsamaneh.core.organ.OrganEntity'
+			not-null='true' cascade='none' foreign-key='fk_month_organ_id'>
+			<column name='organ_id' />
+		</many-to-one>
    </class>
 
 </hibernate-mapping>

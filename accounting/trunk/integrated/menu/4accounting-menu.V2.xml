@@ -6,6 +6,8 @@
 				icon="images/menu/file-info-icon.png">
 				<MenuItem id="saalMaalilist"  value="سال مالی" valueClick="saalmaali/saalMaali.list.jsf"
 					permission="saalMaali.list" icon="images/menu/saalMali-icon.png" />
+				<MenuItem id="monthlist"  value="ماه" valueClick="month/month.localList.jsf"
+					permission="month.list" icon="images/menu/saalMali-icon.png" />
 				<MenuItem id="hesabGrouplist" value="گروه حساب" valueClick="hesabgroup/hesabGroup.localList.jsf"
 					permission="hesabGroup.localList" icon="images/menu/folders-icon.png" />
 				<MenuItem id="hesabKollist" value="حساب کل" valueClick="hesabkol/hesabKol.hierarchicalList.jsf"
