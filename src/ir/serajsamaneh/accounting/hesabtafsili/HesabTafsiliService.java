@@ -214,6 +214,55 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		super.saveStateLess(entity);
 	}
 
+
+	private void checkCycleInChildTafsiliHierarchy(HesabTafsiliEntity entity,
+			List<Long> childTafsiliIds) {
+		for (Long tafsiliId : childTafsiliIds) {
+			HesabTafsiliEntity mainChildEntity = load(tafsiliId);
+			
+			try{
+				checkCycleInChildTafsiliHierarchy(entity, mainChildEntity);
+			}catch(FatalException e){
+				throw new CycleInHesabTafsiliException(entity, mainChildEntity);
+			}
+		}
+		
+	}
+
+	private void checkCycleInChildTafsiliHierarchy(HesabTafsiliEntity mainEntity,
+			HesabTafsiliEntity mainChildEntity) {
+		if(mainEntity.getId()!=null && mainEntity.getId().equals(mainChildEntity.getId()))
+			throw new FatalException();
+		Set<HesabTafsiliEntity> childs = mainChildEntity.getChilds();
+		for (HesabTafsiliEntity childTfsili : childs) {
+			checkCycleInChildTafsiliHierarchy(mainEntity, childTfsili);
+		}
+	}
+	
+
+	private void checkCycleInParentTafsiliHierarchy(HesabTafsiliEntity entity,
+			List<Long> parentTafsiliIds) {
+		for (Long tafsiliId : parentTafsiliIds) {
+			HesabTafsiliEntity mainParentEntity = load(tafsiliId);
+			
+			try{
+				checkCycleInParentTafsiliHierarchy(entity, mainParentEntity);
+			}catch(FatalException e){
+				throw new CycleInHesabTafsiliException(entity, mainParentEntity);
+			}
+		}
+		
+	}
+
+	private void checkCycleInParentTafsiliHierarchy(HesabTafsiliEntity mainEntity,
+			HesabTafsiliEntity mainParentEntity) {
+		if(mainEntity.getId()!=null && mainEntity.getId().equals(mainParentEntity.getId()))
+			throw new FatalException();
+		Set<HesabTafsiliEntity> parents = mainParentEntity.getParents();
+		for (HesabTafsiliEntity parentTfsili : parents) {
+			checkCycleInParentTafsiliHierarchy(mainEntity, parentTfsili);
+		}
+	}
 	@Transactional
 	private void commonSave(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> parentTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity) {
 		
@@ -287,14 +336,13 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		}
 		checkHesabUniqueNess(entity, activeSaalMaaliEntity);
 		
-		checkCycleInTafsiliHierarchy(entity, childTafsiliIds);
-		checkCycleInTafsiliHierarchy(entity, parentTafsiliIds);
+		checkCycleInChildTafsiliHierarchy(entity, childTafsiliIds);
+		checkCycleInParentTafsiliHierarchy(entity, parentTafsiliIds);
 		
 		createOrUpdateRelatedHesabTafsiliTemplate(entity, activeSaalMaaliEntity.getOrgan());
-		
-		
 	}
 
+	
 	@Transactional
 	private void createOrUpdateRelatedHesabTafsiliTemplate(HesabTafsiliEntity entity, OrganEntity organEntity) {
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCode(entity.getCode().toString(), organEntity);
@@ -358,29 +406,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		entity.getMoeenTafsili().add(moeenTafsiliEntity);
 	}
 	
-	private void checkCycleInTafsiliHierarchy(HesabTafsiliEntity entity,
-			List<Long> childTafsiliIds) {
-		for (Long tafsiliId : childTafsiliIds) {
-			HesabTafsiliEntity mainChildEntity = load(tafsiliId);
-			
-			try{
-				checkCycleInTafsiliHierarchy(entity, mainChildEntity);
-			}catch(FatalException e){
-				throw new CycleInHesabTafsiliException(entity, mainChildEntity);
-			}
-		}
-		
-	}
 
-	private void checkCycleInTafsiliHierarchy(HesabTafsiliEntity mainEntity,
-			HesabTafsiliEntity mainChildEntity) {
-		if(mainEntity.getId()!=null && mainEntity.getId().equals(mainChildEntity.getId()))
-			throw new FatalException();
-		Set<HesabTafsiliEntity> childs = mainChildEntity.getChilds();
-		for (HesabTafsiliEntity childTfsili : childs) {
-			checkCycleInTafsiliHierarchy(mainEntity, childTfsili);
-		}
-	}
 
 	@Transactional
 	public void updateValues(HesabTafsiliEntity entity) {
