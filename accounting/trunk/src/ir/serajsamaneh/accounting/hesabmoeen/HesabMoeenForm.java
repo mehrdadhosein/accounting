@@ -6,7 +6,6 @@ import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
 import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
-import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariUtil;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.InCorrectInputException;
@@ -15,7 +14,6 @@ import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -306,10 +304,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 
 	}
 
-	public  List<Integer> getLevels(){
-//		return Arrays.asList(2,3);
-		return SanadHesabdariUtil.getLevels(getCurrentOrgan());
-	}
+
 	
 	public  Integer getMaxLevel(){
 		return 5;

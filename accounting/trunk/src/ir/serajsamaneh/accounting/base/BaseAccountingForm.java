@@ -6,6 +6,7 @@ import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariUtil;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.base.BaseEntityForm;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
@@ -173,4 +174,12 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 	}
 	
 
+	public  List<Integer> getLevels(){
+//		return Arrays.asList(2,3);
+		return SanadHesabdariUtil.getLevels(getCurrentOrgan());
+	}
+	
+	public  Integer getLevelsSize(){
+		return getLevels().size();
+	}
 }
