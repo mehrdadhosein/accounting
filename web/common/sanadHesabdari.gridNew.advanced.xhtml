@@ -27,7 +27,9 @@
 	font-size: 12px;
 	padding-left: 10px;
 }
-
+.sanadHesabdariDialog-dialog{
+width: 33%;
+}
 </style>
 <script type="text/javascript">
 
@@ -98,42 +100,42 @@
 /* ]]> */
 </script>			
 <t:div id="sanadHesabdariDialog" forceId="true" style="display:none">
-	<p:panelGrid columns="2" layout="grid" width="90%"
-		columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9" styleClass="inputForm ui-noborder ui-panelgrid-blank">
+	<p:panelGrid columns="8" layout="grid" width="90%"
+		columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9, viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9,viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9, viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 		<h:panelGroup>
-			<h:outputText value="#{messages['HesabKol_title']}" />
+			<h:outputText value="#{messages['HesabKol_title']}: " />
 		</h:panelGroup>
 		<h:panelGroup>
-			<input name="hesabKolName" id="hesabKolName" readonly="readonly" style="width:300px"/>
+			<input name="hesabKolName" id="hesabKolName" readonly="readonly" style="width:200px"/>
 		</h:panelGroup>
 
 		<h:panelGroup>
 			<h:outputText styleClass="required" value="* " />
-			<h:outputLabel for="hesabMoeen" value="#{messages['HesabMoeen_title']}" /> : 
+			<h:outputLabel for="hesabMoeen" value="#{messages['HesabMoeen_title']}: " />
 		</h:panelGroup>
 		<h:panelGroup>
 			<custom:autocomplete-one id="hesabMoeen" entity="HesabMoeen" property="desc"
-				width="300px" onchange="fillDest('hesabMoeen','hesabTafsili');fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');" client="true" 
+				width="200px" onchange="fillDest('hesabMoeen','hesabTafsili');fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');" client="true" 
 				extraParams="isHierarchical=true" onclear="fillDest('hesabMoeen','hesabTafsili');fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');"/>
 		</h:panelGroup>
 
 		<h:panelGroup> 
 			<h:outputText styleClass="required" value="  " />
-			<h:outputLabel  value="#{messages['HesabTafsili_title']}" /> : 
+			<h:outputLabel  value="#{messages['HesabTafsili_title']}: " />
 		</h:panelGroup>
 		<h:panelGroup>
 			<custom:autocomplete-one id="hesabTafsili" entity="HesabTafsili" property="desc"
-				width="300px" client="true" extraParams="isHierarchical=true" onchange="showMoeenList('hesabMoeen','hesabTafsili');fillDestTafsili('hesabTafsili','hesabTafsili2');fillDestMarkazAccountingByTafsili('hesabTafsili','accountingMarkaz');"/>
+				width="200px" client="true" extraParams="isHierarchical=true" onchange="showMoeenList('hesabMoeen','hesabTafsili');fillDestTafsili('hesabTafsili','hesabTafsili2');fillDestMarkazAccountingByTafsili('hesabTafsili','accountingMarkaz');"/>
 		</h:panelGroup>
 		
 		
-		<h:panelGroup>
+		<h:panelGroup rendered="#{hesabMoeen.levelsSize > 0}">
 			<h:outputText styleClass="required" value="  " />
 			<h:outputLabel 
-				value="#{messages['HesabTafsili_shenavar_list']}" /> : 
+				value="#{messages['HesabTafsili_shenavar_list']}: " />
 		</h:panelGroup>
-		<h:panelGroup>
+		<h:panelGroup  rendered="#{hesabMoeen.levelsSize > 0}">
 			<div id="tafsilis">
 			</div>
 			<rich:list value="#{hesabMoeen.levels}" rendered="true"
@@ -144,8 +146,8 @@
 					//alert('hesabTafsili#{item}_desc');
 					var inpId = 'hesabTafsili#{item}_id';
 					var componentName='hesabTafsili#{item}';
-					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:300px"><br').prop('id','hesabTafsili#{item}_desc');
-					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:300px">').prop('id','hesabTafsili#{item}_id');
+					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:200px"><br').prop('id','hesabTafsili#{item}_desc');
+					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px">').prop('id','hesabTafsili#{item}_id');
 					var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');
 
 					$$(inputText).prop('class','m2mInput tafsiliInput');
@@ -162,21 +164,20 @@
 
 		<h:panelGroup> 
 			<h:outputText styleClass="required" value="  " />
-			<h:outputLabel  value="#{messages['AccountingMarkaz_title']}" /> : 
+			<h:outputLabel  value="#{messages['AccountingMarkaz_title']}: " />
 		</h:panelGroup>
 		<h:panelGroup>
 			<custom:autocomplete-one id="accountingMarkaz" entity="AccountingMarkaz" property="name"
-				width="300px" client="true" extraParams="isHierarchical=true" onchange="fillDestMarkazAccountingByMarkaz('accountingMarkaz','accountingMarkaz2');"/>
+				width="200px" client="true" extraParams="isHierarchical=true" onchange="fillDestMarkazAccountingByMarkaz('accountingMarkaz','accountingMarkaz2');"/>
 		</h:panelGroup>
 
-		
-		
-		<h:panelGroup>
+
+		<h:panelGroup rendered="#{hesabMoeen.levelsSize > 0}">
 			<h:outputText styleClass="required" value="  " />
 			<h:outputLabel 
-				value="#{messages['AccountingMarkaz_shenavar_list']}" /> : 
+				value="#{messages['AccountingMarkaz_shenavar_list']}: " />
 		</h:panelGroup>
-		<h:panelGroup>
+		<h:panelGroup rendered="#{hesabMoeen.levelsSize > 0}">
 			<div id="accountingMarkazs">
 			</div>
 			<rich:list value="#{hesabMoeen.levels}" rendered="true"
@@ -188,8 +189,8 @@
 					var inpId = 'accountingMarkaz#{item}_id';
 					var componentName='accountingMarkaz#{item}';
 					
-					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:300px">').prop('id','accountingMarkaz#{item}_desc');
-					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:300px">').prop('id','accountingMarkaz#{item}_id');
+					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:200px">').prop('id','accountingMarkaz#{item}_desc');
+					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px">').prop('id','accountingMarkaz#{item}_id');
 					$$(inputText).prop('class','m2mInput accountingMarkazInput');
 					$$(inputText).attr('onchange','fireAccountingMarkazShenavarOnChange("'+inpId+'");');
 
@@ -207,14 +208,14 @@
 		<h:panelGroup>
 			<h:outputText styleClass="required" value="* " />
 			<h:outputLabel for="bedehkar"
-				value="#{messages['SanadHesabdariItem_bedehkar']}" /> : 
+				value="#{messages['SanadHesabdariItem_bedehkar']}: " />
 		</h:panelGroup>
 		<input type="text" style="width: 200px;" name="bedehkar" id="bedehkar" />
 
 		<h:panelGroup>
 			<h:outputText styleClass="required" value="* " />
 			<h:outputLabel for="bestankar"
-				value="#{messages['SanadHesabdariItem_bestankar']}" /> : 
+				value="#{messages['SanadHesabdariItem_bestankar']}: " />
 		</h:panelGroup>
 		<input type="text" style="width: 200px;" name="bestankar"
 			id="bestankar" />
@@ -225,11 +226,20 @@
 		<h:panelGroup>
 			<h:outputText styleClass="required" value="* " />
 			<h:outputLabel for="description"
-				value="#{messages['SanadHesabdariItem_description']}" /> : 
+				value="#{messages['SanadHesabdariItem_description']}: " />
 		</h:panelGroup>
-		<textarea name="description" id="description" rows="5"
+		<input type="text"  name="description" id="description"
 			style="width: 200px;" />
-
+		<h:panelGroup/>
+		<h:panelGroup/>
+		<h:panelGroup/>
+		<h:panelGroup/>
+		<h:panelGroup/>
+		<h:panelGroup/>
+		<h:panelGroup rendered="#{hesabMoeen.levelsSize == 0}"/>
+		<h:panelGroup rendered="#{hesabMoeen.levelsSize == 0}"/>
+		<h:panelGroup rendered="#{hesabMoeen.levelsSize == 0}"/>		
+		<h:panelGroup rendered="#{hesabMoeen.levelsSize == 0}"/>
 
 	</p:panelGrid>
 </t:div>
@@ -460,11 +470,28 @@
 						rownumbers: true,
 						sortname: 'moeenName', 
 						onSelectRow: function(id){ 
+							//alert(id);
 							$$('#sanadHesabdariGrid').jqGrid('editRow',id,true);
 							if(lastRow != -1)if(id!=lastRow)
 								$$('#sanadHesabdariGrid').jqGrid('saveRow',lastRow, false, 'clientArray');
 							lastRow=id;   
+							//$$('#sanadHesabdariGrid').jqGrid('setSelection', id, true);
 						}, 
+						ondblClickRow: function(rowId) {
+							clearSanadHesabdariDialog('#sanadHesabdariGrid');
+							if(lastRow != -1)if(rowId!=lastRow)
+								$$('#sanadHesabdariGrid').jqGrid('saveRow',lastRow, false, 'clientArray');
+							lastRow=rowId; 
+							//alert(selectedRowId);
+							editSanadHesabdariRowData('#sanadHesabdariGrid', rowId ,'#{messages['common_edit']}');						
+						},
+						gridComplete : function(){ 
+							//alert('gridComplete');
+							var firstRowId=$$("#sanadHesabdariGrid").getDataIDs()[0];
+							 $$('#sanadHesabdariGrid').jqGrid('setSelection', firstRowId, true);
+							 lastRow=firstRowId; 
+							 //alert($$("#sanadHesabdariGrid").getDataIDs()[0]);
+						},
 						caption :'#{messages['SanadHesabdariItem_list']}',
 						footerrow : true, 
 						userDataOnFooter : true
@@ -473,7 +500,8 @@
 		$$('#sanadHesabdariGrid').jqGrid('navButtonAdd','#sanadHesabdariPcustbut',{caption:'#{messages['common_new']}', 
 		onClickButton:function(){ 
 			clearSanadHesabdariDialog('#sanadHesabdariGrid');
-			$$('#sanadHesabdariDialog').dialog({title:'#{messages['SanadHesabdariItem_title']}', width: '60%',modal: true, autoOpen: true,close: function() {$$(this).off('keydown');} ,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_add']}': function() { addSanadHesabdariRowData('#sanadHesabdariGrid'); }}});
+			$$('#sanadHesabdariDialog').dialog({position: { my: "top", at: "top", of: window  }
+			, title:'#{messages['SanadHesabdariItem_title']}', width: '100%',modal: true, autoOpen: true,close: function() {$$(this).off('keydown');} ,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_add']}': function() { addSanadHesabdariRowData('#sanadHesabdariGrid'); }}});
 			$$('#sanadHesabdariDialog').on('keydown', function(e) {
 				
 				 var code = (e.keyCode ? e.keyCode : e.which);
@@ -483,7 +511,8 @@
 					var result = addSanadHesabdariRowData('#sanadHesabdariGrid');
 					return false;
 				 }
-			});			
+			});		
+			$$('#hesabMoeen_desc').focus();					
 		} 
 	});
 	$$("#sanadHesabdariGrid").jqGrid('bindKeys', {"onEnter":function( rowid ) { editSanadHesabdariRowData("#sanadHesabdariGrid",rowid,"Edit")} } );
@@ -584,6 +613,7 @@
 		globalRowId = getGridGlobalRowId(gridId); 
 		globalRowId++;
 		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
+		
 		var datarow = getSanadHesabdariDataRow(gridId);
 		datarow['id']=globalRowId;
 		
@@ -615,6 +645,7 @@
 
 		updateFooter();
 
+		$$('#sanadHesabdariGrid').jqGrid('setSelection', globalRowId, true);
 
 		clearSanadHesabdariDialog('#sanadHesabdariGrid');
 		$$('#hesabMoeen_desc').focus();
@@ -629,7 +660,9 @@
 	}
 
 	function editSanadHesabdariRowData(gridId,rowId,title){
+		//alert('editSanadHesabdariRowData');
 		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
+		//$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
 		var su=$$(gridId).getRowData(rowId);
 
 
@@ -640,10 +673,7 @@
 		}
 		
 
-		
-		//$$('[id="bedehkar"]').keyup();
-		//$$('[id="bestankar"]').keyup();
-		$$('#sanadHesabdariDialog').dialog({title:title, width: '60%', autoOpen: true, modal:true,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_update']}': function() { changeRowData(gridId,rowId);}}});
+		$$('#sanadHesabdariDialog').dialog({position: { my: "top", at: "top", of: window  },title:title, width: '100%', autoOpen: true, modal:true,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_update']}': function() { changeRowData(gridId,rowId);}}});
 		$$('#sanadHesabdariDialog').on('keydown', function(e) {
 			
 			 var code = (e.keyCode ? e.keyCode : e.which);
@@ -651,15 +681,21 @@
 			 if(code == 113) { //F2 key updates article in sanadGrid
 			   //alert('edit : 113');
 				var result = changeRowData(gridId,rowId);
-
+				alert(rowId);
+				//$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+				lastRow=rowId;
 				return false;
 			 }
 			 if(code == 45) { //INS key adds article to sanadGrid
 				//alert('new : 45');
 				var result = addSanadHesabdariRowData('#sanadHesabdariGrid');
+				$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+				lastRow=rowId;
 				return false;
 			 }			 
-		});			
+		});		
+
+		$$('#hesabMoeen_desc').focus();		
 		return false;
 	}
 
@@ -669,6 +705,7 @@
 	
 	function changeRowData(gridId,rowId){
 		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
+		$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
 		var datarow = getSanadHesabdariDataRow(gridId);
 		
 	 	var bestankarVal=datarow['bestankar']+"";

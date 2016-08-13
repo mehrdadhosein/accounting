@@ -97,7 +97,7 @@
 			    if(event.which == 114) { //F3 open create article dialog
 					clearSanadHesabdariDialog('#sanadHesabdariGrid');
 					var dlg = $$('#sanadHesabdariDialog');
-					dlg.dialog({title:'#{messages['SanadHesabdariItem_title']}', width: '60%', autoOpen: true,close: function() {$$(this).off('keydown');} ,buttons: { '#{messages['common_close']}': function() { dlg.dialog('close'); },'#{messages['common_add']}': function() { addSanadHesabdariRowData('#sanadHesabdariGrid');dlg.dialog('close'); }}});
+					dlg.dialog({position: { my: "top", at: "top", of: window  }, title:'#{messages['SanadHesabdariItem_title']}', width: '100%', autoOpen: true,close: function() {$$(this).off('keydown');} ,buttons: { '#{messages['common_close']}': function() { dlg.dialog('close'); },'#{messages['common_add']}': function() { addSanadHesabdariRowData('#sanadHesabdariGrid');dlg.dialog('close'); }}});
 					$$('#sanadHesabdariDialog').on('keydown', function(e) {
 						
 						 var code = (e.keyCode ? e.keyCode : e.which);
@@ -111,9 +111,18 @@
 								}
 							return false;
 						 }
-					});						
+					});		
+					$$('#hesabMoeen_desc').focus();						
 					return false;
 				}
+			    else if(event.which == 115) { //F4 open create article dialog
+					
+					clearSanadHesabdariDialog('#sanadHesabdariGrid');
+					var selectedRowId = $$('#sanadHesabdariGrid').jqGrid('getGridParam', 'selrow');
+					//alert(selectedRowId);
+					editSanadHesabdariRowData('#sanadHesabdariGrid', selectedRowId ,'#{messages['common_edit']}');
+					return false;
+				}				
 			});			
 		$$(window).keypress(function(event) {
 			if (!(event.which == 115 &amp;&amp; event.ctrlKey) &amp;&amp; !(event.which == 19)) return true;
@@ -156,7 +165,7 @@
 				
 		<h:commandButton id="saveMovaghat" styleClass=" gwt-Button"
 			rendered="#{owner.entityEditable}"
-			onclick=" populateRecordsXML('sanadItems','#sanadHesabdariGrid');"
+			onclick=" populateRecordsXMLV2('sanadItems','#sanadHesabdariGrid');"
 			action="#{owner.saveMovaghat}" value="#{messages['common_save']}"
 			image="/images/buttons/btn_save_temp.png" />
 
