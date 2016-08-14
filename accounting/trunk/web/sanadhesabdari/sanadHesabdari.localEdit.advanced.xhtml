@@ -104,11 +104,11 @@
 						 //alert(code);
 						 if(code == 45) { //INS key adds article to sanadGrid
 							//alert('new : 45');
-								var result = addSanadHesabdariRowData('#sanadHesabdariGrid');
-								if(result){
-									clearSanadHesabdariDialog('#sanadHesabdariGrid');
-									$$('#hesabMoeen_desc').focus();
-								}
+							addSanadHesabdariRowData('#sanadHesabdariGrid');
+							clearSanadHesabdariDialog('#sanadHesabdariGrid');
+							$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+							lastRow=rowId;
+							$$('#sanadHesabdariGrid').focus();
 							return false;
 						 }
 					});		
@@ -121,6 +121,12 @@
 					var selectedRowId = $$('#sanadHesabdariGrid').jqGrid('getGridParam', 'selrow');
 					//alert(selectedRowId);
 					editSanadHesabdariRowData('#sanadHesabdariGrid', selectedRowId ,'#{messages['common_edit']}');
+					return false;
+				} else if(event.which == 117) { //F6 open create article dialog
+					event.preventDefault();
+					clearSanadHesabdariDialog('#sanadHesabdariGrid');
+					var selectedRowId = $$('#sanadHesabdariGrid').jqGrid('getGridParam', 'selrow');
+					duplicateSanadHesabdariRowData('#sanadHesabdariGrid', selectedRowId ,'#{messages['common_edit']}');
 					return false;
 				}				
 			});			
@@ -141,22 +147,31 @@
 					<td>:</td>
 					<td>#{messages['SanadHesabdari_newArticle']}</td>
 				</tr>
-				<td>CTRL+S</td>
-				<td>:</td>
-				<td>#{messages['SanadHesabdari_saveSanad']}</td>
+				<tr>
+					<td>F4</td>
+					<td>:</td>
+					<td>#{messages['SanadHesabdari_EditeSelectedArticle']}</td>
+				</tr>
+
 				<tr>
 					<td>INS</td>
 					<td>:</td>
 					<td>#{messages['SanadHesabdari_insertNewArticle']}</td>
 				</tr>
-				<td>F2</td>
-				<td>:</td>
-				<td>#{messages['SanadHesabdari_updateArticle']}</td>
 				<tr>
+					<td>F2</td>
+					<td>:</td>
+					<td>#{messages['SanadHesabdari_updateArticle']}</td>
 				</tr>
-
+				
+				<tr>
+					<td>CTRL+S</td>
+					<td>:</td>
+					<td>#{messages['SanadHesabdari_saveSanad']}</td>
+				</tr>
 			</table>
 		</div>
+		
 	</ui:define>
 	<ui:define name="buttonsection">
 		<h:commandButton id="saveAdmin" styleClass=" gwt-Button" rendered="#{permissionProvider.user_adminPermission}"
