@@ -125,7 +125,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			if(createArticleTafsili && hesabTafsiliTWO!=null && hesabTafsiliTWO.getId()!=null && hesabTafsiliEntityONE.getId().longValue()!=hesabTafsiliTWO.getId().longValue()){
 				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
 				articleTafsiliEntity.setHesabTafsili(hesabTafsiliTWO);
-				articleTafsiliEntity.setLevel(2);
+				articleTafsiliEntity.setLevel(1);
 				articleTafsiliEntity.setSanadHesabdariItem(article);
 				article.addToarticleTafsili(articleTafsiliEntity);
 			}
@@ -193,7 +193,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			if(createArticleTafsili && hesabTafsiliTWO!=null && hesabTafsiliTWO.getId().longValue()!=hesabTafsiliEntityONE.getId().longValue()){
 				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
 				articleTafsiliEntity.setHesabTafsili(hesabTafsiliTWO);
-				articleTafsiliEntity.setLevel(2);
+				articleTafsiliEntity.setLevel(1);
 				articleTafsiliEntity.setSanadHesabdariItem(article);
 				article.addToarticleTafsili(articleTafsiliEntity);
 			}
@@ -217,7 +217,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			if(createArticleTafsili && sandoghDar!=null){
 				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
 				articleTafsiliEntity.setHesabTafsili(sandoghDar);
-				articleTafsiliEntity.setLevel(2);
+				articleTafsiliEntity.setLevel(1);
 				articleTafsiliEntity.setSanadHesabdariItem(bestankarArticle);
 				bestankarArticle.addToarticleTafsili(articleTafsiliEntity);
 			}
@@ -225,7 +225,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			if(createArticleTafsili && sandoghDar!=null){
 				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
 				articleTafsiliEntity.setHesabTafsili(sandoghDar);
-				articleTafsiliEntity.setLevel(3);
+				articleTafsiliEntity.setLevel(2);
 				articleTafsiliEntity.setSanadHesabdariItem(bestankarArticle);
 				bestankarArticle.addToarticleTafsili(articleTafsiliEntity);
 			}
@@ -244,7 +244,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			if(createArticleTafsili && actorTafsili!=null){
 				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
 				articleTafsiliEntity.setHesabTafsili(actorTafsili);
-				articleTafsiliEntity.setLevel(2);
+				articleTafsiliEntity.setLevel(1);
 				articleTafsiliEntity.setSanadHesabdariItem(bedehkarArticle);
 				bedehkarArticle.addToarticleTafsili(articleTafsiliEntity);
 			}
@@ -252,7 +252,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			if(createArticleTafsili && actorTafsili!=null){
 				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
 				articleTafsiliEntity.setHesabTafsili(actorTafsili);
-				articleTafsiliEntity.setLevel(3);
+				articleTafsiliEntity.setLevel(2);
 				articleTafsiliEntity.setSanadHesabdariItem(bedehkarArticle);
 				bedehkarArticle.addToarticleTafsili(articleTafsiliEntity);
 			}

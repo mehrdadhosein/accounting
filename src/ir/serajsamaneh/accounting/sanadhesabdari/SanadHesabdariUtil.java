@@ -265,7 +265,7 @@ public class SanadHesabdariUtil {
 		ArrayList<Integer> levelList = new ArrayList<Integer>();
 		if(maxSanadHesabdariTafsilLevel!=null){
 			Integer maxLevels = new Integer(maxSanadHesabdariTafsilLevel);
-			for(int i=2; i<maxLevels; ++i)
+			for(int i=1; i<=maxLevels; ++i)
 				levelList.add(i);
 			return levelList;
 		}

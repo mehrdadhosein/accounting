@@ -409,6 +409,7 @@ width: 33%;
 			            datastr: xmlData,
 						height: '100%',
 			            shrinkToFit: true,
+						editurl: 'clientArray',
 						colNames : [
 									'#{messages['common_id']}', 
 									'hesabKolID', 
@@ -509,13 +510,16 @@ width: 33%;
 				 if(code == 45) { //INS key adds article to sanadGrid
 					//alert('new : 45');
 					var result = addSanadHesabdariRowData('#sanadHesabdariGrid');
+					$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+					lastRow=rowId;
+					$$('#sanadHesabdariGrid').focus();
 					return false;
 				 }
 			});		
 			$$('#hesabMoeen_desc').focus();					
 		} 
 	});
-	$$("#sanadHesabdariGrid").jqGrid('bindKeys', {"onEnter":function( rowid ) { editSanadHesabdariRowData("#sanadHesabdariGrid",rowid,"Edit")} } );
+	$$("#sanadHesabdariGrid").jqGrid('bindKeys', {"onEnter":function( rowid ) { editSanadHesabdariRowData("#sanadHesabdariGrid",rowid,"Edit"); return false;} } );
 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','id'); 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabKolID'); 	
@@ -653,9 +657,6 @@ width: 33%;
 		var bedehkarTotal= sumColumnOfGrid('sanadHesabdariGrid','bedehkar');
 		if(bestankarTotal == bedehkarTotal)
 			$$('#sanadHesabdariDialog').dialog('close');
-
-		
-		return result;
 		
 	}
 
@@ -673,7 +674,7 @@ width: 33%;
 		}
 		
 
-		$$('#sanadHesabdariDialog').dialog({position: { my: "top", at: "top", of: window  },title:title, width: '100%', autoOpen: true, modal:true,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_update']}': function() { changeRowData(gridId,rowId);}}});
+		$$('#sanadHesabdariDialog').dialog({position: { my: "top", at: "top", of: window  },close: function() {$$(this).off('keydown');},title:title, width: '100%', autoOpen: true, modal:true,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_update']}': function() { changeRowData(gridId,rowId);}}});
 		$$('#sanadHesabdariDialog').on('keydown', function(e) {
 			
 			 var code = (e.keyCode ? e.keyCode : e.which);
@@ -681,16 +682,19 @@ width: 33%;
 			 if(code == 113) { //F2 key updates article in sanadGrid
 			   //alert('edit : 113');
 				var result = changeRowData(gridId,rowId);
-				alert(rowId);
+				//alert('F2 : '+rowId);
 				//$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
 				lastRow=rowId;
+				$$('#sanadHesabdariGrid').focus();
 				return false;
 			 }
 			 if(code == 45) { //INS key adds article to sanadGrid
 				//alert('new : 45');
-				var result = addSanadHesabdariRowData('#sanadHesabdariGrid');
+				//alert('INS : '+rowId);
+				addSanadHesabdariRowData('#sanadHesabdariGrid');
 				$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
 				lastRow=rowId;
+				$$('#sanadHesabdariGrid').focus();
 				return false;
 			 }			 
 		});		
@@ -700,7 +704,23 @@ width: 33%;
 	}
 
 	
-	
+	function duplicateSanadHesabdariRowData(gridId,rowId,title){
+		//alert('editSanadHesabdariRowData');
+		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
+		//$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+		var su=$$(gridId).getRowData(rowId);
+
+
+			
+		var localItems = getItems(gridId);
+		for ( var j = 0; j < localItems.length; j++){
+			updateSanadHesabdariField(localItems[j],su[localItems[j]]);
+		}
+		
+		addSanadHesabdariRowData('#sanadHesabdariGrid'); 
+
+		return false;
+	}	
 
 	
 	function changeRowData(gridId,rowId){

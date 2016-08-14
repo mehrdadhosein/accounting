@@ -97,8 +97,8 @@
 							value="#{messages['AccountingSystemConfig_maxSanadHesabdariTafsilLevel']}" /> : 
 					</h:panelGroup>
 					<p:inputText id="maxSanadHesabdariTafsilLevel" label="maxSanadHesabdariTafsilLevel"
-						value="#{owner.maxSanadHesabdariTafsilLevel}" type="number" min="2" max="10" style="width:220px" >
-						 <f:validateLongRange minimum="2" maximum="10" />
+						value="#{owner.maxSanadHesabdariTafsilLevel}" type="number" min="0" max="10" style="width:220px" >
+						 <f:validateLongRange minimum="0" maximum="10" />
 					 </p:inputText>
 				 																		
 				</p:panelGrid>
