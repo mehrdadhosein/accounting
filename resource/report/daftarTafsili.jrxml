@@ -8,6 +8,7 @@
 	<style name="digitBold" isDefault="true" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
 	<style name="text" isDefault="true" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
 	<style name="Tahoma-9" hAlign="Center" vAlign="Middle" fontName="Tahoma" fontSize="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="TAHOMA.TTF" pdfEncoding="Identity-H"/>
+	<style name="Tahoma-8" hAlign="Center" vAlign="Middle" fontName="Tahoma" fontSize="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="TAHOMA.TTF" pdfEncoding="Identity-H"/>
 	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="organName" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="fromDate" class="java.lang.String"/>
@@ -74,7 +75,7 @@
 		<groupHeader>
 			<band height="26">
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement style="Tahoma-9" stretchType="RelativeToTallestObject" x="371" y="0" width="201" height="25" uuid="6dac40dd-8c07-4c2a-91a4-2c672cd5ef82"/>
+					<reportElement uuid="6dac40dd-8c07-4c2a-91a4-2c672cd5ef82" style="Tahoma-9" stretchType="RelativeToTallestObject" x="371" y="0" width="201" height="25"/>
 					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -88,7 +89,7 @@
 					<textFieldExpression><![CDATA[$F{hesabTafsili}.getName()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement style="text" stretchType="RelativeToTallestObject" mode="Transparent" x="262" y="0" width="109" height="25" uuid="f3339384-16aa-45d3-b533-8473dbbb09f4"/>
+					<reportElement uuid="f3339384-16aa-45d3-b533-8473dbbb09f4" style="text" stretchType="RelativeToTallestObject" mode="Transparent" x="262" y="0" width="109" height="25"/>
 					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -96,6 +97,7 @@
 						<bottomPen lineWidth="0.25"/>
 						<rightPen lineWidth="0.25"/>
 					</box>
+					<textElement/>
 					<textFieldExpression><![CDATA[$F{hesabTafsili}.getCode()]]></textFieldExpression>
 				</textField>
 			</band>
@@ -103,7 +105,7 @@
 		<groupFooter>
 			<band height="20">
 				<staticText>
-					<reportElement style="text" mode="Opaque" x="262" y="0" width="80" height="20" backcolor="#EDEDED" uuid="751f3170-c375-4f8f-83b1-487107f24c0b"/>
+					<reportElement uuid="751f3170-c375-4f8f-83b1-487107f24c0b" style="text" mode="Opaque" x="262" y="0" width="80" height="20" backcolor="#EDEDED"/>
 					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -117,7 +119,7 @@
 					<text><![CDATA[مجموع حساب]]></text>
 				</staticText>
 				<textField pattern="#,##0">
-					<reportElement style="text" mode="Opaque" x="22" y="0" width="80" height="20" backcolor="#EDEDED" uuid="036e1a91-c325-4ad6-9c16-a743776882b7"/>
+					<reportElement uuid="036e1a91-c325-4ad6-9c16-a743776882b7" style="text" mode="Opaque" x="22" y="0" width="80" height="20" backcolor="#EDEDED"/>
 					<box>
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -132,7 +134,7 @@
     ($V{bestankarSum}+$P{bestankarMandehAzGhabl})))]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0">
-					<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="182" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#EDEDED" uuid="a180a025-e7e6-47ce-aab7-bd9eae748a23"/>
+					<reportElement uuid="a180a025-e7e6-47ce-aab7-bd9eae748a23" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="182" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#EDEDED"/>
 					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -146,7 +148,7 @@
 					<textFieldExpression><![CDATA[$V{bedehkarSum} + $P{bedehkarMandehAzGhabl}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0">
-					<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="102" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#EDEDED" uuid="1282425e-08c6-4eec-8b7d-c570c02e840c"/>
+					<reportElement uuid="1282425e-08c6-4eec-8b7d-c570c02e840c" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="102" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#EDEDED"/>
 					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 						<pen lineWidth="0.25"/>
 						<topPen lineWidth="0.25"/>
@@ -168,126 +170,126 @@
 	<pageHeader>
 		<band height="81" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="802" height="81" uuid="9d725a71-2fc8-4a09-98db-0793bc70c7b4"/>
+				<reportElement uuid="9d725a71-2fc8-4a09-98db-0793bc70c7b4" x="0" y="0" width="802" height="81"/>
 				<graphicElement>
 					<pen lineWidth="1.5"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement style="text" x="315" y="32" width="161" height="29" uuid="38b3fbd8-3c79-4493-bd8e-852f7db8eb90"/>
+				<reportElement uuid="38b3fbd8-3c79-4493-bd8e-852f7db8eb90" style="text" x="315" y="32" width="161" height="29"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="B Nazanin" size="22" isBold="true" isStrikeThrough="false" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<text><![CDATA[دفتر تفصیلی]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Tahoma-9" x="476" y="40" width="256" height="20" isPrintWhenDetailOverflows="true" uuid="f4e9361d-871b-4f85-a207-261a8a30fa3a"/>
+				<reportElement uuid="f4e9361d-871b-4f85-a207-261a8a30fa3a" style="Tahoma-9" x="476" y="40" width="256" height="20" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Right">
 					<font isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hesabMoeen}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="315" y="3" width="161" height="29" uuid="4b91e811-120f-4ded-8179-47a9e0bc8da4"/>
+				<reportElement uuid="4b91e811-120f-4ded-8179-47a9e0bc8da4" x="315" y="3" width="161" height="29"/>
 				<textElement>
 					<font fontName="B Nazanin" size="22" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{organName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="text" x="732" y="2" width="61" height="20" uuid="54365087-65f7-4597-abf2-170758f8ee26"/>
+				<reportElement uuid="54365087-65f7-4597-abf2-170758f8ee26" style="text" x="732" y="2" width="61" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[سال مالی : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="title" x="0" y="40" width="100" height="20" uuid="8e33278a-5d7b-46d0-aa8b-0afe6bdd034e"/>
+				<reportElement uuid="8e33278a-5d7b-46d0-aa8b-0afe6bdd034e" style="title" x="0" y="40" width="100" height="20"/>
 				<textElement textAlignment="Right">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fromDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="text" x="732" y="21" width="61" height="20" uuid="ae7a75ba-4a34-422e-808c-aefd3e9b22db"/>
+				<reportElement uuid="ae7a75ba-4a34-422e-808c-aefd3e9b22db" style="text" x="732" y="21" width="61" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[حساب کل : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Tahoma-9" x="476" y="59" width="256" height="20" isPrintWhenDetailOverflows="true" uuid="3a0ced0a-27a2-47ce-8069-c0d80e6a8cb3"/>
+				<reportElement uuid="3a0ced0a-27a2-47ce-8069-c0d80e6a8cb3" style="Tahoma-9" x="476" y="59" width="256" height="20" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Right">
 					<font isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hesabTafsili}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="text" x="100" y="59" width="49" height="20" uuid="a89b4efa-ef47-49f4-abd1-f44470e4e83f"/>
+				<reportElement uuid="a89b4efa-ef47-49f4-abd1-f44470e4e83f" style="text" x="100" y="59" width="49" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[تاریخ سند تا : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="21" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="6706d48b-65c2-4ac4-9970-12f51072d3dc"/>
+				<reportElement uuid="6706d48b-65c2-4ac4-9970-12f51072d3dc" x="0" y="21" width="100" height="20" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{creatorUser}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="text" x="100" y="40" width="49" height="20" uuid="5b6ecad5-8590-4700-8157-539ca66b5eae"/>
+				<reportElement uuid="5b6ecad5-8590-4700-8157-539ca66b5eae" style="text" x="100" y="40" width="49" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[تاریخ سند از : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="632" y="2" width="100" height="20" uuid="6d7c6bfd-be1f-4693-b573-51ca15d0245a"/>
+				<reportElement uuid="6d7c6bfd-be1f-4693-b573-51ca15d0245a" x="632" y="2" width="100" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{saalMaali}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="text" x="100" y="21" width="49" height="20" uuid="80973fda-d41b-463e-a4c0-287f7c907717"/>
+				<reportElement uuid="80973fda-d41b-463e-a4c0-287f7c907717" style="text" x="100" y="21" width="49" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ایجاد کننده : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="text" x="100" y="2" width="49" height="20" uuid="a246de0f-12fb-4769-a0b4-0452cb6826f2"/>
+				<reportElement uuid="a246de0f-12fb-4769-a0b4-0452cb6826f2" style="text" x="100" y="2" width="49" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[تاریخ ایجاد :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="text" x="732" y="40" width="61" height="20" uuid="f530956f-f101-4e00-97bb-fc75fed4f2b6"/>
+				<reportElement uuid="f530956f-f101-4e00-97bb-fc75fed4f2b6" style="text" x="732" y="40" width="61" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[حساب معین : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="title" x="0" y="59" width="100" height="20" uuid="e2560f57-235b-4702-99a7-129738a8e1cf"/>
+				<reportElement uuid="e2560f57-235b-4702-99a7-129738a8e1cf" style="title" x="0" y="59" width="100" height="20"/>
 				<textElement textAlignment="Right">
 					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{toDate}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="2" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="8d11cc2a-a0c5-47dc-9d3d-4b60b618184b"/>
+				<reportElement uuid="8d11cc2a-a0c5-47dc-9d3d-4b60b618184b" x="0" y="2" width="100" height="20" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{creationDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="text" x="732" y="59" width="61" height="20" uuid="5c76b3d7-ef27-4e4f-aaa8-6bf64ad0639c"/>
+				<reportElement uuid="5c76b3d7-ef27-4e4f-aaa8-6bf64ad0639c" style="text" x="732" y="59" width="61" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[حساب تفصیلی : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="Tahoma-9" x="476" y="21" width="256" height="20" isPrintWhenDetailOverflows="true" uuid="0530ad7c-4179-4470-9a21-3601e2d690ca"/>
+				<reportElement uuid="0530ad7c-4179-4470-9a21-3601e2d690ca" style="Tahoma-9" x="476" y="21" width="256" height="20" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Right">
 					<font isBold="false"/>
 				</textElement>
@@ -298,7 +300,7 @@
 	<columnHeader>
 		<band height="44" splitType="Stretch">
 			<staticText>
-				<reportElement style="text" mode="Opaque" x="262" y="0" width="80" height="24" isPrintWhenDetailOverflows="true" backcolor="#EDEDED" uuid="9c8d8eb1-4379-49fc-8d2a-cf5ed78c821b"/>
+				<reportElement uuid="9c8d8eb1-4379-49fc-8d2a-cf5ed78c821b" style="text" mode="Opaque" x="262" y="0" width="80" height="24" isPrintWhenDetailOverflows="true" backcolor="#EDEDED"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -312,7 +314,7 @@
 				<text><![CDATA[مانده از قبل]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="762" y="24" width="40" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="cf3f4619-09f9-41cb-bdf9-d9b3b23bfd7a"/>
+				<reportElement uuid="cf3f4619-09f9-41cb-bdf9-d9b3b23bfd7a" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="762" y="24" width="40" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -326,7 +328,7 @@
 				<textFieldExpression><![CDATA["ردیف"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="22" y="24" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="cbeda685-c5b5-4b72-a312-8fdbc2790bbc"/>
+				<reportElement uuid="cbeda685-c5b5-4b72-a312-8fdbc2790bbc" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="22" y="24" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -340,7 +342,7 @@
 				<textFieldExpression><![CDATA["باقیمانده"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="641" y="24" width="61" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="6c5983e9-2cbc-4978-a6c6-9cec6edf951f"/>
+				<reportElement uuid="6c5983e9-2cbc-4978-a6c6-9cec6edf951f" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="641" y="24" width="61" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -354,7 +356,7 @@
 				<textFieldExpression><![CDATA["شماره دائم"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="502" y="24" width="70" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="5b2e0a1a-ec92-4960-900c-acbf909de3cb"/>
+				<reportElement uuid="5b2e0a1a-ec92-4960-900c-acbf909de3cb" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="502" y="24" width="70" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -368,7 +370,7 @@
 				<textFieldExpression><![CDATA["تاریخ سند"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="701" y="24" width="61" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="912d3e88-4a13-4787-b743-7efbe958db86"/>
+				<reportElement uuid="912d3e88-4a13-4787-b743-7efbe958db86" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="701" y="24" width="61" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -382,7 +384,7 @@
 				<textFieldExpression><![CDATA["شماره موقت"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="182" y="24" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="c924d926-9130-41be-8fdc-d31b14e18da3"/>
+				<reportElement uuid="c924d926-9130-41be-8fdc-d31b14e18da3" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="182" y="24" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -396,7 +398,7 @@
 				<textFieldExpression><![CDATA["بدهکار"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="24" width="22" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="535990a9-fb03-4172-b066-c00158ee6f89"/>
+				<reportElement uuid="535990a9-fb03-4172-b066-c00158ee6f89" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="24" width="22" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -410,7 +412,7 @@
 				<textFieldExpression><![CDATA["ت"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="262" y="24" width="240" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="dd918217-ddf1-48c3-870d-be89be1c4a05"/>
+				<reportElement uuid="dd918217-ddf1-48c3-870d-be89be1c4a05" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="262" y="24" width="240" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -424,7 +426,7 @@
 				<textFieldExpression><![CDATA["شرح"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="102" y="24" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="dce4581f-29f6-4795-b9fd-2d10604f281e"/>
+				<reportElement uuid="dce4581f-29f6-4795-b9fd-2d10604f281e" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="102" y="24" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -438,7 +440,7 @@
 				<textFieldExpression><![CDATA["بستانکار"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" mode="Opaque" x="572" y="24" width="70" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="65ab5546-4cb9-41ec-909c-402d62477112"/>
+				<reportElement uuid="65ab5546-4cb9-41ec-909c-402d62477112" style="text" mode="Opaque" x="572" y="24" width="70" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -452,7 +454,7 @@
 				<textFieldExpression><![CDATA["تفصیلی شناور"]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement style="text" mode="Opaque" x="102" y="0" width="80" height="24" backcolor="#EDEDED" uuid="0b8d2a1a-498e-4fe8-9465-23ec73464682"/>
+				<reportElement uuid="0b8d2a1a-498e-4fe8-9465-23ec73464682" style="text" mode="Opaque" x="102" y="0" width="80" height="24" backcolor="#EDEDED"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -466,7 +468,7 @@
 				<textFieldExpression><![CDATA[$V{cumulativeBestankarPageSum} + $P{bestankarMandehAzGhabl}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement style="text" mode="Opaque" x="182" y="0" width="80" height="24" backcolor="#EDEDED" uuid="0b0ded05-dc74-4a69-9876-4de68374bd3f"/>
+				<reportElement uuid="0b0ded05-dc74-4a69-9876-4de68374bd3f" style="text" mode="Opaque" x="182" y="0" width="80" height="24" backcolor="#EDEDED"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -480,7 +482,7 @@
 				<textFieldExpression><![CDATA[$V{cumulativeBedehkarPageSum} + $P{bedehkarMandehAzGhabl}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0;">
-				<reportElement style="text" mode="Opaque" x="22" y="0" width="80" height="24" backcolor="#EDEDED" uuid="5f2de654-d025-4a98-afb3-f9e7ce4a5f53"/>
+				<reportElement uuid="5f2de654-d025-4a98-afb3-f9e7ce4a5f53" style="text" mode="Opaque" x="22" y="0" width="80" height="24" backcolor="#EDEDED"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -499,7 +501,7 @@
 	<detail>
 		<band height="20" splitType="Prevent">
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="762" y="0" width="40" height="20" isPrintWhenDetailOverflows="true" uuid="aa049da1-5fde-4e40-8705-d0dcef7adbcf"/>
+				<reportElement uuid="aa049da1-5fde-4e40-8705-d0dcef7adbcf" style="text" stretchType="RelativeToTallestObject" x="762" y="0" width="40" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -513,7 +515,7 @@
 				<textFieldExpression><![CDATA[$V{rowCount}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="642" y="0" width="60" height="20" isPrintWhenDetailOverflows="true" uuid="8b25b115-b958-4079-9ba2-de43cffe3ebe"/>
+				<reportElement uuid="8b25b115-b958-4079-9ba2-de43cffe3ebe" style="text" stretchType="RelativeToTallestObject" x="642" y="0" width="60" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -527,7 +529,7 @@
 				<textFieldExpression><![CDATA[($F{sanadHesabdari}.getSerial() == null ? "----" : $F{sanadHesabdari}.getSerial())]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="502" y="0" width="70" height="20" isPrintWhenDetailOverflows="true" uuid="497f739c-7268-4e59-839a-ac2b7bbc484c"/>
+				<reportElement uuid="497f739c-7268-4e59-839a-ac2b7bbc484c" style="text" stretchType="RelativeToTallestObject" x="502" y="0" width="70" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -541,7 +543,7 @@
 				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getTarikhSanadFA()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="182" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" uuid="369aecd1-6cb0-461e-b411-b2d236a783c6"/>
+				<reportElement uuid="369aecd1-6cb0-461e-b411-b2d236a783c6" style="text" stretchType="RelativeToTallestObject" x="182" y="0" width="80" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -555,7 +557,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{bedehkar})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="102" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" uuid="6c92a604-8dea-4619-9302-d586a813d4b6"/>
+				<reportElement uuid="6c92a604-8dea-4619-9302-d586a813d4b6" style="text" stretchType="RelativeToTallestObject" x="102" y="0" width="80" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -569,7 +571,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{bestankar})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="262" y="0" width="240" height="20" isPrintWhenDetailOverflows="true" uuid="44d7a08a-80a8-465b-ae74-a7ad80e2d0df"/>
+				<reportElement uuid="44d7a08a-80a8-465b-ae74-a7ad80e2d0df" style="Tahoma-8" stretchType="RelativeToTallestObject" x="262" y="0" width="240" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -578,12 +580,12 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement>
-					<font size="11" isPdfEmbedded="true"/>
+					<font size="6" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="22" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" uuid="9b5f76aa-401d-43de-9e51-8f1cccd2d448"/>
+				<reportElement uuid="9b5f76aa-401d-43de-9e51-8f1cccd2d448" style="text" stretchType="RelativeToTallestObject" x="22" y="0" width="80" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -598,7 +600,7 @@
 ($V{cumulativeBestankarPageSum}+$P{bestankarMandehAzGhabl}))))]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="0" y="0" width="22" height="20" isPrintWhenDetailOverflows="true" uuid="7c481d52-fd51-4530-bc88-4df28fe8a06b"/>
+				<reportElement uuid="7c481d52-fd51-4530-bc88-4df28fe8a06b" style="text" stretchType="RelativeToTallestObject" x="0" y="0" width="22" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -617,7 +619,7 @@
 "بس" : "")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="702" y="0" width="60" height="20" isPrintWhenDetailOverflows="true" uuid="2b3d53b6-a979-4e68-a71d-5a71073fbec1"/>
+				<reportElement uuid="2b3d53b6-a979-4e68-a71d-5a71073fbec1" style="text" stretchType="RelativeToTallestObject" x="702" y="0" width="60" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -631,7 +633,7 @@
 				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getTempSerial()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="572" y="0" width="70" height="20" isPrintWhenDetailOverflows="true" uuid="497f739c-7268-4e59-839a-ac2b7bbc484c"/>
+				<reportElement uuid="497f739c-7268-4e59-839a-ac2b7bbc484c" style="text" stretchType="RelativeToTallestObject" x="572" y="0" width="70" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -649,7 +651,7 @@
 	<columnFooter>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement style="text" mode="Opaque" x="262" y="0" width="80" height="20" backcolor="#EDEDED" uuid="6a160da3-f484-4ff4-96b3-70f3ddadc6f2"/>
+				<reportElement uuid="6a160da3-f484-4ff4-96b3-70f3ddadc6f2" style="text" mode="Opaque" x="262" y="0" width="80" height="20" backcolor="#EDEDED"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -663,7 +665,7 @@
 				<text><![CDATA[مجموع صفحه]]></text>
 			</staticText>
 			<textField pattern="#,##0">
-				<reportElement style="text" mode="Opaque" x="22" y="0" width="80" height="20" backcolor="#EDEDED" uuid="6b51e189-c55b-432b-90eb-25d51c780e20"/>
+				<reportElement uuid="6b51e189-c55b-432b-90eb-25d51c780e20" style="text" mode="Opaque" x="22" y="0" width="80" height="20" backcolor="#EDEDED"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -678,7 +680,7 @@
 ($V{cumulativeBestankarPageSum}+$P{bestankarMandehAzGhabl}))))]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="102" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#EDEDED" uuid="db3d6f86-b8ea-4d68-9702-687bb04e0c8e"/>
+				<reportElement uuid="db3d6f86-b8ea-4d68-9702-687bb04e0c8e" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="102" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#EDEDED"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -692,7 +694,7 @@
 				<textFieldExpression><![CDATA[$V{cumulativeBestankarPageSum} + $P{bestankarMandehAzGhabl}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="182" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#EDEDED" uuid="0e463005-1f2f-4995-85ed-d7996fe31eb4"/>
+				<reportElement uuid="0e463005-1f2f-4995-85ed-d7996fe31eb4" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="182" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#EDEDED"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -710,7 +712,8 @@
 	<pageFooter>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="371" y="0" width="100" height="20" uuid="1139f587-c29c-4cee-a469-2063e4513b06"/>
+				<reportElement uuid="1139f587-c29c-4cee-a469-2063e4513b06" x="371" y="0" width="100" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -718,7 +721,7 @@
 	<lastPageFooter>
 		<band height="21">
 			<staticText>
-				<reportElement mode="Opaque" x="262" y="0" width="80" height="20" backcolor="#99CCFF" uuid="afb70546-ba39-4f6f-9c1b-31d6dba3f78c"/>
+				<reportElement uuid="afb70546-ba39-4f6f-9c1b-31d6dba3f78c" mode="Opaque" x="262" y="0" width="80" height="20" backcolor="#99CCFF"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -726,10 +729,11 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<text><![CDATA[جمع نهایی]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="182" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="48302c66-8bb4-4031-911f-6c4a04d0edd4"/>
+				<reportElement uuid="48302c66-8bb4-4031-911f-6c4a04d0edd4" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="182" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -743,7 +747,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{bedehkarTotal})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
-				<reportElement style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="102" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF" uuid="d9ddfac6-f0dc-4ebf-ae77-000d2de04e72"/>
+				<reportElement uuid="d9ddfac6-f0dc-4ebf-ae77-000d2de04e72" style="text" stretchType="RelativeToTallestObject" mode="Opaque" x="102" y="0" width="80" height="20" isPrintWhenDetailOverflows="true" backcolor="#99CCFF"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -757,11 +761,12 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{bestankarTotal})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="371" y="0" width="100" height="20" uuid="c63706df-47d2-4e9e-9852-ce217dcac008"/>
+				<reportElement uuid="c63706df-47d2-4e9e-9852-ce217dcac008" x="371" y="0" width="100" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement style="text" mode="Opaque" x="21" y="0" width="81" height="20" backcolor="#99CCFF" uuid="42b318e4-b6ea-4c2b-a922-c4f4f12a8b8c"/>
+				<reportElement uuid="42b318e4-b6ea-4c2b-a922-c4f4f12a8b8c" style="text" mode="Opaque" x="21" y="0" width="81" height="20" backcolor="#99CCFF"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>

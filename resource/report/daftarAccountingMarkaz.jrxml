@@ -7,6 +7,7 @@
 	<style name="reportTitle" hAlign="Center" vAlign="Middle" fontName="B Tir" fontSize="16" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BTitr.ttf" pdfEncoding="Identity-H"/>
 	<style name="digitBold" isDefault="true" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
 	<style name="text" isDefault="true" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
+	<style name="Tahoma-8" hAlign="Center" vAlign="Middle" fontName="Tahoma" fontSize="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="TAHOMA.TTF" pdfEncoding="Identity-H"/>
 	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="organName" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="fromDate" class="java.lang.String"/>
@@ -29,7 +30,6 @@
 	<field name="articleTafsiliDesc" class="java.lang.String"/>
 	<field name="accountingMarkaz" class="ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity"/>
 	<field name="articleAccountingMarkazDesc" class="java.lang.String"/>
-	
 	<variable name="rowCount" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[new Integer(1)]]></variableExpression>
 		<initialValueExpression><![CDATA[1]]></initialValueExpression>
@@ -527,7 +527,7 @@
 				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getTarikhSanadFA()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
-				<reportElement uuid="44d7a08a-80a8-465b-ae74-a7ad80e2d0df" style="text" stretchType="RelativeToTallestObject" x="262" y="0" width="240" height="20" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="44d7a08a-80a8-465b-ae74-a7ad80e2d0df" style="Tahoma-8" stretchType="RelativeToTallestObject" x="262" y="0" width="240" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -536,7 +536,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement>
-					<font size="11" isPdfEmbedded="true"/>
+					<font size="6" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
