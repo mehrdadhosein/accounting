@@ -13,7 +13,7 @@
 		</property>
 		<property name='tempSerial' type='java.lang.Long' column='tempSerial'>
 		</property>
-		<property name='description' type='string' column='description'>
+		<property name='description' type='string' column='description' length='4000'>
 		</property>
 		<property name='atfNumber' type='java.lang.Long' column='atfNumber'>
 		</property>
