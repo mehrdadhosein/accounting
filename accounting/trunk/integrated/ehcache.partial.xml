@@ -52,3 +52,12 @@
 	    overflowToDisk="false"
 	/>  
 
+ 	<cache
+	    name="ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity"
+	    maxElementsInMemory="5000"
+	    eternal="true"
+	    timeToIdleSeconds="0"
+	    timeToLiveSeconds="0"
+	    overflowToDisk="false"
+	/>  
+
