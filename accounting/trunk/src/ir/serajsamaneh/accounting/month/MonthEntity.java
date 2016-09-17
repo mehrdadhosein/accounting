@@ -31,7 +31,7 @@ public class MonthEntity extends BaseMonthEntity {
 		if (getName() != null)
 			return getName();
 		// TODO Auto-generated method stub
-		return super.toString();
+		return "";
 	}
 	/* [CONSTRUCTOR MARKER END] */
 
