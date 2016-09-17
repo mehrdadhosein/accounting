@@ -67,20 +67,26 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 
 	public DataModel<HesabTafsiliEntity> getLocalDataModel() {
 		setSearchAction(true);
-		getFilter().put("organ.code@startlk", getTopOrgan().getCode());
+		
+		populateTopOrgansIdListFilter();
+
+//		getFilter().put("organ.code@startlk", getTopOrgan().getCode());
 		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 		return getDataModel();
 	}
 
 	@Override
-	public DataModel<HesabTafsiliEntity> getHierarchicalDataModel() {
+	public DataModel<HesabTafsiliEntity> getUpsetDataModel() {
 		setSearchAction(true);
+//		populateTopOrgansIdListFilter();
 		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
-		return super.getHierarchicalDataModel();
+		return super.getUpsetDataModel();
 	}
 	
 	@Override
-	public Integer getHierarchicalDataModelCount() {
+	public Integer getUpsetDataModelCount() {
+		
+		populateTopOrgansIdListFilter();
 		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 		return super.getHierarchicalDataModelCount();
 	}
@@ -248,7 +254,10 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		}
 		
 		if (isHierarchical !=null && isHierarchical.equals("true")){
-			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+			List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
+			getFilter().put("organ.id@in", topOrganList);
+			
+//			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 			params.put("isLocal","false");
 		}
 		
@@ -256,15 +265,15 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	}
 	
 	public Map<Long, List<ListOrderedMap>> getTafsiliMoeenMap() {
-		return HesabRelationsUtil.getTafsiliMoeenMap(getCurrentUserActiveSaalMaali());
+		return HesabRelationsUtil.getTafsiliMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
 	public Map<Long, List<ListOrderedMap>> getTafsiliChildMap() {
-		return HesabRelationsUtil.getTafsiliChildMap(getCurrentUserActiveSaalMaali());
+		return HesabRelationsUtil.getTafsiliChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
 	public Map<Long, List<ListOrderedMap>> getTafsiliAccountingMarkazChildMap() {
-		return HesabRelationsUtil.getTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
+		return HesabRelationsUtil.getTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 
 	public String importFromHesabTafsiliTemplateList(){

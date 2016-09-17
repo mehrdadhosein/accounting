@@ -11,6 +11,7 @@ import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
 import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SpringUtils;
 
 import java.util.ArrayList;
@@ -68,12 +69,12 @@ public class HesabRelationsUtil {
 	public static void resetTafsiliMoeenMap(SaalMaaliEntity saalMaaliEntity) {
 		organizationalTafsiliMoeenMap.put(saalMaaliEntity.getId(), null);
 	}
-	public static Map<Long, List<ListOrderedMap>> getTafsiliMoeenMap(SaalMaaliEntity saalMaaliEntity) {
+	public static Map<Long, List<ListOrderedMap>> getTafsiliMoeenMap(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan) {
 		Map<Long, List<ListOrderedMap>> tafsiliMoeenMap = organizationalTafsiliMoeenMap.get(saalMaaliEntity.getId());
 		if (tafsiliMoeenMap == null) {
 			tafsiliMoeenMap = new HashMap<Long, List<ListOrderedMap>>();
 
-			List<HesabTafsiliEntity> list = getHesabTafsiliService().getActiveTafsilis(saalMaaliEntity);
+			List<HesabTafsiliEntity> list = getHesabTafsiliService().getActiveTafsilis(saalMaaliEntity, currentOrgan);
 			for (HesabTafsiliEntity hesabTafsiliEntity : list) {
 				Set<MoeenTafsiliEntity> moeenTafsiliSet = hesabTafsiliEntity.getMoeenTafsili();
 				List<ListOrderedMap> hesabMoeenList = new ArrayList<ListOrderedMap>();
@@ -99,14 +100,14 @@ public class HesabRelationsUtil {
 		organizationalKolMoeenMap.put(saalMaaliEntity.getId(), null);
 	}
 	
-	public static Map<Long, List<ListOrderedMap>> getKolMoeenMap(SaalMaaliEntity saalMaaliEntity) {
+	public static Map<Long, List<ListOrderedMap>> getKolMoeenMap(SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
 		Map<Long, List<ListOrderedMap>> kolMoeenMap = organizationalKolMoeenMap.get(saalMaaliEntity.getId());
 		if (kolMoeenMap == null) {
 			kolMoeenMap = new HashMap<Long, List<ListOrderedMap>>();
 
-			List<HesabKolEntity> list = getHesabKolService().getHesabKolList(saalMaaliEntity);
+			List<HesabKolEntity> list = getHesabKolService().getHesabKolList(saalMaaliEntity, curentOrgan);
 			for (HesabKolEntity hesabKolEntity : list) {
-				List<HesabMoeenEntity> moeenList = getHesabMoeenService().getActiveMoeens(hesabKolEntity.getId(), saalMaaliEntity);
+				List<HesabMoeenEntity> moeenList = getHesabMoeenService().getActiveMoeens(hesabKolEntity.getId(), saalMaaliEntity, curentOrgan);
 				
 				 List<ListOrderedMap> moeenOrderedList = new ArrayList<ListOrderedMap>();
 				 for(HesabMoeenEntity moeenEntity : moeenList){
@@ -133,13 +134,13 @@ public class HesabRelationsUtil {
 		organizationalMoeenKolMap.put(saalMaaliEntity.getId(), null);
 	}
 	
-	public static Map<Long, ListOrderedMap> getMoeenKolMap(SaalMaaliEntity saalMaaliEntity) {
+	public static Map<Long, ListOrderedMap> getMoeenKolMap(SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
 		Map<Long, ListOrderedMap> moeenKolMap = organizationalMoeenKolMap.get(saalMaaliEntity.getId());
 		
 		if (moeenKolMap == null) {
 			moeenKolMap = new HashMap<Long, ListOrderedMap>();
 
-			List<HesabMoeenEntity> list = getHesabMoeenService().getActiveMoeens(saalMaaliEntity);
+			List<HesabMoeenEntity> list = getHesabMoeenService().getActiveMoeens(saalMaaliEntity, curentOrgan);
 			for (HesabMoeenEntity hesabMoeenEntity : list) {
 				ListOrderedMap moeenItemMap = new ListOrderedMap();
 				moeenItemMap.put("value",hesabMoeenEntity.getHesabKol().getID());
@@ -161,16 +162,17 @@ public class HesabRelationsUtil {
 		organizationalMoeenTafsiliMap.put(saalMaaliEntity.getId(), null);
 	}
 	
-	public static Map<Long, List<ListOrderedMap>> getMoeenTafsiliMap(SaalMaaliEntity saalMaaliEntity) {
+	public static Map<Long, List<ListOrderedMap>> getMoeenTafsiliMap(SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
 		
 		Map<Long, List<ListOrderedMap>> moeenTafsiliMap = organizationalMoeenTafsiliMap.get(saalMaaliEntity.getId());
 		
 		if(moeenTafsiliMap == null){
-			List<HesabMoeenEntity> moeenList = getHesabMoeenService().getActiveMoeens(saalMaaliEntity);
+			List<HesabMoeenEntity> moeenList = getHesabMoeenService().getActiveMoeens(saalMaaliEntity, curentOrgan);
 			moeenTafsiliMap = new HashMap<Long, List<ListOrderedMap>>();
 			for (HesabMoeenEntity hesabMoeenEntity : moeenList) {
 				List<ListOrderedMap> hesabTafsiliList = new ArrayList<ListOrderedMap>();
-				for (HesabTafsiliEntity tafsiliEntity : hesabMoeenEntity.getTafsiliList()) {
+				List<HesabTafsiliEntity> activeTafsilies = getHesabMoeenService().getActiveTafsilies(hesabMoeenEntity, saalMaaliEntity, curentOrgan);
+				for (HesabTafsiliEntity tafsiliEntity : activeTafsilies) {
 					if(tafsiliEntity.getHidden().equals(false)){
 						ListOrderedMap bankBranchItemMap = new ListOrderedMap();
 						bankBranchItemMap.put("value",tafsiliEntity.getID());
@@ -193,12 +195,12 @@ public class HesabRelationsUtil {
 		organizationalMoeenAccountingMarkazMap.put(saalMaaliEntity.getId(), null);
 	}
 	
-	public static Map<Long, List<ListOrderedMap>> getAccountingMarkazMap(SaalMaaliEntity saalMaaliEntity) {
+	public static Map<Long, List<ListOrderedMap>> getAccountingMarkazMap(SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
 		
 		Map<Long, List<ListOrderedMap>> moeenAccountingMarkazMap = organizationalMoeenAccountingMarkazMap.get(saalMaaliEntity.getId());
 		
 		if(moeenAccountingMarkazMap == null){
-			List<HesabMoeenEntity> moeenList = getHesabMoeenService().getActiveMoeens(saalMaaliEntity);
+			List<HesabMoeenEntity> moeenList = getHesabMoeenService().getActiveMoeens(saalMaaliEntity, curentOrgan);
 			moeenAccountingMarkazMap = new HashMap<Long, List<ListOrderedMap>>();
 			for (HesabMoeenEntity hesabMoeenEntity : moeenList) {
 				List<ListOrderedMap> accountingMarkazList = new ArrayList<ListOrderedMap>();
@@ -226,12 +228,12 @@ public class HesabRelationsUtil {
 		organizationalTafsiliChildMap.put(saalMaaliEntity.getId(), null);
 	}
 	
-	public static Map<Long, List<ListOrderedMap>> getTafsiliChildMap(SaalMaaliEntity saalMaaliEntity) {
+	public static Map<Long, List<ListOrderedMap>> getTafsiliChildMap(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan) {
 
 		Map<Long, List<ListOrderedMap>> tafsiliChildMap = organizationalTafsiliChildMap.get(saalMaaliEntity.getId());
 		if(tafsiliChildMap == null){
 			tafsiliChildMap = new HashMap<Long, List<ListOrderedMap>>();
-			List<HesabTafsiliEntity> tafsiliList = getHesabTafsiliService().getActiveTafsilis(saalMaaliEntity);
+			List<HesabTafsiliEntity> tafsiliList = getHesabTafsiliService().getActiveTafsilis(saalMaaliEntity, currentOrgan);
 			for (HesabTafsiliEntity hesabTafsiliEntity : tafsiliList) {
 				List<ListOrderedMap> hesabTafsiliList = new ArrayList<ListOrderedMap>();
 				for (HesabTafsiliEntity tafsiliEntity : hesabTafsiliEntity.getChilds()) {
@@ -259,12 +261,12 @@ public class HesabRelationsUtil {
 		organizationalTafsiliMap.put(saalMaaliEntity.getId(), null);
 	}
 	
-	public static Map<Long, List<ListOrderedMap>> getTafsiliAccountingMarkazChildMap(SaalMaaliEntity saalMaaliEntity) {
+	public static Map<Long, List<ListOrderedMap>> getTafsiliAccountingMarkazChildMap(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan) {
 		
 		Map<Long, List<ListOrderedMap>> tafsiliMap = organizationalTafsiliMap.get(saalMaaliEntity.getId());
 		if(tafsiliMap == null){
 			tafsiliMap = new HashMap<Long, List<ListOrderedMap>>();
-			List<HesabTafsiliEntity> tafsiliList = getHesabTafsiliService().getActiveTafsilis(saalMaaliEntity);
+			List<HesabTafsiliEntity> tafsiliList = getHesabTafsiliService().getActiveTafsilis(saalMaaliEntity, currentOrgan);
 			for (HesabTafsiliEntity hesabTafsiliEntity : tafsiliList) {
 				List<ListOrderedMap> accountingMarkazList = new ArrayList<ListOrderedMap>();
 				for (AccountingMarkazEntity accountingMarkazEntity : hesabTafsiliEntity.getChildAccountingMarkaz()) {
@@ -292,12 +294,12 @@ public class HesabRelationsUtil {
 		organizationalAccountingMarkazChildMap.put(saalMaaliEntity.getId(), null);
 	}
 	
-	public static Map<Long, List<ListOrderedMap>> getAccountingMarkazChildMap(SaalMaaliEntity saalMaaliEntity) {
+	public static Map<Long, List<ListOrderedMap>> getAccountingMarkazChildMap(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan) {
 
 		Map<Long, List<ListOrderedMap>> accountingMarkazChildMap = organizationalAccountingMarkazChildMap.get(saalMaaliEntity.getId());
 		if(accountingMarkazChildMap == null){
 			accountingMarkazChildMap = new HashMap<Long, List<ListOrderedMap>>();
-			List<AccountingMarkazEntity> accountingMarkazList = getAccountingMarkazService().getActiveAccountingMarkaz(saalMaaliEntity);
+			List<AccountingMarkazEntity> accountingMarkazList = getAccountingMarkazService().getActiveAccountingMarkaz(saalMaaliEntity, currentOrgan);
 			for (AccountingMarkazEntity accountingMarkazEntity : accountingMarkazList) {
 				List<ListOrderedMap> localAccountingMarkazList = new ArrayList<ListOrderedMap>(); 
 				for (AccountingMarkazEntity localAccountingMarkazEntity : accountingMarkazEntity.getChilds()) {

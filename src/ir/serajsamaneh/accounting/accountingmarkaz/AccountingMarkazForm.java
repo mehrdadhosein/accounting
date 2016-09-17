@@ -151,10 +151,13 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	public List<? extends BaseEntity> getJsonList(String property, String term,
 			boolean all, Map<String, String> params) {
 		String isHierarchical = params.get("isHierarchical");
+		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 		
 		if (isHierarchical !=null && isHierarchical.equals("true")){
-			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-			this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+			List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
+			getFilter().put("organ.id@in", topOrganList);
+			
+//			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 			params.put("isLocal","false");
 		}
 		
@@ -162,7 +165,7 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	}
 
 	public Map<Long, List<ListOrderedMap>> getAccountingMarkazChildMap() {
-		return HesabRelationsUtil.getAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
+		return HesabRelationsUtil.getAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 
 	public Map<Long, List<ListOrderedMap>> getAccountingMarkazChildTemplateMap() {
@@ -180,7 +183,7 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 		//if (accountingMarkazMoeenMap == null) {
 			accountingMarkazMoeenMap = new HashMap<Long, List>();
 
-			List<AccountingMarkazEntity> list = getMyService().getActiveAccountingMarkaz(getCurrentUserActiveSaalMaali());
+			List<AccountingMarkazEntity> list = getMyService().getActiveAccountingMarkaz(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 			for (AccountingMarkazEntity accountingMarkazEntity : list) {
 				Set<MoeenAccountingMarkazEntity> moeenAccountingMarkazSet = accountingMarkazEntity.getMoeenAccountingMarkaz();
 				List moeenAccountingMarkazList = new ArrayList();

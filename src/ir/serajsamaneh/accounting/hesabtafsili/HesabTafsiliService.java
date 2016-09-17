@@ -436,9 +436,20 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 	
 
+	public List<HesabTafsiliEntity> getActiveTafsilis(SaalMaaliEntity currentSaalMaali, OrganEntity curentOrgan) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		
+		List<Long> topOrganList = getTopOrgansIdList(curentOrgan);
+		localFilter.put("organ.id@in", topOrganList);
+		
+		localFilter.put("hidden@eq", Boolean.FALSE);
+		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
+		return getDataList(null, localFilter);
+	}
+	
 	public List<HesabTafsiliEntity> getActiveTafsilis(SaalMaaliEntity currentSaalMaali) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-//		localFilter.put("organ.id@eqORorgan.id@isNull", Arrays.asList(currentSaalMaali.getOrgan().getId(),"ding"));
+		
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
 		return getDataList(null, localFilter);

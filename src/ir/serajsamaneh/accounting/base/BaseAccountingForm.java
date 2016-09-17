@@ -182,4 +182,9 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 	public  Integer getLevelsSize(){
 		return getLevels().size();
 	}
+	
+	protected void populateTopOrgansIdListFilter() {
+		List<Long> topOrganList = getTopOrgansIdList(getOrganService().load(getCurrentOrgan().getId()));
+		getFilter().put("organ.id@in", topOrganList);
+	}
 }
