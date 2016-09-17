@@ -94,7 +94,9 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	@Override
 	public DataModel<HesabKolEntity> getDataModel() {
 		setSearchAction(true);
-		getFilter().put("organ.code@startlk", getTopOrgan().getCode());
+		populateTopOrgansIdListFilter();
+
+		//getFilter().put("organ.code@startlk", getTopOrgan().getCode());
 		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 		return super.getDataModel();
 	}
@@ -198,14 +200,23 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 //		if(currentSaalMaali!=null && currentSaalMaali.equals("true")){
 //			getFilter().put("saalMaali.id@eq", getCurrentUsertActiveSaalMaali().getId());
 //		}
-
+		String isHierarchical = params.get("isHierarchical");
 		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
+
+		if (isHierarchical !=null && isHierarchical.equals("true")){
+			
+			List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
+			getFilter().put("organ.id@in", topOrganList);
+			
+//			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+			params.put("isLocal","false");
+		}
 		
 		return super.getJsonList(property, term, all, params);
 	}
 
 	public Map<Long, List<ListOrderedMap>> getKolMoeenMap() {
-		return HesabRelationsUtil.getKolMoeenMap(getCurrentUserActiveSaalMaali());
+		return HesabRelationsUtil.getKolMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
 	public String getRelatedHesabTreeByContact(Long contactId){

@@ -88,10 +88,14 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	@Override
 	public DataModel<HesabMoeenEntity> getDataModel() {
 		setSearchAction(true);
-		this.getFilter().put("organ.code@startlk", getTopOrgan().getCode());
+		//this.getFilter().put("organ.code@startlk", getTopOrgan().getCode());
+		populateTopOrgansIdListFilter();
+
 		this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 		return super.getDataModel();
 	}
+
+
 
 	@Override
 	public DataModel<HesabMoeenEntity> getHierarchicalDataModel() {
@@ -175,7 +179,11 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 			}
 			
 			if (isHierarchical !=null && isHierarchical.equals("true")){
-				this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+				
+				List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
+				getFilter().put("organ.id@in", topOrganList);
+				
+//				this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 				params.put("isLocal","false");
 			}
 		return super.getJsonList(property, term, all, params);
@@ -183,15 +191,15 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	
 	
 	public Map<Long, ListOrderedMap> getMoeenKolMap() {
-		return HesabRelationsUtil.getMoeenKolMap(getCurrentUserActiveSaalMaali());
+		return HesabRelationsUtil.getMoeenKolMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
 	public Map<Long, List<ListOrderedMap>> getMoeenTafsiliMap() {
-		return HesabRelationsUtil.getMoeenTafsiliMap(getCurrentUserActiveSaalMaali());
+		return HesabRelationsUtil.getMoeenTafsiliMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 
 	public Map<Long, List<ListOrderedMap>> getAccountingMarkazMap() {
-		return HesabRelationsUtil.getAccountingMarkazMap(getCurrentUserActiveSaalMaali());
+		return HesabRelationsUtil.getAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
 	private List<TafsiliLevelVo> getTafsiliLevelsList(Long mooenId){

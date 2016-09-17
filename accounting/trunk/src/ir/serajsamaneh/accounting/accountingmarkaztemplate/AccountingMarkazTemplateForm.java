@@ -166,7 +166,7 @@ public class AccountingMarkazTemplateForm extends BaseAccountingForm<AccountingM
 	}
 
 	public Map<Long, List<ListOrderedMap>> getAccountingMarkazChildMap() {
-		return HesabRelationsUtil.getAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
+		return HesabRelationsUtil.getAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 
 	public Map<Long, List<ListOrderedMap>> getAccountingMarkazChildTemplateMap() {

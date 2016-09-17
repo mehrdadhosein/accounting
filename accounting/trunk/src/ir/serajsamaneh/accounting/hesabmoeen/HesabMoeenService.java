@@ -7,7 +7,9 @@ import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
+import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
 import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
+import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntityService;
@@ -40,6 +42,24 @@ public class HesabMoeenService extends
 	HesabMoeenTemplateService hesabMoeenTemplateService;
 	HesabKolService hesabKolService;
 	SaalMaaliService saalMaaliService;
+	HesabTafsiliService hesabTafsiliService;
+	MoeenTafsiliService moeenTafsiliService;
+
+	public MoeenTafsiliService getMoeenTafsiliService() {
+		return moeenTafsiliService;
+	}
+
+	public void setMoeenTafsiliService(MoeenTafsiliService moeenTafsiliService) {
+		this.moeenTafsiliService = moeenTafsiliService;
+	}
+
+	public HesabTafsiliService getHesabTafsiliService() {
+		return hesabTafsiliService;
+	}
+
+	public void setHesabTafsiliService(HesabTafsiliService hesabTafsiliService) {
+		this.hesabTafsiliService = hesabTafsiliService;
+	}
 
 	public SaalMaaliService getSaalMaaliService() {
 		return saalMaaliService;
@@ -255,28 +275,54 @@ public class HesabMoeenService extends
 		super.saveOrUpdateStateLess(entity);
 	}
 	
-	public List<HesabMoeenEntity> getActiveMoeens(Long hesabKolId, SaalMaaliEntity currentSaalMaali) {
+	public List<HesabMoeenEntity> getActiveMoeens(Long hesabKolId, SaalMaaliEntity currentSaalMaali, OrganEntity curentOrgan) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		List params = new ArrayList();
-		params.add(currentSaalMaali.getOrgan().getId());
-		params.add("ding");
-//		localFilter.put("organ.id@eqORorgan.id@isNull", params);
+
+		List<Long> topOrganList = getTopOrgansIdList(curentOrgan);
+		localFilter.put("organ.id@in", topOrganList);
+		
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("hesabKol.id@eq", hesabKolId);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
 		return getDataList(null, localFilter);
 	}
-	public List<HesabMoeenEntity> getActiveMoeens(SaalMaaliEntity currentSaalMaali) {
+	public List<HesabMoeenEntity> getActiveMoeens(SaalMaaliEntity currentSaalMaali, OrganEntity curentOrgan) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		List params = new ArrayList();
-		params.add(currentSaalMaali.getOrgan().getId());
-		params.add("ding");
-//		localFilter.put("organ.id@eqORorgan.id@isNull", params);
+		List<Long> topOrganList = getTopOrgansIdList(curentOrgan);
+		localFilter.put("organ.id@in", topOrganList);
+		
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
 		return getDataList(null, localFilter);
 	}
 
+	public List<HesabTafsiliEntity> getActiveTafsilies(HesabMoeenEntity hesabMoeenEntity, SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		List<Long> topOrganList = getTopOrgansIdList(curentOrgan);
+		localFilter.put("hesabTafsili.organ.id@in", topOrganList);
+		
+		localFilter.put("hesabTafsili.hidden@eq", Boolean.FALSE);
+		localFilter.put("hesabTafsili.saalMaali.id@eq", saalMaaliEntity.getId());
+		
+		localFilter.put("hesabMoeen.id@eq", hesabMoeenEntity.getId());
+		List<MoeenTafsiliEntity> dataList = getMoeenTafsiliService().getDataList(null, localFilter);
+		
+		List<HesabTafsiliEntity> hesabTafsiliEntities = new ArrayList<HesabTafsiliEntity>();
+		for (MoeenTafsiliEntity moeenTafsiliEntity : dataList) {
+			hesabTafsiliEntities.add(moeenTafsiliEntity.getHesabTafsili());
+		}
+		
+		return hesabTafsiliEntities;
+	}
+	
+	public List<HesabMoeenEntity> getActiveMoeens(SaalMaaliEntity currentSaalMaali) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		
+		localFilter.put("hidden@eq", Boolean.FALSE);
+		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
+		return getDataList(null, localFilter);
+	}
+	
 	@Transactional(readOnly=false)
 	public void importFromHesabMoeenTemplateList(SaalMaaliEntity activeSaalMaaliEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();

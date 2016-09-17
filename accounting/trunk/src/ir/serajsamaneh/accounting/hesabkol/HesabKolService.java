@@ -445,27 +445,39 @@ public class HesabKolService extends
 	}
 	
 	public List<HesabVO> createHesabHierarchy(OrganEntity organEntity, SaalMaaliEntity activeSaalMaaliEntity) {
-		List<HesabKolEntity> hesabKolList = getHesabKolList(activeSaalMaaliEntity);
+		List<HesabKolEntity> hesabKolList = getHesabKolList(activeSaalMaaliEntity, organEntity);
 		
 		List<HesabVO> hesabVOs = new ArrayList<HesabVO>();
 		for (HesabKolEntity hesabKolEntity : hesabKolList) {
 			HesabVO hesabKolVO = new HesabVO(hesabKolEntity, HesabKolEntity.class.getSimpleName(), "folder_vector.png");
-			List<HesabMoeenEntity> activeMoeens = getHesabMoeenService().getActiveMoeens(hesabKolEntity.getId(), activeSaalMaaliEntity);
+			List<HesabMoeenEntity> activeMoeens = getHesabMoeenService().getActiveMoeens(hesabKolEntity.getId(), activeSaalMaaliEntity, organEntity);
 			HesabTreeUtil.addHesabMoeensToHesabHierarchy(hesabKolVO, activeMoeens, hesabVOs);
 			hesabVOs.add(hesabKolVO);
 		}
 		return hesabVOs;
 	}
 
-	public List<HesabKolEntity> getHesabKolList(SaalMaaliEntity saalMaaliEntity) {
+	public List<HesabKolEntity> getHesabKolList(SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
-//		localFilter.put("organ.id@eq",saalMaaliEntity.getOrgan().getId());
+		
+		List<Long> topOrganList = getTopOrgansIdList(curentOrgan);
+		localFilter.put("organ.id@in", topOrganList);
+		
 		localFilter.put("hidden@eq",Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
 		List<HesabKolEntity> hesabKolList = getDataList(null, localFilter, HesabKolEntity.PROP_CODE, true,false);
 		return hesabKolList;
 	}
 
+	public List<HesabKolEntity> getHesabKolList(SaalMaaliEntity saalMaaliEntity) {
+		HashMap<String, Object> localFilter = new HashMap<String, Object>();
+		
+		localFilter.put("hidden@eq",Boolean.FALSE);
+		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
+		List<HesabKolEntity> hesabKolList = getDataList(null, localFilter, HesabKolEntity.PROP_CODE, true,false);
+		return hesabKolList;
+	}
+	
 
 
 	
