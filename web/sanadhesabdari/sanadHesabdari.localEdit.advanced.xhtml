@@ -190,7 +190,7 @@
 		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.entityEditable and owner.ID != null}"
 			action="#{sanadHesabdari.saveBarresiShode}"
 			value="#{messages['sanad_save_daem']}"
-			onclick="if(!confirmAction()) return false; populateRecordsXML('sanadItems','#sanadHesabdariGrid');"
+			onclick="if(!confirmAction()) return false; populateRecordsXMLV2('sanadItems','#sanadHesabdariGrid');"
 			image="/images/buttons/btn_confirm.png" />
 
 
