@@ -1043,7 +1043,7 @@ public class SanadHesabdariForm extends
 	public String tabdilBeDaemiBatch() {
 		List<SanadHesabdariEntity> selectedItems = getSelectedItems();
 		SaalMaaliEntity activeSaalmaali = getCurrentUserActiveSaalMaali();
-		getMyService().tabdilBeDaemi(selectedItems, activeSaalmaali);
+		getMyService().tabdilBeDaemi(selectedItems, activeSaalmaali, getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		clearPage();
 		return  null;
@@ -1068,7 +1068,7 @@ public class SanadHesabdariForm extends
 	
 	public String tabdilBeDaemi() {
 		SaalMaaliEntity activeSaalmaali = getCurrentUserActiveSaalMaali();
-		getMyService().tabdilBeDaemi(getEntity(), activeSaalmaali);
+		getMyService().tabdilBeDaemi(getEntity(), activeSaalmaali, getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return  back();
 	}
@@ -1084,7 +1084,7 @@ public class SanadHesabdariForm extends
 		for (SanadHesabdariEntity sanadHesabdariEntity : dataList) {
 			System.out.println(sanadHesabdariEntity.getTarikhSanadFA());
 			getMyService().duplicateEntity(sanadHesabdariEntity.getOldEntity(), sanadHesabdariEntity);
-			getMyService().tabdilBeDaemi(sanadHesabdariEntity, activeSaalmaali);
+			getMyService().tabdilBeDaemi(sanadHesabdariEntity, activeSaalmaali, getCurrentOrgan());
 		}
 
 //		return dataList.size();
@@ -1094,7 +1094,7 @@ public class SanadHesabdariForm extends
 
 	public String tabdilBeDaemiBySerial() {
 		SaalMaaliEntity activeSaalmaali = getCurrentUserActiveSaalMaali();
-		getMyService().tabdilBeDaemi(getSerialTo(),activeSaalmaali);
+		getMyService().tabdilBeDaemi(getSerialTo(),activeSaalmaali, getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return null;
 	}

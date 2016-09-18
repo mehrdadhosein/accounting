@@ -19,9 +19,10 @@ public class SanadHesabdariDAO extends BaseAccountingDAO<SanadHesabdariEntity,Lo
 
 
 
-	public Long getMaxSanadSerial(SaalMaaliEntity saalMaaliEntity) {
+	public Long getMaxSanadSerial(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+		filter.put("organ.id@eq", organEntity.getId());
 		
 		addLocationFilter(filter);
 
@@ -32,7 +33,7 @@ public class SanadHesabdariDAO extends BaseAccountingDAO<SanadHesabdariEntity,Lo
 		criteria.setProjection(Projections.projectionList().add(
 				Projections.max(SanadHesabdariEntity.PROP_SERIAL)));
 
-		Long uniqueResult = (Long) criteria.setFlushMode(FlushMode.MANUAL)
+		Long uniqueResult = (Long) criteria.setFlushMode(FlushMode.ALWAYS)
 				.uniqueResult();
 
 		if (uniqueResult == null)

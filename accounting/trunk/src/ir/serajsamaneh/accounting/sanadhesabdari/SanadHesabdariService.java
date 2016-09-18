@@ -153,7 +153,7 @@ public class SanadHesabdariService extends
 	protected static Map<Long, Long> organSanadHesabdariIds = new HashMap<Long, Long>();
 
 	@Transactional(readOnly = false)
-	public synchronized Long getNextSanadHesabdariSerial(SaalMaaliEntity saalMaaliEntity) {
+	public synchronized Long getNextSanadHesabdariSerial(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
 //		if (organSanadHesabdariIds.get(saalMaaliEntity.getId()) == null) {
 //			Long maxSerial = null;
 //			maxSerial = getSanadHesabdariDAO().getMaxSanadSerial(saalMaaliEntity);
@@ -170,7 +170,7 @@ public class SanadHesabdariService extends
 //		return currentMaxSerial;
 
 		Long maxSerial = null;
-		maxSerial = getSanadHesabdariDAO().getMaxSanadSerial(saalMaaliEntity);
+		maxSerial = getSanadHesabdariDAO().getMaxSanadSerial(saalMaaliEntity, organEntity);
 		return ++maxSerial;
 	}
 
@@ -742,22 +742,22 @@ public class SanadHesabdariService extends
 	}
 
 	@Transactional
-	public void tabdilBeDaemi(SanadHesabdariEntity entity, SaalMaaliEntity saalMaaliEntity) {
+	public void tabdilBeDaemi(SanadHesabdariEntity entity, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
 		boolean validateSaalMaaliInProgress = true;
 		if(entity.getSanadFunction().equals(SanadFunctionEnum.EKHTETAMIE))
 			validateSaalMaaliInProgress=false;
-		tabdilBeDaemi(entity, saalMaaliEntity, validateSaalMaaliInProgress);
+		tabdilBeDaemi(entity, saalMaaliEntity, validateSaalMaaliInProgress, organEntity);
 	}
 	
 	@Transactional
-	public void tabdilBeDaemi(SanadHesabdariEntity entity, SaalMaaliEntity saalMaaliEntity, boolean validateSaalMaaliInProgress) {
+	public void tabdilBeDaemi(SanadHesabdariEntity entity, SaalMaaliEntity saalMaaliEntity, boolean validateSaalMaaliInProgress, OrganEntity organEntity) {
 		entity.setDaeemKonnadeSanad(getCurrentUser());
 		checkSaalMaaliAndTarikhSanadConflict(entity);
 		
 		save(entity, saalMaaliEntity.getOrgan(), saalMaaliEntity, true, validateSaalMaaliInProgress);
 		
 		if (entity.getSerial() == null)
-			entity.setSerial(getNextSanadHesabdariSerial(saalMaaliEntity));
+			entity.setSerial(getNextSanadHesabdariSerial(saalMaaliEntity, organEntity));
 		
 		entity.setState(SanadStateEnum.DAEM);
 		
@@ -808,7 +808,7 @@ public class SanadHesabdariService extends
 //	}
 
 	@Transactional
-	public Integer tabdilBeDaemi(Long serialSanadTo,SaalMaaliEntity saalMaaliEntity) {
+	public Integer tabdilBeDaemi(Long serialSanadTo,SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
 //		SaalMaaliEntity activeSaalmaali = getSaalMaaliService()
 //				.getActiveSaalmaali(currentOrgan);
 		Map<String, Object> localFilter = new HashMap<String, Object>();
@@ -817,7 +817,7 @@ public class SanadHesabdariService extends
 		localFilter.put("state@eq", SanadStateEnum.BARRESI_SHODE);
 		List<SanadHesabdariEntity> dataList = getDataList(null, localFilter);
 		for (SanadHesabdariEntity sanadHesabdariEntity : dataList) {
-			tabdilBeDaemi(sanadHesabdariEntity, saalMaaliEntity);
+			tabdilBeDaemi(sanadHesabdariEntity, saalMaaliEntity, organEntity);
 		}
 		return dataList.size();
 	}
@@ -869,11 +869,11 @@ public class SanadHesabdariService extends
 	}
 
 	@Transactional
-	public void tabdilBeDaemi(List<SanadHesabdariEntity> sanads, SaalMaaliEntity saalMaaliEntity) {
+	public void tabdilBeDaemi(List<SanadHesabdariEntity> sanads, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
 		for (SanadHesabdariEntity sanadHesabdariEntity : sanads) {
 			SanadHesabdariEntity entity = load(sanadHesabdariEntity.getId());
 			duplicateEntity(entity.getOldEntity(), entity);
-			tabdilBeDaemi(entity, saalMaaliEntity);
+			tabdilBeDaemi(entity, saalMaaliEntity, organEntity);
 		}
 	}
 	
@@ -1125,7 +1125,7 @@ public class SanadHesabdariService extends
 		saveBarrasiShode(sanadHesabdariCloseTemporalAccountsEntity, organEntity, isInMultipleLevelMode, true);
 		duplicateEntity(sanadHesabdariCloseTemporalAccountsEntity.getOldEntity(), sanadHesabdariCloseTemporalAccountsEntity);
 		
-		tabdilBeDaemi(sanadHesabdariCloseTemporalAccountsEntity, saalMaaliEntity);
+		tabdilBeDaemi(sanadHesabdariCloseTemporalAccountsEntity, saalMaaliEntity, organEntity);
 		
 		saalMaaliEntity.setStatus(SaalMaaliStatusEnum.TemporalAccountsClosed);
 		getSaalMaaliService().save(saalMaaliEntity);
