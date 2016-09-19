@@ -258,7 +258,7 @@ public class HesabKolService extends
 	@Override
 	public void save(HesabKolEntity entity) {
 		if(!isLong(entity.getCode()))
-			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabKol_code"));
+			throw new FieldMustContainOnlyNumbersException("("+entity.getName()+" : "+ SerajMessageUtil.getMessage("HesabKol_code")+")");
 		super.save(entity);
 	}
 //	public HesabKolEntity getHesabKolByCode(String hesabCode, OrganEntity organEntity) {
@@ -451,7 +451,7 @@ public class HesabKolService extends
 		for (HesabKolEntity hesabKolEntity : hesabKolList) {
 			HesabVO hesabKolVO = new HesabVO(hesabKolEntity, HesabKolEntity.class.getSimpleName(), "folder_vector.png");
 			List<HesabMoeenEntity> activeMoeens = getHesabMoeenService().getActiveMoeens(hesabKolEntity.getId(), activeSaalMaaliEntity, organEntity);
-			HesabTreeUtil.addHesabMoeensToHesabHierarchy(hesabKolVO, activeMoeens, hesabVOs);
+			HesabTreeUtil.addHesabMoeensToHesabHierarchy(hesabKolVO, activeMoeens, hesabVOs, activeSaalMaaliEntity, organEntity);
 			hesabVOs.add(hesabKolVO);
 		}
 		return hesabVOs;

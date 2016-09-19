@@ -81,6 +81,19 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	List<Long> hesabKolIds;
 	List<Long> accountingMarkazIds;
 
+	Integer articleTafsiliLevel=1;
+
+	public Integer getArticleTafsiliLevel() {
+		return articleTafsiliLevel;
+	}
+
+
+
+	public void setArticleTafsiliLevel(Integer articleTafsiliLevel) {
+		this.articleTafsiliLevel = articleTafsiliLevel;
+	}
+
+
 
 	public Map<String, Object> getSanadhesabdariItemFilter() {
 		return sanadhesabdariItemFilter;
@@ -574,7 +587,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		if(!FacesContext.getCurrentInstance().getRenderResponse())
 			return new ArrayList<SanadHesabdariItemEntity>();
 		setSearchAction(true);
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = extractTarazShenavarAzmayeshi(getCurrentOrgan());
+		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = extractTarazShenavarAzmayeshi(getCurrentOrgan(), getArticleTafsiliLevel());
 		return tarazTafsiliAzmayeshi;
 	}
 
@@ -584,7 +597,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			return new ArrayList<SanadHesabdariItemEntity>();
 		setSearchAction(true);
 		OrganEntity selectedOrgan = getSelectedOrganId()!=null ? getOrganService().load(getSelectedOrganId()) : null;
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = extractTarazShenavarAzmayeshi(selectedOrgan);
+		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = extractTarazShenavarAzmayeshi(selectedOrgan, getArticleTafsiliLevel());
 		return tarazTafsiliAzmayeshi; 
 	}
 	
@@ -628,9 +641,9 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		return tarazTafsiliAzmayeshi;
 	}
 	
-	private List<SanadHesabdariItemEntity> extractTarazShenavarAzmayeshi(OrganEntity organEntity) {
+	private List<SanadHesabdariItemEntity> extractTarazShenavarAzmayeshi(OrganEntity organEntity, Integer level) {
 		populateFilterFromRequest();
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = getMyService().getTarazTafsiliShenavarAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity, getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = getMyService().getTarazTafsiliShenavarAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity, getFromSerial(), getToSerial(), getSanadhesabdariItemFilter(), level);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : tarazTafsiliAzmayeshi) {
 			totalBedehkar += sanadHesabdariItemEntity.getBedehkar();
 			totalBestankar += sanadHesabdariItemEntity.getBestankar();
@@ -1286,7 +1299,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		columnsLabel.put("operationSummaryBestankar", SerajMessageUtil.getMessage("SanadHesabdariItem_operationSummaryBestankar"));
 		columnsLabel.put("mandehBedehkar", SerajMessageUtil.getMessage("SanadHesabdariItem_mandeh_bedehkar"));
 		columnsLabel.put("mandehBestankar", SerajMessageUtil.getMessage("SanadHesabdariItem_mandeh_bestankar"));
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayehiList = extractTarazShenavarAzmayeshi(getCurrentOrgan());
+		List<SanadHesabdariItemEntity> tarazTafsiliAzmayehiList = extractTarazShenavarAzmayeshi(getCurrentOrgan(), getArticleTafsiliLevel());
 		try {
 			ByteArrayOutputStream byteArrayOutputStream = getMyService().exportSimpleObjectListToXLSX(tarazTafsiliAzmayehiList, columnsToShow, columnsLabel);
 			downloadStream(byteArrayOutputStream.toByteArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "tarazShenavarAzmayeshi.xlsx");
@@ -1412,7 +1425,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 
 	private String printTarazShenavarAzmayeshi(String organName, OrganEntity organEntity) {
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayehiList = extractTarazShenavarAzmayeshi(organEntity);
+		List<SanadHesabdariItemEntity> tarazTafsiliAzmayehiList = extractTarazShenavarAzmayeshi(organEntity, getArticleTafsiliLevel());
 		Map<String, Object> parameters = populateReportParameters(organName);
 		
 		String reportPath = getLocalFilePath("/WEB-INF/classes/report/taraz/tarazTafsiliAzmayeshi-"+getColumnsCount()+"_col.jrxml");
