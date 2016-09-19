@@ -311,7 +311,8 @@
 	function populateRecordsXML(recordsInputId,gridId){
 		if(!gridId)
 			gridId = "#grid";
-		viewWholeGrid(gridId)
+		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
+		//viewWholeGrid(gridId)
 		var localItems = getItems(gridId);
 		var records='';
 		var allRowsInGrid = $$(gridId).jqGrid('getRowData');
@@ -348,5 +349,55 @@
 		}
 		factorItemsXML +="</rows>\n";
 		document.getElementById(recordsInputId).value=factorItemsXML;
+		return true;
+	}
+
+	function populateRecordsXMLV2(recordsInputId,gridId){
+		if(!gridId)
+			gridId = "#grid";
+		//viewWholeGrid(gridId);
+		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
+		var localItems = getItems(gridId);
+		var records='';
+		var allRowsInGrid = $$(gridId).jqGrid('getRowData');
+		var factorItemsXML = "<?xml version='1.0' encoding='UTF-8'?>\n";
+
+		factorItemsXML +="<rows>\n";
+		factorItemsXML +="<page>1</page>\n";
+		factorItemsXML +="<total>1</total>\n";
+		factorItemsXML +="<records>"+allRowsInGrid.length+"</records>\n";
+		var index = 1;
+		for ( var i = 0; i < allRowsInGrid.length; i++) {
+			var rec = allRowsInGrid[i];
+			if(rec['id']==undefined )
+				return ;
+			factorItemsXML +="<row id='"+index+"'>";
+			
+			
+			for ( var j = 0; j < localItems.length; j++){
+				//alert(rec[localItems[j]]+' '+localItems[j]);
+				if(rec[localItems[j]]==undefined || rec[localItems[j]]=='undefined'){
+					rec[localItems[j]]="";
+				}
+				factorItemsXML +="<cell name='"+localItems[j]+"'>"+rec[localItems[j]]+"</cell>";
+			}
+			
+
+			
+	        var deleteFunction = 'deleteRowData(getSanadHesabdariGridId(),'+index+');updateFooter();';
+			del = '\<input style="" type="image" src="'+contextPath+'/images/remove.png"  value="Delete" onclick=\"return '+deleteFunction+'\" /\>';
+			var editFunction = 'editSanadHesabdariRowData(getSanadHesabdariGridId(),'+index+',getEditDialogTitle());';
+			edit = '\<input style=""  type="image" src="'+contextPath+'/images/edit.png"   value="Edit"   onclick=\"return '+editFunction+'\" /\>';
+			
+			
+			factorItemsXML +='<cell>\<![CDATA[ '+del+']]\></cell>';
+			factorItemsXML +='<cell>\<![CDATA[ '+edit+']]\></cell>';
+			
+			factorItemsXML +="</row>";
+			++index;
+		}
+		factorItemsXML +="</rows>\n";
+		document.getElementById(recordsInputId).value=factorItemsXML;
+		//alert(factorItemsXML);
 		return true;
 	}

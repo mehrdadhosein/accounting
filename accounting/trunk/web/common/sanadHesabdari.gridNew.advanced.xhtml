@@ -107,7 +107,8 @@ width: 33%;
 			<h:outputText value="#{messages['HesabKol_title']}: " />
 		</h:panelGroup>
 		<h:panelGroup>
-			<input name="hesabKolName" id="hesabKolName" readonly="readonly" style="width:200px"/>
+			
+			<p:inputText name="hesabKolName" id="hesabKolName" style="width:200px;" readonly="true"/>			
 		</h:panelGroup>
 
 		<h:panelGroup>
@@ -210,26 +211,21 @@ width: 33%;
 			<h:outputLabel for="bedehkar"
 				value="#{messages['SanadHesabdariItem_bedehkar']}: " />
 		</h:panelGroup>
-		<input type="text" style="width: 200px;" name="bedehkar" id="bedehkar" />
+		<p:inputText name="bedehkar" id="bedehkar" style="width:200px;"/>			
 
 		<h:panelGroup>
 			<h:outputText styleClass="required" value="* " />
 			<h:outputLabel for="bestankar"
 				value="#{messages['SanadHesabdariItem_bestankar']}: " />
 		</h:panelGroup>
-		<input type="text" style="width: 200px;" name="bestankar"
-			id="bestankar" />
-
-
-
+		<p:inputText name="bestankar" id="bestankar" style="width:200px;"/>					
 
 		<h:panelGroup>
 			<h:outputText styleClass="required" value="* " />
 			<h:outputLabel for="description"
 				value="#{messages['SanadHesabdariItem_description']}: " />
 		</h:panelGroup>
-		<input type="text"  name="description" id="description"
-			style="width: 200px;" />
+		<p:inputText name="description" id="description" style="width:200px;"/>					
 		<h:panelGroup/>
 		<h:panelGroup/>
 		<h:panelGroup/>
