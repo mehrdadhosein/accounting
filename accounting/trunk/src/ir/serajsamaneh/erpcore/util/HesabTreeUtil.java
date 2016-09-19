@@ -3,8 +3,12 @@ package ir.serajsamaneh.erpcore.util;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabVO;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
+import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
+import ir.serajsamaneh.core.organ.OrganEntity;
+import ir.serajsamaneh.core.util.SpringUtils;
 
 import java.util.List;
 import java.util.Set;
@@ -12,8 +16,12 @@ import java.util.Set;
 public class HesabTreeUtil {
 
 
-
-
+	static HesabMoeenService hesabMoeenService;
+	public static HesabMoeenService getHesabMoeenService() {
+		if(hesabMoeenService == null)
+			hesabMoeenService = SpringUtils.getBean("hesabMoeenService");		
+		return hesabMoeenService;
+	}
 
 	public static HesabVO addHesabKolToHesabVOs(HesabKolEntity hesabKolEntity, List<HesabVO> hesabVOs) {
 		for (HesabVO hesabVO : hesabVOs) {
@@ -27,15 +35,15 @@ public class HesabTreeUtil {
 
 
 	public static void addHesabMoeensToHesabHierarchy(HesabVO hesabKolVO,
-			List<HesabMoeenEntity> activeMoeens, List<HesabVO> hesabVOs) {
+			List<HesabMoeenEntity> activeMoeens, List<HesabVO> hesabVOs, SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
 		for (HesabMoeenEntity hesabMoeenEntity : activeMoeens) {
-			addHesabMoeenToHesabHierarchy(hesabKolVO, hesabMoeenEntity, hesabVOs, true);
+			addHesabMoeenToHesabHierarchy(hesabKolVO, hesabMoeenEntity, hesabVOs, true, saalMaaliEntity, curentOrgan);
 		}
 	}
 
 
 
-	public static HesabVO addHesabMoeenToHesabHierarchy(HesabVO hesabKolVO, HesabMoeenEntity hesabMoeenEntity, List<HesabVO> hesabVOs, boolean addMoeenTafsilies) {
+	public static HesabVO addHesabMoeenToHesabHierarchy(HesabVO hesabKolVO, HesabMoeenEntity hesabMoeenEntity, List<HesabVO> hesabVOs, boolean addMoeenTafsilies, SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
 
 		HesabVO localHesabMoeenVO = null;
 		Boolean found = false;
@@ -57,11 +65,15 @@ public class HesabTreeUtil {
 		}
 		
 		if(addMoeenTafsilies){
-			Set<MoeenTafsiliEntity> moeenTafsili = hesabMoeenEntity.getMoeenTafsili();
-			for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsili) {
-				HesabTafsiliEntity hesabTafsili = moeenTafsiliEntity.getHesabTafsili();
+			//Set<MoeenTafsiliEntity> moeenTafsili =  hesabMoeenEntity.getMoeenTafsili();
+			List<HesabTafsiliEntity> activeTafsilies = getHesabMoeenService().getActiveTafsilies(hesabMoeenEntity, saalMaaliEntity, curentOrgan);
+			for (HesabTafsiliEntity hesabTafsili : activeTafsilies) {
 				addHesabTafsilisToHesabHierarchy(localHesabMoeenVO, hesabTafsili, "folder-documents-icon.png", hesabVOs, true);
 			}
+//			for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsili) {
+//				HesabTafsiliEntity hesabTafsili = moeenTafsiliEntity.getHesabTafsili();
+//				addHesabTafsilisToHesabHierarchy(localHesabMoeenVO, hesabTafsili, "folder-documents-icon.png", hesabVOs, true);
+//			}
 		}
 		
 		return localHesabMoeenVO;
@@ -105,7 +117,7 @@ public class HesabTreeUtil {
 	}
 
 	public static void addHesabTafsilisToHesabHierarchy(List<HesabVO> hesabVOs,
-			HesabTafsiliEntity hesabTafsiliEntity, boolean addMoeenTafsilies, boolean addTafsiliShenavars) {
+			HesabTafsiliEntity hesabTafsiliEntity, boolean addMoeenTafsilies, boolean addTafsiliShenavars, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
 		Set<MoeenTafsiliEntity> moeenTafsili = hesabTafsiliEntity.getMoeenTafsili();
 		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsili) {
 			HesabMoeenEntity hesabMoeenEntity = moeenTafsiliEntity.getHesabMoeen();
@@ -113,7 +125,7 @@ public class HesabTreeUtil {
 			
 			HesabVO hesabKolVO = addHesabKolToHesabVOs(hesabKolEntity, hesabVOs);
 
-			HesabVO hesabMoeenVO = addHesabMoeenToHesabHierarchy(hesabKolVO, hesabMoeenEntity, hesabVOs, addMoeenTafsilies);
+			HesabVO hesabMoeenVO = addHesabMoeenToHesabHierarchy(hesabKolVO, hesabMoeenEntity, hesabVOs, addMoeenTafsilies, saalMaaliEntity, organEntity);
 			
 			addHesabTafsilisToHesabHierarchy(hesabMoeenVO, hesabTafsiliEntity, "folder-documents-icon.png", hesabVOs, addTafsiliShenavars);
 		}

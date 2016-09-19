@@ -601,7 +601,7 @@ public class SanadHesabdariService extends
 	}
 
 
-	//converts from daemi to barrasi shode
+	//converts from movaghat to barrasi shode
 	@Transactional
 	public void saveBarrasiShode(SanadHesabdariEntity entity,OrganEntity organEntity, boolean isInMultipleLevelMode, boolean validateSaalMaaliInProgress) {
 

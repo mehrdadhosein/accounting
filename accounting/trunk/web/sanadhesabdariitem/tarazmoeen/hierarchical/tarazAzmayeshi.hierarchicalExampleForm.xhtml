@@ -38,7 +38,7 @@
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="hesabKolIds" width="220px"
 						selectedIds="#{owner.hesabKolIds}" entity="HesabKol"
-						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
 				</h:panelGroup>
 
 				<h:panelGroup>
@@ -48,7 +48,7 @@
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="moeens" width="220px"
 						selectedIds="#{owner.moeenIds}" entity="HesabMoeen"
-						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
 				</h:panelGroup>
 
 				<h:panelGroup>
@@ -58,7 +58,7 @@
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="tafsilis" width="220px"
 						selectedIds="#{owner.tafsiliIds}" entity="HesabTafsili"
-						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
 				</h:panelGroup>
 
 				<h:panelGroup>
@@ -92,7 +92,7 @@
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="articleTafsiliIds" width="220px"
 						selectedIds="#{owner.articleTafsiliIds}" entity="HesabTafsili"
-						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
+						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
 				</h:panelGroup>
 																
 				<h:panelGroup>
