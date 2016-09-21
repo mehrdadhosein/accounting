@@ -133,7 +133,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	public String save() {
 		getEntity().setOrgan(getCurrentOrgan()); 
 		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali());
-		HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali());
+		HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
@@ -159,7 +159,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	}
 
 	public String importFromHesabKolTemplateList(){
-		getMyService().importFromHesabKolTemplateList(getCurrentUserActiveSaalMaali());
+		getMyService().importFromHesabKolTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		setDataModel(null);
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return null;
@@ -205,7 +205,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 
 		if (isHierarchical !=null && isHierarchical.equals("true")){
 			
-			List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
+			List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
 			getFilter().put("organ.id@in", topOrganList);
 			
 //			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());

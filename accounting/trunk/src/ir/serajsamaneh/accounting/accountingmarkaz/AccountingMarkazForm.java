@@ -117,9 +117,9 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	public String save() {
 		getEntity().setOrgan(getCurrentOrgan()); 
 		getMyService().save(getEntity(), getMoeenIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali());
-		HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali());
-		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
-		HesabRelationsUtil.resetAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
+		HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		HesabRelationsUtil.resetAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
@@ -154,7 +154,7 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 		
 		if (isHierarchical !=null && isHierarchical.equals("true")){
-			List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
+			List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
 			getFilter().put("organ.id@in", topOrganList);
 			
 //			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());

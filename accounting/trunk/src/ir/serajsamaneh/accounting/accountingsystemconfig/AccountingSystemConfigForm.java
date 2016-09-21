@@ -7,6 +7,8 @@ import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntit
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity;
+import ir.serajsamaneh.accounting.sanadtype.SanadTypeService;
 import ir.serajsamaneh.core.exception.RequiredFieldNotSetException;
 import ir.serajsamaneh.core.security.ActionLogUtil;
 import ir.serajsamaneh.core.systemconfig.SystemConfigForm;
@@ -24,9 +26,14 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 
 	SystemConfigService  systemConfigService;
 	HesabMoeenTemplateService hesabMoeenTemplateService;
+	SanadTypeService sanadTypeService;
 	
 	SaalMaaliService saalMaaliService;
 	
+	public SanadTypeService getSanadTypeService() {
+		return (SanadTypeService) SpringUtils.getBean("sanadTypeService");
+	}
+
 	public SaalMaaliService getSaalMaaliService() {
 		return (SaalMaaliService) SpringUtils.getBean("saalMaaliService");
 	}
@@ -69,7 +76,8 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		if(maxSanadHesabdariTafsilLevel==null)
 			if(getSystemConfigService().getValue(getCurrentOrgan(), null, "maxSanadHesabdariTafsilLevel")!=null){
 				maxSanadHesabdariTafsilLevel= new Integer(getSystemConfigService().getValue(getCurrentOrgan(), null, "maxSanadHesabdariTafsilLevel"));
-		}	
+			}else	
+				maxSanadHesabdariTafsilLevel = 1;
 		return maxSanadHesabdariTafsilLevel;
 	}
 
@@ -188,7 +196,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		String oldmaxSanadHesabdariTafsilLevel=getSystemConfigService().getValue(getCurrentOrgan(), null, "maxSanadHesabdariTafsilLevel");
 		//Insert New Value
 		getSystemConfigService().insertKeyValue("defaultSanadTypeId",getDefaultSanadTypeId().toString(), null, getCurrentOrgan());
-		HesabMoeenTemplateEntity defaultSanadTypeIdValue = getHesabMoeenTemplateService().load(getDefaultSanadTypeId());
+		SanadTypeEntity defaultSanadTypeIdValue = getSanadTypeService().load(getDefaultSanadTypeId());
 		itemdesc(defaultSanadTypeIdValue.toString());
 		
 		getSystemConfigService().insertKeyValue("hesabSoodVaZyanAnbashtehMoeenId",  getHesabSoodVaZyanAnbashtehMoeenId()!=null ? getHesabSoodVaZyanAnbashtehMoeenId().toString() : null, null, getCurrentOrgan());
@@ -286,7 +294,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		
 		getHesabKolService().copyHesabKolsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali());
 		getHesabKolService().copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali());
-		getHesabKolService().copyHesabTafsilissFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali());
+		getHesabKolService().copyHesabTafsilissFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali(), getCurrentOrgan());
 		getHesabKolService().createHesabTafsiliRelatedEntities(getSrcSaalMaali(), getDestSaalMaali());
 		getHesabKolService().copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali());
 		getHesabKolService().copycontactHesabsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali());
