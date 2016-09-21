@@ -43,9 +43,24 @@
 			extraParams="isHierarchical=true" />
 	</h:panelGroup>
 	
+	<h:panelGroup>
+		<h:outputText styleClass="required" value="  " />
+		<h:outputLabel 
+			value="#{messages['HesabTafsili_shenavar']}" />: 
+	</h:panelGroup>
+	<h:panelGroup>
+		<custom:autocomplete-one id="hesabShenavar" entity="HesabTafsiliTemplate" onInit="tafsiliInited();"
+			property="desc" identity="#{owner.entity.hesabShenavarTemplate.id}"
+			desc="#{owner.entity.hesabShenavarTemplate.desc}" width="320px" client="true"
+			extraParams="isHierarchical=true" />
+	</h:panelGroup>
+	
 	<t:jsValueSet name="moeenKolTemplateMap" value="#{hesabMoeenTemplate.moeenKolTemplateMap}" />
 	
 	<t:jsValueSet name="moeenTafsiliTemplateMap" value="#{hesabMoeenTemplate.moeenTafsiliTemplateMap}" />
+	
+	<t:jsValueSet name="moeenTafsiliChildTemplateMap" value="#{hesabTafsiliTemplate.tafsiliChildTemplateMap}" />
+	
 	
 	<script>
 		function tafsiliInited() {
@@ -57,18 +72,24 @@
 			fillDest('hesabMoeen', 'hesabTafsili')
 		}
 		
+		/* There is no point in giving paramter for this method
+		*  WHY:
+		*  Since you give parameter to make it general, but on the other hand ID hardcoded in this section.
+		*  This approach is a [Paradox]
+		*  I [Armin] took the path of paradox to reduce the number of changes (none-aggressive method)
+		*/
 		function fillDest(moeen, tafsili) {
-			var moeenId = $$('#hesabMoeen_id').val();
+			var moeenId = $$('#hesabMoeen_id').val(); // Paradox
 	
 			if (moeenId == null || moeenId == '')
 				return;
 
 			kolMap = moeenKolTemplateMap[moeenId];
-			$$('#hesabKolName').val(kolMap.label);
+			$$('#hesabKolName').val(kolMap.label); // Paradox
 			
 				//clearAutocomplete(tafsili);
 			tafsiliMap = moeenTafsiliTemplateMap[moeenId];
-
+			
 			//alert("unitMap : "+unitMap.length);
 			var filtered = tafsiliMap;
 			//alert(inspect(filtered,10,10));
@@ -76,6 +97,19 @@
 			$$('#' + tafsili + '_desc').autocomplete('option', 'source', filtered);
 			
 			//$$('#hesabTafsili_desc').autocomplete({source:filtered});
+			
+
+			//// Shenavar section [Armin]
+			var tafsiliId = $$('#hesabTafsili_id').val(); 
+			
+			if (tafsiliId == null || tafsiliId == '')
+				return;
+
+			var elShenavar = '#hesabShenavar';
+			var childMap = moeenTafsiliChildTemplateMap[tafsiliId];	
+			$$(elShenavar + '_desc').autocomplete('option', 'source', childMap);
+			
+			
 		}
 	</script>
 </html>
