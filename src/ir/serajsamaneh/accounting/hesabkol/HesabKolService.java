@@ -293,7 +293,7 @@ public class HesabKolService extends
 	}
 	
 	@Transactional(readOnly=false)
-	public void importFromHesabKolTemplateList(SaalMaaliEntity activeSaalMaaliEntity) {
+	public void importFromHesabKolTemplateList(SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 		
 		getHesabKolTemplateService().createDefaultAccounts(activeSaalMaaliEntity.getOrgan());
 		
@@ -313,7 +313,7 @@ public class HesabKolService extends
 		}
 		
 		getHesabMoeenService().importFromHesabMoeenTemplateList(activeSaalMaaliEntity);
-		getHesabTafsiliService().importFromHesabTafsiliTemplateList(activeSaalMaaliEntity);
+		getHesabTafsiliService().importFromHesabTafsiliTemplateList(activeSaalMaaliEntity, currentOrgan);
 		
 	}
 
@@ -560,7 +560,7 @@ public class HesabKolService extends
 
 	@Transactional(readOnly=false)
 	public void copyHesabTafsilissFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali,
-			SaalMaaliEntity destSaalMaali) {
+			SaalMaaliEntity destSaalMaali, OrganEntity currentOrgan) {
 		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali);
 		for (HesabTafsiliEntity srcHesabTafsiliEntity : srcActiveTafsilis) {
 
@@ -577,7 +577,7 @@ public class HesabKolService extends
 //				System.out.println(destHesabTafsiliEntity.getCode());
 			if(destHesabTafsiliEntity == null || destHesabTafsiliEntity.getId() == null){
 				try{
-					destHesabTafsiliEntity = getHesabTafsiliService().createHesabTafsili(destSaalMaali, srcHesabTafsiliEntity);
+					destHesabTafsiliEntity = getHesabTafsiliService().createHesabTafsili(destSaalMaali, srcHesabTafsiliEntity, currentOrgan);
 				}catch(DuplicateException e){
 					System.out.println(e.getDesc());
 					continue;//not important exception

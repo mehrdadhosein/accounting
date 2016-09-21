@@ -127,11 +127,27 @@ public class HesabTafsiliTemplateService extends
 		return load(null, localFilter);
 	}
 
+	public HesabTafsiliTemplateEntity loadByCodeInCurrentOrgan(String code, OrganEntity organEntity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("code@eq", code);
+		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
+		localFilter.put("organ.id@eq", organEntity.getId());
+		return load(null, localFilter);
+	}
+	
 	public HesabTafsiliTemplateEntity loadByName(String name, OrganEntity organEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
 		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
 		localFilter.put("organ.code@startlk", getTopOrgan(organEntity).getCode());
+		return load(null, localFilter);
+	}
+	
+	public HesabTafsiliTemplateEntity loadByNameInCurrentOrgan(String name, OrganEntity organEntity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("name@eq", name);
+		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
+		localFilter.put("organ.id@eq", organEntity.getId());
 		return load(null, localFilter);
 	}
 	

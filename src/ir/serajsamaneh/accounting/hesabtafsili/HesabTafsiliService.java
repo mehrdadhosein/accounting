@@ -190,19 +190,19 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 	
 	@Transactional
-	public void save(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> parentTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity) {
-		commonSave(entity, moeenIds, childTafsiliIds, parentTafsiliIds, childAccountingMarkazIds, activeSaalMaaliEntity);
+	public void save(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> parentTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
+		commonSave(entity, moeenIds, childTafsiliIds, parentTafsiliIds, childAccountingMarkazIds, activeSaalMaaliEntity, currentOrgan);
 		save(entity);
 	}
 	
 	@Transactional
-	public void save(HesabTafsiliEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
-		commonSave(entity, new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), activeSaalMaaliEntity);
+	public void save(HesabTafsiliEntity entity,SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
+		commonSave(entity, new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), activeSaalMaaliEntity, currentOrgan);
 		save(entity);
 	}
 	
-	public void saveStateLess(HesabTafsiliEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
-		commonSave(entity, new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), activeSaalMaaliEntity);
+	public void saveStateLess(HesabTafsiliEntity entity,SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
+		commonSave(entity, new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), new ArrayList<Long>(), activeSaalMaaliEntity, currentOrgan);
 		super.saveStateLess(entity);
 	}
 	
@@ -264,7 +264,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		}
 	}
 	@Transactional
-	private void commonSave(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> parentTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity) {
+	private void commonSave(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> parentTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 		
 		
 		if(entity.getId()!=null && entity.getSaalMaali()!=null && entity.getSaalMaali().getId()!=null && !entity.getSaalMaali().equals(activeSaalMaaliEntity))
@@ -339,15 +339,15 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		checkCycleInChildTafsiliHierarchy(entity, childTafsiliIds);
 		checkCycleInParentTafsiliHierarchy(entity, parentTafsiliIds);
 		
-		createOrUpdateRelatedHesabTafsiliTemplate(entity, activeSaalMaaliEntity.getOrgan());
+		createOrUpdateRelatedHesabTafsiliTemplate(entity, currentOrgan);
 	}
 
 	
 	@Transactional
 	private void createOrUpdateRelatedHesabTafsiliTemplate(HesabTafsiliEntity entity, OrganEntity organEntity) {
-		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCode(entity.getCode().toString(), organEntity);
+		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCodeInCurrentOrgan(entity.getCode().toString(), organEntity);
 		if(hesabTafsiliTemplateEntity == null){
-			hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByName(entity.getName(), organEntity);
+			hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
 			if(hesabTafsiliTemplateEntity!=null)
 				throw new FatalException(SerajMessageUtil.getMessage("HesabTafsiliTemplate_cantCreateHesabTafsiliTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
 
@@ -456,7 +456,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 	
 	@Transactional(readOnly=false)
-	public void importFromHesabTafsiliTemplateList(SaalMaaliEntity activeSaalMaaliEntity){
+	public void importFromHesabTafsiliTemplateList(SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organ.id@eqORorgan.id@isNull",Arrays.asList(activeSaalMaaliEntity.getOrgan().getId(), "ding"));
 		List<HesabTafsiliTemplateEntity> dataList = getHesabTafsiliTemplateService().getDataList(null, localFilter);
@@ -464,7 +464,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			HesabTafsiliEntity hesabTafsili = loadHesabTafsiliByTemplate(hesabTafsiliTemplateEntity, activeSaalMaaliEntity);
 			if(hesabTafsili == null){
 				try{
-					createHesabTafsili(activeSaalMaaliEntity,	hesabTafsiliTemplateEntity);
+					createHesabTafsili(activeSaalMaaliEntity,	hesabTafsiliTemplateEntity, currentOrgan);
 				}catch(DuplicateException e){
 					System.out.println(e.getMessage());
 				}				
@@ -488,7 +488,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 
 	@Transactional(readOnly=false)
 	public void createHesabTafsiliRelatedEntities(HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity,
-			HesabTafsiliEntity hesabTafsiliEntity, SaalMaaliEntity activeSaalMaaliEntity) {
+			HesabTafsiliEntity hesabTafsiliEntity, SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 
 		
 		Set<HesabTafsiliTemplateEntity> templateChilds = hesabTafsiliTemplateEntity.getChilds();
@@ -497,7 +497,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		for (HesabTafsiliTemplateEntity childTemplateTafsiliEntity : templateChilds) {
 			HesabTafsiliEntity childHesabTafsiliEntity = loadHesabTafsiliByTemplate(childTemplateTafsiliEntity, activeSaalMaaliEntity);
 			if(childHesabTafsiliEntity == null)
-				childHesabTafsiliEntity = createHesabTafsili(activeSaalMaaliEntity, childTemplateTafsiliEntity);
+				childHesabTafsiliEntity = createHesabTafsili(activeSaalMaaliEntity, childTemplateTafsiliEntity, currentOrgan);
 			if(!hesabTafsiliEntity.getChilds().contains(childHesabTafsiliEntity))
 				hesabTafsiliEntity.addTochilds(childHesabTafsiliEntity);
 		}
@@ -506,7 +506,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		for (HesabTafsiliTemplateEntity parentTemplateHesabTafsiliEntity : templateParents) {
 			HesabTafsiliEntity parentHesabTafsiliEntity = loadHesabTafsiliByTemplate(parentTemplateHesabTafsiliEntity, activeSaalMaaliEntity);
 			if(parentHesabTafsiliEntity == null)
-				parentHesabTafsiliEntity = createHesabTafsili(activeSaalMaaliEntity, parentTemplateHesabTafsiliEntity);
+				parentHesabTafsiliEntity = createHesabTafsili(activeSaalMaaliEntity, parentTemplateHesabTafsiliEntity, currentOrgan);
 			if(!hesabTafsiliEntity.getParents().contains(parentHesabTafsiliEntity))
 				hesabTafsiliEntity.addToparents(parentHesabTafsiliEntity);
 		}
@@ -584,26 +584,26 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 
 	public HesabTafsiliEntity createHesabTafsili(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity) {
+			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity, OrganEntity currentOrgan) {
 		HesabTafsiliEntity hesabTafsiliEntity = loadHesabTafsiliByTemplate(hesabTafsiliTemplateEntity, activeSaalMaaliEntity);
 		if(hesabTafsiliEntity == null){
 			hesabTafsiliEntity = populateHesabTafsili(activeSaalMaaliEntity,
 					hesabTafsiliTemplateEntity);
-			save(hesabTafsiliEntity, activeSaalMaaliEntity);
+			save(hesabTafsiliEntity, activeSaalMaaliEntity, currentOrgan);
 		}
 		return hesabTafsiliEntity;
 	}
 	
 	@Transactional
 	public HesabTafsiliEntity createHesabTafsili(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabTafsiliEntity srcHesabTafsiliEntity) {
+			HesabTafsiliEntity srcHesabTafsiliEntity, OrganEntity currentOrgan) {
 		HesabTafsiliEntity hesabTafsiliEntity = loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), activeSaalMaaliEntity);
 		if(hesabTafsiliEntity == null)
 			hesabTafsiliEntity = loadHesabTafsiliByName(srcHesabTafsiliEntity.getName(), activeSaalMaaliEntity);
 		
 		if(hesabTafsiliEntity == null){
 			hesabTafsiliEntity = populateHesabTafsili(activeSaalMaaliEntity, srcHesabTafsiliEntity);
-			save(hesabTafsiliEntity, activeSaalMaaliEntity);
+			save(hesabTafsiliEntity, activeSaalMaaliEntity, currentOrgan);
 		}
 		return hesabTafsiliEntity;
 	}
@@ -645,12 +645,12 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 	
 	public HesabTafsiliEntity createHesabTafsiliStateLess(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity) {
+			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity, OrganEntity currentOrgan) {
 		HesabTafsiliEntity hesabTafsiliEntity = loadHesabTafsiliByTemplate(hesabTafsiliTemplateEntity, activeSaalMaaliEntity);
 		if(hesabTafsiliEntity == null){
 			hesabTafsiliEntity = populateHesabTafsili(activeSaalMaaliEntity,
 					hesabTafsiliTemplateEntity);
-			saveStateLess(hesabTafsiliEntity, activeSaalMaaliEntity);
+			saveStateLess(hesabTafsiliEntity, activeSaalMaaliEntity, currentOrgan);
 		}
 		return hesabTafsiliEntity;
 	}

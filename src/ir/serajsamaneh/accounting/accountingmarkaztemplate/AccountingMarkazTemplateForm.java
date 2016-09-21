@@ -121,9 +121,9 @@ public class AccountingMarkazTemplateForm extends BaseAccountingForm<AccountingM
 	public String save() {
 		getEntity().setOrgan(getCurrentOrgan()); 
 		getMyService().save(getEntity(), getMoeenIds(), getChildAccountingMarkazIds(),getCurrentOrgan());
-		HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali());
-		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
-		HesabRelationsUtil.resetAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
+		HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		HesabRelationsUtil.resetAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		return getViewUrl();
 	}
 	

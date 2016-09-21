@@ -192,11 +192,11 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	@Override
 	public String save() {
 		getEntity().setOrgan(getCurrentOrgan()); 
-		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getParentTafsiliIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali());
-		HesabRelationsUtil.resetTafsiliMoeenMap(getCurrentUserActiveSaalMaali());
-		HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali());
-		HesabRelationsUtil.resetTafsiliChildMap(getCurrentUserActiveSaalMaali());
-		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali());
+		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getParentTafsiliIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		HesabRelationsUtil.resetTafsiliMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		HesabRelationsUtil.resetTafsiliChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
@@ -254,7 +254,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		}
 		
 		if (isHierarchical !=null && isHierarchical.equals("true")){
-			List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
+			List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
 			getFilter().put("organ.id@in", topOrganList);
 			
 //			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
@@ -278,7 +278,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 
 	public String importFromHesabTafsiliTemplateList(){
 		try{
-		getMyService().importFromHesabTafsiliTemplateList(getCurrentUserActiveSaalMaali());
+		getMyService().importFromHesabTafsiliTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		setDataModel(null);
 		return null;
 		}catch (Exception e) {
