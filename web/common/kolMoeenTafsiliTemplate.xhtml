@@ -28,7 +28,7 @@
 			desc="#{owner.entity.hesabMoeenTemplate.desc}" width="320px" client="true"
 			extraParams="isHierarchical=true"
 			label="#{messages['HesabMoeen_title']}"
-			onchange="fillDest('hesabMoeen','hesabTafsili');clearAutocomplete('hesabTafsili');" />
+			onchange="fillDest('hesabMoeen','hesabTafsili');clearAutocomplete('hesabTafsili');clearAutocomplete('hesabShenavar');" />
 	</h:panelGroup>
 	
 	<h:panelGroup>
@@ -40,11 +40,11 @@
 		<custom:autocomplete-one id="hesabTafsili" entity="HesabTafsiliTemplate" onInit="tafsiliInited();"
 			property="desc" identity="#{owner.entity.hesabTafsiliTemplate.id}"
 			desc="#{owner.entity.hesabTafsiliTemplate.desc}" width="320px" client="true"
-			extraParams="isHierarchical=true" />
+			extraParams="isHierarchical=true"
+			onchange="fillDest('hesabMoeen','hesabTafsili');clearAutocomplete('hesabShenavar');" />
 	</h:panelGroup>
 	
 	<h:panelGroup>
-		<h:outputText styleClass="required" value="  " />
 		<h:outputLabel 
 			value="#{messages['HesabTafsili_shenavar']}" />: 
 	</h:panelGroup>
