@@ -498,12 +498,9 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 				createAddSubArticle(actorTafsili, bedehkarArticle, 1);
 			}
 		} else if(bedehkarArticle.getArticleTafsili() != null || !bedehkarArticle.getArticleTafsili().isEmpty()){
+			
 			if(createArticleTafsili && actorTafsili!=null){
-				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
-				articleTafsiliEntity.setHesabTafsili(actorTafsili);
-				articleTafsiliEntity.setLevel(2);
-				articleTafsiliEntity.setSanadHesabdariItem(bedehkarArticle);
-				bedehkarArticle.addToarticleTafsili(articleTafsiliEntity);
+				createAddSubArticle(actorTafsili, bedehkarArticle, 2);
 			}
 		}
 			
@@ -524,8 +521,8 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 */
 
 
-	protected static KolMoeenTafsiliVO extractKolMoeenTafsili(HesabMoeenEntity hesabMoeenParam, HesabTafsiliEntity hesabTafsiliParam, ContactHesabEntity contactHesab, SaalMaaliEntity saalMaaliEntity) {
-		KolMoeenTafsiliVO kolMoeenTafsiliVO = extractKolMoeenTafsili(hesabMoeenParam, hesabTafsiliParam, contactHesab);
+	protected static KolMoeenTafsiliVO extractKolMoeenTafsili(HesabMoeenEntity hesabMoeenParam, HesabTafsiliEntity hesabTafsiliParam, HesabTafsiliEntity hesabShenavarParam, ContactHesabEntity contactHesab, SaalMaaliEntity saalMaaliEntity) {
+		KolMoeenTafsiliVO kolMoeenTafsiliVO = extractKolMoeenTafsili(hesabMoeenParam, hesabTafsiliParam, hesabShenavarParam, contactHesab);
 		
 		KolMoeenTafsiliVO newKolMoeenTafsiliVO = new KolMoeenTafsiliVO();
 		
@@ -548,36 +545,47 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		return newKolMoeenTafsiliVO;
 	}
 	
-	protected static KolMoeenTafsiliVO extractKolMoeenTafsili(HesabMoeenEntity hesabMoeenParam, HesabTafsiliEntity hesabTafsiliParam, ContactHesabEntity contactHesab) {
+	// #TAG20160929 Before these changes we didn't has hesabShenavarParam
+	protected static KolMoeenTafsiliVO extractKolMoeenTafsili(HesabMoeenEntity hesabMoeenParam,
+			HesabTafsiliEntity hesabTafsiliParam, HesabTafsiliEntity hesabShenavarParam,
+			ContactHesabEntity contactHesab) {
+		
 		KolMoeenTafsiliVO kolMoeenTafsiliVO = new KolMoeenTafsiliVO();
 		HesabKolEntity hesabKolEntity;
 		HesabMoeenEntity hesabMoeenEntity;
 		HesabTafsiliEntity hesabTafsiliEntityONE;
 		HesabTafsiliEntity hesabTafsiliEntityTWO = null;
-		
-		if(hesabMoeenParam!=null && hesabMoeenParam.getId()!=null){
-			hesabKolEntity = hesabMoeenParam.getHesabKol(); 
+
+		/**
+		 * Before current mali system we had contact hesab. And the in the case
+		 * we hadn't real hesab we extract it from contact.
+		 */
+		if (hesabMoeenParam != null && hesabMoeenParam.getId() != null) {
+			hesabKolEntity = hesabMoeenParam.getHesabKol();
 			hesabMoeenEntity = hesabMoeenParam;
-		}else{
-			if(contactHesab.getHesabMoeen() == null || contactHesab.getHesabMoeen().getId() == null)
-				throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_HesabMoeenNotDefined",contactHesab.getDesc()));
+		} else {
+			if (contactHesab.getHesabMoeen() == null || contactHesab.getHesabMoeen().getId() == null)
+				throw new FatalException(
+						SerajMessageUtil.getMessage("SanadHesabdari_HesabMoeenNotDefined", contactHesab.getDesc()));
 			hesabKolEntity = contactHesab.getHesabMoeen().getHesabKol();
 			hesabMoeenEntity = contactHesab.getHesabMoeen();
 		}
 
-		if(hesabTafsiliParam!=null){
+		if (hesabTafsiliParam != null) {
 			hesabTafsiliEntityONE = hesabTafsiliParam;
-			hesabTafsiliEntityTWO = contactHesab.getHesabTafsili();
-		}else
+			if (null != hesabShenavarParam)
+				hesabTafsiliEntityTWO = hesabShenavarParam;
+			else
+				hesabTafsiliEntityTWO = contactHesab.getHesabTafsili();
+		} else
 			hesabTafsiliEntityONE = contactHesab.getHesabTafsili();
 
 		kolMoeenTafsiliVO.setHesabKolEntity(hesabKolEntity);
 		kolMoeenTafsiliVO.setHesabMoeenEntity(hesabMoeenEntity);
 		kolMoeenTafsiliVO.setHesabTafsiliEntityONE(hesabTafsiliEntityONE);
 		kolMoeenTafsiliVO.setHesabTafsiliEntityTWO(hesabTafsiliEntityTWO);
-		
+
 		return kolMoeenTafsiliVO;
 	}
-	
 
 }

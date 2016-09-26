@@ -28,7 +28,7 @@
 			desc="#{owner.entity.hesabMoeen.desc}" width="320px" client="true"
 			extraParams="isHierarchical=true"
 			label="#{messages['HesabMoeen_title']}"
-			onchange="fillDest('hesabMoeen','hesabTafsili');clearAutocomplete('hesabTafsili');" />
+			onchange="fillDest('hesabMoeen','hesabTafsili');clearAutocomplete('hesabTafsili');clearAutocomplete('hesabShenavar');" />
 	</h:panelGroup>
 	
 	<h:panelGroup>
@@ -40,15 +40,28 @@
 		<custom:autocomplete-one id="hesabTafsili" entity="HesabTafsili" onInit="tafsiliInited();"
 			property="desc" identity="#{owner.entity.hesabTafsili.id}"
 			desc="#{owner.entity.hesabTafsili.desc}" width="320px" client="true"
+			extraParams="isHierarchical=true"
+			onchange="fillDest('hesabMoeen','hesabTafsili');clearAutocomplete('hesabShenavar');" />			
+	</h:panelGroup>
+	
+	<h:panelGroup>
+		<h:outputLabel 
+			value="#{messages['HesabTafsili_shenavar']}" /> : 
+	</h:panelGroup>
+	<h:panelGroup>
+		<custom:autocomplete-one id="hesabShenavar" entity="HesabTafsili" onInit="tafsiliInited();"
+			property="desc" identity="#{owner.entity.hesabShenavar.id}"
+			desc="#{owner.entity.hesabShenavar.desc}" width="320px" client="true"
 			extraParams="isHierarchical=true" />
 	</h:panelGroup>
 	
 	<t:jsValueSet name="moeenKolMap" value="#{hesabMoeen.moeenKolMap}" />
 	
-	<t:jsValueSet name="moeenTafsiliMap"
-		value="#{hesabMoeen.moeenTafsiliMap}" />
-	
-	<script>
+	<t:jsValueSet name="moeenTafsiliMap" value="#{hesabMoeen.moeenTafsiliMap}" />
+
+	<t:jsValueSet name="moeenTafsiliChildMap" value="#{hesabMoeen.tafsiliChildrenMap}" />
+
+<script>
 		function tafsiliInited() {
 			var moeenId = $$('#hesabMoeen_id').val();
 	
@@ -58,6 +71,12 @@
 			fillDest('hesabMoeen', 'hesabTafsili')
 		}
 		
+	   /* There is no point in giving paramter for this method
+		*  WHY:
+		*  Since you give parameter to make it general, but on the other hand ID hardcoded in this section.
+		*  This approach is a [Paradox]
+		*  I [Armin] took the path of paradox to reduce the number of changes (none-aggressive method)
+		*/
 		function fillDest(moeen, tafsili) {
 			var moeenId = $$('#hesabMoeen_id').val();
 	
@@ -77,6 +96,16 @@
 			$$('#' + tafsili + '_desc').autocomplete('option', 'source', filtered);
 			
 			//$$('#hesabTafsili_desc').autocomplete({source:filtered});
+			
+			//// Shenavar section [Armin]
+			var tafsiliId = $$('#hesabTafsili_id').val(); 
+			
+			if (tafsiliId == null || tafsiliId == '')
+				return;
+
+			var elShenavar = '#hesabShenavar';
+			var childMap = moeenTafsiliChildMap[tafsiliId];	
+			$$(elShenavar + '_desc').autocomplete('option', 'source', childMap);
 		}
 	</script>
 </html>

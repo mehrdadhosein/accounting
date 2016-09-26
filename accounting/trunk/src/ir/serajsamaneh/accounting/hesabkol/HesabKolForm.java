@@ -282,11 +282,11 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 			
 			if(hesabTafsiliId!=null){
 				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(hesabTafsiliId);
-				HesabTreeUtil.addHesabTafsilisToHesabHierarchy(hesabVOs, hesabTafsiliEntity, false, false, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+				HesabTreeUtil.addHesabTafsilisToHesabHierarchy(hesabVOs, hesabTafsiliEntity, false, true, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 				
 				Set<HesabTafsiliEntity> parents = hesabTafsiliEntity.getParents();
 				for (HesabTafsiliEntity tafsiliEntity : parents) {
-					HesabTreeUtil.addHesabTafsilisToHesabHierarchy(hesabVOs, tafsiliEntity, false, false, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+					HesabTreeUtil.addHesabTafsilisToHesabHierarchy(hesabVOs, tafsiliEntity, false, true, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 				}
 			}else if(hesabMoeenId!=null){
 				HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().load(hesabMoeenId);

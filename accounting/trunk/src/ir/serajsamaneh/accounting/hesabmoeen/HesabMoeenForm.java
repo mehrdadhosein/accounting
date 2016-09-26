@@ -197,6 +197,10 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	public Map<Long, List<ListOrderedMap>> getMoeenTafsiliMap() {
 		return HesabRelationsUtil.getMoeenTafsiliMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
+	
+	public Map<Long, List<ListOrderedMap>> getTafsiliChildrenMap() {
+		return HesabRelationsUtil.getTafsiliChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+	}
 
 	public Map<Long, List<ListOrderedMap>> getAccountingMarkazMap() {
 		return HesabRelationsUtil.getAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
