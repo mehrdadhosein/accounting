@@ -8,6 +8,7 @@ import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
+import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
 import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
@@ -130,33 +131,56 @@ public class HesabMoeenService extends
 			entity.setHidden(Boolean.FALSE);
 		checkHesabUniqueNess(entity, activeSaalMaaliEntity);
 		
-		createHesabMoeenTemplateFromHesabMoeen(entity, activeSaalMaaliEntity.getOrgan());
+		createOrUpdateRelatedHesabMoeenTemplate(entity, activeSaalMaaliEntity.getOrgan());
 	}
 
 	@Transactional
-	public void createHesabMoeenTemplateFromHesabMoeen(HesabMoeenEntity entity,OrganEntity organEntity) {
+	public void createOrUpdateRelatedHesabMoeenTemplate(HesabMoeenEntity entity,OrganEntity organEntity) {
 
 		
 		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateService().loadByCode(entity.getCode(), organEntity);
 		if(hesabMoeenTemplateEntity == null){
 			hesabMoeenTemplateEntity = getHesabMoeenTemplateService().loadByName(entity.getName(), organEntity);
-			if(hesabMoeenTemplateEntity!=null)
-				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeenTemplate_cantCreateHesabMoeenTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
-
-			HesabKolEntity hesabKolEntity = getHesabKolService().load(entity.getHesabKol().getID());
-			getHesabMoeenTemplateService().createHesabMoeenTemplate(entity.getCode(), entity.getName(), hesabKolEntity.getCode(), organEntity, false);
+			if(hesabMoeenTemplateEntity!=null){
+				HesabMoeenTemplateEntity currentEntityHesabMoeenTemplate = entity.getHesabMoeenTemplate();
+				
+				//code of hesabTafsili has changed
+				if(currentEntityHesabMoeenTemplate.equals(hesabMoeenTemplateEntity)){
+					hesabMoeenTemplateEntity.setCode(entity.getCode().toString());
+					hesabMoeenTemplateEntity.setName(entity.getName());
+					hesabMoeenTemplateEntity.setDescription(entity.getDescription());
+					updateRelatedHesbMoeens(hesabMoeenTemplateEntity);
+				}else
+					throw new FatalException(SerajMessageUtil.getMessage("HesabMoeenTemplate_cantCreateHesabMoeenTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
+			}else{
+				HesabKolEntity hesabKolEntity = getHesabKolService().load(entity.getHesabKol().getID());
+				hesabMoeenTemplateEntity = getHesabMoeenTemplateService().createHesabMoeenTemplate(entity.getCode(), entity.getName(), hesabKolEntity.getCode(), organEntity, false);
+			}
 
 		}
-
+		else{
+			hesabMoeenTemplateEntity.setCode(entity.getCode().toString());
+			hesabMoeenTemplateEntity.setName(entity.getName());
+			hesabMoeenTemplateEntity.setDescription(entity.getDescription());
+		}
 		
-//		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateService().load(entity.getCode(), organEntity);
-//		if(hesabMoeenTemplateEntity == null){
-//			HesabKolEntity hesabKolEntity = getHesabKolService().load(entity.getHesabKol().getID());
-//			getHesabMoeenTemplateService().createHesabMoeenTemplate(entity.getCode(), entity.getName(), hesabKolEntity.getCode(), organEntity, false);
-//		}
-		
+		getHesabMoeenTemplateService().save(hesabMoeenTemplateEntity);
 		entity.setHesabMoeenTemplate(hesabMoeenTemplateEntity);
 		save(entity);
+	}
+
+	@Transactional
+	private void updateRelatedHesbMoeens(
+			HesabMoeenTemplateEntity hesabMoeenTemplateEntity) {
+		Map<String, Object> filter = new HashMap<String, Object>();
+		filter.put("hesabMoeenTemplate.id@eq", hesabMoeenTemplateEntity.getId());
+		List<HesabMoeenEntity> dataList = getDataList(null, filter);
+		for (HesabMoeenEntity hesabMoeenEntity : dataList) {
+			hesabMoeenEntity.setCode(hesabMoeenTemplateEntity.getCode());
+			hesabMoeenEntity.setName(hesabMoeenTemplateEntity.getName());
+			save(hesabMoeenEntity);			
+		}
+
 	}
 
 	private void checkHesabUniqueNess(HesabMoeenEntity entity,	SaalMaaliEntity activeSaalMaaliEntity) {
