@@ -168,7 +168,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 
 	private void checkHesabUniqueNess(HesabTafsiliEntity entity,	SaalMaaliEntity activeSaalMaaliEntity) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", activeSaalMaaliEntity.getOrgan().getId());
+//		localFilter.put("organ.id@eq", activeSaalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_NAME, entity.getName(),	localFilter, false);
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_CODE, entity.getCode(),	localFilter, false);
@@ -183,8 +183,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		super.saveOrUpdate(entity);
 	}
 	
-	private synchronized Long generateHesabTafsiliCode(HesabTafsiliEntity entity) {
-			Long maxHesabTafsiliCode = getMyDAO().getMaxHesabTafsiliCode();
+	private synchronized Long generateHesabTafsiliCode(HesabTafsiliEntity entity, OrganEntity currentOrgan, SaalMaaliEntity currentUserSaalMaaliEntity) {
+			Long maxHesabTafsiliCode = getMyDAO().getMaxHesabTafsiliCode(currentOrgan, currentUserSaalMaaliEntity);
 //			return new Long(++maxHesabTafsiliCode).toString();
 			return ++maxHesabTafsiliCode;
 	}
@@ -332,7 +332,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 //		if (!StringUtils.hasText(entity.getCode())) {
 		if (entity.getCode()==null) {
 			
-			entity.setCode(generateHesabTafsiliCode(entity));
+			entity.setCode(generateHesabTafsiliCode(entity,currentOrgan, activeSaalMaaliEntity));
 		}
 		checkHesabUniqueNess(entity, activeSaalMaaliEntity);
 		
@@ -539,7 +539,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		for (MoeenTafsiliTemplateEntity templateMoeenTafsiliEntity : templateMoeenTafsili) {
 			HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByTemplate(templateMoeenTafsiliEntity.getHesabMoeenTemplate(), activeSaalMaaliEntity);
 			if(hesabMoeenEntity == null)
-				hesabMoeenEntity = getHesabMoeenService().createHesabMoeen(activeSaalMaaliEntity, templateMoeenTafsiliEntity.getHesabMoeenTemplate());
+				hesabMoeenEntity = getHesabMoeenService().createHesabMoeen(activeSaalMaaliEntity, templateMoeenTafsiliEntity.getHesabMoeenTemplate(), currentOrgan);
 
 			MoeenTafsiliEntity moeenTafsiliEntity = getMoeenTafsiliService().load(hesabTafsiliEntity, hesabMoeenEntity, templateMoeenTafsiliEntity.getLevel(), FlushMode.ALWAYS);
 			if(moeenTafsiliEntity == null){

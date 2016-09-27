@@ -242,7 +242,7 @@ public class HesabKolService extends
 	private void checkHesabUniqueNess(HesabKolEntity entity,
 			SaalMaaliEntity activeSaalMaaliEntity) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", activeSaalMaaliEntity.getOrgan().getId());
+//		localFilter.put("organ.id@eq", activeSaalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
 		checkUniqueNess(entity, HesabKolEntity.PROP_NAME, entity.getName(),
 				localFilter, false);
@@ -312,7 +312,7 @@ public class HesabKolService extends
 			}
 		}
 		
-		getHesabMoeenService().importFromHesabMoeenTemplateList(activeSaalMaaliEntity);
+		getHesabMoeenService().importFromHesabMoeenTemplateList(activeSaalMaaliEntity, currentOrgan);
 		getHesabTafsiliService().importFromHesabTafsiliTemplateList(activeSaalMaaliEntity, currentOrgan);
 		
 	}
@@ -591,7 +591,7 @@ public class HesabKolService extends
 
 	@Transactional(readOnly=false)
 	public void copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali,
-			SaalMaaliEntity destSaalMaali) {
+			SaalMaaliEntity destSaalMaali, OrganEntity currentOrgan) {
 		List<HesabMoeenEntity> activeMoeens = getHesabMoeenService().getActiveMoeens(srcSaalMaali);
 		for (HesabMoeenEntity srcHesabMoeenEntity : activeMoeens) {
 			
@@ -604,7 +604,7 @@ public class HesabKolService extends
 			
 			if(destHesabMoeenEntity == null || destHesabMoeenEntity.getId() == null){
 				try{
-					destHesabMoeenEntity = getHesabMoeenService().createHesabMoeen(destSaalMaali, srcHesabMoeenEntity);
+					destHesabMoeenEntity = getHesabMoeenService().createHesabMoeen(destSaalMaali, srcHesabMoeenEntity, currentOrgan);
 				}catch(DuplicateException e){
 					System.out.println(e.getDesc());
 					continue;

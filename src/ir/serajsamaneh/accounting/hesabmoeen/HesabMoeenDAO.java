@@ -2,7 +2,9 @@ package ir.serajsamaneh.accounting.hesabmoeen;
 
 import ir.serajsamaneh.accounting.hesabkol.HesabKolDAO;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
+import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.security.SecurityUtil;
 
 import java.util.ArrayList;
@@ -26,16 +28,17 @@ public class HesabMoeenDAO extends BaseHibernateDAO<HesabMoeenEntity,Long> {
 		this.hesabKolDAO = hesabKolDAO;
 	}
 
-	public synchronized String getMaxHesabMoeenCode(HesabKolEntity hesabKolEntity) {
+	public synchronized String getMaxHesabMoeenCode(HesabKolEntity hesabKolEntity, OrganEntity currentOrgan, SaalMaaliEntity currentUserSaalMaaliEntity) {
 		hesabKolEntity = getHesabKolDAO().load(hesabKolEntity.getID());
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("hesabKol.id@eq", hesabKolEntity.getId());
+		filter.put("saalMaali.id@eq", currentUserSaalMaaliEntity.getId());
 		filter.put("code@isNotNull", "ding");
 		
-		List params = new ArrayList();
-		params.add(SecurityUtil.getUserDetails().getOrganEntity().getId());
-		params.add("ding");
-		filter.put("organ.id@eqORorgan.id@isNull", params);
+//		List params = new ArrayList();
+//		params.add(currentOrgan.getId());
+//		params.add("ding");
+//		filter.put("organ.id@eqORorgan.id@isNull", params);
 
 		addLocationFilter(filter);
 

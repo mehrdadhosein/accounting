@@ -1,25 +1,5 @@
 package ir.serajsamaneh.accounting.hesabmoeen;
 
-import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
-import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
-import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
-import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
-import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
-import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
-import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
-import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
-import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
-import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
-import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliService;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
-import ir.serajsamaneh.core.base.BaseEntityService;
-import ir.serajsamaneh.core.exception.DuplicateException;
-import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
-import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.core.util.SerajMessageUtil;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,6 +10,25 @@ import java.util.Map;
 import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
+import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
+import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
+import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
+import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
+import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
+import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
+import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliService;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.core.base.BaseEntityService;
+import ir.serajsamaneh.core.exception.DuplicateException;
+import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
+import ir.serajsamaneh.core.organ.OrganEntity;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 public class HesabMoeenService extends
 		BaseEntityService<HesabMoeenEntity, Long> {
@@ -97,8 +96,8 @@ public class HesabMoeenService extends
 
 	//@Override
 	@Transactional
-	public void save(HesabMoeenEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
-		commonSave(entity, activeSaalMaaliEntity);
+	public void save(HesabMoeenEntity entity,SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
+		commonSave(entity, activeSaalMaaliEntity, currentOrgan);
 		save(entity);
 		boolean isNew=(entity.getID()!=null?false:true);
 		logAction(isNew, entity);
@@ -111,7 +110,7 @@ public class HesabMoeenService extends
 
 	@Transactional
 	private void commonSave(HesabMoeenEntity entity,
-			SaalMaaliEntity activeSaalMaaliEntity) {
+			SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 
 		if(entity.getId()!=null && entity.getSaalMaali()!=null && entity.getSaalMaali().getId()!=null && !entity.getSaalMaali().equals(activeSaalMaaliEntity))
 			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_hesabConflict"));
@@ -125,27 +124,27 @@ public class HesabMoeenService extends
 		
 		if (!StringUtils.hasText(entity.getCode())) {
 			
-			entity.setCode(generateHesabCode(entity));
+			entity.setCode(generateHesabCode(entity, currentOrgan, activeSaalMaaliEntity));
 		}
 		if(entity.getHidden() == null)
 			entity.setHidden(Boolean.FALSE);
 		checkHesabUniqueNess(entity, activeSaalMaaliEntity);
 		
-		createOrUpdateRelatedHesabMoeenTemplate(entity, activeSaalMaaliEntity.getOrgan());
+		createOrUpdateRelatedHesabMoeenTemplate(entity, currentOrgan);
 	}
 
 	@Transactional
 	public void createOrUpdateRelatedHesabMoeenTemplate(HesabMoeenEntity entity,OrganEntity organEntity) {
 
 		
-		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateService().loadByCode(entity.getCode(), organEntity);
+		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateService().loadByCodeInCurrentOrgan(entity.getCode(), organEntity);
 		if(hesabMoeenTemplateEntity == null){
-			hesabMoeenTemplateEntity = getHesabMoeenTemplateService().loadByName(entity.getName(), organEntity);
+			hesabMoeenTemplateEntity = getHesabMoeenTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
 			if(hesabMoeenTemplateEntity!=null){
 				HesabMoeenTemplateEntity currentEntityHesabMoeenTemplate = entity.getHesabMoeenTemplate();
 				
 				//code of hesabTafsili has changed
-				if(currentEntityHesabMoeenTemplate.equals(hesabMoeenTemplateEntity)){
+				if(currentEntityHesabMoeenTemplate.getId()!=null && currentEntityHesabMoeenTemplate.equals(hesabMoeenTemplateEntity)){
 					hesabMoeenTemplateEntity.setCode(entity.getCode().toString());
 					hesabMoeenTemplateEntity.setName(entity.getName());
 					hesabMoeenTemplateEntity.setDescription(entity.getDescription());
@@ -185,7 +184,7 @@ public class HesabMoeenService extends
 
 	private void checkHesabUniqueNess(HesabMoeenEntity entity,	SaalMaaliEntity activeSaalMaaliEntity) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", activeSaalMaaliEntity.getOrgan().getId());
+//		localFilter.put("organ.id@eq", activeSaalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_NAME, entity.getName(),	localFilter, false);
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_CODE, entity.getCode(),	localFilter, false);
@@ -210,9 +209,8 @@ public class HesabMoeenService extends
 	}
 	
 	static Long maxKalaCode = null;
-	private synchronized String generateHesabCode(HesabMoeenEntity entity) {
-		String maxHierArchicalHesabMoeenCode = getMyDAO().getMaxHesabMoeenCode(
-					entity.getHesabKol());
+	private synchronized String generateHesabCode(HesabMoeenEntity entity, OrganEntity currentOrgan, SaalMaaliEntity activeSaalMaaliEntity) {
+		String maxHierArchicalHesabMoeenCode = getMyDAO().getMaxHesabMoeenCode(entity.getHesabKol(), currentOrgan, activeSaalMaaliEntity);
 		return maxHierArchicalHesabMoeenCode;
 	}
 	
@@ -348,7 +346,7 @@ public class HesabMoeenService extends
 	}
 	
 	@Transactional(readOnly=false)
-	public void importFromHesabMoeenTemplateList(SaalMaaliEntity activeSaalMaaliEntity) {
+	public void importFromHesabMoeenTemplateList(SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organ.id@eqORorgan.id@isNull",Arrays.asList(activeSaalMaaliEntity.getOrgan().getId(), "ding"));		
 		List<HesabMoeenTemplateEntity> dataList = getHesabMoeenTemplateService().getDataList(null, localFilter);
@@ -356,7 +354,7 @@ public class HesabMoeenService extends
 			HesabMoeenEntity hesabMoeen = loadHesabMoeenByTemplate(hesabMoeenTemplateEntity, activeSaalMaaliEntity);
 			if(hesabMoeen == null){
 				try{
-					createHesabMoeen(activeSaalMaaliEntity, hesabMoeenTemplateEntity);
+					createHesabMoeen(activeSaalMaaliEntity, hesabMoeenTemplateEntity, currentOrgan);
 				}catch(DuplicateException e){
 					System.out.println(e.getMessage());
 					//e.printStackTrace();
@@ -373,26 +371,26 @@ public class HesabMoeenService extends
 
 	@Transactional
 	public HesabMoeenEntity createHesabMoeen(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabMoeenTemplateEntity hesabMoeenTemplateEntity) {
+			HesabMoeenTemplateEntity hesabMoeenTemplateEntity, OrganEntity currentOrgan) {
 		HesabMoeenEntity hesabMoeenEntity = loadHesabMoeenByTemplate(hesabMoeenTemplateEntity, activeSaalMaaliEntity);
 		if(hesabMoeenEntity == null){
 			hesabMoeenEntity = populateHesabKol(activeSaalMaaliEntity,
 					hesabMoeenTemplateEntity);
 			
-			save(hesabMoeenEntity, activeSaalMaaliEntity);
+			save(hesabMoeenEntity, activeSaalMaaliEntity, currentOrgan);
 		}
 		return hesabMoeenEntity;
 	}
 	
 	@Transactional
 	public HesabMoeenEntity createHesabMoeen(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabMoeenEntity srcHesabMoeenEntity) {
+			HesabMoeenEntity srcHesabMoeenEntity, OrganEntity currentOrgan) {
 		HesabMoeenEntity hesabMoeenEntity = loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(), activeSaalMaaliEntity);
 		if(hesabMoeenEntity == null)
 			hesabMoeenEntity = loadHesabMoeenByName(srcHesabMoeenEntity.getName(),activeSaalMaaliEntity, FlushMode.MANUAL);
 		if(hesabMoeenEntity == null){
 			hesabMoeenEntity = populateHesabKol(activeSaalMaaliEntity,	srcHesabMoeenEntity);
-			save(hesabMoeenEntity, activeSaalMaaliEntity);
+			save(hesabMoeenEntity, activeSaalMaaliEntity, currentOrgan);
 		}
 		return hesabMoeenEntity;
 	}

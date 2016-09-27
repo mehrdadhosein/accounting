@@ -4,6 +4,7 @@ import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
 import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
+import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.organ.OrganEntity;
 
@@ -113,6 +114,22 @@ public class HesabMoeenTemplateService extends
 		return load(null, localFilter);
 	}
 	
+
+	public HesabMoeenTemplateEntity loadByCodeInCurrentOrgan(String code, OrganEntity organEntity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("code@eq", code);
+		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
+		localFilter.put("organ.id@eq", organEntity.getId());
+		return load(null, localFilter);
+	}
+	
+	public HesabMoeenTemplateEntity loadByNameInCurrentOrgan(String name, OrganEntity organEntity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("name@eq", name);
+		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
+		localFilter.put("organ.id@eq", organEntity.getId());
+		return load(null, localFilter);
+	}
 	public List<HesabMoeenTemplateEntity> getActiveMoeens(OrganEntity organEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organ.code@startlk", getTopOrgan(organEntity).getCode());
