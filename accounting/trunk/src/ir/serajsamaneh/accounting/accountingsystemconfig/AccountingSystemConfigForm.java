@@ -292,7 +292,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		srcSaalMaali = getSaalMaaliService().load(getSrcSaalMaali().getId());
 		destSaalMaali = getSaalMaaliService().load(getDestSaalMaali().getId());
 		
-		getHesabKolService().copyHesabKolsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali());
+		getHesabKolService().copyHesabKolsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali(), getCurrentOrgan());
 		getHesabKolService().copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali(), getCurrentOrgan());
 		getHesabKolService().copyHesabTafsilissFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali(), getCurrentOrgan());
 		getHesabKolService().createHesabTafsiliRelatedEntities(getSrcSaalMaali(), getDestSaalMaali());

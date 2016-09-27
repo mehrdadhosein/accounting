@@ -128,7 +128,7 @@ public class HesabMoeenService extends
 		}
 		if(entity.getHidden() == null)
 			entity.setHidden(Boolean.FALSE);
-		checkHesabUniqueNess(entity, activeSaalMaaliEntity);
+		checkHesabUniqueNess(entity, activeSaalMaaliEntity, currentOrgan);
 		
 		createOrUpdateRelatedHesabMoeenTemplate(entity, currentOrgan);
 	}
@@ -182,9 +182,13 @@ public class HesabMoeenService extends
 
 	}
 
-	private void checkHesabUniqueNess(HesabMoeenEntity entity,	SaalMaaliEntity activeSaalMaaliEntity) {
+	private void checkHesabUniqueNess(HesabMoeenEntity entity,	SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 //		localFilter.put("organ.id@eq", activeSaalMaaliEntity.getOrgan().getId());
+		
+		List<Long> topOrganList = getTopOrgansIdList(currentOrgan);
+		localFilter.put("organ.id@in", topOrganList);
+		
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_NAME, entity.getName(),	localFilter, false);
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_CODE, entity.getCode(),	localFilter, false);
@@ -375,7 +379,7 @@ public class HesabMoeenService extends
 		HesabMoeenEntity hesabMoeenEntity = loadHesabMoeenByTemplate(hesabMoeenTemplateEntity, activeSaalMaaliEntity);
 		if(hesabMoeenEntity == null){
 			hesabMoeenEntity = populateHesabKol(activeSaalMaaliEntity,
-					hesabMoeenTemplateEntity);
+					hesabMoeenTemplateEntity, currentOrgan);
 			
 			save(hesabMoeenEntity, activeSaalMaaliEntity, currentOrgan);
 		}
@@ -389,7 +393,7 @@ public class HesabMoeenService extends
 		if(hesabMoeenEntity == null)
 			hesabMoeenEntity = loadHesabMoeenByName(srcHesabMoeenEntity.getName(),activeSaalMaaliEntity, FlushMode.MANUAL);
 		if(hesabMoeenEntity == null){
-			hesabMoeenEntity = populateHesabKol(activeSaalMaaliEntity,	srcHesabMoeenEntity);
+			hesabMoeenEntity = populateHesabKol(activeSaalMaaliEntity,	srcHesabMoeenEntity, currentOrgan);
 			save(hesabMoeenEntity, activeSaalMaaliEntity, currentOrgan);
 		}
 		return hesabMoeenEntity;
@@ -408,7 +412,7 @@ public class HesabMoeenService extends
 //	}
 
 	private HesabMoeenEntity populateHesabKol(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabMoeenTemplateEntity hesabMoeenTemplateEntity) {
+			HesabMoeenTemplateEntity hesabMoeenTemplateEntity, OrganEntity currentOrgan) {
 		HesabMoeenEntity hesabMoeenEntity;
 		hesabMoeenEntity = new HesabMoeenEntity();
 		hesabMoeenEntity.setCode(hesabMoeenTemplateEntity.getCode());
@@ -420,7 +424,7 @@ public class HesabMoeenService extends
 			hesabKolEntity = getHesabKolService().loadHesabKolByCode(hesabKolTemplate.getCode(), activeSaalMaaliEntity);
 		
 		if(hesabKolEntity == null)
-			hesabKolEntity = getHesabKolService().createHesabKolStateLess(activeSaalMaaliEntity, hesabKolTemplate);
+			hesabKolEntity = getHesabKolService().createHesabKolStateLess(activeSaalMaaliEntity, hesabKolTemplate, currentOrgan);
 		hesabMoeenEntity.setHesabKol(hesabKolEntity);
 		hesabMoeenEntity.setHesabMoeenTemplate(hesabMoeenTemplateEntity);
 		hesabMoeenEntity.setHidden(hesabMoeenTemplateEntity.getHidden());
@@ -436,14 +440,14 @@ public class HesabMoeenService extends
 	}
 	
 	private HesabMoeenEntity populateHesabKol(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabMoeenEntity srcHesabMoeenEntity) {
+			HesabMoeenEntity srcHesabMoeenEntity, OrganEntity currentOrgan) {
 		HesabMoeenEntity hesabMoeenEntity;
 		hesabMoeenEntity = new HesabMoeenEntity();
 		hesabMoeenEntity.setCode(srcHesabMoeenEntity.getCode());
 		hesabMoeenEntity.setDescription(srcHesabMoeenEntity.getDescription());
 		HesabKolEntity hesabKolEntity = getHesabKolService().loadHesabKolByCode(srcHesabMoeenEntity.getHesabKol().getCode(), activeSaalMaaliEntity);
 		if(hesabKolEntity == null)
-			hesabKolEntity = getHesabKolService().createHesabKolStateLess(activeSaalMaaliEntity, srcHesabMoeenEntity.getHesabKol());
+			hesabKolEntity = getHesabKolService().createHesabKolStateLess(activeSaalMaaliEntity, srcHesabMoeenEntity.getHesabKol(), currentOrgan);
 		hesabMoeenEntity.setHesabKol(hesabKolEntity);
 		hesabMoeenEntity.setHesabMoeenTemplate(srcHesabMoeenEntity.getHesabMoeenTemplate());
 		hesabMoeenEntity.setHidden(srcHesabMoeenEntity.getHidden());

@@ -132,7 +132,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	@Override
 	public String save() {
 		getEntity().setOrgan(getCurrentOrgan()); 
-		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali());
+		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
