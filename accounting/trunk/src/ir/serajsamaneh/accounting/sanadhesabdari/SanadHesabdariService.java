@@ -1356,7 +1356,7 @@ public class SanadHesabdariService extends
 			
 			HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(sanadHesabdariItemEntity.getHesabMoeenCode(),activeSaalmaali, FlushMode.ALWAYS);
 			if(hesabMoeenEntity == null)
-				hesabMoeenEntity = getHesabMoeenService().createHesabMoeen(activeSaalmaali, sanadHesabdariItemEntity.getHesabMoeen());
+				hesabMoeenEntity = getHesabMoeenService().createHesabMoeen(activeSaalmaali, sanadHesabdariItemEntity.getHesabMoeen(), currentOrgan);
 			itemEntity.setHesabMoeen(hesabMoeenEntity);
 			
 			if(sanadHesabdariItemEntity.getHesabTafsili()!=null && sanadHesabdariItemEntity.getHesabTafsili().getId()!=null){

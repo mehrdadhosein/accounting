@@ -145,7 +145,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		
 		initMoeenTafsiliItems(getEntity(), getTafsiliLevelsXML());
 
-		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali());
+		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		HesabRelationsUtil.resetMoeenKolMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
@@ -324,7 +324,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	
 	
 	public String importFromHesabMoeenTemplateList(){
-		getMyService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali());
+		getMyService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		setDataModel(null);
 		return null;
 	}

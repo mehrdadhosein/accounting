@@ -1,6 +1,8 @@
 package ir.serajsamaneh.accounting.hesabtafsili;
 
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
+import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.security.SecurityUtil;
 
 import java.util.HashMap;
@@ -15,9 +17,10 @@ public class HesabTafsiliDAO extends BaseHibernateDAO<HesabTafsiliEntity,Long> {
 
 
 
-	public Long getMaxHesabTafsiliCode() {
+	public Long getMaxHesabTafsiliCode(OrganEntity currentOrgan, SaalMaaliEntity currentUserSaalMaaliEntity) {
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", SecurityUtil.getUserDetails().getOrganEntity().getId());
+		filter.put("saalMaali.id@eq", currentUserSaalMaaliEntity.getId());
+//		filter.put("organ.id@eq", currentOrgan.getId());
 		addLocationFilter(filter);
 
 		Criteria criteria = getEmptyCriteria();
