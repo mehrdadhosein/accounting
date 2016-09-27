@@ -166,9 +166,12 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 
 
-	private void checkHesabUniqueNess(HesabTafsiliEntity entity,	SaalMaaliEntity activeSaalMaaliEntity) {
+	private void checkHesabUniqueNess(HesabTafsiliEntity entity,	SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 //		localFilter.put("organ.id@eq", activeSaalMaaliEntity.getOrgan().getId());
+		List<Long> topOrganList = getTopOrgansIdList(currentOrgan);
+		localFilter.put("organ.id@in", topOrganList);
+
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_NAME, entity.getName(),	localFilter, false);
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_CODE, entity.getCode(),	localFilter, false);
@@ -334,7 +337,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			
 			entity.setCode(generateHesabTafsiliCode(entity,currentOrgan, activeSaalMaaliEntity));
 		}
-		checkHesabUniqueNess(entity, activeSaalMaaliEntity);
+		checkHesabUniqueNess(entity, activeSaalMaaliEntity, currentOrgan);
 		
 		checkCycleInChildTafsiliHierarchy(entity, childTafsiliIds);
 		checkCycleInParentTafsiliHierarchy(entity, parentTafsiliIds);
