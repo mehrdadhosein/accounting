@@ -847,10 +847,12 @@ public class SanadHesabdariService extends
 			getHesabKolService().save(hesabKol);
 			
 			HesabMoeenEntity hesabMoeen = sanadHesabdariItemEntity.getHesabMoeen();
-			hesabMoeen.setBedehkar(hesabMoeen.getBedehkar()-bedehkar);
-			hesabMoeen.setBestankr(hesabMoeen.getBestankr()-bestankar);
-
-			getHesabMoeenService().save(hesabMoeen);
+			if(hesabMoeen!=null && hesabMoeen.getId()!=null){
+				hesabMoeen.setBedehkar(hesabMoeen.getBedehkar()-bedehkar);
+				hesabMoeen.setBestankr(hesabMoeen.getBestankr()-bestankar);
+	
+				getHesabMoeenService().save(hesabMoeen);
+			}
 			
 			HesabTafsiliEntity hesabTafsili = sanadHesabdariItemEntity.getHesabTafsili();
 

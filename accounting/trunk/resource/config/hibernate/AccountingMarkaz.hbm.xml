@@ -35,13 +35,13 @@
 				foreign-key='fk_accounting_markaz_parents' column='parents_id' />
 		</set>
 		<set name='moeenAccountingMarkaz' inverse='true' cascade="all-delete-orphan">
-			<key column='accounting_markaz_id' foreign-key='fk_hes_taf_moeen_taf_key' />
+			<key column='accounting_markaz_id' foreign-key='fk_moeen_acc_acc_markaz_key' />
 			<one-to-many
 				class='ir.serajsamaneh.accounting.moeenaccountingmarkaz.MoeenAccountingMarkazEntity' />
 		</set>
 		<many-to-one name='saalMaali'
 			class='ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity'
-			not-null='true' cascade='none' foreign-key='fk_hes_taf_saal_maali_id'>
+			not-null='true' cascade='none' foreign-key='fk_acc_markaz_saal_maali_id'>
 			<column name='saal_maali_id' />
 		</many-to-one>
 		<property name='bedehkar' type='java.lang.Double' column='bedehkar'>
