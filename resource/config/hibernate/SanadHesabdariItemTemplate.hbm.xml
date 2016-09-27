@@ -25,18 +25,18 @@
 		</property>
 		<many-to-one name='hesabKolTemplate'
 			class='ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity'
-			foreign-key='fk_snd_hsbdri_itm_hsb_kl'>
+			foreign-key='fk_snd_hsbdri_itm_tmpl_hsb_kl'>
 			<column name='hesab_kol_template_id' />
 		</many-to-one>
 		<many-to-one name='hesabMoeenTemplate'
 			class='ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity'
-			foreign-key='fk_snd_hsbdri_itm_hsb_moeen'>
+			foreign-key='fk_snd_hsbdri_itm_tmpl_moeen'>
 			<column name='hesab_moeen_template_id' />
 		</many-to-one>
 		
 		<many-to-one name='hesabTafsiliTemplate'
 			class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity'
-			foreign-key='fk_snd_hsbdri_itm_hsb_tf'>
+			foreign-key='fk_snd_hsbdri_itm_tmpl_tafsil'>
 			<column name='hesab_tafsili_template_id' />
 		</many-to-one>
 

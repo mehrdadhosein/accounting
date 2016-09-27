@@ -106,8 +106,10 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 		setHesabKolName(convertNullToString(sanadHesabdariItemEntity.getHesabKol().getDesc()));
 		setHesabKolID(convertNullToString(sanadHesabdariItemEntity.getHesabKol().getId()));
 
-		setHesabMoeenName(convertNullToString(sanadHesabdariItemEntity.getHesabMoeen().getDesc()));
-		setHesabMoeenID(convertNullToString(sanadHesabdariItemEntity.getHesabMoeen().getId()));
+		String moeenDesc = sanadHesabdariItemEntity.getHesabMoeen()!=null ? sanadHesabdariItemEntity.getHesabMoeen().getDesc() : "";
+		setHesabMoeenName(convertNullToString(moeenDesc));
+		
+		setHesabMoeenID(convertNullToString(sanadHesabdariItemEntity.getHesabMoeen()!=null ? sanadHesabdariItemEntity.getHesabMoeen().getId() : ""));
 		setTarikhArticle(convertNullToString(sanadHesabdariItemEntity.getTarikhArticle()));
 	}
 	

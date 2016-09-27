@@ -24,7 +24,7 @@
   </many-to-one>
   <many-to-one
    class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"
-   foreign-key="contact_hesab_hesab_tafsili" name="hesabShenavar">
+   foreign-key="contact_hesab_tafsili_shenavar" name="hesabShenavar">
    <column name="hesab_shenavar_id"/>
   </many-to-one>
   <many-to-one

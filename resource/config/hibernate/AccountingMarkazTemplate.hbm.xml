@@ -18,7 +18,7 @@
 		</property>
 		<many-to-one embed-xml='false' name='organ'
 			class='ir.serajsamaneh.core.organ.OrganEntity' not-null='true'
-			cascade='none' foreign-key='fk_accounting_markaz_organ_id'>
+			cascade='none' foreign-key='accounting_markaz_tmpl_organ'>
 			<column name='organ_id' />
 		</many-to-one>
 		<set name='childs' table='tb_mrkz_tmpl_mrkz_tmpl'>
@@ -33,11 +33,7 @@
 				class='ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity'
 				foreign-key='fk_accntng_markaz_tmpl_parent' column='parents_id' />
 		</set>
-		<!-- set name='moeenAccountingMarkaz' inverse='true' cascade="all-delete-orphan">
-			<key column='accounting_markaz_id' foreign-key='fk_hes_taf_moeen_taf_key' />
-			<one-to-many
-				class='ir.serajsamaneh.accounting.moeenaccountingmarkaz.MoeenAccountingMarkazEntity' />
-		</set-->
+
 		
 	</class>
 
