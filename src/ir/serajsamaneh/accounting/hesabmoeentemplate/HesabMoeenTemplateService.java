@@ -82,7 +82,7 @@ public class HesabMoeenTemplateService extends
 	}
 
 	@Transactional(readOnly = false)
-	public void createHesabMoeenTemplate(String hesabMoeenCode, String hesabMoeenName, String hesabKolCode, OrganEntity organEntity, Boolean hidden) {
+	public HesabMoeenTemplateEntity createHesabMoeenTemplate(String hesabMoeenCode, String hesabMoeenName, String hesabKolCode, OrganEntity organEntity, Boolean hidden) {
 		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = new HesabMoeenTemplateEntity();
 		hesabMoeenTemplateEntity.setScope(HesabScopeEnum.LCAOL);
 		hesabMoeenTemplateEntity.setName(hesabMoeenName);
@@ -93,6 +93,7 @@ public class HesabMoeenTemplateService extends
 		checkHesabUniqueNess(hesabMoeenTemplateEntity, organEntity);
 		getHesabMoeenTemplateDAO().saveOrUpdate(hesabMoeenTemplateEntity);
 		getLogger().info("hesabMoeen created : "+hesabMoeenCode);
+		return hesabMoeenTemplateEntity;
 		
 	}
  

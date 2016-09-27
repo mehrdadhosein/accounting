@@ -348,10 +348,20 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCodeInCurrentOrgan(entity.getCode().toString(), organEntity);
 		if(hesabTafsiliTemplateEntity == null){
 			hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
-			if(hesabTafsiliTemplateEntity!=null)
-				throw new FatalException(SerajMessageUtil.getMessage("HesabTafsiliTemplate_cantCreateHesabTafsiliTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
-
-			hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().createHesabTafsiliTemplate(entity.getCode(), entity.getName(), organEntity, entity.getTafsilType(), entity.getDescription());
+			if(hesabTafsiliTemplateEntity!=null){
+				HesabTafsiliTemplateEntity currentEntityHesabTafsiliTemplate = entity.getHesabTafsiliTemplate();
+				
+				//code of hesabTafsili has changed
+				if(currentEntityHesabTafsiliTemplate.equals(hesabTafsiliTemplateEntity)){
+					hesabTafsiliTemplateEntity.setCode(entity.getCode().toString());
+					hesabTafsiliTemplateEntity.setName(entity.getName());
+					hesabTafsiliTemplateEntity.setTafsilType(entity.getTafsilType());
+					hesabTafsiliTemplateEntity.setDescription(entity.getDescription());
+					updateRelatedHesbTafsilies(hesabTafsiliTemplateEntity);
+				}else
+					throw new FatalException(SerajMessageUtil.getMessage("HesabTafsiliTemplate_cantCreateHesabTafsiliTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
+			}else
+				hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().createHesabTafsiliTemplate(entity.getCode(), entity.getName(), organEntity, entity.getTafsilType(), entity.getDescription());
 		}
 		else{
 			hesabTafsiliTemplateEntity.setCode(entity.getCode().toString());
@@ -392,6 +402,20 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		}catch(DuplicateException e){
 			throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_hesabTafsiliTemplateWithSameNameAndDuplicateCodeExists",entity.getName()+" ("+entity.getCode()+")"));
 		}
+	}
+
+	@Transactional
+	private void updateRelatedHesbTafsilies(
+			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity) {
+		Map<String, Object> filter = new HashMap<String, Object>();
+		filter.put("hesabTafsiliTemplate.id@eq", hesabTafsiliTemplateEntity.getId());
+		List<HesabTafsiliEntity> dataList = getDataList(null, filter);
+		for (HesabTafsiliEntity hesabTafsiliEntity : dataList) {
+			hesabTafsiliEntity.setCode(new Long(hesabTafsiliTemplateEntity.getCode()));
+			hesabTafsiliEntity.setName(hesabTafsiliTemplateEntity.getName());
+			save(hesabTafsiliEntity);
+		}
+		
 	}
 
 	private void addMoeenToMoeenTafsiliSet(HesabTafsiliEntity entity, Long moeenId) {

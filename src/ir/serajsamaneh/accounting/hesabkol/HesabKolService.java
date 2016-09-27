@@ -610,7 +610,7 @@ public class HesabKolService extends
 					continue;
 				}
 			}
-			getHesabMoeenService().createHesabMoeenTemplateFromHesabMoeen(srcHesabMoeenEntity, srcSaalMaali.getOrgan());
+			getHesabMoeenService().createOrUpdateRelatedHesabMoeenTemplate(srcHesabMoeenEntity, srcSaalMaali.getOrgan());
 		}
 	}
 
