@@ -13,6 +13,7 @@ import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateServi
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabEntity;
@@ -133,11 +134,18 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	public String save() {
 		getEntity().setOrgan(getCurrentOrgan()); 
 		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrgan());
-		HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		resetHesabRelations();
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
 
+	private void resetHesabRelations() {
+		List<Long> subsetOrganIds = getSubsetOrganIds(getCurrentOrgan());
+		for (Long organId : subsetOrganIds) {
+			OrganEntity organEntity = getOrganService().load(organId);
+			HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), organEntity);
+		}
+	}
 
 	
 	HesabKolService hesabKolService;
