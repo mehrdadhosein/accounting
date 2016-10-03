@@ -8,6 +8,7 @@ import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.contact.contact.ContactService;
 import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
@@ -193,14 +194,22 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	public String save() {
 		getEntity().setOrgan(getCurrentOrgan()); 
 		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getParentTafsiliIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali(), getCurrentOrgan());
-		HesabRelationsUtil.resetTafsiliMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
-		HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
-		HesabRelationsUtil.resetTafsiliChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		resetHesabRelations();
 		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
 	
+	private void resetHesabRelations() {
+		List<Long> subsetOrganIds = getSubsetOrganIds(getCurrentOrgan());
+		for (Long organId : subsetOrganIds) {
+			OrganEntity organEntity = getOrganService().load(organId);
+			HesabRelationsUtil.resetTafsiliMoeenMap(getCurrentUserActiveSaalMaali(), organEntity);
+			HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali(), organEntity);
+			HesabRelationsUtil.resetTafsiliChildMap(getCurrentUserActiveSaalMaali(), organEntity);
+			HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), organEntity);
+		}
+	}
 	
 	public String localSave() {
 		getEntity().setOrgan(getCurrentOrgan());
