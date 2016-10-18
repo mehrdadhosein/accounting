@@ -298,7 +298,12 @@
 				<permission id="7309" action="month.localList" name="صفحه فهرست محلی  ماه"		role="1" />
 				<permission id="7310" action="month.localEdit" name="صفحه ویرایش محلی  ماه"		role="1" />
 				<permission id="7312" action="month.localView" name="صفحه مشاهده محلی  ماه"		role="1" />
-			</classification>		
+			</classification>
+
+		<classification id="740" name="مشاهده منوی حسابداری">
+			<permission id="7401" name="مشاهده منوی حسابداری" action="accounting.menu"	 role="1,2,3" />	
+		</classification>
+					
 	</classification>
 
 

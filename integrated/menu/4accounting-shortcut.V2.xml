@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Groups>
-	<Group id="accounting" title="حسابداری"
+	<Group id="accounting" title="حسابداری" 
 		icon="cartable/accounting/accounting_icon.jpg">
 
 		<MenuItem id="hesabOperations" title="نمایش حسابها"
