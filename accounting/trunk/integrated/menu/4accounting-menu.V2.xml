@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Contexts>
 	<Context method="dosubmit">
-		<MenuItem value="حسابداری" separator="true">
+		<MenuItem value="حسابداری" separator="true" permission="accounting.menu">
 			<MenuItem value="اطلاعات پایه حسابداری" separator="true"
 				icon="images/menu/file-info-icon.png">
 				<MenuItem id="saalMaalilist"  value="سال مالی" valueClick="saalmaali/saalMaali.list.jsf"
