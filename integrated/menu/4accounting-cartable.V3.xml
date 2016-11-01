@@ -1,18 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Group id="accounting" title="حسابداری" executeMode="ajax"
 	icon="cartable/accounting/accounting_icon.jpg">
-
-
-	<MenuItem id="sanadHesabdariLocalList" title="اسناد موقت"
-		url="../sanadhesabdari/sanadHesabdari.localList.jsf" permission="sanadHesabdari.localList"
-		icon="cartable/accounting/reportMovaghat-icon.png"    bean="sanadHesabdari" countMethod="localMovaghatDataModelCount"/>
-
-	<MenuItem id="localBarrasiShodehDataModel" title="اسناد تایید شده"
-		url="../sanadhesabdari/sanadHesabdari.localBarrasiShodehList.jsf" permission="sanadHesabdari.localList"
-		icon="cartable/accounting/reportTaeid-icon.png"    bean="sanadHesabdari" countMethod="localBarrasiShodehDataModelCount"/>
-
-	<MenuItem id="localDaemiDataModel" title="اسناد دائمی"
-		url="../sanadhesabdari/sanadHesabdari.localDaemiList.jsf" permission="sanadHesabdari.localList"
-		icon="cartable/accounting/reportDaeem-icon.png"    bean="sanadHesabdari" countMethod="localDaemiDataModelCount"/>
-
 </Group>
