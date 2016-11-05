@@ -317,6 +317,10 @@
 					<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalListMoeen" value="معین"
 						valueClick="sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.moeen.localList.jsf"
 						permission="sanadHesabdariItem.soodVaZiyan.localList" icon="images/menu/chart-up-color-icon.png" />
+					<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalListMoeen" value="تفصیلی"
+						valueClick="sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.tafsili.localList.jsf"
+						permission="sanadHesabdariItem.soodVaZiyan.localList" icon="images/menu/chart-up-color-icon.png" />
+						
 				</MenuItem>
 			</MenuItem>
 
