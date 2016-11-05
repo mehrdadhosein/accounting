@@ -310,8 +310,14 @@
 					valueClick="../sanadhesabdariitem/sanadHesabdariItem.tarazKolLocalView.jsf"
 					permission="sanadHesabdariItem.tarazKolLocalView" icon="images/menu/chart-bar-icon.png" />
 				<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalList" value="صورت سود و زیان"
-					valueClick="../sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.localList.jsf"
-					permission="sanadHesabdariItem.soodVaZiyan.localList" icon="images/menu/chart-up-color-icon.png" />
+					permission="sanadHesabdariItem.soodVaZiyan.localList" icon="images/menu/chart-up-color-icon.png">
+					<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalList" value="کل"
+						valueClick="sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.localList.jsf"
+						permission="sanadHesabdariItem.soodVaZiyan.localList" icon="images/menu/chart-up-color-icon.png" />
+					<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalListMoeen" value="معین"
+						valueClick="sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.moeen.localList.jsf"
+						permission="sanadHesabdariItem.soodVaZiyan.localList" icon="images/menu/chart-up-color-icon.png" />
+				</MenuItem>
 			</MenuItem>
 
 			<MenuItem id="accountingConfig" value="تنظیمات حسابداری" valueClick="../accountingsystemconfig/accountingSystemConfig.jsf"

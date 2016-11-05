@@ -692,22 +692,32 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 //		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EQUITY,getCurrentOrgan());
 	}
 	
-	public List<SanadHesabdariItemEntity> getIncomeGroupByLevel( ){
+	public List<SanadHesabdariItemEntity> getIncomeGroupByHesabKol( ){
 		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.INCOME,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 //		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.INCOME,getCurrentOrgan());
 	}
 	
-	public List<SanadHesabdariItemEntity> getExpenseGroupByLevel(){
+	public List<SanadHesabdariItemEntity> getIncomeGroupByHesabMoeen( ){
+		return getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.INCOME,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+//		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.INCOME,getCurrentOrgan());
+	}
+	
+	public List<SanadHesabdariItemEntity> getExpenseGroupByHesabKol(){
 		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EXPENSE,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 //		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EXPENSE,getCurrentOrgan());
 	}
 
+	public List<SanadHesabdariItemEntity> getExpenseGroupByHesabMoeen(){
+		return getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EXPENSE,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+//		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EXPENSE,getCurrentOrgan());
+	}
+	
 	
 	public Double getSoodeNaVijeh(){
 		Double soodeVijeh = 0D;
-// daramad bestankar ast
-		if(getIncomeGroupByLevel()!=null)
-		for (SanadHesabdariItemEntity income : getIncomeGroupByLevel()) {
+		// daramad bestankar ast
+		if(getIncomeGroupByHesabKol()!=null)
+		for (SanadHesabdariItemEntity income : getIncomeGroupByHesabKol()) {
 			Double bedehkar = income.getBedehkar();
 			Double bestankar = income.getBestankar();
 			if(bedehkar!=null)
@@ -715,8 +725,8 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			if(bestankar!=null)
 				soodeVijeh += bestankar;
 		}
-// hazine bestankar ast
-		for (SanadHesabdariItemEntity income : getExpenseGroupByLevel()) {
+		// hazine bestankar ast
+		for (SanadHesabdariItemEntity income : getExpenseGroupByHesabKol()) {
 			Double bedehkar = income.getBedehkar();
 			Double bestankar = income.getBestankar();
 			if(bedehkar!=null)

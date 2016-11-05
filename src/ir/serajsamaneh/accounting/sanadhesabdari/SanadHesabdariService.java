@@ -726,7 +726,7 @@ public class SanadHesabdariService extends
 		}
 
 		if (bedehkarSum.doubleValue() != bestankarSum.doubleValue())
-			throw new SanadIsNotBalancedException();
+			throw new SanadIsNotBalancedException(entity);
 	}
 
 	public Long getlastDaemiSerial(OrganEntity currentOrgan, SaalMaaliEntity activeSaalmaali) {

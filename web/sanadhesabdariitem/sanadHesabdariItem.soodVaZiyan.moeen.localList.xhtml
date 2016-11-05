@@ -23,7 +23,7 @@
 			
 			 dir="rtl"
 			 id="sanadHesabdariINCOMEItems"
-				value="#{sanadHesabdariItem.incomeGroupByHesabKol}"
+				value="#{sanadHesabdariItem.incomeGroupByHesabMoeen}"
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
 				style="width: 97%" align="center"
 				rows="#{sanadHesabdariItem.rowsPerPage}">
@@ -38,9 +38,9 @@
 				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
-							value="#{messages['SanadHesabdariItem_hesabKol']}" />
+							value="#{messages['SanadHesabdariItem_hesabMoeen']}" />
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.desc}" />
 				</p:column>
 
 
@@ -68,7 +68,7 @@
 			
 			 dir="rtl"
 			 id="sanadHesabdariEXPENSEItems"
-				value="#{sanadHesabdariItem.expenseGroupByHesabKol}"
+				value="#{sanadHesabdariItem.expenseGroupByHesabMoeen}"
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
 				style="width: 97%" align="center"
 				rows="#{sanadHesabdariItem.rowsPerPage}">
@@ -83,9 +83,9 @@
 				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
-							value="#{messages['SanadHesabdariItem_hesabKol']}" />
+							value="#{messages['SanadHesabdariItem_hesabMoeen']}" />
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.desc}" />
 				</p:column>
 
 
