@@ -17,6 +17,7 @@ import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
+import ir.serajsamaneh.core.exception.MoreThanOneRecordFoundException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.security.ActionLogUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
@@ -149,7 +150,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	}
 
 	@Transactional
-	public void save(AccountingMarkazEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, SaalMaaliEntity activeSaalMaaliEntity) {
+	public void save(AccountingMarkazEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, SaalMaaliEntity activeSaalMaaliEntity, Boolean applyMoeenOnSubMarkaz) {
 		if (entity.getId() == null) {
 			entity.setBedehkar(0d);
 			entity.setBestankr(0d);
@@ -166,10 +167,13 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		}
 		entity.getMoeenAccountingMarkaz().clear();
 		for (Long moeenId : moeenIds) {
-			MoeenAccountingMarkazEntity moeenAccountingMarkazEntity = new MoeenAccountingMarkazEntity();
-			moeenAccountingMarkazEntity.setHesabMoeen(getHesabMoeenService().load(moeenId));
-			moeenAccountingMarkazEntity.setAccountingMarkaz(entity);
-			entity.getMoeenAccountingMarkaz().add(moeenAccountingMarkazEntity);
+			MoeenAccountingMarkazEntity moeenAccountingMarkazEntity = null;//getMoeenAccountingMarkazService().load(entity, moeenId);
+			if(moeenAccountingMarkazEntity == null){
+				moeenAccountingMarkazEntity = new MoeenAccountingMarkazEntity();
+				moeenAccountingMarkazEntity.setHesabMoeen(getHesabMoeenService().load(moeenId));
+				moeenAccountingMarkazEntity.setAccountingMarkaz(entity);
+				entity.getMoeenAccountingMarkaz().add(moeenAccountingMarkazEntity);
+			}
 		}
 		
 		entity.getChilds().clear();
@@ -181,6 +185,31 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		boolean isNew=(entity.getId()!=null?false:true);
 		logAction(isNew, entity);
 		createAccountingMarkazTemplateFromAccountingMarkaz(entity, activeSaalMaaliEntity.getOrgan());
+		
+		if(applyMoeenOnSubMarkaz){
+			applyMoeenOnSubMarkaz(entity, moeenIds);
+		}
+	}
+
+	@Transactional
+	private void applyMoeenOnSubMarkaz(AccountingMarkazEntity entity, List<Long> moeenIds) {
+		Set<AccountingMarkazEntity> childs = entity.getChilds();
+		for (AccountingMarkazEntity accountingMarkazEntity : childs) {
+			for (Long moeenId : moeenIds) {
+				try{
+					MoeenAccountingMarkazEntity moeenAccountingMarkazEntity = getMoeenAccountingMarkazService().load(accountingMarkazEntity, moeenId);
+					if(moeenAccountingMarkazEntity == null){
+						moeenAccountingMarkazEntity = new MoeenAccountingMarkazEntity();
+						moeenAccountingMarkazEntity.setHesabMoeen(getHesabMoeenService().load(moeenId));
+						moeenAccountingMarkazEntity.setAccountingMarkaz(accountingMarkazEntity);
+						accountingMarkazEntity.addTomoeenAccountingMarkaz(moeenAccountingMarkazEntity);
+					}
+				}catch(MoreThanOneRecordFoundException e){
+					e.printStackTrace();
+				}
+			}
+			save(accountingMarkazEntity);
+		}
 	}
 
 	@Transactional

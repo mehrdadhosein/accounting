@@ -57,6 +57,13 @@
 				</h:panelGroup>
 
 				<h:panelGroup>
+					<h:outputLabel for="applyMoeenOnSubMarkaz"
+						value="#{messages['AccountingMarkaz_applyMoeenOnSubMarkaz']}" /> : 
+				</h:panelGroup>
+				<h:selectBooleanCheckbox id="applyMoeenOnSubMarkaz" label="applyMoeenOnSubMarkaz"
+					value="#{accountingMarkaz.applyMoeenOnSubMarkaz}" />
+					
+				<h:panelGroup>
 					<h:outputLabel for="accountingMarkazes"
 						value="#{messages['AccountingMarkaz_childs']}" /> : 
 				</h:panelGroup>
