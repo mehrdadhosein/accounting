@@ -301,7 +301,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			entity.getParents().clear();
 		
 		for (Long tafsiliId : parentTafsiliIds) {
-			entity.getParents().add(load(tafsiliId));
+			HesabTafsiliEntity hesabTafsiliEntity = load(tafsiliId);
+			entity.addToparents(hesabTafsiliEntity);
 		}
 		
 		entity.getChildAccountingMarkaz().clear();

@@ -36,7 +36,7 @@
 				class='ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity'
 				foreign-key='fk_tafsl_accntng_mrkz_mrkz_key' column='accounting_markaz_id' />
 		</set>
-		<set name='parents' inverse='true' table='tb_hesab_tafsili_hesab_tafsili'>
+		<set name='parents' table='tb_hesab_tafsili_hesab_tafsili'>
 			<key column='childs_id' foreign-key='fk_hesab_tafsili_childs_key' />
 			<many-to-many
 				class='ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity'
