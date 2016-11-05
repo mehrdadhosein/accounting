@@ -14,7 +14,7 @@
 <script type='text/javascript'
 	src='${request.contextPath}/dwr/interface/hesabMoeen.js?p=23'> </script>
 <script type='text/javascript'
-	src='${request.contextPath}/hesabmoeen/common/tafsiliLevels.gridNew.js?p=23'> </script>
+	src='${request.contextPath}/hesabmoeen/common/tafsiliLevels.gridNew.js?p=24'> </script>
 <style>
 .dialogViewLableCol {
 	text-align: left;
@@ -31,7 +31,7 @@
 		columnClasses="inputCol" styleClass="inputForm ui-noborder ui-panelgrid-blank">
 
 		<h:panelGroup>
-			<custom:autocomplete-multiple id="tafsilies" 
+			<custom:autocomplete-multiple id="hesabTafsiliIds" 
 				entity="HesabTafsili"
 				property="code, name" ajax="false" extraParams="isCurrentOrgan=true" />
 		</h:panelGroup>

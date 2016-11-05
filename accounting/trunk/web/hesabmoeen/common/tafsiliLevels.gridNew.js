@@ -7,7 +7,7 @@
 
 	function getDataRow(gridId){
 		var datarow={};
-		var localItems = getItems('#tafsiliLevels');
+		var localItems = getItems('#tafsiliLevelsTable');
 		for ( var j = 0; j < localItems.length; j++){
 			var fieldId = localItems[j];
 			var convertedFieldId = fieldId;
@@ -76,32 +76,44 @@
 	 
 	function editTafsiliLevelsRowData(gridId,rowId,title){
 		if(lastRow!=-1)
-			$$('#tafsiliLevels').jqGrid('saveRow',lastRow, false, 'clientArray');
+			$$('#tafsiliLevelsTable').jqGrid('saveRow',lastRow, false, 'clientArray');
 			
 		clearMultipleAutocomplete("tafsilies");
 							
-		var su=$$('#tafsiliLevels').getRowData(rowId);
+		var su=$$('#tafsiliLevelsTable').getRowData(rowId);
 
-		var localItems = getItems('#tafsiliLevels');
-		for ( var j = 0; j < localItems.length; j++){
-			updateField(localItems[j],su[localItems[j]]);
-		}
-		$$("#dialog").dialog({title:title, width: "60%", autoOpen: true,buttons: { "بستن": function() { $$(this).dialog("close"); },"بروز رسانی": function() { changeTafsiliLevelsRowData('#tafsiliLevels',rowId);$$(this).dialog("close"); }}});
+		var localItems = getItems('#tafsiliLevelsTable');
+		populatehesabTafsiliIds(su['hesabTafsiliIds']);
+		$$("#hesabTafsiliIds_id").val(su['hesabTafsiliIds']);
+		//$$("#hesabTafsiliIds_id").val(su['hesabTafsiliIds']);
+		//for ( var j = 0; j < localItems.length; j++){
+			//alert(localItems[j]);
+			//alert(su[localItems[j]]);
+			//$$("#hesabTafsiliIds_id").val(su['hesabTafsiliIds']);
+			//updateField(localItems[j],su[localItems[j]]);
+		//}
+		$$("#dialog").dialog({title:title, width: "60%", autoOpen: true,buttons: { "بستن": function() { $$(this).dialog("close"); },"بروز رسانی": function() { changeTafsiliLevelsRowData('#tafsiliLevelsTable',rowId);$$(this).dialog("close"); }}});
 		return false;
 	}
 	
 	
 	function changeTafsiliLevelsRowData(gridId,rowId){
-		$$('#tafsiliLevels').jqGrid('saveRow',lastRow, false, 'clientArray');
-		var datarow = getTafsiliLevelsDataRow('#tafsiliLevels');
-		var su=$$('#tafsiliLevels').jqGrid('setRowData',rowId,datarow); 
+		$$('#tafsiliLevelsTable').jqGrid('saveRow',lastRow, false, 'clientArray');
+		var datarow = getTafsiliLevelsDataRow('#tafsiliLevelsTable');
+		var su=$$('#tafsiliLevelsTable').jqGrid('setRowData',rowId,datarow); 
 	}
 	
 							
 	function getTafsiliLevelsDataRow(gridId){
 		var datarow={};
 		var localItems = getItems(gridId);
-		for ( var j = 0; j < localItems.length; j++){
+		//alert($$("#hesabTafsiliIds_id").val());
+		//alert(getAutocompleteDescs($$("#hesabTafsiliIds_id").val(), hesabTafsiliIdsResult));
+		
+		datarow['hesabTafsiliListStr']=getAutocompleteDescs($$("#hesabTafsiliIds_id").val(), hesabTafsiliIdsResult);
+		datarow['hesabTafsiliIds']=$$("#hesabTafsiliIds_id").val();
+		
+		/*for ( var j = 0; j < localItems.length; j++){
 			var fieldId = localItems[j];
 			var convertedFieldId = fieldId;
 			if(fieldId == 'hesabTafsiliListStr'){
@@ -116,24 +128,24 @@
 				continue;
 			}
 			else if(fieldId == 'hesabTafsiliIds')
-				convertedFieldId = "tafsilies_id";
+				convertedFieldId = "hesabTafsiliIds_id";
 			datarow[fieldId]=$$("#"+convertedFieldId).val();
-		}
+		}*/
 		return datarow;
 	}
 	
 	function populateTafsiliLevelsRecords(recordsInputId,gridId){
 		if(!gridId)
-			gridId = "#tafsiliLevels";
+			gridId = "#tafsiliLevelsTable";
 		//viewWholeGrid(gridId)
 
 		var records='';
 		//var allRowsInGrid = $$(gridId).jqGrid('getRowData');
 		var allRowsInGrid = $$(gridId).jqGrid('getGridParam','data');
 		for ( var i = 0; i < allRowsInGrid.length; i++) {
-				var rec = allRowsInGrid[i];
-				if(rec['level']==undefined)
-					return;
+			var rec = allRowsInGrid[i];
+			if(rec['level']==undefined)
+				return;
 			records=records+"{";
 			var localItems = getItems(gridId);
 			for ( var j = 0; j < localItems.length; j++){
@@ -152,7 +164,7 @@
 	
 	function populateTafsiliLevelsRecordsXML(recordsInputId,gridId){
 		if(!gridId)
-			gridId = "#tafsiliLevels";
+			gridId = "#tafsiliLevelsTable";
 		//viewWholeGrid(gridId)
 		var localItems = getItems(gridId);
 		var records='';
@@ -173,6 +185,7 @@
 			
 			
 			for ( var j = 0; j < localItems.length; j++){
+				//alert(rec[localItems[j]]+' '+localItems[j]);
 				var value='';
 				//alert(rec[localItems[j]]);
 				if(rec[localItems[j]]!= undefined && rec[localItems[j]]!= null)

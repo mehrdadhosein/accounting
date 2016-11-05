@@ -80,7 +80,7 @@
 	</ui:define>
 	<ui:define name="buttonsection">
 		<h:commandButton styleClass=" gwt-Button"  rendered="#{owner.editable  and owner.isForMyOrgan}"
-			onclick="showLoading(); populateTafsiliLevelsRecordsXML('tafsiliLevels','#tafsiliLevels');"
+			onclick="showLoading(); populateTafsiliLevelsRecordsXML('tafsiliLevels','#tafsiliLevelsTable');"
 			action="#{owner.save}" image="/images/buttons/btn_save.png">
 		</h:commandButton>
 
