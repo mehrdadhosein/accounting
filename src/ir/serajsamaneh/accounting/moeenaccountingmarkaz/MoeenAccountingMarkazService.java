@@ -47,4 +47,12 @@ public class MoeenAccountingMarkazService extends
 		throw new FatalException();
 	}
 
+
+	public MoeenAccountingMarkazEntity load(AccountingMarkazEntity accountingMarkazEntity, Long moeenId) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("accountingMarkaz.id@eq", accountingMarkazEntity.getId());
+		localFilter.put("hesabMoeen.id@eq", moeenId);
+		return load(null, localFilter);
+	}
+
 }

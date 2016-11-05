@@ -116,7 +116,7 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	@Override
 	public String save() {
 		getEntity().setOrgan(getCurrentOrgan()); 
-		getMyService().save(getEntity(), getMoeenIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali());
+		getMyService().save(getEntity(), getMoeenIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali(), getApplyMoeenOnSubMarkaz());
 		HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		HesabRelationsUtil.resetAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
@@ -124,7 +124,15 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 		return getViewUrl();
 	}
 	
-	
+	Boolean applyMoeenOnSubMarkaz=false;
+	public Boolean getApplyMoeenOnSubMarkaz() {
+		return applyMoeenOnSubMarkaz;
+	}
+
+	public void setApplyMoeenOnSubMarkaz(Boolean applyMoeenOnSubMarkaz) {
+		this.applyMoeenOnSubMarkaz = applyMoeenOnSubMarkaz;
+	}
+
 	public String localSave() {
 		getEntity().setOrgan(getCurrentOrgan());
 		save();
