@@ -35,7 +35,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 
 
 
-	private static final int TAFSILI_DEPTH = 6;
+//	private static final int TAFSILI_DEPTH = 6;
 
 	HesabTafsiliService hesabTafsiliService;
 	SaalMaaliService saalMaaliService;
@@ -221,7 +221,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		List<TafsiliLevelVo> tafsiliLevelsList = new ArrayList<TafsiliLevelVo>();
 		Map<Integer, List<HesabTafsiliEntity>> tafsiliLevelMap = new HashMap<Integer, List<HesabTafsiliEntity>>();
 
-		for(int level = 1 ; level<TAFSILI_DEPTH;level++)
+		for(int level = 1 ; level<=getLevelsSize();level++)
 			tafsiliLevelMap.put(level, new ArrayList<HesabTafsiliEntity>());
 
 		
@@ -260,7 +260,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		xmlString += "<rows>\n";
 		xmlString += "<page>1</page>\n";
 		xmlString += "<total>1</total>\n";
-		xmlString += "<records>" + TAFSILI_DEPTH + "</records>\n";
+		xmlString += "<records>" + getLevelsSize() + "</records>\n";
 		Integer index = 1;
 		for (TafsiliLevelVo tafsiliLevelVo : getTafsiliLevelsList(hesabMoeenId)) {
 			xmlString += "<row id='" + index + "'>";
@@ -328,9 +328,9 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 
 
 	
-	public  Integer getMaxLevel(){
-		return 5;
-	}
+//	public  Integer getMaxLevel(){
+//		return 5;
+//	}
 	
 	
 	public String importFromHesabMoeenTemplateList(){
