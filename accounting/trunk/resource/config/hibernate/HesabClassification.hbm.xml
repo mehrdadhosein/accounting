@@ -22,13 +22,13 @@
 			<key column='hesab_classification_id' foreign-key='fk_hesab_classification_moeen' />
 			<many-to-many
 				class='ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity'
-				foreign-key='fk_classification_moeen_tmplt' column='hesab_moeen_tmplt_id' />
+				foreign-key='classification_moeen_tmplt' column='hesab_moeen_tmplt_id' />
 		</set>
 		<set name='hesabTafsiliTemplate' table='tb_classification_tafsili_tmpl'>
 			<key column='hesab_classification_id' foreign-key='hesab_classificaton_tafsili' />
 			<many-to-many
 				class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity'
-				foreign-key='fk_clssfcaton_tafsili_tmplt' column='hesab_tafsili_tmplt_id' />
+				foreign-key='clssfcaton_tafsili_tmplt' column='hesab_tafsili_tmplt_id' />
 		</set>		
 	</class>
 

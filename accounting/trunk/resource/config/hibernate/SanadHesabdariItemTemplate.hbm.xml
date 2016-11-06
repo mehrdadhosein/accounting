@@ -36,7 +36,7 @@
 		
 		<many-to-one name='hesabTafsiliTemplate'
 			class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity'
-			foreign-key='fk_snd_hsbdri_itm_tmpl_tafsil'>
+			foreign-key='snd_hsbdri_itm_tmpl_tafsil'>
 			<column name='hesab_tafsili_template_id' />
 		</many-to-one>
 

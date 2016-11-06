@@ -98,11 +98,12 @@ public class HesabMoeenEntity extends BaseHesabMoeenEntity {
 	
 	@Override
 	public String getCompleteInfo() {
-		String message= SerajMessageUtil.getMessage("HesabMoeen_name")+":"+this.getName()+" , "+
-			   SerajMessageUtil.getMessage("HesabMoeen_hesabKol")+":"+this.getHesabKol()+" , "+
-			   SerajMessageUtil.getMessage("HesabMoeen_code")+":"+this.getCode()+" , "+
-			   this.getDescription()!=null ? (SerajMessageUtil.getMessage("HesabMoeen_description")+":"+this.getDescription()+" , ") : ""+
-			   SerajMessageUtil.getMessage("HesabMoeen_hidden")+":"+this.getHidden();
+		String hesabMoeenName = SerajMessageUtil.getMessage("HesabMoeen_name")+":"+this.getName()+" , ";
+		String hesabKolName = SerajMessageUtil.getMessage("HesabMoeen_hesabKol")+":"+this.getHesabKol()+" , ";
+		String hesabMoeenCode = SerajMessageUtil.getMessage("HesabMoeen_code")+":"+this.getCode()+" , ";
+		String desc = this.getDescription()!=null ? SerajMessageUtil.getMessage("HesabMoeen_description")+":"+this.getDescription()+" , " : "";
+		String hidden = SerajMessageUtil.getMessage("HesabMoeen_hidden")+":"+this.getHidden();
+		String message= hesabMoeenName+hesabKolName+hesabMoeenCode+desc+   hidden;
 		if (!this.getTafsiliList().isEmpty()) {
 			message+=",[";
 			for (HesabTafsiliEntity tafsili : getTafsiliList()) {

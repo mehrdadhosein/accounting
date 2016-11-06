@@ -9,10 +9,10 @@
       </id>
       <property  name='level' type='integer' column='level_'>
 	      </property>
-      <many-to-one  name='hesabTafsiliTemplate' class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity' not-null='false' cascade='none' foreign-key='fk_moeen_tafsili_template_hesab_tafsili_template_id'>
+      <many-to-one  name='hesabTafsiliTemplate' class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity' not-null='false' cascade='none' foreign-key='moeen_tafsl_tmplt_tafsl_tmplt'>
 	         <column name='hesab_tafsili_template_id'/>
       </many-to-one>
-      <many-to-one  name='hesabMoeenTemplate' class='ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity' not-null='false' cascade='none' foreign-key='fk_moeen_tafsili_template_hesab_moeen_template_id'>
+      <many-to-one  name='hesabMoeenTemplate' class='ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity' not-null='false' cascade='none' foreign-key='moeen_tafsl_tmplt_moeen_tmplt'>
 	         <column name='hesab_moeen_template_id'/>
       </many-to-one>
    </class>
