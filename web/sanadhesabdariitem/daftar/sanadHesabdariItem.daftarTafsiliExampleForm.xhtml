@@ -81,6 +81,27 @@
 				</h:panelGroup>
 
 				<h:panelGroup>
+					<h:outputLabel for="codeShenavarAzTa"
+						value="#{messages['SanadHesabdari_codeShenavar']}" /> : 
+				</h:panelGroup>
+
+
+				<h:panelGroup id="codeShenavarAzTa">
+
+						<h:outputLabel for="azcodeShenavarExample"
+							value="#{messages['from']} : " />
+						<p:inputText id="azcodeShenavarExample"
+							value="#{owner.sanadhesabdariItemFilter['articleTafsili.hesabTafsili.code@ge']}"
+							converter="javax.faces.Long">
+						</p:inputText>
+
+						<h:outputLabel for="tacodeShenavarExample" value="#{messages['to']} : " />
+						<p:inputText id="tacodeShenavarExample"
+							value="#{owner.sanadhesabdariItemFilter['articleTafsili.hesabTafsili.code@le']}"
+							converter="javax.faces.Long">
+						</p:inputText>
+				</h:panelGroup>
+				<h:panelGroup>
 					<h:outputLabel for="description"
 						value="#{messages['SanadHesabdariItem_description']}" /> : 
 				</h:panelGroup>

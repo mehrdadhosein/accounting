@@ -235,6 +235,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		try{
 			ContactHesabEntity contactHesabEntity = getContactHesabService().getContactHesabByContactId(contactId, getCurrentUserActiveSaalMaali());
 			
+			HesabTafsiliEntity hesabShenavar = contactHesabEntity.getHesabShenavar();
 			HesabTafsiliEntity hesabTafsiliEntity = contactHesabEntity.getHesabTafsili();
 			HesabMoeenEntity hesabMoeenEntity = contactHesabEntity.getHesabMoeen();
 			Long hesabTafsiliId = hesabTafsiliEntity!=null ? hesabTafsiliEntity.getId() : null;

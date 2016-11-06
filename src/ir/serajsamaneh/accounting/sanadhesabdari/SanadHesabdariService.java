@@ -694,14 +694,16 @@ public class SanadHesabdariService extends
 			if(accountingMarkazEntity!=null && !accountingMarkazEntity.getHesabMoeenList().contains(hesabMoeen))
 				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_accountingMarkazDoesnotBelongToMoeen",tempSerial+" ("+DateConverter.toShamsiDate(sanadHesabdariEntity.getTarikhSanad())+")",sanadHesabdariItemEntity.getDescription(),  accountingMarkazEntity.getDesc(), hesabMoeen.getDesc()));
 			
-			ArticleTafsiliEntity articleTafsiliEntityTWO = sanadHesabdariItemEntity.getArticleTafsiliByLevel(2);
+			ArticleTafsiliEntity articleTafsiliEntityTWO = sanadHesabdariItemEntity.getArticleTafsiliByLevel(1);
 			if(hesabTafsili!=null && articleTafsiliEntityTWO!=null){
 				HesabTafsiliEntity hesabTafsiliShenavar = articleTafsiliEntityTWO.getHesabTafsili();
 				if(!hesabTafsiliShenavar.getParents().contains(hesabTafsili))
 					throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_tafsiliShenavarDoesnotBelongToTafsili",hesabTafsiliShenavar.getDesc(),hesabTafsiliShenavar.getSaalMaali(), hesabTafsili.getDesc(), hesabTafsili.getSaalMaali()));
+			}else if(checkIfMustValidateHesabTafsiliHasChild(organEntity) && hesabTafsili!=null && hesabTafsili.getChilds()!=null && hesabTafsili.getChilds().size()>0){
+					throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_hesabTafsiliMustHaveShenavar",hesabTafsili.getDesc(), tempSerial+" ("+DateConverter.toShamsiDate(sanadHesabdariEntity.getTarikhSanad())+")",sanadHesabdariItemEntity.getDescription(), sanadHesabdariEntity.getSaalMaali()));				
 			}
 			
-			ArticleTafsiliEntity articleTafsiliEntityThree = sanadHesabdariItemEntity.getArticleTafsiliByLevel(3);
+			ArticleTafsiliEntity articleTafsiliEntityThree = sanadHesabdariItemEntity.getArticleTafsiliByLevel(2);
 			if(articleTafsiliEntityThree!=null)
 				throw new FatalException("unImplementedTask : "+sanadHesabdariItemEntity);
 
