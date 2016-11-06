@@ -250,8 +250,9 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 //				HesabTreeUtil.addHesabTafsilisToHesabHierarchy(hesabVOs, tafsiliEntity, false, false);
 //			}
 		}catch(FatalException e){
-			System.out.println(e.getMessage());
-			throw new FatalException();
+			System.out.println(e.getDesc());
+			e.printStackTrace();
+			throw e;
 		}catch (Exception e) {
 			e.printStackTrace();
 			throw new FatalException();
