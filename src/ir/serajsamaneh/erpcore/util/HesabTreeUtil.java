@@ -37,13 +37,13 @@ public class HesabTreeUtil {
 	public static void addHesabMoeensToHesabHierarchy(HesabVO hesabKolVO,
 			List<HesabMoeenEntity> activeMoeens, List<HesabVO> hesabVOs, SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
 		for (HesabMoeenEntity hesabMoeenEntity : activeMoeens) {
-			addHesabMoeenToHesabHierarchy(hesabKolVO, hesabMoeenEntity, hesabVOs, true, saalMaaliEntity, curentOrgan);
+			addHesabMoeenToHesabKol(hesabKolVO, hesabMoeenEntity, hesabVOs, true, saalMaaliEntity, curentOrgan);
 		}
 	}
 
 
 
-	public static HesabVO addHesabMoeenToHesabHierarchy(HesabVO hesabKolVO, HesabMoeenEntity hesabMoeenEntity, List<HesabVO> hesabVOs, boolean addMoeenTafsilies, SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
+	public static HesabVO addHesabMoeenToHesabKol(HesabVO hesabKolVO, HesabMoeenEntity hesabMoeenEntity, List<HesabVO> hesabVOs, boolean addMoeenTafsilies, SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
 
 		HesabVO localHesabMoeenVO = null;
 		Boolean found = false;
@@ -68,7 +68,7 @@ public class HesabTreeUtil {
 			//Set<MoeenTafsiliEntity> moeenTafsili =  hesabMoeenEntity.getMoeenTafsili();
 			List<HesabTafsiliEntity> activeTafsilies = getHesabMoeenService().getActiveTafsilies(hesabMoeenEntity, saalMaaliEntity, curentOrgan);
 			for (HesabTafsiliEntity hesabTafsili : activeTafsilies) {
-				addHesabTafsilisToHesabHierarchy(localHesabMoeenVO, hesabTafsili, "folder-documents-icon.png", hesabVOs, true);
+				addHesabTafsiliToHesabMoeen(localHesabMoeenVO, hesabTafsili, "folder-documents-icon.png", hesabVOs, true);
 			}
 //			for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsili) {
 //				HesabTafsiliEntity hesabTafsili = moeenTafsiliEntity.getHesabTafsili();
@@ -79,10 +79,10 @@ public class HesabTreeUtil {
 		return localHesabMoeenVO;
 	}
 
-	public static void addHesabTafsilisToHesabHierarchy(HesabVO hesabMoeenVO,
+	public static HesabVO addHesabTafsiliToHesabMoeen(HesabVO hesabMoeenVO,
 			HesabTafsiliEntity hesabTafsili, String icon, List<HesabVO> hesabVOs, boolean addTafsiliShenavars) {
 		if(hesabTafsili.getHidden() == true)
-			return;
+			return null;
 
 		HesabVO tafsiliVO = null;
 		Boolean found = false;
@@ -114,9 +114,11 @@ public class HesabTreeUtil {
 				addHesabTafsilisShenavarToHesabHierarchy(tafsiliVO, childTafsiliEntity, "1365270554_stock_group.png", hesabVOs);
 			}
 		}
+		
+		return tafsiliVO;
 	}
 
-	public static void addHesabTafsilisToHesabHierarchy(List<HesabVO> hesabVOs,
+	public static void addHesabTafsilisToHesabMoeen(List<HesabVO> hesabVOs,
 			HesabTafsiliEntity hesabTafsiliEntity, boolean addMoeenTafsilies, boolean addTafsiliShenavars, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
 		Set<MoeenTafsiliEntity> moeenTafsili = hesabTafsiliEntity.getMoeenTafsili();
 		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsili) {
@@ -125,9 +127,25 @@ public class HesabTreeUtil {
 			
 			HesabVO hesabKolVO = addHesabKolToHesabVOs(hesabKolEntity, hesabVOs);
 
-			HesabVO hesabMoeenVO = addHesabMoeenToHesabHierarchy(hesabKolVO, hesabMoeenEntity, hesabVOs, addMoeenTafsilies, saalMaaliEntity, organEntity);
+			HesabVO hesabMoeenVO = addHesabMoeenToHesabKol(hesabKolVO, hesabMoeenEntity, hesabVOs, addMoeenTafsilies, saalMaaliEntity, organEntity);
 			
-			addHesabTafsilisToHesabHierarchy(hesabMoeenVO, hesabTafsiliEntity, "folder-documents-icon.png", hesabVOs, addTafsiliShenavars);
+			HesabVO hesabVO = addHesabTafsiliToHesabMoeen(hesabMoeenVO, hesabTafsiliEntity, "folder-documents-icon.png", hesabVOs, addTafsiliShenavars);
+		}
+	}
+	
+	public static void addHesabShenavarsToHesabMoeen(List<HesabVO> hesabVOs,
+			HesabTafsiliEntity hesabTafsiliEntity, HesabTafsiliEntity hesabTafsiliShenavar, boolean addMoeenTafsilies, boolean addTafsiliShenavars, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
+		Set<MoeenTafsiliEntity> moeenTafsili = hesabTafsiliEntity.getMoeenTafsili();
+		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsili) {
+			HesabMoeenEntity hesabMoeenEntity = moeenTafsiliEntity.getHesabMoeen();
+			HesabKolEntity hesabKolEntity = hesabMoeenEntity.getHesabKol();
+			
+			HesabVO hesabKolVO = addHesabKolToHesabVOs(hesabKolEntity, hesabVOs);
+			
+			HesabVO hesabMoeenVO = addHesabMoeenToHesabKol(hesabKolVO, hesabMoeenEntity, hesabVOs, addMoeenTafsilies, saalMaaliEntity, organEntity);
+			
+			HesabVO hesabVO = addHesabTafsiliToHesabMoeen(hesabMoeenVO, hesabTafsiliEntity, "folder-documents-icon.png", hesabVOs, addTafsiliShenavars);
+			addHesabTafsilisShenavarToHesabHierarchy(hesabVO, hesabTafsiliShenavar, "1365270554_stock_group.png", hesabVOs);
 		}
 	}
 
@@ -164,10 +182,10 @@ public class HesabTreeUtil {
 			tafsiliShenavarVO.setParent(HesabTafsiliVO);
 			HesabTafsiliVO.getChilds().add(tafsiliShenavarVO);
 		}
-		
-		Set<HesabTafsiliEntity> tafsiliChilds = hesabTafsiliShenavar.getChilds();
-		for (HesabTafsiliEntity childTafsiliEntity : tafsiliChilds) {
-			addHesabTafsilisShenavarToHesabHierarchy(tafsiliShenavarVO, childTafsiliEntity, "1365270554_stock_group.png", hesabVOs);
-		}
+//		
+//		Set<HesabTafsiliEntity> tafsiliChilds = hesabTafsiliShenavar.getChilds();
+//		for (HesabTafsiliEntity childTafsiliEntity : tafsiliChilds) {
+//			addHesabTafsilisShenavarToHesabHierarchy(tafsiliShenavarVO, childTafsiliEntity, "1365270554_stock_group.png", hesabVOs);
+//		}
 	}
 }
