@@ -231,6 +231,26 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 				entity.getLog());
 	}
 
+	@Transactional
+	public void globalSave(SaalMaaliEntity entity) {
+		if(entity.getId() == null)
+			entity.setStatus(SaalMaaliStatusEnum.InProgress);
+		Map<String, Object> filter = new HashMap<String, Object>();
+		filter.put("organ.id@eq", entity.getOrgan().getId());
+		checkUniqueNess(entity, "saal", entity.getSaal(),filter,false);
+		if(entity.getStartDate().after(entity.getEndDate()))
+			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_startDate_after_endDate"));
+		manageActiveSatatusOfOtherSaalMaaliEntities(entity, entity.getOrgan());
+		
+		super.save(entity);
+		String action = (entity.getId()!=null?(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass())):(SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.nameWithClass())));
+		ActionLogUtil.logAction(action, 
+				SerajMessageUtil.getMessage("SaalMaali_title"),
+				"",
+				"", 
+				entity.getLog());
+	}
+	
 	private void manageActiveSatatusOfOtherSaalMaaliEntities(SaalMaaliEntity entity, OrganEntity currentOrgan) {
 		if (entity.getIsActive() != null	&& entity.getIsActive().equals(true)) {
 			Map<String, Object> filter = new HashMap<String, Object>();
