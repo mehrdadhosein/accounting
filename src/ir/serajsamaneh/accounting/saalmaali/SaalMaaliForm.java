@@ -108,6 +108,16 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 		return super.getJsonList(property, term, all, params);
 	}
 
+	
+	public String globalSave() {
+		
+		if(getEntity().getId() == null)
+			getMyService().checkSaalMaaliStartDate(getEntity(), getCurrentOrgan());
+		
+		getMyService().globalSave(getEntity());
+		addInfoMessage("SUCCESSFUL_ACTION");
+		return null;
+	}
 
 	@Override
 	public String save() {
@@ -115,7 +125,8 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 		if(getEntity().getId() == null)
 			getMyService().checkSaalMaaliStartDate(getEntity(), getCurrentOrgan());
 		//boolean checkEndDay=getMyService().checkSaalMaaliEndDate(getEntity());
-		getEntity().setOrgan(getCurrentOrgan());
+		if(getEntity().getOrgan() == null || getEntity().getOrgan().getId() == null)
+			getEntity().setOrgan(getCurrentOrgan());
 		
 
 		getMyService().save(getEntity(), getCurrentOrgan());
