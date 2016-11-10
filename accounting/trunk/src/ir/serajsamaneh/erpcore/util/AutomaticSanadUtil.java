@@ -576,7 +576,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			if (null != hesabShenavarParam)
 				hesabTafsiliEntityTWO = hesabShenavarParam;
 			else
-				hesabTafsiliEntityTWO = contactHesab.getHesabTafsili();
+				hesabTafsiliEntityTWO = contactHesab.getHesabShenavar();
 		} else
 			hesabTafsiliEntityONE = contactHesab.getHesabTafsili();
 
