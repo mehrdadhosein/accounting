@@ -727,23 +727,24 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		Double soodeVijeh = 0D;
 		// daramad bestankar ast
 		if(getIncomeGroupByHesabKol()!=null)
-		for (SanadHesabdariItemEntity income : getIncomeGroupByHesabKol()) {
-			Double bedehkar = income.getBedehkar();
-			Double bestankar = income.getBestankar();
-			if(bedehkar!=null)
-				soodeVijeh -= bedehkar;
-			if(bestankar!=null)
-				soodeVijeh += bestankar;
-		}
-		// hazine bestankar ast
-		for (SanadHesabdariItemEntity income : getExpenseGroupByHesabKol()) {
-			Double bedehkar = income.getBedehkar();
-			Double bestankar = income.getBestankar();
-			if(bedehkar!=null)
-				soodeVijeh += bedehkar;
-			if(bestankar!=null)
-				soodeVijeh -= bestankar;
-		}
+			for (SanadHesabdariItemEntity income : getIncomeGroupByHesabKol()) {
+				Double bedehkar = income.getBedehkar();
+				Double bestankar = income.getBestankar();
+				if(bedehkar!=null)
+					soodeVijeh -= bedehkar;
+				if(bestankar!=null)
+					soodeVijeh += bestankar;
+			}
+		// hazine bedehkar ast
+		if(getExpenseGroupByHesabKol()!=null)
+			for (SanadHesabdariItemEntity expense : getExpenseGroupByHesabKol()) {
+				Double bedehkar = expense.getBedehkar();
+				Double bestankar = expense.getBestankar();
+				if(bedehkar!=null)
+					soodeVijeh -= bedehkar;
+				if(bestankar!=null)
+					soodeVijeh += bestankar;
+			}
 		return soodeVijeh;
 	}
 	
