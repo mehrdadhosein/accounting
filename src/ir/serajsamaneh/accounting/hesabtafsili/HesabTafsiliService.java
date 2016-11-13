@@ -750,4 +750,15 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabTafsili_code"));
 		super.save(entity);
 	}
+	
+	public List<HesabTafsiliEntity> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
+		List<HesabTafsiliEntity> rootList = new ArrayList<HesabTafsiliEntity>();
+		List<HesabTafsiliEntity> activeTafsilis = getActiveTafsilis(saalMaaliEntity);
+		for (HesabTafsiliEntity hesabTafsiliEntity : activeTafsilis) {
+			if(hesabTafsiliEntity.getChilds()!=null && !hesabTafsiliEntity.getChilds().isEmpty())
+				rootList.add(hesabTafsiliEntity);
+		}
+		return rootList;
+	}
+
 }
