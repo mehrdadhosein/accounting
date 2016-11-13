@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
@@ -520,4 +521,27 @@ public class HesabMoeenService extends
 
 		super.save(entity);
 	}
+	
+	public List<HesabMoeenEntity> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
+		
+		List<HesabMoeenEntity> rootList = new ArrayList<HesabMoeenEntity>();
+		Set<HesabMoeenEntity> removeList = new HashSet<HesabMoeenEntity>();
+		
+		List<HesabMoeenEntity> hesabMoeenList = getActiveMoeens(saalMaaliEntity);
+		
+		Map<String, Object> moeenTafsiliFilter = new HashMap<String, Object>();
+		moeenTafsiliFilter.put("hesabMoeen.saalMaali.id@eq", saalMaaliEntity.getId());
+		List<MoeenTafsiliEntity> moeenTafsiliList = getMoeenTafsiliService().getDataList(null, moeenTafsiliFilter);
+		
+		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsiliList) {
+			HesabMoeenEntity hesabMoeenEntity = moeenTafsiliEntity.getHesabMoeen();
+			if(hesabMoeenList.contains(hesabMoeenEntity))
+				removeList.add(hesabMoeenEntity);
+		}
+		
+		rootList.addAll(hesabMoeenList);
+		rootList.removeAll(removeList);
+		return rootList;
+	}
+
 }

@@ -318,5 +318,9 @@ public class HesabRelationsUtil {
 		return accountingMarkazChildMap;
 	}	
 	//////////////// accounting markaz child map//////////////////////////////////////////
-	
+
+	public static void getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
+		List<HesabMoeenEntity> rootHesabMoeens = getHesabMoeenService().getRootHesabs(saalMaaliEntity, currentOrgan);
+		List<HesabTafsiliEntity> rootHesabTafsilies = getHesabTafsiliService().getRootHesabs(saalMaaliEntity, currentOrgan);
+	}
 }
