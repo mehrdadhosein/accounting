@@ -40,7 +40,7 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 	Double mandehBedehkar;
 	Double mandehBestankar;
 	String mandehByMahiyatHesabStr="";
-	Double mandehByMahiyatHesabDbl;
+	Double mandehByMahiyatHesabDbl = 0d;
 //	MarkazHazineEntity markazHazine;
 	
 	public String getHesabKolCode() {
