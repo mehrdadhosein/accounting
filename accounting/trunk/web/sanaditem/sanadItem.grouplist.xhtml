@@ -43,7 +43,7 @@
 			<h:commandButton styleClass="ButtonStyle" value="#{messages['common_search']}" actionListener="#{sanadItem.search}">
 			</h:commandButton>
 		</p:panelGrid>
-		<p:dataTable emptyMessage="#{messages['common_noRecordsFound']}" 
+		<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			
 			 dir="rtl"
