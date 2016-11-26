@@ -455,7 +455,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		if(hesabTafsiliEntityONE != null && hesabTafsiliEntityONE.getId() != null){
 			article.setHesabTafsili(hesabTafsiliEntityONE);
 			
-			if(createArticleTafsili && hesabTafsiliTWO!=null && hesabTafsiliTWO.getId().longValue()!=hesabTafsiliEntityONE.getId().longValue()){
+			if(createArticleTafsili && hesabTafsiliTWO!=null && hesabTafsiliTWO.getId()!= null && hesabTafsiliTWO.getId().longValue()!=hesabTafsiliEntityONE.getId().longValue()){
 				createAddSubArticle(hesabTafsiliTWO, article, 1);
 			}
 		}else{
