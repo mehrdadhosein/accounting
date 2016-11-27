@@ -84,14 +84,14 @@ public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends 
 	public Boolean checkIfMustValidateHesabTafsiliHasChild(OrganEntity organ){
 		String validateHesabTafsiliHasChild = getSystemConfigService().getValue(organ, null, "validateHesabTafsiliHasChild");
 		if(validateHesabTafsiliHasChild == null)
-			throw new FatalException(SerajMessageUtil.getMessage("Accounting_system_config_is_not_compelete"));
+			throw new FatalException(SerajMessageUtil.getMessage("Accounting_system_config_is_not_compelete", organ));
 		return YesNoEnum.getName(new Integer(validateHesabTafsiliHasChild)).equals(YesNoEnum.YES);
 	}
 	
 	public Boolean checkIfMustValidateHesabMoeenHasChild(OrganEntity organ){
 		String validateHesabMoeenHasChild = getSystemConfigService().getValue(organ, null, "validateHesabMoeenHasChild");
 		if(validateHesabMoeenHasChild == null)
-			throw new FatalException(SerajMessageUtil.getMessage("Accounting_system_config_is_not_compelete"));
+			throw new FatalException(SerajMessageUtil.getMessage("Accounting_system_config_is_not_compelete", organ));
 		return YesNoEnum.getName(new Integer(validateHesabMoeenHasChild)).equals(YesNoEnum.YES);
 	}
 	
