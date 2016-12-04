@@ -47,46 +47,46 @@ public class SaalMaaliFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain filterChain) throws IOException, ServletException {
-		if(SecurityUtil.isLogin() && !SecurityUtil.getCurrentUser().equals("system")){
-			HttpServletRequest hrequest = (HttpServletRequest) request;
-			try{
-				if(hrequest.getRequestURI().indexOf("/menu.V2.jsf") == -1 && 
-						hrequest.getRequestURI().indexOf("/login.jsf") == -1 
-						&& hrequest.getRequestURI().indexOf("/rfRes/") == -1
-						&& hrequest.getRequestURI().indexOf("/javax.faces.resource/") == -1
-						&& hrequest.getRequestURI().indexOf("/logout.jsf") == -1
-						&& hrequest.getRequestURI().indexOf("/license/licenseExpired.view.jsf") == -1
-						&& hrequest.getRequestURI().indexOf("saalMaali.message.jsf") == -1
-					&& hrequest.getRequestURI().indexOf("saalmaali") == -1){
-//					getSaalMaaliService().getCurrentSaalmaali();
-					//to check if there is any saalMaali
-					OrganEntity currentOrgan = SecurityUtil.getUserDetails().getOrganEntity();
-					UserEntity userEntity = SecurityUtil.getUserDetails().getUserEntity();
-//					String isAccountingEnabled = getSystemConfigService().getValue(currentOrgan, null, "isAccountingEnabled");
-//					if(StringUtil.hasText(isAccountingEnabled) && isAccountingEnabled.equals("YES")){
-						getSaalMaaliService().getUserActiveSaalMaali(currentOrgan,/*null,*/userEntity);
-//					}
-				}
-			}catch (NoSaalMaaliFoundException e) {
-				HttpServletResponse hresponse = (HttpServletResponse) response;
-				hresponse.sendRedirect(hrequest.getContextPath()+ "/saalmaali/saalMaali.message.jsf");
-				return;
-			}catch (NoActiveSaalMaaliFoundException e) {
-				HttpServletResponse hresponse = (HttpServletResponse) response;
-				hresponse.sendRedirect(hrequest.getContextPath()+ "/saalmaali/saalMaali.message.jsf");
-				return;
-			}catch (Exception e) {
-				Throwable cause = e.getCause();
-				while (cause != null) {
-					System.out.println(cause.getMessage());
-					cause = cause.getCause();
-				}
-				
-				HttpServletResponse hresponse = (HttpServletResponse) response;
-				hresponse.sendRedirect(hrequest.getContextPath()+ "/access/error.jsf");
-				return;
-			}
-		}
+//		if(SecurityUtil.isLogin() && !SecurityUtil.getCurrentUser().equals("system")){
+//			HttpServletRequest hrequest = (HttpServletRequest) request;
+//			try{
+//				if(hrequest.getRequestURI().indexOf("/menu.V2.jsf") == -1 && 
+//						hrequest.getRequestURI().indexOf("/login.jsf") == -1 
+//						&& hrequest.getRequestURI().indexOf("/rfRes/") == -1
+//						&& hrequest.getRequestURI().indexOf("/javax.faces.resource/") == -1
+//						&& hrequest.getRequestURI().indexOf("/logout.jsf") == -1
+//						&& hrequest.getRequestURI().indexOf("/license/licenseExpired.view.jsf") == -1
+//						&& hrequest.getRequestURI().indexOf("saalMaali.message.jsf") == -1
+//					&& hrequest.getRequestURI().indexOf("saalmaali") == -1){
+////					getSaalMaaliService().getCurrentSaalmaali();
+//					//to check if there is any saalMaali
+//					OrganEntity currentOrgan = SecurityUtil.getUserDetails().getOrganEntity();
+//					UserEntity userEntity = SecurityUtil.getUserDetails().getUserEntity();
+////					String isAccountingEnabled = getSystemConfigService().getValue(currentOrgan, null, "isAccountingEnabled");
+////					if(StringUtil.hasText(isAccountingEnabled) && isAccountingEnabled.equals("YES")){
+//						getSaalMaaliService().getUserActiveSaalMaali(currentOrgan,/*null,*/userEntity);
+////					}
+//				}
+//			}catch (NoSaalMaaliFoundException e) {
+//				HttpServletResponse hresponse = (HttpServletResponse) response;
+//				hresponse.sendRedirect(hrequest.getContextPath()+ "/saalmaali/saalMaali.message.jsf");
+//				return;
+//			}catch (NoActiveSaalMaaliFoundException e) {
+//				HttpServletResponse hresponse = (HttpServletResponse) response;
+//				hresponse.sendRedirect(hrequest.getContextPath()+ "/saalmaali/saalMaali.message.jsf");
+//				return;
+//			}catch (Exception e) {
+//				Throwable cause = e.getCause();
+//				while (cause != null) {
+//					System.out.println(cause.getMessage());
+//					cause = cause.getCause();
+//				}
+//				
+//				HttpServletResponse hresponse = (HttpServletResponse) response;
+//				hresponse.sendRedirect(hrequest.getContextPath()+ "/access/error.jsf");
+//				return;
+//			}
+//		}
 		filterChain.doFilter(request, response);
 
 	}
