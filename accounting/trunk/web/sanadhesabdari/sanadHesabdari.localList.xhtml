@@ -258,7 +258,7 @@
 		<h:commandButton styleClass=" gwt-Button" onclick="if(!confirmAction()) return false;showLoading();"
 			 action="#{owner.saveBarresiShodeBatch}" image="/images/buttons/btn_confirm.png">
 		</h:commandButton>        
-		<h:commandButton styleClass=" gwt-Button"
+		<h:commandButton styleClass=" gwt-Button" rendered="false"
 			 action="#{owner.importSanadHesabdariFromCSVFileBatch}" value="importSanadHesabdariFromCSVFileBatch">
 		</h:commandButton>        
 	</ui:define>
