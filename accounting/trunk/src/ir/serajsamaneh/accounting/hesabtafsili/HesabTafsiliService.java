@@ -327,7 +327,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 
 					if(hesabTafsiliByCode!=null){//maybe there no hesabTafsili for this template in activeSaalMaaliEntity
 						entity.addToparents(hesabTafsiliByCode); 
-						hesabTafsiliByCode.addTochilds(entity);
+//						hesabTafsiliByCode.addTochilds(entity);
 						save(hesabTafsiliByCode);
 					}
 				}
