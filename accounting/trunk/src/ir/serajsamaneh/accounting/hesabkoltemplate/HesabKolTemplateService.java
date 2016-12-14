@@ -2,6 +2,7 @@ package ir.serajsamaneh.accounting.hesabkoltemplate;
 
 import ir.serajsamaneh.accounting.hesabgroup.HesabGroupService;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
@@ -172,5 +173,21 @@ public class HesabKolTemplateService extends
 		Boolean isNew=(entity.getId()!=null?false:true);
 		super.save(entity);
 		logAction(isNew, entity);
+	}
+
+	public HesabKolTemplateEntity loadByCodeInCurrentOrgan(String code, OrganEntity organEntity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("code@eq", code);
+		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
+		localFilter.put("organ.id@eq", organEntity.getId());
+		return load(null, localFilter);
+	}
+	
+	public HesabKolTemplateEntity loadByNameInCurrentOrgan(String name, OrganEntity organEntity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("name@eq", name);
+		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
+		localFilter.put("organ.id@eq", organEntity.getId());
+		return load(null, localFilter);
 	}
 }

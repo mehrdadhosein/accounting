@@ -11,6 +11,7 @@ import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
 import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
@@ -229,12 +230,38 @@ public class HesabKolService extends
 	}
 
 	private void createHesabKolTemplateFromHesabKol(HesabKolEntity entity, OrganEntity organEntity) {
-		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateService().loadLocal(entity.getCode(), organEntity);
+		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateService().loadByCodeInCurrentOrgan(entity.getCode(), organEntity);
+//		if(hesabKolTemplateEntity == null){
+//			HesabGroupEntity hesabGroupEntity = getHesabGroupService().load(entity.getHesabGroup().getID());
+//			hesabKolTemplateEntity = getHesabKolTemplateService().createHesabKolTemplate(entity.getCode(), entity.getName(), hesabGroupEntity.getCode(), entity.getMahyatKol().name(), organEntity);
+//		}else
+//			hesabKolTemplateEntity.setName(entity.getName());
+
 		if(hesabKolTemplateEntity == null){
-			HesabGroupEntity hesabGroupEntity = getHesabGroupService().load(entity.getHesabGroup().getID());
-			hesabKolTemplateEntity = getHesabKolTemplateService().createHesabKolTemplate(entity.getCode(), entity.getName(), hesabGroupEntity.getCode(), entity.getMahyatKol().name(), organEntity);
+			hesabKolTemplateEntity = getHesabKolTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
+			if(hesabKolTemplateEntity!=null){
+				HesabKolTemplateEntity currentEntityHesabKolTemplate = entity.getHesabKolTemplate();
+				
+				//code of kol has changed
+				if(currentEntityHesabKolTemplate.getId()!=null && currentEntityHesabKolTemplate.equals(hesabKolTemplateEntity)){
+					hesabKolTemplateEntity.setCode(entity.getCode().toString());
+					hesabKolTemplateEntity.setName(entity.getName());
+					hesabKolTemplateEntity.setDescription(entity.getDescription());
+				}else
+					throw new FatalException(SerajMessageUtil.getMessage("HesabKolTemplate_cantCreateHesabKolTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
+			}else{
+				HesabGroupEntity hesabGroupEntity = getHesabGroupService().load(entity.getHesabGroup().getID());
+				hesabKolTemplateEntity = getHesabKolTemplateService().createHesabKolTemplate(entity.getCode(), entity.getName(), hesabGroupEntity.getCode(), entity.getMahyatKol().name(), organEntity);
+			}
+
+		}
+		else{
+			hesabKolTemplateEntity.setCode(entity.getCode().toString());
+			hesabKolTemplateEntity.setName(entity.getName());
+			hesabKolTemplateEntity.setDescription(entity.getDescription());
 		}
 		
+		getHesabKolTemplateService().save(hesabKolTemplateEntity);
 		entity.setHesabKolTemplate(hesabKolTemplateEntity);
 		save(entity);
 	}
