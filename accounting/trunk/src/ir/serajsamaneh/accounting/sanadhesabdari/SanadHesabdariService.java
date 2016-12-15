@@ -26,6 +26,7 @@ import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateServi
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
+import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemService;
 import ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.RequiredFieldNotSetException;
@@ -38,6 +39,7 @@ import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.enumeration.ActionTypeEnum;
 import ir.serajsamaneh.enumeration.SaalMaaliStatusEnum;
 import ir.serajsamaneh.enumeration.YesNoEnum;
+import ir.serajsamaneh.erpcore.util.AutomaticSanadUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,6 +76,15 @@ public class SanadHesabdariService extends
 	HesabMoeenTemplateService hesabMoeenTemplateService;
 	HesabTafsiliTemplateService hesabTafsiliTemplateService;
 	AccountingMarkazService accountingMarkazService;
+	SanadHesabdariItemService sanadHesabdariItemService;
+
+	public SanadHesabdariItemService getSanadHesabdariItemService() {
+		return sanadHesabdariItemService;
+	}
+
+	public void setSanadHesabdariItemService(SanadHesabdariItemService sanadHesabdariItemService) {
+		this.sanadHesabdariItemService = sanadHesabdariItemService;
+	}
 
 	public AccountingMarkazService getAccountingMarkazService() {
 		return accountingMarkazService;
@@ -1496,5 +1507,54 @@ public class SanadHesabdariService extends
 		localFilter.put("saalMaali.id@eq", activeSaalMaali.getId());
 		localFilter.put("state@neq", SanadStateEnum.EBTAL);
 		return load(null, localFilter);
+	}
+	
+	@Transactional
+	public SanadHesabdariEntity mergeTempSanadHesabdaris(OrganEntity organ,Date sanadHesabdariDate, SanadTypeEntity sanadTypeEntity, String description){
+		Date startOfToday = DateConverter.getStartOfToday(sanadHesabdariDate).getTime();
+		Date startOfTommorow = DateConverter.getStartOfTommorow(sanadHesabdariDate).getTime();
+		List<SanadHesabdariEntity> tempSanadHesabdariList = getTempSanadHesabdariList(organ, startOfToday, startOfTommorow, sanadTypeEntity);
+		
+		List<SanadHesabdariItemEntity> mergedArticles = new ArrayList<SanadHesabdariItemEntity>();
+				
+		for (SanadHesabdariEntity sanadHesabdariEntity : tempSanadHesabdariList) {
+			List<SanadHesabdariItemEntity> sanadHesabdariItem = sanadHesabdariEntity.getSanadHesabdariItem();
+			
+			List<SanadHesabdariItemEntity> tempList = new ArrayList<SanadHesabdariItemEntity>();
+			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItem) {
+				SanadHesabdariItemEntity tempEntity = new SanadHesabdariItemEntity();
+				getSanadHesabdariItemService().duplicateEntityWithoutId(tempEntity, sanadHesabdariItemEntity);
+				getSanadHesabdariItemService().cleanNullRelations(tempEntity);
+				tempList.add(tempEntity);
+				
+			}
+			List<SanadHesabdariItemEntity> articles = tempList;//MaaliAutomaticSanadUtil.createMergedArticles(tempList, true);
+			mergedArticles.addAll(articles);
+
+			sanadHesabdariEntity.setState(SanadStateEnum.MERGED);
+			update(sanadHesabdariEntity);
+		}
+		
+		if(mergedArticles.size()>0){
+//			String description = SerajMessageUtil.getMessage("Daryaft_automaticSanadHesabdari", DateConverter.toShamsiDate(sanadHesabdariDate));
+			SanadHesabdariEntity sanadHesabdariEntity = AutomaticSanadUtil.createSanadHesabdari(organ, sanadHesabdariDate, mergedArticles, description, sanadTypeEntity, SanadStateEnum.MOVAGHAT);
+			sanadHesabdariEntity.setDeletable(YesNoEnum.NO);
+			return sanadHesabdariEntity;
+		}
+		
+		return null;
+	}
+	
+	
+	private List<SanadHesabdariEntity> getTempSanadHesabdariList(OrganEntity organ, Date fromDate, Date toDate, SanadTypeEntity sanadTypeEntity) {
+		Map<String, Object> sanadFilter = new HashMap<String, Object>();
+		sanadFilter.put("state@eq", SanadStateEnum.TEMP);
+		sanadFilter.put("sanadType.id@eq", sanadTypeEntity.getId());
+		sanadFilter.put("organ.id@eq", organ.getId());
+		sanadFilter.put("tarikhSanad@ge", fromDate);
+		sanadFilter.put("tarikhSanad@lt", toDate);
+		
+		List<SanadHesabdariEntity> dataList = getDataList(null, sanadFilter,SanadHesabdariEntity.PROP_TARIKH_SANAD,true,false);
+		return dataList;
 	}
 }
