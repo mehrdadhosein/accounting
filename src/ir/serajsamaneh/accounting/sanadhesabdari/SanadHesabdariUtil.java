@@ -407,7 +407,8 @@ public class SanadHesabdariUtil {
 	}
 
 	public static byte[] printSanad(SanadHesabdariEntity sanadHesabdariEntity) throws JRException {
-		String reportFileName = "PrintSanad";
+//		String reportFileName = "PrintSanad2";
+		String reportFileName = "PrintSanad-indentation";
 		return printSanad(sanadHesabdariEntity, reportFileName);
 	}
 	public static byte[] printSanad(SanadHesabdariEntity sanadHesabdariEntity, String reportFileName) throws JRException {
@@ -416,8 +417,8 @@ public class SanadHesabdariUtil {
 //		try {
 			parameters.put("sanadHesabdari", sanadHesabdariEntity);
 			parameters.put("organ_name", sanadHesabdariEntity.getOrgan().getName());
-			parameters.put("tanzimKonandeh", sanadHesabdariEntity.getTanzimKonnadeSanad());
-			parameters.put("tayidKonandeh", sanadHesabdariEntity.getTaiedKonnadeSanad());
+			parameters.put("tanzimKonandeh", sanadHesabdariEntity.getTanzimKonnadeSanad() != null ? sanadHesabdariEntity.getTanzimKonnadeSanad().getShakhsName() : "");
+			parameters.put("tayidKonandeh", sanadHesabdariEntity.getTaiedKonnadeSanad()!=null ? sanadHesabdariEntity.getTaiedKonnadeSanad().getShakhsName() : "");
 			parameters.put("sanadDesc",  sanadHesabdariEntity.getDescription());
 			
 			if(sanadHesabdariEntity.getSanadType() != null)
