@@ -545,7 +545,7 @@ width: 33%;
 		createSanadHesabdariGrid(sanadHesabdariXML);
 		var cnt = $$('#sanadHesabdariGrid').jqGrid('getGridParam', 'records');
 		setGridGlobalRowId('#sanadHesabdariGrid',cnt);
-		$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-50);
+		resize();
 	}
 	
 	function updateSanadHesabdariField(fieldId,fieldValue){
@@ -753,10 +753,30 @@ width: 33%;
 		return '#sanadHesabdariGrid';
 	}
 
+	function resize(){
+		//alert($$(window).width());
+		if($$(window).width()<768){
+			
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabKolName'); 
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabMoeenName'); 
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliLevelNames'); 
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazLevelNames'); 
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazName'); 
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliName'); 
+			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
+		}else{
+			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabKolName'); 
+			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabMoeenName'); 
+			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliLevelNames'); 
+			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazLevelNames'); 
+			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazName'); 
+			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliName'); 
+
+			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
+		}
+	}
 	$$(window).bind('resize', function() {
-
-		$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-50);
-
+		resize();
 	}).trigger('resize');
 	
 	/* ]]> */

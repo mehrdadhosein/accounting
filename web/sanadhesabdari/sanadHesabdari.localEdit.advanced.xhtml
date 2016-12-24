@@ -84,7 +84,7 @@
 			</p:panelGrid>
 		</rich:panel>
 		<ui:include src="../common/sanadHesabdari.gridNew.advanced.xhtml" />
-		<ui:include src="/dlg/attachFileDLG.xhtml" />
+
 		<h:inputHidden required="true" id="sanadItems"
 			label="#{messages['SanadHesabdariItem_list']}"
 			value="#{owner.sanadItemsXML}" />
@@ -174,7 +174,7 @@
 		
 	</ui:define>
 	<ui:define name="buttonsection">
-		<h:commandButton id="saveAdmin" styleClass=" gwt-Button" rendered="#{permissionProvider.user_adminPermission}"
+		<h:commandButton id="saveAdmin" styleClass=" gwt-Button" rendered="#{permissionProvider.user_adminPermission and false}"
 			onclick=" populateRecordsXMLV2('sanadItems','#sanadHesabdariGrid');"
 			action="#{owner.saveAdmin}" value="Save Admin"/>
 				

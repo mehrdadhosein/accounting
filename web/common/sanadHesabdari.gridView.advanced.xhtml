@@ -170,7 +170,7 @@
 			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazLevelNames'); 
 			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazName'); 
 			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliName'); 
-			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-50);
+			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
 		}else{
 			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabKolName'); 
 			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabMoeenName'); 
@@ -179,7 +179,7 @@
 			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazName'); 
 			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliName'); 
 
-			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-50);
+			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
 		}
 	}
 	$$(window).bind('resize', function() {
