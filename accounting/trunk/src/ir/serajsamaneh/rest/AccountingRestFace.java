@@ -6,11 +6,18 @@ import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity;
 import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariService;
 import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariUtil;
+import ir.serajsamaneh.core.security.SecurityUtil;
+import ir.serajsamaneh.core.user.UserEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
+import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
+
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -20,8 +27,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.apache.cxf.jaxrs.impl.ResponseBuilderImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 @Path("accountingRestFace")
 public class AccountingRestFace {
 
@@ -30,7 +41,14 @@ public class AccountingRestFace {
 	HesabTafsiliService hesabTafsiliService;
 	SanadHesabdariService sanadHesabdariService;
 	
+	@Autowired
+	SaalMaaliService saalMaaliService;
 	
+	public SaalMaaliService getSaalMaaliService() {
+		return saalMaaliService;
+	}
+
+
 	public SanadHesabdariService getSanadHesabdariService() {
 		if(sanadHesabdariService == null)
 			sanadHesabdariService = SpringUtils.getBean("sanadHesabdariService");
@@ -121,24 +139,32 @@ public class AccountingRestFace {
 	{
 		try {
 			SanadHesabdariEntity sanadHesabdariEntity = getSanadHesabdariService().load(sanadHesabdariId);
-			
-//			String shomarePeigiri = UUID.randomUUID().toString();
-//			String serialNumber = reservationEntity.getSerialNumber().toString();
-//			String message = SerajMessageUtil.getMessage("Reservation_Paziresh_Card");
-//			String entityName = getReservation().getEntityName();
-			
-
-//			String contentType = "application/pdf";
 			byte[] tempPDF=SanadHesabdariUtil.printSanad(sanadHesabdariEntity);
 			
 			ResponseBuilder rb = new ResponseBuilderImpl();
 			rb.entity(tempPDF);
-//			rb.type(MediaType.APPLICATION_OCTET_STREAM);
-//			rb.header("content-disposition","inline; filename = sanadHesabdari.pdf");
 			rb.header("Content-Disposition", "inline; filename=sanadHesabdari.pdf");
-//			rb.type(contentType);
 			return rb.build();
-//			return Response.ok(tempPDF, MediaType.APPLICATION_OCTET_STREAM).header("Content-Disposition","inline; filename = doc.pdf").build();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+
+	public UserEntity getCurrentUser() {
+		return SecurityUtil.getUserDetails().getUserEntity();
+	}
+	
+	@Path("getRootHesabsMap")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ListOrderedMap> getRootHesabsMap()
+	{
+		try {
+			SaalMaaliEntity activeSaalMaali = getSaalMaaliService().getUserActiveSaalMaali(getCurrentUser().getOrgan(), getCurrentUser());
+			return HesabRelationsUtil.getRootHesabs(activeSaalMaali, getCurrentUser().getOrgan());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

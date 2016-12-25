@@ -41,110 +41,106 @@
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<title>
-		<band height="62" splitType="Stretch">
-			<textField>
-				<reportElement uuid="f02ae3ec-7360-4940-abb2-f5dae61e1b4c" x="210" y="0" width="156" height="29"/>
-				<textElement>
-					<font fontName="B Titr" size="14" pdfFontName="BTitrBd.ttf"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{organ_name}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="3819292b-7250-41a9-9436-2b8560736967" x="210" y="29" width="156" height="22"/>
-				<textElement>
-					<font fontName="B Titr" size="20" pdfFontName="BTitrBd.ttf"/>
-				</textElement>
-				<text><![CDATA[سند حسابداری]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="ca66b123-a1cc-40f3-938f-aade0df6021b" style="text" x="484" y="15" width="69" height="15"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[شماره دائم :]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="e3139d4e-990b-4881-9e2f-fcae7dabe549" style="text" x="484" y="30" width="69" height="15"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[تاریخ سند :]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="f7b9da8f-c766-48c3-aec7-e45c9489df61" x="404" y="15" width="80" height="15"/>
-				<textElement textAlignment="Right">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getSerial()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="26cbe4c8-d987-4743-84e6-0b04e71bbb4f" x="404" y="30" width="80" height="15"/>
-				<textElement textAlignment="Right">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getTarikhSanadFA()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="ca66b123-a1cc-40f3-938f-aade0df6021b" style="text" x="484" y="0" width="69" height="15"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[شماره موقت :]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="3a108437-b087-4e1b-b7cb-14fc3d79428e" x="404" y="0" width="80" height="15"/>
-				<textElement textAlignment="Right">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getTempSerial()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="c631d877-b183-46d3-af5d-7fc9972f28ce" style="text" x="140" y="1" width="43" height="15"/>
-				<textElement textAlignment="Right">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[نوع سند : ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="a26a2a63-8a0c-4f68-b625-6e15fa5c7dca" style="text" x="140" y="30" width="43" height="15"/>
-				<textElement textAlignment="Right">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[شرح سند : ]]></text>
-			</staticText>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="4c69e565-d381-4948-9ab5-8f256ba76f1d" x="-16" y="30" width="157" height="15"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{sanadDesc}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="eee9ffee-b107-4b83-9fd0-6b6c7431f652" x="-16" y="1" width="157" height="15"/>
-				<textElement textAlignment="Right">
-					<font size="13"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{SanadType}]]></textFieldExpression>
-			</textField>
-		</band>
-	</title>
 	<pageHeader>
-		<band height="20">
+		<band height="85">
 			<textField>
-				<reportElement uuid="02e5cbd0-bc42-4fe6-a766-2f4a0c7ed8da" x="40" y="0" width="100" height="20"/>
+				<reportElement uuid="02e5cbd0-bc42-4fe6-a766-2f4a0c7ed8da" x="41" y="63" width="100" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="a26a2a63-8a0c-4f68-b625-6e15fa5c7dca" style="text" x="141" y="0" width="43" height="20"/>
+				<reportElement uuid="a26a2a63-8a0c-4f68-b625-6e15fa5c7dca" style="text" x="142" y="63" width="43" height="20"/>
 				<textElement textAlignment="Left">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[صفحه  ]]></text>
 			</staticText>
+			<staticText>
+				<reportElement uuid="3819292b-7250-41a9-9436-2b8560736967" x="213" y="30" width="156" height="22"/>
+				<textElement>
+					<font fontName="B Titr" size="20" pdfFontName="BTitrBd.ttf"/>
+				</textElement>
+				<text><![CDATA[سند حسابداری]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ca66b123-a1cc-40f3-938f-aade0df6021b" style="text" x="483" y="15" width="69" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[شماره دائم :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e3139d4e-990b-4881-9e2f-fcae7dabe549" style="text" x="483" y="30" width="69" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[تاریخ سند :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f7b9da8f-c766-48c3-aec7-e45c9489df61" x="403" y="15" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getSerial()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="26cbe4c8-d987-4743-84e6-0b04e71bbb4f" x="403" y="30" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getTarikhSanadFA()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c631d877-b183-46d3-af5d-7fc9972f28ce" style="text" x="141" y="1" width="43" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[نوع سند : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a26a2a63-8a0c-4f68-b625-6e15fa5c7dca" style="text" x="141" y="30" width="43" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[شرح سند : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="3a108437-b087-4e1b-b7cb-14fc3d79428e" x="403" y="0" width="80" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sanadHesabdari}.getTempSerial()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="ca66b123-a1cc-40f3-938f-aade0df6021b" style="text" x="483" y="0" width="69" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[شماره موقت :]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f02ae3ec-7360-4940-abb2-f5dae61e1b4c" x="213" y="1" width="156" height="29"/>
+				<textElement>
+					<font fontName="B Titr" size="14" pdfFontName="BTitrBd.ttf"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{organ_name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4c69e565-d381-4948-9ab5-8f256ba76f1d" x="1" y="30" width="140" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sanadDesc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="eee9ffee-b107-4b83-9fd0-6b6c7431f652" x="0" y="1" width="140" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SanadType}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -224,7 +220,7 @@
 	<detail>
 		<band height="20" splitType="Prevent">
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="fd3ba718-0279-4a51-8dbe-d8732fd9a66b" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" mode="Opaque" x="435" y="0" width="90" height="20"/>
+				<reportElement uuid="fd3ba718-0279-4a51-8dbe-d8732fd9a66b" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" mode="Transparent" x="435" y="0" width="90" height="20"/>
 				<box topPadding="10" leftPadding="10" bottomPadding="10" rightPadding="10">
 					<leftPen lineWidth="0.1"/>
 					<rightPen lineWidth="0.1"/>
@@ -236,8 +232,7 @@
 +"\n\u0020\u0020"+$F{hesabMoeen}.getCode()
 +($F{hesabTafsili}!=null ? "\n\u0020\u0020\u0020\u0020"+$F{hesabTafsili}.getCode() : "")
 +($F{this}.getHesabShenavarCode(1)!=null ? "\n\u0020\u0020\u0020\u0020\u0020\u0020"+$F{this}.getHesabShenavarCode(1) : "")
-+($F{this}.getHesabShenavarCode(2)!=null ? "\n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020"+$F{this}.getHesabShenavarCode(2) : "")
-]]></textFieldExpression>
++($F{this}.getHesabShenavarCode(2)!=null ? "\n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020"+$F{this}.getHesabShenavarCode(2) : "")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="877a888f-9435-4a3c-b396-b3c14f01f10d" stretchType="RelativeToTallestObject" x="525" y="0" width="30" height="20"/>

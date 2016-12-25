@@ -319,8 +319,34 @@ public class HesabRelationsUtil {
 	}	
 	//////////////// accounting markaz child map//////////////////////////////////////////
 
-	public static void getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
-		List<HesabMoeenEntity> rootHesabMoeens = getHesabMoeenService().getRootHesabs(saalMaaliEntity, currentOrgan);
-		List<HesabTafsiliEntity> rootHesabTafsilies = getHesabTafsiliService().getRootHesabs(saalMaaliEntity, currentOrgan);
+	static Map<String, List<ListOrderedMap>> organizationalRootHesabsMap = new HashMap<String, List<ListOrderedMap>>();
+	public static void resetRootHesabsMap(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
+		organizationalRootHesabsMap.put(saalMaaliEntity.getId()+"_"+currentOrgan.getId(), null);
+	}
+	public static List<ListOrderedMap> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
+		List<ListOrderedMap> rootHesabsList = organizationalRootHesabsMap.get(saalMaaliEntity.getId()+"_"+currentOrgan.getId());
+		
+		if(rootHesabsList == null){
+			List<HesabMoeenEntity> rootHesabMoeens = getHesabMoeenService().getRootHesabs(saalMaaliEntity, currentOrgan);
+			
+			rootHesabsList = new ArrayList<ListOrderedMap>(); 
+			
+			for (HesabMoeenEntity hesabMoeenEntity : rootHesabMoeens) {
+				ListOrderedMap hesabMoeenMap = new ListOrderedMap();
+				hesabMoeenMap.put("value","Moeen_"+hesabMoeenEntity.getId());
+				hesabMoeenMap.put("label",hesabMoeenEntity.getDesc());
+				rootHesabsList.add(hesabMoeenMap);
+			}
+			List<HesabTafsiliEntity> rootHesabTafsilies = getHesabTafsiliService().getRootHesabs(saalMaaliEntity, currentOrgan);
+			for (HesabTafsiliEntity hesabTafsiliEntity : rootHesabTafsilies) {
+				ListOrderedMap hesabTafsiliMap = new ListOrderedMap();
+				hesabTafsiliMap.put("value","Tafsili_"+hesabTafsiliEntity.getId());
+				hesabTafsiliMap.put("label",hesabTafsiliEntity.getDesc());
+				rootHesabsList.add(hesabTafsiliMap);
+			}
+			
+			organizationalRootHesabsMap.put(saalMaaliEntity.getId()+"_"+currentOrgan.getId(), rootHesabsList);
+		}
+		return rootHesabsList;
 	}
 }

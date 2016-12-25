@@ -755,7 +755,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		List<HesabTafsiliEntity> rootList = new ArrayList<HesabTafsiliEntity>();
 		List<HesabTafsiliEntity> activeTafsilis = getActiveTafsilis(saalMaaliEntity);
 		for (HesabTafsiliEntity hesabTafsiliEntity : activeTafsilis) {
-			if(hesabTafsiliEntity.getChilds()!=null && !hesabTafsiliEntity.getChilds().isEmpty())
+			if(hesabTafsiliEntity.getChilds()==null || hesabTafsiliEntity.getChilds().isEmpty())
+				if(hesabTafsiliEntity.getMoeenTafsili()!= null && !hesabTafsiliEntity.getMoeenTafsili().isEmpty())
 				rootList.add(hesabTafsiliEntity);
 		}
 		return rootList;
