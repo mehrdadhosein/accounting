@@ -401,3 +401,349 @@
 		//alert(factorItemsXML);
 		return true;
 	}
+	
+	function addRootHesabsToGrid(gridId, kolDesc, hesabMoeenID, hesabMoeenName, hesabTafsiliID, hesabTafsiliName, description){
+		globalRowId = getGridGlobalRowId(gridId); 
+		globalRowId++;
+		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
+		var datarow={};
+		datarow['hesabKolName']=kolDesc;
+		datarow['hesabMoeenID']=hesabMoeenID;
+		datarow['hesabMoeenName']=hesabMoeenName;
+		datarow['hesabTafsiliID']=hesabTafsiliID;
+		datarow['hesabTafsiliName']=hesabTafsiliName;
+		datarow['description']=description;
+		datarow['bedehkar']=0;
+		datarow['bestankar']=0;
+		datarow['id']=globalRowId;
+		
+	 	
+		var su=$$(gridId).jqGrid('addRowData',globalRowId,datarow);
+		setGridGlobalRowId(gridId,globalRowId);
+		if(su){
+			addSanadHesabdariActionButtons(gridId,globalRowId);
+			var lastPageNumber = getLastPageNumber(gridId);
+			$$(gridId).jqGrid('setGridParam',{page:lastPageNumber}).trigger('reloadGrid'); 
+		}else alert('Can not update');
+
+		$$('#sanadHesabdariGrid').jqGrid('setSelection', globalRowId, true);
+
+		clearAutocomplete('rootHesabs');
+		$$('#rootHesabs_desc').focus();
+		//$$('#hesabMoeen_desc').focus();
+	}	
+	
+	function resize(){
+		//alert($$(window).width());
+		if($$(window).width()<768){
+			
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabKolName'); 
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabMoeenName'); 
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliLevelNames'); 
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazLevelNames'); 
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazName'); 
+			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliName'); 
+			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
+		}else{
+			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabKolName'); 
+			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabMoeenName'); 
+			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliLevelNames'); 
+			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazLevelNames'); 
+			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazName'); 
+			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliName'); 
+
+			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
+		}
+	}
+
+	function duplicateSanadHesabdariRowData(gridId,rowId,title){
+		//alert('editSanadHesabdariRowData');
+		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
+		//$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+		var su=$$(gridId).getRowData(rowId);
+
+
+			
+		var localItems = getItems(gridId);
+		for ( var j = 0; j < localItems.length; j++){
+			updateSanadHesabdariField(localItems[j],su[localItems[j]]);
+		}
+		
+		addSanadHesabdariRowData('#sanadHesabdariGrid'); 
+
+		return false;
+	}	
+
+	function editSanadHesabdariRowData(gridId,rowId,title){
+		//alert('editSanadHesabdariRowData');
+		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
+		//$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+		var su=$$(gridId).getRowData(rowId);
+
+
+			
+		var localItems = getItems(gridId);
+		for ( var j = 0; j < localItems.length; j++){
+			updateSanadHesabdariField(localItems[j],su[localItems[j]]);
+		}
+		
+
+		$$('#sanadHesabdariDialog').dialog({position: { my: "top", at: "top", of: window  },close: function() {$$(this).off('keydown');},title:title, width: '100%', autoOpen: true, modal:true,buttons: { 'بستن': function() { $$(this).dialog('close'); },'بروزرسانی': function() { changeRowData(gridId,rowId);}}});
+		$$('#sanadHesabdariDialog').on('keydown', function(e) {
+			
+			 var code = (e.keyCode ? e.keyCode : e.which);
+			 //alert(code);
+			 if(code == 113) { //F2 key updates article in sanadGrid
+			   //alert('edit : 113');
+				var result = changeRowData(gridId,rowId);
+				//alert('F2 : '+rowId);
+				//$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+				lastRow=rowId;
+				$$('#sanadHesabdariGrid').focus();
+				return false;
+			 }
+			 if(code == 45) { //INS key adds article to sanadGrid
+				//alert('new : 45');
+				//alert('INS : '+rowId);
+				addSanadHesabdariRowData('#sanadHesabdariGrid');
+				$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+				lastRow=rowId;
+				$$('#sanadHesabdariGrid').focus();
+				return false;
+			 }			 
+		});		
+
+		$$('#hesabMoeen_desc').focus();		
+		return false;
+	}
+
+	function updateSanadHesabdariField(fieldId,fieldValue){
+		
+		if(fieldId == 'hesabMoeen_desc'){
+			fillDest('hesabMoeen','hesabTafsili');
+			fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');
+		}
+		
+		if(fieldId == 'hesabTafsiliLevels'){
+			var hesabTafsiliLevels=fieldValue.split(',');
+			for(var index =0 ;index<hesabTafsiliLevels.length; index++){
+				if(hesabTafsiliLevels[index] == '')
+					continue;
+				var keyValue = hesabTafsiliLevels[index].split('=');
+				var key = keyValue[0];
+				var value = keyValue[1];
+				$$('#'+key+'_id').val(value);
+			}
+			return;
+		}
+		if(fieldId == 'hesabTafsiliDescs'){
+			var hesabTafsiliDescs=fieldValue.split(',');
+			for(var index =0 ;index<hesabTafsiliDescs.length; index++){
+				if(hesabTafsiliDescs[index] == '')
+					continue;
+				var keyValue = hesabTafsiliDescs[index].split('=');
+				var key = keyValue[0];
+				var value = keyValue[1];
+				$$('#'+key+'_desc').val(value);
+			}
+			return;
+		}
+		if(fieldId == 'accountingMarkazLevels'){
+			var accountingMarkazLevels=fieldValue.split(',');
+			for(var index =0 ;index<accountingMarkazLevels.length; index++){
+				if(accountingMarkazLevels[index] == '')
+					continue;
+				var keyValue = accountingMarkazLevels[index].split('=');
+				var key = keyValue[0];
+				var value = keyValue[1];
+				$$('#'+key+'_id').val(value);
+			}
+			return;
+		}
+		if(fieldId == 'accountingMarkazDescs'){
+			var accountingMarkazDescs=fieldValue.split(',');
+			for(var index =0 ;index<accountingMarkazDescs.length; index++){
+				if(accountingMarkazDescs[index] == '')
+					continue;
+				var keyValue = accountingMarkazDescs[index].split('=');
+				var key = keyValue[0];
+				var value = keyValue[1];
+				$$('#'+key+'_desc').val(value);
+			}
+			return;
+		}
+		var bindedFieldId=getBindedSanadHesabdariFieldId(fieldId);
+		$$('#'+bindedFieldId).val(fieldValue);
+		fireEvent(document.getElementById(bindedFieldId),'change');
+	}
+
+		
+	function createSanadHesabdariTable(sanadHesabdariXML){
+		var gridItems=new Array('id','hesabKolID','hesabKolName','hesabMoeenID','hesabMoeenName','hesabTafsiliID','hesabTafsiliName','hesabTafsiliLevelNames','hesabTafsiliLevels','hesabTafsiliDescs','accountingMarkazID','accountingMarkazName','accountingMarkazLevelNames','accountingMarkazLevels','accountingMarkazDescs','markazHazineID','markazHazineName','projectID','projectName','bedehkar','bestankar','description');
+		setItems("#sanadHesabdariGrid",gridItems);
+		createSanadHesabdariGrid(sanadHesabdariXML);
+		var cnt = $$('#sanadHesabdariGrid').jqGrid('getGridParam', 'records');
+		setGridGlobalRowId('#sanadHesabdariGrid',cnt);
+		resize();
+	}
+
+	function fireRootHesabsOnChange(){
+		//debugger;
+		var hesabId = $$('#rootHesabs_id').val();
+		if(hesabId.startsWith("Moeen_")){
+			var ind = hesabId.indexOf('_');
+			var moeenId = hesabId.substring(ind+1); 
+			kolMap = moeenKolMap[moeenId];
+			kolDesc = kolMap.label;
+			moeenDesc = $$('#rootHesabs_desc').val();
+			description = $$('#articleDescription').val();
+			addRootHesabsToGrid('#sanadHesabdariGrid', kolDesc, moeenId, moeenDesc, '', '',description);
+			
+			//alert(hesabMoeenId);
+		}else if(hesabId.startsWith("Tafsili_")){
+			var ind = hesabId.indexOf('_');
+			var hesabTafsiliId = hesabId.substring(ind+1); 
+			hesabTafsiliDesc = $$('#rootHesabs_desc').val();
+			//alert(hesabTafsiliDesc);
+			hesabMoeenList = tafsiliMoeenMap[hesabTafsiliId];
+			if(hesabMoeenList.length == 1){
+				moeenMap = hesabMoeenList[0];
+				var moeenId = moeenMap.value; 
+				var moeenDesc = moeenMap.label; 
+				kolMap = moeenKolMap[moeenId];
+				kolDesc = kolMap.label;
+				description = $$('#articleDescription').val();
+				addRootHesabsToGrid('#sanadHesabdariGrid', kolDesc, moeenId, moeenDesc, hesabTafsiliId, hesabTafsiliDesc,description);
+			}
+			//alert(hesabTafsiliId);
+		}else
+			alert('error');
+	}
+	
+	function fireTafsiliShenavarOnChange(elemId){
+		//alert('fireTafsiliShenavarOnChange :' + elemId);
+		var ind = elemId.indexOf('_'); 
+		//alert(ind);
+		var res = elemId.substring(ind-1,ind); 
+		var level = parseInt(res);
+		var nextLevel = level+1;
+		if(nextLevel > maxLevel)
+			return;
+
+		var destTafsili = 'hesabTafsili'+nextLevel;
+		//alert(destTafsili);
+		var srcTafsili = elemId.substring(0,ind);
+		fillDestTafsili(srcTafsili, destTafsili);
+		fillDestMarkazAccountingByTafsili(srcTafsili, 'accountingMarkaz');
+		//alert(inspect(id,10,10));
+	}
+	
+	function fireAccountingMarkazShenavarOnChange(elemId){
+		//alert(elemId);
+		var ind = elemId.indexOf('_'); 
+		//alert(ind);
+		var res = elemId.substring(ind-1,ind); 
+		var level = parseInt(res);
+		var nextLevel = level+1;
+		if(nextLevel > maxLevel)
+			return;
+		var destAccountingMarkaz = 'accountingMarkaz'+nextLevel;
+		//alert(destAccountingMarkaz);
+		var srcAccountingMarkaz = elemId.substring(0,ind);
+		fillDestMarkazAccountingByMarkaz(srcAccountingMarkaz, destAccountingMarkaz);
+		//alert(inspect(id,10,10));
+	}
+
+    function isNumeric(n) {
+  			return !isNaN(parseFloat(n)) && isFinite(n);
+		}           
+    
+             
+		$$('[id="bedehkar"]').digitize();
+	   	$$('[id="bestankar"]').digitize();
+
+	   	$$(document).ready(function() {
+			var moeenId = $$('#hesabMoeen_id').val();
+			
+			if(moeenId == null || moeenId == '')
+				return;
+			fillDest('hesabMoeen','hesabTafsiliOne');
+			fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');
+		});
+
+		
+		function fillDestMarkazAccountingByMoeen(moeen,accountingMarkaz){
+			return; //must be corrected in future
+			
+			//alert('fillDestMarkazAccountingByMoeen : '+accountingMarkaz);
+			var moeenId = $$('#hesabMoeen_id').val();
+			//alert('moeenId : '+moeenId);
+			if(moeenId == null || moeenId == '')
+				return;
+			clearAutocomplete(accountingMarkaz);
+			accountingMarkazMap = moeenAccountingMarkazMap[moeenId];
+			//alert("unitMap : "+unitMap.length);
+			var filtered = accountingMarkazMap;
+			//alert(inspect(filtered,10,10));
+			 $$('#'+accountingMarkaz+'_desc').autocomplete('option','source',filtered);
+			 //$$('#hesabAccountingMarkaza_desc').autocomplete({source:filtered});
+		}
+		
+		function fillDestTafsili(tafsiliSrc,tafsiliDest){
+			//alert('tafsiliSrc : '+tafsiliSrc);
+			//alert('tafsiliDest : '+tafsiliDest);
+			var tafsiliSrcId = $$('#'+tafsiliSrc+'_id').val();
+			
+			if(tafsiliSrcId == null || tafsiliSrcId=='')
+				return;
+			clearAutocomplete(tafsiliDest);
+			tafsiliMap = tafsiliChildMap[tafsiliSrcId];
+			//alert("unitMap : "+unitMap.length);
+			var filtered = tafsiliMap;
+			//alert(inspect(filtered,10,10));
+			 $$('#'+tafsiliDest+'_desc').autocomplete('option','source',filtered);
+		}
+		
+		function fillDestMarkazAccountingByMarkaz(accountingMarkazSrc,accountingMarkazDest){
+			//alert('accountingMarkazSrc : '+accountingMarkazSrc);
+			//alert('accountingMarkazDest : '+accountingMarkazDest);
+			var accountingMarkazSrcId = $$('#'+accountingMarkazSrc+'_id').val();
+			
+			if(accountingMarkazSrcId == null || accountingMarkazSrcId=='')
+				return;
+			clearAutocomplete(accountingMarkazDest);
+			accountingMarkazMap = accountingMarkazChildMap[accountingMarkazSrcId];
+			//alert("unitMap : "+unitMap.length);
+			var filtered = accountingMarkazMap;
+			//alert(inspect(filtered,10,10));
+			 $$('#'+accountingMarkazDest+'_desc').autocomplete('option','source',filtered);
+		}
+		
+		function fillDestMarkazAccountingByTafsili(tafsiliSrc,accountingMarkazDest){
+			return; //must be corrected in future
+			
+			//alert('tafsiliSrc : '+tafsiliSrc);
+			//alert('accountingMarkazDest : '+accountingMarkazDest);
+			var tafsiliSrcId = $$('#'+tafsiliSrc+'_id').val();
+			
+			if(tafsiliSrcId == null || tafsiliSrcId=='')
+				return;
+			clearAutocomplete(accountingMarkazDest);
+			accountingMarkazMap = tafsiliAccountingMarkazChildMap[tafsiliSrcId];
+			//alert("unitMap : "+unitMap.length);
+			var filtered = accountingMarkazMap;
+			//alert(inspect(filtered,10,10));
+			 $$('#'+accountingMarkazDest+'_desc').autocomplete('option','source',filtered);
+		}
+		
+		function openHesabModal(){
+			$$('#hesabLov').modal('show');
+		}
+		
+		function setTafsili(id,desc){
+			document.getElementById("hesabTafsiliName").value=desc;
+			document.getElementById("hesabTafsiliID").value=id;
+			$$('#hesabLov').modal('hide');
+		}
+
+		

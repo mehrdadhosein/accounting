@@ -160,6 +160,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 			HesabRelationsUtil.resetMoeenKolMap(getCurrentUserActiveSaalMaali(), organEntity);
 			HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali(), organEntity);
 			HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali(), organEntity);
+			HesabRelationsUtil.resetRootHesabsMap(getCurrentUserActiveSaalMaali(), organEntity);
 			
 		}
 	}
@@ -203,6 +204,10 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	public Map<Long, ListOrderedMap> getMoeenKolMap() {
 		return HesabRelationsUtil.getMoeenKolMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
+	
+//	public List<ListOrderedMap> getRootHesabsMap() {
+//		return HesabRelationsUtil.getRootHesabs(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+//	}
 	
 	public Map<Long, List<ListOrderedMap>> getMoeenTafsiliMap() {
 		return HesabRelationsUtil.getMoeenTafsiliMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());

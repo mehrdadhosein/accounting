@@ -1,4 +1,5 @@
 		function showMoeenList(moeen,tafsili){
+			debugger;
 			var moeenId = $$('#hesabMoeen_id').val();
 			
 			if(!(moeenId == null || moeenId == ''))
@@ -46,7 +47,8 @@
 				tbl.append(tRow);
 
 			}
-			$$('#tafsiliMoeenDIV').dialog({width: '600px',modal: true});
+			//$$('#tafsiliMoeenDIV').dialog({width: '600px',modal: true});
+			$$('#tafsiliMoeenDIV').modal('toggle');
 			//alert("unitMap : "+unitMap.length);
 			//var filtered = moeenMap;
 			//alert(inspect(filtered,10,10));
@@ -59,5 +61,6 @@
 			fillDest('hesabMoeen','hesabTafsili');
 			$$('#hesabTafsili_id').val(tafsiliId);
 			$$('#hesabTafsili_desc').val(tafsiliDesc);	
-			$$('#tafsiliMoeenDIV').dialog('close')
+			//$$('#tafsiliMoeenDIV').dialog('close')
+			$$('#tafsiliMoeenDIV').modal('toggle');
 		}

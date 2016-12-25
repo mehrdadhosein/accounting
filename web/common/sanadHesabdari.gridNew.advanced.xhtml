@@ -30,6 +30,9 @@
 .sanadHesabdariDialog-dialog{
 width: 33%;
 }
+.ui-autocomplete {
+  position: absolute;
+ }
 </style>
 <script type="text/javascript">
 
@@ -48,7 +51,35 @@ width: 33%;
 				//alert('select');
 				$$('#'+id+'_id').val(ui.item.value);
 				$$('#'+id+'_desc').val(ui.item.label);
-
+				//alert('ddddddddd');
+				//element = document.getElementById(id+'_id');
+				
+				//this statement cause onchange event to be fired
+				//$$('#'+id+'_desc').blur();
+				//fireEvent(element,"change");
+				//eval("evalOnselect"+id+"()");
+				return false;
+			},
+			change: function(event, ui) {
+				//alert('change');
+			}			
+		});
+	}
+	
+	    function createRootHesabsAutocomplete(id,src, minLength){
+		$$('#'+id+'_desc').autocomplete({
+			minLength: minLength,
+			source: src,
+			appendTo: '#rootHesabsBodyDiv',
+			focus: function(event, ui) {
+				//$$('#'+id+'_desc').val(ui.item.label);
+				return false;
+			},
+			select: function(event, ui) {
+				//alert('select');
+				$$('#'+id+'_id').val(ui.item.value);
+				$$('#'+id+'_desc').val(ui.item.label);
+				fireRootHesabsOnChange();
 				//element = document.getElementById(id+'_id');
 				
 				//this statement cause onchange event to be fired
@@ -82,6 +113,32 @@ width: 33%;
        	});
        	$$(function() {
 			$$.ajax({
+				  url: '${request.contextPath}/jersey/accountingRestFace/getRootHesabsMap',
+				  cache: false,
+				  success: function(result){
+					
+					var inpId = 'rootHesabs_id';
+					var componentName='rootHesabs';
+					var inputText = $$('<input type="text" class="form-control"  style="font-family:Tahoma;float:right;width:200px"/>').prop('id','rootHesabs_desc');
+					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px"/>').prop('id','rootHesabs_id');
+					var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');
+
+					//$$(inputText).prop('class','m2mInput tafsiliInput');
+					//$$(inputHidden).attr('onchange','alert(\'aaaa\');fireRootHesabsOnChange();');
+					$$('#rootHesabsBodyDiv').append(inputText);
+					$$('#rootHesabsBodyDiv').append(inputHidden);
+					$$('#rootHesabsBodyDiv').append(inputClear);
+					$$('#rootHesabsBodyDiv').append('<br/>');
+					createRootHesabsAutocomplete('rootHesabs',result,'0');	
+				  },
+				  error: function(jqXHR, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+			});
+   		});   
+
+       	$$(function() {
+			$$.ajax({
 				  url: '${request.contextPath}/entities?entity=AccountingMarkaz&property=desc&all=true&autocomplete=true&isHierarchical=true&level=1',
 				  cache: false,
 				  success: function(result){
@@ -95,8 +152,9 @@ width: 33%;
 						alert(errorThrown);
 					}
 			});
-   		});       	
+   		});    	
 
+ 
 /* ]]> */
 </script>			
 <t:div id="sanadHesabdariDialog" forceId="true" style="display:none">
@@ -151,7 +209,7 @@ width: 33%;
 					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px">').prop('id','hesabTafsili#{item}_id');
 					var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');
 
-					$$(inputText).prop('class','m2mInput tafsiliInput');
+					//$$(inputText).prop('class','m2mInput tafsiliInput');
 					$$(inputText).attr('onchange','fireTafsiliShenavarOnChange("'+inpId+'");');
 					$$('#tafsilis').append(inputText);
 					$$('#tafsilis').append(inputHidden);
@@ -192,7 +250,7 @@ width: 33%;
 					
 					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:200px">').prop('id','accountingMarkaz#{item}_desc');
 					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px">').prop('id','accountingMarkaz#{item}_id');
-					$$(inputText).prop('class','m2mInput accountingMarkazInput');
+					//$$(inputText).prop('class','m2mInput accountingMarkazInput');
 					$$(inputText).attr('onchange','fireAccountingMarkazShenavarOnChange("'+inpId+'");');
 
 					var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');					
@@ -247,9 +305,47 @@ width: 33%;
 </table>
 <div id="sanadHesabdariPcustbut"></div>
 
-<div id="tafsiliMoeenDIV" style="display:none;">
-	<table id="tafsiliMoeenTable">
-	</table>
+<div id="tafsiliMoeenDIV" class="modal fade"  role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<table id="tafsiliMoeenTable">
+				</table>
+			</div>
+
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>
+		
+<div id="rootHesabsDIV" class="modal fade"  role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body form-horizontal">
+				<fieldset class="content-group">
+					<legend class="text-bold">اطلاعات آرتیکل</legend>
+
+					<div class="form-group">
+						<label class="control-label col-lg-2">حساب</label>
+						<div id="rootHesabsBodyDiv" class="col-lg-10">
+							
+						</div>
+					</div>
+									
+					<div class="form-group">
+						<label class="control-label col-lg-2">شرح آرتیکل</label>
+						<div class="col-lg-10">
+							<textarea id="articleDescription" rows="5" cols="5" class="form-control" placeholder=""></textarea>				
+						</div>
+					</div>				
+				</fieldset>				
+			</div>
+
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
 </div>
 
 <t:jsValueSet name="tafsiliMoeenMap" value="#{hesabTafsili.tafsiliMoeenMap}" />
@@ -266,132 +362,8 @@ width: 33%;
 
 /* <![CDATA[ */
 	var maxLevel = parseInt(#{hesabMoeen.levelsSize});
-	
-	function fireTafsiliShenavarOnChange(elemId){
-		//alert('fireTafsiliShenavarOnChange :' + elemId);
-		var ind = elemId.indexOf('_'); 
-		//alert(ind);
-		var res = elemId.substring(ind-1,ind); 
-		var level = parseInt(res);
-		var nextLevel = level+1;
-		if(nextLevel > maxLevel)
-			return;
 
-		var destTafsili = 'hesabTafsili'+nextLevel;
-		//alert(destTafsili);
-		var srcTafsili = elemId.substring(0,ind);
-		fillDestTafsili(srcTafsili, destTafsili);
-		fillDestMarkazAccountingByTafsili(srcTafsili, 'accountingMarkaz');
-		//alert(inspect(id,10,10));
-	}
-	
-	function fireAccountingMarkazShenavarOnChange(elemId){
-		//alert(elemId);
-		var ind = elemId.indexOf('_'); 
-		//alert(ind);
-		var res = elemId.substring(ind-1,ind); 
-		var level = parseInt(res);
-		var nextLevel = level+1;
-		if(nextLevel > maxLevel)
-			return;
-		var destAccountingMarkaz = 'accountingMarkaz'+nextLevel;
-		//alert(destAccountingMarkaz);
-		var srcAccountingMarkaz = elemId.substring(0,ind);
-		fillDestMarkazAccountingByMarkaz(srcAccountingMarkaz, destAccountingMarkaz);
-		//alert(inspect(id,10,10));
-	}
 
-    function isNumeric(n) {
-  			return !isNaN(parseFloat(n)) && isFinite(n);
-		}           
-    
-             
-		$$('[id="bedehkar"]').digitize();
-	   	$$('[id="bestankar"]').digitize();
-
-	   	$$(document).ready(function() {
-			var moeenId = $$('#hesabMoeen_id').val();
-			
-			if(moeenId == null || moeenId == '')
-				return;
-			fillDest('hesabMoeen','hesabTafsiliOne');
-			fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');
-		});
-
-		
-		function fillDestMarkazAccountingByMoeen(moeen,accountingMarkaz){
-			return; //must be corrected in future
-			
-			//alert('fillDestMarkazAccountingByMoeen : '+accountingMarkaz);
-			var moeenId = $$('#hesabMoeen_id').val();
-			//alert('moeenId : '+moeenId);
-			if(moeenId == null || moeenId == '')
-				return;
-			clearAutocomplete(accountingMarkaz);
-			accountingMarkazMap = moeenAccountingMarkazMap[moeenId];
-			//alert("unitMap : "+unitMap.length);
-			var filtered = accountingMarkazMap;
-			//alert(inspect(filtered,10,10));
-			 $$('#'+accountingMarkaz+'_desc').autocomplete('option','source',filtered);
-			 //$$('#hesabAccountingMarkaza_desc').autocomplete({source:filtered});
-		}
-		
-		function fillDestTafsili(tafsiliSrc,tafsiliDest){
-			//alert('tafsiliSrc : '+tafsiliSrc);
-			//alert('tafsiliDest : '+tafsiliDest);
-			var tafsiliSrcId = $$('#'+tafsiliSrc+'_id').val();
-			
-			if(tafsiliSrcId == null || tafsiliSrcId=='')
-				return;
-			clearAutocomplete(tafsiliDest);
-			tafsiliMap = tafsiliChildMap[tafsiliSrcId];
-			//alert("unitMap : "+unitMap.length);
-			var filtered = tafsiliMap;
-			//alert(inspect(filtered,10,10));
-			 $$('#'+tafsiliDest+'_desc').autocomplete('option','source',filtered);
-		}
-		
-		function fillDestMarkazAccountingByMarkaz(accountingMarkazSrc,accountingMarkazDest){
-			//alert('accountingMarkazSrc : '+accountingMarkazSrc);
-			//alert('accountingMarkazDest : '+accountingMarkazDest);
-			var accountingMarkazSrcId = $$('#'+accountingMarkazSrc+'_id').val();
-			
-			if(accountingMarkazSrcId == null || accountingMarkazSrcId=='')
-				return;
-			clearAutocomplete(accountingMarkazDest);
-			accountingMarkazMap = accountingMarkazChildMap[accountingMarkazSrcId];
-			//alert("unitMap : "+unitMap.length);
-			var filtered = accountingMarkazMap;
-			//alert(inspect(filtered,10,10));
-			 $$('#'+accountingMarkazDest+'_desc').autocomplete('option','source',filtered);
-		}
-		
-		function fillDestMarkazAccountingByTafsili(tafsiliSrc,accountingMarkazDest){
-			return; //must be corrected in future
-			
-			//alert('tafsiliSrc : '+tafsiliSrc);
-			//alert('accountingMarkazDest : '+accountingMarkazDest);
-			var tafsiliSrcId = $$('#'+tafsiliSrc+'_id').val();
-			
-			if(tafsiliSrcId == null || tafsiliSrcId=='')
-				return;
-			clearAutocomplete(accountingMarkazDest);
-			accountingMarkazMap = tafsiliAccountingMarkazChildMap[tafsiliSrcId];
-			//alert("unitMap : "+unitMap.length);
-			var filtered = accountingMarkazMap;
-			//alert(inspect(filtered,10,10));
-			 $$('#'+accountingMarkazDest+'_desc').autocomplete('option','source',filtered);
-		}
-		
-		function openHesabModal(){
-			$$('#hesabLov').modal('show');
-		}
-		
-		function setTafsili(id,desc){
-			document.getElementById("hesabTafsiliName").value=desc;
-			document.getElementById("hesabTafsiliID").value=id;
-			$$('#hesabLov').modal('hide');
-		}
 		 
 
 		setGridGlobalRowId('#sanadHesabdariGrid',0);
@@ -495,26 +467,33 @@ width: 33%;
 					});
 		$$('#sanadHesabdariGrid').jqGrid('navGrid','#sanadHesabdariPcustbut',{edit:false,add:false,del:false,search:false,page:false, searchtext:'#{messages['common_search']}'}); 
 		$$('#sanadHesabdariGrid').jqGrid('navButtonAdd','#sanadHesabdariPcustbut',{caption:'#{messages['common_new']}', 
-		onClickButton:function(){ 
-			clearSanadHesabdariDialog('#sanadHesabdariGrid');
-			$$('#sanadHesabdariDialog').dialog({position: { my: "top", at: "top", of: window  }
-			, title:'#{messages['SanadHesabdariItem_title']}', width: '100%',modal: true, autoOpen: true,close: function() {$$(this).off('keydown');} ,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_add']}': function() { addSanadHesabdariRowData('#sanadHesabdariGrid'); }}});
-			$$('#sanadHesabdariDialog').on('keydown', function(e) {
+				onClickButton:function(){ 
+					clearSanadHesabdariDialog('#sanadHesabdariGrid');
+					$$('#sanadHesabdariDialog').dialog({position: { my: "top", at: "top", of: window  }
+					, title:'#{messages['SanadHesabdariItem_title']}', width: '100%',modal: true, autoOpen: true,close: function() {$$(this).off('keydown');} ,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_add']}': function() { addSanadHesabdariRowData('#sanadHesabdariGrid'); }}});
+					$$('#sanadHesabdariDialog').on('keydown', function(e) {
+						
+						 var code = (e.keyCode ? e.keyCode : e.which);
+						 //alert(code);
+						 if(code == 45) { //INS key adds article to sanadGrid
+							//alert('new : 45');
+							var result = addSanadHesabdariRowData('#sanadHesabdariGrid');
+							$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+							lastRow=rowId;
+							$$('#sanadHesabdariGrid').focus();
+							return false;
+						 }
+					});		
+					$$('#hesabMoeen_desc').focus();					
+				} 
+			});
+		$$('#sanadHesabdariGrid').jqGrid('navButtonAdd','#sanadHesabdariPcustbut',{caption:'#{messages['SanadHesabdari_newRootHesab']}', 
+			onClickButton:function(){
 				
-				 var code = (e.keyCode ? e.keyCode : e.which);
-				 //alert(code);
-				 if(code == 45) { //INS key adds article to sanadGrid
-					//alert('new : 45');
-					var result = addSanadHesabdariRowData('#sanadHesabdariGrid');
-					$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
-					lastRow=rowId;
-					$$('#sanadHesabdariGrid').focus();
-					return false;
-				 }
-			});		
-			$$('#hesabMoeen_desc').focus();					
-		} 
-	});
+				$$('#rootHesabsDIV').modal('toggle');
+				
+			}
+		});
 	$$("#sanadHesabdariGrid").jqGrid('bindKeys', {"onEnter":function( rowid ) { editSanadHesabdariRowData("#sanadHesabdariGrid",rowid,"Edit"); return false;} } );
 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','id'); 
@@ -536,80 +515,17 @@ width: 33%;
 	
 	updateFooter();
 
-		}
-
-		
-	function createSanadHesabdariTable(sanadHesabdariXML){
-		var gridItems=new Array('id','hesabKolID','hesabKolName','hesabMoeenID','hesabMoeenName','hesabTafsiliID','hesabTafsiliName','hesabTafsiliLevelNames','hesabTafsiliLevels','hesabTafsiliDescs','accountingMarkazID','accountingMarkazName','accountingMarkazLevelNames','accountingMarkazLevels','accountingMarkazDescs','markazHazineID','markazHazineName','projectID','projectName','bedehkar','bestankar','description');
-		setItems("#sanadHesabdariGrid",gridItems);
-		createSanadHesabdariGrid(sanadHesabdariXML);
-		var cnt = $$('#sanadHesabdariGrid').jqGrid('getGridParam', 'records');
-		setGridGlobalRowId('#sanadHesabdariGrid',cnt);
-		resize();
-	}
-	
-	function updateSanadHesabdariField(fieldId,fieldValue){
-		
-		if(fieldId == 'hesabMoeen_desc'){
-			fillDest('hesabMoeen','hesabTafsili');
-			fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');
-		}
-		
-		if(fieldId == 'hesabTafsiliLevels'){
-			var hesabTafsiliLevels=fieldValue.split(',');
-			for(var index =0 ;index<hesabTafsiliLevels.length; index++){
-				if(hesabTafsiliLevels[index] == '')
-					continue;
-				var keyValue = hesabTafsiliLevels[index].split('=');
-				var key = keyValue[0];
-				var value = keyValue[1];
-				$$('#'+key+'_id').val(value);
-			}
-			return;
-		}
-		if(fieldId == 'hesabTafsiliDescs'){
-			var hesabTafsiliDescs=fieldValue.split(',');
-			for(var index =0 ;index<hesabTafsiliDescs.length; index++){
-				if(hesabTafsiliDescs[index] == '')
-					continue;
-				var keyValue = hesabTafsiliDescs[index].split('=');
-				var key = keyValue[0];
-				var value = keyValue[1];
-				$$('#'+key+'_desc').val(value);
-			}
-			return;
-		}
-		if(fieldId == 'accountingMarkazLevels'){
-			var accountingMarkazLevels=fieldValue.split(',');
-			for(var index =0 ;index<accountingMarkazLevels.length; index++){
-				if(accountingMarkazLevels[index] == '')
-					continue;
-				var keyValue = accountingMarkazLevels[index].split('=');
-				var key = keyValue[0];
-				var value = keyValue[1];
-				$$('#'+key+'_id').val(value);
-			}
-			return;
-		}
-		if(fieldId == 'accountingMarkazDescs'){
-			var accountingMarkazDescs=fieldValue.split(',');
-			for(var index =0 ;index<accountingMarkazDescs.length; index++){
-				if(accountingMarkazDescs[index] == '')
-					continue;
-				var keyValue = accountingMarkazDescs[index].split('=');
-				var key = keyValue[0];
-				var value = keyValue[1];
-				$$('#'+key+'_desc').val(value);
-			}
-			return;
-		}
-		var bindedFieldId=getBindedSanadHesabdariFieldId(fieldId);
-		$$('#'+bindedFieldId).val(fieldValue);
-		fireEvent(document.getElementById(bindedFieldId),'change');
+		$$('#rootHesabsDIV').on('shown.bs.modal', function () {
+			$$('#rootHesabs_desc').focus();
+		})
 	}
 
+
 	
-	function addSanadHesabdariRowData(gridId){ 
+
+
+	
+	function addSanadHesabdariRowData(gridId){
 		globalRowId = getGridGlobalRowId(gridId); 
 		globalRowId++;
 		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
@@ -656,67 +572,10 @@ width: 33%;
 		
 	}
 
-	function editSanadHesabdariRowData(gridId,rowId,title){
-		//alert('editSanadHesabdariRowData');
-		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
-		//$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
-		var su=$$(gridId).getRowData(rowId);
 
-
-			
-		var localItems = getItems(gridId);
-		for ( var j = 0; j < localItems.length; j++){
-			updateSanadHesabdariField(localItems[j],su[localItems[j]]);
-		}
-		
-
-		$$('#sanadHesabdariDialog').dialog({position: { my: "top", at: "top", of: window  },close: function() {$$(this).off('keydown');},title:title, width: '100%', autoOpen: true, modal:true,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_update']}': function() { changeRowData(gridId,rowId);}}});
-		$$('#sanadHesabdariDialog').on('keydown', function(e) {
-			
-			 var code = (e.keyCode ? e.keyCode : e.which);
-			 //alert(code);
-			 if(code == 113) { //F2 key updates article in sanadGrid
-			   //alert('edit : 113');
-				var result = changeRowData(gridId,rowId);
-				//alert('F2 : '+rowId);
-				//$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
-				lastRow=rowId;
-				$$('#sanadHesabdariGrid').focus();
-				return false;
-			 }
-			 if(code == 45) { //INS key adds article to sanadGrid
-				//alert('new : 45');
-				//alert('INS : '+rowId);
-				addSanadHesabdariRowData('#sanadHesabdariGrid');
-				$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
-				lastRow=rowId;
-				$$('#sanadHesabdariGrid').focus();
-				return false;
-			 }			 
-		});		
-
-		$$('#hesabMoeen_desc').focus();		
-		return false;
-	}
 
 	
-	function duplicateSanadHesabdariRowData(gridId,rowId,title){
-		//alert('editSanadHesabdariRowData');
-		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
-		//$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
-		var su=$$(gridId).getRowData(rowId);
-
-
-			
-		var localItems = getItems(gridId);
-		for ( var j = 0; j < localItems.length; j++){
-			updateSanadHesabdariField(localItems[j],su[localItems[j]]);
-		}
-		
-		addSanadHesabdariRowData('#sanadHesabdariGrid'); 
-
-		return false;
-	}	
+	
 
 	
 	function changeRowData(gridId,rowId){
@@ -753,28 +612,7 @@ width: 33%;
 		return '#sanadHesabdariGrid';
 	}
 
-	function resize(){
-		//alert($$(window).width());
-		if($$(window).width()<768){
-			
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabKolName'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabMoeenName'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliLevelNames'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazLevelNames'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazName'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliName'); 
-			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
-		}else{
-			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabKolName'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabMoeenName'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliLevelNames'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazLevelNames'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazName'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliName'); 
 
-			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
-		}
-	}
 	$$(window).bind('resize', function() {
 		resize();
 	}).trigger('resize');
