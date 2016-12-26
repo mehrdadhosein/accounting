@@ -160,7 +160,7 @@
 				<text><![CDATA[ردیف]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ad5c3bc7-ba97-4d2e-b214-e0e0415f80ba" mode="Opaque" x="0" y="0" width="60" height="20" backcolor="#FFFFFF"/>
+				<reportElement uuid="ad5c3bc7-ba97-4d2e-b214-e0e0415f80ba" mode="Opaque" x="0" y="0" width="75" height="20" backcolor="#FFFFFF"/>
 				<box leftPadding="0">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -174,7 +174,7 @@
 				<text><![CDATA[بستانکار]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="0e04e083-53e3-4477-9055-f62426b8a196" mode="Opaque" x="60" y="0" width="60" height="20" backcolor="#FFFFFF"/>
+				<reportElement uuid="0e04e083-53e3-4477-9055-f62426b8a196" mode="Opaque" x="75" y="0" width="75" height="20" backcolor="#FFFFFF"/>
 				<box leftPadding="0">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -202,7 +202,7 @@
 				<text><![CDATA[شماره حساب]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="18bc7d84-8b4e-4c0c-b325-fccbca03b0c4" mode="Opaque" x="120" y="0" width="315" height="20" backcolor="#FFFFFF"/>
+				<reportElement uuid="18bc7d84-8b4e-4c0c-b325-fccbca03b0c4" mode="Opaque" x="150" y="0" width="285" height="20" backcolor="#FFFFFF"/>
 				<box leftPadding="0">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -229,7 +229,7 @@
 					<font fontName="B Nazanin" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hesabKol}.getCode()
-+"\n\u0020\u0020"+$F{hesabMoeen}.getCode()
++($F{hesabMoeen}!=null ? "\n\u0020\u0020"+$F{hesabMoeen}.getCode() : "")
 +($F{hesabTafsili}!=null ? "\n\u0020\u0020\u0020\u0020"+$F{hesabTafsili}.getCode() : "")
 +($F{this}.getHesabShenavarCode(1)!=null ? "\n\u0020\u0020\u0020\u0020\u0020\u0020"+$F{this}.getHesabShenavarCode(1) : "")
 +($F{this}.getHesabShenavarCode(2)!=null ? "\n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020"+$F{this}.getHesabShenavarCode(2) : "")]]></textFieldExpression>
@@ -246,7 +246,7 @@
 				<textFieldExpression><![CDATA[$V{rowCount}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="fb895cbb-7ba7-481b-94aa-402b013404cf" stretchType="RelativeToTallestObject" x="0" y="0" width="60" height="20"/>
+				<reportElement uuid="fb895cbb-7ba7-481b-94aa-402b013404cf" stretchType="RelativeToTallestObject" x="0" y="0" width="75" height="20"/>
 				<box topPadding="10" leftPadding="10" bottomPadding="10" rightPadding="10">
 					<leftPen lineWidth="0.1"/>
 					<rightPen lineWidth="0.1"/>
@@ -257,7 +257,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{bestankar})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="68268fc2-dc27-4555-aa39-c149ef526fce" stretchType="RelativeToTallestObject" x="60" y="0" width="60" height="20"/>
+				<reportElement uuid="68268fc2-dc27-4555-aa39-c149ef526fce" stretchType="RelativeToTallestObject" x="75" y="0" width="75" height="20"/>
 				<box topPadding="10" leftPadding="10" bottomPadding="10" rightPadding="10">
 					<leftPen lineWidth="0.1"/>
 					<rightPen lineWidth="0.1"/>
@@ -268,7 +268,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{bedehkar})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="fd3ba718-0279-4a51-8dbe-d8732fd9a66b" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="120" y="0" width="315" height="20"/>
+				<reportElement uuid="fd3ba718-0279-4a51-8dbe-d8732fd9a66b" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="150" y="0" width="285" height="20"/>
 				<box topPadding="10" leftPadding="10" bottomPadding="10" rightPadding="10">
 					<leftPen lineWidth="0.1"/>
 					<rightPen lineWidth="0.1"/>
@@ -277,7 +277,7 @@
 					<font fontName="B Nazanin" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{hesabKol}.getName()
-+"\n\u0020\u0020"+$F{hesabMoeen}.getName()
++($F{hesabMoeen}!=null ? "\n\u0020\u0020"+$F{hesabMoeen}.getName() : "")
 +($F{hesabTafsili}!=null ? "\n\u0020\u0020\u0020\u0020"+$F{hesabTafsili}.getName() : "")
 +($F{this}.getHesabShenavarName(1)!=null ? "\n\u0020\u0020\u0020\u0020\u0020\u0020"+$F{this}.getHesabShenavarName(1) : "")
 +($F{this}.getHesabShenavarName(2)!=null ? "\n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020"+$F{this}.getHesabShenavarName(2) : "")
@@ -288,7 +288,7 @@
 	<columnFooter>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="544f5ed4-074c-405b-8ec3-5224cf5d0261" style="text" mode="Opaque" x="120" y="0" width="435" height="20" backcolor="#FFFFFF"/>
+				<reportElement uuid="544f5ed4-074c-405b-8ec3-5224cf5d0261" style="text" mode="Opaque" x="150" y="0" width="405" height="20" backcolor="#FFFFFF"/>
 				<box leftPadding="0">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -302,7 +302,7 @@
 				<text><![CDATA[جمع  ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
-				<reportElement uuid="4e7e4753-a58b-44ad-9f2e-f68281c1ac24" mode="Opaque" x="0" y="0" width="60" height="20" backcolor="#FFFFFF"/>
+				<reportElement uuid="4e7e4753-a58b-44ad-9f2e-f68281c1ac24" mode="Opaque" x="0" y="0" width="75" height="20" backcolor="#FFFFFF"/>
 				<box leftPadding="0">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -316,7 +316,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{bestankarSUM})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0">
-				<reportElement uuid="bbd866c4-1954-40e8-a99b-9dc3ec1f5efc" mode="Opaque" x="60" y="0" width="60" height="20" backcolor="#FFFFFF"/>
+				<reportElement uuid="bbd866c4-1954-40e8-a99b-9dc3ec1f5efc" mode="Opaque" x="75" y="0" width="75" height="20" backcolor="#FFFFFF"/>
 				<box leftPadding="0">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>

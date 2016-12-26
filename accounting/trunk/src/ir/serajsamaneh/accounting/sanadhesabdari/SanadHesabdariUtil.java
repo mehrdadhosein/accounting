@@ -136,10 +136,17 @@ public class SanadHesabdariUtil {
 		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress);
 	}
 
-	public static List<SanadHesabdariItemEntity> createMergedArticles(
-			List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
+	public static List<SanadHesabdariItemEntity> createMergedArticles(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
 		
 		Map<String, SanadHesabdariItemEntity> articlesMap = mergeArtcilesToArticleMap(articles, concatDescriptions, currentOrgan);
+		
+		List<SanadHesabdariItemEntity> mergedArticles = extractSanadArticles(articlesMap);
+		return mergedArticles;
+	}
+	
+	public static List<SanadHesabdariItemEntity> createMergedArticlesKeepingBedehkarBestankar(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
+		
+		Map<String, SanadHesabdariItemEntity> articlesMap = mergeArtcilesKeepingBedehkarBestankarToArticleMap(articles, concatDescriptions, currentOrgan);
 		
 		List<SanadHesabdariItemEntity> mergedArticles = extractSanadArticles(articlesMap);
 		return mergedArticles;
@@ -259,6 +266,36 @@ public class SanadHesabdariUtil {
 		
 		return articlesMap;
 	}
+	
+	protected static Map<String, SanadHesabdariItemEntity> mergeArtcilesKeepingBedehkarBestankarToArticleMap(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
+		
+		Map<String, SanadHesabdariItemEntity> articlesMap = new HashMap<String, SanadHesabdariItemEntity>();
+		
+		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : articles) {
+			String mapKey = createMapKey(sanadHesabdariItemEntity, currentOrgan);
+			
+			
+			SanadHesabdariItemEntity previousSanad = articlesMap.get(mapKey);
+			if(previousSanad == null){
+				if(!StringUtils.hasText(sanadHesabdariItemEntity.getDescription()))
+					sanadHesabdariItemEntity.setDescription("-");
+				else if(!concatDescriptions)
+					sanadHesabdariItemEntity.setDescription("-");
+				
+				articlesMap.put(mapKey, sanadHesabdariItemEntity);
+			}else{
+				double bedehkar = previousSanad.getBedehkar() + sanadHesabdariItemEntity.getBedehkar();
+				double bestankar = previousSanad.getBestankar() + sanadHesabdariItemEntity.getBestankar();
+				previousSanad.setBestankar(bestankar);
+				previousSanad.setBedehkar(bedehkar);
+				if(StringUtils.hasText(sanadHesabdariItemEntity.getDescription()) && concatDescriptions)
+					previousSanad.setDescription(previousSanad.getDescription()+","+sanadHesabdariItemEntity.getDescription());
+			}
+			
+		}
+		
+		return articlesMap;
+	}
 
 	public static  List<Integer> getLevels(OrganEntity currentOrgan){
 		String maxSanadHesabdariTafsilLevel = getSystemConfigService().getValue(currentOrgan, null, "maxSanadHesabdariTafsilLevel");
@@ -280,8 +317,10 @@ public class SanadHesabdariUtil {
 		String kolCode = sanadHesabdariItemEntity.getHesabKol().getCode();
 		mapKey+="_"+kolCode;
 		
-		String moeenCode = sanadHesabdariItemEntity.getHesabMoeen().getCode();
-		mapKey+="_"+moeenCode;
+		if(sanadHesabdariItemEntity.getHesabMoeen() != null){
+			String moeenCode = sanadHesabdariItemEntity.getHesabMoeen().getCode();
+			mapKey+="_"+moeenCode;
+		}
 		
 		String tafsiliCode = sanadHesabdariItemEntity.getHesabTafsili()!=null ? sanadHesabdariItemEntity.getHesabTafsili().getCode().toString() : "";
 		mapKey+="_"+tafsiliCode;

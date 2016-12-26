@@ -11,6 +11,8 @@ import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
+import ir.serajsamaneh.accounting.month.MonthEntity;
+import ir.serajsamaneh.accounting.month.MonthService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
@@ -84,6 +86,15 @@ public class SanadHesabdariForm extends
 	HesabMoeenService hesabMoeenService;
 	FileService fileService;
 	SanadHesabdariItemService sanadHesabdariItemService;
+	MonthService monthService;
+
+	public MonthService getMonthService() {
+		return monthService;
+	}
+
+	public void setMonthService(MonthService monthService) {
+		this.monthService = monthService;
+	}
 
 	String sanadItems;
 	String sanadItemsXML;
@@ -1506,5 +1517,10 @@ public class SanadHesabdariForm extends
             e.printStackTrace();
         }finally{
         }
+	}
+	
+	public void createMonthlySummarySanad(){
+		getMyService().createMonthlySummarySanad(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		addInfoMessage("SUCCESSFUL_ACTION");
 	}
 }

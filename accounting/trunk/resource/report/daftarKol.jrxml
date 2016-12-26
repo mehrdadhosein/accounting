@@ -72,7 +72,7 @@
 	<group name="kolGroup" isStartNewPage="true" keepTogether="true">
 		<groupExpression><![CDATA[$F{hesabKol}.getCode()]]></groupExpression>
 		<groupHeader>
-			<band height="26">
+			<band height="25">
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="9a6870b4-f8bc-4570-be2f-b7824cba3dc8" style="text" stretchType="RelativeToTallestObject" x="371" y="0" width="241" height="25"/>
 					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
@@ -83,7 +83,7 @@
 						<rightPen lineWidth="0.25"/>
 					</box>
 					<textElement/>
-					<textFieldExpression><![CDATA[$F{hesabMoeen}.getHesabKol().getName()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{hesabKol}.getName()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement uuid="73ab9e4c-d945-42ec-9138-de05fac85622" style="digitBold" stretchType="RelativeToTallestObject" mode="Transparent" x="262" y="0" width="109" height="25"/>
@@ -97,10 +97,10 @@
 					<textElement>
 						<font size="11"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{hesabMoeen}.getHesabKol().getCode()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{hesabKol}.getCode()]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="0cd6e77b-8b92-4d4c-b0e8-ce9bd637e8fe" x="0" y="0" width="100" height="26"/>
+					<reportElement uuid="0cd6e77b-8b92-4d4c-b0e8-ce9bd637e8fe" x="0" y="0" width="100" height="25"/>
 					<box>
 						<leftPen lineWidth="1.0"/>
 					</box>
@@ -108,7 +108,7 @@
 					<text><![CDATA[]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="8e01e226-c575-4af0-a5f0-4bb9d4138f83" x="702" y="0" width="100" height="26"/>
+					<reportElement uuid="8e01e226-c575-4af0-a5f0-4bb9d4138f83" x="702" y="0" width="100" height="25"/>
 					<box>
 						<rightPen lineWidth="1.0"/>
 					</box>

@@ -71,6 +71,10 @@ public abstract class BaseMonthEntity  extends BaseEntity<Long>   implements Ser
 	private java.lang.String description;
 	private java.util.Date startDate;
 	private java.util.Date endDate;
+	private Integer radif;
+
+
+
 
 	// many to one
 	private ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity saalMaali;
@@ -107,6 +111,13 @@ public abstract class BaseMonthEntity  extends BaseEntity<Long>   implements Ser
 	}
 
 
+	public Integer getRadif() {
+		return radif;
+	}
+
+	public void setRadif(Integer radif) {
+		this.radif = radif;
+	}
 
  
 	/**
