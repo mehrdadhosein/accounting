@@ -23,6 +23,8 @@ import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliDAO;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
+import ir.serajsamaneh.accounting.month.MonthEntity;
+import ir.serajsamaneh.accounting.month.MonthService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
@@ -43,6 +45,7 @@ import ir.serajsamaneh.erpcore.util.AutomaticSanadUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -77,6 +80,15 @@ public class SanadHesabdariService extends
 	HesabTafsiliTemplateService hesabTafsiliTemplateService;
 	AccountingMarkazService accountingMarkazService;
 	SanadHesabdariItemService sanadHesabdariItemService;
+	MonthService monthService;
+
+	public MonthService getMonthService() {
+		return monthService;
+	}
+
+	public void setMonthService(MonthService monthService) {
+		this.monthService = monthService;
+	}
 
 	public SanadHesabdariItemService getSanadHesabdariItemService() {
 		return sanadHesabdariItemService;
@@ -387,6 +399,22 @@ public class SanadHesabdariService extends
 		logSanadHesabdariAction(entity, isNew, SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass()));
 		logSanadHesabdariItemAction(entity);
 	}
+	
+	@Transactional
+	private void saveMonthlySummary(SanadHesabdariEntity entity,
+			List<TempUploadedFileEntity> zamimeha, OrganEntity organEntity, SaalMaaliEntity saalMaaliEntity, boolean validateSaalMaaliInProgress) {
+		
+		entity.setState(SanadStateEnum.MonthlySummary);
+		Boolean isNew=false;
+		if (entity.getID() == null)
+			isNew = true;
+		entity.setTanzimKonnadeSanad(getCurrentUser());
+		save(entity, organEntity, saalMaaliEntity, false, validateSaalMaaliInProgress);
+		checkSanadArticlesSaalMaaliSameLess(entity);
+		manageZamimeh(entity, zamimeha);
+		logSanadHesabdariAction(entity, isNew, SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass()));
+		logSanadHesabdariItemAction(entity);
+	}
 
 	public void logSanadHesabdariItemAction(SanadHesabdariEntity entity) {
 //		String itemDesc="[";
@@ -418,8 +446,9 @@ public class SanadHesabdariService extends
 			Set<ArticleTafsiliEntity> articleTafsiliSet = sanadHesabdariItemEntity.getArticleTafsili();
 			Set<ArticleAccountingMarkazEntity> articleAccountingMarkazSet = sanadHesabdariItemEntity.getArticleAccountingMarkaz();
 			
+			boolean hesabMoeenValidation = hesabMoeen !=null ? !hesabMoeen.getSaalMaali().equals(entity.getSaalMaali()) : false;
 			if(!hesabKol.getSaalMaali().equals(entity.getSaalMaali())
-					|| !hesabMoeen.getSaalMaali().equals(entity.getSaalMaali())
+					|| hesabMoeenValidation
 					|| (hesabTafsili!=null && hesabTafsili.getId()!=null && !hesabTafsili.getSaalMaali().equals(entity.getSaalMaali()))
 					|| (accountingMarkaz!=null && accountingMarkaz.getId()!=null && !accountingMarkaz.getSaalMaali().equals(entity.getSaalMaali()))
 					)
@@ -946,7 +975,9 @@ public class SanadHesabdariService extends
 		List<SanadHesabdariEntity> sanadHesabdariList = getListOfSanadHesabdariDaemi(saalMaaliEntity, organEntity);
 		Map<String, SanadHesabdariItemEntity> sanadHesabdariCloseTemporalAccountsItemsMap = new HashMap<String, SanadHesabdariItemEntity>();
 		
-		SanadHesabdariEntity sanadHesabdariCloseTemporalAccountsEntity = createTemporalSanadEntity(	saalMaaliEntity, organEntity, tarikhSanad);
+		String description = SerajMessageUtil.getMessage("SanadHesabdariItem_closeTemporalAccounts");
+		SanadFunctionEnum sanadFunction = SanadFunctionEnum.BASTAN_HESABHA;
+		SanadHesabdariEntity sanadHesabdariCloseTemporalAccountsEntity = createSanadEntity(	saalMaaliEntity, organEntity, tarikhSanad, description, sanadFunction);
 		
 		Double sanadHesabdariItemCloseTemporalAccountsBedehkar = 0d;
 		Double sanadHesabdariItemCloseTemporalAccountsBestankar = 0d;
@@ -1158,8 +1189,7 @@ public class SanadHesabdariService extends
 			throw new FatalException("Temporal_accounts_already_closed");
 	}
 
-	private List<SanadHesabdariEntity> getListOfSanadHesabdariDaemi(
-			SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
+	private List<SanadHesabdariEntity> getListOfSanadHesabdariDaemi(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("organ.id@eq", organEntity.getId());
@@ -1168,15 +1198,28 @@ public class SanadHesabdariService extends
 		return sanadHesabdariList;
 	}
 
-	private SanadHesabdariEntity createTemporalSanadEntity(SaalMaaliEntity saalMaaliEntity,
-			OrganEntity organEntity, Date tarikhSanad) {
+	private List<SanadHesabdariEntity> getListOfSanadHesabdariDaemi(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity, Date fromDate, Date toDate) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+		localFilter.put("organ.id@eq", organEntity.getId());
+		localFilter.put("state@eq",  SanadStateEnum.DAEM);
+		localFilter.put("tarikhSanad@ge", fromDate);
+		localFilter.put("tarikhSanad@le", toDate);
+		List<SanadHesabdariEntity> sanadHesabdariList = getDataList(null, localFilter, SanadHesabdariEntity.PROP_TARIKH_SANAD, true, false);
+		return sanadHesabdariList;
+	}
+	
+	private SanadHesabdariEntity createSanadEntity(SaalMaaliEntity saalMaaliEntity,
+			OrganEntity organEntity, Date tarikhSanad, String description, SanadFunctionEnum sanadFunction) {
 		SanadHesabdariEntity sanadHesabdariCloseTemporalAccountsEntity = new SanadHesabdariEntity();
 		sanadHesabdariCloseTemporalAccountsEntity.setTarikhSanad(tarikhSanad);
 		sanadHesabdariCloseTemporalAccountsEntity.setOrgan(organEntity);
 		sanadHesabdariCloseTemporalAccountsEntity.setSaalMaali(saalMaaliEntity);
-		sanadHesabdariCloseTemporalAccountsEntity.setSanadFunction(SanadFunctionEnum.BASTAN_HESABHA);
+		//SanadFunctionEnum sanadFunction = SanadFunctionEnum.BASTAN_HESABHA;
+		sanadHesabdariCloseTemporalAccountsEntity.setSanadFunction(sanadFunction);
 		sanadHesabdariCloseTemporalAccountsEntity.setState(SanadStateEnum.MOVAGHAT);
-		sanadHesabdariCloseTemporalAccountsEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdariItem_closeTemporalAccounts"));
+//		String description = SerajMessageUtil.getMessage("SanadHesabdariItem_closeTemporalAccounts");
+		sanadHesabdariCloseTemporalAccountsEntity.setDescription(description);
 		sanadHesabdariCloseTemporalAccountsEntity.setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
 		return sanadHesabdariCloseTemporalAccountsEntity;
 	}
@@ -1281,7 +1324,20 @@ public class SanadHesabdariService extends
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_SanadDaemiNashodeExists"));
 		
 	}
-
+	
+	private void checkIfSanadDaemiNashodeExists(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity, Date fromDate, Date toDate) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+		localFilter.put("organ.id@eq", organEntity.getId());
+		localFilter.put("state@in", Arrays.asList(SanadStateEnum.MOVAGHAT, SanadStateEnum.BARRESI_SHODE, SanadStateEnum.YADDASHT , SanadStateEnum.TEMP));
+		localFilter.put("tarikhSanad@ge", fromDate);
+		localFilter.put("tarikhSanad@le", toDate);
+		Integer rowCount = getRowCount(null, localFilter);
+		if(rowCount > 0)
+			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_SanadDaemiNashodeExists"));
+		
+	}
+	
 /*	private boolean checkAllHesabKolRecordsHaveDefinedTheirMahyat(
 			SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
@@ -1556,5 +1612,51 @@ public class SanadHesabdariService extends
 		
 		List<SanadHesabdariEntity> dataList = getDataList(null, sanadFilter,SanadHesabdariEntity.PROP_TARIKH_SANAD,true,false);
 		return dataList;
+	}
+	
+	@Transactional
+	public void createMonthlySummarySanad(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity){
+		List<MonthEntity> list = getMonthService().getList(saalMaaliEntity);
+		for (MonthEntity monthEntity : list) { 
+		
+			Map<String, Object> sanadFilter =new HashMap<>();
+			sanadFilter.put("sanadFunction@eq", SanadFunctionEnum.MonthlySummary);
+			sanadFilter.put("state@eq", SanadStateEnum.MonthlySummary);
+			sanadFilter.put("tarikhSanad@eq", monthEntity.getEndDate());
+			sanadFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+			sanadFilter.put("organ.id@eq", organEntity.getId());
+			SanadHesabdariEntity monthlySummarySanad = load(null, sanadFilter);
+			if(monthlySummarySanad!=null)
+				continue;
+			
+			Calendar fromDate = DateConverter.getStartOfToday(monthEntity.getStartDate());
+			Calendar toDate = DateConverter.getStartOfTommorow(monthEntity.getEndDate());
+			
+			checkIfSanadDaemiNashodeExists(saalMaaliEntity, organEntity, fromDate.getTime(), toDate.getTime());
+			List<SanadHesabdariEntity> sanadHesabdariList = getListOfSanadHesabdariDaemi(saalMaaliEntity, organEntity, fromDate.getTime(), toDate.getTime());
+			
+			String description = SerajMessageUtil.getMessage("SanadHesabdari_monthlySummarySanad", monthEntity.getName());
+			SanadFunctionEnum sanadFunction = SanadFunctionEnum.MonthlySummary;
+			
+			monthlySummarySanad = createSanadEntity(	saalMaaliEntity, organEntity, monthEntity.getEndDate(), description, sanadFunction);
+			
+			List<SanadHesabdariItemEntity> summaryItems = new ArrayList<SanadHesabdariItemEntity>();
+			
+			for (SanadHesabdariEntity sanadHesabdariEntity : sanadHesabdariList) {
+				List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadHesabdariEntity.getSanadHesabdariItem();
+				for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
+					SanadHesabdariItemEntity itemEntity = new SanadHesabdariItemEntity();
+					itemEntity.setHesabKol(sanadHesabdariItemEntity.getHesabKol());
+					itemEntity.setBedehkar(sanadHesabdariItemEntity.getBedehkar());
+					itemEntity.setBestankar(sanadHesabdariItemEntity.getBestankar());
+					itemEntity.setSanadHesabdari(monthlySummarySanad);
+					summaryItems.add(itemEntity);
+				}
+			}
+			List<SanadHesabdariItemEntity> mergedArticles = AutomaticSanadUtil.createMergedArticles(summaryItems, false, organEntity);
+			monthlySummarySanad.setSanadHesabdariItem(mergedArticles);
+			monthlySummarySanad.setSerial(monthEntity.getRadif().longValue());
+			saveMonthlySummary(monthlySummarySanad, null, organEntity, saalMaaliEntity, false);
+		}
 	}
 }

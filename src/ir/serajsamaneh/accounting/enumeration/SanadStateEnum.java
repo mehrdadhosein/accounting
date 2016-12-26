@@ -1,7 +1,7 @@
 package ir.serajsamaneh.accounting.enumeration;
 
 public enum SanadStateEnum {
-	YADDASHT,MOVAGHAT,BARRESI_SHODE,DAEM,TEMP,MERGED, EBTAL;
+	YADDASHT,MOVAGHAT,BARRESI_SHODE,DAEM,TEMP,MERGED, EBTAL, MonthlySummary;
 	public Integer value(){
 		return this.ordinal();
 	}

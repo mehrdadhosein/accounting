@@ -299,6 +299,19 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		setDefaultSortType(true);
 		return getDataModel();
 	}
+	
+	private void createDaftarSummaryDaftarLocalFilter(OrganEntity organEntity) {
+		populateFilterFromRequest();
+		
+		if(organEntity!=null)
+			getFilter().put("sanadHesabdari.organ.id@eq", organEntity.getId());
+		else
+			getFilter().put("sanadHesabdari.organ.id@eq", null);
+		
+		
+		getFilter().put("sanadHesabdari.state@eq", SanadStateEnum.MonthlySummary);
+		createCommonDaftarFilter();
+	}
 
 	private void createDaftarLocalFilter(OrganEntity organEntity) {
 		populateFilterFromRequest();
@@ -307,6 +320,11 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			getFilter().put("sanadHesabdari.organ.id@eq", organEntity.getId());
 		else
 			getFilter().put("sanadHesabdari.organ.id@eq", null);
+
+		List<SanadStateEnum> sanadStates = new ArrayList<SanadStateEnum>();
+		sanadStates.add(SanadStateEnum.DAEM);
+		sanadStates.add(SanadStateEnum.BARRESI_SHODE);
+		getFilter().put("sanadHesabdari.state@eqORsanadHesabdari.state@eq", sanadStates);
 		
 		createCommonDaftarFilter();
 	}
@@ -320,6 +338,10 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			getFilter().put("sanadHesabdari.organ.id@eq", null);
 		getFilter().put("sanadHesabdari.organ.code@startlk",	getTopOrgan().getCode());
 
+		List<SanadStateEnum> sanadStates = new ArrayList<SanadStateEnum>();
+		sanadStates.add(SanadStateEnum.DAEM);
+		sanadStates.add(SanadStateEnum.BARRESI_SHODE);
+		getFilter().put("sanadHesabdari.state@eqORsanadHesabdari.state@eq", sanadStates);
 		
 		createCommonDaftarFilter();
 	}
@@ -327,10 +349,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 
 	private void createCommonDaftarFilter() {
-		List<SanadStateEnum> sanadStates = new ArrayList<SanadStateEnum>();
-		sanadStates.add(SanadStateEnum.DAEM);
-		sanadStates.add(SanadStateEnum.BARRESI_SHODE);
-		getFilter().put("sanadHesabdari.state@eqORsanadHesabdari.state@eq", sanadStates);
+
 		
 		getFilter().put("hesabKol.id@in", getHesabKolIds());
 		getFilter().put("hesabMoeen.id@in", getMoeenIds());
@@ -405,9 +424,13 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarKolDataModel() {
 		setRowsPerPage(100);
-//		if(!FacesContext.getCurrentInstance().getRenderResponse())
-//			return null;		
 		createDaftarLocalFilter(getCurrentOrgan());
+		return getDataModel();
+	}
+	
+	public DataModel<SanadHesabdariItemEntity> getDaftarKolSummaryDataModel() {
+		setRowsPerPage(100);
+		createDaftarSummaryDaftarLocalFilter(getCurrentOrgan());
 		return getDataModel();
 	}
 	
@@ -796,6 +819,13 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		}
 		
 		return null;
+	}
+	
+	public String printMonthlySummaryDaftarKol(){
+		createDaftarSummaryDaftarLocalFilter(getCurrentOrgan());
+		String organName = getCurrentOrgan().getName();
+		return printDaftarKol(organName);
+		
 	}
 	
 	public String printDaftarKol() {

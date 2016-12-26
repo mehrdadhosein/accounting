@@ -6,6 +6,7 @@ import ir.serajsamaneh.accounting.exception.NoActiveSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.SaalMaaliStartDateException;
 import ir.serajsamaneh.accounting.exception.SameSaalMaaliException;
+import ir.serajsamaneh.accounting.month.MonthService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
@@ -36,6 +37,15 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 
 	SaalMaaliDAO saalMaaliDAO;
 	SystemConfigService systemConfigService;
+	MonthService monthService;
+
+	public MonthService getMonthService() {
+		return monthService;
+	}
+
+	public void setMonthService(MonthService monthService) {
+		this.monthService = monthService;
+	}
 
 	public SystemConfigService getSystemConfigService() {
 		return systemConfigService;
@@ -223,6 +233,7 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 		manageActiveSatatusOfOtherSaalMaaliEntities(entity, currentOrgan);
 		
 		super.save(entity);
+		getMonthService().createDefaultMonthForCurrentSaalMaali(entity, currentOrgan);
 		String action = (entity.getId()!=null?(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass())):(SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.nameWithClass())));
 		ActionLogUtil.logAction(action, 
 				SerajMessageUtil.getMessage("SaalMaali_title"),

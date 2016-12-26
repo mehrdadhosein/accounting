@@ -47,46 +47,12 @@
 </style>
 		<t:div id="topsectiondiv" style="text-align:center">
 			<h:panelGroup id="topsection" style="font-family: tahoma;">
-				<h:commandButton action="#{owner.exportToExcel}"
-					styleClass=" gwt-Button" value="#{messages['common_excel']}"
-					rendered="#{owner.exportable}" image="/images/excelBtn.png" />
 
-
-				<h:commandButton
-					onclick="document.getElementById('mandehAzGhablPanel').style.display = 'block';  return false;"
-					styleClass=" gwt-Button"
-					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
-					value="#{messages['common_print']}" immediate="true"
-					image="/images/print.png" />
-
+				<p:commandButton action="#{owner.printMonthlySummaryDaftarKol}" 
+					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;" ajax="false"
+					value="#{messages['SanadHesabdari_printMonthlySummaryDaftarKol']}">
+				</p:commandButton>
 	
-
-				<h:commandButton action="#{owner.goTodDftarRooznamehLocalList}"
-					styleClass=" gwt-Button"
-					image="/images/buttons/btn_daftarRooznameh.png"
-					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
-					value="#{messages['common_print']}">
-				</h:commandButton>
-
-				<h:commandButton action="#{owner.goToTafsiliLocalList}"
-					styleClass=" gwt-Button"
-					image="/images/buttons/btn_daftarTafsili.png"
-					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
-					value="#{messages['common_print']}">
-				</h:commandButton>
-
-				<h:commandButton action="#{owner.goToMoeenLocalList}"
-					styleClass=" gwt-Button"
-					image="/images/buttons/btn_daftarMoeen.png"
-					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
-					value="#{messages['common_print']}">
-				</h:commandButton>
-
-				<h:commandButton action="#{owner.goToKolLocalList}"
-					styleClass=" gwt-Button" image="/images/buttons/btn_daftarKol.png"
-					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
-					value="#{messages['common_print']}">
-				</h:commandButton>
 			</h:panelGroup>
 		</t:div>
 		<p:sticky target="topsectiondiv" />
@@ -100,7 +66,7 @@
 			
 			 dir="rtl"
 			 id="sanadHesabdariItems"
-				value="#{sanadHesabdariItem.daftarKolDataModel}"
+				value="#{sanadHesabdariItem.daftarKolSummaryDataModel}"
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
 				style="width: 97%" align="center" rows="#{owner.rowsPerPage}">
 

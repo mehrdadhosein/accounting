@@ -8,9 +8,9 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
-	
+
 <ui:composition template="/template/template-edit.xhtml">
 	<ui:param name="title" value="Month_edit_create" />
 	<ui:param name="owner" value="#{month}" />
@@ -19,48 +19,48 @@
 
 	<ui:define name="editsection">
 
-				<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-			<p:panelGrid layout="grid"  columns="2" width="90%"
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<p:panelGrid layout="grid" columns="2" width="90%"
 				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
 				styleClass="inputForm ui-noborder ui-panelgrid-blank">
-				
-				<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-					<h:outputLabel for="saalMaali" value="#{messages['Month_saalMaali']}" /> : 
-				</h:panelGroup>
-				<h:panelGroup>
-					<custom:lov id="saalMaali"  required="true" descWidth="250" label="#{messages['Month_saalMaali']}"
-							identity="#{month.entity.saalMaali.id}"
-							desc="#{month.entity.saalMaali.desc}"
-					  		url="${request.contextPath}/saalmaali/saalMaali.lov.jsf?pId=saalMaali" />
-				</h:panelGroup>				  		
-				
-					
 
-					<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-	 				<h:outputLabel for="name" value="#{messages['Month_name']}" /> : 
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="radif" value="#{messages['common_radif']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="name" label="name" value="#{month.entity.name}"  size="50"/>
-	
-						<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-	 				<h:outputLabel for="description" value="#{messages['Month_description']}" /> : 
+				<p:inputText required="true" id="radif" label="radif"
+					value="#{month.entity.radif}" size="50" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="name" value="#{messages['Month_name']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="description" label="description" value="#{month.entity.description}"  size="50"/>
-	
-						<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
-					<h:outputLabel for="startDate" value="#{messages['Month_startDate']}" /> : 
+				<p:inputText required="true" id="name" label="name"
+					value="#{month.entity.name}" size="50" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="description"
+						value="#{messages['Month_description']}" /> : 
 				</h:panelGroup>
-				<custom:DateTimePicker  required="true" id="startDate" value="#{month.entity.startDate}" lang="Shamsi"></custom:DateTimePicker>
-	
-						<h:panelGroup>
-					<h:outputText styleClass="required"	value="* " />
+				<p:inputText required="true" id="description" label="description"
+					value="#{month.entity.description}" size="50" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="startDate"
+						value="#{messages['Month_startDate']}" /> : 
+				</h:panelGroup>
+				<custom:DateTimePicker required="true" id="startDate"
+					value="#{month.entity.startDate}" lang="Shamsi"></custom:DateTimePicker>
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
 					<h:outputLabel for="endDate" value="#{messages['Month_endDate']}" /> : 
 				</h:panelGroup>
-				<custom:DateTimePicker  required="true" id="endDate" value="#{month.entity.endDate}" lang="Shamsi"></custom:DateTimePicker>
-	
+				<custom:DateTimePicker required="true" id="endDate"
+					value="#{month.entity.endDate}" lang="Shamsi"></custom:DateTimePicker>
+
 			</p:panelGrid>
 		</rich:panel>
 	</ui:define>
@@ -72,7 +72,7 @@
 		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
 			action="#{owner.back}" value="#{messages['common_back']}"
 			immediate="true" image="/images/listbtn.png" />
-	</ui:define>	
+	</ui:define>
 </ui:composition>
 
-</html>	
+</html>

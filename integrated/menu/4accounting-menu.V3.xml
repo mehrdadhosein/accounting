@@ -96,6 +96,11 @@
 						permission="sanadHesabdariItem.kolLocalList" icon="BankTransfer-folder-1
 						" />
 		
+					<MenuItem id="sanadHesabdariItemkolSummaryLocalList" value="خلاصه دفتر کل"
+						valueClick="../sanadhesabdariitem/daftar/sanadHesabdariItem.kolSummaryLocalList.jsf"
+						permission="sanadHesabdariItem.kolLocalList" icon="BankTransfer-folder-1
+						" />
+		
 					<MenuItem value="سلسله مراتبی" permission=""
 						icon="BusinessSeoElements-hierarchical-structure
 						">
