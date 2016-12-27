@@ -874,6 +874,13 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		return null;
 	}
 	
+	public String printMonthlySummaryDaftarRooznameh() {
+		
+		createDaftarSummaryDaftarLocalFilter(getCurrentOrgan());
+		String organName = getCurrentOrgan().getName();
+		return printMonthlySummaryDaftarRooznameh(organName);
+	}
+	
 	public String printDaftarRooznameh() {
 		
 		createDaftarLocalFilter(getCurrentOrgan());
@@ -913,6 +920,35 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
 			String contentType = "application/pdf";
 			downloadStream(pdf, contentType, SerajMessageUtil.getMessage("daftarRooznameh")+"_"+ organName+".pdf");
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	private String printMonthlySummaryDaftarRooznameh(String organName) {
+		setDefaultSortType(true);
+		
+		List<String> orderByCols = Arrays.asList("sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
+		List<SanadHesabdariItemEntity> daftarRooznamehList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
+		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
+		setToDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@le"));		
+		Map<String, Object> parameters = populateReportParameters(organName);
+		
+		String reportPath = getLocalFilePath("/WEB-INF/classes/report/daftarRooznamehKolSummary.jrxml");
+		
+		JasperReport jasperReport;
+		try {
+			jasperReport = JasperCompileManager.compileReport(reportPath);
+			
+			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(daftarRooznamehList);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(
+					jasperReport, parameters, ds);
+			
+			byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
+			String contentType = "application/pdf";
+			downloadStream(pdf, contentType, SerajMessageUtil.getMessage("monthlySummaryDaftarRooznameh")+"_"+ organName+".pdf");
 		} catch (JRException e) {
 			e.printStackTrace();
 		}

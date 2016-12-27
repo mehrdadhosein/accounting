@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="SanadHesabdari_view" />
+	<ui:param name="owner" value="#{sanadHesabdari}" />
+	<ui:param name="dwrFormName" value="sanadHesabdari" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+<t:saveState value="#{owner.sanadTypeIds}" />
+		<rich:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<p:panelGrid layout="grid"  columns="2" width="90%"
+				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
+				styleClass="inputForm ui-noborder ui-panelgrid-blank">
+
+
+
+				<h:outputLabel for="saalMaali"
+					value="#{messages['SanadHesabdari_saalMaali']} : " />
+				<h:outputText id="saalMaali"
+					value="#{sanadHesabdari.entity.saalMaali.desc}" />
+
+
+				<h:outputLabel for="sanadFunction"
+					value="#{messages['SanadHesabdari_sanadFunction']} : " />
+				<h:outputText id="sanadFunction"
+					value="#{sanadHesabdari.entity.sanadFunctionName}" />
+
+
+				<h:outputLabel for="organ"
+					value="#{messages['SanadHesabdari_organ']} : " />
+				<h:outputText id="organ" value="#{sanadHesabdari.entity.organ.desc}" />
+
+
+				<h:outputLabel for="serial"
+					value="#{messages['SanadHesabdari_serial']} : " />
+				<h:outputText id="serial" value="#{sanadHesabdari.entity.serial}" />
+
+				<h:outputLabel for="description"
+					value="#{messages['SanadHesabdari_description']} : " />
+				<h:outputText id="description"
+					value="#{sanadHesabdari.entity.description}" />
+
+				<h:outputLabel for="tarikhSanad"
+					value="#{messages['SanadHesabdari_tarikhSanad']} : " />
+				<h:outputText id="tarikhSanadLable"
+					value="#{sanadHesabdari.entity.tarikhSanadFA}" />
+
+
+				<h:outputLabel for="sanadType"
+						value="#{messages['SanadHesabdari_sanadType']} : " />
+				<h:outputText id="sanadType"
+					value="#{sanadHesabdari.entity.sanadType.name}" />
+
+				<h:outputLabel for="state"
+					value="#{messages['SanadHesabdari_state']} : " />
+				<t:selectOneMenu value="#{sanadHesabdari.entity.state}"
+					converter="seraj.converter.Enum" styleClass="CellClass"
+					label="#{messages['SanadHesabdari_state']}" id="state"
+					displayValueOnly="true">
+					<f:selectItems value="#{enums.SanadStateEnum}" />
+				</t:selectOneMenu>
+
+			</p:panelGrid>
+		</rich:panel>
+		<ui:include src="../common/sanadHesabdari.gridView.advanced.xhtml" />		
+
+		<t:div id="zamimehaPanelDiv" style="border:1px solid #F3F3F3;"  rendered="#{owner.hasZamimeh}">
+			<t:dataList id="zamimehaPanel" value="#{owner.entity.zamimehList}"
+				var="zamimehItem" layout="orderedList" first="0" dir="RTL">
+				<h:outputLink value="#{zamimehItem.path}" target="_blank" styleClass="CellClass">${zamimehItem.title}</h:outputLink>
+			</t:dataList>
+		</t:div>		
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton styleClass=" gwt-Button"
+			 action="#{owner.printSanad}" image="/images/buttons/btn_print.png"
+		  />
+
+
+		<h:commandButton styleClass=" gwt-Button" value="excel" image="/images/excelBtn.png"
+			 action="#{owner.exportSanadSanadToExcel}" />
+			 		  
+		<h:commandButton action="#{owner.back}" styleClass=" gwt-Button"
+			image="/images/listbtn.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_list']}" immediate="true">
+		</h:commandButton>
+
+			<a class="fancybox-buttons" data-fancybox-group="button" data-fancybox-type="iframe" data-width="100%" data-height="90%" href="../jersey/accountingRestFace/printSanadHesabdari?sanadHesabdariId=#{sanadHesabdari.entity.id}">#{messages['common_printPreview']}</a>
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -247,7 +247,7 @@
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="fb895cbb-7ba7-481b-94aa-402b013404cf" stretchType="RelativeToTallestObject" x="0" y="0" width="75" height="20"/>
-				<box topPadding="10" leftPadding="10" bottomPadding="10" rightPadding="10">
+				<box topPadding="10" leftPadding="2" bottomPadding="10" rightPadding="2">
 					<leftPen lineWidth="0.1"/>
 					<rightPen lineWidth="0.1"/>
 				</box>
@@ -258,7 +258,7 @@
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="68268fc2-dc27-4555-aa39-c149ef526fce" stretchType="RelativeToTallestObject" x="75" y="0" width="75" height="20"/>
-				<box topPadding="10" leftPadding="10" bottomPadding="10" rightPadding="10">
+				<box topPadding="10" leftPadding="2" bottomPadding="10" rightPadding="2">
 					<leftPen lineWidth="0.1"/>
 					<rightPen lineWidth="0.1"/>
 				</box>

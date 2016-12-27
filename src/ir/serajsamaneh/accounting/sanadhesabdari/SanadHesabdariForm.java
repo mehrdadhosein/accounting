@@ -797,6 +797,13 @@ public class SanadHesabdariForm extends
 		return getLocalDataModel();
 	}
 
+	public DataModel<SanadHesabdariEntity> getLocalMonthlySummaryDataModel() {
+		setRowsPerPage(-1);
+		getFilter().put("state@eq", SanadStateEnum.MonthlySummary);
+		getFilter().put("saalMaali.id@eq",	getCurrentUserActiveSaalMaali().getId());
+		return getLocalDataModel();
+	}
+	
 	@Override
 	public DataModel<SanadHesabdariEntity> getLocalDataModel() {
 		getFilter().put("sanadType.id@in", getSanadTypeIds());
@@ -958,6 +965,10 @@ public class SanadHesabdariForm extends
 
 	public String localAdvancedView() {
 		return getFacesUrl("/sanadhesabdari/sanadHesabdari.localAdvancedView.xhtml");
+	}
+	
+	public String localMonthlySummaryView() {
+		return getFacesUrl("/sanadhesabdari/sanadHesabdari.summayView.xhtml");
 	}
 	
 	public String localBarrasiShodehView() {
