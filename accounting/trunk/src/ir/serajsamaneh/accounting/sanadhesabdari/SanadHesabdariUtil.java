@@ -237,9 +237,9 @@ public class SanadHesabdariUtil {
 				}
 				
 				if(!StringUtils.hasText(sanadHesabdariItemEntity.getDescription()))
-					sanadHesabdariItemEntity.setDescription("-");
+					sanadHesabdariItemEntity.setDescription(" ");
 				else if(!concatDescriptions)
-					sanadHesabdariItemEntity.setDescription("-");
+					sanadHesabdariItemEntity.setDescription(" ");
 				
 				articlesMap.put(mapKey, sanadHesabdariItemEntity);
 			}else{

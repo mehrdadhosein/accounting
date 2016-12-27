@@ -37,6 +37,8 @@ public class MonthForm   extends BaseAccountingForm<MonthEntity,Long>  {
 	}
 	
 	public DataModel getLocalDataModel() {
+		setRowsPerPage(-1);
+		getFilter().put("organ.id@eq", getCurrentOrgan().getId());
 		return getDataModel();
 	}
 	

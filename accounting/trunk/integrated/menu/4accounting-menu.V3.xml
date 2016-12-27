@@ -63,6 +63,11 @@
 					permission="sanadHesabdari.localList" icon="serajicon-archive-1"
 					separator="true" />
 
+				<MenuItem id="sanadHesabdarilocalMonthlySummaryList" value="خلاصه اسناد کل"
+					valueClick="../sanadhesabdari/sanadHesabdari.localMonthlySummaryList.jsf"
+					permission="sanadHesabdari.localList" icon="serajicon-archive-1"
+					separator="true" />
+
 				<MenuItem id="sanadHesabdarilocalDeletedList" value="اسناد حذف شده"
 					valueClick="../sanadhesabdari/sanadHesabdari.localDeletedList.jsf"
 					permission="sanadHesabdari.localDeletedList" icon="Ecommerce-invoice-1"/>
