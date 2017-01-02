@@ -1,5 +1,23 @@
 package ir.serajsamaneh.accounting.sanadhesabdariitem;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.context.FacesContext;
+import javax.faces.model.DataModel;
+
+import org.hibernate.FlushMode;
+import org.springframework.util.StringUtils;
+
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
@@ -10,20 +28,6 @@ import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.security.ActionLogUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.StringUtil;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -32,10 +36,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
-import org.hibernate.FlushMode;
-import org.springframework.util.StringUtils;
-
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
 
@@ -930,8 +930,45 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	private String printMonthlySummaryDaftarRooznameh(String organName) {
 		setDefaultSortType(true);
 		
-		List<String> orderByCols = Arrays.asList("sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
+		List<String> orderByCols = Arrays.asList("sanadHesabdari.tarikhSanad","hesabKol.id");
 		List<SanadHesabdariItemEntity> daftarRooznamehList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
+		
+		Collections.sort(daftarRooznamehList, new Comparator<SanadHesabdariItemEntity>() {
+		    public int compare(SanadHesabdariItemEntity m1, SanadHesabdariItemEntity m2) {
+		    	int myInt=0;
+		    	try{
+			    	if (m1.getSanadHesabdari().getTarikhSanad()!=null &&  m2.getSanadHesabdari().getTarikhSanad()!=null) 
+			    		if (m1.getSanadHesabdari().getTarikhSanad().equals(m2.getSanadHesabdari().getTarikhSanad())){
+			    			if(m1.getBestankar() > 0 && m2.getBestankar() > 0)
+			    				myInt = (m1.getHesabKol().getId()).compareTo( m2.getHesabKol().getId()) ;
+			    			else if(m1.getBedehkar() > 0 && m2.getBedehkar() > 0)
+			    				myInt = (m1.getHesabKol().getId()).compareTo( m2.getHesabKol().getId());
+			    			else
+			    				myInt = (m1.getBestankar()).compareTo( m2.getBestankar()) ;
+			    		}
+		        
+		    	}catch (Exception e) {
+					e.printStackTrace();
+				}
+		    	return  myInt ;
+		    }
+		});
+		
+//		Collections.sort(daftarRooznamehList, new Comparator<SanadHesabdariItemEntity>() {
+//			public int compare(SanadHesabdariItemEntity m1, SanadHesabdariItemEntity m2) {
+//				int myInt=0;
+//				try{
+//					if (m1.getSanadHesabdari().getTarikhSanad()!=null &&  m2.getSanadHesabdari().getTarikhSanad()!=null) 
+//						if (m1.getSanadHesabdari().getTarikhSanad().equals(m2.getSanadHesabdari().getTarikhSanad())) 
+//							myInt = (m1.getHesabKol().getCode()).compareTo( m2.getHesabKol().getCode()) ;
+//					
+//				}catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				return  myInt ;
+//			}
+//		});
+		
 		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
 		setToDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@le"));		
 		Map<String, Object> parameters = populateReportParameters(organName);

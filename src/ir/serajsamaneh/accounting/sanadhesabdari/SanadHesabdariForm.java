@@ -1258,6 +1258,13 @@ public class SanadHesabdariForm extends
 		return null;
 	}
 
+	public String deleteMonthlySummarySanad(){
+		getMyService().deleteMonthlySummarySanad(getEntity());
+		clearPage();
+		addInfoMessage("SUCCESSFUL_ACTION");
+		return null;
+	}
+	
 	public void closeTemporalAccounts(){
 		if(getTarikhSanad() == null)
 			setTarikhSanad(getCurrentUserActiveSaalMaali().getEndDate());
