@@ -141,7 +141,7 @@
 							value="#{messages['common_delete']}" />
 					</f:facet>
 
-					<h:commandLink action="#{sanadHesabdari.delete}" immediate="true" rendered="#{item.isSanadHesabdariManualyDeletable}"
+					<h:commandLink action="#{sanadHesabdari.deleteMonthlySummarySanad}" immediate="true" rendered="#{item.isSanadHesabdariManualyDeletable}"
 						onclick="if(!confirmDelete()) return false;">
 						<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
 						<f:setPropertyActionListener value="#{item.id}"

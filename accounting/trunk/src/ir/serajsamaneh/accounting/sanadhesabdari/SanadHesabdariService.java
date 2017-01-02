@@ -1658,10 +1658,15 @@ public class SanadHesabdariService extends
 					summaryItems.add(itemEntity);
 				}
 			}
-			List<SanadHesabdariItemEntity> mergedArticles = AutomaticSanadUtil.createMergedArticles(summaryItems, false, organEntity);
+			List<SanadHesabdariItemEntity> mergedArticles = AutomaticSanadUtil.createMergedArticlesKeepingBedehkarBestankar(summaryItems, false, organEntity);
 			monthlySummarySanad.setSanadHesabdariItem(mergedArticles);
 			monthlySummarySanad.setSerial(monthEntity.getRadif().longValue());
 			saveMonthlySummary(monthlySummarySanad, null, organEntity, saalMaaliEntity, false);
 		}
+	}
+
+	@Transactional
+	public void deleteMonthlySummarySanad(SanadHesabdariEntity entity) {
+		super.delete(entity.getId());
 	}
 }

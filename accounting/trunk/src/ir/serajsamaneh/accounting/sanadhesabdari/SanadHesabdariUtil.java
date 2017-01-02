@@ -218,54 +218,13 @@ public class SanadHesabdariUtil {
 			String mapKey = createMapKey(sanadHesabdariItemEntity, currentOrgan);
 		
 			
-			SanadHesabdariItemEntity previousSanad = articlesMap.get(mapKey);
- 			if(previousSanad == null){
-
-				
-				double bedehkar = sanadHesabdariItemEntity.getBedehkar();
-				double bestankar = sanadHesabdariItemEntity.getBestankar();
-				Double mandeh = bestankar - bedehkar;
-				if(mandeh > 0){
-					sanadHesabdariItemEntity.setBestankar(Math.abs(mandeh));
-					sanadHesabdariItemEntity.setBedehkar(0d);
-				}else if(mandeh < 0){
-					sanadHesabdariItemEntity.setBestankar(0d);
-					sanadHesabdariItemEntity.setBedehkar(Math.abs(mandeh));
-				}else{
-					sanadHesabdariItemEntity.setBestankar(0d);
-					sanadHesabdariItemEntity.setBedehkar(0d);
-				}
-				
-				if(!StringUtils.hasText(sanadHesabdariItemEntity.getDescription()))
-					sanadHesabdariItemEntity.setDescription(" ");
-				else if(!concatDescriptions)
-					sanadHesabdariItemEntity.setDescription(" ");
-				
-				articlesMap.put(mapKey, sanadHesabdariItemEntity);
-			}else{
-				double bedehkar = previousSanad.getBedehkar() + sanadHesabdariItemEntity.getBedehkar();
-				double bestankar = previousSanad.getBestankar() + sanadHesabdariItemEntity.getBestankar();
-				Double mandeh = bestankar - bedehkar;
-				
-				if(mandeh > 0){
-					previousSanad.setBestankar(Math.abs(mandeh));
-					previousSanad.setBedehkar(0d);
-				}else if(mandeh < 0){
-					previousSanad.setBestankar(0d);
-					previousSanad.setBedehkar(Math.abs(mandeh));
-				}else{
-					previousSanad.setBestankar(0d);
-					previousSanad.setBedehkar(0d);
-				}
-				if(StringUtils.hasText(sanadHesabdariItemEntity.getDescription()) && concatDescriptions)
-					previousSanad.setDescription(previousSanad.getDescription()+","+sanadHesabdariItemEntity.getDescription());
-				
-			}
+			mergeArtcilesToArticleMap(concatDescriptions, articlesMap, sanadHesabdariItemEntity, mapKey);
 			
 		}
 		
 		return articlesMap;
 	}
+
 	
 	protected static Map<String, SanadHesabdariItemEntity> mergeArtcilesKeepingBedehkarBestankarToArticleMap(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
 		
@@ -273,29 +232,65 @@ public class SanadHesabdariUtil {
 		
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : articles) {
 			String mapKey = createMapKey(sanadHesabdariItemEntity, currentOrgan);
+			if(sanadHesabdariItemEntity.getBedehkar() > 0)
+				mapKey = mapKey + "_bed";
+			else if(sanadHesabdariItemEntity.getBestankar() > 0)
+				mapKey = mapKey + "_bes";
 			
-			
-			SanadHesabdariItemEntity previousSanad = articlesMap.get(mapKey);
-			if(previousSanad == null){
-				if(!StringUtils.hasText(sanadHesabdariItemEntity.getDescription()))
-					sanadHesabdariItemEntity.setDescription("-");
-				else if(!concatDescriptions)
-					sanadHesabdariItemEntity.setDescription("-");
-				
-				articlesMap.put(mapKey, sanadHesabdariItemEntity);
-			}else{
-				double bedehkar = previousSanad.getBedehkar() + sanadHesabdariItemEntity.getBedehkar();
-				double bestankar = previousSanad.getBestankar() + sanadHesabdariItemEntity.getBestankar();
-				previousSanad.setBestankar(bestankar);
-				previousSanad.setBedehkar(bedehkar);
-				if(StringUtils.hasText(sanadHesabdariItemEntity.getDescription()) && concatDescriptions)
-					previousSanad.setDescription(previousSanad.getDescription()+","+sanadHesabdariItemEntity.getDescription());
-			}
+			mergeArtcilesToArticleMap(concatDescriptions, articlesMap, sanadHesabdariItemEntity, mapKey);
 			
 		}
 		
 		return articlesMap;
 	}
+	
+	private static void mergeArtcilesToArticleMap(boolean concatDescriptions, Map<String, SanadHesabdariItemEntity> articlesMap,
+			SanadHesabdariItemEntity sanadHesabdariItemEntity, String mapKey) {
+		SanadHesabdariItemEntity previousSanad = articlesMap.get(mapKey);
+		if(previousSanad == null){
+
+			
+			double bedehkar = sanadHesabdariItemEntity.getBedehkar();
+			double bestankar = sanadHesabdariItemEntity.getBestankar();
+			Double mandeh = bestankar - bedehkar;
+			if(mandeh > 0){
+				sanadHesabdariItemEntity.setBestankar(Math.abs(mandeh));
+				sanadHesabdariItemEntity.setBedehkar(0d);
+			}else if(mandeh < 0){
+				sanadHesabdariItemEntity.setBestankar(0d);
+				sanadHesabdariItemEntity.setBedehkar(Math.abs(mandeh));
+			}else{
+				sanadHesabdariItemEntity.setBestankar(0d);
+				sanadHesabdariItemEntity.setBedehkar(0d);
+			}
+			
+			if(!StringUtils.hasText(sanadHesabdariItemEntity.getDescription()))
+				sanadHesabdariItemEntity.setDescription(" ");
+			else if(!concatDescriptions)
+				sanadHesabdariItemEntity.setDescription(" ");
+			
+			articlesMap.put(mapKey, sanadHesabdariItemEntity);
+		}else{
+			double bedehkar = previousSanad.getBedehkar() + sanadHesabdariItemEntity.getBedehkar();
+			double bestankar = previousSanad.getBestankar() + sanadHesabdariItemEntity.getBestankar();
+			Double mandeh = bestankar - bedehkar;
+			
+			if(mandeh > 0){
+				previousSanad.setBestankar(Math.abs(mandeh));
+				previousSanad.setBedehkar(0d);
+			}else if(mandeh < 0){
+				previousSanad.setBestankar(0d);
+				previousSanad.setBedehkar(Math.abs(mandeh));
+			}else{
+				previousSanad.setBestankar(0d);
+				previousSanad.setBedehkar(0d);
+			}
+			if(StringUtils.hasText(sanadHesabdariItemEntity.getDescription()) && concatDescriptions)
+				previousSanad.setDescription(previousSanad.getDescription()+","+sanadHesabdariItemEntity.getDescription());
+			
+		}
+	}
+
 
 	public static  List<Integer> getLevels(OrganEntity currentOrgan){
 		String maxSanadHesabdariTafsilLevel = getSystemConfigService().getValue(currentOrgan, null, "maxSanadHesabdariTafsilLevel");
