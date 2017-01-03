@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
@@ -248,30 +249,36 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	@Override
 	public List<? extends BaseEntity> getJsonList(String property, String term,
 			boolean all, Map<String, String> params) {
-		String isLocalUser = params.get("isCurrentOrgan");
-		
-		this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
-		
-		if (isLocalUser !=null && isLocalUser.equals("true")){
-			getFilter().put("organ.id@eq",getCurrentOrgan().getId());
-		}
-
-		String isHierarchical = params.get("isHierarchical");
-		String hidden = params.get("hidden");
-		
-		if(StringUtils.hasText(hidden) && hidden.equals("false")){
-			this.getFilter().put("hidden@eq",false);
-		}
-		
-		if (isHierarchical !=null && isHierarchical.equals("true")){
-			List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
-			getFilter().put("organ.id@in", topOrganList);
+		try{
+			String isLocalUser = params.get("isCurrentOrgan");
 			
-//			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-			params.put("isLocal","false");
+			this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+			
+			if (isLocalUser !=null && isLocalUser.equals("true")){
+				getFilter().put("organ.id@eq",getCurrentOrgan().getId());
+			}
+	
+			String isHierarchical = params.get("isHierarchical");
+			String hidden = params.get("hidden");
+			
+			if(StringUtils.hasText(hidden) && hidden.equals("false")){
+				this.getFilter().put("hidden@eq",false);
+			}
+			
+			if (isHierarchical !=null && isHierarchical.equals("true")){
+				List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
+				getFilter().put("organ.id@in", topOrganList);
+				
+	//			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+				params.put("isLocal","false");
+			}
+			
+			return super.getJsonList(property, term, all, params);
+		}catch(NoSaalMaaliFoundException e){
+			//e.printStackTrace();
+			System.out.println(e.getMessage());
+			return new ArrayList<>();
 		}
-		
-		return super.getJsonList(property, term, all, params);
 	}
 	
 	public Map<Long, List<ListOrderedMap>> getTafsiliMoeenMap() {

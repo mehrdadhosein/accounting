@@ -1,6 +1,7 @@
 package ir.serajsamaneh.accounting.hesabmoeen;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
@@ -45,15 +46,19 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	}
 
 	public List<SelectItem> getLocalHesabMoeenSelectItems(){
-		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-		List<HesabMoeenEntity>  list = getMyService().getDataList(null,filter);
-		List<SelectItem> resultList = new ArrayList<SelectItem>();
-		for (HesabMoeenEntity entity: list){
-			resultList.add(new SelectItem(entity.getId(), entity.getDesc()));
+		try{
+			Map<String, Object> filter = new HashMap<String, Object>();
+			filter.put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+			List<HesabMoeenEntity>  list = getMyService().getDataList(null,filter);
+			List<SelectItem> resultList = new ArrayList<SelectItem>();
+			for (HesabMoeenEntity entity: list){
+				resultList.add(new SelectItem(entity.getId(), entity.getDesc()));
+			}
+			return resultList;
+		}catch(NoSaalMaaliFoundException e){
+			e.printStackTrace();
+			return new ArrayList<SelectItem>();
 		}
-		
-		return resultList;
 	}
 	public void setHesabKolService(HesabKolService hesabKolService) {
 		this.hesabKolService = hesabKolService;
@@ -180,24 +185,30 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	@Override
 	public List<? extends BaseEntity> getJsonList(String property, String term,
 			boolean all, Map<String, String> params) {
-			String isHierarchical = params.get("isHierarchical");
-			String hidden = params.get("hidden");
-			
-			this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
-			
-			if(StringUtils.hasText(hidden) && hidden.equals("false")){
-				this.getFilter().put("hidden@eq",false);
-			}
-			
-			if (isHierarchical !=null && isHierarchical.equals("true")){
+			try{
+				String isHierarchical = params.get("isHierarchical");
+				String hidden = params.get("hidden");
 				
-				List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
-				getFilter().put("organ.id@in", topOrganList);
+				this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 				
-//				this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-				params.put("isLocal","false");
-			}
-		return super.getJsonList(property, term, all, params);
+				if(StringUtils.hasText(hidden) && hidden.equals("false")){
+					this.getFilter().put("hidden@eq",false);
+				}
+				
+				if (isHierarchical !=null && isHierarchical.equals("true")){
+					
+					List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
+					getFilter().put("organ.id@in", topOrganList);
+					
+	//				this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+					params.put("isLocal","false");
+				}
+			return super.getJsonList(property, term, all, params);
+		}catch(NoSaalMaaliFoundException e){
+			//e.printStackTrace();
+			System.out.println(e.getMessage());
+			return new ArrayList<>();
+		}
 	}
 	
 	
