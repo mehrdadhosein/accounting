@@ -1391,37 +1391,37 @@ public class SanadHesabdariForm extends
 		return getEntity().getDeletable().equals(YesNoEnum.YES);
 	}
 	
-	public void importSanadHesabdariFromCSVFileV1(){
-        String csvFile = "/Users/mkyong/csv/country.csv";
-        BufferedReader br = null;
-        String line = "";
-        String cvsSplitBy = ",";
-        try {
-
-            br = new BufferedReader(new FileReader(csvFile));
-            while ((line = br.readLine()) != null) {
-
-                // use comma as separator
-                String[] country = line.split(cvsSplitBy);
-
-                System.out.println("Country [code= " + country[4] + " , name=" + country[5] + "]");
-
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-	}
+//	public void importSanadHesabdariFromCSVFileV1(){
+//        String csvFile = "/Users/mkyong/csv/country.csv";
+//        BufferedReader br = null;
+//        String line = "";
+//        String cvsSplitBy = ",";
+//        try {
+//
+//            br = new BufferedReader(new FileReader(csvFile));
+//            while ((line = br.readLine()) != null) {
+//
+//                // use comma as separator
+//                String[] country = line.split(cvsSplitBy);
+//
+//                System.out.println("Country [code= " + country[4] + " , name=" + country[5] + "]");
+//
+//            }
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (br != null) {
+//                try {
+//                    br.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//	}
 	
 	public static void main(String[] args) {
 //		importSanadHesabdariFromCSVFileV2();
@@ -1466,7 +1466,7 @@ public class SanadHesabdariForm extends
             
             CSVReader reader=new CSVReader(
             	    new InputStreamReader(new FileInputStream(csvFile), "UTF-8"), 
-            	    ';', '\'', 1);
+            	    ',', '\'', 1);
             	    
             String[] line;
             Long sanadHesabdariSerial = null;
@@ -1487,8 +1487,8 @@ public class SanadHesabdariForm extends
             	String hesabName= line[7];
             	String tarikh = line[8];
             	String articleDescription = line[9];
-            	Double bedehkar = StringUtil.hasText(line[10]) ? new Double(line[10].replace(",", "")) : 0d;
-            	Double bestankar = StringUtil.hasText(line[11]) ? new Double(line[11].replace(",", "")) : 0d;
+            	Double bedehkar = StringUtil.hasText(line[10]) ? new Double(line[10].replace(",", "").replace("\"", "")) : 0d;
+            	Double bestankar = StringUtil.hasText(line[11]) ? new Double(line[11].replace(",", "").replace("\"", "")) : 0d;
 //                System.out.println("Country [id= " + line[0] + ", code= " + line[1] + " , name=" + line[2] + "]");
             	
             	SanadHesabdariItemEntity sanadHesabdariItemEntity = new SanadHesabdariItemEntity();
