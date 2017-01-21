@@ -1561,7 +1561,7 @@ public class SanadHesabdariService extends
 		localFilter.put("serial@eq", sanadHesabdariSerial);
 		localFilter.put("organ.id@eq", currentOrgan.getId());
 		localFilter.put("saalMaali.id@eq", activeSaalMaali.getId());
-		localFilter.put("state@neq", SanadStateEnum.EBTAL);
+		localFilter.put("state@notIn", Arrays.asList(SanadStateEnum.EBTAL, SanadStateEnum.MonthlySummary));
 		return load(null, localFilter);
 	}
 	
