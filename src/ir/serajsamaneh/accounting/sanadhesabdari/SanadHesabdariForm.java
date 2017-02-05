@@ -1101,6 +1101,7 @@ public class SanadHesabdariForm extends
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("tarikhSanad@le", tarikhSanadTo);
 		localFilter.put("saalMaali.id@eq", activeSaalmaali.getId());
+		localFilter.put("organ.id@eq", getCurrentOrgan().getId());
 		localFilter.put("state@eq", SanadStateEnum.BARRESI_SHODE);
 		List<SanadHesabdariEntity> dataList = getMyService().getDataList(null, localFilter, SanadHesabdariEntity.PROP_TARIKH_SANAD, true, false);
 		for (SanadHesabdariEntity sanadHesabdariEntity : dataList) {
