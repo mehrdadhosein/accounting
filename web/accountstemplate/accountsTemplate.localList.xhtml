@@ -9,7 +9,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
 
 
@@ -19,111 +19,177 @@
 	<ui:param name="searchpage"
 		value="/accountstemplate/accountsTemplate.exampleForm.xhtml" />
 	<ui:define name="listsection">
-<t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
-		<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
-			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			reflow="true"
-			 dir="rtl"
-			 id="accountsTemplates" value="#{accountsTemplate.localDataModel}"   headerClass="header"
-			var="item" rowClasses="RowOdd,RowEven" style="width: 97%" align="center" rows="#{accountsTemplate.rowsPerPage}">
+		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
+			<p:dataTable widgetVar="tableList"
+				emptyMessage="#{messages['common_noRecordsFound']}" paginator="true"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				reflow="true" dir="rtl" id="accountsTemplates"
+				value="#{accountsTemplate.localDataModel}" headerClass="header"
+				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
+				align="center" rows="#{accountsTemplate.rowsPerPage}">
 
-			
-	
-			<p:column>
-				<f:facet name="header">
-							<a4j:commandLink action="#{owner.sort}" render="accountsTemplates" 
-								onclick="showLoading();"	oncomplete="hideLoading();"
-								styleClass="headerCellClass" title="#{messages['AccountsTemplate_actionName']}">
-								<h:outputText styleClass="headerCellClass"
-									value="#{messages['AccountsTemplate_actionName']}" />
-								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
-									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
-								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
-									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
-								<f:setPropertyActionListener value="actionName"
-									target="#{owner.sortCol}" />
-							</a4j:commandLink>
-				</f:facet>
-				<h:outputText styleClass="CellClass"  value="#{item.actionName}" />
-			</p:column>
-			
-	
-			<p:column>
-				<f:facet name="header">
-							<a4j:commandLink action="#{owner.sort}" render="accountsTemplates" 
-								onclick="showLoading();"	oncomplete="hideLoading();"
-								styleClass="headerCellClass" title="#{messages['AccountsTemplate_actionId']}">
-								<h:outputText styleClass="headerCellClass"
-									value="#{messages['AccountsTemplate_actionId']}" />
-								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
-									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
-								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
-									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
-								<f:setPropertyActionListener value="actionId"
-									target="#{owner.sortCol}" />
-							</a4j:commandLink>
-				</f:facet>
-				<h:outputText styleClass="CellClass"  value="#{item.actionId}" />
-			</p:column>
-						
-			
-			
-			<p:column rendered="true" styleClass="action">
-				<f:facet name="header">
-					<h:outputText  styleClass="headerCellClass" value="#{messages['common_delete']}" />
-				</f:facet>
-			
-				<h:commandLink action="#{accountsTemplate.delete}"  immediate="true" onclick="if(!confirmDelete()) return false;">
-					<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
-					<f:setPropertyActionListener value="#{item.id}"  target="#{accountsTemplate.ID}"  converter="javax.faces.Long" />
-				</h:commandLink>
-			</p:column>
 
-			<p:column rendered="#{accountsTemplate.editable or true}" styleClass="action">
-				<f:facet name="header">
-					<h:outputText  styleClass="headerCellClass" value="#{messages['common_edit']}" />
-				</f:facet>
-			
-				<h:commandLink action="#{accountsTemplate.localEdit}"  immediate="true">
-					<h:graphicImage value="/images/edit.png" style="border:0"></h:graphicImage>
-					<f:setPropertyActionListener value="#{item.id}"  target="#{accountsTemplate.ID}"  converter="javax.faces.Long" />
-					<f:setPropertyActionListener value="/accountstemplate/accountsTemplate.localList.jsf"
-						target="#{owner.returnUrl}" />					
-				</h:commandLink>
-			</p:column>
-			<p:column styleClass="action">
-				<f:facet name="header">
-					<h:outputText  styleClass="headerCellClass" value="#{messages['common_view']}" />
-				</f:facet>
+
+				<p:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="accountsTemplates"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['AccountsTemplate_actionName']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['AccountsTemplate_actionName']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="actionName"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.actionName}" />
+				</p:column>
+
+
+				<p:column>
+					<f:facet name="header">
+						<a4j:commandLink action="#{owner.sort}" render="accountsTemplates"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['AccountsTemplate_actionId']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['AccountsTemplate_actionId']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="actionId"
+								target="#{owner.sortCol}" />
+						</a4j:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.actionId}" />
+				</p:column>
+
+
+
+				<p:column rendered="true" styleClass="action">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['common_delete']}" />
+					</f:facet>
+
+					<h:commandLink action="#{accountsTemplate.delete}" immediate="true"
+						onclick="if(!confirmDelete()) return false;">
+						<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{accountsTemplate.ID}" converter="javax.faces.Long" />
+					</h:commandLink>
+				</p:column>
+
+				<p:column rendered="#{accountsTemplate.editable or true}"
+					styleClass="action">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['common_edit']}" />
+					</f:facet>
+
+					<h:commandLink action="#{accountsTemplate.localEdit}"
+						immediate="true">
+						<h:graphicImage value="/images/edit.png" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{accountsTemplate.ID}" converter="javax.faces.Long" />
+						<f:setPropertyActionListener
+							value="/accountstemplate/accountsTemplate.localList.jsf"
+							target="#{owner.returnUrl}" />
+					</h:commandLink>
+				</p:column>
+				<p:column styleClass="action">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['common_view']}" />
+					</f:facet>
+
+					<h:commandLink action="#{accountsTemplate.localView}"
+						immediate="true">
+						<h:graphicImage value="/images/view.png" style="border:0"></h:graphicImage>
+						<f:setPropertyActionListener value="#{item.id}"
+							target="#{accountsTemplate.ID}" converter="javax.faces.Long" />
+						<f:setPropertyActionListener
+							value="/accountstemplate/accountsTemplate.localList.jsf"
+							target="#{owner.returnUrl}" />
+					</h:commandLink>
+				</p:column>
+
+
+
+				<p:column styleClass="action" style="width:100px; direction:ltr">
+					<p:splitButton value="#{messages['common_operation']}" dir="LTR">
 						
-				<h:commandLink action="#{accountsTemplate.localView}" immediate="true">
-				<h:graphicImage value="/images/view.png" style="border:0"></h:graphicImage>
-					<f:setPropertyActionListener value="#{item.id}"  target="#{accountsTemplate.ID}"  converter="javax.faces.Long" />
-					<f:setPropertyActionListener value="/accountstemplate/accountsTemplate.localList.jsf"
-						target="#{owner.returnUrl}" />					
-				</h:commandLink>
-			</p:column >
-		</p:dataTable>
-</t:div>		
-		<custom:dataTableRowCount for="accountsTemplates"/>
-			
+						<p:menuitem value="#{messages['common_edit']}"
+							action="#{accountsTemplate.localEdit}"
+							rendered="#{accountsTemplate.editable or true}" immediate="true"
+							ajax="false">
+
+							<f:setPropertyActionListener value="#{item.id}"
+								target="#{accountsTemplate.ID}" converter="javax.faces.Long" />
+							<f:setPropertyActionListener
+								value="/accountstemplate/accountsTemplate.localList.jsf"
+								target="#{owner.returnUrl}" />
+
+
+						</p:menuitem>
+						<p:menuitem value="#{messages['common_delete']}"
+							onclick="if(!confirmDelete()) return false;"
+							action="#{accountsTemplate.localView}" immediate="true"
+							rendered="true" ajax="false">
+
+							<f:setPropertyActionListener value="#{item.id}"
+								target="#{accountsTemplate.ID}" converter="javax.faces.Long" />
+
+						</p:menuitem>
+						<p:menuitem value="#{messages['common_view']}"
+							action="#{accountsTemplate.localView}" immediate="true"
+							ajax="false">
+							<f:setPropertyActionListener value="#{item.id}"
+								target="#{accountsTemplate.ID}" converter="javax.faces.Long" />
+							<f:setPropertyActionListener
+								value="/accountstemplate/accountsTemplate.localList.jsf"
+								target="#{owner.returnUrl}" />
+
+						</p:menuitem>
+					</p:splitButton>
+				</p:column>
+
+
+
+			</p:dataTable>
+		</t:div>
+		<custom:dataTableRowCount for="accountsTemplates" />
+
 	</ui:define>
 	<ui:define name="buttonsection">
-		<h:commandButton styleClass=" gwt-Button" rendered="#{accountsTemplate.editable or true}"
-			action="#{owner.createAutomaticSanadTemplates}" value="import"	/>
-	
-		<h:commandButton action="#{owner.localEdit}"  styleClass=" gwt-Button" 
-			rendered="#{accountsTemplate.editable or true}" value="#{messages['common_new']}"
-			immediate="true" image="/images/buttons/btn_add.png">
-			<f:setPropertyActionListener value="/accountstemplate/accountsTemplate.localList.jsf"
+		<h:commandButton styleClass=" gwt-Button"
+			rendered="#{accountsTemplate.editable or true}"
+			action="#{owner.createAutomaticSanadTemplates}" value="import" />
+
+		<h:commandButton action="#{owner.localEdit}" styleClass=" gwt-Button"
+			rendered="#{accountsTemplate.editable or true}"
+			value="#{messages['common_new']}" immediate="true"
+			image="/images/buttons/btn_add.png">
+			<f:setPropertyActionListener
+				value="/accountstemplate/accountsTemplate.localList.jsf"
 				target="#{owner.returnUrl}" />
 
 		</h:commandButton>
 
 		<h:commandButton action="#{owner.exportToExcel}"
-			 styleClass=" gwt-Button"  rendered=""
-			value="#{messages['common_excel']}" immediate="true" image="/images/excelBtn.png"/>
+			styleClass=" gwt-Button" rendered=""
+			value="#{messages['common_excel']}" immediate="true"
+			image="/images/excelBtn.png" />
 
-	</ui:define>		
+	</ui:define>
 </ui:composition>
 </html>
