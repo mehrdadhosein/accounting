@@ -1095,6 +1095,13 @@ public class SanadHesabdariForm extends
 		return  back();
 	}
 
+	public String resetSerialDaemi(){
+		getMyService().resetSerialDaemi(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		clearPage();
+		addInfoMessage("SUCCESSFUL_ACTION");
+		return null;
+	}
+	
 	public String tabdilBeDaemiByTarikh() {
 		//getMyService().tabdilBeDaemi(getTarikhSanadTo(),getCurrentOrgan());
 		SaalMaaliEntity activeSaalmaali = getCurrentUserActiveSaalMaali();

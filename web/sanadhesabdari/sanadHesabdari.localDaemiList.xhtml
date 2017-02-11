@@ -216,6 +216,7 @@
 		<h:commandButton action="#{owner.exportToPDF}"
 					styleClass=" gwt-Button" value="#{messages['common_pdf']}"
 					 image="/images/pdfBtn.png" />
+		<p:commandButton action="#{owner.resetSerialDaemi}" value="#{messages['SanadHesabdari_resetSerialDaemi']}" onclick="if(!confirmDelete()) return false;" ajax="false" />
 	</ui:define>
 </ui:composition>
 </html>

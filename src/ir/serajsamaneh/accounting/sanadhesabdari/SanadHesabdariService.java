@@ -899,8 +899,10 @@ public class SanadHesabdariService extends
 			HesabTafsiliEntity hesabTafsili = sanadHesabdariItemEntity.getHesabTafsili();
 
 			if(hesabTafsili != null){
-				hesabTafsili.setBedehkar(hesabTafsili.getBedehkar()-bedehkar);
-				hesabTafsili.setBestankr(hesabTafsili.getBestankr()-bestankar);
+				Double bedehkarAmount = hesabTafsili.getBedehkar()!=null ? hesabTafsili.getBedehkar() : 0;
+				Double bestankrAmount = hesabTafsili.getBestankr() != null ? hesabTafsili.getBestankr() : 0;
+				hesabTafsili.setBedehkar(bedehkarAmount-bedehkar);
+				hesabTafsili.setBestankr(bestankrAmount-bestankar);
 	
 				getHesabTafsiliService().save(hesabTafsili);
 			}
@@ -1668,5 +1670,18 @@ public class SanadHesabdariService extends
 	@Transactional
 	public void deleteMonthlySummarySanad(SanadHesabdariEntity entity) {
 		super.delete(entity.getId());
+	}
+	
+	@Transactional
+	public void resetSerialDaemi(SaalMaaliEntity activeSaalmaali, OrganEntity organ){
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("saalMaali.id@eq", activeSaalmaali.getId());
+		localFilter.put("organ.id@eq", organ.getId());
+		List<SanadHesabdariEntity> dataList = getDataList(null, localFilter, SanadHesabdariEntity.PROP_TARIKH_SANAD, true, false);
+		for (SanadHesabdariEntity sanadHesabdariEntity : dataList) {
+			sanadHesabdariEntity.setSerial(null);
+			update(sanadHesabdariEntity);
+			
+		}
 	}
 }
