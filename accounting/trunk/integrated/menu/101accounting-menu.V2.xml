@@ -2,10 +2,19 @@
 <Contexts>
 	<Context method="dosubmit">
 		<MenuItem value="حسابداری" separator="true" permission="accounting.menu">
-			<MenuItem value="اطلاعات پایه حسابداری" separator="true"
-				icon="images/menu/file-info-icon.png">
-				<MenuItem id="saalMaalilist"  value="سال مالی" valueClick="saalmaali/saalMaali.list.jsf"
+			<MenuItem value="تنظیمات" pagetitle="تنظیمات حسابداری">
+				<MenuItem id="saalMaalilist"  value="دوره مالی" valueClick="saalmaali/saalMaali.list.jsf"
 					permission="saalMaali.list" icon="images/menu/saalMali-icon.png" />
+				<MenuItem id="sanadTypelocalList" value="نوع سند" valueClick="sanadtype/sanadType.localList.jsf"
+					permission="sanadType.list" icon="images/menu/project-icon.png" />
+				<MenuItem id="accountingConfig" value="تنظیمات اولیه" valueClick="accountingsystemconfig/accountingSystemConfig.jsf"
+					permission="accounting.config" icon="images/menu/cart-icon.png" />
+				<MenuItem id="userConfig" value="دوره مالی فعال" valueClick="accountingsystemconfig/userConfig.jsf"
+					permission="user.config" icon="images/menu/cart-icon.png" />
+			</MenuItem>
+					
+			<MenuItem value="اطلاعات پایه" separator="true"
+				icon="images/menu/file-info-icon.png">
 				<MenuItem id="monthlist"  value="ماه" valueClick="month/month.localList.jsf"
 					permission="month.list" icon="images/menu/saalMali-icon.png" />
 				<MenuItem id="hesabGrouplist" value="گروه حساب" valueClick="hesabgroup/hesabGroup.localList.jsf"
@@ -16,12 +25,10 @@
 					permission="hesabMoeen.list" icon="images/menu/folder-vectors-icon.png" />
 				<MenuItem id="hesabTafsililocalList" value="حساب تفصیلی" valueClick="hesabtafsili/hesabTafsili.hierarchicalList.jsf"
 					permission="hesabTafsili.list" icon="images/menu/folder-documents-icon.png" />
+				<MenuItem id="hesabClassification.localList" value="گروه بندی تفصیل-شناور" valueClick="hesabclassification/hesabClassification.localList.jsf"
+					permission="hesabClassification.localList" icon="images/menu/folders-icon.png" />
 				<MenuItem id="accountingMarkazlocalList" value="مرکز" valueClick="accountingmarkaz/accountingMarkaz.localList.jsf"
 					permission="accountingMarkaz.list" icon="images/menu/costCenter-icon.png" />
-				<MenuItem id="sanadTypelocalList" value="نوع سند" valueClick="sanadtype/sanadType.localList.jsf"
-					permission="sanadType.list" icon="images/menu/project-icon.png" />
-				<MenuItem id="hesabClassification.localList" value="دسته بندی حساب" valueClick="hesabclassification/hesabClassification.localList.jsf"
-					permission="hesabClassification.localList" icon="images/menu/folders-icon.png" />
 
 										
 			</MenuItem>
@@ -38,7 +45,7 @@
 			</MenuItem>
 
 
-			<MenuItem value="اسناد حسابداری" icon="images/menu/sales-report-icon.png">
+			<MenuItem value="اسناد" icon="images/menu/sales-report-icon.png">
 				<MenuItem id="sanadHesabdarilocalEdit" value="جدید" pagetitle="سند حسابداری جدید"
 					valueClick="sanadhesabdari/sanadHesabdari.localEdit.advanced.jsf?newReturnUrl=/sanadhesabdari/sanadHesabdari.localList.xhtml"
 					permission="sanadHesabdari.localEdit" icon="images/menu/application-add-icon.png" />
@@ -69,7 +76,7 @@
 					permission="sanadHesabdari.localList" icon="images/menu/icon_news_archive.jpg" />
 
 			</MenuItem>
-			<MenuItem value="گزارشات حسابداری" icon="images/menu/report-icon.png">
+			<MenuItem value="گزارشات" icon="images/menu/report-icon.png">
 				<MenuItem value="دفتر" permission=""
 					icon="images/menu/book-icon.png">
 					<MenuItem id="sanadHesabdariItemdaftarRooznamehLocalList" value="دفتر روزنامه"
@@ -324,25 +331,19 @@
 				</MenuItem>
 			</MenuItem>
 
-			<MenuItem id="accountingConfig" value="تنظیمات حسابداری" valueClick="accountingsystemconfig/accountingSystemConfig.jsf"
-					permission="accounting.config" icon="images/menu/cart-icon.png" />
-			
-			<MenuItem id="userConfig" value="تنظیمات شخصی" valueClick="accountingsystemconfig/userConfig.jsf"
-					permission="user.config" icon="images/menu/cart-icon.png" />
-			
-			<MenuItem id="saalMaalilocalSpecialAction" value="عملیات ویژه"
+			<MenuItem id="saalMaalilocalSpecialAction" value="سند افتتاحیه-اختتامیه"
 				valueClick="saalmaali/saalMaali.localSpecialAction.jsf"
 				permission="saalMaali.localSpecialAction" icon="images/menu/hammer--pencil.png" />
 
-			<MenuItem value="نظارت سراسری" icon="images/menu/Document-icon.png">
+			<MenuItem value="نظارت سراسری" icon="images/menu/Document-icon.png" permission="user.adminPermission">
 				<MenuItem id="sanadHesabdarilist" value="سند" valueClick="sanadhesabdari/sanadHesabdari.list.jsf" pagetitle="سند نظارت سراسری"
-					permission="sanadHesabdari.list" icon="images/menu/sales-report-icon.png" />
+					permission="user.adminPermission" icon="images/menu/sales-report-icon.png" />
 
 				<MenuItem id="hesabTafsililist" value="حساب تفصیلی" valueClick="hesabtafsili/hesabTafsili.list.jsf" pagetitle="نظارت سراسری حساب تفصیلی"
-					permission="hesabTafsili.list" icon="images/menu/folder-documents-icon.png" />
+					permission="user.adminPermission" icon="images/menu/folder-documents-icon.png" />
 
 			</MenuItem>
-			<MenuItem id="help_accounting" value="راهنمای سیستم حسابداری" valueClick="doc/help_accounting.pdf" permission="hesabdari.help"
+			<MenuItem id="help_accounting" value="راهنما" valueClick="doc/help_accounting.pdf" permission="hesabdari.help"
 				 icon="images/menu/help-icon.png" />
 		</MenuItem>
 
