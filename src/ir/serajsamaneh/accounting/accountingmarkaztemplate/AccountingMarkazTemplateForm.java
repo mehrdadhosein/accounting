@@ -1,6 +1,7 @@
 package ir.serajsamaneh.accounting.accountingmarkaztemplate;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
@@ -155,14 +156,20 @@ public class AccountingMarkazTemplateForm extends BaseAccountingForm<AccountingM
 	public List<? extends BaseEntity> getJsonList(String property, String term,
 			boolean all, Map<String, String> params) {
 		
-		String isHierarchical = params.get("isHierarchical");
-		
-		if (isHierarchical !=null && isHierarchical.equals("true")){
-			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-			params.put("isLocal","false");
+		try{
+			String isHierarchical = params.get("isHierarchical");
+			
+			if (isHierarchical !=null && isHierarchical.equals("true")){
+				this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+				params.put("isLocal","false");
+			}
+			
+			return super.getJsonList(property, term, all, params);
+		}catch(NoSaalMaaliFoundException e){
+			//e.printStackTrace();
+			System.out.println(e.getMessage());
+			return new ArrayList<>();
 		}
-		
-		return super.getJsonList(property, term, all, params);
 	}
 
 	public Map<Long, List<ListOrderedMap>> getAccountingMarkazChildMap() {

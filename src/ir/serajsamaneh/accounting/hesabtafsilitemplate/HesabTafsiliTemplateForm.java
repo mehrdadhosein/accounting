@@ -1,6 +1,7 @@
 package ir.serajsamaneh.accounting.hesabtafsilitemplate;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
@@ -142,19 +143,25 @@ public class HesabTafsiliTemplateForm extends
 	public List<? extends BaseEntity> getJsonList(String property, String term,
 			boolean all, Map<String, String> params) {
 
-		String isHierarchical = params.get("isHierarchical");
-
-		// params.put("isLocal","false");
-		// getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(),
-		// "ding"));
-
-		if (isHierarchical != null && isHierarchical.equals("true")) {
-			this.getFilter().put("organ.code@startlk",
-					getCurrentUserActiveSaalMaali().getOrgan().getCode());
-			params.put("isLocal", "false");
+		try{
+			String isHierarchical = params.get("isHierarchical");
+	
+			// params.put("isLocal","false");
+			// getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(),
+			// "ding"));
+	
+			if (isHierarchical != null && isHierarchical.equals("true")) {
+				this.getFilter().put("organ.code@startlk",
+						getCurrentUserActiveSaalMaali().getOrgan().getCode());
+				params.put("isLocal", "false");
+			}
+	
+			return super.getJsonList(property, term, all, params);
+		}catch(NoSaalMaaliFoundException e){
+			//e.printStackTrace();
+			System.out.println(e.getMessage());
+			return new ArrayList<>();
 		}
-
-		return super.getJsonList(property, term, all, params);
 	}
 
 	@Override
