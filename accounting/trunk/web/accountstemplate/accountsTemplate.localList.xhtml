@@ -125,7 +125,13 @@
 
 
 
-				<p:column styleClass="action" style="width:100px; direction:ltr">
+				<p:column styleClass="action" style="width:100px; direction:ltr ;text-align:center">
+				<f:facet name="header">
+						<h:graphicImage
+							value="/images/filetypes/Utilities-Folder-icon (1).png"
+							style="border:0" width="35%">
+						</h:graphicImage>
+					</f:facet>
 					<p:splitButton value="#{messages['common_operation']}" dir="LTR">
 						
 						<p:menuitem value="#{messages['common_edit']}"
