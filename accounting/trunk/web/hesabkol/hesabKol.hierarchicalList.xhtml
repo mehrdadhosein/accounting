@@ -23,7 +23,7 @@
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
 			<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			
+			reflow="true"
 			 dir="rtl"
 			 id="hesabKols" value="#{hesabKol.dataModel}"
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
@@ -31,7 +31,7 @@
 
 
 
-				<p:column>
+				<p:column prioirity="2">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['Organ_title']}" />
@@ -39,7 +39,7 @@
 					<h:outputText styleClass="CellClass" value="#{item.organ}" />
 				</p:column>
 
-				<p:column>
+				<p:column prioirity="2">
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -167,7 +167,7 @@
 					<h:outputText styleClass="CellClass" value="#{item.hesabGroup}" />
 				</p:column>
 
-				<p:column>
+				<p:column prioirity="3">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['SaalMaali_title']}" />

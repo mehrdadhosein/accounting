@@ -24,7 +24,7 @@
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
 			<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}"
-				paginator="true"
+				paginator="true"   reflow="true"
 				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				 dir="rtl" id="sanadHesabdariItems"
 				value="#{sanadHesabdariItem.tarazTafsiliAzmayeshi}"

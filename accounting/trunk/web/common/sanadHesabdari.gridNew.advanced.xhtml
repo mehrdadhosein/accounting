@@ -210,7 +210,7 @@ width: 33%;
 					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px">').prop('id','hesabTafsili#{item}_id');
 					var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');
 
-					//$$(inputText).prop('class','m2mInput tafsiliInput');
+					$$(inputText).prop('class','tafsiliInput');
 					$$(inputText).attr('onchange','fireTafsiliShenavarOnChange("'+inpId+'");');
 					$$('#tafsilis').append(inputText);
 					$$('#tafsilis').append(inputHidden);
@@ -251,7 +251,7 @@ width: 33%;
 					
 					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:200px">').prop('id','accountingMarkaz#{item}_desc');
 					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px">').prop('id','accountingMarkaz#{item}_id');
-					//$$(inputText).prop('class','m2mInput accountingMarkazInput');
+					$$(inputText).prop('class','accountingMarkazInput');
 					$$(inputText).attr('onchange','fireAccountingMarkazShenavarOnChange("'+inpId+'");');
 
 					var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');					
