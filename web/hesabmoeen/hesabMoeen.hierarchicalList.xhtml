@@ -23,7 +23,7 @@
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
 			<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			
+			reflow="true"
 			 dir="rtl"
 			 id="hesabMoeens" value="#{hesabMoeen.dataModel}"
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
@@ -39,7 +39,7 @@
 					<h:outputText styleClass="CellClass" value="#{item.organ}" />
 				</p:column>
 
-				<p:column>
+				<p:column priority="2">
 					<f:facet name="header">
 						<a4j:commandLink action="#{owner.sort}" render="hesabMoeens"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -147,7 +147,7 @@
 				</p:column>
 
 
-				<p:column>
+				<p:column priority="3">
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['SaalMaali_title']}" />

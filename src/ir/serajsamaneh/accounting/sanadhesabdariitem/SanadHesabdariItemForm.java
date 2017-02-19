@@ -227,13 +227,16 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			List<Long> list = CSVtoListOfLongConverter.convert(hesabKolIds);
 			setHesabKolIds(list);
 			getFilter().put("hesabKol.id@in", getHesabKolIds());
-		}
+		}else
+			getFilter().put("hesabKol.id@in", null);
+		
 		String moeenIds = getRequest().getParameter("moeenIds");
 		if(StringUtils.hasText(moeenIds)){
 			List<Long> list = CSVtoListOfLongConverter.convert(moeenIds);
 			setMoeenIds(list);
 			getFilter().put("hesabMoeen.id@in", getMoeenIds());
-		}
+		}else
+			getFilter().put("hesabMoeen.id@in", null);
 		
 		String tafsiliIds = getRequest().getParameter("tafsiliIds");
 		if(StringUtils.hasText(tafsiliIds)){
@@ -242,6 +245,8 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			
 			if(getTafsiliIds()!=null && !getTafsiliIds().isEmpty())
 				getFilter().put("hesabTafsili.id@in", getTafsiliIds());
+			else
+				getFilter().put("hesabTafsili.id@in", null);
 		}
 		
 		String articleTafsiliIds = getRequest().getParameter("articleTafsiliIds");
@@ -250,6 +255,8 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			setArticleTafsiliIds(list);
 			if(getArticleTafsiliIds()!=null && !articleTafsiliIds.isEmpty())
 				getFilter().put("articleTafsili.hesabTafsili.id@in",getArticleTafsiliIds());			
+			else
+				getFilter().put("articleTafsili.hesabTafsili.id@in",null);
 		}
 		
 		String accountingMarkazIds = getRequest().getParameter("accountingMarkazIds");
@@ -258,6 +265,8 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			setAccountingMarkazIds(list);
 			if(getAccountingMarkazIds()!=null && !getAccountingMarkazIds().isEmpty())
 				getFilter().put("accountingMarkaz.id@in",getAccountingMarkazIds());			
+			else
+				getFilter().put("accountingMarkaz.id@in",null);
 		}
 		
 		String searchAction = getRequest().getParameter("searchAction");
@@ -351,11 +360,20 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	private void createCommonDaftarFilter() {
 
 		
-		getFilter().put("hesabKol.id@in", getHesabKolIds());
-		getFilter().put("hesabMoeen.id@in", getMoeenIds());
-		getFilter().put("hesabTafsili.id@in", getTafsiliIds());
-		getFilter().put("articleTafsili.hesabTafsili.id@in",getArticleTafsiliIds());
-		getFilter().put("accountingMarkaz.id@in",getAccountingMarkazIds());	
+		if(getHesabKolIds()!=null && !getHesabKolIds().isEmpty())
+			getFilter().put("hesabKol.id@in", getHesabKolIds());
+		
+		if(getMoeenIds()!=null && !getMoeenIds().isEmpty())
+			getFilter().put("hesabMoeen.id@in", getMoeenIds());
+		
+		if(getTafsiliIds()!=null && !getTafsiliIds().isEmpty())
+			getFilter().put("hesabTafsili.id@in", getTafsiliIds());
+		
+		if(getArticleTafsiliIds()!=null && !getArticleTafsiliIds().isEmpty())
+			getFilter().put("articleTafsili.hesabTafsili.id@in",getArticleTafsiliIds());
+		
+		if(getAccountingMarkazIds()!=null && !getAccountingMarkazIds().isEmpty())
+			getFilter().put("accountingMarkaz.id@in",getAccountingMarkazIds());	
 		
 		if(getSelectedSaalMaali()!=null)
 			getFilter().put("sanadHesabdari.saalMaali.id@eq",	getSelectedSaalMaali().getId());
