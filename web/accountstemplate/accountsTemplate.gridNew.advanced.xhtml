@@ -123,7 +123,7 @@
 		<h:panelGroup>
 			<div id="tafsilis">
 			</div>
-			<rich:list value="#{hesabMoeen.levels}" rendered="true"
+			<p:dataList value="#{hesabMoeen.levels}" rendered="true"
 				style="list-style-type: none;font-family:Tahoma;font-size:12px"
 				headerClass="header" var="item" align="center">
 				<script>
@@ -138,7 +138,7 @@
 					$$('#tafsilis').append(inputHidden);
 				/* ]]> */
 				</script>
-			</rich:list>
+			</p:dataList>
 			</h:panelGroup>
 
 
@@ -161,7 +161,7 @@
 		<h:panelGroup>
 			<div id="accountingMarkazs">
 			</div>
-			<rich:list value="#{hesabMoeen.levels}" rendered="true"
+			<p:dataList value="#{hesabMoeen.levels}" rendered="true"
 				style="list-style-type: none;font-family:Tahoma;font-size:12px"
 				headerClass="header" var="item" align="center">
 				<script>
@@ -176,7 +176,7 @@
 					$$('#accountingMarkazs').append(inputHidden);
 				/* ]]> */
 				</script>
-			</rich:list>
+			</p:dataList>
 			</h:panelGroup>
 
 				<h:panelGroup>
