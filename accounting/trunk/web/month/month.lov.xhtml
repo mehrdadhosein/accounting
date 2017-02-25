@@ -44,45 +44,51 @@
 	</ui:define>	
 	<ui:define name="listsection">
 	<t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
-		<rich:dataTable id="months" value="#{month.dataModel}" var="item"
-			rowClasses="RowOdd,RowEven" rows="10" style="width:100%" headerClass="header">
 
+
+			<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			
-																			<rich:column>
+			 dir="rtl"
+			 headerClass="header" id="months"
+				value="#{month.dataModel}" var="item" rowClasses="RowOdd,RowEven"
+				style="width:97%" align="center" rows="#{month.rowsPerPage}">
+			
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['Month_name']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.name}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['Month_description']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.description}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['Month_endDate']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.endDate}" />
-							</rich:column>
-																			<rich:column>
+							</p:column>
+																			<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['Month_startDate']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.startDate}" />
-							</rich:column>
-																											<rich:column>
+							</p:column>
+																											<p:column>
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['Month_saalMaali']}" />
 								</f:facet>
 								<h:outputText  styleClass="CellClass" value="#{item.saalMaali}" />
-							</rich:column>
-											<rich:column>
+							</p:column>
+											<p:column>
 				<h:commandButton  value="#{messages['lov_select']}"  
 					 onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false"/>
-			</rich:column>
-		</rich:dataTable>
+			</p:column>
+		</p:dataTable>
 		</t:div>
 		<custom:scroller onpagechange="showLoading();"
 			oncomplete="hideLoading();" for="months"></custom:scroller>

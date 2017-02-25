@@ -20,12 +20,17 @@
 		value="/month/month.exampleForm.xhtml" />
 	<ui:define name="listsection">
 <t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
-		<rich:dataTable id="months" value="#{month.localArchiveDataModel}"   headerClass="header"
-			var="item" rowClasses="RowOdd,RowEven" style="width: 97%" align="center" rows="#{month.rowsPerPage}">
 
+
+			<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			
+			 dir="rtl"
+			 headerClass="header" id="months"
+				value="#{month.localArchiveDataModel}" var="item" rowClasses="RowOdd,RowEven"
+				style="width:97%" align="center" rows="#{month.rowsPerPage}">			
 	
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="months" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -41,9 +46,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.name}" />
-			</rich:column>
+			</p:column>
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="months" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -59,8 +64,8 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.description}" />
-			</rich:column>
-					<rich:column>
+			</p:column>
+					<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="months" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -76,8 +81,8 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass" value="#{item.endDateFA}" />
-			</rich:column>				 
-					<rich:column>
+			</p:column>				 
+					<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="months" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -93,9 +98,9 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass" value="#{item.startDateFA}" />
-			</rich:column>				 
+			</p:column>				 
 		
-			<rich:column>
+			<p:column>
 				<f:facet name="header">
 							<a4j:commandLink action="#{owner.sort}" render="months" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
@@ -111,11 +116,11 @@
 							</a4j:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.saalMaali}" />
-			</rich:column>
+			</p:column>
 						
 			
 			
-			<rich:column rendered="#{month.deletable and false}" styleClass="action">
+			<p:column rendered="#{month.deletable and false}" styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_delete']}" />
 				</f:facet>
@@ -124,9 +129,9 @@
 					<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
 					<f:setPropertyActionListener value="#{item.id}"  target="#{month.ID}"  converter="javax.faces.Long" />
 				</h:commandLink>
-			</rich:column>
+			</p:column>
 
-			<rich:column rendered="#{month.editable and false}" styleClass="action">
+			<p:column rendered="#{month.editable and false}" styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_edit']}" />
 				</f:facet>
@@ -137,8 +142,8 @@
 					<f:setPropertyActionListener value="/month/month.localArchiveList.jsf"
 						target="#{owner.returnUrl}" />					
 				</h:commandLink>
-			</rich:column>
-			<rich:column styleClass="action">
+			</p:column>
+			<p:column styleClass="action">
 				<f:facet name="header">
 					<h:outputText  styleClass="headerCellClass" value="#{messages['common_view']}" />
 				</f:facet>
@@ -149,8 +154,8 @@
 					<f:setPropertyActionListener value="/month/month.localArchiveList.jsf"
 						target="#{owner.returnUrl}" />					
 				</h:commandLink>
-			</rich:column >
-		</rich:dataTable>
+			</p:column >
+		</p:dataTable>
 </t:div>		
 		<custom:scroller for="months" ></custom:scroller>
 			

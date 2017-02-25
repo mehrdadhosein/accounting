@@ -48,8 +48,7 @@
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
 			</p:column>
 		</p:dataTable>
-		<rich:datascroller for="hesabGroups"
-			binding="#{hesabGroup.datascroller}"></rich:datascroller>
+		<custom:dataTableRowCount for="hesabGroups"></custom:dataTableRowCount>
 
 	</ui:define>
 	<ui:define name="quickCreateSection">

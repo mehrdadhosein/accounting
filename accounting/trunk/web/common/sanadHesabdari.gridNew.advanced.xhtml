@@ -198,7 +198,7 @@ width: 33%;
 		<h:panelGroup  rendered="#{hesabMoeen.levelsSize > 0}">
 			<div id="tafsilis">
 			</div>
-			<rich:list value="#{hesabMoeen.levels}" rendered="true"
+			<p:dataList value="#{hesabMoeen.levels}" rendered="true"
 				style="list-style-type: none;font-family:Tahoma;font-size:12px"
 				headerClass="header" var="item" align="center">
 				<script>
@@ -218,7 +218,7 @@ width: 33%;
 					$$('#tafsilis').append('<br/>');
 				/* ]]> */
 				</script>
-			</rich:list>
+			</p:dataList>
 			</h:panelGroup>
 
 
@@ -240,7 +240,7 @@ width: 33%;
 		<h:panelGroup rendered="#{hesabMoeen.levelsSize > 0}">
 			<div id="accountingMarkazs">
 			</div>
-			<rich:list value="#{hesabMoeen.levels}" rendered="true"
+			<p:dataList value="#{hesabMoeen.levels}" rendered="true"
 				style="list-style-type: none;font-family:Tahoma;font-size:12px"
 				headerClass="header" var="item" align="center">
 				<script>
@@ -262,7 +262,7 @@ width: 33%;
 					$$('#accountingMarkazs').append('<br/>');					
 				/* ]]> */
 				</script>
-			</rich:list>
+			</p:dataList>
 			</h:panelGroup>
 			
 		<h:panelGroup>
