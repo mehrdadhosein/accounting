@@ -14,18 +14,7 @@
 
 <script type='text/javascript'
 	src='${request.contextPath}/accountstemplate/accountsTemplate.gridNew.advanced.js?p=23'> </script>
-<style>
-.dialogViewLableCol {
-	text-align: left;
-	width: 33%;
-	vertical-align: middle;
-	font-family: tahoma;
-	color: gray;
-	font-size: 12px;
-	padding-left: 10px;
-}
 
-</style>
 <script type="text/javascript">
 
 /* <![CDATA[ */
@@ -123,7 +112,7 @@
 		<h:panelGroup>
 			<div id="tafsilis">
 			</div>
-			<p:dataList value="#{hesabMoeen.levels}" rendered="true"
+			<p:dataList   type="definition" class="datalist-noborder" value="#{hesabMoeen.levels}" rendered="true"
 				style="list-style-type: none;font-family:Tahoma;font-size:12px"
 				headerClass="header" var="item" align="center">
 				<script>
@@ -132,7 +121,7 @@
 					var inpId = 'hesabTafsiliTemplate#{item}_id';
 					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:220px">').prop('id','hesabTafsiliTemplate#{item}_desc');
 					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:220px">').prop('id','hesabTafsiliTemplate#{item}_id');
-					$$(inputText).prop('class','m2mInput tafsiliInput');
+					$$(inputText).prop('class','tafsiliInput');
 					$$(inputText).attr('onchange','fireTafsiliShenavarOnChange("'+inpId+'");');
 					$$('#tafsilis').append(inputText);
 					$$('#tafsilis').append(inputHidden);
@@ -161,7 +150,7 @@
 		<h:panelGroup>
 			<div id="accountingMarkazs">
 			</div>
-			<p:dataList value="#{hesabMoeen.levels}" rendered="true"
+			<p:dataList   type="definition" class="datalist-noborder" value="#{hesabMoeen.levels}" rendered="true" 
 				style="list-style-type: none;font-family:Tahoma;font-size:12px"
 				headerClass="header" var="item" align="center">
 				<script>
@@ -170,7 +159,7 @@
 					var inpId = 'accountingMarkaz#{item}_id';
 					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:220px">').prop('id','accountingMarkaz#{item}_desc');
 					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:220px">').prop('id','accountingMarkaz#{item}_id');
-					$$(inputText).prop('class','m2mInput accountingMarkazInput');
+					$$(inputText).prop('class','accountingMarkazInput');
 					$$(inputText).attr('onchange','fireAccountingMarkazShenavarOnChange("'+inpId+'");');
 					$$('#accountingMarkazs').append(inputText);
 					$$('#accountingMarkazs').append(inputHidden);
@@ -399,9 +388,10 @@
 							{name :'act', index :'act', width :30, sortable :false}, 
 							{name :'editAct', index :'editAct', width :45, sortable :false}
 						],
-						multiselect :false,
-						viewrecords: true, 
 						autowidth: true, 
+						shrinkToFit: true,
+						multiselect :false,
+						viewrecords: true,  
 						pager: '#sanadHesabdariPcustbut',
 						rowNum:50, 
 						rownumbers: true,
