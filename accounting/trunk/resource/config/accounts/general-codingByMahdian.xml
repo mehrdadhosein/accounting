@@ -186,6 +186,14 @@
 	<HesabKol mahyat="Bestankar" id="317" code="317" name="مازاد تجدید ارزیابی دارایی ها" HesabGroup="31"/>
 	<HesabMoeen id="3171" code="3171" name="مازاد تجدید ارزیابی ساختمان"	hesabKol="317" />
 	<HesabMoeen id="3172" code="3172" name="مازاد تجدید ارزیابی ماشین آلات وتجهیزات"	hesabKol="317" />
+	
+	<HesabKol mahyat="Bestankar" id="319" code="319" name="سود انباشته" HesabGroup="31"/>
+	<HesabMoeen id="3191" code="3191" name="سود (زیان)انباشته"	hesabKol="319" />
+	<HesabMoeen id="3192" code="3192" name="تعدیلات سنواتی "	hesabKol="319" />
+	<HesabMoeen id="3193" code="3193" name="سودوزیان سال جاری"	hesabKol="319" />
+	
+	<HesabKol mahyat="Bestankar" id="411" code="411" name="فروش" HesabGroup="41"/>
+	<HesabMoeen id="3191" code="3191" name="سود (زیان)انباشته"	hesabKol="319" />
 		
 	
 	
