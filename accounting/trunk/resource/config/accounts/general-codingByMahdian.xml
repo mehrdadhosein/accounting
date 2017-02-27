@@ -193,9 +193,39 @@
 	<HesabMoeen id="3193" code="3193" name="سودوزیان سال جاری"	hesabKol="319" />
 	
 	<HesabKol mahyat="Bestankar" id="411" code="411" name="فروش" HesabGroup="41"/>
-	<HesabMoeen id="3191" code="3191" name="سود (زیان)انباشته"	hesabKol="319" />
+	<HesabMoeen id="4111" code="4111" name="قروش محصولات داخلی"	hesabKol="411" />
+	<HesabMoeen id="4112" code="4112" name="فروش محصولات خارجی"	hesabKol="411" />
 		
+	<HesabKol mahyat="Bedehkar" id="412" code="412" name="برگشت از فروش وتخفیفات" HesabGroup="41"/>
+	<HesabMoeen id="4121" code="4121" name="برگشت از فروش محصولات داخلی"	hesabKol="412" />
+	<HesabMoeen id="4122" code="4122" name="برگشت ازفروش محصولات صادراتی"	hesabKol="412" />
+	<HesabMoeen id="41210" code="41210" name="تخفیفات محصولات صادراتی"	hesabKol="412" />
+	<HesabMoeen id="41211" code="41211" name="تخفیفات فروش داخلی"	hesabKol="412" />
+	<HesabMoeen id="41230" code="41230" name="تخفیفات درآمد خدمات"	hesabKol="412" />
 	
+	<HesabKol mahyat="Bestankar" id="415" code="415" name="درآمد حاصل ارائه خدمات" HesabGroup="41"/>
+	<HesabMoeen id="4151" code="4151" name="درآمد حاصل از ارائه خدمات داخلی"	hesabKol="415" />
+	<HesabMoeen id="41501" code="41501" name="خدمات ویزیت"	hesabKol="415" />
+	<HesabMoeen id="41502" code="41502" name="خدمات ارسال"	hesabKol="415" />
+	<HesabMoeen id="41503" code="41503" name="خدمات بسته بندی"	hesabKol="415" />
+	
+	<HesabKol mahyat="Bestankar" id="417" code="417" name="سایر درآمدهای عملیاتی" HesabGroup="41"/>
+	<HesabMoeen id="4171" code="4171" name="فروش ضایعات"	hesabKol="417" />
+	<HesabMoeen id="4172" code="4172" name="سود حاصل از فروش مواد اولیه"	hesabKol="417" />
+	<HesabMoeen id="4173" code="4173" name="سود ناشی از تسعیر ارز,دارایی ها بدهی ها عملیاتی"	hesabKol="417" />
+	<HesabMoeen id="4175" code="4175" name="سایر درآمدهای عملیاتی"	hesabKol="417" />
+	<HesabMoeen id="41701" code="41701" name="سود وزیان فروش ضایعات"	hesabKol="417" />
+	<HesabMoeen id="41706" code="41706" name="فروش مواد اولیه"	hesabKol="417" />
+	
+	<HesabKol mahyat="Bedehkar" id="501" code="501" name="بهای تمام شده کالا وخدمات فروش رفته" HesabGroup="51"/>
+	<HesabMoeen id="5011" code="5011" name="بهای تمام شده کالای فروش رفته داخلی"	hesabKol="501" />
+	<HesabMoeen id="5012" code="5012" name="بهای تمام شده کالای فروش رفته صادراتی"	hesabKol="501" />
+	
+	<HesabKol mahyat="Bedehkar" id="502" code="502" name="بهای تمام شده خدمات ارائه شده" HesabGroup="51"/>
+	<HesabMoeen id="5021" code="5021" name="بهای تمام شده خدمات ارائه شده"	hesabKol="502" />
+	
+	<HesabKol mahyat="Bedehkar" id="512" code="512" name="هزینه حقوق ودستمزد" HesabGroup="61"/>
+	<HesabMoeen id="5021" code="5021" name="بهای تمام شده خدمات ارائه شده"	hesabKol="512" />
 	
 	
 	
