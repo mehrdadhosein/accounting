@@ -329,7 +329,54 @@
 	<HesabMoeen id="52407" code="52407" name="سودوزیان ناشی از فروش دارایی ها"	hesabKol="524" />
 	<HesabMoeen id="52408" code="52408" name="سود وزیان بیمه دارایی ها"	hesabKol="524" />
 	
+	<HesabKol mahyat="Bedehkar" id="530" code="530" name="هزینه های غیر مترقبه" HesabGroup="62"/>
+	<HesabMoeen id="53001" code="53001" name="مغایرت جذب سربار دوایر تولیدی"	hesabKol="530" />
+	<HesabMoeen id="53002" code="53002" name="سایر هزینه های غیر مترقبه"	hesabKol="530" />
 	
+	<HesabKol mahyat="Bedehkar" id="600" code="600" name="جذب هزینه های تبدیل دوایر تولیدی" HesabGroup="71"/>
+	<HesabMoeen id="60001" code="60001" name="جذب هزینه های دستمزد"	hesabKol="600" />
+	<HesabMoeen id="60002" code="60002" name="جذب هزینه های سربار	"	hesabKol="600" />
 	
+	<HesabKol mahyat="Bedehkar" id="601" code="601" name="تسهیم هزینه های دوایر خدماتی" HesabGroup="71"/>
+	<HesabMoeen id="60101" code="60101" name="سهم سربار از دوایر خدماتی"	hesabKol="601" />
+	<HesabMoeen id="60102" code="60102" name="تسهیم سربار دوایر خدماتی"	hesabKol="601" />
+	
+	<HesabKol mahyat="Bedehkar" id="602" code="602" name="انحراف مواد اولیه" HesabGroup="71"/>
+	<HesabMoeen id="60201" code="60201" name="انحراف نرخ مصرف مواد"	hesabKol="602" />
+	<HesabMoeen id="60202" code="60202" name="انحراف مصرف مواد"	hesabKol="602" />	
+	
+	<HesabKol mahyat="Bedehkar" id="603" code="603" name="انحراف هزینه های تبدیل" HesabGroup="71"/>
+	<HesabMoeen id="60301" code="60301" name="انحراف هزینه دستمزد"	hesabKol="603" />
+	<HesabMoeen id="60302" code="60302" name="انحراف هزینه سربار"	hesabKol="603" />
+	
+	<HesabKol mahyat="Bedehkar" id="604" code="604" name="انتقال هزینه های تبدیل تولید" HesabGroup="71"/>
+	<HesabMoeen id="60401" code="60401" name="انتقال هزینه های دستمزد"	hesabKol="604" />
+	<HesabMoeen id="60402" code="60402" name="انتقال هزینه های سربار"	hesabKol="604" />
+	
+	<HesabKol mahyat="Undefined" id="800" code="800" name="افتتاحیه" HesabGroup="81"/>
+	<HesabMoeen id="80001" code="80001" name="حساب افتتاحیه"	hesabKol="800" />
+	
+	<HesabKol mahyat="Undefined" id="801" code="801" name="اختتامیه" HesabGroup="81"/>
+	<HesabMoeen id="80101" code="80101" name="اختتامیه"	hesabKol="801" />
+	
+	<HesabKol mahyat="Undefined" id="901" code="901" name="حسابهای انتظامی به نفع شرکت" HesabGroup="91"/>
+	<HesabMoeen id="90101" code="90101" name="ضمانت نامه های انجام مناقصه ومزایده"	hesabKol="901" />
+	<HesabMoeen id="90102" code="90102" name="ضمانت نامه های حسن انجام کار"	hesabKol="901" />
+	<HesabMoeen id="90103" code="90103" name="اسناد تضمینی دریافتی از کارکنان"	hesabKol="901" />
+	<HesabMoeen id="90104" code="90104" name="ضمانت نامه های بانکی"	hesabKol="901" />
+	<HesabMoeen id="90105" code="90105" name="سایر اسناد تضمینی به نفع شرکت"	hesabKol="901" />
+	<HesabMoeen id="90106" code="90106" name="اسناد تضمینی تنخواه"	hesabKol="901" />
+	<HesabMoeen id="90107" code="90107" name="کالای امانی ما نزد دیگران"	hesabKol="901" />
+	
+	<HesabKol mahyat="Undefined" id="902" code="902" name="حسابهای انتظامی عهده شرکت" HesabGroup="92"/>
+	<HesabMoeen id="90201" code="90201" name="ضمانت نامه های شرکت در مناقصه ومزایده"	hesabKol="902" />
+	<HesabMoeen id="90202" code="90202" name="90202	ضمانت نامه های حسن انجام کار"	hesabKol="902" />
+	<HesabMoeen id="90203" code="90203" name="اسنادتضمینی بابت سفارشات"	hesabKol="902" />
+	<HesabMoeen id="90204" code="90204" name="اسناد تضمینی بابت ضمانت نامه های گمرکی"	hesabKol="902" />
+	<HesabMoeen id="90205" code="90205" name="اسناد تضمینی بابت تسهیلات مالی دریافتی"	hesabKol="902" />
+	
+	<HesabKol mahyat="Undefined" id="903" code="903" name="طرف حسابهای انتظامی" HesabGroup="91"/>
+	<HesabMoeen id="90301" code="90301" name="طرف حساب انتظامی بنفع شرکت"	hesabKol="903" />
+	<HesabMoeen id="90302" code="90302" name="طرف حساب انتظامی بعهده شرکت"	hesabKol="903" />
 	
 </accounts>
