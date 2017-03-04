@@ -1,23 +1,24 @@
 package ir.serajsamaneh.accounting.hesabmoeentemplate;
 
-import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
-import ir.serajsamaneh.core.base.BaseHibernateDAO;
-import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.FlushMode;
 
+import ir.serajsamaneh.core.base.BaseHibernateDAO;
+import ir.serajsamaneh.core.organ.OrganEntity;
+import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
+
 public class HesabMoeenTemplateDAO  extends BaseHibernateDAO<HesabMoeenTemplateEntity,Long> {
 
 
 
-	public HesabMoeenTemplateEntity getGlobalHesabMoeenTemplateByCode(String hesabCode) {
+	public HesabMoeenTemplateEntity getHesabMoeenTemplateByCode(String hesabCode, OrganEntity organ) {
 		
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
+		localFilter.put("organ.id@eq", organ.getId());
 		List<HesabMoeenTemplateEntity> dataList = getDataList(null, localFilter,null, null, FlushMode.MANUAL,false);
 		if (dataList.size() == 1)
 			return dataList.get(0);

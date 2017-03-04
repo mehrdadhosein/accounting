@@ -93,7 +93,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 		String hesabMoeenCode = hesabTafsiliElem.getAttribute("hesabMoeen");
 		String hesabTafsiliCode = hesabTafsiliElem.getAttribute("code");
 		String hesabTafsiliName = hesabTafsiliElem.getAttribute("name");
-		getHesabTafsiliTemplateDAO().saveGlobal(hesabTafsiliCode, hesabTafsiliName, hesabMoeenCode, organEntity);
+		getHesabTafsiliTemplateDAO().save(hesabTafsiliCode, hesabTafsiliName, hesabMoeenCode, organEntity);
 		getLogger().info("hesabTafsili created : "+hesabTafsiliCode);
 		
 	}
@@ -104,7 +104,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 		String hesabMoeenCode = hesabMoeenElem.getAttribute("code");
 		String hesabMoeenName = hesabMoeenElem.getAttribute("name");
 		
-		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateDAO().getGlobalHesabMoeenTemplateByCode(hesabMoeenCode);
+		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateDAO().getHesabMoeenTemplateByCode(hesabMoeenCode, organ);
 		if (hesabMoeenTemplateEntity == null)
 			hesabMoeenTemplateEntity = new HesabMoeenTemplateEntity();
 		hesabMoeenTemplateEntity.setScope(HesabScopeEnum.GLOBAL);
@@ -158,7 +158,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 		String code = hesbaGroupElem.getAttribute("code");
 		String mahyatEnum = hesbaGroupElem.getAttribute("mahyat");
 		String hesabGroupName = hesbaGroupElem.getAttribute("name");
-		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(code);
+		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(code, organ);
 		if (hesabGroupTemplateEntity == null)
 			hesabGroupTemplateEntity = new HesabGroupTemplateEntity();
 		hesabGroupTemplateEntity.setName(hesabGroupName);

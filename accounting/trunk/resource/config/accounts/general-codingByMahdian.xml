@@ -33,9 +33,9 @@
 	<HesabMoeen id="1127" code="1127" name="سپرده شرکت در مناقصه و مزایده"	hesabKol="112" />
 	<HesabMoeen id="1128" code="1128" name="سپرده های گمرکی"	hesabKol="112" />
 	
-	<HesabKol mahyat="Bedehkar" id="113" code="113" name="اسنادوحساب دریافتنی تجاری" HesabGroup="11"/>
+	<HesabKol mahyat="Bedehkar" id="113" code="113" name="اسناد و حساب دریافتنی تجاری" HesabGroup="11"/>
 	<HesabMoeen id="1131" code="1131" name="اسناد دریافتنی تجاری"	hesabKol="113" />
-	<HesabMoeen id="1132" code="1132" name="حسابتای دریافتنی نجاری"	hesabKol="113" />
+	<HesabMoeen id="1132" code="1132" name="حسابهای دریافتنی نجاری"	hesabKol="113" />
 	
 	<HesabKol mahyat="Bedehkar" id="114" code="114" name="اسنادوحساب دریافتنی غیر تجاری " HesabGroup="11"/>
 	<HesabMoeen id="1141" code="1141" name="اسناد دریافتنی غیرتجاری"	hesabKol="114" />
