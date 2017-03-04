@@ -78,9 +78,9 @@ public class HesabMoeenTemplateService extends
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_NAME, entity.getName(),	localFilter, false);
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_CODE, entity.getCode(),	localFilter, false);
 	}
-	public HesabMoeenTemplateEntity getGlobalHesabMoeenTemplateByCode(String hesabCode) {
-		return getMyDAO().getGlobalHesabMoeenTemplateByCode(hesabCode);
-	}
+//	public HesabMoeenTemplateEntity getGlobalHesabMoeenTemplateByCode(String hesabCode) {
+//		return getMyDAO().getHesabMoeenTemplateByCode(hesabCode);
+//	}
 
 	@Transactional(readOnly = false)
 	public HesabMoeenTemplateEntity createHesabMoeenTemplate(String hesabMoeenCode, String hesabMoeenName, String hesabKolCode, OrganEntity organEntity, Boolean hidden) {

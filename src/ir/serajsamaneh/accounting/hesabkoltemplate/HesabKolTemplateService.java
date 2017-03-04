@@ -101,7 +101,7 @@ public class HesabKolTemplateService extends
 			return;
 		File dir = new File(resource.getFile());
 
-		FilenameFilter filter = new WildcardFileFilter("general-accounts.xml");
+		FilenameFilter filter = new WildcardFileFilter("general-codingByMahdian.xml");
 		String[] list = dir.list(filter);
 
 		for (String fileName : list) {
