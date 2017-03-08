@@ -118,11 +118,11 @@
 	<HesabMoeen id="1322" code="1322" name="سپرده نزد صندوق دادگستری"	hesabKol="132" />
 	
 	<HesabKol mahyat="Bestankar" id="211" code="211" name="حساب واسناد پرداختنی تجاری" HesabGroup="21"/>
-	<HesabMoeen id="2111" code="2111" name="اسناد پرداختنی تجاری"	hesabKol="211" />
-	<HesabMoeen id="2112" code="2112" name="حسابهای پرداختنی تجاری"	hesabKol="211" />
+	<HesabMoeen id="2111" code="2111" name=" اسناد پرداختنی تجاری"	hesabKol="211" />
+	<HesabMoeen id="2112" code="2112" name=" حسابهای پرداختنی تجاری"	hesabKol="211" />
 	
 	<HesabKol mahyat="Bestankar" id="212" code="212" name="سابرحساب واسناد پرداختنی غیر تجاری" HesabGroup="21"/>
-	<HesabMoeen id="2120" code="2120" name="اسناد پرداختنی غیر تجاری"	hesabKol="212" />
+	<HesabMoeen id="2120" code="2120" name=" اسناد پرداختنی غیر تجاری"	hesabKol="212" />
 	<HesabMoeen id="2121" code="2121" name="حسابهای پرداختنی غیر تجاری"	hesabKol="212" />
 	<HesabMoeen id="2122" code="2122" name="حق بیمه پرداختنی"	hesabKol="212" />
 	<HesabMoeen id="2123" code="2123" name="مالیات های تکلیفی پرداختنی"	hesabKol="212" />
@@ -132,7 +132,7 @@
 	<HesabMoeen id="2127" code="2127" name="ذخیره هزینه های معوق پرداختنی"	hesabKol="212" />
 	<HesabMoeen id="2128" code="2128" name="حسابهای پرداختنی اشخاص وابسته"	hesabKol="212" />
 	<HesabMoeen id="2129" code="2129" name="جاری شرکاء"	hesabKol="212" />
-	<HesabMoeen id="2193" code="2120" name="سایرپیش دریافت"	hesabKol="212" />
+	<HesabMoeen id="2193" code="2193" name="سایرپیش دریافت"	hesabKol="212" />
 	
 	<HesabKol mahyat="Bestankar" id="214" code="214" name="مالیات پرداختنی" HesabGroup="21"/>
 	<HesabMoeen id="2141" code="2141" name="مالیات پرداختنی عملکرد"	hesabKol="214" />
@@ -234,7 +234,7 @@
 	<HesabMoeen id="51207" code="51207" name="هزینه حق اولاد"	hesabKol="512" />
 	<HesabMoeen id="51208" code="51208" name="هزینه حق سرپرستی"	hesabKol="512" />
 	<HesabMoeen id="51209" code="51209" name="هزینه سختی کار"	hesabKol="512" />
-	<HesabMoeen id="51210" code="51210" name="هزینه ایاب وذهاب"	hesabKol="512" />
+	<HesabMoeen id="51210" code="51210" name=" هزینه ایاب وذهاب"	hesabKol="512" />
 	<HesabMoeen id="51212" code="51212" name="هزینه بدی آب وهوا"	hesabKol="512" />
 	<HesabMoeen id="51213" code="51213" name="هزینه پاداش بهره وری تولید"	hesabKol="512" />
 	<HesabMoeen id="51214" code="51214" name="هزینه مرخصی استفاده نشده"	hesabKol="512" />
@@ -366,7 +366,7 @@
 	<HesabMoeen id="90104" code="90104" name="ضمانت نامه های بانکی"	hesabKol="901" />
 	<HesabMoeen id="90105" code="90105" name="سایر اسناد تضمینی به نفع شرکت"	hesabKol="901" />
 	<HesabMoeen id="90106" code="90106" name="اسناد تضمینی تنخواه"	hesabKol="901" />
-	<HesabMoeen id="90107" code="90107" name="کالای امانی ما نزد دیگران"	hesabKol="901" />
+	<HesabMoeen id="90107" code="90107" name=" کالای امانی ما نزد دیگران"	hesabKol="901" />
 	
 	<HesabKol mahyat="Undefined" id="902" code="902" name="حسابهای انتظامی عهده شرکت" HesabGroup="92"/>
 	<HesabMoeen id="90201" code="90201" name="ضمانت نامه های شرکت در مناقصه ومزایده"	hesabKol="902" />
