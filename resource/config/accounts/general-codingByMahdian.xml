@@ -77,10 +77,10 @@
 	<HesabMoeen id="1192" code="1192" name="اموال ..."	hesabKol="119" />
 	
 	<HesabKol mahyat="Bedehkar" id="121" code="121" name="حساب دربافتنی بلند مدت" HesabGroup="12"/>
-	<HesabMoeen id="1212" code="1212" name="اسناد دریافتنی تجاری"	hesabKol="121" />
-	<HesabMoeen id="1213" code="1213" name="حسابهای دریافتنی تجاری"	hesabKol="121" />
-	<HesabMoeen id="1214" code="1214" name="اسناد دریافتنی غیرتجاری"	hesabKol="121" />
-	<HesabMoeen id="1215" code="1215" name="حسابهای دریافتنی غیرتجاری"	hesabKol="121" />
+	<HesabMoeen id="1212" code="1212" name="اسناد دریافتنی تجاری "	hesabKol="121" />
+	<HesabMoeen id="1213" code="1213" name="حسابهای دریافتنی تجاری "	hesabKol="121" />
+	<HesabMoeen id="1214" code="1214" name="اسناد دریافتنی غیرتجاری "	hesabKol="121" />
+	<HesabMoeen id="1215" code="1215" name="حسابهای دریافتنی غیرتجاری "	hesabKol="121" />
 	
 	<HesabKol mahyat="Bedehkar" id="122" code="122" name="سرمایه گذاری های بلند مدت" HesabGroup="12"/>
 	<HesabMoeen id="1221" code="1221" name="سرمایه گذاری در سهام شرکتها فرابورس"	hesabKol="122" />
