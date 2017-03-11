@@ -33,7 +33,7 @@
 			<p:column>
 				<f:facet name="header">
 						<f:facet name="header">
-							<a4j:commandLink action="#{owner.sort}" render="markazHazines" 
+							<p:commandLink action="#{owner.sort}" update="markazHazines" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
 								styleClass="headerCellClass" title="#{messages['MarkazHazine_hesabTafsili']}">
 								<h:outputText styleClass="headerCellClass"
@@ -44,7 +44,7 @@
 									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
 								<f:setPropertyActionListener value="hesabTafsili"
 									target="#{owner.sortCol}" />
-							</a4j:commandLink>
+							</p:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsili}" />
 			</p:column>
@@ -52,7 +52,7 @@
 			<p:column>
 				<f:facet name="header">
 						<f:facet name="header">
-							<a4j:commandLink action="#{owner.sort}" render="markazHazines" 
+							<p:commandLink action="#{owner.sort}" update="markazHazines" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
 								styleClass="headerCellClass" title="#{messages['MarkazHazine_onvan']}">
 								<h:outputText styleClass="headerCellClass"
@@ -63,7 +63,7 @@
 									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
 								<f:setPropertyActionListener value="onvan"
 									target="#{owner.sortCol}" />
-							</a4j:commandLink>
+							</p:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.onvan}" />
 			</p:column>
@@ -71,7 +71,7 @@
 			<p:column>
 				<f:facet name="header">
 						<f:facet name="header">
-							<a4j:commandLink action="#{owner.sort}" render="markazHazines" 
+							<p:commandLink action="#{owner.sort}" update="markazHazines" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
 								styleClass="headerCellClass" title="#{messages['MarkazHazine_markaztype']}">
 								<h:outputText styleClass="headerCellClass"
@@ -82,7 +82,7 @@
 									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
 								<f:setPropertyActionListener value="markaztype"
 									target="#{owner.sortCol}" />
-							</a4j:commandLink>
+							</p:commandLink>
 				</f:facet>
 				<h:selectOneMenu displayValueOnly="true"
 					value="#{markazHazine.entity.markaztype}"

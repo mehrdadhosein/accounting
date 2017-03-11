@@ -82,14 +82,14 @@
 	<h:commandButton value="#{messages['back_to_search']}" id="searchLink"
 		onclick="javascript:copyCreateToSearch();toggleToSearch();return false" />
 
-	<a4j:region rendered="#{!hesabMoeenTemplate.quickLoaded}">
+	<h:panelGroup id="quickLoadProcessPanel" rendered="#{!hesabMoeenTemplate.quickLoaded}">
 		<t:inputHidden id="objectId" value="#{owner.quickLoadID}"
 			converter="javax.faces.Long" />
-		<a4j:commandButton id="loadCommand"
+		<p:commandButton id="loadCommand"
 			action="#{hesabMoeenTemplate.load}"
 			style="display:none; visibility: hidden;"
-			value="#{messages['common_load']}" render="hesabMoeenTemplateInput" />
-	</a4j:region>
+			value="#{messages['common_load']}" update="hesabMoeenTemplateInput" />
+	</h:panelGroup>
 
 </p:panel>
 </html>

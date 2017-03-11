@@ -35,7 +35,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="markazHazines"
+						<p:commandLink action="#{owner.sort}" update="markazHazines"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['MarkazHazine_onvan']}">
@@ -49,7 +49,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="onvan"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.onvan}" />
 				</p:column>
@@ -58,7 +58,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="sandoghs"
+						<p:commandLink action="#{owner.sort}" update="sandoghs"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass" title="#{messages['Sandogh_organ']}">
 							<h:outputText styleClass="headerCellClass"
@@ -71,7 +71,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="organ"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.organ}" />
 				</p:column>
@@ -80,7 +80,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="markazHazines"
+						<p:commandLink action="#{owner.sort}" update="markazHazines"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['MarkazHazine_markaztype']}">
@@ -94,7 +94,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="markaztype"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<t:selectOneMenu id="markaztype" displayValueOnly="true"
 						styleClass="CellClass" value="#{item.markaztype}"

@@ -56,13 +56,13 @@
 	<h:commandButton value="#{messages['back_to_search']}" id="searchLink"
 		onclick="javascript:copyCreateToSearch();toggleToSearch();return false" />
 
-	<a4j:region rendered="#{!hesabGroupTemplate.quickLoaded}">
+	<h:panelGroup id="quickLoadProcessPanel" rendered="#{!hesabGroupTemplate.quickLoaded}">
 		<t:inputHidden id="objectId" value="#{owner.quickLoadID}"
 			converter="javax.faces.Long" />
-		<a4j:commandButton id="loadCommand" action="#{hesabGroupTemplate.load}"
+		<p:commandButton id="loadCommand" action="#{hesabGroupTemplate.load}"
 			style="display:none; visibility: hidden;"
 			value="#{messages['common_load']}" reRender="hesabGroupTemplateInput" />
-	</a4j:region>
+	</h:panelGroup>
 
 </p:panel>
 </html>

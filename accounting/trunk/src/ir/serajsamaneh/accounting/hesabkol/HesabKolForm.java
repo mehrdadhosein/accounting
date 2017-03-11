@@ -3,6 +3,7 @@ package ir.serajsamaneh.accounting.hesabkol;
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity;
 import ir.serajsamaneh.accounting.hesabgroup.HesabGroupService;
+import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
@@ -48,7 +49,16 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	ContactHesabService contactHesabService;
 	HesabMoeenTemplateService hesabMoeenTemplateService;
 	HesabTafsiliTemplateService hesabTafsiliTemplateService;
+	HesabKolTemplateService hesabKolTemplateService;
 	
+
+	public HesabKolTemplateService getHesabKolTemplateService() {
+		return hesabKolTemplateService;
+	}
+
+	public void setHesabKolTemplateService(HesabKolTemplateService hesabKolTemplateService) {
+		this.hesabKolTemplateService = hesabKolTemplateService;
+	}
 
 	public HesabMoeenTemplateService getHesabMoeenTemplateService() {
 		return hesabMoeenTemplateService;
@@ -167,8 +177,9 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	}
 
 	public String importFromHesabKolTemplateList(){
+		getHesabKolTemplateService().createDefaultAccounts(getCurrentUserActiveSaalMaali().getOrgan());
 		getMyService().importFromHesabKolTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
-		setDataModel(null);
+		setDataModel(null); 
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return null;
 	}

@@ -31,7 +31,7 @@
 	
 			<p:column>
 				<f:facet name="header">
-							<a4j:commandLink action="#{owner.sort}" render="sanadTypes" 
+							<p:commandLink action="#{owner.sort}" update="sanadTypes" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
 								styleClass="headerCellClass" title="#{messages['SanadType_name']}">
 								<h:outputText styleClass="headerCellClass"
@@ -42,7 +42,7 @@
 									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
 								<f:setPropertyActionListener value="name"
 									target="#{owner.sortCol}" />
-							</a4j:commandLink>				
+							</p:commandLink>				
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.name}" />
 			</p:column>

@@ -32,7 +32,7 @@
 	
 			<p:column>
 				<f:facet name="header">
-							<a4j:commandLink action="#{owner.sort}" render="moeenTafsiliTemplates" 
+							<p:commandLink action="#{owner.sort}" update="moeenTafsiliTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
 								styleClass="headerCellClass" title="#{messages['MoeenTafsiliTemplate_hesabTafsiliTemplate']}">
 								<h:outputText styleClass="headerCellClass"
@@ -43,14 +43,14 @@
 									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
 								<f:setPropertyActionListener value="hesabTafsiliTemplate"
 									target="#{owner.sortCol}" />
-							</a4j:commandLink>
+							</p:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsiliTemplate}" />
 			</p:column>
 		
 			<p:column>
 				<f:facet name="header">
-							<a4j:commandLink action="#{owner.sort}" render="moeenTafsiliTemplates" 
+							<p:commandLink action="#{owner.sort}" update="moeenTafsiliTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
 								styleClass="headerCellClass" title="#{messages['MoeenTafsiliTemplate_level']}">
 								<h:outputText styleClass="headerCellClass"
@@ -61,14 +61,14 @@
 									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
 								<f:setPropertyActionListener value="level"
 									target="#{owner.sortCol}" />
-							</a4j:commandLink>
+							</p:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.level}" />
 			</p:column>
 		
 			<p:column>
 				<f:facet name="header">
-							<a4j:commandLink action="#{owner.sort}" render="moeenTafsiliTemplates" 
+							<p:commandLink action="#{owner.sort}" update="moeenTafsiliTemplates" 
 								onclick="showLoading();"	oncomplete="hideLoading();"
 								styleClass="headerCellClass" title="#{messages['MoeenTafsiliTemplate_hesabMoeenTemplate']}">
 								<h:outputText styleClass="headerCellClass"
@@ -79,7 +79,7 @@
 									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
 								<f:setPropertyActionListener value="hesabMoeenTemplate"
 									target="#{owner.sortCol}" />
-							</a4j:commandLink>
+							</p:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeenTemplate}" />
 			</p:column>

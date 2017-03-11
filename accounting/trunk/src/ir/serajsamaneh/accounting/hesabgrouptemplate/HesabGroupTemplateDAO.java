@@ -18,7 +18,7 @@ public class HesabGroupTemplateDAO  extends BaseHibernateDAO<HesabGroupTemplateE
 	public HesabGroupTemplateEntity getHesabGroupByCode(String hesabGroupCode, OrganEntity organ) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabGroupCode);
-		localFilter.put("organ.id@eqORorgan.id@isNull", Arrays.asList(organ.getId(),"ding"));
+		localFilter.put("organ.id@eq", organ.getId());
 		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(null, localFilter, FlushMode.MANUAL, false);
 		return hesabGroupTemplateEntity;
 	}

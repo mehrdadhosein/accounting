@@ -353,7 +353,7 @@ public class HesabMoeenService extends
 	@Transactional(readOnly=false)
 	public void importFromHesabMoeenTemplateList(SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eqORorgan.id@isNull",Arrays.asList(activeSaalMaaliEntity.getOrgan().getId(), "ding"));		
+		localFilter.put("organ.id@eq",activeSaalMaaliEntity.getOrgan().getId());		
 		List<HesabMoeenTemplateEntity> dataList = getHesabMoeenTemplateService().getDataList(null, localFilter);
 		for (HesabMoeenTemplateEntity hesabMoeenTemplateEntity : dataList) {
 			HesabMoeenEntity hesabMoeen = loadHesabMoeenByTemplate(hesabMoeenTemplateEntity, activeSaalMaaliEntity);
