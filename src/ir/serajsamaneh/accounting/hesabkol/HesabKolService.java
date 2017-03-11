@@ -326,7 +326,7 @@ public class HesabKolService extends
 	@Transactional(readOnly=false)
 	public void importFromHesabKolTemplateList(SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 		
-		getHesabKolTemplateService().createDefaultAccounts(activeSaalMaaliEntity.getOrgan());
+//		getHesabKolTemplateService().createDefaultAccounts(activeSaalMaaliEntity.getOrgan());
 		
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organ.id@eq",activeSaalMaaliEntity.getOrgan().getId());

@@ -41,7 +41,7 @@
 
 				<p:column prioirity="2">
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
+						<p:commandLink action="#{owner.sort}" update="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass" title="#{messages['HesabKol_code']}">
 							<h:outputText styleClass="headerCellClass"
@@ -54,14 +54,14 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="code"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.code}" />
 				</p:column>
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
+						<p:commandLink action="#{owner.sort}" update="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass" title="#{messages['HesabKol_name']}">
 							<h:outputText styleClass="headerCellClass"
@@ -74,14 +74,14 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="name"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.name}" />
 				</p:column>
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
+						<p:commandLink action="#{owner.sort}" update="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass" title="#{messages['HesabKol_mahyatKol']}">
 							<h:outputText styleClass="headerCellClass"
@@ -94,7 +94,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="mahyatKol"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<t:selectOneMenu  required="true" value="#{item.mahyatKol}" converter="seraj.converter.Enum"
 						label="mahyatKol" id="mahyatKol" style="width:200px" displayValueOnly="true">
@@ -104,7 +104,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
+						<p:commandLink action="#{owner.sort}" update="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['HesabKol_bestankr']}">
@@ -118,7 +118,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="bestankr"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bestankr}"
 						converter="seraj.converter.accountingNumberFormatter" />
@@ -126,7 +126,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
+						<p:commandLink action="#{owner.sort}" update="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['HesabKol_bedehkar']}">
@@ -140,7 +140,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="bedehkar"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"
 						converter="seraj.converter.accountingNumberFormatter" />
@@ -148,7 +148,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
+						<p:commandLink action="#{owner.sort}" update="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['HesabKol_hesabGroup']}">
@@ -162,7 +162,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="hesabGroup"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabGroup}" />
 				</p:column>
@@ -178,7 +178,7 @@
 
 				<p:column rendered="false">
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="hesabKols"
+						<p:commandLink action="#{owner.sort}" update="hesabKols"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass" title="#{messages['HesabKol_type']}">
 							<h:outputText styleClass="headerCellClass"
@@ -191,7 +191,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="type"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<t:selectOneMenu displayValueOnly="true" styleClass="CellClass"
 						value="#{item.type}" converter="seraj.converter.Enum">

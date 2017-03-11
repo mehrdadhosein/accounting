@@ -11,7 +11,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-<a4j:region>
+<h:panelGroup id="searchProcessPanel">
 	<p:panel styleClass="emptyDiv" bodyClass="emptyDiv">
 		<p:panelGrid layout="grid" columns="1" style="width:100%"
 			styleClass="inputForm  ui-panelgrid-blank">
@@ -47,12 +47,12 @@
 
 
 			</p:panelGrid>
-			<a4j:commandButton image="/images/searchbtn2.png"
-				styleClass=" gwt-Button" render="listPanel" onclick="showLoading()"
+			<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel" 
+				styleClass=" gwt-Button" update="listPanel"  onclick="showLoading()"
 				value="#{messages['common_search']}" action="#{owner.search}"
 				oncomplete="hideLoading();closeSearchDiv();">
-			</a4j:commandButton>
+			</p:commandButton>
 		</p:panelGrid>
 	</p:panel>
-</a4j:region>
+</h:panelGroup>
 </html>

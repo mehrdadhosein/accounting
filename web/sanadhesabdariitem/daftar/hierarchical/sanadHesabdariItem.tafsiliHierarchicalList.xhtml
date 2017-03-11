@@ -109,8 +109,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}"
-							render="sanadHesabdariItems" onclick="showLoading();"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['SanadHesabdari_tempSerial']}">
 							<h:outputText styleClass="headerCellClass"
@@ -123,7 +122,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="sanadHesabdari.tempSerial"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass"
 						value="#{item.sanadHesabdari.tempSerial}" />
@@ -132,8 +131,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}"
-							render="sanadHesabdariItems" onclick="showLoading();"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['SanadHesabdari_serial']}">
 							<h:outputText styleClass="headerCellClass"
@@ -146,7 +144,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="sanadHesabdari.serial"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 
 					<h:outputText styleClass="CellClass"
@@ -155,8 +153,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}"
-							render="sanadHesabdariItems" onclick="showLoading();"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['SanadHesabdari_tarikhSanad']}">
 							<h:outputText styleClass="headerCellClass"
@@ -169,7 +166,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="sanadHesabdari.tarikhSanad"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass"
 						value="#{item.sanadHesabdari.tarikhSanad}" />
@@ -178,8 +175,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}"
-							render="sanadHesabdariItems" onclick="showLoading();"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['SanadHesabdariItem_hesabTafsili']}">
 							<h:outputText styleClass="headerCellClass"
@@ -192,7 +188,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="hesabTafsili.name"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass"
 						value="#{item.hesabTafsili.desc}" />
@@ -209,8 +205,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}"
-							render="sanadHesabdariItems" onclick="showLoading();"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['HesabTafsili_code']}">
 							<h:outputText styleClass="headerCellClass"
@@ -223,7 +218,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="hesabTafsili.code"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass"
 						value="#{item.hesabTafsili.code}" />
@@ -232,8 +227,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}"
-							render="sanadHesabdariItems" onclick="showLoading();"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['SanadHesabdariItem_description']}">
 							<h:outputText styleClass="headerCellClass"
@@ -246,7 +240,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="description"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.description}" />
 				</p:column>
@@ -255,8 +249,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}"
-							render="sanadHesabdariItems" onclick="showLoading();"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['SanadHesabdariItem_bedehkar']}">
 							<h:outputText styleClass="headerCellClass"
@@ -269,7 +262,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="bedehkar"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"
 						converter="seraj.converter.accountingNumberFormatter" />
@@ -277,8 +270,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}"
-							render="sanadHesabdariItems" onclick="showLoading();"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['SanadHesabdariItem_bestankar']}">
 							<h:outputText styleClass="headerCellClass"
@@ -291,7 +283,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="bestankar"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.bestankar}"
 						converter="seraj.converter.accountingNumberFormatter" />

@@ -50,13 +50,13 @@
 	<h:commandButton value="#{messages['back_to_search']}" id="searchLink"
 		onclick="javascript:copyCreateToSearch();toggleToSearch();return false" />
 
-	<a4j:region rendered="#{!markazHazine.quickLoaded}">
+	<h:panelGroup id="quickLoadProcessPanel" rendered="#{!markazHazine.quickLoaded}">
 		<t:inputHidden id="objectId" value="#{owner.quickLoadID}"
 			converter="javax.faces.Long" />
-		<a4j:commandButton id="loadCommand" action="#{markazHazine.load}"
+		<p:commandButton id="loadCommand" action="#{markazHazine.load}"
 			style="display:none; visibility: hidden;"
-			value="#{messages['common_load']}" render="markazHazineInput" />
-	</a4j:region>
+			value="#{messages['common_load']}" update="markazHazineInput" />
+	</h:panelGroup>
 
 </p:panel>
 </html>

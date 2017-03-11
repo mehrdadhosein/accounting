@@ -31,7 +31,7 @@
 
 				<p:column styleClass="action">
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="saalMaalis"
+						<p:commandLink action="#{owner.sort}" update="saalMaalis"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['SaalMaali_isActive']}">
@@ -45,7 +45,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="isActive"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:graphicImage value="/images/disabled.png" style="border:0"
 						rendered="#{!item.isActive}"
@@ -60,7 +60,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="saalMaalis"
+						<p:commandLink action="#{owner.sort}" update="saalMaalis"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['SaalMaali_saal']}">
@@ -74,7 +74,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="saal"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.saal}" />
 				</p:column>
@@ -96,7 +96,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="saalMaalis"
+						<p:commandLink action="#{owner.sort}" update="saalMaalis"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['SaalMaali_start']}">
@@ -110,13 +110,13 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="startDate"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.startDateFA}" />
 				</p:column>
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="saalMaalis"
+						<p:commandLink action="#{owner.sort}" update="saalMaalis"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass" title="#{messages['SaalMaali_end']}">
 							<h:outputText styleClass="headerCellClass"
@@ -129,7 +129,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="endDate"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.endDateFA}" />
 				</p:column>

@@ -98,13 +98,13 @@
 	<h:commandButton value="#{messages['back_to_search']}" id="searchLink"
 		onclick="javascript:copyCreateToSearch();toggleToSearch();return false" />
 
-	<a4j:region rendered="#{!sanadHesabdariItem.quickLoaded}">
+	<h:panelGroup id="quickLoadProcessPanel" rendered="#{!sanadHesabdariItem.quickLoaded}">
 		<t:inputHidden id="objectId" value="#{owner.quickLoadID}"
 			converter="javax.faces.Long" />
-		<a4j:commandLink id="loadCommand" action="#{sanadHesabdariItem.load}"
+		<p:commandLink id="loadCommand" process="quickLoadProcessPanel" action="#{sanadHesabdariItem.load}"
 			style="display:none; visibility: hidden;"
-			value="#{messages['common_load']}" render="sanadHesabdariItemInput" />
-	</a4j:region>
+			value="#{messages['common_load']}" update="sanadHesabdariItemInput" />
+	</h:panelGroup>
 
 </p:panel>
 </html>

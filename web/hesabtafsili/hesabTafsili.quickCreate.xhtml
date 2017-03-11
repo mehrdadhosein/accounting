@@ -80,13 +80,13 @@
 		image="/images/listbtn.png" value="#{messages['back_to_search']}" />
 							
 
-	<a4j:region rendered="#{!hesabTafsili.quickLoaded}">
+	<h:panelGroup id="quickLoadProcessPanel" rendered="#{!hesabTafsili.quickLoaded}">
 		<t:inputHidden id="objectId" value="#{owner.quickLoadID}"
 			converter="javax.faces.Long" />
-		<a4j:commandLink id="loadCommand" action="#{hesabTafsili.load}"
+		<p:commandLink id="loadCommand" process="quickLoadProcessPanel" action="#{hesabTafsili.load}"
 			style="display:none; visibility: hidden;"
-			value="#{messages['common_load']}" render="hesabTafsiliInput" />
-	</a4j:region>
+			value="#{messages['common_load']}" update="hesabTafsiliInput" />
+	</h:panelGroup>
 
 </p:panel>
 </html>

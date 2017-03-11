@@ -135,7 +135,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 	@Transactional(readOnly = false)
 	public HesabKolTemplateEntity createHesabKolTemplate(String hesabKolCode, String hesabKolName,
 			String hesabGroupCode, String mahyatKol, OrganEntity organEntity) {
-		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(hesabGroupCode);
+		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(hesabGroupCode, organEntity);
 		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateByCode(hesabKolCode, organEntity);
 		if (hesabKolTemplateEntity == null){
 			hesabKolTemplateEntity = new HesabKolTemplateEntity();

@@ -106,7 +106,7 @@
 				
 			<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['SanadHesabdari_serial']}">
@@ -120,13 +120,13 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="serial"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.serial}" />
 				</p:column>	
 			<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['SanadHesabdari_saalMaali']}">
@@ -140,14 +140,14 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="saalMaali"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.saalMaali}" />
 				</p:column>	
 
 			<p:column>
 				<f:facet name="header">
-					<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+					<p:commandLink action="#{owner.sort}" update="sanadHesabdaris"
 						onclick="showLoading();" oncomplete="hideLoading();"
 						styleClass="headerCellClass"
 						title="#{messages['SanadHesabdari_description']}">
@@ -161,14 +161,14 @@
 							title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 						<f:setPropertyActionListener value="description"
 							target="#{owner.sortCol}" />
-					</a4j:commandLink>
+					</p:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass" value="#{item.description}" />
 			</p:column>
 
 			<p:column>
 				<f:facet name="header">
-					<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+					<p:commandLink action="#{owner.sort}" update="sanadHesabdaris"
 						onclick="showLoading();" oncomplete="hideLoading();"
 						styleClass="headerCellClass"
 						title="#{messages['SanadHesabdari_sanadType']}">
@@ -182,14 +182,14 @@
 							title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 						<f:setPropertyActionListener value="sanadType"
 							target="#{owner.sortCol}" />
-					</a4j:commandLink>
+					</p:commandLink>
 				</f:facet>
 				<h:outputText styleClass="CellClass" value="#{item.sanadType}" />
 			</p:column>
 			
 			<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['SanadHesabdari_state']}">
@@ -203,7 +203,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="state"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<t:selectOneMenu value="#{item.state}"
 						converter="seraj.converter.Enum" styleClass="CellClass"
@@ -214,7 +214,7 @@
 				</p:column>
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="sanadHesabdaris"
+						<p:commandLink action="#{owner.sort}" update="sanadHesabdaris"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['SanadHesabdari_tarikhSanad']}">
@@ -228,7 +228,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="tarikhSanad"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.tarikhSanadFA}" />
 				</p:column>

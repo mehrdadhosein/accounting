@@ -32,7 +32,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="accountsTemplates"
+						<p:commandLink action="#{owner.sort}" update="accountsTemplates"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['AccountsTemplate_actionName']}">
@@ -46,7 +46,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="actionName"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.actionName}" />
 				</p:column>
@@ -54,7 +54,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}" render="accountsTemplates"
+						<p:commandLink action="#{owner.sort}" update="accountsTemplates"
 							onclick="showLoading();" oncomplete="hideLoading();"
 							styleClass="headerCellClass"
 							title="#{messages['AccountsTemplate_actionId']}">
@@ -68,7 +68,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="actionId"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.actionId}" />
 				</p:column>

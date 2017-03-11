@@ -33,8 +33,7 @@
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}"
-							render="hesabClassifications" onclick="showLoading();"
+						<p:commandLink action="#{owner.sort}" update="hesabClassifications" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['HesabClassification_name']}">
 							<h:outputText styleClass="headerCellClass"
@@ -47,15 +46,14 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="name"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.name}" />
 				</p:column>
 
 				<p:column>
 					<f:facet name="header">
-						<a4j:commandLink action="#{owner.sort}"
-							render="hesabClassifications" onclick="showLoading();"
+						<p:commandLink action="#{owner.sort}" update="hesabClassifications" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['HesabClassification_description']}">
 							<h:outputText styleClass="headerCellClass"
@@ -68,7 +66,7 @@
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
 							<f:setPropertyActionListener value="description"
 								target="#{owner.sortCol}" />
-						</a4j:commandLink>
+						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.description}" />
 				</p:column>
