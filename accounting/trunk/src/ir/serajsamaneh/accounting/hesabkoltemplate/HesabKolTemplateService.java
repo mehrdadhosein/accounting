@@ -1,31 +1,28 @@
 package ir.serajsamaneh.accounting.hesabkoltemplate;
 
-import ir.serajsamaneh.accounting.hesabgroup.HesabGroupService;
-import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
-import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
-import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
-import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
-import ir.serajsamaneh.core.base.BaseEntityService;
-import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.core.util.XMLUtil;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.springframework.transaction.annotation.Transactional;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+
+import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
+import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
+import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
+import ir.serajsamaneh.accounting.enumeration.MahyatKolEnum;
+import ir.serajsamaneh.accounting.hesabgroup.HesabGroupService;
+import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateDAO;
+import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateEntity;
+import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateDAO;
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
+import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateDAO;
+import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.core.base.BaseEntityService;
+import ir.serajsamaneh.core.organ.OrganEntity;
 
 public class HesabKolTemplateService extends
 		BaseEntityService<HesabKolTemplateEntity, Long> {
@@ -41,6 +38,35 @@ public class HesabKolTemplateService extends
 	HesabGroupService hesabGroupService;
 	SaalMaaliService saalMaaliService;
 
+	HesabGroupTemplateDAO hesabGroupTemplateDAO;
+	HesabTafsiliTemplateDAO hesabTafsiliTemplateDAO;
+	HesabMoeenTemplateDAO hesabMoeenTemplateDAO;
+	public HesabMoeenTemplateDAO getHesabMoeenTemplateDAO() {
+		return hesabMoeenTemplateDAO;
+	}
+
+	public void setHesabMoeenTemplateDAO(HesabMoeenTemplateDAO hesabMoeenTemplateDAO) {
+		this.hesabMoeenTemplateDAO = hesabMoeenTemplateDAO;
+	}
+
+
+	public HesabTafsiliTemplateDAO getHesabTafsiliTemplateDAO() {
+		return hesabTafsiliTemplateDAO;
+	}
+
+	public void setHesabTafsiliTemplateDAO(
+			HesabTafsiliTemplateDAO hesabTafsiliTemplateDAO) {
+		this.hesabTafsiliTemplateDAO = hesabTafsiliTemplateDAO;
+	}
+
+
+	public HesabGroupTemplateDAO getHesabGroupTemplateDAO() {
+		return hesabGroupTemplateDAO;
+	}
+
+	public void setHesabGroupTemplateDAO(HesabGroupTemplateDAO hesabGroupTemplateDAO) {
+		this.hesabGroupTemplateDAO = hesabGroupTemplateDAO;
+	}
 
 
 
@@ -92,43 +118,93 @@ public class HesabKolTemplateService extends
 //		createDefaultAccounts();
 	}
 	
-	InputStream fileInputStream;
+	@Transactional(readOnly = false)
+	public void createHesabGroup(Element hesbaGroupElem, OrganEntity organ) {
+		String typeEnum = hesbaGroupElem.getAttribute("type");
+		String code = hesbaGroupElem.getAttribute("code");
+		String mahyatEnum = hesbaGroupElem.getAttribute("mahyat");
+		String hesabGroupName = hesbaGroupElem.getAttribute("name");
+		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(code, organ);
+		if (hesabGroupTemplateEntity == null)
+			hesabGroupTemplateEntity = new HesabGroupTemplateEntity();
+		hesabGroupTemplateEntity.setName(hesabGroupName);
+		hesabGroupTemplateEntity.setMahyatGroup(MahyatGroupEnum.valueOf(mahyatEnum));
+		hesabGroupTemplateEntity.setType(HesabTypeEnum.valueOf(typeEnum));
+		hesabGroupTemplateEntity.setCode(code);
+		hesabGroupTemplateEntity.setOrgan(organ);
+		getHesabGroupTemplateDAO().saveOrUpdate(hesabGroupTemplateEntity);
+		getLogger().info("hesabGroupTempate created : "+hesabGroupName);
+	}
 
 	@Transactional(readOnly = false)
-	public void createDefaultAccounts(OrganEntity organEntity) throws NumberFormatException {
-		URL resource = getClass().getResource("/config/accounts");
-		if (resource == null)
-			return;
-		File dir = new File(resource.getFile());
-
-		FilenameFilter filter = new WildcardFileFilter("general-codingByMahdian.xml");
-		String[] list = dir.list(filter);
-
-		for (String fileName : list) {
-			String localFilePath = dir.getAbsolutePath() + "/" + fileName;
-			try {
-				fileInputStream = new FileInputStream(localFilePath);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				throw new IllegalStateException();
-			}
-			// parse XML file -> XML document will be build
-			Document doc = XMLUtil.parseFile(fileInputStream);
-			NodeList rootNodes = doc.getElementsByTagName("accounts");
-			Node item = rootNodes.item(0);
-			Element accounts = (Element) item;
-
-			NodeList childNodes = accounts.getChildNodes();
-			getMyDAO().createDefaultAccounts(childNodes, organEntity);
-		}
-
+	public void createHesabKolTemplate(Element hesbaKolElem, OrganEntity organEntity) {
+		String hesabKolCode = hesbaKolElem.getAttribute("code");
+		String hesabKolName = hesbaKolElem.getAttribute("name");
+		String hesabGroupCode = hesbaKolElem.getAttribute("HesabGroup");
+		String mahyatKol = hesbaKolElem.getAttribute("mahyat");
+		
+		createHesabKolTemplate(hesabKolCode, hesabKolName, hesabGroupCode, mahyatKol, organEntity);
 	}
+
+	@Transactional(readOnly = false)
+	public void createHesabTafsiliTemplate(Element hesabTafsiliElem, OrganEntity organEntity) {
+		String hesabMoeenCode = hesabTafsiliElem.getAttribute("hesabMoeen");
+		String hesabTafsiliCode = hesabTafsiliElem.getAttribute("code");
+		String hesabTafsiliName = hesabTafsiliElem.getAttribute("name");
+		getHesabTafsiliTemplateDAO().save(hesabTafsiliCode, hesabTafsiliName, hesabMoeenCode, organEntity);
+		getLogger().info("hesabTafsili created : "+hesabTafsiliCode);
+		
+	}
+
+	@Transactional(readOnly = false)
+	public void createHesabMoeenTemplate(Element hesabMoeenElem, OrganEntity organ) {
+		String hesabKolCode = hesabMoeenElem.getAttribute("hesabKol");
+		String hesabMoeenCode = hesabMoeenElem.getAttribute("code");
+		String hesabMoeenName = hesabMoeenElem.getAttribute("name");
+		
+		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateDAO().getHesabMoeenTemplateByCode(hesabMoeenCode, organ);
+		if (hesabMoeenTemplateEntity == null)
+			hesabMoeenTemplateEntity = new HesabMoeenTemplateEntity();
+		hesabMoeenTemplateEntity.setScope(HesabScopeEnum.GLOBAL);
+		hesabMoeenTemplateEntity.setName(hesabMoeenName);
+		hesabMoeenTemplateEntity.setCode(hesabMoeenCode);
+		hesabMoeenTemplateEntity.setHidden(false);
+		hesabMoeenTemplateEntity.setHesabKolTemplate(getHesabKolTemplateByCode(hesabKolCode, organ));
+		if(hesabMoeenTemplateEntity.getHesabKolTemplate() == null)
+			System.out.println(hesabMoeenTemplateEntity.getHesabKolTemplate());
+		
+		hesabMoeenTemplateEntity.setOrgan(organ);
+		
+		getHesabMoeenTemplateDAO().saveOrUpdate(hesabMoeenTemplateEntity);
+		getLogger().info("hesabMoeen created : "+hesabMoeenCode);
+		
+	}
+
+//	@Transactional(readOnly = false)
+//	public HesabKolTemplateEntity createHesabKolTemplate(String hesabKolCode, String hesabKolName,
+//			String hesabGroupCode, String mahyatKol, OrganEntity organEntity) {
+//		return getMyDAO().createHesabKolTemplate(hesabKolCode, hesabKolName, hesabGroupCode, mahyatKol, organEntity);
+//	}
 
 	@Transactional(readOnly = false)
 	public HesabKolTemplateEntity createHesabKolTemplate(String hesabKolCode, String hesabKolName,
 			String hesabGroupCode, String mahyatKol, OrganEntity organEntity) {
-		return getMyDAO().createHesabKolTemplate(hesabKolCode, hesabKolName, hesabGroupCode, mahyatKol, organEntity);
+		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(hesabGroupCode, organEntity);
+		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateByCode(hesabKolCode, organEntity);
+		if (hesabKolTemplateEntity == null){
+			hesabKolTemplateEntity = new HesabKolTemplateEntity();
+			hesabKolTemplateEntity.setHidden(false);
+		}
+		hesabKolTemplateEntity.setName(hesabKolName);
+		hesabKolTemplateEntity.setCode(hesabKolCode);
+		hesabKolTemplateEntity.setHesabGroupTemplate(hesabGroupTemplateEntity);
+		hesabKolTemplateEntity.setMahyatKol(MahyatKolEnum.valueOf(mahyatKol));
+		hesabKolTemplateEntity.setOrgan(organEntity);
+		saveOrUpdate(hesabKolTemplateEntity);
+		getLogger().info("hesabKol created : "+hesabKolCode);
+		return hesabKolTemplateEntity;
 	}
+	
 
 	
 	@Override

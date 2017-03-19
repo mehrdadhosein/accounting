@@ -283,43 +283,16 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	
 	
 
-	SaalMaaliEntity srcSaalMaali = new SaalMaaliEntity();
-	SaalMaaliEntity destSaalMaali = new SaalMaaliEntity();
-	
-	public SaalMaaliEntity getSrcSaalMaali() {
-		return srcSaalMaali;
-	}
-
-	public void setSrcSaalMaali(SaalMaaliEntity srcSaalMaali) {
-		this.srcSaalMaali = srcSaalMaali;
-	}
-
-	public SaalMaaliEntity getDestSaalMaali() {
-		return destSaalMaali;
-	}
-
-	public void setDestSaalMaali(SaalMaaliEntity destSaalMaali) {
-		this.destSaalMaali = destSaalMaali;
-	}
-
-	public void copyHesabsFromSourceSaalMaaliToDestSaalMaali(){
-		if(getSrcSaalMaali().getId() == null)
-			throw new RequiredFieldNotSetException(SerajMessageUtil.getMessage("AccountingSystemConfig_srcSaalMaali"));
-
-		if(getDestSaalMaali().getId() == null)
-			throw new RequiredFieldNotSetException(SerajMessageUtil.getMessage("AccountingSystemConfig_destSaalMaali"));
-		
-		srcSaalMaali = getSaalMaaliService().load(getSrcSaalMaali().getId());
-		destSaalMaali = getSaalMaaliService().load(getDestSaalMaali().getId());
-		
-		getHesabKolService().copyHesabKolsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali(), getCurrentOrgan());
-		getHesabKolService().copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali(), getCurrentOrgan());
-		getHesabKolService().copyHesabTafsilissFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali(), getCurrentOrgan());
-		getHesabKolService().createHesabTafsiliRelatedEntities(getSrcSaalMaali(), getDestSaalMaali());
-		getHesabKolService().copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali());
-		getHesabKolService().copycontactHesabsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getDestSaalMaali());
-		addInfoMessage("SUCCESSFUL_ACTION");
-	}
+//	SaalMaaliEntity destSaalMaali = new SaalMaaliEntity();
+//
+//	public SaalMaaliEntity getDestSaalMaali() {
+//		return destSaalMaali;
+//	}
+//
+//	public void setDestSaalMaali(SaalMaaliEntity destSaalMaali) {
+//		this.destSaalMaali = destSaalMaali;
+//	}
+//
 
 	String saalMaaliIdStr = getSystemConfigService().getValue(getCurrentOrgan(), getCurrentUser(), "saalMaaliId");
 

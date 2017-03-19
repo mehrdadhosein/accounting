@@ -121,39 +121,9 @@
 
 	<ui:define name="buttonsection">
 
-					<h:panelGroup>
-						<h:outputText value="  "  />
-						<h:outputLabel for="srcSaalMaali"
-							value="#{messages['AccountingSystemConfig_srcSaalMaali']}" /> : 
-					</h:panelGroup>
-					<h:panelGroup>
-						<t:selectOneMenu value="#{owner.srcSaalMaali.id}"
-							id="srcSaalMaali" 
-							label="#{messages['AccountingSystemConfig_srcSaalMaali']}">
-							<f:selectItems value="#{localEntities.saalMaali}" />
-						</t:selectOneMenu>
-					</h:panelGroup>	
-
-
-					<h:panelGroup>
-						<h:outputText value="  "  />
-						<h:outputLabel for="destSaalMaali"
-							value="#{messages['AccountingSystemConfig_destSaalMaali']}" /> : 
-					</h:panelGroup>
-					<h:panelGroup>
-						<t:selectOneMenu value="#{owner.destSaalMaali.id}"
-							id="destSaalMaali" 
-							label="#{messages['AccountingSystemConfig_destSaalMaali']}">
-							<f:selectItems value="#{localEntities.saalMaali}" />
-						</t:selectOneMenu>
-					</h:panelGroup>	
 		<h:commandButton styleClass="gwt-Button" render="messageGrid"
 			image="/images/buttons/btn_save.png" action="#{owner.configSave}" />
 			
-		<h:commandButton styleClass="gwt-Button" render="messageGrid"
-			value="copyHesabsFromSourceSaalMaaliToDestSaalMaali" 
-			image="/images/buttons/btn_copyHesabsFromSourceSaalMaaliToDestSaalMaali.png"
-			action="#{owner.copyHesabsFromSourceSaalMaaliToDestSaalMaali}" />
 
 	</ui:define>
 

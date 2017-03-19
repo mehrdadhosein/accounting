@@ -614,9 +614,17 @@ public class HesabKolService extends
 					continue;//not important exception
 				}
 			}
-			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCode(destHesabTafsiliEntity.getCode().toString(), destSaalMaali.getOrgan());
-			if(hesabTafsiliTemplateEntity == null)
-				hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().createHesabTafsiliTemplate(destHesabTafsiliEntity.getCode(), destHesabTafsiliEntity.getName(), destSaalMaali.getOrgan(), destHesabTafsiliEntity.getTafsilType(), destHesabTafsiliEntity.getDescription());			
+			
+			getHesabTafsiliService().createOrUpdateRelatedHesabTafsiliTemplate(srcHesabTafsiliEntity, srcSaalMaali.getOrgan());
+			
+//			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCode(destHesabTafsiliEntity.getCode().toString(), destSaalMaali.getOrgan());
+//			if(hesabTafsiliTemplateEntity == null){
+//				hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByName(destHesabTafsiliEntity.getName(), destSaalMaali.getOrgan());
+//				if(hesabTafsiliTemplateEntity!=null)
+//					throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_cantImportHesabWithDuplicateNameAndnewCode", srcHesabTafsiliEntity.getCode(),destHesabTafsiliEntity.getName()));				
+//
+//				hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().createHesabTafsiliTemplate(destHesabTafsiliEntity.getCode(), destHesabTafsiliEntity.getName(), destSaalMaali.getOrgan(), destHesabTafsiliEntity.getTafsilType(), destHesabTafsiliEntity.getDescription());
+//			}
 		}
 	}
 
