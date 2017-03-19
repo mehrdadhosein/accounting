@@ -12,6 +12,7 @@ import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.organ.OrganEntity;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 
 import java.util.ArrayList;
@@ -143,8 +144,8 @@ public class HesabRelationsUtil {
 			List<HesabMoeenEntity> list = getHesabMoeenService().getActiveMoeens(saalMaaliEntity, currentOrgan);
 			for (HesabMoeenEntity hesabMoeenEntity : list) {
 				ListOrderedMap moeenItemMap = new ListOrderedMap();
-				moeenItemMap.put("value",hesabMoeenEntity.getHesabKol().getID());
-				moeenItemMap.put("label",hesabMoeenEntity.getHesabKol().getDesc());
+				moeenItemMap.put("value",hesabMoeenEntity.getHesabKol()!=null ? hesabMoeenEntity.getHesabKol().getID() : SerajMessageUtil.getMessage("common_undefined"));
+				moeenItemMap.put("label",hesabMoeenEntity.getHesabKol()!=null ? hesabMoeenEntity.getHesabKol().getDesc() : SerajMessageUtil.getMessage("common_undefined"));
 				moeenKolMap.put(hesabMoeenEntity.getId(),moeenItemMap);
 			}
 			organizationalMoeenKolMap.put(saalMaaliEntity.getId()+"_"+currentOrgan.getId(), moeenKolMap);
