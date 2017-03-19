@@ -12,7 +12,7 @@
 
 
 <h:panelGroup id="searchProcessPanel">
-<p:panel>
+	<p:panel>
 		<p:panelGrid layout="grid" columns="1" style="width:100%"
 			styleClass="inputForm  ui-panelgrid-blank">
 			<p:panelGrid layout="grid" columns="2" width="90%"
@@ -25,7 +25,9 @@
 					<h:outputLabel for="code"
 						value="#{messages['HesabTafsili_code']} :" />
 				</h:panelGroup>
-				<p:inputText id="code" value="#{hesabTafsili.filter['code@eq']}"  converter="javax.faces.Long"/>
+				<p:inputText id="code" value="#{hesabTafsili.filter['code@eq']}"
+					converter="javax.faces.Long" />
+
 				<h:panelGroup>
 					<h:outputLabel for="name"
 						value="#{messages['HesabTafsili_name']} :" />
@@ -54,8 +56,9 @@
 
 			</p:panelGrid>
 			<t:div>
-				<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel" 
-					styleClass=" gwt-Button" update="listPanel"  onclick="showLoading()"
+				<p:commandButton icon="fa fa-fw fa-search"
+					process="searchProcessPanel" styleClass=" gwt-Button"
+					update="listPanel" onclick="showLoading()"
 					value="#{messages['common_search']}" action="#{owner.search}"
 					oncomplete="hideLoading();closeSearchDiv();">
 				</p:commandButton>

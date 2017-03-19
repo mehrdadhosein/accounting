@@ -5,6 +5,8 @@ import ir.serajsamaneh.accounting.exception.NoActiveSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
+import ir.serajsamaneh.core.exception.RequiredFieldNotSetException;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.enumeration.SaalMaaliStatusEnum;
 
 import java.util.ArrayList;
@@ -162,6 +164,36 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 			e.printStackTrace();
 			return "";
 		}
+	}
+	
+	SaalMaaliEntity srcSaalMaali = new SaalMaaliEntity();
+	
+	public SaalMaaliEntity getSrcSaalMaali() {
+		return srcSaalMaali;
+	}
+
+	public void setSrcSaalMaali(SaalMaaliEntity srcSaalMaali) {
+		this.srcSaalMaali = srcSaalMaali;
+	}
+
+
+	public void copyHesabsFromSourceSaalMaaliToDestSaalMaali(){
+		if(getSrcSaalMaali().getId() == null)
+			throw new RequiredFieldNotSetException(SerajMessageUtil.getMessage("AccountingSystemConfig_srcSaalMaali"));
+
+//		if(getDestSaalMaali().getId() == null)
+//			throw new RequiredFieldNotSetException(SerajMessageUtil.getMessage("AccountingSystemConfig_destSaalMaali"));
+		
+		srcSaalMaali = getSaalMaaliService().load(getSrcSaalMaali().getId());
+//		destSaalMaali = getSaalMaaliService().load(getDestSaalMaali().getId());
+		
+		getHesabKolService().copyHesabKolsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
+		getHesabKolService().copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
+		getHesabKolService().copyHesabTafsilissFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
+		getHesabKolService().createHesabTafsiliRelatedEntities(getSrcSaalMaali(), getEntity());
+		getHesabKolService().copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity());
+		getHesabKolService().copycontactHesabsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity());
+		addInfoMessage("SUCCESSFUL_ACTION");
 	}
 
 }

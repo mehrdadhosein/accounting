@@ -348,15 +348,17 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 
 	
 	@Transactional
-	private void createOrUpdateRelatedHesabTafsiliTemplate(HesabTafsiliEntity entity, OrganEntity organEntity) {
+	public void createOrUpdateRelatedHesabTafsiliTemplate(HesabTafsiliEntity entity, OrganEntity organEntity) {
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCodeInCurrentOrgan(entity.getCode().toString(), organEntity);
 		if(hesabTafsiliTemplateEntity == null){
 			hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
 			if(hesabTafsiliTemplateEntity!=null){
 				HesabTafsiliTemplateEntity currentEntityHesabTafsiliTemplate = entity.getHesabTafsiliTemplate();
 				
+				if(currentEntityHesabTafsiliTemplate == null)
+					entity.setHesabTafsiliTemplate(hesabTafsiliTemplateEntity);
 				//code of hesabTafsili has changed
-				if(currentEntityHesabTafsiliTemplate.equals(hesabTafsiliTemplateEntity)){
+				if(currentEntityHesabTafsiliTemplate == null || currentEntityHesabTafsiliTemplate.equals(hesabTafsiliTemplateEntity)){
 					hesabTafsiliTemplateEntity.setCode(entity.getCode().toString());
 					hesabTafsiliTemplateEntity.setName(entity.getName());
 					hesabTafsiliTemplateEntity.setTafsilType(entity.getTafsilType());
@@ -496,7 +498,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 				try{
 					createHesabTafsili(activeSaalMaaliEntity,	hesabTafsiliTemplateEntity, currentOrgan);
 				}catch(DuplicateException e){
-					System.out.println(e.getMessage());
+					System.out.println(e.getDesc());
 				}				
 			}
 		}
@@ -690,13 +692,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		localFilter.put("hesabTafsiliTemplate.id@eq",tafsiliTemplateEntity.getId());
 		localFilter.put("organ.id@eq",activeSaalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",activeSaalMaaliEntity.getId());
-		List<HesabTafsiliEntity> dataList = getDataList(null, localFilter );
-		if(dataList.size() == 1)
-			return dataList.get(0);
-		if(dataList.size() == 0)
-			return null;
-		throw new FatalException("More Than one HesabTafsili Recore Found");
-		
+		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter );
+		return hesabTafsiliEntity;
 	}
 
 	public HesabTafsiliEntity loadHesabTafsiliByCode(String code,	SaalMaaliEntity saalMaaliEntity) {
@@ -715,12 +712,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		localFilter.put("code@eq",code);
 //		localFilter.put("organ.id@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
-		List<HesabTafsiliEntity> dataList = getDataList(null, localFilter, flushMode);
-		if(dataList.size() == 1)
-			return dataList.get(0);
-		if(dataList.size() == 0)
-			return null;
-		throw new FatalException("More Than one HesabTafsili Recore Found");
+		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
+		return hesabTafsiliEntity;
 	}
 
 	public HesabTafsiliEntity loadHesabTafsiliByName(String name,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode) {
@@ -728,12 +721,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		localFilter.put("name@eq",name);
 //		localFilter.put("organ.id@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
-		List<HesabTafsiliEntity> dataList = getDataList(null, localFilter, flushMode);
-		if(dataList.size() == 1)
-			return dataList.get(0);
-		if(dataList.size() == 0)
-			return null;
-		throw new FatalException("More Than one HesabTafsili Recore Found");
+		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
+		return hesabTafsiliEntity;
 	}
 	
 
@@ -762,4 +751,5 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		return rootList;
 	}
 
+	
 }

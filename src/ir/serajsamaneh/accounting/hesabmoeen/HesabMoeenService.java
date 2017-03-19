@@ -379,7 +379,7 @@ public class HesabMoeenService extends
 			HesabMoeenTemplateEntity hesabMoeenTemplateEntity, OrganEntity currentOrgan) {
 		HesabMoeenEntity hesabMoeenEntity = loadHesabMoeenByTemplate(hesabMoeenTemplateEntity, activeSaalMaaliEntity);
 		if(hesabMoeenEntity == null){
-			hesabMoeenEntity = populateHesabKol(activeSaalMaaliEntity,
+			hesabMoeenEntity = populateHesabMoeen(activeSaalMaaliEntity,
 					hesabMoeenTemplateEntity, currentOrgan);
 			
 			save(hesabMoeenEntity, activeSaalMaaliEntity, currentOrgan);
@@ -412,7 +412,7 @@ public class HesabMoeenService extends
 //		return hesabMoeenEntity;
 //	}
 
-	private HesabMoeenEntity populateHesabKol(SaalMaaliEntity activeSaalMaaliEntity,
+	private HesabMoeenEntity populateHesabMoeen(SaalMaaliEntity activeSaalMaaliEntity,
 			HesabMoeenTemplateEntity hesabMoeenTemplateEntity, OrganEntity currentOrgan) {
 		HesabMoeenEntity hesabMoeenEntity;
 		hesabMoeenEntity = new HesabMoeenEntity();
@@ -424,8 +424,8 @@ public class HesabMoeenService extends
 		if(hesabKolTemplate!=null)
 			hesabKolEntity = getHesabKolService().loadHesabKolByCode(hesabKolTemplate.getCode(), activeSaalMaaliEntity);
 		
-		if(hesabKolEntity == null)
-			hesabKolEntity = getHesabKolService().createHesabKolStateLess(activeSaalMaaliEntity, hesabKolTemplate, currentOrgan);
+		if(hesabKolEntity == null && hesabKolTemplate!=null)
+			hesabKolEntity = getHesabKolService().createHesabKol(activeSaalMaaliEntity, hesabKolTemplate, currentOrgan);
 		hesabMoeenEntity.setHesabKol(hesabKolEntity);
 		hesabMoeenEntity.setHesabMoeenTemplate(hesabMoeenTemplateEntity);
 		hesabMoeenEntity.setHidden(hesabMoeenTemplateEntity.getHidden());

@@ -1,5 +1,27 @@
 package ir.serajsamaneh.accounting.hesabkol;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.faces.model.DataModel;
+import javax.faces.model.SelectItem;
+
+import org.apache.commons.collections.map.ListOrderedMap;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity;
 import ir.serajsamaneh.accounting.hesabgroup.HesabGroupService;
@@ -13,25 +35,16 @@ import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntit
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntity;
+import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
+import ir.serajsamaneh.core.util.XMLUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabEntity;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
 import ir.serajsamaneh.erpcore.util.HesabTreeUtil;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.faces.model.DataModel;
-import javax.faces.model.SelectItem;
-
-import org.apache.commons.collections.map.ListOrderedMap;
 
 
 public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
@@ -177,11 +190,67 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	}
 
 	public String importFromHesabKolTemplateList(){
-		getHesabKolTemplateService().createDefaultAccounts(getCurrentUserActiveSaalMaali().getOrgan());
+		createDefaultAccounts(getCurrentUserActiveSaalMaali().getOrgan());
 		getMyService().importFromHesabKolTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		setDataModel(null); 
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return null;
+	}
+	
+	public void createDefaultAccounts(OrganEntity organEntity) throws NumberFormatException {
+		InputStream fileInputStream;
+		URL resource = getClass().getResource("/config/accounts");
+		if (resource == null)
+			return;
+		File dir = new File(resource.getFile());
+
+		FilenameFilter filter = new WildcardFileFilter("general-accounts.xml");
+		String[] list = dir.list(filter);
+
+		for (String fileName : list) {
+			String localFilePath = dir.getAbsolutePath() + "/" + fileName;
+			try {
+				fileInputStream = new FileInputStream(localFilePath);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				throw new IllegalStateException();
+			}
+			// parse XML file -> XML document will be build
+			Document doc = XMLUtil.parseFile(fileInputStream);
+			NodeList rootNodes = doc.getElementsByTagName("accounts");
+			Node item = rootNodes.item(0);
+			Element accounts = (Element) item;
+
+			NodeList childNodes = accounts.getChildNodes();
+			createDefaultAccounts(childNodes, organEntity);
+		}
+
+	}
+	
+	public void createDefaultAccounts(NodeList childNodes, OrganEntity organEntity) {
+		for (int s = 0; s < childNodes.getLength(); s++) {
+			try{
+				Node accountNode = childNodes.item(s);
+				if (accountNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element nodeElem = (Element) accountNode;
+					if (nodeElem.getTagName().equals("HesabGroup")) {
+						getHesabKolTemplateService().createHesabGroup(nodeElem, organEntity);
+					}
+					else if (nodeElem.getTagName().equals("HesabKol")) {
+						getHesabKolTemplateService().createHesabKolTemplate(nodeElem, organEntity);
+					}
+					else if (nodeElem.getTagName().equals("HesabMoeen")) {
+						getHesabKolTemplateService().createHesabMoeenTemplate(nodeElem, organEntity);
+					}
+					else if (nodeElem.getTagName().equals("HesabTafsili")) {
+						getHesabKolTemplateService().createHesabTafsiliTemplate(nodeElem, organEntity);
+					}
+	
+				}
+			}catch(DuplicateException e){
+				System.out.println(e.getDesc());
+			}
+		}
 	}
 	
 
