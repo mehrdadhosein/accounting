@@ -1,9 +1,8 @@
 package ir.serajsamaneh.accounting.month;
 
-import ir.serajsamaneh.accounting.base.BaseAccountingForm;
-import ir.serajsamaneh.core.base.BaseEntityForm;
-
 import javax.faces.model.DataModel;
+
+import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 
 public class MonthForm   extends BaseAccountingForm<MonthEntity,Long>  {
 
@@ -37,7 +36,7 @@ public class MonthForm   extends BaseAccountingForm<MonthEntity,Long>  {
 	}
 	
 	public DataModel getLocalDataModel() {
-		setRowsPerPage(-1);
+//		setRowsPerPage(-1);
 		getFilter().put("organ.id@eq", getCurrentOrgan().getId());
 		return getDataModel();
 	}

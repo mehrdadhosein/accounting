@@ -1,5 +1,13 @@
 package ir.serajsamaneh.accounting.saalmaali;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.model.DataModel;
+import javax.faces.model.SelectItem;
+
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.exception.NoActiveSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
@@ -8,14 +16,6 @@ import ir.serajsamaneh.core.exception.NoOrganFoundException;
 import ir.serajsamaneh.core.exception.RequiredFieldNotSetException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.enumeration.SaalMaaliStatusEnum;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.model.DataModel;
-import javax.faces.model.SelectItem;
 
 public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 
@@ -195,5 +195,4 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 		getHesabKolService().copycontactHesabsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity());
 		addInfoMessage("SUCCESSFUL_ACTION");
 	}
-
 }

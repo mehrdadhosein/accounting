@@ -1,5 +1,16 @@
 package ir.serajsamaneh.accounting.hesabtafsili;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.hibernate.FlushMode;
+import org.springframework.transaction.annotation.Transactional;
+
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
 import ir.serajsamaneh.accounting.exception.CycleInHesabTafsiliException;
@@ -21,17 +32,6 @@ import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.hibernate.FlushMode;
-import org.springframework.transaction.annotation.Transactional;
 
 public class HesabTafsiliService extends
 BaseEntityService<HesabTafsiliEntity, Long> {
@@ -370,6 +370,11 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 				hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().createHesabTafsiliTemplate(entity.getCode(), entity.getName(), organEntity, entity.getTafsilType(), entity.getDescription());
 		}
 		else{
+			
+			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntityByName = getHesabTafsiliTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
+			if(hesabTafsiliTemplateEntityByName!=null && !hesabTafsiliTemplateEntityByName.getId().equals(hesabTafsiliTemplateEntity.getId()))
+				throw new FatalException(SerajMessageUtil.getMessage("HesabKolTemplate_cantCreateHesabKolTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
+
 			hesabTafsiliTemplateEntity.setCode(entity.getCode().toString());
 			hesabTafsiliTemplateEntity.setName(entity.getName());
 			hesabTafsiliTemplateEntity.setTafsilType(entity.getTafsilType());

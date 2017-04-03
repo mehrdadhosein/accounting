@@ -1,5 +1,13 @@
 package ir.serajsamaneh.accounting.hesabkol;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.FlushMode;
+import org.springframework.transaction.annotation.Transactional;
+
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
@@ -11,10 +19,8 @@ import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
 import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
-import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
-import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
@@ -28,14 +34,6 @@ import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabEntity;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import ir.serajsamaneh.erpcore.util.HesabTreeUtil;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.hibernate.FlushMode;
-import org.springframework.transaction.annotation.Transactional;
 
 public class HesabKolService extends
 		BaseEntityService<HesabKolEntity, Long> {
@@ -256,6 +254,10 @@ public class HesabKolService extends
 
 		}
 		else{
+			HesabKolTemplateEntity hesabKolTemplateEntityByName = getHesabKolTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
+			if(hesabKolTemplateEntityByName!=null && !hesabKolTemplateEntityByName.getId().equals(hesabKolTemplateEntity.getId()))
+				throw new FatalException(SerajMessageUtil.getMessage("HesabKolTemplate_cantCreateHesabKolTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
+
 			hesabKolTemplateEntity.setCode(entity.getCode().toString());
 			hesabKolTemplateEntity.setName(entity.getName());
 			hesabKolTemplateEntity.setDescription(entity.getDescription());
@@ -628,30 +630,7 @@ public class HesabKolService extends
 		}
 	}
 
-	@Transactional(readOnly=false)
-	public void copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali,
-			SaalMaaliEntity destSaalMaali, OrganEntity currentOrgan) {
-		List<HesabMoeenEntity> activeMoeens = getHesabMoeenService().getActiveMoeens(srcSaalMaali);
-		for (HesabMoeenEntity srcHesabMoeenEntity : activeMoeens) {
-			
-			HesabMoeenEntity destHesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(),destSaalMaali, FlushMode.MANUAL);
-			if(destHesabMoeenEntity == null){
-				destHesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByName(srcHesabMoeenEntity.getName(),destSaalMaali, FlushMode.MANUAL);
-				if(destHesabMoeenEntity!=null)
-					throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_cantImportHesabWithDuplicateNameAndnewCode", srcHesabMoeenEntity.getCode(),destHesabMoeenEntity.getName()));				
-			}
-			
-			if(destHesabMoeenEntity == null || destHesabMoeenEntity.getId() == null){
-				try{
-					destHesabMoeenEntity = getHesabMoeenService().createHesabMoeen(destSaalMaali, srcHesabMoeenEntity, currentOrgan);
-				}catch(DuplicateException e){
-					System.out.println(e.getDesc());
-					continue;
-				}
-			}
-			getHesabMoeenService().createOrUpdateRelatedHesabMoeenTemplate(srcHesabMoeenEntity, srcSaalMaali.getOrgan());
-		}
-	}
+
 
 	@Transactional(readOnly=false)
 	public void copyHesabKolsFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali,
@@ -680,5 +659,31 @@ public class HesabKolService extends
 			createHesabKolTemplateFromHesabKol(srcHesabKolEntity, srcSaalMaali.getOrgan());
 		}
 	}
+
+	
+	public void copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali,
+			SaalMaaliEntity destSaalMaali, OrganEntity currentOrgan) {
+		List<HesabMoeenEntity> activeMoeens = getHesabMoeenService().getActiveMoeens(srcSaalMaali);
+		for (HesabMoeenEntity srcHesabMoeenEntity : activeMoeens) {
+			
+			HesabMoeenEntity destHesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(),destSaalMaali, FlushMode.MANUAL);
+			if(destHesabMoeenEntity == null){
+				destHesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByName(srcHesabMoeenEntity.getName(),destSaalMaali, FlushMode.MANUAL);
+				if(destHesabMoeenEntity!=null)
+					throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_cantImportHesabWithDuplicateNameAndnewCode", srcHesabMoeenEntity.getCode(),destHesabMoeenEntity.getName()));				
+			}
+			
+			if(destHesabMoeenEntity == null || destHesabMoeenEntity.getId() == null){
+//				try{
+					destHesabMoeenEntity = getHesabMoeenService().createHesabMoeen(destSaalMaali, srcHesabMoeenEntity, currentOrgan);
+//				}catch(DuplicateException e){
+//					System.out.println(e.getDesc());
+//					continue;
+//				}
+			}
+			getHesabMoeenService().createOrUpdateRelatedHesabMoeenTemplate(srcHesabMoeenEntity, srcSaalMaali.getOrgan());
+		}
+	}
+
 
 }
