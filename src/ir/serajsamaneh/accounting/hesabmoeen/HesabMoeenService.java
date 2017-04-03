@@ -1,7 +1,6 @@
 package ir.serajsamaneh.accounting.hesabmoeen;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -159,6 +158,9 @@ public class HesabMoeenService extends
 
 		}
 		else{
+			HesabMoeenTemplateEntity hesabMoeenTemplateEntityByName = getHesabMoeenTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
+			if(hesabMoeenTemplateEntityByName!=null && !hesabMoeenTemplateEntityByName.getId().equals(hesabMoeenTemplateEntity.getId()))
+				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeenTemplate_cantCreateHesabMoeenTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
 			hesabMoeenTemplateEntity.setCode(entity.getCode().toString());
 			hesabMoeenTemplateEntity.setName(entity.getName());
 			hesabMoeenTemplateEntity.setDescription(entity.getDescription());
@@ -228,21 +230,21 @@ public class HesabMoeenService extends
 				&& !entity.getCode().equals(oldEntity.getCode()))
 			diffes += "["
 					+ SerajMessageUtil.getMessage("HesabMoeen" + "_"
-							+ entity.PROP_CODE) + " : " + oldEntity.getCode()
+							+ HesabMoeenEntity.PROP_CODE) + " : " + oldEntity.getCode()
 					+ "" + " --> " + entity.getCode() + "" + "]";
 
 		if (entity.getName() != null
 				&& !entity.getName().equals(oldEntity.getName()))
 			diffes += "["
 					+ SerajMessageUtil.getMessage("HesabMoeen" + "_"
-							+ entity.PROP_NAME) + " : " + oldEntity.getName()
+							+ HesabMoeenEntity.PROP_NAME) + " : " + oldEntity.getName()
 					+ "" + " --> " + entity.getName() + "" + "]";
 
 		if (entity.getDescription() != null
 				&& !entity.getDescription().equals(oldEntity.getDescription()))
 			diffes += "["
 					+ SerajMessageUtil.getMessage("HesabMoeen" + "_"
-							+ entity.PROP_DESCRIPTION) + " : "
+							+ HesabMoeenEntity.PROP_DESCRIPTION) + " : "
 					+ oldEntity.getDescription() + "" + " --> "
 					+ entity.getDescription() + "" + "]";
 
@@ -250,7 +252,7 @@ public class HesabMoeenService extends
 				&& !entity.getHidden().equals(oldEntity.getHidden()))
 			diffes += "["
 					+ SerajMessageUtil.getMessage("HesabMoeen" + "_"
-							+ entity.PROP_HIDDEN) + " : "
+							+ HesabMoeenEntity.PROP_HIDDEN) + " : "
 					+ oldEntity.getHidden() + "" + " --> " + entity.getHidden()
 					+ "" + "]";
 

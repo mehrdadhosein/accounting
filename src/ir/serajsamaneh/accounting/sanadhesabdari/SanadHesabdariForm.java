@@ -1,5 +1,28 @@
 package ir.serajsamaneh.accounting.sanadhesabdari;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.model.DataModel;
+import javax.faces.model.SelectItem;
+
+import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.springframework.util.StringUtils;
+
+import com.opencsv.CSVReader;
+
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
 import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
@@ -11,7 +34,6 @@ import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
-import ir.serajsamaneh.accounting.month.MonthEntity;
 import ir.serajsamaneh.accounting.month.MonthService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
@@ -35,39 +57,9 @@ import ir.serajsamaneh.core.util.JQueryUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.enumeration.YesNoEnum;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.model.DataModel;
-import javax.faces.model.SelectItem;
-
 import net.sf.jasperreports.engine.JRException;
-
-import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
-import org.springframework.util.StringUtils;
-
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
-
-import com.opencsv.CSVReader;
 
 public class SanadHesabdariForm extends
 		BaseAccountingForm<SanadHesabdariEntity, Long> {
@@ -1207,24 +1199,24 @@ public class SanadHesabdariForm extends
 		return null;
 	}
 	
-	public void uploadlistener(FileUploadEvent event) {
-		UploadedFile item = event.getUploadedFile();
-		String contentType = item.getContentType();
-		
-		String separator = System.getProperty("file.separator");
-		
-		String editedFileName = item.getName().substring(item.getName().lastIndexOf(separator)+1);
-		createTempUploadFile(editedFileName, item.getData(), contentType, "zamimeh",
-				getUniqueGUID());
-	}
+//	public void uploadlistener(FileUploadEvent event) {
+//		UploadedFile item = event.getUploadedFile();
+//		String contentType = item.getContentType();
+//		
+//		String separator = System.getProperty("file.separator");
+//		
+//		String editedFileName = item.getName().substring(item.getName().lastIndexOf(separator)+1);
+//		createTempUploadFile(editedFileName, item.getData(), contentType, "zamimeh",
+//				getUniqueGUID());
+//	}
 	
 	
-	private TempUploadedFileEntity createTempUploadFile(String fileName,
-			byte[] data, String contentType, String useCase, String guid) {
-		getMyService().cleanNullRelations(getEntity());
-		return getMyService().createTempUploadFile(fileName, data, contentType,
-				getSession().getId(), useCase, guid);
-	}
+//	private TempUploadedFileEntity createTempUploadFile(String fileName,
+//			byte[] data, String contentType, String useCase, String guid) {
+//		getMyService().cleanNullRelations(getEntity());
+//		return getMyService().createTempUploadFile(fileName, data, contentType,
+//				getSession().getId(), useCase, guid);
+//	}
 	
 	public Boolean getHasZamimeh() {
 		if (getEntity().getZamimeh() != null
