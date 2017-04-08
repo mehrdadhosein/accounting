@@ -3,49 +3,29 @@
 <head>
 	<meta charset="utf-8">
 	
-	<script src="../js/jquery/jquery-2.0.3.min.js" language='javascript' type="text/javascript"></script>
+	<script src="../js/jquery/jquery-2.0.3.min.js" type="text/javascript"></script>
 	
-	<link   href="../js/dhtmlx.2.6/dhtmlxTree/codebase/dhtmlxtree.css" rel="STYLESHEET" type="text/css" />
-	<script  src="../js/dhtmlx.2.6/dhtmlxTree/codebase/dhtmlxcommon.js"></script>
-	<script  src="../js/dhtmlx.2.6/dhtmlxTree/codebase/dhtmlxtree.js"></script>
-	<script  src="../js/dhtmlx.2.6/dhtmlxTree/codebase/ext/dhtmlxtree_li.js"></script>
-	<script  src="../js/dhtmlx.2.6/dhtmlxTree/codebase/ext/dhtmlxtree_xw.js"></script>
-	<script  src="../js/dhtmlx.2.6/dhtmlxTree/codebase/ext/dhtmlxtree_rl.js"></script>
-
-	<link   href="../js/dhtmlx.2.6/dhtmlxGrid/codebase/skins/dhtmlxgrid_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
-	<link   href="../js/dhtmlx.2.6/dhtmlxGrid/codebase/dhtmlxgrid.css" rel="STYLESHEET" type="text/css" />
-	<script  src="../js/dhtmlx.2.6/dhtmlxGrid/codebase/dhtmlxgrid.js"></script>
-
-	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxLayout/codebase/skins/dhtmlxlayout_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
-	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxLayout/codebase/dhtmlxlayout.css" rel="STYLESHEET" type="text/css" />
-	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxLayout/codebase/dhtmlxcontainer.js"></script>
-	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxLayout/codebase/dhtmlxlayout.js"></script>
-
-	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxForm/codebase/skins/dhtmlxform_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
-	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxForm/codebase/dhtmlxform.js"></script>	
-
-	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxMessage/codebase/skins/dhtmlxmessage_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
-	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxMessage/codebase/dhtmlxmessage.js"></script>	
-
-	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxWindows/codebase/skins/dhtmlxwindows_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
-	<link   href="../js/dhtmlxSuite.3.6.standard/dhtmlxWindows/codebase/dhtmlxwindows.css" rel="STYLESHEET" type="text/css" />
-	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxWindows/codebase/dhtmlxcontainer.js"></script>	
-	<script  src="../js/dhtmlxSuite.3.6.standard/dhtmlxWindows/codebase/dhtmlxwindows.js"></script>	
-
-
-	<link   href="../js/dhtmlx.2.6/_RTL_support/codebase/dhtmlx_rtl.css" rel="STYLESHEET" type="text/css" />
-	<script  src="../js/dhtmlx.2.6/_RTL_support/codebase/dhtmlx_rtl.js"></script>	
-	
-	<link   href="../js/dhtmlx.2.6/dhtmlxMenu/codebase/skins/dhtmlxmenu_dhx_skyblue.css" rel="STYLESHEET" type="text/css" />
-	<script  src="../js/dhtmlx.2.6/dhtmlxMenu/codebase/dhtmlxmenu.js"></script>	
-	<script  src="../js/dhtmlx.2.6/dhtmlxMenu/codebase/ext/dhtmlxmenu_ext.js"></script>	
+		<script src="../js/dhtmlxSuite_v508_pro_eval/codebase/dhtmlx.js"></script>
+	<link rel="stylesheet" type="text/css" href="../js/dhtmlxSuite_v508_pro_eval/codebase/dhtmlx.css"></link>
 	
 
 
-	<script src="../dwr/engine.js?p=21" language="javascript" type="text/javascript"	> </script>
+	<script src="../dwr/engine.js?p=21"  type="text/javascript"	> </script>
 	<script src="../dwr/util.js?p=21" type="text/javascript"	> </script>
 	<script src='../dwr/interface/hesabKol.js' type='text/javascript'	> </script>
 <style type="text/css">
+
+@font-face {
+  font-family: 'yekan';
+  src:url('../RTL/assets/fonts/Yekan/Yekan.eot');
+  src:url('../RTL/assets/fonts/Yekan/Yekan.woff') format('woff'), 
+    url('../RTL/assets/fonts/Yekan/Yekan.ttf') format('truetype'),
+    url('../RTL/assets/fonts/Yekan/Yekan.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 			html, body{
 				height:100%;
 			}	
@@ -54,27 +34,81 @@
     direction: rtl;
     unicode-bidi: unset; !important
 }
-			
+
+	.standartTreeRow{
+		font-family: yekan!important;
+	}
+	.standartTreeRow_lor{
+		font-family: yekan!important;
+	}	
+	.selectedTreeRow{
+		font-family: yekan!important;
+	}	
+	.dhxform_obj_material div.dhxform_btn{
+		font-family: yekan!important;
+	}
+	.dhxlayout_base_material div.dhx_cell_layout div.dhx_cell_hdr{
+		font-family: yekan!important;
+	}
+
+	.dhxwins_vp_material div.dhxwin_hdr{
+		font-family: yekan!important;	
+	}	
 </style>			
 </head>
 
 <body>
-
+<script>
+	function showErrInConsole(msg) {
+	    setTimeout(function() {
+	        throw new Error(msg);
+	    }, 0);
+	}
+	function errh(msg, exc) {
+		if (exc.javaClassName=='ir.serajsamaneh.core.exception.UserIsNotLoggedInException'){
+			window.parent.location =contextPath+"/logout.jsf";
+			window.location =contextPath+"/logout.jsf";
+		}
+		else if (exc.javaClassName=='ir.serajsamaneh.core.exception.FatalException'){
+			clearMessage();
+			addToGlobalMessage(exc.desc);
+			showMessage();
+		}
+		else if (exc.javaClassName=='ir.serajsamaneh.core.exception.SerajException'){
+			clearMessage();
+			addToGlobalMessage(exc.desc);
+			showMessage();
+		}
+		else if (exc.javaClassName=='ir.serajsamaneh.core.exception.AccessDeniedException'){
+			clearMessage();
+			addToGlobalMessage(exc.desc);
+			showMessage();
+		}
+		else if (exc.desc!=""){
+			showErrInConsole(" template-jquery.v2.xhtml(function errh:77) Error message is: " + exc.desc + " - Error Details: " + dwr.util.toDescriptiveString(exc, 2));
+			//showErrorDialog(exc.desc);
+		}
+		else
+			showErrInConsole(" template-jquery.v2.xhtml(function errh:77) Error message is: " + msg + " - Error Details: " + dwr.util.toDescriptiveString(exc, 2));
+		//hideLoading();
+	}
+	dwr.engine.setErrorHandler(errh);
+</script>
 <script>
 	//dhtmlx.image_path='./codebase/imgs/';
 	//alert($("body").height());
 	var hesabOperationTree;
-	var main_layout = new dhtmlXLayoutObject(document.body, '2U');
+	var main_layout = new dhtmlXLayoutObject({parent:document.body,pattern:'1C'});
 
-	var rightLayout = main_layout.cells('b');
-	rightLayout.setWidth('800');
+	var mainCell = main_layout.cells('a');
+	//mainCell.setWidth('800');
 	
-	var innerRightLayout = rightLayout.attachLayout('2E');
-	var hesabTreeLayout = innerRightLayout.cells('a');
+	var innerRightLayout = mainCell.attachLayout('2E');
+	var hesabTreeLayout = innerRightLayout.cells('b');
 	hesabTreeLayout.setText('نمایش حسابها');
-	hesabTreeLayout.setHeight('500');
+	hesabTreeLayout.setHeight('60');
 	
-	var actionsLayout = innerRightLayout.cells('b');
+	var actionsLayout = innerRightLayout.cells('a');
 	actionsLayout.setText('actions');
 	actionsLayout.hideHeader();
 	actionsLayout.setHeight('60');
@@ -249,7 +283,7 @@
 	});
 	
 	
-	leftLayout = main_layout.cells('a');
+	/*leftLayout = main_layout.cells('a');
 	leftLayout.setText('Operation');
 	leftLayout.collapse();
 	
@@ -263,29 +297,22 @@
 	grid_1.init();
 	//grid_1.load('./data/grid.xml', 'xml');
 			
+	*/
 	
 	
+	var hesabOperationStatus = mainCell.attachStatusBar();
+	hesabOperationStatus.setText('');
 	
-	var hesabOperationStatus = rightLayout.attachStatusBar();
-	hesabOperationStatus.setText('aaa');
-	
-    /*var  mygrid = new dhtmlXGridObject('layoutSection');
-	mygrid.setImagePath("../js/dhtmlx.2.6/dhtmlxGrid/codebase/imgs/");//path to images required by grid
-	mygrid.setHeader("Column A, Column B");//set column names
-	mygrid.setInitWidths("100,250");//set column width in px
-	mygrid.setColAlign("right,left");//set column values align
-	//mygrid.setColTypes("ro,ed");//set column types
-	mygrid.setColSorting("int,str");//set sorting
-	mygrid.init();//initialize grid
-	mygrid.setSkin("dhx_skyblue");//set grid skin*/
 	function createTree() {
 		hesabKol.getHesabHieararchy(function(data){
 			var treeXml = data;
 			hesabOperationTree = hesabTreeLayout.attachTree();
 			/*var hesabOperationTree =  new dhtmlXTreeObject("menuTree", "100%", "100%", 0);*/
-			hesabOperationTree.setIconsPath('../js/dhtmlx/dhtmlxTree/codebase/imgs/');
+			hesabOperationTree.setIconsPath('../js/dhtmlxSuite_v508_pro_eval/codebase/imgs/dhxtree_material/');
 			hesabOperationTree.setImagePath("../images/DHTMLTreeImgs/csh_bluebooks/");
-			hesabOperationTree.enableRTL(1);
+			hesabOperationTree.enableRTL(true);
+			hesabOperationTree.enableTreeLines(true);
+			//hesabOperationTree.setIconSize(18,18);
 			hesabOperationTree.loadXMLString(data);
 			//hesabOperationTree.openAllItemsDynamic();
 			
