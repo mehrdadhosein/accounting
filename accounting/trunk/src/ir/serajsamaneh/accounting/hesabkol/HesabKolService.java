@@ -482,7 +482,7 @@ public class HesabKolService extends
 		
 		List<HesabVO> hesabVOs = new ArrayList<HesabVO>();
 		for (HesabKolEntity hesabKolEntity : hesabKolList) {
-			HesabVO hesabKolVO = new HesabVO(hesabKolEntity, HesabKolEntity.class.getSimpleName(), "folder_vector.png");
+			HesabVO hesabKolVO = new HesabVO(hesabKolEntity, HesabKolEntity.class.getSimpleName(), "folder_vector16.png");
 			List<HesabMoeenEntity> activeMoeens = getHesabMoeenService().getActiveMoeens(hesabKolEntity.getId(), activeSaalMaaliEntity, organEntity);
 			HesabTreeUtil.addHesabMoeensToHesabHierarchy(hesabKolVO, activeMoeens, hesabVOs, activeSaalMaaliEntity, organEntity);
 			hesabVOs.add(hesabKolVO);

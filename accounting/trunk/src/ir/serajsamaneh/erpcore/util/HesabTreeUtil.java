@@ -59,7 +59,7 @@ public class HesabTreeUtil {
 		}
 		
 		if(!found){
-			localHesabMoeenVO = new HesabVO(hesabMoeenEntity, HesabMoeenEntity.class.getSimpleName(), "folder-vectors-icon.png");
+			localHesabMoeenVO = new HesabVO(hesabMoeenEntity, HesabMoeenEntity.class.getSimpleName(), "folder-vectors-icon16.png");
 			localHesabMoeenVO.setParent(hesabKolVO);
 			hesabKolVO.getChilds().add(localHesabMoeenVO);
 		}

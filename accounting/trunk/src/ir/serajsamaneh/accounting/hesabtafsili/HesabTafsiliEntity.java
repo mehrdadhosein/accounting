@@ -29,12 +29,12 @@ public class HesabTafsiliEntity extends BaseHesabTafsiliEntity {
 
 	List<HesabMoeenEntity> hesabMoeenList = null;
 	public List<HesabMoeenEntity> getHesabMoeenList(){
-		if(hesabMoeenList == null){
+//		if(hesabMoeenList == null){
 			hesabMoeenList = new ArrayList<HesabMoeenEntity>();
 			if(getMoeenTafsili()!=null)
 				for(MoeenTafsiliEntity moeenTafsiliEntity : getMoeenTafsili())
 					hesabMoeenList.add(moeenTafsiliEntity.getHesabMoeen());
-		}
+//		}
 		return hesabMoeenList;
 	}
 	@Override

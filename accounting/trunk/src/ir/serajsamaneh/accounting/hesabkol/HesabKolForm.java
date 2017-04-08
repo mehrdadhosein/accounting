@@ -269,7 +269,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 			return treeXml;
 		}catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			throw e;
 		}
 	}
 	

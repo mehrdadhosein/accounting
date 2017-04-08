@@ -12,6 +12,7 @@ import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.exception.NoActiveSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.core.base.BaseEntity;
+import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
 import ir.serajsamaneh.core.exception.RequiredFieldNotSetException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
@@ -80,6 +81,8 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 	}
 
 	public List<SelectItem> getSaalMaaliList() {
+		if(getTopOrgan().getCode() == null)
+			throw new FatalException("organ code not defined");
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("organ.code@startlk", getTopOrgan().getCode());
 		filter.put("organ.id@isNotNull", "ding");
