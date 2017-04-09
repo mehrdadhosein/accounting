@@ -1,5 +1,6 @@
 package ir.serajsamaneh.accounting.base;
 
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabkol.HesabVO;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
@@ -11,6 +12,7 @@ import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.base.BaseEntityForm;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
 import ir.serajsamaneh.core.util.XMLUtil;
+import serajcomponent.DateConverter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -186,5 +188,16 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 	protected void populateTopOrgansIdListFilter() {
 		List<Long> topOrganList = getTopOrgansIdList(getOrganService().load(getCurrentOrgan().getId()));
 		getFilter().put("organ.id@in", topOrganList);
+	}
+
+	public Boolean getHasCurrentDateSaalMaali(){
+		try{
+			getSaalMaaliService().getSaalmaaliByDate(DateConverter.getCurrentDate(), getCurrentOrgan());
+		}catch(NoSaalMaaliFoundException e){
+			return false;
+		}catch(NoOrganFoundException e){
+			return false;
+		}
+		return true;
 	}
 }

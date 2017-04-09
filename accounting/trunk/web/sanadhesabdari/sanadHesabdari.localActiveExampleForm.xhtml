@@ -38,8 +38,8 @@
 						value="#{messages['SanadHesabdari_sanadType']}" /> : 
 				</h:panelGroup>
 				<t:selectManyListbox id="sanadTypeSearch" 
-					value="#{owner.sanadTypeIds}" size="10" converter="javax.faces.Long" label="#{messages['SanadHesabdari_sanadType']}">
-					<f:selectItems value="#{owner.sanadTypes}"  />
+					value="#{owner.sanadTypeIds}" converter="javax.faces.Long" label="#{messages['SanadHesabdari_sanadType']}">
+					<f:selectItems value="#{owner.hierarchicalSanadTypes}"  />
 				</t:selectManyListbox>
 
 				<h:panelGroup>

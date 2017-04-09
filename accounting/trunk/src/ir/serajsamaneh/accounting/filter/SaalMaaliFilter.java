@@ -1,16 +1,5 @@
 package ir.serajsamaneh.accounting.filter;
 
-import ir.serajsamaneh.accounting.exception.NoActiveSaalMaaliFoundException;
-import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
-import ir.serajsamaneh.core.exception.SerajException;
-import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.core.security.SecurityUtil;
-import ir.serajsamaneh.core.systemconfig.SystemConfigService;
-import ir.serajsamaneh.core.user.UserEntity;
-import ir.serajsamaneh.core.util.SpringUtils;
-import ir.serajsamaneh.core.util.StringUtil;
-
 import java.io.IOException;
 
 import javax.servlet.Filter;
@@ -19,8 +8,10 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.core.systemconfig.SystemConfigService;
+import ir.serajsamaneh.core.util.SpringUtils;
 
 public class SaalMaaliFilter implements Filter {
 

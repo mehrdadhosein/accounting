@@ -102,6 +102,21 @@ public class SanadHesabdariForm extends
 	public void setSanadTypeIds(List<Long> sanadTypeIds) {
 		this.sanadTypeIds = sanadTypeIds;
 	}
+	
+	public List<SelectItem> getHierarchicalSanadTypes() {
+		if(sanadTypes == null){
+			sanadTypes = new ArrayList<SelectItem>();
+			Map<String, Object> localFilter = new HashMap<>();
+			List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
+			localFilter.put("organ.id@in", topOrganList);
+
+			List<SanadTypeEntity> sanadTypeList =  getSanadTypeService().getDataList(null, localFilter);
+//			sanadTypes.add(new SelectItem(null, "-------------"));
+			for(SanadTypeEntity entity : sanadTypeList)
+				sanadTypes.add(new SelectItem(entity.getId(), entity.getName()));
+		}
+		return sanadTypes;
+	}
 
 	public List<SelectItem> getSanadTypes() {
 		if(sanadTypes == null){
