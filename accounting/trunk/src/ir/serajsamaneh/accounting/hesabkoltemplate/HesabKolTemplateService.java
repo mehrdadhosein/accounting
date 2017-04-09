@@ -151,7 +151,7 @@ public class HesabKolTemplateService extends
 		String hesabMoeenCode = hesabTafsiliElem.getAttribute("hesabMoeen");
 		String hesabTafsiliCode = hesabTafsiliElem.getAttribute("code");
 		String hesabTafsiliName = hesabTafsiliElem.getAttribute("name");
-		getHesabTafsiliTemplateDAO().save(hesabTafsiliCode, hesabTafsiliName, hesabMoeenCode, organEntity);
+		getHesabTafsiliTemplateDAO().save(new Long(hesabTafsiliCode), hesabTafsiliName, hesabMoeenCode, organEntity);
 		getLogger().info("hesabTafsili created : "+hesabTafsiliCode);
 		
 	}

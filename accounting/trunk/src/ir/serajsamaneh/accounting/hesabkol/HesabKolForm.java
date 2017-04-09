@@ -191,7 +191,12 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 
 	public String importFromHesabKolTemplateList(){
 		createDefaultAccounts(getCurrentUserActiveSaalMaali().getOrgan());
+		getHesabGroupService().importFromHesabGroupTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		getMyService().importFromHesabKolTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		getHesabMoeenService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		getHesabTafsiliService().importFromHesabTafsiliTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		
+
 		setDataModel(null); 
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return null;

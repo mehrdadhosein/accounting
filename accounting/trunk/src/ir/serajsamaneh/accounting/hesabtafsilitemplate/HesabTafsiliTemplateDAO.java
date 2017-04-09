@@ -10,15 +10,12 @@ import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
-import ir.serajsamaneh.accounting.hesabgroup.HesabGroupDAO;
-import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateDAO;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
 public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTemplateEntity,Long> {
@@ -35,7 +32,7 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 	}
 
 	@Transactional
-	public void save(String hesabTafsiliCode, String hesabTafsiliName, String hesabMoeenCode, OrganEntity organ) {
+	public void save(Long hesabTafsiliCode, String hesabTafsiliName, String hesabMoeenCode, OrganEntity organ) {
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getGlobalHesabTafsiliByCode(hesabTafsiliCode);
 		if (hesabTafsiliTemplateEntity == null){
 			hesabTafsiliTemplateEntity = new HesabTafsiliTemplateEntity();
@@ -90,7 +87,7 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 		checkUniqueNess(entity, HesabTafsiliTemplateEntity.PROP_NAME, entity.getName(), localFilter, false);
 	}
 	
-	public HesabTafsiliTemplateEntity getGlobalHesabTafsiliByCode(String hesabCode){
+	public HesabTafsiliTemplateEntity getGlobalHesabTafsiliByCode(Long hesabCode){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
 		List<HesabTafsiliTemplateEntity> dataList = getDataList(null, localFilter,null, null, FlushMode.MANUAL,false);

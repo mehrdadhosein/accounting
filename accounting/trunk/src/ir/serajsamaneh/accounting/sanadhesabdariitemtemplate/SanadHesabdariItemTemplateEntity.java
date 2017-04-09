@@ -52,7 +52,7 @@ public class SanadHesabdariItemTemplateEntity extends BaseSanadHesabdariItemTemp
 		return getHesabMoeenTemplate().getCode();
 	}
 	
-	public String getHesabTafsiliCode() {
+	public Long getHesabTafsiliCode() {
 		return getHesabTafsiliTemplate().getCode();
 	}
 
