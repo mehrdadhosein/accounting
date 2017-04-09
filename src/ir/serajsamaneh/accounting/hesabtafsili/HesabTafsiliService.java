@@ -349,7 +349,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	
 	@Transactional
 	public void createOrUpdateRelatedHesabTafsiliTemplate(HesabTafsiliEntity entity, OrganEntity organEntity) {
-		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCodeInCurrentOrgan(entity.getCode().toString(), organEntity);
+		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCodeInCurrentOrgan(entity.getCode(), organEntity);
 		if(hesabTafsiliTemplateEntity == null){
 			hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
 			if(hesabTafsiliTemplateEntity!=null){
@@ -359,7 +359,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 					entity.setHesabTafsiliTemplate(hesabTafsiliTemplateEntity);
 				//code of hesabTafsili has changed
 				if(currentEntityHesabTafsiliTemplate == null || currentEntityHesabTafsiliTemplate.equals(hesabTafsiliTemplateEntity)){
-					hesabTafsiliTemplateEntity.setCode(entity.getCode().toString());
+					hesabTafsiliTemplateEntity.setCode(entity.getCode());
 					hesabTafsiliTemplateEntity.setName(entity.getName());
 					hesabTafsiliTemplateEntity.setTafsilType(entity.getTafsilType());
 					hesabTafsiliTemplateEntity.setDescription(entity.getDescription());
@@ -375,7 +375,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			if(hesabTafsiliTemplateEntityByName!=null && !hesabTafsiliTemplateEntityByName.getId().equals(hesabTafsiliTemplateEntity.getId()))
 				throw new FatalException(SerajMessageUtil.getMessage("HesabKolTemplate_cantCreateHesabKolTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
 
-			hesabTafsiliTemplateEntity.setCode(entity.getCode().toString());
+			hesabTafsiliTemplateEntity.setCode(entity.getCode());
 			hesabTafsiliTemplateEntity.setName(entity.getName());
 			hesabTafsiliTemplateEntity.setTafsilType(entity.getTafsilType());
 			hesabTafsiliTemplateEntity.setDescription(entity.getDescription());
@@ -404,7 +404,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		
 		Set<HesabTafsiliEntity> childs = entity.getChilds();
 		for (HesabTafsiliEntity hesabTafsiliEntity : childs) {
-			HesabTafsiliTemplateEntity templateByCode = getHesabTafsiliTemplateService().loadByCode(hesabTafsiliEntity.getCode().toString(), organEntity);
+			HesabTafsiliTemplateEntity templateByCode = getHesabTafsiliTemplateService().loadByCode(hesabTafsiliEntity.getCode(), organEntity);
 			if(templateByCode!=null)
 				hesabTafsiliTemplateEntity.getChilds().add(templateByCode);
 		}

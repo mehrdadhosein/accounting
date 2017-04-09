@@ -28,7 +28,7 @@
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
 				style="width: 97%" align="center" rows="#{hesabKol.rowsPerPage}">
 
-
+				<p:ajax event="page" listener="#{owner.onPage}" />
 
 				<p:column>
 					<f:facet name="header">

@@ -345,9 +345,6 @@ public class HesabKolService extends
 			}
 		}
 		
-		getHesabMoeenService().importFromHesabMoeenTemplateList(activeSaalMaaliEntity, currentOrgan);
-		getHesabTafsiliService().importFromHesabTafsiliTemplateList(activeSaalMaaliEntity, currentOrgan);
-		
 	}
 
 	public HesabKolEntity createHesabKol(SaalMaaliEntity activeSaalMaaliEntity,
@@ -438,12 +435,8 @@ public class HesabKolService extends
 		localFilter.put("hesabKolTemplate.id@eq",hesabKolTemplateEntity.getId());
 //		localFilter.put("organ.id@eq",activeSaalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",activeSaalMaaliEntity.getId());
-		List<HesabKolEntity> dataList = getDataList(null, localFilter );
-		if(dataList.size() == 1)
-			return dataList.get(0);
-		if(dataList.size() == 0)
-			return null;
-		throw new FatalException("More Than one HesabKol Recore Found");
+		HesabKolEntity hesabKolEntity = load(null, localFilter );
+		return hesabKolEntity;
 	}
 	
 	public HesabKolEntity loadHesabKolByCode(String code, SaalMaaliEntity saalMaaliEntity){

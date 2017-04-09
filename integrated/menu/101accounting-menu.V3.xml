@@ -25,7 +25,7 @@
 					permission="hesabMoeen.list" icon="Account-currency-security" />
 				<MenuItem id="hesabTafsililocalList" value="حساب تفصیلی" pagetitle="حساب تفصیلی"  valueClick="../hesabtafsili/hesabTafsili.hierarchicalList.jsf"
 					permission="hesabTafsili.list" icon="Account-dollar-spot" />
-				<MenuItem id="hesabClassification.localList" value="گروه بندی تفصیل-شناور" pagetitle="گروه بندی تفصیل-شناور"  valueClick="../hesabclassification/hesabClassification.localList.jsf"
+				<MenuItem id="hesabClassificationlocalList" value="گروه بندی تفصیل-شناور" pagetitle="گروه بندی تفصیل-شناور"  valueClick="../hesabclassification/hesabClassification.localList.jsf"
 					permission="hesabClassification.localList" icon="Account-dollar-coins-and-hand" />
 				<MenuItem id="accountingMarkazlocalList" value="مرکز" pagetitle="مرکز"  valueClick="../accountingmarkaz/accountingMarkaz.localList.jsf"
 					permission="accountingMarkaz.list" icon="Account-federal-bank" />

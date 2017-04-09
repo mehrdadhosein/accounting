@@ -1044,8 +1044,8 @@ public class SanadHesabdariService extends
 		String hesabSoodVaZyanAnbashtehTafsiliTemplateId = getSystemConfigService().getValue(saalMaaliEntity.getOrgan(), null, "hesabSoodVaZyanAnbashtehTafsiliId");
 		if(!StringUtils.hasText(hesabSoodVaZyanAnbashtehTafsiliTemplateId))
 			return null;
-		String code = getHesabTafsiliTemplateService().load(new Long(hesabSoodVaZyanAnbashtehTafsiliTemplateId)).getCode();
-		return getHesabTafsiliService().loadHesabTafsiliByCode(new Long(code), saalMaaliEntity) ;		
+		Long code = getHesabTafsiliTemplateService().load(new Long(hesabSoodVaZyanAnbashtehTafsiliTemplateId)).getCode();
+		return getHesabTafsiliService().loadHesabTafsiliByCode(code, saalMaaliEntity) ;		
 	}
 
 

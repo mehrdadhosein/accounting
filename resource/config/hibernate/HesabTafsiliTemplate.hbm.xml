@@ -20,7 +20,7 @@
 	         <key column='parent_id' foreign-key='fk_hsb_tf_tmplt_parent'/>
          <many-to-many class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity' foreign-key='fk_hsb_tf_tmplt_chlds' column='childs_id' />
       </set>
-      <property  name='code' type='string' column='code'>
+      <property  name='code' type='long' column='code'>
 	      </property>
       <property  name='name' type='string' column='name'>
 	      </property>

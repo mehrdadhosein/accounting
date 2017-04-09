@@ -1,26 +1,20 @@
 package ir.serajsamaneh.accounting.hesabtafsilitemplate;
 
-import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
-import ir.serajsamaneh.accounting.enumeration.TafsilTypeEnum;
-import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
-import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
-import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
-import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
-import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
-import ir.serajsamaneh.core.base.BaseEntityService;
-import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
+
+import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
+import ir.serajsamaneh.accounting.enumeration.TafsilTypeEnum;
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
+import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
+import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
+import ir.serajsamaneh.core.base.BaseEntityService;
+import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.organ.OrganEntity;
 
 public class HesabTafsiliTemplateService extends
 		BaseEntityService<HesabTafsiliTemplateEntity, Long> {
@@ -57,7 +51,7 @@ public class HesabTafsiliTemplateService extends
 //	}
 	
 	
-	public HesabTafsiliTemplateEntity getGlobalHesabTafsiliByCode(String hesabCode){
+	public HesabTafsiliTemplateEntity getGlobalHesabTafsiliByCode(Long hesabCode){
 		return getMyDAO().getGlobalHesabTafsiliByCode(hesabCode);
 	}
 	
@@ -110,7 +104,7 @@ public class HesabTafsiliTemplateService extends
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = new HesabTafsiliTemplateEntity();
 		hesabTafsiliTemplateEntity.setScope(HesabScopeEnum.LCAOL);
 		hesabTafsiliTemplateEntity.setName(hesabTafsiliName);
-		hesabTafsiliTemplateEntity.setCode(hesabTafsiliCode.toString());
+		hesabTafsiliTemplateEntity.setCode(hesabTafsiliCode);
 		hesabTafsiliTemplateEntity.setOrgan(organ);
 		hesabTafsiliTemplateEntity.setTafsilType(tafsilType);
 		hesabTafsiliTemplateEntity.setDescription(description);
@@ -119,7 +113,7 @@ public class HesabTafsiliTemplateService extends
 		return hesabTafsiliTemplateEntity;
 	}
 
-	public HesabTafsiliTemplateEntity loadByCode(String code, OrganEntity organEntity) {
+	public HesabTafsiliTemplateEntity loadByCode(Long code, OrganEntity organEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
@@ -127,7 +121,7 @@ public class HesabTafsiliTemplateService extends
 		return load(null, localFilter);
 	}
 
-	public HesabTafsiliTemplateEntity loadByCodeInCurrentOrgan(String code, OrganEntity organEntity) {
+	public HesabTafsiliTemplateEntity loadByCodeInCurrentOrgan(Long code, OrganEntity organEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));

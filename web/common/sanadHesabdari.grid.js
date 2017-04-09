@@ -48,7 +48,8 @@
 
 			}
 			//$$('#tafsiliMoeenDIV').dialog({width: '600px',modal: true});
-			$$('#tafsiliMoeenDIV').modal('toggle');
+			//$$('#tafsiliMoeenDIV').modal('toggle');
+			$$('#tafsiliMoeenDIV').modal({backdrop: 'static', keyboard: true});
 			//alert("unitMap : "+unitMap.length);
 			//var filtered = moeenMap;
 			//alert(inspect(filtered,10,10));
