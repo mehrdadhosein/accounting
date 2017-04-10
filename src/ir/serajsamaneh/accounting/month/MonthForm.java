@@ -41,6 +41,12 @@ public class MonthForm   extends BaseAccountingForm<MonthEntity,Long>  {
 		return getDataModel();
 	}
 	
+	public DataModel getSaalMaaliDataModel() {
+//		setRowsPerPage(-1);
+		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
+		return getDataModel();
+	}
+	
 	public DataModel getLocalArchiveDataModel() {
 		return getDataModel();
 	}	
