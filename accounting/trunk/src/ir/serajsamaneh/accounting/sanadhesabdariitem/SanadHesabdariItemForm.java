@@ -20,6 +20,7 @@ import org.springframework.util.StringUtils;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
+import ir.serajsamaneh.accounting.enumeration.SanadFunctionEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.converter.CSVtoListOfLongConverter;
@@ -318,7 +319,8 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			getFilter().put("sanadHesabdari.organ.id@eq", null);
 		
 		
-		getFilter().put("sanadHesabdari.state@eq", SanadStateEnum.MonthlySummary);
+		//getFilter().put("sanadHesabdari.state@eq", SanadStateEnum.MonthlySummary);
+		getFilter().put("sanadHesabdari.state@eqORsanadHesabdari.sanadFunction@in", Arrays.asList(SanadStateEnum.MonthlySummary, Arrays.asList(SanadFunctionEnum.EFTETAHIE, SanadFunctionEnum.BASTAN_HESABHA, SanadFunctionEnum.EKHTETAMIE)));
 		createCommonDaftarFilter();
 	}
 

@@ -1206,6 +1206,7 @@ public class SanadHesabdariService extends
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("organ.id@eq", organEntity.getId());
 		localFilter.put("state@eq",  SanadStateEnum.DAEM);
+		localFilter.put("sanadFunction@eq",  SanadFunctionEnum.OMOMI);
 		localFilter.put("tarikhSanad@ge", fromDate);
 		localFilter.put("tarikhSanad@le", toDate);
 		List<SanadHesabdariEntity> sanadHesabdariList = getDataList(null, localFilter, SanadHesabdariEntity.PROP_TARIKH_SANAD, true, false);
