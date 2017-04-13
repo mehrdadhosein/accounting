@@ -806,7 +806,7 @@ public class SanadHesabdariForm extends
 
 	public DataModel<SanadHesabdariEntity> getLocalMonthlySummaryDataModel() {
 		setRowsPerPage(-1);
-		getFilter().put("state@eq", SanadStateEnum.MonthlySummary);
+		getFilter().put("state@eqORsanadFunction@in", Arrays.asList(SanadStateEnum.MonthlySummary, Arrays.asList(SanadFunctionEnum.EFTETAHIE, SanadFunctionEnum.BASTAN_HESABHA, SanadFunctionEnum.EKHTETAMIE)));
 		getFilter().put("saalMaali.id@eq",	getCurrentUserActiveSaalMaali().getId());
 		return getLocalDataModel();
 	}
