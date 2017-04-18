@@ -665,6 +665,12 @@ public class SanadHesabdariService extends
 			HesabKolEntity hesabKol = getHesabKolService().load(sanadHesabdariItemEntity.getHesabKol().getId());
 			MahyatKolEnum mahyatKol = hesabKol.getMahyatKol();
 			
+			if(hesabKol.getHesabGroup() == null)
+				throw new FatalException(SerajMessageUtil.getMessage("HesabKol_hesabGroupNotDefined",hesabKol));
+			
+			if(hesabKol.getHesabGroup().getType() == null)
+				throw new FatalException(SerajMessageUtil.getMessage("HesabGroup_typeNotDefined",hesabKol.getHesabGroup()));
+			
 			if(hesabKol.getHesabGroup().getType().equals(HesabTypeEnum.EXPENSE) || hesabKol.getHesabGroup().getType().equals(HesabTypeEnum.INCOME))
 				if(mahyatKol.equals(MahyatKolEnum.Undefined))
 					throw new MahyatKolNotDefinedException(hesabKol);
@@ -963,9 +969,9 @@ public class SanadHesabdariService extends
 		if(sanadHesabdariCloseTemporalAccountsEntity!=null){
 			//deleteWithoutDeletableValidation(sanadHesabdariCloseTemporalAccountsEntity.getId());
 			super.delete(sanadHesabdariCloseTemporalAccountsEntity.getId());
-			saalMaaliEntity.setStatus(SaalMaaliStatusEnum.InProgress);
-			getSaalMaaliService().save(saalMaaliEntity);
 		}
+		saalMaaliEntity.setStatus(SaalMaaliStatusEnum.InProgress);
+		getSaalMaaliService().save(saalMaaliEntity);
 	}
 	
 	@Transactional(readOnly=false)
@@ -1577,7 +1583,7 @@ public class SanadHesabdariService extends
 	public SanadHesabdariEntity mergeTempSanadHesabdaris(OrganEntity organ,Date sanadHesabdariDate, SanadTypeEntity sanadTypeEntity, String description){
 		Date startOfToday = DateConverter.getStartOfToday(sanadHesabdariDate).getTime();
 		Date startOfTommorow = DateConverter.getStartOfTommorow(sanadHesabdariDate).getTime();
-		List<SanadHesabdariEntity> tempSanadHesabdariList = getTempSanadHesabdariList(organ, startOfToday, startOfTommorow, sanadTypeEntity);
+		List<SanadHesabdariEntity> tempSanadHesabdariList = getSanadHesabdariBySanadType(organ, startOfToday, startOfTommorow, sanadTypeEntity);
 		
 		List<SanadHesabdariItemEntity> mergedArticles = new ArrayList<SanadHesabdariItemEntity>();
 				
@@ -1595,8 +1601,9 @@ public class SanadHesabdariService extends
 			List<SanadHesabdariItemEntity> articles = tempList;//MaaliAutomaticSanadUtil.createMergedArticles(tempList, true);
 			mergedArticles.addAll(articles);
 
-			sanadHesabdariEntity.setState(SanadStateEnum.MERGED);
-			update(sanadHesabdariEntity);
+			deleteWithoutDeletableValidation(sanadHesabdariEntity.getId());
+//			sanadHesabdariEntity.setState(SanadStateEnum.MERGED);
+//			update(sanadHesabdariEntity);
 		}
 		
 		if(mergedArticles.size()>0){
