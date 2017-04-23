@@ -407,7 +407,7 @@
 						userDataOnFooter : true
 					});
 		$$('#sanadHesabdariGrid').jqGrid('navGrid','#sanadHesabdariPcustbut',{edit:false,add:false,del:false,search:false,page:false, searchtext:'#{messages['common_search']}'}); 
-		$$('#sanadHesabdariGrid').jqGrid('navButtonAdd','#sanadHesabdariPcustbut',{caption:'#{messages['common_new']}', 
+		$$('#sanadHesabdariGrid').jqGrid('navButtonAdd','#sanadHesabdariPcustbut',{caption:'#{messages['common_new']}', buttonicon:"ui-icon-circle-plus",  
 		onClickButton:function(){ 
 			clearSanadHesabdariDialog('#sanadHesabdariGrid');
 			$$('#sanadHesabdariDialog').dialog({title:'#{messages['SanadHesabdariItem_title']}', width: '60%', autoOpen: true,close: function() {$$(this).off('keydown');} ,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_add']}': function() { addSanadHesabdariRowData('#sanadHesabdariGrid');$$(this).dialog('close'); }}});

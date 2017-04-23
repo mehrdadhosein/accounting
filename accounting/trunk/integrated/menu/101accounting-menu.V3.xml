@@ -340,13 +340,13 @@
 				<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalList" value="صورت سود و زیان"
 					permission="sanadHesabdariItem.soodVaZiyan.localList" icon="Account-dollar-exchange">
 					<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalList" value="کل"
-						valueClick="sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.localList.jsf"
+						valueClick="../sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.localList.jsf"
 						permission="sanadHesabdariItem.soodVaZiyan.localList" icon="Account-big-dollar-coin" />
 					<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalListMoeen" value="معین"
-						valueClick="sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.moeen.localList.jsf"
+						valueClick="../sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.moeen.localList.jsf"
 						permission="sanadHesabdariItem.soodVaZiyan.localList" icon="Account-currency-security" />
 					<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalListTafsili" value="تفصیلی"
-						valueClick="sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.tafsili.localList.jsf"
+						valueClick="../sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.tafsili.localList.jsf"
 						permission="sanadHesabdariItem.soodVaZiyan.localList" icon="Account-dollar-spot" />
 				</MenuItem>
 			</MenuItem>
