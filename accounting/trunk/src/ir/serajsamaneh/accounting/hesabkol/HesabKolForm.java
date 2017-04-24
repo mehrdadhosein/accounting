@@ -378,20 +378,20 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 			
 			if(hesabShenavarId!=null){
 				HesabTafsiliEntity hesabTafsiliShenavar = getHesabTafsiliService().load(hesabShenavarId);
-//				HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, hesabTafsiliShenavar, false, true, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
-//				
+				
 				Set<HesabTafsiliEntity> parents = hesabTafsiliShenavar.getParents();
 				for (HesabTafsiliEntity tafsiliEntity : parents) {
-					HesabTreeUtil.addHesabShenavarsToHesabMoeen(hesabVOs, tafsiliEntity, hesabTafsiliShenavar, false, false, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+					HesabTreeUtil.addHesabShenavarsToHesabMoeen(hesabVOs, tafsiliEntity, hesabTafsiliShenavar);
 				}
 			}else if(hesabTafsiliId!=null){
 				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(hesabTafsiliId);
-				HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, hesabTafsiliEntity, false, true, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+				HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, hesabTafsiliEntity);
 				
 				Set<HesabTafsiliEntity> parents = hesabTafsiliEntity.getParents();
 				for (HesabTafsiliEntity tafsiliEntity : parents) {
-					HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, tafsiliEntity, false, true, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+					HesabTreeUtil.addHesabShenavarsToHesabMoeen(hesabVOs, tafsiliEntity, hesabTafsiliEntity);
 				}
+				
 			}else if(hesabMoeenId!=null){
 				HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().load(hesabMoeenId);
 				HesabKolEntity hesabKolEntity = hesabMoeenEntity.getHesabKol();
@@ -401,7 +401,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 				hesabMoeenVO.setParent(hesabKolVO);
 				hesabKolVO.getChilds().add(hesabMoeenVO);
 				
-				HesabTreeUtil.addHesabMoeenToHesabKol(hesabKolVO, hesabMoeenEntity, hesabVOs, false, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+				HesabTreeUtil.addHesabMoeenToHesabKol(hesabKolVO, hesabMoeenEntity, hesabVOs);
 			}
 		}catch(FatalException e){
 			System.out.println(e.getMessage());
@@ -427,11 +427,11 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 			HesabMoeenEntity hesabMoeenEntity = contactHesabEntity.getHesabMoeen();
 			
 			if(hesabTafsiliEntity!=null){
-				HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, hesabTafsiliEntity, false, false, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+				HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, hesabTafsiliEntity);
 				
 				Set<HesabTafsiliEntity> parents = hesabTafsiliEntity.getParents();
 				for (HesabTafsiliEntity tafsiliEntity : parents) {
-					HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, tafsiliEntity, false, false, getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+					HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, tafsiliEntity);
 				}
 			}else if(hesabMoeenEntity!=null){
 				HesabKolEntity hesabKolEntity = hesabMoeenEntity.getHesabKol();
@@ -441,10 +441,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 				hesabMoeenVO.setParent(hesabKolVO);
 				hesabKolVO.getChilds().add(hesabMoeenVO);
 				
-//				HesabVO hesabTafsiliVO = new HesabVO(hesabTafsiliEntity, HesabTafsiliEntity.class.getSimpleName(), "1365270554_stock_group.png");
-//				hesabTafsiliVO.setParent(hesabMoeenVO);
-//				hesabMoeenVO.getChilds().add(hesabTafsiliVO);				
-				HesabTreeUtil.addHesabMoeenToHesabKol(hesabKolVO, hesabMoeenEntity, hesabVOs, false, getCurrentUserActiveSaalMaali(), getCurrentOrgan());				
+				HesabTreeUtil.addHesabMoeenToHesabKol(hesabKolVO, hesabMoeenEntity, hesabVOs);				
 			}
 			
 		}catch(FatalException e){
