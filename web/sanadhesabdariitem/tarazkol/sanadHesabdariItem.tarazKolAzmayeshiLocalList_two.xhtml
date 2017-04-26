@@ -153,8 +153,10 @@ function openTarazMoeen(hesabKolId){
 	moeens = document.getElementById('moeens_id').value;
 	tafsiliIds = document.getElementById('tafsilis_id').value;
 	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	fromSerial=document.getElementById('azserialExample').value;
+	toSerial=document.getElementById('taserialExample').value;
 	
-	var url = '../tarazmoeen/sanadHesabdariItem.tarazMoeenAzmayeshiLocalList_two.jsf?searchAction=true&hesabKolIds='+hesabKolId+'&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate;
+	var url = '../tarazmoeen/sanadHesabdariItem.tarazMoeenAzmayeshiLocalList_two.jsf?searchAction=true&hesabKolIds='+hesabKolId+'&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
 	popupFullscreen(url, 'tarazMoeen');
 }
 function openDaftarKol(hesabKolId){
@@ -164,8 +166,10 @@ function openDaftarKol(hesabKolId){
 	moeens = document.getElementById('moeens_id').value;
 	tafsiliIds = document.getElementById('tafsilis_id').value;
 	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	fromSerial=document.getElementById('azserialExample').value;
+	toSerial=document.getElementById('taserialExample').value;
 	
-	var url = '../daftar/sanadHesabdariItem.kolLocalList.jsf?searchAction=true&hesabKolIds='+hesabKolId+'&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate;	
+	var url = '../daftar/sanadHesabdariItem.kolLocalList.jsf?searchAction=true&hesabKolIds='+hesabKolId+'&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;	
 	popupFullscreen(url, 'daftarKol');
 }
 /* ]]> */

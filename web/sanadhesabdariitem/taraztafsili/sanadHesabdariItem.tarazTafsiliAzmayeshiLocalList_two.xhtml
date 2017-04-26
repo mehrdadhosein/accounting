@@ -168,11 +168,14 @@
 				fromDate = document.getElementById('aztarikhExample').value;
 				toDate = document.getElementById('tatarikhExample').value;
 				moeens = document.getElementById('moeens_id').value;
+				fromSerial=document.getElementById('azserialExample').value;
+				toSerial=document.getElementById('taserialExample').value;
+							
 				var url = '../tarazshenavar/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf?searchAction=true&moeenIds='
 						+ moeens
 						+ '&tafsiliIds='
 						+ hesabTafsiliEntityId
-						+ '&fromDate=' + fromDate + '&toDate=' + toDate;
+						+ '&fromDate=' + fromDate + '&toDate=' + toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
 				popupFullscreen(url, 'tarazShenavar');
 			}
 
@@ -180,16 +183,18 @@
 				//alert(hesabKolId);
 				fromDate = document.getElementById('aztarikhExample').value;
 				toDate = document.getElementById('tatarikhExample').value;
-				articleTafsiliIds = document
-						.getElementById('articleTafsiliIds_id').value;
+				articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;
 				moeens = document.getElementById('moeens_id').value;
+				fromSerial=document.getElementById('azserialExample').value;
+				toSerial=document.getElementById('taserialExample').value;
+							
 				var url = '../daftar/sanadHesabdariItem.tafsiliLocalList.jsf?searchAction=true&moeenIds='
 						+ moeens
 						+ '&tafsiliIds='
 						+ hesabTafsiliEntityId
 						+ '&articleTafsiliIds='
 						+ articleTafsiliIds
-						+ '&fromDate=' + fromDate + '&toDate=' + toDate;
+						+ '&fromDate=' + fromDate + '&toDate=' + toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
 				popupFullscreen(url, 'daftartarazTafsili');
 			}
 			/* ]]> */

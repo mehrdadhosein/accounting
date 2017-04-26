@@ -221,7 +221,10 @@ function openDaftarShenavar(hesabTafsiliShenavarEntityId){
 	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
 	tafsiliIds = document.getElementById('tafsilis_id').value;	
 	moeens = document.getElementById('moeens_id').value;	
-	var url = '../daftar/sanadHesabdariItem.shenavarLocalList.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+hesabTafsiliShenavarEntityId+'&fromDate='+fromDate+'&toDate='+toDate;
+	fromSerial=document.getElementById('azserialExample').value;
+	toSerial=document.getElementById('taserialExample').value;
+	
+	var url = '../daftar/sanadHesabdariItem.shenavarLocalList.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+hesabTafsiliShenavarEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
 	popupFullscreen(url, 'daftartarazTafsili');
 }
 /* ]]> */
