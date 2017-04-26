@@ -239,8 +239,10 @@ function openTarazTafsili(hesabMoeenEntityId){
 	hesabKolIds = document.getElementById("hesabKolIds_id").value;
 	tafsiliIds = document.getElementById('tafsilis_id').value;
 	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	fromSerial=document.getElementById('azserialExample').value;
+	toSerial=document.getElementById('taserialExample').value;
 
-	var url = '../../taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
+	var url = '../../taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId+'&fromSerial='+fromSerial+'&toSerial='+toSerial;	
 	popupFullscreen(url, 'tarazTafsili');
 }
 function openDaftarMoeen(hesabMoeenEntityId){
@@ -251,8 +253,10 @@ function openDaftarMoeen(hesabMoeenEntityId){
 	hesabKolIds = document.getElementById("hesabKolIds_id").value;
 	tafsiliIds = document.getElementById('tafsilis_id').value;
 	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	fromSerial=document.getElementById('azserialExample').value;
+	toSerial=document.getElementById('taserialExample').value;
 
-	var url = '../../daftar/hierarchical/sanadHesabdariItem.moeenHierarchicalList.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
+	var url = '../../daftar/hierarchical/sanadHesabdariItem.moeenHierarchicalList.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId+'&fromSerial='+fromSerial+'&toSerial='+toSerial;	
 	popupFullscreen(url, 'daftarMoeen');
 }
 /* ]]> */

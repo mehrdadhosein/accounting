@@ -154,6 +154,11 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 
 	public Long getFromSerial() {
+		if (fromSerial == null){
+			String fromSerialStr = getRequest().getParameter("fromSerial");
+			if(StringUtils.hasText(fromSerialStr))
+				fromSerial = new Long(fromSerialStr);
+		}
 		return fromSerial;
 	}
 
@@ -166,6 +171,11 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 
 	public Long getToSerial() {
+		if (toSerial == null){
+			String toSerialStr = getRequest().getParameter("toSerial");
+			if(StringUtils.hasText(toSerialStr))
+				toSerial = new Long(toSerialStr);
+		}
 		return toSerial;
 	}
 

@@ -1635,7 +1635,7 @@ public class SanadHesabdariService extends
 		List<MonthEntity> list = getMonthService().getList(saalMaaliEntity);
 		for (MonthEntity monthEntity : list) { 
 		
-			if(monthEntity.getStartDate() == null || monthEntity.getStartDate() == null)
+			if(monthEntity.getStartDate() == null || monthEntity.getEndDate() == null)
 				throw new FatalException(SerajMessageUtil.getMessage("Month_notConfiguredForSaalMaali", saalMaaliEntity.getDesc()));
 			
 			Map<String, Object> sanadFilter =new HashMap<>();
@@ -1648,8 +1648,9 @@ public class SanadHesabdariService extends
 			if(monthlySummarySanad!=null)
 				continue;
 			
-			if(monthEntity.getStartDate() == null || monthEntity.getStartDate() == null)
+			if(monthEntity.getStartDate() == null || monthEntity.getEndDate() == null)
 				throw new FatalException(SerajMessageUtil.getMessage("Month_notConfiguredForSaalMaali", saalMaaliEntity.getDesc()));
+			
 			Calendar fromDate = DateConverter.getStartOfToday(monthEntity.getStartDate());
 			Calendar toDate = DateConverter.getStartOfTommorow(monthEntity.getEndDate());
 			
