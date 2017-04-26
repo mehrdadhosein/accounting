@@ -298,8 +298,9 @@ public class SanadHesabdariService extends
 
 		updateBedehkarBestankarSum(entity);
 
-		if(validateSaalMaaliInProgress)
-			getSaalMaaliService().checkSaalMaaliIsInProgress(entity.getSaalMaali());
+		if(validateSaalMaaliInProgress){
+			getSaalMaaliService().checkSaalMaaliIsInProgress(entity.getSaalMaali(), entity);
+		}
 		
 		super.save(entity);
 
@@ -1525,7 +1526,7 @@ public class SanadHesabdariService extends
 	public void deleteWithoutDeletableValidation(Long id) {
 		
 		SanadHesabdariEntity sanadHesabdariEntity = load(id);
-		getSaalMaaliService().checkSaalMaaliIsInProgress(sanadHesabdariEntity.getSaalMaali());
+		getSaalMaaliService().checkSaalMaaliIsInProgress(sanadHesabdariEntity.getSaalMaali(), sanadHesabdariEntity);
 		if(sanadHesabdariEntity.getState().equals(SanadStateEnum.BARRESI_SHODE) || sanadHesabdariEntity.getState().equals(SanadStateEnum.DAEM))
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_confirmedCannotDelete",sanadHesabdariEntity));
 //		sanadHesabdariEntity.getSanadHesabdariItem().clear();
@@ -1538,7 +1539,7 @@ public class SanadHesabdariService extends
 	@Transactional(readOnly=false)
 	public void delete(Long id) {
 		SanadHesabdariEntity sanadHesabdariEntity = load(id);
-		getSaalMaaliService().checkSaalMaaliIsInProgress(sanadHesabdariEntity.getSaalMaali());
+		getSaalMaaliService().checkSaalMaaliIsInProgress(sanadHesabdariEntity.getSaalMaali(), sanadHesabdariEntity);
 		if(sanadHesabdariEntity.getIsSanadHesabdariManualyDeletable())
 			doEbtalSanad(sanadHesabdariEntity);			//super.delete(id);
 		else
@@ -1560,7 +1561,7 @@ public class SanadHesabdariService extends
 	@Transactional(readOnly=false)
 	public void update(SanadHesabdariEntity entity, boolean validateSaalMaaliInProgress) {
 		if(validateSaalMaaliInProgress)
-			getSaalMaaliService().checkSaalMaaliIsInProgress(entity.getSaalMaali());
+			getSaalMaaliService().checkSaalMaaliIsInProgress(entity.getSaalMaali(), entity);
 		super.update(entity);
 	}
 	

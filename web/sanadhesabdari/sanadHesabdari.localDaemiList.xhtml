@@ -205,7 +205,7 @@
 		<h:commandButton styleClass=" gwt-Button" onclick="checkAll('sanadHesabdaris');return false;"
 			image="/images/buttons/btn_selectAll.png" />
 			
-		<h:commandButton styleClass=" gwt-Button" onclick="if(!confirmAction()) return false;"
+		<h:commandButton styleClass=" gwt-Button" onclick="if(!confirmAction()) return false;showLoading();" 
 			 action="#{owner.tabdilBeBarrasiShodeBatch}" image="/images/buttons/btn_convert_to_bazrrasisodeh.png">
 		</h:commandButton>
 		

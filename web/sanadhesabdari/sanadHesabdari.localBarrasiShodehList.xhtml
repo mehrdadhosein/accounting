@@ -198,11 +198,11 @@
 		<h:commandButton styleClass=" gwt-Button" onclick="checkAll('sanadHesabdaris');return false;"
 			image="/images/buttons/btn_selectAll.png" />
 			
-		<h:commandButton styleClass=" gwt-Button"  onclick="if(!confirmAction()) return false;"
+		<h:commandButton styleClass=" gwt-Button"  onclick="if(!confirmAction()) return false;showLoading();"
 			 action="#{owner.tabdilBeDaemiBatch}" image="/images/buttons/btn_tabdilBeDaemi.png">
 		</h:commandButton>
 
-		<h:commandButton styleClass=" gwt-Button" onclick="if(!confirmAction()) return false;"
+		<h:commandButton styleClass=" gwt-Button" onclick="if(!confirmAction()) return false;showLoading();"
 			 action="#{owner.tabdilBeMovghatBatch}" image="/images/buttons/btn_tabdilBeMovaghat.png">
 		</h:commandButton>
 		

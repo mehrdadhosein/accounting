@@ -1,12 +1,16 @@
 package ir.serajsamaneh.accounting.saalmaali;
 
+import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
 import ir.serajsamaneh.accounting.exception.MoreThanOneActiveSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.MoreThanOneSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.NoActiveSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.SaalMaaliStartDateException;
 import ir.serajsamaneh.accounting.exception.SameSaalMaaliException;
+import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.month.MonthService;
+import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity;
+import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
@@ -310,11 +314,25 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 		}		
 	}
 
-	public void checkSaalMaaliIsInProgress(SaalMaaliEntity saalmaali) {
-		if(!saalmaali.getStatus().equals(SaalMaaliStatusEnum.InProgress))
-			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_operationNotAllowed", saalmaali.getSaal()));
-	}
+//	public void checkSaalMaaliIsInProgress(SaalMaaliEntity saalmaali) {
+//		if(!(saalmaali.getStatus().equals(SaalMaaliStatusEnum.InProgress) || saalmaali.getStatus().equals(SaalMaaliStatusEnum.TemporalAccountsClosed)))
+//			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_operationNotAllowed", saalmaali.getSaal()));
+//	}
 
+	public void checkSaalMaaliIsInProgress(SaalMaaliEntity saalmaali, SanadHesabdariEntity sanadHesabdariEntity) {
+		if(!(saalmaali.getStatus().equals(SaalMaaliStatusEnum.InProgress) || saalmaali.getStatus().equals(SaalMaaliStatusEnum.TemporalAccountsClosed)))
+			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_operationNotAllowed", saalmaali.getSaal()));
+		
+		if(saalmaali.getStatus().equals(SaalMaaliStatusEnum.TemporalAccountsClosed)){
+			List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadHesabdariEntity.getSanadHesabdariItem();
+			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
+				HesabKolEntity hesabKol = sanadHesabdariItemEntity.getHesabKol();
+				if(!hesabKol.getHesabGroup().getMahyatGroup().equals(MahyatGroupEnum.TARAZNAMEH))
+					throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_cantDoOperationOnArticleThatArentOfTypeTARAZNAMEH",sanadHesabdariItemEntity));
+			}
+		}
+	}
+	
 	public void checkSaalMaaliIsInTemporalAccountsClosed(SaalMaaliEntity saalmaali) {
 		if(!saalmaali.getStatus().equals(SaalMaaliStatusEnum.TemporalAccountsClosed))
 			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_operationNotAllowed", saalmaali.getSaal()));

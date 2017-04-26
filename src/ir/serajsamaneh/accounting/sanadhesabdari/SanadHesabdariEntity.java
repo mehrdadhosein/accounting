@@ -142,6 +142,10 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 		return getSanadFunction().equals(SanadFunctionEnum.EFTETAHIE);
 	}
 
+	public Boolean getIsTemporalSanad(){
+		return getSanadFunction().equals(SanadFunctionEnum.BASTAN_HESABHA);
+	}
+	
 	public Boolean getIsSanadDeletable(){
 		if(getDeletable()==null)
 			return true;
@@ -188,7 +192,7 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 	}
 
 	public boolean getIsSanadHesabdariManualyDeletable(){
-		return !getIsEkhtetamieh() && !getIsEftetahieh() && getIsSanadDeletable();		
+		return !getIsEkhtetamieh() && !getIsEftetahieh()  && !getIsTemporalSanad() && getIsSanadDeletable();		
 	}
 
 	public String getBedehkarSumFormatted() {
