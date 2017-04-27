@@ -218,15 +218,17 @@ public class SanadHesabdariService extends
 		return currentMaxTempSerial;
 	}
 
-	private void checkSanadHesabdariSerialUniqueNess(Long newSerial, SaalMaaliEntity saalMaaliEntity) {
-		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("serial@eq", newSerial);
-		filter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		Integer rowCount = getRowCount(null, filter);
-		if (rowCount >0)
-			throw new FatalException("serial_already_generated");
-	}
+//	private void checkSanadHesabdariSerialUniqueNess(Long newSerial, SaalMaaliEntity saalMaaliEntity) {
+//		Map<String, Object> filter = new HashMap<String, Object>();
+//		filter.put("serial@eq", newSerial);
+//		filter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+//		Integer rowCount = getRowCount(null, filter);
+//		if (rowCount >0)
+//			throw new FatalException("serial_already_generated");
+//	}
 
+
+	
 	@Override
 	@Transactional
 	public void save(SanadHesabdariEntity entity) {
@@ -291,6 +293,12 @@ public class SanadHesabdariService extends
 		if (entity.getId() == null) {
 			entity.setOrgan(organEntity);
 			entity.setTempSerial(getNextTempSanadHesabdariSerial(entity.getSaalMaali()));
+			
+			Map<String, Object> localFilter = new HashMap<String, Object>();
+			localFilter.put("tempSerial@eq", entity.getTempSerial());
+			localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+			
+			checkUniqueNess(entity, localFilter, false);
 		}
 
 		if(entity.getSanadType() == null || entity.getSanadType().getId() == null)
@@ -806,8 +814,15 @@ public class SanadHesabdariService extends
 		
 		save(entity, saalMaaliEntity.getOrgan(), saalMaaliEntity, true, validateSaalMaaliInProgress);
 		
-		if (entity.getSerial() == null)
+		if (entity.getSerial() == null){
 			entity.setSerial(getNextSanadHesabdariSerial(saalMaaliEntity, organEntity));
+			Map<String, Object> localFilter = new HashMap<String, Object>();
+			localFilter.put("serial@eq", entity.getSerial());
+			localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+			
+			checkUniqueNess(entity, localFilter, false);
+
+		}
 		
 		entity.setState(SanadStateEnum.DAEM);
 		
@@ -1618,17 +1633,17 @@ public class SanadHesabdariService extends
 	}
 	
 	
-	private List<SanadHesabdariEntity> getTempSanadHesabdariList(OrganEntity organ, Date fromDate, Date toDate, SanadTypeEntity sanadTypeEntity) {
-		Map<String, Object> sanadFilter = new HashMap<String, Object>();
-		sanadFilter.put("state@eq", SanadStateEnum.TEMP);
-		sanadFilter.put("sanadType.id@eq", sanadTypeEntity.getId());
-		sanadFilter.put("organ.id@eq", organ.getId());
-		sanadFilter.put("tarikhSanad@ge", fromDate);
-		sanadFilter.put("tarikhSanad@lt", toDate);
-		
-		List<SanadHesabdariEntity> dataList = getDataList(null, sanadFilter,SanadHesabdariEntity.PROP_TARIKH_SANAD,true,false);
-		return dataList;
-	}
+//	private List<SanadHesabdariEntity> getTempSanadHesabdariList(OrganEntity organ, Date fromDate, Date toDate, SanadTypeEntity sanadTypeEntity) {
+//		Map<String, Object> sanadFilter = new HashMap<String, Object>();
+//		sanadFilter.put("state@eq", SanadStateEnum.TEMP);
+//		sanadFilter.put("sanadType.id@eq", sanadTypeEntity.getId());
+//		sanadFilter.put("organ.id@eq", organ.getId());
+//		sanadFilter.put("tarikhSanad@ge", fromDate);
+//		sanadFilter.put("tarikhSanad@lt", toDate);
+//		
+//		List<SanadHesabdariEntity> dataList = getDataList(null, sanadFilter,SanadHesabdariEntity.PROP_TARIKH_SANAD,true,false);
+//		return dataList;
+//	}
 	
 	@Transactional
 	public void createMonthlySummarySanad(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity){
