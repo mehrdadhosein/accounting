@@ -1208,14 +1208,14 @@ public class SanadHesabdariService extends
 		return sanadHesabdariList;
 	}
 
-	private List<SanadHesabdariEntity> getListOfSanadHesabdariDaemi(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity, Date fromDate, Date toDate) {
+	private List<SanadHesabdariEntity> getListOfSanadHesabdariDaemiToCreateMonthlySummarySanad(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity, Date fromDate, Date toDate) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("organ.id@eq", organEntity.getId());
 		localFilter.put("state@eq",  SanadStateEnum.DAEM);
 		localFilter.put("sanadFunction@eq",  SanadFunctionEnum.OMOMI);
 		localFilter.put("tarikhSanad@ge", fromDate);
-		localFilter.put("tarikhSanad@le", toDate);
+		localFilter.put("tarikhSanad@lt", toDate);
 		List<SanadHesabdariEntity> sanadHesabdariList = getDataList(null, localFilter, SanadHesabdariEntity.PROP_TARIKH_SANAD, true, false);
 		return sanadHesabdariList;
 	}
@@ -1655,7 +1655,7 @@ public class SanadHesabdariService extends
 			Calendar toDate = DateConverter.getStartOfTommorow(monthEntity.getEndDate());
 			
 			checkIfSanadDaemiNashodeExists(saalMaaliEntity, organEntity, fromDate.getTime(), toDate.getTime());
-			List<SanadHesabdariEntity> sanadHesabdariList = getListOfSanadHesabdariDaemi(saalMaaliEntity, organEntity, fromDate.getTime(), toDate.getTime());
+			List<SanadHesabdariEntity> sanadHesabdariList = getListOfSanadHesabdariDaemiToCreateMonthlySummarySanad(saalMaaliEntity, organEntity, fromDate.getTime(), toDate.getTime());
 			
 			String description = SerajMessageUtil.getMessage("SanadHesabdari_monthlySummarySanad", monthEntity.getName());
 			SanadFunctionEnum sanadFunction = SanadFunctionEnum.MonthlySummary;
