@@ -84,7 +84,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		HesabTafsiliEntity hesabShenavar = getHesabTafsiliByTemplate(hesabShenavarTemplate, saalMaaliEntity);
 		
 		return createBedehkarArticle(bedehkarAmount, templateEntity, createArticleTafsili, accountingMarkazEntity,
-				description, saalMaaliEntity, (ArrayList<HesabTafsiliEntity>) Arrays.asList(hesabTafsili, hesabShenavar));
+				description, saalMaaliEntity, new ArrayList<>(Arrays.asList(hesabTafsili, hesabShenavar)));
 	}
 	
 	protected static SanadHesabdariItemEntity createBedehkarArticle(Double bedehkarAmount,
