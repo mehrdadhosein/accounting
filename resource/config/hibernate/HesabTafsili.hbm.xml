@@ -24,25 +24,25 @@
 			cascade='none' foreign-key='fk_hesab_tafsili_organ_id'>
 			<column name='organ_id' />
 		</many-to-one>
-		<set name='childs' table='tb_hesab_tafsili_hesab_tafsili'>
+		<set name='childs' table='tb_hesab_tafsili_hesab_tafsili' fetch="join">
 			<key column='parents_id' foreign-key='fk_hesab_tafsili_parents_key' />
 			<many-to-many
 				class='ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity'
 				foreign-key='fk_hesab_tafsili_childs' column='childs_id' />
 		</set>
-		<set name='childAccountingMarkaz' table='tb_tafsili_accounting_markaz'>
+		<set name='childAccountingMarkaz' table='tb_tafsili_accounting_markaz'  batch-size="50">
 			<key column='tafsili_id' foreign-key='fk_tafsl_accntng_mrkz_tfsl_key' />
 			<many-to-many
 				class='ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity'
 				foreign-key='fk_tafsl_accntng_mrkz_mrkz_key' column='accounting_markaz_id' />
 		</set>
-		<set name='parents' table='tb_hesab_tafsili_hesab_tafsili'>
+		<set name='parents' table='tb_hesab_tafsili_hesab_tafsili'  fetch="join">
 			<key column='childs_id' foreign-key='fk_hesab_tafsili_childs_key' />
 			<many-to-many
 				class='ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity'
 				foreign-key='fk_hesab_tafsili_parents' column='parents_id' />
 		</set>
-		<set name='moeenTafsili' inverse='true' cascade="all-delete-orphan">
+		<set name='moeenTafsili' inverse='true' cascade="all-delete-orphan" batch-size="50">
 			<key column='hesab_tafsili_id' foreign-key='fk_hes_taf_moeen_taf_key' />
 			<one-to-many
 				class='ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity' />

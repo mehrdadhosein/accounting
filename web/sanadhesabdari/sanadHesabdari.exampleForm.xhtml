@@ -58,16 +58,13 @@
 					value="#{sanadHesabdari.filter['serial@eq']}" />
 
 				<h:panelGroup>
-					<h:outputLabel for="sanadType"
+					<h:outputLabel for="sanadTypeSearch"
 						value="#{messages['SanadHesabdari_sanadType']}" /> : 
 				</h:panelGroup>
-				<h:panelGroup>
-					<custom:autocomplete-one id="sanadType"
-						width="200px" label="#{messages['SanadHesabdari_sanadType']}"
-						identity="#{owner.filter['sanadType.id@eq']}"
-						desc="#{owner.descMap['sanadType.id@eq']}" entity="sanadType"
-						property="name" client="true" extraParams="isHierarchical=true" />
-				</h:panelGroup>
+				<t:selectManyListbox id="sanadTypeSearch" 
+					value="#{owner.sanadTypeIds}" converter="javax.faces.Long" label="#{messages['SanadHesabdari_sanadType']}">
+					<f:selectItems value="#{owner.hierarchicalSanadTypes}"  />
+				</t:selectManyListbox>
 				
 				<h:panelGroup>
 					<h:outputLabel for="atfNumber"
