@@ -9,7 +9,7 @@
 
  	<cache
 	    name="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"
-	    maxElementsInMemory="5000"
+	    maxElementsInMemory="50000"
 	    eternal="true"
 	    timeToIdleSeconds="0"
 	    timeToLiveSeconds="0"
@@ -18,7 +18,7 @@
 
  	<cache
 	    name="ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity"
-	    maxElementsInMemory="5000"
+	    maxElementsInMemory="50000"
 	    eternal="true"
 	    timeToIdleSeconds="0"
 	    timeToLiveSeconds="0"
@@ -27,7 +27,7 @@
 
  	<cache
 	    name="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"
-	    maxElementsInMemory="5000"
+	    maxElementsInMemory="50000"
 	    eternal="true"
 	    timeToIdleSeconds="0"
 	    timeToLiveSeconds="0"

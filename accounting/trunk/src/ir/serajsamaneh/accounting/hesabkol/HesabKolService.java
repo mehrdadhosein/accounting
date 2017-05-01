@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -677,5 +678,27 @@ public class HesabKolService extends
 		}
 	}
 
+	@Transactional
+	public List<ListOrderedMap> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan) {
+		List<ListOrderedMap> rootHesabsList;
+		List<HesabMoeenEntity> rootHesabMoeens = getHesabMoeenService().getRootHesabs(saalMaaliEntity, currentOrgan);
+		
+		rootHesabsList = new ArrayList<ListOrderedMap>(); 
+		
+		for (HesabMoeenEntity hesabMoeenEntity : rootHesabMoeens) {
+			ListOrderedMap hesabMoeenMap = new ListOrderedMap();
+			hesabMoeenMap.put("value","Moeen_"+hesabMoeenEntity.getId());
+			hesabMoeenMap.put("label",hesabMoeenEntity.getDesc());
+			rootHesabsList.add(hesabMoeenMap);
+		}
+		List<HesabTafsiliEntity> rootHesabTafsilies = getHesabTafsiliService().getRootHesabs(saalMaaliEntity, currentOrgan);
+		for (HesabTafsiliEntity hesabTafsiliEntity : rootHesabTafsilies) {
+			ListOrderedMap hesabTafsiliMap = new ListOrderedMap();
+			hesabTafsiliMap.put("value","Tafsili_"+hesabTafsiliEntity.getId());
+			hesabTafsiliMap.put("label",hesabTafsiliEntity.getDesc());
+			rootHesabsList.add(hesabTafsiliMap);
+		}
+		return rootHesabsList;
+	}
 
 }

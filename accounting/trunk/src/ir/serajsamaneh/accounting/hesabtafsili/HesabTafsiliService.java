@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -745,6 +746,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		super.save(entity);
 	}
 	
+	@Transactional
 	public List<HesabTafsiliEntity> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
 		List<HesabTafsiliEntity> rootList = new ArrayList<HesabTafsiliEntity>();
 		List<HesabTafsiliEntity> activeTafsilis = getActiveTafsilis(saalMaaliEntity);
@@ -756,5 +758,25 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		return rootList;
 	}
 
+	@Transactional
+	public Map<Long, List<ListOrderedMap>> getTafsiliMoeenMap(SaalMaaliEntity saalMaaliEntity,
+			OrganEntity currentOrgan) {
+		Map<Long, List<ListOrderedMap>> tafsiliMoeenMap;
+		tafsiliMoeenMap = new HashMap<Long, List<ListOrderedMap>>();
+
+		List<HesabTafsiliEntity> list = getActiveTafsilis(saalMaaliEntity, currentOrgan);
+		for (HesabTafsiliEntity hesabTafsiliEntity : list) {
+			Set<MoeenTafsiliEntity> moeenTafsiliSet = hesabTafsiliEntity.getMoeenTafsili();
+			List<ListOrderedMap> hesabMoeenList = new ArrayList<ListOrderedMap>();
+			for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsiliSet) {
+				ListOrderedMap moeenItemMap = new ListOrderedMap();
+				moeenItemMap.put("value",moeenTafsiliEntity.getHesabMoeen().getID());
+				moeenItemMap.put("label",moeenTafsiliEntity.getHesabMoeen().getDesc());
+				hesabMoeenList.add(moeenItemMap);
+			}
+			tafsiliMoeenMap.put(hesabTafsiliEntity.getId(),hesabMoeenList);
+		}
+		return tafsiliMoeenMap;
+	}
 	
 }
