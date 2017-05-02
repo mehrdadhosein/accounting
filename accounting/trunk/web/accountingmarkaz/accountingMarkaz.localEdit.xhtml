@@ -46,6 +46,7 @@
 				<p:inputText  id="description" label="description"
 					value="#{accountingMarkaz.entity.description}" size="50" />
 
+
 				<h:panelGroup>
 					<h:outputLabel for="moeens"
 						value="#{messages['AccountingMarkaz_moeens']}" /> : 
@@ -53,8 +54,8 @@
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="moeens" width="220px"
 						selectedIds="#{accountingMarkaz.moeenIds}" entity="HesabMoeen"
-						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
-				</h:panelGroup>
+						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
+				</h:panelGroup>				
 
 				<h:panelGroup>
 					<h:outputLabel for="applyMoeenOnSubMarkaz"
