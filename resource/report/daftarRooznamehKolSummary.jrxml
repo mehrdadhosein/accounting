@@ -76,14 +76,14 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="6fcc1cbd-ac61-41e5-83d5-649ca0f053e5" style="text" x="195" y="31" width="161" height="29"/>
+				<reportElement uuid="6fcc1cbd-ac61-41e5-83d5-649ca0f053e5" style="text" x="195" y="31" width="209" height="29"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="B Nazanin" size="22" isBold="true" isStrikeThrough="false" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<text><![CDATA[دفتر روزنامه]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="be250aee-eafb-4469-8685-a6798d92071c" x="195" y="2" width="161" height="29"/>
+				<reportElement uuid="be250aee-eafb-4469-8685-a6798d92071c" x="153" y="2" width="251" height="29"/>
 				<textElement>
 					<font fontName="B Nazanin" size="22" pdfFontName="BTitrBd.ttf"/>
 				</textElement>

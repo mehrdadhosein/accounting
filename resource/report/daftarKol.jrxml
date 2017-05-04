@@ -189,7 +189,7 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="beea4c71-3f7a-4fda-a8eb-896721cbd522" style="reportTitle" x="316" y="32" width="160" height="30"/>
+				<reportElement uuid="beea4c71-3f7a-4fda-a8eb-896721cbd522" style="reportTitle" x="316" y="32" width="189" height="30"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="B Nazanin" size="22" isBold="true" isStrikeThrough="false" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
@@ -246,8 +246,8 @@
 				<text><![CDATA[ایجاد کننده : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="d6579e4a-785f-4655-ad78-cbc42ebacd05" x="315" y="3" width="161" height="29"/>
-				<textElement>
+				<reportElement uuid="d6579e4a-785f-4655-ad78-cbc42ebacd05" x="149" y="3" width="356" height="29"/>
+				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="22" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{organName}]]></textFieldExpression>

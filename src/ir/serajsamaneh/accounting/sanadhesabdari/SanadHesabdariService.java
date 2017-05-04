@@ -4,6 +4,7 @@ import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
 import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
+import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliService;
 import ir.serajsamaneh.accounting.base.BaseAccountingService;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
@@ -82,6 +83,16 @@ public class SanadHesabdariService extends
 	AccountingMarkazService accountingMarkazService;
 	SanadHesabdariItemService sanadHesabdariItemService;
 	MonthService monthService;
+
+	ArticleTafsiliService articleTafsiliService;
+	
+	public ArticleTafsiliService getArticleTafsiliService() {
+		return articleTafsiliService;
+	}
+
+	public void setArticleTafsiliService(ArticleTafsiliService articleTafsiliService) {
+		this.articleTafsiliService = articleTafsiliService;
+	}
 
 	public MonthService getMonthService() {
 		return monthService;
@@ -751,7 +762,8 @@ public class SanadHesabdariService extends
 				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_accountingMarkazDoesnotBelongToMoeen",tempSerial+" ("+DateConverter.toShamsiDate(sanadHesabdariEntity.getTarikhSanad())+")",sanadHesabdariItemEntity.getDescription(),  accountingMarkazEntity.getDesc(), hesabMoeen.getDesc()));
 			
 			ArticleTafsiliEntity articleTafsiliEntityTWO = sanadHesabdariItemEntity.getArticleTafsiliByLevel(1);
-			if(hesabTafsili!=null && articleTafsiliEntityTWO!=null){
+			if(hesabTafsili!=null && articleTafsiliEntityTWO!=null && articleTafsiliEntityTWO.getId()!=null){
+				articleTafsiliEntityTWO = getArticleTafsiliService().load(articleTafsiliEntityTWO.getId());
 				HesabTafsiliEntity hesabTafsiliShenavar = articleTafsiliEntityTWO.getHesabTafsili();
 				if(!hesabTafsiliShenavar.getParents().contains(hesabTafsili))
 					throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_tafsiliShenavarDoesnotBelongToTafsili",hesabTafsiliShenavar.getDesc(),hesabTafsiliShenavar.getSaalMaali(), hesabTafsili.getDesc(), hesabTafsili.getSaalMaali()));
