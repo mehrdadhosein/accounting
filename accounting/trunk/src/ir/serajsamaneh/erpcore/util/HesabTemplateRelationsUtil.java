@@ -232,25 +232,16 @@ public class HesabTemplateRelationsUtil {
 		Map<Long, List<ListOrderedMap>> tafsiliChildTemplateMap = organizationalTafsiliChildTemplateMap.get(organEntity.getId());
 		if(tafsiliChildTemplateMap == null){
 			tafsiliChildTemplateMap = new HashMap<Long, List<ListOrderedMap>>();
-			List<HesabTafsiliTemplateEntity> tafsiliList = getHesabTafsiliTemplateService().getActiveTafsilis(organEntity);
-			for (HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity : tafsiliList) {
-				List<ListOrderedMap> hesabTafsiliTemplateList = new ArrayList<ListOrderedMap>();
-				for (HesabTafsiliTemplateEntity tafsiliEntity : hesabTafsiliTemplateEntity.getChilds()) {
-					if(tafsiliEntity.getHidden().equals(false)){
-						ListOrderedMap bankBranchItemMap = new ListOrderedMap();
-						bankBranchItemMap.put("value",tafsiliEntity.getID());
-						bankBranchItemMap.put("label",tafsiliEntity.getDesc());
-						hesabTafsiliTemplateList.add(bankBranchItemMap);
-					}
-				}
-				tafsiliChildTemplateMap.put(hesabTafsiliTemplateEntity.getId(), hesabTafsiliTemplateList);
-			}
+			tafsiliChildTemplateMap = getHesabTafsiliTemplateService().getTafsiliChildTemplateMap(organEntity);
 			
 			organizationalTafsiliChildTemplateMap.put(organEntity.getId(), tafsiliChildTemplateMap);
 		}
 		return tafsiliChildTemplateMap;
 	}	
 	////////////////tafsili child map//////////////////////////////////////////
+
+
+
 
 	////////////////tafsili accounting markaz map//////////////////////////////////////////
 	

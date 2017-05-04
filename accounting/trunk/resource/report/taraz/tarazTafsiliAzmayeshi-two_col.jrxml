@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazAzmayeshiKol" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="3ddb2afb-d94e-4f5f-b8f2-cb8b6b3dd890">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="130"/>
+	<property name="ireport.x" value="17"/>
 	<property name="ireport.y" value="0"/>
 	<style name="title" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="12" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
 	<style name="reportTitle" hAlign="Center" vAlign="Middle" fontName="B Tir" fontSize="16" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BTitr.ttf" pdfEncoding="Identity-H"/>
@@ -56,7 +56,7 @@
 				<reportElement uuid="e21f1011-4d2c-4b75-9ff7-2a76526816d7" x="0" y="0" width="802" height="140"/>
 			</rectangle>
 			<textField>
-				<reportElement uuid="4c07f52e-593f-45e5-86f7-f0a5c8ae9887" x="250" y="0" width="300" height="29"/>
+				<reportElement uuid="4c07f52e-593f-45e5-86f7-f0a5c8ae9887" x="200" y="0" width="401" height="29"/>
 				<textElement>
 					<font fontName="B Titr" size="16" pdfFontName="BTitrBd.ttf"/>
 				</textElement>

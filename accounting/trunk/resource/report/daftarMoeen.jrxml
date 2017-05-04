@@ -192,14 +192,14 @@
 				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement uuid="2a37525f-7f39-4c22-9640-b023ebc5add6" x="315" y="3" width="161" height="29"/>
-				<textElement>
+				<reportElement uuid="2a37525f-7f39-4c22-9640-b023ebc5add6" x="149" y="3" width="356" height="29"/>
+				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="22" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{organName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="919dcc26-9bb0-4dcd-89e7-e6f5b7b935da" style="text" x="315" y="32" width="161" height="29"/>
+				<reportElement uuid="919dcc26-9bb0-4dcd-89e7-e6f5b7b935da" style="text" x="315" y="32" width="190" height="29"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="B Nazanin" size="22" isBold="true" isStrikeThrough="false" pdfFontName="BTitrBd.ttf"/>
 				</textElement>

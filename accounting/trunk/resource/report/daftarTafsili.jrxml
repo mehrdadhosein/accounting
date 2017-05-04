@@ -190,8 +190,8 @@
 				<textFieldExpression><![CDATA[$P{hesabMoeen}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="4b91e811-120f-4ded-8179-47a9e0bc8da4" x="315" y="3" width="161" height="29"/>
-				<textElement>
+				<reportElement uuid="4b91e811-120f-4ded-8179-47a9e0bc8da4" x="149" y="3" width="327" height="29"/>
+				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="22" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{organName}]]></textFieldExpression>

@@ -60,77 +60,79 @@
 	<title>
 		<band height="100" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="802" height="100" uuid="8ccc8604-aa6e-4612-893b-3a3f61f9828f"/>
+				<reportElement uuid="8ccc8604-aa6e-4612-893b-3a3f61f9828f" x="0" y="0" width="802" height="100"/>
 			</rectangle>
 			<textField>
-				<reportElement x="250" y="0" width="300" height="29" uuid="b95cee46-8457-423f-be9d-d5fece20bd2f"/>
+				<reportElement uuid="b95cee46-8457-423f-be9d-d5fece20bd2f" x="201" y="0" width="401" height="29"/>
 				<textElement>
 					<font fontName="B Titr" size="16" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{organName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="reportTitle" x="250" y="29" width="300" height="29" uuid="dcae2e89-e364-46b0-b0a1-6d400fa8f232"/>
+				<reportElement uuid="dcae2e89-e364-46b0-b0a1-6d400fa8f232" style="reportTitle" x="250" y="29" width="300" height="29"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="B Titr" size="20" isBold="true" isStrikeThrough="false" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<text><![CDATA[تراز معین آزمایشی]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="101" y="29" width="100" height="20" uuid="909aa8ec-5771-447e-855b-8d1d17b7a9df"/>
+				<reportElement uuid="909aa8ec-5771-447e-855b-8d1d17b7a9df" x="101" y="29" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[تاریخ ایجاد : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="602" y="49" width="100" height="20" uuid="ffac098e-b202-449e-b040-c1d08454a939"/>
+				<reportElement uuid="ffac098e-b202-449e-b040-c1d08454a939" x="602" y="49" width="100" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{toDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="602" y="29" width="100" height="20" uuid="1aa365ea-32fc-4aa4-a112-52ed6556998f"/>
+				<reportElement uuid="1aa365ea-32fc-4aa4-a112-52ed6556998f" x="602" y="29" width="100" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{fromDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="702" y="9" width="100" height="20" uuid="0d99b6f6-fec8-432f-864f-c6c8d0f5c9a0"/>
+				<reportElement uuid="0d99b6f6-fec8-432f-864f-c6c8d0f5c9a0" x="702" y="9" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[سال مالی : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="1" y="29" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="555dca56-af20-4aca-a394-1a38b460e55b"/>
+				<reportElement uuid="555dca56-af20-4aca-a394-1a38b460e55b" x="1" y="29" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$P{creationDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="101" y="49" width="100" height="20" uuid="caa515a4-dd5d-408c-b53c-ed858358a0f5"/>
+				<reportElement uuid="caa515a4-dd5d-408c-b53c-ed858358a0f5" x="101" y="49" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[ایجاد کننده : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="251" y="69" width="451" height="20" isPrintWhenDetailOverflows="true" uuid="d7c5d0ad-c2ff-481b-a1a8-dad67ef374a0"/>
+				<reportElement uuid="d7c5d0ad-c2ff-481b-a1a8-dad67ef374a0" x="251" y="69" width="451" height="20" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{hesabKol}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="702" y="49" width="100" height="20" uuid="71a48951-8696-4da7-8c74-aad626bd0962"/>
+				<reportElement uuid="71a48951-8696-4da7-8c74-aad626bd0962" x="702" y="49" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[تا تاریخ : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="1" y="49" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="e6537e55-15cb-4ea7-9c6b-f01a4ecc15a5"/>
+				<reportElement uuid="e6537e55-15cb-4ea7-9c6b-f01a4ecc15a5" x="1" y="49" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$P{creatorUser}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="702" y="69" width="100" height="20" uuid="48e33282-83d5-4251-8601-dba1ad9d9883"/>
+				<reportElement uuid="48e33282-83d5-4251-8601-dba1ad9d9883" x="702" y="69" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[حساب کل : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="602" y="9" width="100" height="20" uuid="4dfeead5-7492-4792-b5c7-fc8c412a39c0"/>
+				<reportElement uuid="4dfeead5-7492-4792-b5c7-fc8c412a39c0" x="602" y="9" width="100" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{saalMaali}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="702" y="29" width="100" height="20" uuid="d04f5bcf-823e-4320-ac62-e0dd3446ded7"/>
+				<reportElement uuid="d04f5bcf-823e-4320-ac62-e0dd3446ded7" x="702" y="29" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[از تاریخ : ]]></text>
 			</staticText>
@@ -142,7 +144,7 @@
 	<columnHeader>
 		<band height="24" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement style="title" stretchType="RelativeToTallestObject" x="660" y="0" width="102" height="24" uuid="a0c3922b-9e31-469b-8250-9a7f5238a1ab"/>
+				<reportElement uuid="a0c3922b-9e31-469b-8250-9a7f5238a1ab" style="title" stretchType="RelativeToTallestObject" x="660" y="0" width="102" height="24"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -156,7 +158,7 @@
 				<textFieldExpression><![CDATA["حساب معین"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="title" stretchType="RelativeToTallestObject" x="762" y="0" width="40" height="24" uuid="7b5d8c02-2488-47dc-8251-a14ccd5f3c7b"/>
+				<reportElement uuid="7b5d8c02-2488-47dc-8251-a14ccd5f3c7b" style="title" stretchType="RelativeToTallestObject" x="762" y="0" width="40" height="24"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -170,7 +172,7 @@
 				<textFieldExpression><![CDATA["ردیف"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="title" stretchType="RelativeToTallestObject" x="330" y="0" width="110" height="24" uuid="f543fc53-b47a-469c-af3b-5687678ba96a"/>
+				<reportElement uuid="f543fc53-b47a-469c-af3b-5687678ba96a" style="title" stretchType="RelativeToTallestObject" x="330" y="0" width="110" height="24"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -184,7 +186,7 @@
 				<textFieldExpression><![CDATA["گردش بدهکار"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="title" stretchType="RelativeToTallestObject" x="220" y="0" width="110" height="24" uuid="e7f84e45-88c7-474a-80b5-c8436a0cbdd2"/>
+				<reportElement uuid="e7f84e45-88c7-474a-80b5-c8436a0cbdd2" style="title" stretchType="RelativeToTallestObject" x="220" y="0" width="110" height="24"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -198,7 +200,7 @@
 				<textFieldExpression><![CDATA["گردش بستانکار"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="title" stretchType="RelativeToTallestObject" x="0" y="0" width="110" height="24" uuid="ebdfaa94-9a60-4f59-9dfc-5f40dfbc64e7"/>
+				<reportElement uuid="ebdfaa94-9a60-4f59-9dfc-5f40dfbc64e7" style="title" stretchType="RelativeToTallestObject" x="0" y="0" width="110" height="24"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -212,7 +214,7 @@
 				<textFieldExpression><![CDATA["مانده بستانکار"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="title" stretchType="RelativeToTallestObject" x="110" y="0" width="110" height="24" uuid="c4d5a4e9-f1e0-4909-ae3f-1f25fd6d6289"/>
+				<reportElement uuid="c4d5a4e9-f1e0-4909-ae3f-1f25fd6d6289" style="title" stretchType="RelativeToTallestObject" x="110" y="0" width="110" height="24"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -226,7 +228,7 @@
 				<textFieldExpression><![CDATA["مانده بدهکار"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="title" stretchType="RelativeToTallestObject" x="440" y="0" width="110" height="24" uuid="2a4c2e7b-e86f-4020-802b-0f315f1570c8"/>
+				<reportElement uuid="2a4c2e7b-e86f-4020-802b-0f315f1570c8" style="title" stretchType="RelativeToTallestObject" x="440" y="0" width="110" height="24"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -240,7 +242,7 @@
 				<textFieldExpression><![CDATA["مانده بستانکار ابتدای دوره"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement style="title" stretchType="RelativeToTallestObject" x="550" y="0" width="110" height="24" uuid="d5a6e218-f130-4f1e-a30c-8f98f143528d"/>
+				<reportElement uuid="d5a6e218-f130-4f1e-a30c-8f98f143528d" style="title" stretchType="RelativeToTallestObject" x="550" y="0" width="110" height="24"/>
 				<box>
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -258,7 +260,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="762" y="0" width="40" height="20" uuid="3018e258-a3c7-4b0b-b2d6-aa042174ca74"/>
+				<reportElement uuid="3018e258-a3c7-4b0b-b2d6-aa042174ca74" style="text" stretchType="RelativeToTallestObject" x="762" y="0" width="40" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -272,7 +274,7 @@
 				<textFieldExpression><![CDATA[$V{rowCount}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="330" y="0" width="110" height="20" uuid="5e570c4f-4c86-49d3-acfa-15e9c45b5417"/>
+				<reportElement uuid="5e570c4f-4c86-49d3-acfa-15e9c45b5417" stretchType="RelativeToTallestObject" x="330" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -286,7 +288,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{bedehkar})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="220" y="0" width="110" height="20" uuid="174f3241-a274-44c0-b84f-6fdcf5b4d2b3"/>
+				<reportElement uuid="174f3241-a274-44c0-b84f-6fdcf5b4d2b3" stretchType="RelativeToTallestObject" x="220" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -300,7 +302,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{bestankar})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="660" y="0" width="102" height="20" uuid="39654666-0594-4c61-a605-c10c3575e2fe"/>
+				<reportElement uuid="39654666-0594-4c61-a605-c10c3575e2fe" stretchType="RelativeToTallestObject" x="660" y="0" width="102" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -314,7 +316,7 @@
 				<textFieldExpression><![CDATA[$F{hesabMoeen}.getDesc()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="110" y="0" width="110" height="20" uuid="dd1b9a39-8301-4085-82e0-dee231509f80"/>
+				<reportElement uuid="dd1b9a39-8301-4085-82e0-dee231509f80" stretchType="RelativeToTallestObject" x="110" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -328,7 +330,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{mandehBedehkar})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="110" height="20" uuid="1ea05767-d093-468b-abaa-45c33c2e6a5d"/>
+				<reportElement uuid="1ea05767-d093-468b-abaa-45c33c2e6a5d" stretchType="RelativeToTallestObject" x="0" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -342,7 +344,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{mandehBestankar})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="550" y="0" width="110" height="20" uuid="1e1f1486-adb5-42a1-8ffe-2e5782ca5fd5"/>
+				<reportElement uuid="1e1f1486-adb5-42a1-8ffe-2e5782ca5fd5" stretchType="RelativeToTallestObject" x="550" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -356,7 +358,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{mandehBedehkarEbtedayDore})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="440" y="0" width="110" height="20" uuid="ab6d7c26-d3c2-46d2-ac2c-dabfec9cb904"/>
+				<reportElement uuid="ab6d7c26-d3c2-46d2-ac2c-dabfec9cb904" stretchType="RelativeToTallestObject" x="440" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -374,7 +376,7 @@
 	<columnFooter>
 		<band height="20" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="330" y="0" width="110" height="20" uuid="15eabf09-80b9-4336-8065-c8bffcb2cb15"/>
+				<reportElement uuid="15eabf09-80b9-4336-8065-c8bffcb2cb15" stretchType="RelativeToTallestObject" x="330" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -388,7 +390,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{bedehkarSum})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="220" y="0" width="110" height="20" uuid="a133f29a-21fc-4f93-a5a6-2e8f63972192"/>
+				<reportElement uuid="a133f29a-21fc-4f93-a5a6-2e8f63972192" stretchType="RelativeToTallestObject" x="220" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -402,11 +404,12 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{bestankarSum})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="660" y="0" width="80" height="20" uuid="87582229-815e-43c5-a17c-5a620ae8a550"/>
+				<reportElement uuid="87582229-815e-43c5-a17c-5a620ae8a550" x="660" y="0" width="80" height="20"/>
+				<textElement/>
 				<text><![CDATA[مجموع]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="110" y="0" width="110" height="20" uuid="9d4972ca-c578-481e-bab7-cc68fc050062"/>
+				<reportElement uuid="9d4972ca-c578-481e-bab7-cc68fc050062" stretchType="RelativeToTallestObject" x="110" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -420,7 +423,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{mandehBedehkarSum})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="110" height="20" uuid="f2aed6c0-6704-4004-b7e6-ff134612176e"/>
+				<reportElement uuid="f2aed6c0-6704-4004-b7e6-ff134612176e" stretchType="RelativeToTallestObject" x="0" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -434,7 +437,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{mandehBestankarSum})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="550" y="0" width="110" height="20" uuid="214110f6-0e52-4231-9b51-f3e513dd3dbc"/>
+				<reportElement uuid="214110f6-0e52-4231-9b51-f3e513dd3dbc" stretchType="RelativeToTallestObject" x="550" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -448,7 +451,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{mandehBedehkarEbtedayeDoreSum})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="440" y="0" width="110" height="20" uuid="7342109e-9fc3-4bcb-835e-94f80eb39a3d"/>
+				<reportElement uuid="7342109e-9fc3-4bcb-835e-94f80eb39a3d" stretchType="RelativeToTallestObject" x="440" y="0" width="110" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -466,7 +469,8 @@
 	<pageFooter>
 		<band height="38" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="18" width="802" height="20" uuid="83eacf1c-5602-496d-bf11-74d83bb4aba7"/>
+				<reportElement uuid="83eacf1c-5602-496d-bf11-74d83bb4aba7" x="0" y="18" width="802" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>

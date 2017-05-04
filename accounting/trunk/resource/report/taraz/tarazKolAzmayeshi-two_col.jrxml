@@ -49,68 +49,70 @@
 	<title>
 		<band height="100" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="802" height="100" uuid="3922de6e-580e-443c-ac66-c2ed121dca30"/>
+				<reportElement uuid="3922de6e-580e-443c-ac66-c2ed121dca30" x="0" y="0" width="802" height="100"/>
 			</rectangle>
 			<textField>
-				<reportElement x="250" y="0" width="300" height="29" uuid="08b06ef2-87ab-47c9-adb4-93e18b6f9415"/>
+				<reportElement uuid="08b06ef2-87ab-47c9-adb4-93e18b6f9415" x="203" y="0" width="399" height="29"/>
 				<textElement>
 					<font fontName="B Titr" size="16" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{organName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="reportTitle" x="250" y="29" width="300" height="29" uuid="d6a10dd8-c738-4747-befe-6aa9dd8346f8"/>
+				<reportElement uuid="d6a10dd8-c738-4747-befe-6aa9dd8346f8" style="reportTitle" x="250" y="29" width="300" height="29"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="B Titr" size="20" isBold="true" isStrikeThrough="false" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<text><![CDATA[تراز کل آزمایشی]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="702" y="29" width="100" height="20" uuid="03640023-4839-4364-bf08-db473c68dd11"/>
+				<reportElement uuid="03640023-4839-4364-bf08-db473c68dd11" x="702" y="29" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[سال مالی : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="702" y="49" width="100" height="20" uuid="bc60c679-05c4-405d-bc61-3095ade4acb9"/>
+				<reportElement uuid="bc60c679-05c4-405d-bc61-3095ade4acb9" x="702" y="49" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[از تاریخ : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="702" y="69" width="100" height="20" uuid="03d1a1be-9122-470e-b207-f600754b8916"/>
+				<reportElement uuid="03d1a1be-9122-470e-b207-f600754b8916" x="702" y="69" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[تا تاریخ : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="602" y="29" width="100" height="20" uuid="8578a2a3-bfa1-4715-a18a-56c2c91cc900"/>
+				<reportElement uuid="8578a2a3-bfa1-4715-a18a-56c2c91cc900" x="602" y="29" width="100" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{saalMaali}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="602" y="49" width="100" height="20" uuid="183dafa2-a430-438d-bda5-2bd6b0580a47"/>
+				<reportElement uuid="183dafa2-a430-438d-bda5-2bd6b0580a47" x="602" y="49" width="100" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{fromDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="602" y="69" width="100" height="20" uuid="fd6bfca0-943f-49df-9283-0ea15f69a014"/>
+				<reportElement uuid="fd6bfca0-943f-49df-9283-0ea15f69a014" x="602" y="69" width="100" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{toDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="103" y="49" width="100" height="20" uuid="26fcb501-917f-4ff6-8ba4-18bfedb18270"/>
+				<reportElement uuid="26fcb501-917f-4ff6-8ba4-18bfedb18270" x="103" y="49" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[ایجاد کننده : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="3" y="49" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="489401f0-4b11-43bf-bc33-f95907abeefa"/>
+				<reportElement uuid="489401f0-4b11-43bf-bc33-f95907abeefa" x="3" y="49" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$P{creatorUser}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="103" y="29" width="100" height="20" uuid="14054bba-3ae0-4c7f-8ddb-bab10c7d3fe1"/>
+				<reportElement uuid="14054bba-3ae0-4c7f-8ddb-bab10c7d3fe1" x="103" y="29" width="100" height="20"/>
 				<textElement textAlignment="Left"/>
 				<text><![CDATA[تاریخ ایجاد : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="3" y="29" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="a7b5aacb-2c6a-4a6a-8b91-adcb0b6c3296"/>
+				<reportElement uuid="a7b5aacb-2c6a-4a6a-8b91-adcb0b6c3296" x="3" y="29" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$P{creationDate}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -121,7 +123,7 @@
 	<columnHeader>
 		<band height="24" splitType="Stretch">
 			<staticText>
-				<reportElement style="title" x="440" y="0" width="322" height="24" uuid="f7376f5a-e7bb-4a64-81ca-12a37adefb07"/>
+				<reportElement uuid="f7376f5a-e7bb-4a64-81ca-12a37adefb07" style="title" x="440" y="0" width="322" height="24"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -135,7 +137,7 @@
 				<text><![CDATA[حساب کل]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="title" x="762" y="0" width="40" height="24" uuid="bc9550e9-47a8-4a66-be06-8b5ed6cb62f2"/>
+				<reportElement uuid="bc9550e9-47a8-4a66-be06-8b5ed6cb62f2" style="title" x="762" y="0" width="40" height="24"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -149,7 +151,7 @@
 				<text><![CDATA[ردیف]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="title" x="0" y="0" width="220" height="24" uuid="c1a1dadc-988e-4b62-a334-229930faeb24"/>
+				<reportElement uuid="c1a1dadc-988e-4b62-a334-229930faeb24" style="title" x="0" y="0" width="220" height="24"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -163,7 +165,7 @@
 				<text><![CDATA[مانده بستانکار]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="title" x="220" y="0" width="220" height="24" uuid="2dc4c748-459e-4fad-8b0f-13611ebeeb57"/>
+				<reportElement uuid="2dc4c748-459e-4fad-8b0f-13611ebeeb57" style="title" x="220" y="0" width="220" height="24"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -181,7 +183,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement style="text" stretchType="RelativeToTallestObject" x="762" y="0" width="40" height="20" uuid="5f71cfd4-194b-4ab7-bf2e-952476f16a79"/>
+				<reportElement uuid="5f71cfd4-194b-4ab7-bf2e-952476f16a79" style="text" stretchType="RelativeToTallestObject" x="762" y="0" width="40" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -189,10 +191,11 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$V{rowCount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="440" y="0" width="322" height="20" uuid="71a4b8d0-224d-48e8-a364-4701f35e73e8"/>
+				<reportElement uuid="71a4b8d0-224d-48e8-a364-4701f35e73e8" x="440" y="0" width="322" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -200,10 +203,11 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{hesabKol}.getDesc()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="220" y="0" width="220" height="20" uuid="ca6aede9-3e62-455a-9f68-ccc48d3b8868"/>
+				<reportElement uuid="ca6aede9-3e62-455a-9f68-ccc48d3b8868" x="220" y="0" width="220" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -211,10 +215,11 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{mandehBedehkar})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="220" height="20" uuid="d97df763-2094-4345-90d6-e7c0218fefec"/>
+				<reportElement uuid="d97df763-2094-4345-90d6-e7c0218fefec" x="0" y="0" width="220" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -222,6 +227,7 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{mandehBestankar})]]></textFieldExpression>
 			</textField>
 		</band>
@@ -229,14 +235,14 @@
 	<columnFooter>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement style="title" x="440" y="0" width="80" height="20" uuid="db3840bf-8f44-49e5-abf4-b4e31f846d20"/>
+				<reportElement uuid="db3840bf-8f44-49e5-abf4-b4e31f846d20" style="title" x="440" y="0" width="80" height="20"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[مجموع]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="220" y="0" width="220" height="20" uuid="d38dd66f-beb9-41a5-92fd-8e9a35be2ec8"/>
+				<reportElement uuid="d38dd66f-beb9-41a5-92fd-8e9a35be2ec8" x="220" y="0" width="220" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -244,10 +250,11 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{mandehBedehkarSum})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="220" height="20" uuid="1d7a0910-f0f4-4747-945b-8017fef31a9f"/>
+				<reportElement uuid="1d7a0910-f0f4-4747-945b-8017fef31a9f" x="0" y="0" width="220" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -255,6 +262,7 @@
 					<bottomPen lineWidth="0.25"/>
 					<rightPen lineWidth="0.25"/>
 				</box>
+				<textElement/>
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{mandehBestankarSum})]]></textFieldExpression>
 			</textField>
 		</band>
@@ -262,7 +270,8 @@
 	<pageFooter>
 		<band height="38" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="18" width="802" height="20" uuid="5a627336-c7d2-4309-8e99-3b2e1411a3a8"/>
+				<reportElement uuid="5a627336-c7d2-4309-8e99-3b2e1411a3a8" x="0" y="18" width="802" height="20"/>
+				<textElement/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>

@@ -778,5 +778,6 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		}
 		return tafsiliMoeenMap;
 	}
-	
+
+
 }

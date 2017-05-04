@@ -1,10 +1,12 @@
 package ir.serajsamaneh.accounting.hesabtafsilitemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
@@ -153,4 +155,22 @@ public class HesabTafsiliTemplateService extends
 		return getDataList(null, localFilter);
 	}
 
+	@Transactional
+	public Map<Long, List<ListOrderedMap>> getTafsiliChildTemplateMap(OrganEntity organEntity) {
+		Map<Long, List<ListOrderedMap>> tafsiliChildTemplateMap = new HashMap<>();
+		List<HesabTafsiliTemplateEntity> tafsiliList = getActiveTafsilis(organEntity);
+		for (HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity : tafsiliList) {
+			List<ListOrderedMap> hesabTafsiliTemplateList = new ArrayList<ListOrderedMap>();
+			for (HesabTafsiliTemplateEntity tafsiliEntity : hesabTafsiliTemplateEntity.getChilds()) {
+				if(tafsiliEntity.getHidden().equals(false)){
+					ListOrderedMap bankBranchItemMap = new ListOrderedMap();
+					bankBranchItemMap.put("value",tafsiliEntity.getID());
+					bankBranchItemMap.put("label",tafsiliEntity.getDesc());
+					hesabTafsiliTemplateList.add(bankBranchItemMap);
+				}
+			}
+			tafsiliChildTemplateMap.put(hesabTafsiliTemplateEntity.getId(), hesabTafsiliTemplateList);
+		}
+		return tafsiliChildTemplateMap;
+	}
 }
