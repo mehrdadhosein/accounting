@@ -36,8 +36,8 @@
 
 			</p:panelGrid>
 			<t:div>
-				<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel" 
-					styleClass=" gwt-Button" update="listPanel"  onclick="showLoading()"
+				<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel"  
+					styleClass=" gwt-Button" style="vertical-align:top" update="listPanel"  onclick="showLoading()"
 					value="#{messages['common_search']}" action="#{owner.search}"
 					oncomplete="hideLoading();closeSearchDiv();">
 				</p:commandButton>
