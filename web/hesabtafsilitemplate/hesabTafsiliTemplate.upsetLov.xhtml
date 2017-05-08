@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template-lov.xhtml">
+	<ui:param name="title" value="HesabTafsiliTemplate_select" />
+	<ui:param name="owner" value="#{hesabTafsiliTemplate}" />
+	<ui:define name="searchsection">
+
+			<p:panelGrid layout="grid" columns="2" styleClass="inputForm  "  width="90%"
+				 columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9">
+
+												
+																									<h:outputLabel for="code" value="#{messages['HesabTafsiliTemplate_code']} : " />
+								<p:inputText id="code" value="#{hesabTafsiliTemplate.filter['code@lk']}" />
+																														<h:outputLabel for="name" value="#{messages['HesabTafsiliTemplate_name']} : " />
+								<p:inputText id="name" value="#{hesabTafsiliTemplate.filter['name@lk']}" />
+																														<h:outputLabel for="tafsilType" value="#{messages['HesabTafsiliTemplate_tafsilType']} : " />
+								<p:inputText id="tafsilType" value="#{hesabTafsiliTemplate.filter['tafsilType@lk']}" />
+																														<h:outputLabel for="description" value="#{messages['HesabTafsiliTemplate_description']} : " />
+								<p:inputText id="description" value="#{hesabTafsiliTemplate.filter['description@lk']}" />
+																														<h:outputLabel for="hidden" value="#{messages['HesabTafsiliTemplate_hidden']} : " />
+								<p:inputText id="hidden" value="#{hesabTafsiliTemplate.filter['hidden@eq']}" converter="javax.faces.Boolean"/>
+																														<h:outputLabel for="scope" value="#{messages['HesabTafsiliTemplate_scope']} : " />
+								<p:inputText id="scope" value="#{hesabTafsiliTemplate.filter['scope@eq']}" converter="javax.faces.Integer"/>
+													
+
+			</p:panelGrid>
+
+	</ui:define>	
+	<ui:define name="listsection">
+	<t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
+		<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			
+			 dir="rtl"
+			 id="hesabTafsiliTemplates" value="#{hesabTafsiliTemplate.upsetDataModel}" var="item"
+			rowClasses="RowOdd,RowEven" rows="10" style="width:100%" headerClass="header">
+
+			
+																			<p:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabTafsiliTemplate_name']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.name}" />
+							</p:column>
+																			<p:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabTafsiliTemplate_description']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.description}" />
+							</p:column>
+																			<p:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabTafsiliTemplate_tafsilType']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.tafsilType}" />
+							</p:column>
+																			<p:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabTafsiliTemplate_hidden']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.hidden}" />
+							</p:column>
+																											<p:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabTafsiliTemplate_code']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.code}" />
+							</p:column>
+																			<p:column>
+								<f:facet name="header">
+									<h:outputText styleClass="headerCellClass" value="#{messages['HesabTafsiliTemplate_scope']}" />
+								</f:facet>
+								<h:outputText  styleClass="CellClass" value="#{item.scope}" />
+							</p:column>
+											<p:column>
+				<h:commandButton  value="#{messages['lov_select']}"  
+					 onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false"/>
+			</p:column>
+		</p:dataTable>
+		</t:div>
+		<custom:dataTableRowCount onpagechange="showLoading();"
+			oncomplete="hideLoading();" for="hesabTafsiliTemplates"></custom:dataTableRowCount>
+	</ui:define>
+</ui:composition>
+</html>

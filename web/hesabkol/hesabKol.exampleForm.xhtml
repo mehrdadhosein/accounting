@@ -27,7 +27,7 @@
 					<custom:lov id="hesabGroup"
 						identity="#{hesabKol.filter['hesabGroup.id@eq']}"
 						desc="#{hesabKol.example.hesabGroup.desc}"
-						url="${request.contextPath}/hesabgroup/hesabGroup.lov.jsf?pId=hesabGroup" />
+						url="${request.contextPath}/hesabgroup/hesabGroup.upsetLov.jsf?pId=hesabGroup" />
 
 				</h:panelGroup>
 
@@ -60,7 +60,7 @@
 			</p:panelGrid>
 			<t:div>
 				<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel" 
-					styleClass=" gwt-Button" update="listPanel"  onclick="showLoading()"
+					styleClass=" gwt-Button" style="vertical-align:top" update="listPanel"  onclick="showLoading()"
 					value="#{messages['common_search']}" action="#{owner.search}"
 					oncomplete="hideLoading();closeSearchDiv();">
 				</p:commandButton>

@@ -27,7 +27,7 @@
 					<custom:lov id="hesabKol"
 						identity="#{hesabMoeen.filter['hesabKol.id@eq']}"
 						desc="#{hesabMoeen.example.hesabKol.desc}"
-						url="${request.contextPath}/hesabkol/hesabKol.lov.jsf?pId=hesabKol" />
+						url="${request.contextPath}/hesabkol/hesabKol.upsetLov.jsf?pId=hesabKol" />
 
 				</h:panelGroup>
 
@@ -49,7 +49,7 @@
 
 			</p:panelGrid>
 			<t:div>
-				<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel" 
+				<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel"  style="vertical-align:top"
 					styleClass=" gwt-Button" update="listPanel"  onclick="showLoading()"
 					value="#{messages['common_search']}" action="#{owner.search}"
 					oncomplete="hideLoading();closeSearchDiv();">
