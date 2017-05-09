@@ -34,7 +34,7 @@
 				<permission id="1111" action="HesabKol.create" name="ساخت حساب کل"	role="1" />
 				<permission id="1112" action="HesabKol.delete" name="حذف حساب کل"	role="1" />
 				<permission id="1113" action="hesabKol.list" name="لیست حساب کل"	role="1" />
-				<permission id="1114" action="importFromHesabKolTemplate" name="ورود اطلاعات از الگوهای حساب"	role="3" />
+				<permission id="1114" action="importFromHesabKolTemplate" name="ورود اطلاعات از الگوهای حساب"	role="1,3" />
 			</classification>
 			<classification id="112" name="حساب معین">
 				<permission id="1121" action="HesabMoeen.create" name="ساخت حساب معین"	role="1" />
