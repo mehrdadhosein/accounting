@@ -264,13 +264,6 @@
 				target="#{owner.returnUrl}" />
 		</h:commandButton>
 
-
-		<h:commandButton action="#{owner.importFromHesabKolTemplateList}"
-			styleClass=" gwt-Button" onclick="showLoading()"
-			rendered="#{owner.creatable}" value="importFromHesabKolTemplateList"
-			immediate="true" image="/images/buttons/btn_import_hesab.png">
-		</h:commandButton>
-
 		<h:commandButton action="#{owner.exportToHierarchicalExcel}"
 			styleClass=" gwt-Button" rendered="#{owner.creatable}"
 			value="#{messages['common_excel']}" immediate="true"

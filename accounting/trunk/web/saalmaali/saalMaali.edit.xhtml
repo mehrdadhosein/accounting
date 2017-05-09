@@ -66,7 +66,17 @@
 						value="#{saalMaali.entity.isActive}" /> 
 			</p:panelGrid>
 		</p:panel>
-		<p:panel>
+		<p:panel rendered="#{owner.ID != null}">
+	
+			<h:commandButton action="#{hesabKol.importFromHesabKolTemplateList}"
+				styleClass=" gwt-Button" onclick="showLoading()"
+				rendered="#{permissionProvider.importFromHesabKolTemplate}"
+				value="importFromHesabKolTemplateList" immediate="true"
+				image="/images/buttons/btn_import_hesab.png">
+			</h:commandButton>
+			
+		</p:panel>
+		<p:panel rendered="#{owner.ID != null}">
 				<f:facet name="header">
 					<h:outputText
 						value="#{messages['SaalMaali_copyHesabsFromSourceSaalMaaliToDestSaalMaali']}" />
@@ -87,7 +97,7 @@
 							<f:selectItems value="#{localEntities.saalMaali}" />
 						</t:selectOneMenu>
 					</h:panelGroup>	
-</p:panelGrid>
+			</p:panelGrid>
 		<h:commandButton styleClass="gwt-Button" render="messageGrid"
 			value="copyHesabsFromSourceSaalMaaliToDestSaalMaali" 
 			image="/images/buttons/btn_copyHesabsFromSourceSaalMaaliToDestSaalMaali.png"
