@@ -5,6 +5,7 @@
 <hibernate-mapping>
 	<class name='ir.serajsamaneh.accounting.hesabkol.HesabKolEntity'
 		table='tb_hesab_kol'>
+		<cache usage="nonstrict-read-write" />
 		<id name='id' type='java.lang.Long' column='hesab_kol_id'>
 			<generator class='increment' />
 		</id>

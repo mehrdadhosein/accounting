@@ -1,6 +1,6 @@
 	<cache
 	    name="ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity"
-	    maxElementsInMemory="5000"
+	    maxElementsInMemory="50000"
 	    eternal="true"
 	    timeToIdleSeconds="0"
 	    timeToLiveSeconds="0"
@@ -45,7 +45,7 @@
 
  	<cache
 	    name="ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity"
-	    maxElementsInMemory="5000"
+	    maxElementsInMemory="50000"
 	    eternal="true"
 	    timeToIdleSeconds="0"
 	    timeToLiveSeconds="0"
@@ -54,6 +54,15 @@
 
  	<cache
 	    name="ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity"
+	    maxElementsInMemory="5000"
+	    eternal="true"
+	    timeToIdleSeconds="0"
+	    timeToLiveSeconds="0"
+	    overflowToDisk="false"
+	/>  
+
+ 	<cache
+	    name="ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity"
 	    maxElementsInMemory="5000"
 	    eternal="true"
 	    timeToIdleSeconds="0"

@@ -20,8 +20,10 @@ import org.springframework.util.StringUtils;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
+import ir.serajsamaneh.accounting.enumeration.MahyatKolEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadFunctionEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
+import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.converter.CSVtoListOfLongConverter;
 import ir.serajsamaneh.core.exception.MaxExcelRecordExportException;
@@ -880,6 +882,40 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		
 		List<String> orderByCols = Arrays.asList("hesabKol.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
+		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = new ArrayList<>(); 
+		
+		HesabKolEntity temp = null;
+		List<SanadHesabdariItemEntity> firstList = new ArrayList<>();
+		List<SanadHesabdariItemEntity> lastList = new ArrayList<>();
+		
+//		Date tempTarikhSanad = null;
+		Long tempSerial = null; 
+		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : daftarKolList) {
+//			HesabKolEntity currentHesabKol = sanadHesabdariItemEntity.getHesabKol();
+			//Date tarikhSanad = sanadHesabdariItemEntity.getSanadHesabdari().getTarikhSanad();
+			Long currentTempSerial = sanadHesabdariItemEntity.getSanadHesabdari().getTempSerial();
+			if(tempSerial == null)
+				tempSerial = currentTempSerial;
+			if(tempSerial != currentTempSerial){
+				daftarKolListSortedByMahiat.addAll(firstList);
+				daftarKolListSortedByMahiat.addAll(lastList);
+				firstList = new ArrayList<>();
+				lastList =new ArrayList<>();
+				tempSerial = currentTempSerial;
+			}
+
+			if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBedehkar() > 0)
+				firstList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBestankar() > 0)
+				firstList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBedehkar() > 0)
+				lastList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBestankar() > 0)
+				lastList.add(sanadHesabdariItemEntity);
+			
+//			SanadHesabdariItemEntity lastItem = daftarKolListSortedByMahiat.get(daftarKolListSortedByMahiat.size());
+//			sanadHesabdariItemEntity.getSanadHesabdari().equals(lastItem);
+		}
 		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
 		setToDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@le"));
 		Map<String, Object> parameters = populateReportParameters(organName);
@@ -890,7 +926,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		try {
 			jasperReport = JasperCompileManager.compileReport(reportPath);
 			
-			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(daftarKolList);
+			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(daftarKolListSortedByMahiat);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(
 					jasperReport, parameters, ds);
 			
