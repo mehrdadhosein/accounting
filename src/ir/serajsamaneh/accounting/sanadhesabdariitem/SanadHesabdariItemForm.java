@@ -856,7 +856,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	public String printMonthlySummaryDaftarKol(){
 		createDaftarSummaryDaftarLocalFilter(getCurrentOrgan());
 		String organName = getCurrentOrgan().getName();
-		return printDaftarKol(organName);
+		return printMonthlySummaryDaftarKol(organName);
 		
 	}
 	
@@ -882,40 +882,21 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		
 		List<String> orderByCols = Arrays.asList("hesabKol.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
-		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = new ArrayList<>(); 
-		
-		HesabKolEntity temp = null;
-		List<SanadHesabdariItemEntity> firstList = new ArrayList<>();
-		List<SanadHesabdariItemEntity> lastList = new ArrayList<>();
-		
-//		Date tempTarikhSanad = null;
-		Long tempSerial = null; 
-		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : daftarKolList) {
-//			HesabKolEntity currentHesabKol = sanadHesabdariItemEntity.getHesabKol();
-			//Date tarikhSanad = sanadHesabdariItemEntity.getSanadHesabdari().getTarikhSanad();
-			Long currentTempSerial = sanadHesabdariItemEntity.getSanadHesabdari().getTempSerial();
-			if(tempSerial == null)
-				tempSerial = currentTempSerial;
-			if(tempSerial != currentTempSerial){
-				daftarKolListSortedByMahiat.addAll(firstList);
-				daftarKolListSortedByMahiat.addAll(lastList);
-				firstList = new ArrayList<>();
-				lastList =new ArrayList<>();
-				tempSerial = currentTempSerial;
-			}
+		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getDaftarKolListSortedByMahiat(daftarKolList);
+		return printDaftarKol(organName, daftarKolListSortedByMahiat);
+	}
 
-			if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBedehkar() > 0)
-				firstList.add(sanadHesabdariItemEntity);
-			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBestankar() > 0)
-				firstList.add(sanadHesabdariItemEntity);
-			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBedehkar() > 0)
-				lastList.add(sanadHesabdariItemEntity);
-			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBestankar() > 0)
-				lastList.add(sanadHesabdariItemEntity);
-			
-//			SanadHesabdariItemEntity lastItem = daftarKolListSortedByMahiat.get(daftarKolListSortedByMahiat.size());
-//			sanadHesabdariItemEntity.getSanadHesabdari().equals(lastItem);
-		}
+	
+	private String printMonthlySummaryDaftarKol(String organName) {
+		setDefaultSortType(true);
+		
+		List<String> orderByCols = Arrays.asList("hesabKol.id","sanadHesabdari.tarikhSanad","sanadHesabdari.serial","id");
+		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
+		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getDaftarKolSummaryListSortedByMahiat(daftarKolList);
+		return printDaftarKol(organName, daftarKolListSortedByMahiat);
+	}
+
+	private String printDaftarKol(String organName, List<SanadHesabdariItemEntity> sanadHesabdariItemEntities) {
 		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
 		setToDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@le"));
 		Map<String, Object> parameters = populateReportParameters(organName);
@@ -926,7 +907,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		try {
 			jasperReport = JasperCompileManager.compileReport(reportPath);
 			
-			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(daftarKolListSortedByMahiat);
+			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(sanadHesabdariItemEntities);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(
 					jasperReport, parameters, ds);
 			
@@ -938,6 +919,81 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		}
 		
 		return null;
+	}
+
+
+
+
+	private List<SanadHesabdariItemEntity> getDaftarKolListSortedByMahiat(List<SanadHesabdariItemEntity> daftarKolList) {
+		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = new ArrayList<>(); 
+		
+		List<SanadHesabdariItemEntity> firstList = new ArrayList<>();
+		List<SanadHesabdariItemEntity> lastList = new ArrayList<>();
+		
+		Long tempSerial = null; 
+		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : daftarKolList) {
+			Long currentTempSerial = sanadHesabdariItemEntity.getSanadHesabdari().getTempSerial();
+			if(tempSerial == null)
+				tempSerial = currentTempSerial;
+
+			if(tempSerial != currentTempSerial){
+				daftarKolListSortedByMahiat.addAll(firstList);
+				daftarKolListSortedByMahiat.addAll(lastList);
+				firstList = new ArrayList<>();
+				lastList =new ArrayList<>();
+				tempSerial = currentTempSerial;
+			}
+			
+			if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBedehkar() > 0)
+				firstList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBestankar() > 0)
+				firstList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBedehkar() > 0)
+				lastList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBestankar() > 0)
+				lastList.add(sanadHesabdariItemEntity);
+		}
+		
+		daftarKolListSortedByMahiat.addAll(firstList);
+		daftarKolListSortedByMahiat.addAll(lastList);
+		
+		return daftarKolListSortedByMahiat;
+	}
+	
+	private List<SanadHesabdariItemEntity> getDaftarKolSummaryListSortedByMahiat(List<SanadHesabdariItemEntity> daftarKolList) {
+		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = new ArrayList<>(); 
+		
+		List<SanadHesabdariItemEntity> firstList = new ArrayList<>();
+		List<SanadHesabdariItemEntity> lastList = new ArrayList<>();
+		
+		Long serial = null; 
+		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : daftarKolList) {
+			Long currentSerial = sanadHesabdariItemEntity.getSanadHesabdari().getSerial();
+			if(serial == null)
+				serial = currentSerial;
+			
+			if(serial != currentSerial){
+				daftarKolListSortedByMahiat.addAll(firstList);
+				daftarKolListSortedByMahiat.addAll(lastList);
+				firstList = new ArrayList<>();
+				lastList =new ArrayList<>();
+				serial = currentSerial;
+			}
+			
+			if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBedehkar() > 0)
+				firstList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBestankar() > 0)
+				firstList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBedehkar() > 0)
+				lastList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBestankar() > 0)
+				lastList.add(sanadHesabdariItemEntity);
+		}
+		
+		daftarKolListSortedByMahiat.addAll(firstList);
+		daftarKolListSortedByMahiat.addAll(lastList);
+		
+		return daftarKolListSortedByMahiat;
 	}
 	
 	public String printMonthlySummaryDaftarRooznameh() {
@@ -1931,5 +1987,18 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 		exportToExcel();
 		return null;
+	}
+	
+	public String exportKolSummaryToExcel() {
+		List<String> columnsToShow = new ArrayList<>();
+		columnsToShow.add("sanadSerial");
+		columnsToShow.add("tempSanadSerial");
+		columnsToShow.add("sanadTarikh");
+		columnsToShow.add("hesabKol");
+		columnsToShow.add("hesabKolCode");
+		columnsToShow.add("bedehkar");
+		columnsToShow.add("bestankar");
+		columnsToShow.add("description");
+		return super.exportToExcel(columnsToShow);
 	}
 }
