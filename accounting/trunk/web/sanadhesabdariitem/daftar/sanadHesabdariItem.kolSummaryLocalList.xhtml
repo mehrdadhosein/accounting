@@ -48,6 +48,10 @@
 		<t:div id="topsectiondiv" style="text-align:center">
 			<h:panelGroup id="topsection" style="font-family: tahoma;">
 
+				<h:commandButton action="#{owner.exportKolSummaryToExcel}"
+					styleClass=" gwt-Button" value="#{messages['common_excel']}"
+					rendered="#{owner.exportable}" image="/images/excelBtn.png" />
+					
 				<p:commandButton action="#{owner.printMonthlySummaryDaftarKol}" 
 					style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;" ajax="false"
 					value="#{messages['SanadHesabdari_printMonthlySummaryDaftarKol']}">
