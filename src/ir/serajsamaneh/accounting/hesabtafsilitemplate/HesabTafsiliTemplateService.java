@@ -147,6 +147,7 @@ public class HesabTafsiliTemplateService extends
 		return load(null, localFilter);
 	}
 	
+	@Transactional(readOnly=true)
 	public List<HesabTafsiliTemplateEntity> getActiveTafsilis(OrganEntity organEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		//localFilter.put("organ.id@eqORorgan.id@isNull", Arrays.asList(organEntity.getId(),"ding"));
@@ -155,7 +156,7 @@ public class HesabTafsiliTemplateService extends
 		return getDataList(null, localFilter);
 	}
 
-	@Transactional
+	@Transactional(readOnly=true)
 	public Map<Long, List<ListOrderedMap>> getTafsiliChildTemplateMap(OrganEntity organEntity) {
 		Map<Long, List<ListOrderedMap>> tafsiliChildTemplateMap = new HashMap<>();
 		List<HesabTafsiliTemplateEntity> tafsiliList = getActiveTafsilis(organEntity);
