@@ -269,7 +269,6 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 				List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
 				getFilter().put("organ.id@in", topOrganList);
 				
-	//			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 				params.put("isLocal","false");
 			}
 			
