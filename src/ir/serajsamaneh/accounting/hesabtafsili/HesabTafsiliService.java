@@ -473,7 +473,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		return hesabTafsiliEntity;
 	}
 	
-
+	@Transactional(readOnly=true)
 	public List<HesabTafsiliEntity> getActiveTafsilis(SaalMaaliEntity currentSaalMaali, OrganEntity curentOrgan) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		
@@ -758,7 +758,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		return rootList;
 	}
 
-	@Transactional
+	@Transactional(readOnly=true)
 	public Map<Long, List<ListOrderedMap>> getTafsiliMoeenMap(SaalMaaliEntity saalMaaliEntity,
 			OrganEntity currentOrgan) {
 		Map<Long, List<ListOrderedMap>> tafsiliMoeenMap;
