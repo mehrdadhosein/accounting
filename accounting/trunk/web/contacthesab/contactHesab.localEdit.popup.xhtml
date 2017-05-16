@@ -48,11 +48,160 @@
 				
 				<h:panelGroup/>
 				<ui:include src="../common/kolMoeenTafsili.xhtml" />			  		
-				
-				
-
 			</p:panelGrid>
+
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#rootHesabsDIV" style="font-family: yekan;"><i class="glyphicon glyphicon-plus position-left"></i> انتخاب حساب </button>
+
+<div id="rootHesabsDIV" class="modal fade"  role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body form-horizontal">
+				<fieldset class="content-group">
+					<legend class="text-bold">اطلاعات آرتیکل</legend>
+
+					<div class="form-group">
+						<label class="control-label col-lg-2">حساب</label>
+						<div id="rootHesabsBodyDiv" class="col-lg-10">
+							
+						</div>
+					</div>
+				
+				</fieldset>				
+			</div>
+
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+/* <![CDATA[ */
+
+
+		$$('#rootHesabsDIV').on('shown.bs.modal', function () {
+			$$('#rootHesabs_desc').focus();
+		})
+
+	$$(function() {
+		$$.ajax({
+			  url: '${request.contextPath}/jersey/accountingRestFace/getRootHesabsMap',
+			  cache: false,
+			  success: function(result){
+				
+				var inpId = 'rootHesabs_id';
+				var componentName='rootHesabs';
+				var inputText = $$('<input type="text" class="form-control"  style="font-family:Tahoma;float:right;width:200px"/>').prop('id','rootHesabs_desc');
+				var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px"/>').prop('id','rootHesabs_id');
+				var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');
+
+				//$$(inputText).prop('class','m2mInput tafsiliInput');
+				//$$(inputHidden).attr('onchange','alert(\'aaaa\');fireRootHesabsOnChange();');
+				$$('#rootHesabsBodyDiv').append(inputText);
+				$$('#rootHesabsBodyDiv').append(inputHidden);
+				$$('#rootHesabsBodyDiv').append(inputClear);
+				$$('#rootHesabsBodyDiv').append('<br/>');
+				createRootHesabsAutocomplete('rootHesabs',result,'0');	
+			  },
+			  error: function(jqXHR, textStatus, errorThrown){
+					alert(errorThrown);
+				}
+		});
+	});
+	
+function createRootHesabsAutocomplete(id,src, minLength){
+	$$('#'+id+'_desc').autocomplete({
+		minLength: minLength,
+		source: src,
+		appendTo: '#rootHesabsBodyDiv',
+		focus: function(event, ui) {
+			//$$('#'+id+'_desc').val(ui.item.label);
+			return false;
+		},
+		select: function(event, ui) {
+			//alert('select');
+			debugger;
+			$$('#'+id+'_id').val(ui.item.value);
+			$$('#'+id+'_desc').val(ui.item.label);
+			fireRootHesabsOnChange();
+			//element = document.getElementById(id+'_id');
+			
+			//this statement cause onchange event to be fired
+			//$$('#'+id+'_desc').blur();
+			//fireEvent(element,"change");
+			//eval("evalOnselect"+id+"()");
+			return false;
+		},
+		change: function(event, ui) {
+			//alert('change');
+		}			
+	});
+}
+
+	function fireRootHesabsOnChange(){
+
+		$$('#hesabKolName').val("");
+		$$('#hesabMoeen_id').val("");
+		$$('#hesabMoeen_desc').val("");
+		$$('#hesabTafsili_id').val("");
+		$$('#hesabTafsili_desc').val("");
+				
+		debugger;
+		var hesabId = $$('#rootHesabs_id').val();
+		description = $$('#articleDescription').val();
+		if(hesabId.startsWith("Moeen_")){
+			var ind = hesabId.indexOf('_');
+			var moeenId = hesabId.substring(ind+1); 
+			kolMap = moeenKolMap[moeenId];
+			kolDesc = kolMap.label;
+			moeenDesc = $$('#rootHesabs_desc').val();
+			
+			$$('#hesabKolName').val(kolDesc);
+			$$('#hesabMoeen_id').val(moeenId);
+			$$('#hesabMoeen_desc').val(moeenDesc);
+			$$('#rootHesabsDIV').modal('toggle');
+			//addRootHesabsToGrid('#sanadHesabdariGrid', kolDesc, moeenId, moeenDesc, '', '',description);
+			
+			//alert(hesabMoeenId);
+		}else if(hesabId.startsWith("Tafsili_")){
+			var ind = hesabId.indexOf('_');
+			var hesabTafsiliId = hesabId.substring(ind+1); 
+			hesabTafsiliDesc = $$('#rootHesabs_desc').val();
+			//alert(hesabTafsiliDesc);
+			hesabMoeenList = tafsiliMoeenMap[hesabTafsiliId];
+			if(hesabMoeenList.length == 1){
+				moeenMap = hesabMoeenList[0];
+				var moeenId = moeenMap.value; 
+				var moeenDesc = moeenMap.label; 
+				kolMap = moeenKolMap[moeenId];
+				kolDesc = kolMap.label;
+				
+				$$('#hesabKolName').val(kolDesc);
+				$$('#hesabMoeen_id').val(moeenId);
+				$$('#hesabMoeen_desc').val(moeenDesc);
+				$$('#hesabTafsili_id').val(hesabTafsiliId);
+				$$('#hesabTafsili_desc').val(hesabTafsiliDesc);
+			
+				//addRootHesabsToGrid('#sanadHesabdariGrid', kolDesc, moeenId, moeenDesc, hesabTafsiliId, hesabTafsiliDesc,description);
+			}else{
+				$$('#hesabTafsili_id').val(hesabTafsiliId);
+				$$('#hesabTafsili_desc').val(hesabTafsiliDesc);
+				//showRootNodeMoeenList(hesabTafsiliId, hesabTafsiliDesc, description)
+			}
+			//alert(hesabTafsiliId);
+			$$('#rootHesabsDIV').modal('toggle');
+		}else
+			alert('error');
+	}
+/* ]]> */
+</script>			
 		</p:panel>
+		
+
+<t:jsValueSet name="moeenKolMap" value="#{hesabMoeen.moeenKolMap}" />
+<t:jsValueSet name="tafsiliMoeenMap" value="#{hesabTafsili.tafsiliMoeenMap}" />
+
+		
 	</ui:define>
 	<ui:define name="buttonsection">
 		<h:commandButton styleClass=" gwt-Button" rendered="#{contact.editable}"
