@@ -1556,4 +1556,9 @@ public class SanadHesabdariForm extends
 		getMyService().createMonthlySummarySanad(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
 	}
+	
+	public String backToMovaghatList() {
+		return getFacesUrl("/sanadhesabdaru//sanadhesabdari/sanadHesabdari.localList.xhtml");
+	}
+
 }
