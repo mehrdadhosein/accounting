@@ -1558,7 +1558,7 @@ public class SanadHesabdariForm extends
 	}
 	
 	public String backToMovaghatList() {
-		return getFacesUrl("/sanadhesabdaru//sanadhesabdari/sanadHesabdari.localList.xhtml");
+		return getFacesUrl("/sanadhesabdari/sanadHesabdari.localList.xhtml");
 	}
 
 }
