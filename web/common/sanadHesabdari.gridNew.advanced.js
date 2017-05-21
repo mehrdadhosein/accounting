@@ -656,7 +656,7 @@
 				tCellKol = $$('<td style="width: 300px;padding:5px">').append(tP1).addClass("ui-widget-content");
 				
 				//addRootHesabsToGrid("#sanadHesabdariGrid", kolDesc, moeenId, moeenDesc, hesabTafsiliId, hesabTafsiliDesc,description);
-				var outputLink = '<a onclick="addRootHesabsToGrid('+'\'#sanadHesabdariGrid\',\''+kolDesc+'\',\''+moeenId+'\',\''+moeenDesc+'\',\''+hesabTafsiliId+'\',\''+hesabTafsiliDesc+'\',\''+description+'\');$$(\'#tafsiliMoeenDIV\').modal(\'toggle\');" style="height:100px;" class="">'+moeenMap[index].label+'</a>';
+				var outputLink = '<a onclick="addRootHesabsToGrid('+'\'#sanadHesabdariGrid\',\''+kolDesc+'\',\''+moeenId+'\',\''+moeenDesc+'\',\''+hesabTafsiliId+'\',\''+hesabTafsiliDesc+'\',\''+description+'\');$$(\'#tafsiliMoeenDIV\').dialog(\'close\');" style="height:100px;" class="">'+moeenMap[index].label+'</a>';
 				var tStrong2 = $$('<strong>').html(outputLink);
 				var tP2 = $$('<p>').append(tStrong2);
 				tCellMoeen = $$('<td style="width: 300px;padding:5px">').append(tP2).addClass("ui-widget-content").css({ cursor: "pointer"});
@@ -669,9 +669,10 @@
 				tbl.append(tRow);
 
 			}
-			//$$('#tafsiliMoeenDIV').dialog({width: '600px',modal: true});
+			
 			$$('#rootHesabsDIV').modal('toggle');
-			$$('#tafsiliMoeenDIV').modal('toggle');
+			//$$('#tafsiliMoeenDIV').modal('toggle');
+			$$('#tafsiliMoeenDIV').dialog({width: '600px',modal: true});
 			//alert("unitMap : "+unitMap.length);
 			//var filtered = moeenMap;
 			//alert(inspect(filtered,10,10));

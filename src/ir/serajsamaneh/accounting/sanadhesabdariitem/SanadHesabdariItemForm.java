@@ -829,6 +829,8 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		
 		List<String> orderByCols = Arrays.asList("hesabMoeen.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarMoeenList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
+		List<SanadHesabdariItemEntity> itemListSortedByMahiat = getSanadHesabdariItemListSortedByMahiat(daftarMoeenList);
+		
 		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
 		setToDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@le"));		
 		Map<String, Object> parameters = populateReportParameters(organName);
@@ -839,7 +841,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		try {
 			jasperReport = JasperCompileManager.compileReport(reportPath);
 			
-			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(daftarMoeenList);
+			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(itemListSortedByMahiat);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(
 					jasperReport, parameters, ds);
 			
@@ -882,7 +884,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		
 		List<String> orderByCols = Arrays.asList("hesabKol.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
-		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getDaftarKolListSortedByMahiat(daftarKolList);
+		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getSanadHesabdariItemListSortedByMahiat(daftarKolList);
 		return printDaftarKol(organName, daftarKolListSortedByMahiat);
 	}
 
@@ -924,14 +926,14 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 
 
-	private List<SanadHesabdariItemEntity> getDaftarKolListSortedByMahiat(List<SanadHesabdariItemEntity> daftarKolList) {
+	private List<SanadHesabdariItemEntity> getSanadHesabdariItemListSortedByMahiat(List<SanadHesabdariItemEntity> itemsList) {
 		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = new ArrayList<>(); 
 		
 		List<SanadHesabdariItemEntity> firstList = new ArrayList<>();
 		List<SanadHesabdariItemEntity> lastList = new ArrayList<>();
 		
 		Long tempSerial = null; 
-		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : daftarKolList) {
+		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : itemsList) {
 			Long currentTempSerial = sanadHesabdariItemEntity.getSanadHesabdari().getTempSerial();
 			if(tempSerial == null)
 				tempSerial = currentTempSerial;
@@ -944,13 +946,13 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 				tempSerial = currentTempSerial;
 			}
 			
-			if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBedehkar() > 0)
+			if(sanadHesabdariItemEntity.getBedehkar() > 0)
 				firstList.add(sanadHesabdariItemEntity);
-			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBestankar() > 0)
-				firstList.add(sanadHesabdariItemEntity);
-			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBedehkar() > 0)
-				lastList.add(sanadHesabdariItemEntity);
-			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBestankar() > 0)
+//			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBestankar() > 0)
+//				firstList.add(sanadHesabdariItemEntity);
+//			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBedehkar() > 0)
+//				lastList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getBestankar() > 0)
 				lastList.add(sanadHesabdariItemEntity);
 		}
 		
@@ -960,14 +962,14 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		return daftarKolListSortedByMahiat;
 	}
 	
-	private List<SanadHesabdariItemEntity> getDaftarKolSummaryListSortedByMahiat(List<SanadHesabdariItemEntity> daftarKolList) {
+	private List<SanadHesabdariItemEntity> getDaftarKolSummaryListSortedByMahiat(List<SanadHesabdariItemEntity> itemsList) {
 		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = new ArrayList<>(); 
 		
 		List<SanadHesabdariItemEntity> firstList = new ArrayList<>();
 		List<SanadHesabdariItemEntity> lastList = new ArrayList<>();
 		
 		Long serial = null; 
-		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : daftarKolList) {
+		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : itemsList) {
 			Long currentSerial = sanadHesabdariItemEntity.getSanadHesabdari().getSerial();
 			if(serial == null)
 				serial = currentSerial;
@@ -980,13 +982,13 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 				serial = currentSerial;
 			}
 			
-			if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBedehkar() > 0)
+			if(sanadHesabdariItemEntity.getBedehkar() > 0)
 				firstList.add(sanadHesabdariItemEntity);
-			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBestankar() > 0)
-				firstList.add(sanadHesabdariItemEntity);
-			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBedehkar() > 0)
-				lastList.add(sanadHesabdariItemEntity);
-			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bedehkar) && sanadHesabdariItemEntity.getBestankar() > 0)
+//			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBestankar() > 0)
+//				firstList.add(sanadHesabdariItemEntity);
+//			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBedehkar() > 0)
+//				lastList.add(sanadHesabdariItemEntity);
+			else if(sanadHesabdariItemEntity.getBestankar() > 0)
 				lastList.add(sanadHesabdariItemEntity);
 		}
 		
@@ -1136,6 +1138,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		
 		List<String> orderByCols = Arrays.asList("hesabTafsili.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarTafsiliList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
+		List<SanadHesabdariItemEntity> itemListSortedByMahiat = getSanadHesabdariItemListSortedByMahiat(daftarTafsiliList);
 		
 		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
 		setToDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@le"));		
@@ -1147,7 +1150,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		try {
 			jasperReport = JasperCompileManager.compileReport(reportPath);
 
-			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(daftarTafsiliList);
+			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(itemListSortedByMahiat);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(
 					jasperReport, parameters, ds);
 

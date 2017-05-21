@@ -47,7 +47,7 @@
 			<MenuItem value="اسناد" pagetitle="اسناد حسابداری"  icon="BankTransfer-document-1
 			">
 				<MenuItem id="sanadHesabdarilocalEdit" value="جدید" pagetitle="سند حسابداری جدید"
-					valueClick="../sanadhesabdari/sanadHesabdari.localEdit.advanced.jsf"
+					valueClick="../sanadhesabdari/sanadHesabdari.localEdit.advanced.jsf?newReturnUrl=/sanadhesabdari/sanadHesabdari.localList.xhtml"
 					permission="sanadHesabdari.localEdit" icon="serajicon-add-button" />
 				<MenuItem id="sanadHesabdarilocalList" value="اسناد موقت"
 					valueClick="../sanadhesabdari/sanadHesabdari.localList.jsf"
