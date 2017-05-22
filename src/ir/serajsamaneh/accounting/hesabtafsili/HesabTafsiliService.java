@@ -746,7 +746,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		super.save(entity);
 	}
 	
-	@Transactional
+	@Transactional(readOnly=true)
 	public List<HesabTafsiliEntity> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
 		List<HesabTafsiliEntity> rootList = new ArrayList<HesabTafsiliEntity>();
 		List<HesabTafsiliEntity> activeTafsilis = getActiveTafsilis(saalMaaliEntity);

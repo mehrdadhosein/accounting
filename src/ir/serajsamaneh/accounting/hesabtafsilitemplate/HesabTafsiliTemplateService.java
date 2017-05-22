@@ -149,9 +149,12 @@ public class HesabTafsiliTemplateService extends
 	
 	@Transactional(readOnly=true)
 	public List<HesabTafsiliTemplateEntity> getActiveTafsilis(OrganEntity organEntity) {
+		
+		List<Long> topOrganList = getTopOrgansIdList(organEntity);
+		
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		//localFilter.put("organ.id@eqORorgan.id@isNull", Arrays.asList(organEntity.getId(),"ding"));
-		localFilter.put("organ.code@startlk", getTopOrgan(organEntity).getCode());
+		localFilter.put("organ.id@in", topOrganList);
+		
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		return getDataList(null, localFilter);
 	}
@@ -173,5 +176,17 @@ public class HesabTafsiliTemplateService extends
 			tafsiliChildTemplateMap.put(hesabTafsiliTemplateEntity.getId(), hesabTafsiliTemplateList);
 		}
 		return tafsiliChildTemplateMap;
+	}
+
+	@Transactional(readOnly=true)
+	public List<HesabTafsiliTemplateEntity> getRootHesabs(OrganEntity currentOrgan) {
+		List<HesabTafsiliTemplateEntity> rootList = new ArrayList<HesabTafsiliTemplateEntity>();
+		List<HesabTafsiliTemplateEntity> activeTafsilis = getActiveTafsilis(currentOrgan);
+		for (HesabTafsiliTemplateEntity hesabTafsiliEntity : activeTafsilis) {
+			if(hesabTafsiliEntity.getChilds()==null || hesabTafsiliEntity.getChilds().isEmpty())
+				if(hesabTafsiliEntity.getMoeenTafsiliTemplate()!= null && !hesabTafsiliEntity.getMoeenTafsiliTemplate().isEmpty())
+				rootList.add(hesabTafsiliEntity);
+		}
+		return rootList;
 	}
 }

@@ -1,9 +1,11 @@
 package ir.serajsamaneh.accounting.hesabkoltemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.map.ListOrderedMap;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Element;
 
@@ -15,11 +17,15 @@ import ir.serajsamaneh.accounting.hesabgroup.HesabGroupService;
 import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateDAO;
 import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
+import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateDAO;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
+import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateDAO;
+import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.organ.OrganEntity;
@@ -265,5 +271,28 @@ public class HesabKolTemplateService extends
 		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
 		localFilter.put("organ.id@eq", organEntity.getId());
 		return load(null, localFilter);
+	}
+
+	@Transactional(readOnly=true)
+	public List<ListOrderedMap> getRootHesabs(OrganEntity currentOrgan) {
+		List<ListOrderedMap> rootHesabsList;
+		List<HesabMoeenTemplateEntity> rootHesabMoeens = getHesabMoeenTemplateService().getRootHesabs(currentOrgan);
+		
+		rootHesabsList = new ArrayList<ListOrderedMap>(); 
+		
+		for (HesabMoeenTemplateEntity hesabMoeenEntity : rootHesabMoeens) {
+			ListOrderedMap hesabMoeenMap = new ListOrderedMap();
+			hesabMoeenMap.put("value","Moeen_"+hesabMoeenEntity.getId());
+			hesabMoeenMap.put("label",hesabMoeenEntity.getDesc());
+			rootHesabsList.add(hesabMoeenMap);
+		}
+		List<HesabTafsiliTemplateEntity> rootHesabTafsilies = getHesabTafsiliTemplateService().getRootHesabs(currentOrgan);
+		for (HesabTafsiliTemplateEntity hesabTafsiliEntity : rootHesabTafsilies) {
+			ListOrderedMap hesabTafsiliMap = new ListOrderedMap();
+			hesabTafsiliMap.put("value","Tafsili_"+hesabTafsiliEntity.getId());
+			hesabTafsiliMap.put("label",hesabTafsiliEntity.getDesc());
+			rootHesabsList.add(hesabTafsiliMap);
+		}
+		return rootHesabsList;
 	}
 }

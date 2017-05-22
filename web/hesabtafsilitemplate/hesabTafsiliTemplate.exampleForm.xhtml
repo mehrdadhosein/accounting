@@ -7,16 +7,17 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:t="http://myfaces.apache.org/tomahawk"
 	xmlns:p="http://primefaces.org/ui">
 
 
 <h:panelGroup id="searchProcessPanel">
-<p:panel>
+	<p:panel>
 		<p:panelGrid layout="grid" columns="1" style="width:100%"
 			styleClass="inputForm  ui-panelgrid-blank">
 			<p:panelGrid layout="grid" columns="2" width="90%"
-				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9" styleClass="inputForm  ui-panelgrid-blank">
+				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
+				styleClass="inputForm  ui-panelgrid-blank">
 
 
 
@@ -24,8 +25,8 @@
 					<h:outputLabel for="code"
 						value="#{messages['HesabTafsiliTemplate_code']}" /> : 
 				</h:panelGroup>
-				<p:inputText id="code"
-					value="#{hesabTafsiliTemplate.filter['code@lk']}" />
+				<p:inputText id="code" converter="javax.faces.Long"
+					value="#{hesabTafsiliTemplate.filter['code@eq']}" />
 				<h:panelGroup>
 					<h:outputLabel for="name"
 						value="#{messages['HesabTafsiliTemplate_name']}" /> : 
@@ -47,8 +48,9 @@
 
 
 			</p:panelGrid>
-			<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel" 
-				styleClass=" gwt-Button" update="listPanel"  onclick="showLoading()"
+			<p:commandButton icon="fa fa-fw fa-search"
+				process="searchProcessPanel" styleClass=" gwt-Button"
+				update="listPanel" onclick="showLoading()"
 				value="#{messages['common_search']}" action="#{owner.search}"
 				oncomplete="hideLoading();closeSearchDiv();">
 			</p:commandButton>

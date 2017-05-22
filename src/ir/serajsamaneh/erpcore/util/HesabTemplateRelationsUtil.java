@@ -8,6 +8,7 @@ import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SpringUtils;
@@ -309,5 +310,17 @@ public class HesabTemplateRelationsUtil {
 //		return accountingMarkazChildTemplateMap;
 	}	
 	//////////////// accounting markaz child map//////////////////////////////////////////
+
+	static Map<Long, List<ListOrderedMap>> organizationalRootHesabsMap = new HashMap<Long, List<ListOrderedMap>>();
+	public static List<ListOrderedMap> getRootHesabs(OrganEntity currentOrgan) {
+		List<ListOrderedMap> rootHesabsList = organizationalRootHesabsMap.get(currentOrgan.getId());
+		
+		if(rootHesabsList == null){
+			rootHesabsList = getHesabKolTemplateService().getRootHesabs(currentOrgan);
+			
+			organizationalRootHesabsMap.put(currentOrgan.getId(), rootHesabsList);
+		}
+		return rootHesabsList;
+	}
 	
 }

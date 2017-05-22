@@ -524,7 +524,7 @@ public class HesabMoeenService extends
 		super.save(entity);
 	}
 	
-	@Transactional
+	@Transactional(readOnly=true)
 	public List<HesabMoeenEntity> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
 		
 		List<HesabMoeenEntity> rootList = new ArrayList<HesabMoeenEntity>();
