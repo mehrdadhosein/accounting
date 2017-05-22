@@ -678,7 +678,7 @@ public class HesabKolService extends
 		}
 	}
 
-	@Transactional
+	@Transactional(readOnly=true)
 	public List<ListOrderedMap> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan) {
 		List<ListOrderedMap> rootHesabsList;
 		List<HesabMoeenEntity> rootHesabMoeens = getHesabMoeenService().getRootHesabs(saalMaaliEntity, currentOrgan);

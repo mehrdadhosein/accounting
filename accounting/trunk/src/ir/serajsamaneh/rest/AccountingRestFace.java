@@ -32,6 +32,7 @@ import ir.serajsamaneh.core.user.UserEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
+import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
 @Component
 @Path("accountingRestFace")
@@ -166,6 +167,21 @@ public class AccountingRestFace {
 		try {
 			SaalMaaliEntity activeSaalMaali = getSaalMaaliService().getUserActiveSaalMaali(getCurrentUser().getOrgan(), getCurrentUser());
 			return HesabRelationsUtil.getRootHesabs(activeSaalMaali, getCurrentUser().getOrgan());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	@Path("getRootHesabTemplatesMap")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ListOrderedMap> getRootHesabTemplatesMap()
+	{
+		try {
+			return HesabTemplateRelationsUtil.getRootHesabs(getCurrentUser().getOrgan());
 			
 		} catch (Exception e) {
 			e.printStackTrace();

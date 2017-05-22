@@ -13,11 +13,11 @@
 	         <key column='hesab_tafsili_template_id' foreign-key='fk_mn_tf_tmplt_hsb_tf_tmplt'/>
          <one-to-many class='ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity' />
       </set>
-      <set  name='parent' inverse='true' table='tb_tafsili_template_parent' fetch="join">
+      <set  name='parent' inverse='true' table='tb_tafsili_template_parent' fetch="join"  batch-size="50">
 	         <key column='childs_id' foreign-key='fk_hsb_tfsl_tmplt_chlds_ky'/>
          <many-to-many class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity' foreign-key='fk_hsb_tf_tmplt_prnt' column='parent_id' />
       </set>
-      <set  name='childs' table='tb_tafsili_template_childs' fetch="join">
+      <set  name='childs' table='tb_tafsili_template_childs' fetch="join"  batch-size="50">
 	         <key column='parent_id' foreign-key='fk_hsb_tf_tmplt_parent'/>
          <many-to-many class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity' foreign-key='fk_hsb_tf_tmplt_chlds' column='childs_id' />
       </set>
