@@ -23,6 +23,7 @@ import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
 import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
@@ -44,6 +45,15 @@ public class HesabMoeenService extends
 	SaalMaaliService saalMaaliService;
 	HesabTafsiliService hesabTafsiliService;
 	MoeenTafsiliService moeenTafsiliService;
+	SanadHesabdariItemService sanadHesabdariItemService;
+
+	public SanadHesabdariItemService getSanadHesabdariItemService() {
+		return sanadHesabdariItemService;
+	}
+
+	public void setSanadHesabdariItemService(SanadHesabdariItemService sanadHesabdariItemService) {
+		this.sanadHesabdariItemService = sanadHesabdariItemService;
+	}
 
 	public MoeenTafsiliService getMoeenTafsiliService() {
 		return moeenTafsiliService;
@@ -94,15 +104,30 @@ public class HesabMoeenService extends
 		return hesabMoeenDAO;
 	}
 
-	//@Override
 	@Transactional
-	public void save(HesabMoeenEntity entity,SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
+	public void save(HesabMoeenEntity entity,SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan, HesabKolEntity oldHesabKolEntity) {
+		validateMoeenKol(entity, oldHesabKolEntity);
+		save(entity, activeSaalMaaliEntity, currentOrgan);
+	}
+
+	@Transactional
+	private void save(HesabMoeenEntity entity,SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 		commonSave(entity, activeSaalMaaliEntity, currentOrgan);
 		save(entity);
 		boolean isNew=(entity.getID()!=null?false:true);
 		logAction(isNew, entity);
 	}
 
+	private void validateMoeenKol(HesabMoeenEntity entity, HesabKolEntity oldHesabKolEntity) {
+		Map<String, Object> filter = new HashMap<>();
+		filter.put("hesabMoeen.id@eq", entity.getId());
+		filter.put("hesabKol.id@eq", oldHesabKolEntity.getId());
+		Integer rowCount = getSanadHesabdariItemService().getRowCount(null,filter);
+		if(rowCount>0)
+			throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_KolIsUsedInSomeArticles",oldHesabKolEntity));
+		
+	}
+	
 //	public void saveStateLess(HesabMoeenEntity entity,SaalMaaliEntity activeSaalMaaliEntity) {
 //		commonSave(entity, activeSaalMaaliEntity);
 //		super.saveStateLess(entity);
@@ -524,6 +549,8 @@ public class HesabMoeenService extends
 		super.save(entity);
 	}
 	
+
+
 	@Transactional(readOnly=true)
 	public List<HesabMoeenEntity> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
 		

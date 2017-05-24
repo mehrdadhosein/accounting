@@ -27,6 +27,7 @@ import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliService;
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
@@ -50,7 +51,16 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	MoeenTafsiliService moeenTafsiliService;
 	AccountingMarkazService accountingMarkazService;
 	HesabClassificationService hesabClassificationService;
+	SanadHesabdariItemService sanadHesabdariItemService;
 	
+	public SanadHesabdariItemService getSanadHesabdariItemService() {
+		return sanadHesabdariItemService;
+	}
+
+	public void setSanadHesabdariItemService(SanadHesabdariItemService sanadHesabdariItemService) {
+		this.sanadHesabdariItemService = sanadHesabdariItemService;
+	}
+
 	public HesabMoeenTemplateService getHesabMoeenTemplateService() {
 		return hesabMoeenTemplateService;
 	}
@@ -289,6 +299,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		if (entity.getChildAccountingMarkaz() == null)
 			entity.setChildAccountingMarkaz(new HashSet<AccountingMarkazEntity>());
 		
+		validateMoeenTafsili(entity, moeenIds);
 		entity.getMoeenTafsili().clear();
 		for (Long moeenId : moeenIds) 
 			addMoeenToMoeenTafsiliSet(entity, moeenId);
@@ -348,6 +359,25 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 
 	
+	private void validateMoeenTafsili(HesabTafsiliEntity entity, List<Long> moeenIds) {
+		Set<HesabMoeenEntity> removedMoeenList = new HashSet<>();
+		List<HesabMoeenEntity> hesabMoeenList = entity.getHesabMoeenList();
+		for (HesabMoeenEntity hesabMoeenEntity : hesabMoeenList) {
+			if(!moeenIds.contains(hesabMoeenEntity.getId()))
+				removedMoeenList.add(hesabMoeenEntity);
+		}
+		
+		for (HesabMoeenEntity hesabMoeenEntity : removedMoeenList) {
+			Map<String, Object> filter = new HashMap<>();
+			filter.put("hesabMoeen.id@eq", hesabMoeenEntity.getId());
+			filter.put("hesabTafsili.id@eq", entity.getId());
+			Integer rowCount = getSanadHesabdariItemService().getRowCount(null,filter);
+			if(rowCount>0)
+				throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_moeenIsUsedInSomeArticles",hesabMoeenEntity));
+		}
+		
+	}
+
 	@Transactional
 	public void createOrUpdateRelatedHesabTafsiliTemplate(HesabTafsiliEntity entity, OrganEntity organEntity) {
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCodeInCurrentOrgan(entity.getCode(), organEntity);

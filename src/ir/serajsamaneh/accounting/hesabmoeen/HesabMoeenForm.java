@@ -151,7 +151,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		
 		initMoeenTafsiliItems(getEntity(), getTafsiliLevelsXML());
 
-		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getOldEntity().getHesabKol());
 		resetHesabRelations();
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
