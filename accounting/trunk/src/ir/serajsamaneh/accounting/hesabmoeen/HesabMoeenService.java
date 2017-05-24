@@ -120,6 +120,7 @@ public class HesabMoeenService extends
 
 	private void validateMoeenKol(HesabMoeenEntity entity, HesabKolEntity oldHesabKolEntity) {
 		Map<String, Object> filter = new HashMap<>();
+		filter.put("sanadHesabdari.saalMaali.id@eq", entity.getSaalMaali().getId());
 		filter.put("hesabMoeen.id@eq", entity.getId());
 		filter.put("hesabKol.id@eq", oldHesabKolEntity.getId());
 		Integer rowCount = getSanadHesabdariItemService().getRowCount(null,filter);

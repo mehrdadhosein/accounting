@@ -304,11 +304,13 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		for (Long moeenId : moeenIds) 
 			addMoeenToMoeenTafsiliSet(entity, moeenId);
 		
+		validateTafsiliChild(entity, childTafsiliIds);
 		entity.getChilds().clear();
 		for (Long tafsiliId : childTafsiliIds) {
 			entity.getChilds().add(load(tafsiliId));
 		}
 		
+		validateTafsiliParent(entity, parentTafsiliIds);
 		if(entity.getParents()!=null)
 			entity.getParents().clear();
 		
@@ -359,6 +361,48 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 
 	
+	private void validateTafsiliChild(HesabTafsiliEntity entity, List<Long> childTafsiliIds) {
+		Set<HesabTafsiliEntity> removedList = new HashSet<>();
+		Set<HesabTafsiliEntity> childs = entity.getChilds();
+		for (HesabTafsiliEntity hesabTafsiliEntity : childs) {
+			if(!childTafsiliIds.contains(hesabTafsiliEntity.getId()))
+				removedList.add(hesabTafsiliEntity);
+		}
+		
+		
+		for (HesabTafsiliEntity hesabTafsiliEntity : removedList) {
+			Map<String, Object> filter = new HashMap<>();
+			filter.put("sanadHesabdari.saalMaali.id@eq", entity.getSaalMaali().getId());
+			filter.put("hesabTafsili.id@eq", entity.getId());
+			filter.put("articleTafsili.hesabTafsili.id@eq", hesabTafsiliEntity.getId());
+			filter.put("articleTafsili.level@eq", 1);
+			Integer rowCount = getSanadHesabdariItemService().getRowCount(null,filter);
+			if(rowCount>0)
+				throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_childIsUsedInSomeArticles",hesabTafsiliEntity));
+		}
+	}
+
+	private void validateTafsiliParent(HesabTafsiliEntity entity, List<Long> parentTafsiliIds) {
+		Set<HesabTafsiliEntity> removedList = new HashSet<>();
+		Set<HesabTafsiliEntity> parents = entity.getParents();
+		for (HesabTafsiliEntity hesabTafsiliEntity : parents) {
+			if(!parentTafsiliIds.contains(hesabTafsiliEntity.getId()))
+				removedList.add(hesabTafsiliEntity);
+		}
+		
+		
+		for (HesabTafsiliEntity hesabTafsiliEntity : removedList) {
+			Map<String, Object> filter = new HashMap<>();
+			filter.put("sanadHesabdari.saalMaali.id@eq", entity.getSaalMaali().getId());
+			filter.put("hesabTafsili.id@eq", hesabTafsiliEntity.getId());
+			filter.put("articleTafsili.hesabTafsili.id@eq", entity.getId());
+			filter.put("articleTafsili.level@eq", 1);
+			Integer rowCount = getSanadHesabdariItemService().getRowCount(null,filter);
+			if(rowCount>0)
+				throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_parentIsUsedInSomeArticles",hesabTafsiliEntity));
+		}
+	}
+	
 	private void validateMoeenTafsili(HesabTafsiliEntity entity, List<Long> moeenIds) {
 		Set<HesabMoeenEntity> removedMoeenList = new HashSet<>();
 		List<HesabMoeenEntity> hesabMoeenList = entity.getHesabMoeenList();
@@ -369,6 +413,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		
 		for (HesabMoeenEntity hesabMoeenEntity : removedMoeenList) {
 			Map<String, Object> filter = new HashMap<>();
+			filter.put("sanadHesabdari.saalMaali.id@eq", entity.getSaalMaali().getId());
 			filter.put("hesabMoeen.id@eq", hesabMoeenEntity.getId());
 			filter.put("hesabTafsili.id@eq", entity.getId());
 			Integer rowCount = getSanadHesabdariItemService().getRowCount(null,filter);
