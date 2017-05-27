@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
+import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.accounting.exception.CycleInHesabTafsiliException;
 import ir.serajsamaneh.accounting.hesabclassification.HesabClassificationService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
@@ -372,6 +373,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		
 		for (HesabTafsiliEntity hesabTafsiliEntity : removedList) {
 			Map<String, Object> filter = new HashMap<>();
+			filter.put("sanadHesabdari.state@neq", SanadStateEnum.EBTAL);
 			filter.put("sanadHesabdari.saalMaali.id@eq", entity.getSaalMaali().getId());
 			filter.put("hesabTafsili.id@eq", entity.getId());
 			filter.put("articleTafsili.hesabTafsili.id@eq", hesabTafsiliEntity.getId());
@@ -393,6 +395,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		
 		for (HesabTafsiliEntity hesabTafsiliEntity : removedList) {
 			Map<String, Object> filter = new HashMap<>();
+			filter.put("sanadHesabdari.state@neq", SanadStateEnum.EBTAL);
 			filter.put("sanadHesabdari.saalMaali.id@eq", entity.getSaalMaali().getId());
 			filter.put("hesabTafsili.id@eq", hesabTafsiliEntity.getId());
 			filter.put("articleTafsili.hesabTafsili.id@eq", entity.getId());

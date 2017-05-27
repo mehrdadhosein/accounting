@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
+import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
@@ -120,6 +121,7 @@ public class HesabMoeenService extends
 
 	private void validateMoeenKol(HesabMoeenEntity entity, HesabKolEntity oldHesabKolEntity) {
 		Map<String, Object> filter = new HashMap<>();
+		filter.put("sanadHesabdari.state@neq", SanadStateEnum.EBTAL);
 		filter.put("sanadHesabdari.saalMaali.id@eq", entity.getSaalMaali().getId());
 		filter.put("hesabMoeen.id@eq", entity.getId());
 		filter.put("hesabKol.id@eq", oldHesabKolEntity.getId());
