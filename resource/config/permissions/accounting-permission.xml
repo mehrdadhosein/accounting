@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config baseId="70000">
 	<roles>
-		<role id="1" name="حسابدار" />
-		<role id="2" name="نظارت سراسری حسابداری" />
-		<role id="3" name="AccountingSuperUser" />
+		<role id="1" name="حسابدار" >
+			<extraRole name="کاربر" />
+		</role>
+		<role id="2" name="نظارت سراسری حسابداری" >
+			<extraRole name="کاربر" />
+		</role>
+		<role id="3" name="AccountingSuperUser" >
+			<extraRole name="کاربر" />
+		</role>
 	</roles>
 	<classification id="1" name="حسابداری">
 		<classification id="3" name="گزارشات حسابداری">

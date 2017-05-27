@@ -107,7 +107,8 @@ public class HesabMoeenService extends
 
 	@Transactional
 	public void save(HesabMoeenEntity entity,SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan, HesabKolEntity oldHesabKolEntity) {
-		validateMoeenKol(entity, oldHesabKolEntity);
+		if(entity.getId()!=null && !entity.getHesabKol().getId().equals(oldHesabKolEntity.getId()))
+			validateMoeenKol(entity, oldHesabKolEntity);
 		save(entity, activeSaalMaaliEntity, currentOrgan);
 	}
 
