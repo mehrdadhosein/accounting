@@ -365,6 +365,10 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	private void validateTafsiliChild(HesabTafsiliEntity entity, List<Long> childTafsiliIds) {
 		Set<HesabTafsiliEntity> removedList = new HashSet<>();
 		Set<HesabTafsiliEntity> childs = entity.getChilds();
+		
+		if(childs == null)
+			return;
+
 		for (HesabTafsiliEntity hesabTafsiliEntity : childs) {
 			if(!childTafsiliIds.contains(hesabTafsiliEntity.getId()))
 				removedList.add(hesabTafsiliEntity);
@@ -387,6 +391,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	private void validateTafsiliParent(HesabTafsiliEntity entity, List<Long> parentTafsiliIds) {
 		Set<HesabTafsiliEntity> removedList = new HashSet<>();
 		Set<HesabTafsiliEntity> parents = entity.getParents();
+		if(parents == null)
+			return;
 		for (HesabTafsiliEntity hesabTafsiliEntity : parents) {
 			if(!parentTafsiliIds.contains(hesabTafsiliEntity.getId()))
 				removedList.add(hesabTafsiliEntity);
