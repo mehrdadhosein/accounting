@@ -1686,9 +1686,8 @@ public class SanadHesabdariService extends
 			List<SanadHesabdariEntity> sanadHesabdariList = getListOfSanadHesabdariDaemiToCreateMonthlySummarySanad(saalMaaliEntity, organEntity, fromDate.getTime(), toDate.getTime());
 			
 			String description = SerajMessageUtil.getMessage("SanadHesabdari_monthlySummarySanad", monthEntity.getName());
-			SanadFunctionEnum sanadFunction = SanadFunctionEnum.MonthlySummary;
 			
-			monthlySummarySanad = createSanadEntity(	saalMaaliEntity, organEntity, monthEntity.getEndDate(), description, sanadFunction);
+			monthlySummarySanad = createSanadEntity(saalMaaliEntity, organEntity, monthEntity.getEndDate(), description, SanadFunctionEnum.MonthlySummary);
 			
 			List<SanadHesabdariItemEntity> summaryItems = new ArrayList<SanadHesabdariItemEntity>();
 			
@@ -1707,6 +1706,118 @@ public class SanadHesabdariService extends
 			monthlySummarySanad.setSanadHesabdariItem(mergedArticles);
 			monthlySummarySanad.setSerial(monthEntity.getRadif().longValue());
 			saveMonthlySummary(monthlySummarySanad, null, organEntity, saalMaaliEntity, false);
+		}
+		
+		createEftetahiehSummarySanad(saalMaaliEntity, organEntity);
+		createEkhtetamiehSummarySanad(saalMaaliEntity, organEntity);
+		createBastanHesabhaSummarySanad(saalMaaliEntity, organEntity);
+	}
+
+	@Transactional
+	private void createEftetahiehSummarySanad(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
+		Map<String, Object> sanadEFTETAHIEMonthlySummaryFilter =new HashMap<>();
+		sanadEFTETAHIEMonthlySummaryFilter.put("sanadFunction@eq", SanadFunctionEnum.EFTETAHIESummary);
+		sanadEFTETAHIEMonthlySummaryFilter.put("state@eq", SanadStateEnum.MonthlySummary);
+		sanadEFTETAHIEMonthlySummaryFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+		sanadEFTETAHIEMonthlySummaryFilter.put("organ.id@eq", organEntity.getId());
+		SanadHesabdariEntity eftetahiehSummarySanad = load(sanadEFTETAHIEMonthlySummaryFilter);
+		if(eftetahiehSummarySanad==null){
+			Map<String, Object> sanadEFTETAHIEFilter =new HashMap<>();
+			sanadEFTETAHIEFilter.put("sanadFunction@eq", SanadFunctionEnum.EFTETAHIE);
+			sanadEFTETAHIEFilter.put("state@eq", SanadStateEnum.DAEM);
+			sanadEFTETAHIEFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+			sanadEFTETAHIEFilter.put("organ.id@eq", organEntity.getId());			
+			SanadHesabdariEntity eftetahiehSanad = load(sanadEFTETAHIEFilter);
+	
+			String description = SerajMessageUtil.getMessage("SanadHesabdari_eftetahieSummarySanad");
+			eftetahiehSummarySanad = createSanadEntity(saalMaaliEntity, organEntity, saalMaaliEntity.getStartDate(), description, SanadFunctionEnum.EFTETAHIESummary);
+			List<SanadHesabdariItemEntity> summaryItems = new ArrayList<SanadHesabdariItemEntity>();
+			
+			List<SanadHesabdariItemEntity> sanadHesabdariItems = eftetahiehSanad.getSanadHesabdariItem();
+			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
+				SanadHesabdariItemEntity itemEntity = new SanadHesabdariItemEntity();
+				itemEntity.setHesabKol(sanadHesabdariItemEntity.getHesabKol());
+				itemEntity.setBedehkar(sanadHesabdariItemEntity.getBedehkar());
+				itemEntity.setBestankar(sanadHesabdariItemEntity.getBestankar());
+				itemEntity.setSanadHesabdari(eftetahiehSummarySanad);
+				summaryItems.add(itemEntity);
+			}
+			List<SanadHesabdariItemEntity> mergedArticles = AutomaticSanadUtil.createMergedArticlesKeepingBedehkarBestankar(summaryItems, false, organEntity);
+			eftetahiehSummarySanad.setSanadHesabdariItem(mergedArticles);
+			eftetahiehSummarySanad.setSerial(13l);
+			saveMonthlySummary(eftetahiehSummarySanad, null, organEntity, saalMaaliEntity, false);
+		}
+	}
+	
+	@Transactional
+	private void createEkhtetamiehSummarySanad(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
+		Map<String, Object> sanadEKHTETAMIEMonthlySummaryFilter =new HashMap<>();
+		sanadEKHTETAMIEMonthlySummaryFilter.put("sanadFunction@eq", SanadFunctionEnum.EKHTETAMIESummary);
+		sanadEKHTETAMIEMonthlySummaryFilter.put("state@eq", SanadStateEnum.MonthlySummary);
+		sanadEKHTETAMIEMonthlySummaryFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+		sanadEKHTETAMIEMonthlySummaryFilter.put("organ.id@eq", organEntity.getId());
+		SanadHesabdariEntity ekhtetamiehSummarySanad = load(sanadEKHTETAMIEMonthlySummaryFilter);
+		if(ekhtetamiehSummarySanad==null){
+			Map<String, Object> sanadEKHTETAMIEFilter =new HashMap<>();
+			sanadEKHTETAMIEFilter.put("sanadFunction@eq", SanadFunctionEnum.EKHTETAMIE);
+			sanadEKHTETAMIEFilter.put("state@eq", SanadStateEnum.DAEM);
+			sanadEKHTETAMIEFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+			sanadEKHTETAMIEFilter.put("organ.id@eq", organEntity.getId());			
+			SanadHesabdariEntity ekhtetamiehSanad = load(sanadEKHTETAMIEFilter);
+			
+			String description = SerajMessageUtil.getMessage("SanadHesabdari_ekhtetamieSummarySanad");
+			ekhtetamiehSummarySanad = createSanadEntity(saalMaaliEntity, organEntity, saalMaaliEntity.getStartDate(), description, SanadFunctionEnum.EKHTETAMIESummary);
+			List<SanadHesabdariItemEntity> summaryItems = new ArrayList<SanadHesabdariItemEntity>();
+			
+			List<SanadHesabdariItemEntity> sanadHesabdariItems = ekhtetamiehSanad.getSanadHesabdariItem();
+			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
+				SanadHesabdariItemEntity itemEntity = new SanadHesabdariItemEntity();
+				itemEntity.setHesabKol(sanadHesabdariItemEntity.getHesabKol());
+				itemEntity.setBedehkar(sanadHesabdariItemEntity.getBedehkar());
+				itemEntity.setBestankar(sanadHesabdariItemEntity.getBestankar());
+				itemEntity.setSanadHesabdari(ekhtetamiehSummarySanad);
+				summaryItems.add(itemEntity);
+			}
+			List<SanadHesabdariItemEntity> mergedArticles = AutomaticSanadUtil.createMergedArticlesKeepingBedehkarBestankar(summaryItems, false, organEntity);
+			ekhtetamiehSummarySanad.setSanadHesabdariItem(mergedArticles);
+			ekhtetamiehSummarySanad.setSerial(14l);
+			saveMonthlySummary(ekhtetamiehSummarySanad, null, organEntity, saalMaaliEntity, false);
+		}
+	}
+	
+	@Transactional
+	private void createBastanHesabhaSummarySanad(SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
+		Map<String, Object> sanadBastanHesabhaSummaryFilter =new HashMap<>();
+		sanadBastanHesabhaSummaryFilter.put("sanadFunction@eq", SanadFunctionEnum.BASTAN_HESABHASummary);
+		sanadBastanHesabhaSummaryFilter.put("state@eq", SanadStateEnum.MonthlySummary);
+		sanadBastanHesabhaSummaryFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+		sanadBastanHesabhaSummaryFilter.put("organ.id@eq", organEntity.getId());
+		SanadHesabdariEntity bastanHesabhaSummarySanad = load(sanadBastanHesabhaSummaryFilter);
+		if(bastanHesabhaSummarySanad==null){
+			Map<String, Object> BastanHesabhaFilter =new HashMap<>();
+			BastanHesabhaFilter.put("sanadFunction@eq", SanadFunctionEnum.BASTAN_HESABHA);
+			BastanHesabhaFilter.put("state@eq", SanadStateEnum.DAEM);
+			BastanHesabhaFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
+			BastanHesabhaFilter.put("organ.id@eq", organEntity.getId());			
+			SanadHesabdariEntity BastanHesabhaSanad = load(BastanHesabhaFilter);
+			
+			String description = SerajMessageUtil.getMessage("SanadHesabdari_bastanHesabhaSummarySanad");
+			bastanHesabhaSummarySanad = createSanadEntity(saalMaaliEntity, organEntity, saalMaaliEntity.getStartDate(), description, SanadFunctionEnum.BASTAN_HESABHASummary);
+			List<SanadHesabdariItemEntity> summaryItems = new ArrayList<SanadHesabdariItemEntity>();
+			
+			List<SanadHesabdariItemEntity> sanadHesabdariItems = BastanHesabhaSanad.getSanadHesabdariItem();
+			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
+				SanadHesabdariItemEntity itemEntity = new SanadHesabdariItemEntity();
+				itemEntity.setHesabKol(sanadHesabdariItemEntity.getHesabKol());
+				itemEntity.setBedehkar(sanadHesabdariItemEntity.getBedehkar());
+				itemEntity.setBestankar(sanadHesabdariItemEntity.getBestankar());
+				itemEntity.setSanadHesabdari(bastanHesabhaSummarySanad);
+				summaryItems.add(itemEntity);
+			}
+			List<SanadHesabdariItemEntity> mergedArticles = AutomaticSanadUtil.createMergedArticlesKeepingBedehkarBestankar(summaryItems, false, organEntity);
+			bastanHesabhaSummarySanad.setSanadHesabdariItem(mergedArticles);
+			bastanHesabhaSummarySanad.setSerial(15l);
+			saveMonthlySummary(bastanHesabhaSummarySanad, null, organEntity, saalMaaliEntity, false);
 		}
 	}
 
