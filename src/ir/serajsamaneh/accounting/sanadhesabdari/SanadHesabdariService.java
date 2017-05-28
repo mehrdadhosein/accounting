@@ -762,9 +762,10 @@ public class SanadHesabdariService extends
 				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_accountingMarkazDoesnotBelongToMoeen",tempSerial+" ("+DateConverter.toShamsiDate(sanadHesabdariEntity.getTarikhSanad())+")",sanadHesabdariItemEntity.getDescription(),  accountingMarkazEntity.getDesc(), hesabMoeen.getDesc()));
 			
 			ArticleTafsiliEntity articleTafsiliEntityTWO = sanadHesabdariItemEntity.getArticleTafsiliByLevel(1);
-			if(hesabTafsili!=null && articleTafsiliEntityTWO!=null && articleTafsiliEntityTWO.getId()!=null){
-				articleTafsiliEntityTWO = getArticleTafsiliService().load(articleTafsiliEntityTWO.getId());
-				HesabTafsiliEntity hesabTafsiliShenavar = articleTafsiliEntityTWO.getHesabTafsili();
+			if(hesabTafsili!=null && articleTafsiliEntityTWO!=null && articleTafsiliEntityTWO.getHesabTafsili()!=null && articleTafsiliEntityTWO.getHesabTafsili().getId()!=null /*&& articleTafsiliEntityTWO.getId()!=null*/){
+//				articleTafsiliEntityTWO = getArticleTafsiliService().load(articleTafsiliEntityTWO.getId());
+//				HesabTafsiliEntity hesabTafsiliShenavar = articleTafsiliEntityTWO.getHesabTafsili();
+				HesabTafsiliEntity hesabTafsiliShenavar = getHesabTafsiliService().load(articleTafsiliEntityTWO.getHesabTafsili().getId());
 				if(!hesabTafsiliShenavar.getParents().contains(hesabTafsili))
 					throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_tafsiliShenavarDoesnotBelongToTafsili",hesabTafsiliShenavar.getDesc(),hesabTafsiliShenavar.getSaalMaali(), hesabTafsili.getDesc(), hesabTafsili.getSaalMaali()));
 			}else if(checkIfMustValidateHesabTafsiliHasChild(organEntity) && hesabTafsili!=null && hesabTafsili.getChilds()!=null && hesabTafsili.getChilds().size()>0){
