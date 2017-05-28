@@ -26,6 +26,7 @@ import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -435,7 +436,9 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		articleTafsiliEntity.setHesabTafsili(hesabTafsili);
 		articleTafsiliEntity.setLevel(level);
 		articleTafsiliEntity.setSanadHesabdariItem(article);
-		article.addToarticleTafsili(articleTafsiliEntity);
+		if(article.getArticleTafsili() == null)
+			article.setArticleTafsili(new HashSet<>());
+		article.getArticleTafsili().add(articleTafsiliEntity);
 	}
 	
 	protected static SanadHesabdariItemEntity createBestankarArticle(HesabKolEntity hesabKolEntity, HesabMoeenEntity hesabMoeenEntity,	HesabTafsiliEntity hesabTafsiliEntityONE, 

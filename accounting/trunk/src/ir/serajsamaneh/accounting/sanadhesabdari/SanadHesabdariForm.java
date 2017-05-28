@@ -743,7 +743,7 @@ public class SanadHesabdariForm extends
 	
 	public DataModel<SanadHesabdariEntity> getLocalTempDataModel() {
 		
-//		setRowsPerPage(-1);
+		setRowsPerPage(-1);
 		getFilter().put("state@eq", SanadStateEnum.TEMP);
 		getFilter().put("saalMaali.id@eq",
 				getCurrentUserActiveSaalMaali().getId());
