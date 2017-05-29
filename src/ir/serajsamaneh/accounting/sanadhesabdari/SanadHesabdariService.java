@@ -1745,7 +1745,7 @@ public class SanadHesabdariService extends
 			}
 			List<SanadHesabdariItemEntity> mergedArticles = AutomaticSanadUtil.createMergedArticlesKeepingBedehkarBestankar(summaryItems, false, organEntity);
 			eftetahiehSummarySanad.setSanadHesabdariItem(mergedArticles);
-			eftetahiehSummarySanad.setSerial(13l);
+			eftetahiehSummarySanad.setSerial(1l);
 			saveMonthlySummary(eftetahiehSummarySanad, null, organEntity, saalMaaliEntity, false);
 		}
 	}
@@ -1781,7 +1781,7 @@ public class SanadHesabdariService extends
 			}
 			List<SanadHesabdariItemEntity> mergedArticles = AutomaticSanadUtil.createMergedArticlesKeepingBedehkarBestankar(summaryItems, false, organEntity);
 			ekhtetamiehSummarySanad.setSanadHesabdariItem(mergedArticles);
-			ekhtetamiehSummarySanad.setSerial(14l);
+			ekhtetamiehSummarySanad.setSerial(15l);
 			saveMonthlySummary(ekhtetamiehSummarySanad, null, organEntity, saalMaaliEntity, false);
 		}
 	}
@@ -1817,7 +1817,7 @@ public class SanadHesabdariService extends
 			}
 			List<SanadHesabdariItemEntity> mergedArticles = AutomaticSanadUtil.createMergedArticlesKeepingBedehkarBestankar(summaryItems, false, organEntity);
 			bastanHesabhaSummarySanad.setSanadHesabdariItem(mergedArticles);
-			bastanHesabhaSummarySanad.setSerial(15l);
+			bastanHesabhaSummarySanad.setSerial(14l);
 			saveMonthlySummary(bastanHesabhaSummarySanad, null, organEntity, saalMaaliEntity, false);
 		}
 	}
