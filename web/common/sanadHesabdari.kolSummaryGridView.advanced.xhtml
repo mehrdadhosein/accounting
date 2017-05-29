@@ -168,22 +168,9 @@
 	function resize(){
 		//alert($$(window).width());
 		if($$(window).width()<768){
-			
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabKolName'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabMoeenName'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliLevelNames'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazLevelNames'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazName'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliName'); 
 			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
 		}else{
 			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabKolName'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabMoeenName'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliLevelNames'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazLevelNames'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazName'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliName'); 
-
 			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
 		}
 	}
