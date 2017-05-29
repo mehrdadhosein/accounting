@@ -457,6 +457,7 @@ public class SanadHesabdariService extends
 //				itemDesc);
 	}
 
+	@Transactional
 	private void checkSanadArticlesSaalMaaliSameLess(SanadHesabdariEntity entity) {
 		List<SanadHesabdariItemEntity> sanadHesabdariItem = entity.getSanadHesabdariItem();
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItem) {
@@ -478,6 +479,7 @@ public class SanadHesabdariService extends
 			if(articleTafsiliSet!=null){
 				for (ArticleTafsiliEntity articleTafsiliEntity : articleTafsiliSet) {
 					HesabTafsiliEntity tafsili = articleTafsiliEntity.getHesabTafsili();
+//					getHesabTafsiliService().cleanNullRelations(tafsili);
 					if(tafsili!=null && !tafsili.getSaalMaali().equals(entity.getSaalMaali()))
 						throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleSaalMaaliConflict", entity.getDesc(), sanadHesabdariItemEntity.getDesc()));
 				}
