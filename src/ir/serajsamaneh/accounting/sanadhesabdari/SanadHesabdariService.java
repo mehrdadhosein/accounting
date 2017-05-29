@@ -479,7 +479,6 @@ public class SanadHesabdariService extends
 			if(articleTafsiliSet!=null){
 				for (ArticleTafsiliEntity articleTafsiliEntity : articleTafsiliSet) {
 					HesabTafsiliEntity tafsili = articleTafsiliEntity.getHesabTafsili();
-//					getHesabTafsiliService().cleanNullRelations(tafsili);
 					if(tafsili!=null && !tafsili.getSaalMaali().equals(entity.getSaalMaali()))
 						throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleSaalMaaliConflict", entity.getDesc(), sanadHesabdariItemEntity.getDesc()));
 				}
