@@ -551,7 +551,7 @@ public class SanadHesabdariForm extends
 			Map<String, Object> localFilter = new HashMap<String, Object>();
 			localFilter.put("saalMaali.id@eq", getEntity().getSaalMaali().getId());
 			localFilter.put("organ.id@eq", getCurrentOrgan().getId());
-			checkUniqueNess(getEntity(), SanadHesabdariEntity.PROP_SANAD_TYPE, SanadFunctionEnum.EFTETAHIE);
+			checkUniqueNess(getEntity(), SanadHesabdariEntity.PROP_SANAD_FUNCTION, SanadFunctionEnum.EFTETAHIE, localFilter);
 		}catch(DuplicateException e){
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_eftetahieh_allready_created",getSaalMaaliService().load(getEntity().getSaalMaali().getId())));
 		}
