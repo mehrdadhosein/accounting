@@ -74,13 +74,18 @@
 		<ui:include src="common/tafsiliLevels.gridNew.xhtml" />
 		<script type='text/javascript' language='javascript'>
 		/* <![CDATA[ */
-			createTafsiliLevelsTable(""+document.getElementById('tafsiliLevels').value+"");
+			//createTafsiliLevelsTable(""+document.getElementById('tafsiliLevels').value+"");
+			
+			function populateTafsiliLevelsRecords(){
+				//populateTafsiliLevelsRecordsXML('tafsiliLevels','#tafsiliLevelsTable');
+			}
+			
 			 /* ]]> */
 		</script>		
 	</ui:define>
 	<ui:define name="buttonsection">
 		<h:commandButton styleClass=" gwt-Button"  rendered="#{owner.editable  and owner.isForMyOrgan}"
-			onclick="showLoading(); populateTafsiliLevelsRecordsXML('tafsiliLevels','#tafsiliLevelsTable');"
+			onclick="showLoading(); populateTafsiliLevelsRecords();"
 			action="#{owner.save}" image="/images/buttons/btn_save.png">
 		</h:commandButton>
 

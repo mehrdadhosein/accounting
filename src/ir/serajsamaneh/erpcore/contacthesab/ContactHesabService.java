@@ -78,6 +78,16 @@ public class ContactHesabService extends
 		return contactHesabEntity;
 	}
 
+	
+	@Override
+	public void delete(Long id) {
+		ContactHesabEntity entity = load(id);
+		ContactEntity contact = getContactService().load(entity.getContact().getId());
+		contact.setHesabTafsili(null);
+		contact.setHesabMoeen(null);
+		getContactService().save(contact);
+		super.delete(id);
+	}
 	@Override
 	@Transactional
 	public void save(ContactHesabEntity entity) {
@@ -94,6 +104,14 @@ public class ContactHesabService extends
 		}
 		
 		super.save(entity);
+		ContactEntity contact = entity.getContact();
+		if(entity.getHesabTafsili()!=null && entity.getHesabTafsili().getId()!=null)
+			contact.setHesabTafsili(entity.getHesabTafsili().getDesc());
+		
+		if(entity.getHesabMoeen()!=null && entity.getHesabMoeen().getId()!=null)
+			contact.setHesabMoeen(entity.getHesabMoeen().getDesc());
+		getContactService().save(contact);
+		
 	}
 
 	public List<ContactHesabEntity> getListBySaalMaali(SaalMaaliEntity saalMaali) {
