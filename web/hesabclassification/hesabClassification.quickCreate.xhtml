@@ -5,10 +5,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:t="http://myfaces.apache.org/tomahawk"
-	xmlns:a4j="http://richfaces.org/a4j"
+	
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:custom="http://seraj.com/seraj/facelet"
-	xmlns:rich="http://richfaces.org/rich"
+	
 	xmlns:p="http://primefaces.org/ui">
 
 <t:saveState value="#{owner.ID}" />
@@ -79,7 +79,7 @@
 			converter="javax.faces.Long" />
 		<p:commandButton id="loadCommand" action="#{hesabClassification.load}"
 			style="display:none; visibility: hidden;"
-			value="#{messages['common_load']}" reRender="hesabClassificationInput" />
+			value="#{messages['common_load']}" reupdate="hesabClassificationInput" />
 	</h:panelGroup>
 
 </p:panel>

@@ -16,7 +16,7 @@ import java.util.Set;
 
 import javax.faces.model.DataModel;
 
-import org.apache.commons.collections.map.ListOrderedMap;
+import org.apache.commons.collections4.map.ListOrderedMap;
 
 public class HesabTafsiliTemplateForm extends
 		BaseAccountingForm<HesabTafsiliTemplateEntity, Long> {

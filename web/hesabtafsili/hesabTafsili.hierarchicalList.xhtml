@@ -6,8 +6,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
+	
+	
 	xmlns:custom="http://seraj.com/seraj/facelet"
 	xmlns:t="http://myfaces.apache.org/tomahawk" 
 	xmlns:p="http://primefaces.org/ui">
@@ -207,7 +207,7 @@
 			oncomplete="hideLoading()" rendered="#{owner.creatable and false}"
 			value="importFromHesabTafsiliTemplateList" immediate="true"
 			image="/images/buttons/btn_import_hesab.png"
-			render="listPanel,recoredCounter">
+			update="listPanel,recoredCounter">
 		</h:commandButton>
 
 		<h:commandButton action="#{owner.exportToHierarchicalExcel}"

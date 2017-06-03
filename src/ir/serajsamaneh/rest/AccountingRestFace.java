@@ -1,20 +1,20 @@
 package ir.serajsamaneh.rest;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.StreamingOutput;
 
-import org.apache.commons.collections.map.ListOrderedMap;
+import org.apache.commons.collections4.map.ListOrderedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.sun.jersey.core.spi.factory.ResponseBuilderImpl;
 
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
@@ -134,25 +134,55 @@ public class AccountingRestFace {
 		}
 	}
 
+//	@Path("printSanadHesabdari")
+//	@GET
+//	@Produces({"application/pdf"})
+//	public Response printSanadHesabdari(@QueryParam("sanadHesabdariId")Long sanadHesabdariId)
+//	{
+//		try {
+//			SanadHesabdariEntity sanadHesabdariEntity = getSanadHesabdariService().load(sanadHesabdariId);
+//			byte[] tempPDF=SanadHesabdariUtil.printSanad(sanadHesabdariEntity);
+//			
+//			ResponseBuilder rb = new Builder();
+//			rb.entity(tempPDF);
+//			rb.header("Content-Disposition", "inline; filename=sanadHesabdari.pdf");
+//			return rb.build();
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//		
+//	}
+
 	@Path("printSanadHesabdari")
 	@GET
 	@Produces({"application/pdf"})
 	public Response printSanadHesabdari(@QueryParam("sanadHesabdariId")Long sanadHesabdariId)
 	{
-		try {
-			SanadHesabdariEntity sanadHesabdariEntity = getSanadHesabdariService().load(sanadHesabdariId);
-			byte[] tempPDF=SanadHesabdariUtil.printSanad(sanadHesabdariEntity);
-			
-			ResponseBuilder rb = new ResponseBuilderImpl();
-			rb.entity(tempPDF);
-			rb.header("Content-Disposition", "inline; filename=sanadHesabdari.pdf");
-			return rb.build();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		
+		StreamingOutput fileStream =  new StreamingOutput() 
+		{
+			@Override
+			public void write(java.io.OutputStream output) throws IOException, WebApplicationException 
+			{
+				try 
+				{
+					SanadHesabdariEntity sanadHesabdariEntity = getSanadHesabdariService().load(sanadHesabdariId);
+					byte[] tempPDF=SanadHesabdariUtil.printSanad(sanadHesabdariEntity);
+
+					output.write(tempPDF);
+					output.flush();
+				} 
+				catch (Exception e) 
+				{
+					throw new WebApplicationException("error !!");
+				}
+			}
+		};
+		return Response
+	            .ok(fileStream, MediaType.APPLICATION_OCTET_STREAM)
+	            .header("Content-Disposition", "inline; filename=sanadHesabdari.pdf").type("application/pdf")
+	            .build();
 	}
 
 	public UserEntity getCurrentUser() {
