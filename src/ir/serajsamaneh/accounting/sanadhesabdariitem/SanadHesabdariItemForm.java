@@ -332,7 +332,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		
 		
 		//getFilter().put("sanadHesabdari.state@eq", SanadStateEnum.MonthlySummary);
-		getFilter().put("sanadHesabdari.state@eqORsanadHesabdari.sanadFunction@in", Arrays.asList(SanadStateEnum.MonthlySummary, Arrays.asList(SanadFunctionEnum.EFTETAHIE, SanadFunctionEnum.BASTAN_HESABHA, SanadFunctionEnum.EKHTETAMIE)));
+		getFilter().put("sanadHesabdari.state@eq", SanadStateEnum.MonthlySummary);
 		createCommonDaftarFilter();
 	}
 

@@ -1729,9 +1729,13 @@ public class SanadHesabdariService extends
 			sanadEFTETAHIEFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 			sanadEFTETAHIEFilter.put("organ.id@eq", organEntity.getId());			
 			SanadHesabdariEntity eftetahiehSanad = load(sanadEFTETAHIEFilter);
+			if(eftetahiehSanad == null)
+				return;
 	
 			String description = SerajMessageUtil.getMessage("SanadHesabdari_eftetahieSummarySanad");
 			eftetahiehSummarySanad = createSanadEntity(saalMaaliEntity, organEntity, saalMaaliEntity.getStartDate(), description, SanadFunctionEnum.EFTETAHIESummary);
+			eftetahiehSummarySanad.setTarikhSanad(eftetahiehSanad.getTarikhSanad());
+			
 			List<SanadHesabdariItemEntity> summaryItems = new ArrayList<SanadHesabdariItemEntity>();
 			
 			List<SanadHesabdariItemEntity> sanadHesabdariItems = eftetahiehSanad.getSanadHesabdariItem();
@@ -1765,9 +1769,14 @@ public class SanadHesabdariService extends
 			sanadEKHTETAMIEFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 			sanadEKHTETAMIEFilter.put("organ.id@eq", organEntity.getId());			
 			SanadHesabdariEntity ekhtetamiehSanad = load(sanadEKHTETAMIEFilter);
-			
+			if(ekhtetamiehSanad == null)
+				return;
+
 			String description = SerajMessageUtil.getMessage("SanadHesabdari_ekhtetamieSummarySanad");
+			
 			ekhtetamiehSummarySanad = createSanadEntity(saalMaaliEntity, organEntity, saalMaaliEntity.getStartDate(), description, SanadFunctionEnum.EKHTETAMIESummary);
+			ekhtetamiehSummarySanad.setTarikhSanad(ekhtetamiehSanad.getTarikhSanad());
+			
 			List<SanadHesabdariItemEntity> summaryItems = new ArrayList<SanadHesabdariItemEntity>();
 			
 			List<SanadHesabdariItemEntity> sanadHesabdariItems = ekhtetamiehSanad.getSanadHesabdariItem();
@@ -1801,9 +1810,14 @@ public class SanadHesabdariService extends
 			BastanHesabhaFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 			BastanHesabhaFilter.put("organ.id@eq", organEntity.getId());			
 			SanadHesabdariEntity BastanHesabhaSanad = load(BastanHesabhaFilter);
+			if(BastanHesabhaSanad == null)
+				return;
 			
 			String description = SerajMessageUtil.getMessage("SanadHesabdari_bastanHesabhaSummarySanad");
+			
 			bastanHesabhaSummarySanad = createSanadEntity(saalMaaliEntity, organEntity, saalMaaliEntity.getStartDate(), description, SanadFunctionEnum.BASTAN_HESABHASummary);
+			bastanHesabhaSummarySanad.setTarikhSanad(BastanHesabhaSanad.getTarikhSanad());
+			
 			List<SanadHesabdariItemEntity> summaryItems = new ArrayList<SanadHesabdariItemEntity>();
 			
 			List<SanadHesabdariItemEntity> sanadHesabdariItems = BastanHesabhaSanad.getSanadHesabdariItem();
