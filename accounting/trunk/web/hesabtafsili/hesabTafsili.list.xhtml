@@ -6,8 +6,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
+	
+	
 	xmlns:custom="http://seraj.com/seraj/facelet"
 	xmlns:t="http://myfaces.apache.org/tomahawk" 
 	xmlns:p="http://primefaces.org/ui">
@@ -123,14 +123,14 @@
 			value="#{messages['common_new']}" immediate="true"
 			image="/images/buttons/btn_add.png" />
 
-		<a4j:commandButton
+		<p:commandButton
 			action="#{owner.importFromHesabTafsiliTemplateList}"
 			styleClass=" gwt-Button" onclick="showLoading()"
 			oncomplete="hideLoading()" rendered="#{owner.creatable}"
 			value="importFromHesabTafsiliTemplateList" immediate="true"
 			image="/images/buttons/btn_confirm.png"
-			render="listPanel,recoredCounter">
-		</a4j:commandButton>
+			update="listPanel,recoredCounter" icon="fa fa-fw fa-check">
+		</:commandButton>
 
 		<h:commandButton action="#{owner.exportToExcel}"
 			styleClass=" gwt-Button" value="#{messages['common_excel']}"

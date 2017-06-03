@@ -1,5 +1,16 @@
 package ir.serajsamaneh.accounting.sanadhesabdari;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.springframework.util.StringUtils;
+
+import com.itextpdf.text.pdf.PdfWriter;
+
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
@@ -26,23 +37,16 @@ import ir.serajsamaneh.core.security.ActionLogUtil;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
-import org.springframework.util.StringUtils;
-
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import serajcomponent.DateConverter;
 
 public class SanadHesabdariUtil {
@@ -476,8 +480,18 @@ public class SanadHesabdariUtil {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(
 					jasperReport, parameters, ds);
 
-			byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
-			return pdf;
+			JRPdfExporter exporter = new JRPdfExporter();
+			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+			configuration.setPermissions(PdfWriter.ALLOW_COPY | PdfWriter.ALLOW_PRINTING);
+			exporter.setConfiguration(configuration);
+			exporter.exportReport();
+			
+//			byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
+			return outputStream.toByteArray();
+//			return pdf;
 //			String contentType = "application/pdf";
 //			downloadStream(pdf, contentType, "Sanad_" + sanadHesabdariEntity.getDesc()
 //					+ ".pdf");

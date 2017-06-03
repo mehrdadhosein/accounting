@@ -4,8 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
+	
+	
 	xmlns:custom="http://seraj.com/seraj/facelet"
 	xmlns:t="http://myfaces.apache.org/tomahawk" 
 	xmlns:p="http://primefaces.org/ui">
@@ -37,7 +37,7 @@
 					onclick="javascript:selectOne(#{item.id},'#{item.desc}');return false;" />
 			</p:column>	
 		</p:dataTable>
-		<custom:dataTableRowCount for="sanadTypes" binding="#{sanadType.datascroller}"></custom:dataTableRowCount>
+		<custom:dataTableRowCount for="sanadTypes" ></custom:dataTableRowCount>
 
 	</ui:define>
 	<ui:define name="quickCreateSection">
