@@ -246,8 +246,8 @@
 					rendered="#{owner.exportable}" image="/images/excelBtn.png" />
 
 		<h:commandButton action="#{owner.exportToPDF}"
-					styleClass=" gwt-Button" value="#{messages['common_pdf']}"
-					 image="/images/pdfBtn.png" />
+			styleClass=" gwt-Button" value="#{messages['common_pdf']}"
+			image="/images/pdfBtn.png" rendered="false"/>
 
 		<h:commandButton styleClass=" gwt-Button" onclick="checkAll('sanadHesabdaris');return false;"
 			image="/images/buttons/btn_selectAll.png" />

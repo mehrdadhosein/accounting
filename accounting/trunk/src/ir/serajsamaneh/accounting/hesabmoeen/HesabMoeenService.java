@@ -499,12 +499,8 @@ public class HesabMoeenService extends
 		localFilter.put("hesabMoeenTemplate.id@eq",moeenTemplateEntity.getId());
 		localFilter.put("organ.id@eq",activeSaalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",activeSaalMaaliEntity.getId());
-		List<HesabMoeenEntity> dataList = getDataList(null, localFilter );
-		if(dataList.size() == 1)
-			return dataList.get(0);
-		if(dataList.size() == 0)
-			return null;
-		throw new FatalException("More Than one HesabMoeen Recore Found");
+		HesabMoeenEntity hesabMoeenEntity = load(null, localFilter );
+		return hesabMoeenEntity;
 	}
 	
 	public HesabMoeenEntity loadHesabMoeenByCode(String code, SaalMaaliEntity saalMaaliEntity){
@@ -516,12 +512,8 @@ public class HesabMoeenService extends
 		localFilter.put("code@eq",code);
 //		localFilter.put("organ.id@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
-		List<HesabMoeenEntity> dataList = getDataList(null, localFilter, flushModel);
-		if(dataList.size() == 1)
-			return dataList.get(0);
-		if(dataList.size() == 0)
-			return null;
-		throw new FatalException("More Than one HesabMoeen Recore Found");
+		HesabMoeenEntity hesabMoeenEntity = load(null, localFilter, flushModel);
+		return hesabMoeenEntity;
 	}
 	
 	public HesabMoeenEntity loadHesabMoeenByName(String name, SaalMaaliEntity saalMaaliEntity, FlushMode flushModel){
@@ -529,12 +521,8 @@ public class HesabMoeenService extends
 		localFilter.put("name@eq",name);
 //		localFilter.put("organ.id@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
-		List<HesabMoeenEntity> dataList = getDataList(null, localFilter, flushModel);
-		if(dataList.size() == 1)
-			return dataList.get(0);
-		if(dataList.size() == 0)
-			return null;
-		throw new FatalException("More Than one HesabMoeen Recore Found");
+		HesabMoeenEntity hesabMoeenEntity = load(null, localFilter, flushModel);
+		return hesabMoeenEntity;
 	}
 	
 

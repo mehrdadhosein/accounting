@@ -10,6 +10,7 @@
 		<id name='id' type='java.lang.Long' column='moeen_accounting_markaz_id'>
 			<generator class='increment' />
 		</id>
+  <version generated="never" name="version" type="long"/>
 		<property name='level' type='integer' column='level_'>
 		</property>
 		<many-to-one name='hesabMoeenTemplate'
