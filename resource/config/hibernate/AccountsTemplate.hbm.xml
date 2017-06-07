@@ -10,6 +10,7 @@
 		<id name='id' type='java.lang.Long' column='accounts_template_id'>
 			<generator class='increment' />
 		</id>
+  <version generated="never" name="version" type="long"/>
 		<property name='actionName' type='string' column='action_name'>
 		</property>
 

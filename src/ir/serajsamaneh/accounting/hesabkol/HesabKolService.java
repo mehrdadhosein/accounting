@@ -574,12 +574,12 @@ public class HesabKolService extends
 		}
 	}
 
-	public void createHesabTafsiliRelatedEntities(SaalMaaliEntity srcSaalMaali,
+	public void copyHesabTafsiliRelatedEntities(SaalMaaliEntity srcSaalMaali,
 			SaalMaaliEntity destSaalMaali) {
 		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali);
 		for (HesabTafsiliEntity srcHesabTafsiliEntity : srcActiveTafsilis) {
 			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali);
-			getHesabTafsiliService().createHesabTafsiliRelatedEntities(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
+			getHesabTafsiliService().copyHesabTafsiliRelatedEntities(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 			
 		}
 	}

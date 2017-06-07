@@ -657,37 +657,34 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	public void createHesabTafsiliRelatedEntities(HesabTafsiliEntity srcHesabTafsiliEntity,
 			HesabTafsiliEntity destHesabTafsiliEntity, SaalMaaliEntity destSaalMaali) {
 		
-		if(destHesabTafsiliEntity.getChilds() == null)
-			destHesabTafsiliEntity.setChilds(new HashSet<HesabTafsiliEntity>());
+		createHesabTafsiliRelatedChilds(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 		
-		if(destHesabTafsiliEntity.getParents() == null)
-			destHesabTafsiliEntity.setParents(new HashSet<HesabTafsiliEntity>());
+		createHesabTafsiliRelatedParents(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 		
-		Set<HesabTafsiliEntity> srcChilds = srcHesabTafsiliEntity.getChilds();
+		createHesabTafsiliRelatedMoeenTafsilis(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 		
-		//saving childs
-		for (HesabTafsiliEntity childHesabTafsiliEntity : srcChilds) {
-//			if(childHesabTafsiliEntity == null)
-//				childHesabTafsiliEntity = createHesabTafsili(activeSaalMaaliEntity, childHesabTafsiliEntity);
-			HesabTafsiliEntity destChild = getHesabTafsiliByCodeAndSaalMaali(childHesabTafsiliEntity.getCode(), destSaalMaali);
-			if(!destHesabTafsiliEntity.getChilds().contains(destChild))
-				destHesabTafsiliEntity.addTochilds(destChild);
-		}
+		update(destHesabTafsiliEntity);
+		createOrUpdateRelatedHesabTafsiliTemplate(destHesabTafsiliEntity, destSaalMaali.getOrgan());
+	}
+	
+	@Transactional(readOnly=false)
+	public void copyHesabTafsiliRelatedEntities(HesabTafsiliEntity srcHesabTafsiliEntity,
+			HesabTafsiliEntity destHesabTafsiliEntity, SaalMaaliEntity destSaalMaali) {
 		
-		Set<HesabTafsiliEntity> srcParents = srcHesabTafsiliEntity.getParents();
-		for (HesabTafsiliEntity parentHesabTafsiliEntity : srcParents) {
-//			if(parentHesabTafsiliEntity == null)
-//				parentHesabTafsiliEntity = createHesabTafsili(activeSaalMaaliEntity, parentHesabTafsiliEntity);
-			HesabTafsiliEntity destParent = getHesabTafsiliByCodeAndSaalMaali(parentHesabTafsiliEntity.getCode(), destSaalMaali);
-			if(!destHesabTafsiliEntity.getParents().contains(destParent))
-				destHesabTafsiliEntity.addToparents(destParent);
-		}
+		createHesabTafsiliRelatedChilds(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 		
+		createHesabTafsiliRelatedMoeenTafsilis(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
+		
+		update(destHesabTafsiliEntity);
+		createOrUpdateRelatedHesabTafsiliTemplate(destHesabTafsiliEntity, destSaalMaali.getOrgan());
+	}
+
+	@Transactional(readOnly=false)
+	private void createHesabTafsiliRelatedMoeenTafsilis(HesabTafsiliEntity srcHesabTafsiliEntity, HesabTafsiliEntity destHesabTafsiliEntity,
+			SaalMaaliEntity destSaalMaali) {
 		Set<MoeenTafsiliEntity> srcMoeenTafsilies = srcHesabTafsiliEntity.getMoeenTafsili();
 		for (MoeenTafsiliEntity srcMoeenTafsiliEntity : srcMoeenTafsilies) {
 			HesabMoeenEntity srcHesabMoeenEntity = srcMoeenTafsiliEntity.getHesabMoeen();
-//			if(hesabMoeenEntity == null)
-//				hesabMoeenEntity = getHesabMoeenService().createHesabMoeen(activeSaalMaaliEntity, entity.getHesabMoeen());
 			
 			HesabMoeenEntity destHesabMoeen = getHesabMoeenService().getHesabMoeenByCodeAndSaalMaali(srcHesabMoeenEntity.getCode(), destSaalMaali);
 			MoeenTafsiliEntity destMoeenTafsiliEntity = getMoeenTafsiliService().load(destHesabTafsiliEntity, destHesabMoeen, srcMoeenTafsiliEntity.getLevel(), FlushMode.ALWAYS);
@@ -700,9 +697,35 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 				getMoeenTafsiliService().save(destMoeenTafsiliEntity);
 			}
 		}
+	}
+
+	@Transactional(readOnly=false)
+	private void createHesabTafsiliRelatedParents(HesabTafsiliEntity srcHesabTafsiliEntity, HesabTafsiliEntity destHesabTafsiliEntity,
+			SaalMaaliEntity destSaalMaali) {
+		if(destHesabTafsiliEntity.getParents() == null)
+			destHesabTafsiliEntity.setParents(new HashSet<HesabTafsiliEntity>());
+		Set<HesabTafsiliEntity> srcParents = srcHesabTafsiliEntity.getParents();
+		for (HesabTafsiliEntity parentHesabTafsiliEntity : srcParents) {
+			HesabTafsiliEntity destParent = getHesabTafsiliByCodeAndSaalMaali(parentHesabTafsiliEntity.getCode(), destSaalMaali);
+			if(!destHesabTafsiliEntity.getParents().contains(destParent))
+				destHesabTafsiliEntity.addToparents(destParent);
+		}
+	}
+
+	@Transactional(readOnly=false)
+	private void createHesabTafsiliRelatedChilds(HesabTafsiliEntity srcHesabTafsiliEntity, HesabTafsiliEntity destHesabTafsiliEntity,
+			SaalMaaliEntity destSaalMaali) {
+		if(destHesabTafsiliEntity.getChilds() == null)
+			destHesabTafsiliEntity.setChilds(new HashSet<HesabTafsiliEntity>());
 		
-		update(destHesabTafsiliEntity);
-		createOrUpdateRelatedHesabTafsiliTemplate(destHesabTafsiliEntity, destSaalMaali.getOrgan());
+		Set<HesabTafsiliEntity> srcChilds = srcHesabTafsiliEntity.getChilds();
+		
+		//saving childs
+		for (HesabTafsiliEntity childHesabTafsiliEntity : srcChilds) {
+			HesabTafsiliEntity destChild = getHesabTafsiliByCodeAndSaalMaali(childHesabTafsiliEntity.getCode(), destSaalMaali);
+			if(!destHesabTafsiliEntity.getChilds().contains(destChild))
+				destHesabTafsiliEntity.addTochilds(destChild);
+		}
 	}
 
 	public HesabTafsiliEntity createHesabTafsili(SaalMaaliEntity activeSaalMaaliEntity,

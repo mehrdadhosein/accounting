@@ -10,6 +10,7 @@
 		<id name='id' type='java.lang.Long' column='sanad_hsbdari_itm_template_id'>
 			<generator class='increment' />
 		</id>
+  <version generated="never" name="version" type="long"/>
 		<property name='description' type='string' column='description'>
 		</property>
 		<property name='type' type='string' column='type'>
