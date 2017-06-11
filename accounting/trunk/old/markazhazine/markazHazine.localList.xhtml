@@ -28,6 +28,7 @@
 				value="#{markazHazine.localDataModel}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center" rows="#{markazHazine.rowsPerPage}">
+				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
 
 
 

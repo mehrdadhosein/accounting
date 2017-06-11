@@ -62,6 +62,7 @@
 			 dir="rtl"
 			 id="expenseItems" value="#{sanadItem.liabilitiesGroupByLevel}"   headerClass="x" styleClass="x"
 			var="item" rows="#{sanadItem.rowsPerPage}">
+				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
 		
 			<p:column>
 				<f:facet name="header">

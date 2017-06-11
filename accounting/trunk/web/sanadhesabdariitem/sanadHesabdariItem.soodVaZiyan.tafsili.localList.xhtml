@@ -27,6 +27,7 @@
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
 				style="width: 97%" align="center"
 				rows="#{sanadHesabdariItem.rowsPerPage}">
+				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
 
 				<f:facet name="header">
 					<p:column colspan="3" rowspan="1" styleClass="header">
@@ -72,6 +73,7 @@
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
 				style="width: 97%" align="center"
 				rows="#{sanadHesabdariItem.rowsPerPage}">
+				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
 
 				<f:facet name="header">
 					<p:column colspan="3" rowspan="1" styleClass="header">
