@@ -28,10 +28,10 @@ import org.w3c.dom.Element;
 
 public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Serializable>
 		extends BaseEntityForm<T, U> {
-	@Override
-	public Boolean getSearchAction() {
-		return true;
-	}
+//	@Override
+//	public Boolean getSearchAction() {
+//		return true;
+//	}
 	
 	SaalMaaliService saalMaaliService;
 	HesabKolService hesabKolService;

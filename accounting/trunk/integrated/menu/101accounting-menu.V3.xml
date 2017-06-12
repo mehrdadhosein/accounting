@@ -234,7 +234,7 @@
 						</MenuItem>
 										
 				</MenuItem>
-				<MenuItem value="تراز تفصیل شناور آزمایشی" permission=""
+				<MenuItem value="تراز شناور آزمایشی" permission=""
 					icon="Bank-businessman-success
 						">
 					<MenuItem id="sanadHesabdariItemtarazShenavarAzmayeshiLocalList_two" value="دو ستونی" pagetitle="تراز شناور آزمایشی دو ستونی"
@@ -334,11 +334,20 @@
 					</MenuItem>	
 										
 				</MenuItem>						
-				<MenuItem id="sanadHesabdariItemtarazKolLocalView" value="تراز نامه"
-					valueClick="../sanadhesabdariitem/sanadHesabdariItem.tarazKolLocalView.jsf"
-					permission="sanadHesabdariItem.tarazKolLocalView" icon="Account-justice-balance" />
-				<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalList" value="صورت سود و زیان"
-					permission="sanadHesabdariItem.soodVaZiyan.localList" icon="Account-dollar-exchange">
+
+				<MenuItem  value="تراز نامه" icon="Account-justice-balance" >
+					<MenuItem id="sanadHesabdariItemtarazKolLocalView" value="کل"
+						valueClick="../sanadhesabdariitem/sanadHesabdariItem.tarazKolLocalView.jsf"
+						permission="sanadHesabdariItem.tarazKolLocalView" icon="Account-justice-balance" />
+					<MenuItem id="sanadHesabdariItemtarazMoeenLocalView" value="معین"
+						valueClick="../sanadhesabdariitem/sanadHesabdariItem.tarazMoeenLocalView.jsf"
+						permission="sanadHesabdariItem.tarazKolLocalView" icon="Account-justice-balance" />
+					<MenuItem id="sanadHesabdariItemtarazTafsiliLocalView" value="تفصیلی"
+						valueClick="../sanadhesabdariitem/sanadHesabdariItem.tarazTafsiliLocalView.jsf"
+						permission="sanadHesabdariItem.tarazKolLocalView" icon="Account-justice-balance" />
+				</MenuItem>
+
+				<MenuItem value="صورت سود و زیان" icon="Account-dollar-exchange">
 					<MenuItem id="sanadHesabdariItemsoodVaZiyanlocalList" value="کل"
 						valueClick="../sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.localList.jsf"
 						permission="sanadHesabdariItem.soodVaZiyan.localList" icon="Account-big-dollar-coin" />
