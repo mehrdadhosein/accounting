@@ -20,10 +20,7 @@ import org.springframework.util.StringUtils;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
-import ir.serajsamaneh.accounting.enumeration.MahyatKolEnum;
-import ir.serajsamaneh.accounting.enumeration.SanadFunctionEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
-import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.converter.CSVtoListOfLongConverter;
 import ir.serajsamaneh.core.exception.MaxExcelRecordExportException;
@@ -300,7 +297,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}	
 
 	public DataModel<SanadHesabdariItemEntity> getDaftarRooznamehDataModel() {
-		setRowsPerPage(100);
+//		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;
 		setSearchAction(true);
@@ -311,7 +308,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarRooznamehHierarchicalDataModel() {
-		setRowsPerPage(100);
+		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;
 		setSearchAction(true);
@@ -404,7 +401,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarTafsiliDataModel() {
-		setRowsPerPage(100);
+//		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;
 		createDaftarLocalFilter(getCurrentOrgan());
@@ -412,7 +409,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarTafsiliHierarchicalDataModel() {
-		setRowsPerPage(100);
+		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;
 //		OrganEntity selectedOrgan = getSelectedOrganId()!=null ? getOrganService().load(getSelectedOrganId()) : null;
@@ -421,7 +418,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarShenavarDataModel() {
-		setRowsPerPage(100);
+//		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;
 		createDaftarLocalFilter(getCurrentOrgan());
@@ -429,7 +426,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarShenavarHierarchicalDataModel() {
-		setRowsPerPage(100);
+		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;
 //		OrganEntity selectedOrgan = getSelectedOrganId()!=null ? getOrganService().load(getSelectedOrganId()) : null;
@@ -438,7 +435,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarAccountingMarkazDataModel() {
-		setRowsPerPage(100);
+//		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;
 		createDaftarLocalFilter(getCurrentOrgan());
@@ -446,7 +443,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarAccountingMarkazHierarchicalDataModel() {
-		setRowsPerPage(100);
+		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;
 //		OrganEntity selectedOrgan = getSelectedOrganId()!=null ? getOrganService().load(getSelectedOrganId()) : null;
@@ -455,19 +452,20 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarKolDataModel() {
-		setRowsPerPage(100);
+//		setRowsPerPage(1000);
+//		setSearchAction(false);
 		createDaftarLocalFilter(getCurrentOrgan());
 		return getDataModel();
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarKolSummaryDataModel() {
-		setRowsPerPage(100);
+//		setRowsPerPage(1000);
 		createDaftarSummaryDaftarLocalFilter(getCurrentOrgan());
 		return getDataModel();
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarKolHierarchicalDataModel() {
-		setRowsPerPage(100);
+		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;		
 //		OrganEntity selectedOrgan = getSelectedOrganId()!=null ? getOrganService().load(getSelectedOrganId()) : null;
@@ -476,7 +474,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarMoeenDataModel() {
-		setRowsPerPage(100);
+//		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;		
 		createDaftarLocalFilter(getCurrentOrgan());
@@ -484,7 +482,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarMoeenHierarchicalDataModel() {
-		setRowsPerPage(100);
+		setRowsPerPage(1000);
 //		if(!FacesContext.getCurrentInstance().getRenderResponse())
 //			return null;	
 //		OrganEntity selectedOrgan = getSelectedOrganId()!=null ? getOrganService().load(getSelectedOrganId()) : null;
@@ -734,17 +732,38 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	
 	public List<SanadHesabdariItemEntity> getTarazKolDarayi() {
 		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.ASSET,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
-//		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.ASSET,getCurrentOrgan());
 	}
 	
 	public List<SanadHesabdariItemEntity> getTarazKolBedehi() {
 		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.LIABILITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
-//		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.LIABILITY,getCurrentOrgan());
 	}
 	
 	public List<SanadHesabdariItemEntity> getTarazKolSarmaye() {
 		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EQUITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
-//		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EQUITY,getCurrentOrgan());
+	}
+	
+	public List<SanadHesabdariItemEntity> getTarazMoeenDarayi() {
+		return getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.ASSET,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+	}
+	
+	public List<SanadHesabdariItemEntity> getTarazMoeenBedehi() {
+		return getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.LIABILITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+	}
+	
+	public List<SanadHesabdariItemEntity> getTarazMoeenSarmaye() {
+		return getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EQUITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+	}
+	
+	public List<SanadHesabdariItemEntity> getTarazTafsiliDarayi() {
+		return getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.ASSET,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+	}
+	
+	public List<SanadHesabdariItemEntity> getTarazTafsiliBedehi() {
+		return getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.LIABILITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+	}
+	
+	public List<SanadHesabdariItemEntity> getTarazTafsiliSarmaye() {
+		return getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EQUITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 	}
 	
 	public List<SanadHesabdariItemEntity> getIncomeGroupByHesabKol( ){
@@ -1933,6 +1952,86 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		return null;
 	}
 	
+	public String printTarazMoeen() {
+		
+		List<SanadHesabdariItemEntity> tarazMoeenBedehi = getTarazMoeenBedehi();
+		List<SanadHesabdariItemEntity> tarazMoeenDarayi = getTarazMoeenDarayi();
+		List<SanadHesabdariItemEntity> tarazMoeenSarmaye = getTarazMoeenSarmaye();
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("organName", getCurrentOrgan().getName());
+		parameters.put("tarazMoeenBedehi", new JRBeanCollectionDataSource(tarazMoeenBedehi));
+		parameters.put("tarazMoeenDarayi", new JRBeanCollectionDataSource(tarazMoeenDarayi));
+		parameters.put("tarazMoeenSarmaye", new JRBeanCollectionDataSource(tarazMoeenSarmaye));
+		
+		parameters.put("SUBREPORT_DIR", getLocalFilePath("/WEB-INF/classes/report/"));
+		
+		String reportPath = getLocalFilePath("/WEB-INF/classes/report/tarazMoeen.jrxml");
+		
+		JasperReport jasperReport;
+		try {
+			jasperReport = JasperCompileManager.compileReport(reportPath);
+			JasperReport jasperReport_darayi = JasperCompileManager.compileReport(getLocalFilePath("/WEB-INF/classes/report/tarazMoeen_subreport_darayi.jrxml"));
+			parameters.put("tarazMoeenDarayiJasperReport", jasperReport_darayi);
+			JasperReport jasperReport_bedehi = JasperCompileManager.compileReport(getLocalFilePath("/WEB-INF/classes/report/tarazMoeen_subreport_bedehi.jrxml"));
+			parameters.put("tarazMoeenBedehiJasperReport", jasperReport_bedehi);
+			JasperReport jasperReport_sarmayeh = JasperCompileManager.compileReport(getLocalFilePath("/WEB-INF/classes/report/tarazMoeen_subreport_sarmaye.jrxml"));
+			parameters.put("tarazMoeenSarmayehJasperReport", jasperReport_sarmayeh);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(
+					jasperReport, parameters, new JREmptyDataSource());
+			
+			byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
+			String contentType = "application/pdf";
+			downloadStream(pdf, contentType, SerajMessageUtil.getMessage("tarazMoeen")+"_"+ getCurrentOrgan().getName()+".pdf");
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+		logPrintTarazMoeenAction();
+		
+		return null;
+	}
+	
+	public String printTarazTafsili() {
+		
+		List<SanadHesabdariItemEntity> tarazTafsiliBedehi = getTarazTafsiliBedehi();
+		List<SanadHesabdariItemEntity> tarazTafsiliDarayi = getTarazTafsiliDarayi();
+		List<SanadHesabdariItemEntity> tarazTafsiliSarmaye = getTarazTafsiliSarmaye();
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("organName", getCurrentOrgan().getName());
+		parameters.put("tarazTafsiliBedehi", new JRBeanCollectionDataSource(tarazTafsiliBedehi));
+		parameters.put("tarazTafsiliDarayi", new JRBeanCollectionDataSource(tarazTafsiliDarayi));
+		parameters.put("tarazTafsiliSarmaye", new JRBeanCollectionDataSource(tarazTafsiliSarmaye));
+		
+		parameters.put("SUBREPORT_DIR", getLocalFilePath("/WEB-INF/classes/report/"));
+		
+		String reportPath = getLocalFilePath("/WEB-INF/classes/report/tarazTafsili.jrxml");
+		
+		JasperReport jasperReport;
+		try {
+			jasperReport = JasperCompileManager.compileReport(reportPath);
+			JasperReport jasperReport_darayi = JasperCompileManager.compileReport(getLocalFilePath("/WEB-INF/classes/report/tarazTafsili_subreport_darayi.jrxml"));
+			parameters.put("tarazTafsiliDarayiJasperReport", jasperReport_darayi);
+			JasperReport jasperReport_bedehi = JasperCompileManager.compileReport(getLocalFilePath("/WEB-INF/classes/report/tarazTafsili_subreport_bedehi.jrxml"));
+			parameters.put("tarazTafsiliBedehiJasperReport", jasperReport_bedehi);
+			JasperReport jasperReport_sarmayeh = JasperCompileManager.compileReport(getLocalFilePath("/WEB-INF/classes/report/tarazTafsili_subreport_sarmaye.jrxml"));
+			parameters.put("tarazTafsiliSarmayehJasperReport", jasperReport_sarmayeh);
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(
+					jasperReport, parameters, new JREmptyDataSource());
+			
+			byte[] pdf = JasperExportManager.exportReportToPdf(jasperPrint);
+			String contentType = "application/pdf";
+			downloadStream(pdf, contentType, SerajMessageUtil.getMessage("tarazTafsili")+"_"+ getCurrentOrgan().getName()+".pdf");
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+		logPrintTarazTafsiliAction();
+		
+		return null;
+	}
+	
 	public void logPrintTarazKolAction() {
 		String message = SerajMessageUtil
 		
@@ -1943,6 +2042,34 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 						.getMessage(SerajMessageUtil.getMessage("TarazKol_PRINT_SANAD")), message,
 						null, null,"");
 			} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void logPrintTarazMoeenAction() {
+		String message = SerajMessageUtil
+				
+				.getMessage(getEntityName() + "_title");
+		try {
+			
+			ActionLogUtil.logAction(SerajMessageUtil
+					.getMessage(SerajMessageUtil.getMessage("TarazMoeen_PRINT_SANAD")), message,
+					null, null,"");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void logPrintTarazTafsiliAction() {
+		String message = SerajMessageUtil
+				
+				.getMessage(getEntityName() + "_title");
+		try {
+			
+			ActionLogUtil.logAction(SerajMessageUtil
+					.getMessage(SerajMessageUtil.getMessage("TarazTafsili_PRINT_SANAD")), message,
+					null, null,"");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

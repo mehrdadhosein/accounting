@@ -14,9 +14,11 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.sql.JoinType;
+import org.springframework.transaction.annotation.Transactional;
 
 public class SanadHesabdariItemDAO  extends BaseHibernateDAO<SanadHesabdariItemEntity,Long> {
 
+	@Transactional(readOnly=true)
 	public List<Object[]> getTarazKolAzmayeshi(Map<String,Object> filter) {
 		
 		Criteria criteria = getEmptyCriteria();
@@ -39,6 +41,7 @@ public class SanadHesabdariItemDAO  extends BaseHibernateDAO<SanadHesabdariItemE
 		return list;
 	}
 
+	@Transactional(readOnly=true)
 	public List<Object[]> getTarazMoeenAzmayeshi(Map<String,Object> filter) {
 		
 		Criteria criteria = getEmptyCriteria();
@@ -61,6 +64,7 @@ public class SanadHesabdariItemDAO  extends BaseHibernateDAO<SanadHesabdariItemE
 		return list;
 	}
 	
+	@Transactional(readOnly=true)
 	public List<Object[]> getTarazTafsiliAzmayeshi(Map<String,Object> filter) {
 		
 		Criteria criteria = getEmptyCriteria();
@@ -82,6 +86,7 @@ public class SanadHesabdariItemDAO  extends BaseHibernateDAO<SanadHesabdariItemE
 		return list;
 	}
 	
+	@Transactional(readOnly=true)
 	public List<Object[]> getTarazShenavarAzmayeshi(Map<String,Object> filter) {
 		
 		Criteria criteria = getEmptyCriteria();
@@ -103,6 +108,7 @@ public class SanadHesabdariItemDAO  extends BaseHibernateDAO<SanadHesabdariItemE
 		return list;
 	}
 	
+	@Transactional(readOnly=true)
 	public List<Object[]> getTarazAccountingMarkazAzmayeshi(Map<String,Object> filter) {
 		
 		Criteria criteria = getEmptyCriteria();
@@ -124,6 +130,7 @@ public class SanadHesabdariItemDAO  extends BaseHibernateDAO<SanadHesabdariItemE
 		return list;
 	}
 	
+	@Transactional(readOnly=true)
 	public List<Object[]> getTarazAccountingMarkazShenavarAzmayeshi(Map<String,Object> filter) {
 		
 		Criteria criteria = getEmptyCriteria();
@@ -145,6 +152,7 @@ public class SanadHesabdariItemDAO  extends BaseHibernateDAO<SanadHesabdariItemE
 		return list;
 	}
 	
+	@Transactional(readOnly=true)
 	public Double[] getHesabAggregate(Long kolId, HesabTypeEnum hesabTypeEnum, Date from, Date to, Map<String, Object> filter){
 		Criteria criteria = getEmptyCriteria();
 		filter.put("hesabMoeen.hesabKol.id@eq", kolId);

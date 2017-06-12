@@ -13,7 +13,7 @@
 
 <ui:composition template="/template/template-view.xhtml">
 
-	<ui:param name="title" value="tarazKol" />
+	<ui:param name="title" value="tarazTafsili" />
 	<ui:param name="owner" value="#{sanadHesabdariItem}" />
 	<ui:define name="fixsection">
 
@@ -27,7 +27,7 @@
 			reflow="true"
 			 dir="rtl"
 			 id="sanadHesabdariDarayiItems"
-				value="#{sanadHesabdariItem.tarazKolDarayi}" headerClass="header"
+				value="#{sanadHesabdariItem.tarazTafsiliDarayi}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center">
 				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
@@ -41,40 +41,40 @@
 					<f:facet name="header">
 						<p:commandLink action="#{owner.sort}" update="sanadHesabdariDarayiItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['HesabKol_code']}">
+							title="#{messages['HesabTafsili_code']}">
 							<h:outputText styleClass="headerCellClass"
-								value="#{messages['HesabKol_code']}" />
+								value="#{messages['HesabTafsili_code']}" />
 							<h:graphicImage value="/images/icon_ascending.gif"
 								rendered="#{owner.sortType}"
 								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabMoeen.hesabKol.code"
+							<f:setPropertyActionListener value="hesabTafsili.code"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.code}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.code}" />
 				</p:column>
 
 				<p:column>
 					<f:facet name="header">
 						<p:commandLink action="#{owner.sort}" update="sanadHesabdariDarayiItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['SanadHesabdariItem_hesabKol']}">
+							title="#{messages['SanadHesabdariItem_hesabTafsili']}">
 							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SanadHesabdariItem_hesabKol']}" />
+								value="#{messages['SanadHesabdariItem_hesabTafsili']}" />
 							<h:graphicImage value="/images/icon_ascending.gif"
 								rendered="#{owner.sortType}"
 								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabMoeen.hesabKol.code"
+							<f:setPropertyActionListener value="hesabTafsili.code"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.name}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.name}" />
 				</p:column>
 
 
@@ -164,7 +164,7 @@
 			reflow="true"
 			 dir="rtl"
 			 id="sanadHesabdariBedehiItems"
-				value="#{sanadHesabdariItem.tarazKolBedehi}" headerClass="header"
+				value="#{sanadHesabdariItem.tarazTafsiliBedehi}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center">
 				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
@@ -178,40 +178,40 @@
 					<f:facet name="header">
 						<p:commandLink action="#{owner.sort}" update="sanadHesabdariDarayiItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['HesabKol_code']}">
+							title="#{messages['HesabTafsili_code']}">
 							<h:outputText styleClass="headerCellClass"
-								value="#{messages['HesabKol_code']}" />
+								value="#{messages['HesabTafsili_code']}" />
 							<h:graphicImage value="/images/icon_ascending.gif"
 								rendered="#{owner.sortType}"
 								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabMoeen.hesabKol.code"
+							<f:setPropertyActionListener value="hesabTafsili.code"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.code}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.code}" />
 				</p:column>
 
 				<p:column>
 					<f:facet name="header">
 						<p:commandLink action="#{owner.sort}" update="sanadHesabdariDarayiItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['SanadHesabdariItem_hesabKol']}">
+							title="#{messages['SanadHesabdariItem_hesabTafsili']}">
 							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SanadHesabdariItem_hesabKol']}" />
+								value="#{messages['SanadHesabdariItem_hesabTafsili']}" />
 							<h:graphicImage value="/images/icon_ascending.gif"
 								rendered="#{owner.sortType}"
 								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabMoeen.hesabKol.code"
+							<f:setPropertyActionListener value="hesabTafsili.code"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.name}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.name}" />
 				</p:column>
 
 
@@ -302,7 +302,7 @@
 			reflow="true"
 			 dir="rtl"
 			 id="sanadHesabdariSarmayeItems"
-				value="#{sanadHesabdariItem.tarazKolSarmaye}" headerClass="header"
+				value="#{sanadHesabdariItem.tarazTafsiliSarmaye}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center">
 				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
@@ -316,40 +316,40 @@
 					<f:facet name="header">
 						<p:commandLink action="#{owner.sort}" update="sanadHesabdariDarayiItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['HesabKol_code']}">
+							title="#{messages['HesabTafsili_code']}">
 							<h:outputText styleClass="headerCellClass"
-								value="#{messages['HesabKol_code']}" />
+								value="#{messages['HesabTafsili_code']}" />
 							<h:graphicImage value="/images/icon_ascending.gif"
 								rendered="#{owner.sortType}"
 								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabMoeen.hesabKol.code"
+							<f:setPropertyActionListener value="hesabTafsili.code"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.code}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.code}" />
 				</p:column>
 
 				<p:column>
 					<f:facet name="header">
 						<p:commandLink action="#{owner.sort}" update="sanadHesabdariDarayiItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['SanadHesabdariItem_hesabKol']}">
+							title="#{messages['SanadHesabdariItem_hesabTafsili']}">
 							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SanadHesabdariItem_hesabKol']}" />
+								value="#{messages['SanadHesabdariItem_hesabTafsili']}" />
 							<h:graphicImage value="/images/icon_ascending.gif"
 								rendered="#{owner.sortType}"
 								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabMoeen.hesabKol.code"
+							<f:setPropertyActionListener value="hesabTafsili.code"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.name}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili.name}" />
 				</p:column>
 
 
@@ -439,7 +439,7 @@
 	</ui:define>
 	<ui:define name="buttonsection">
 
-		<h:commandButton action="#{owner.printTarazKol}" styleClass=" gwt-Button"
+		<h:commandButton action="#{owner.printTarazTafsili}" styleClass=" gwt-Button"
 			image="/images/print.png"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['common_print']}" immediate="true">

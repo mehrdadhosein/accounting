@@ -24,11 +24,7 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	protected java.lang.String hesabMoeenID="";
 	protected java.lang.String hesabMoeenName="";
 	
-/*	protected java.lang.String hesabTafsiliInstanceID="";
-	protected java.lang.String hesabTafsiliInstanceName="";
-	
-	protected java.lang.String hesabMoeenInstanceID="";
-	protected java.lang.String hesabMoeenInstanceName="";*/
+
 	
 	protected java.lang.String markazHazineID="";
 	protected java.lang.String markazHazineName="";
