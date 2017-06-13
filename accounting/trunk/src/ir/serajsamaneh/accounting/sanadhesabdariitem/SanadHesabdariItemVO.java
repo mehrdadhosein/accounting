@@ -2,6 +2,7 @@ package ir.serajsamaneh.accounting.sanadhesabdariitem;
 
 import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
+import ir.serajsamaneh.accounting.enumeration.MahyatKolEnum;
 import ir.serajsamaneh.core.base.BaseValueObject;
 
 public class SanadHesabdariItemVO extends BaseValueObject {
@@ -11,9 +12,11 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	protected java.lang.String row="";
 	protected java.lang.String description="";
 	protected java.lang.String type="";
-	protected java.lang.String bestankar="";
-	protected java.lang.String bedehkar="";
+	protected java.lang.Double bestankar;
+	protected java.lang.Double bedehkar;
 	protected java.lang.String tarikhArticle="";
+	protected java.lang.String bestankarFormatted;
+	protected java.lang.String bedehkarFormatted;
 	
 	protected java.lang.String hesabKolID="";
 	protected java.lang.String hesabKolName="";
@@ -24,7 +27,9 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	protected java.lang.String hesabMoeenID="";
 	protected java.lang.String hesabMoeenName="";
 	
-
+	String hesabKolCode;
+	String hesabMoeenCode;
+	String hesabTafsiliCode;
 	
 	protected java.lang.String markazHazineID="";
 	protected java.lang.String markazHazineName="";
@@ -42,16 +47,33 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	protected java.lang.String accountingMarkazDescs="";
 	protected java.lang.String accountingMarkazLevelNames="";
 	
+	Double mandehBedehkarEbtedayDore;
+	Double mandehBestankarEbtedayDore;
+	Double operationSummaryBedehkar;
+	Double operationSummaryBestankar;
+	Double mandehBedehkar;
+	Double mandehBestankar;
+	String mandehByMahiyatHesabStr="";
+	Double mandehByMahiyatHesabDbl = 0d;
+	MahyatKolEnum hesabKolMahyat;
+	
 	public SanadHesabdariItemVO(
 			SanadHesabdariItemEntity sanadHesabdariItemEntity) {
 		setId(sanadHesabdariItemEntity.getId().toString());
 		setDescription(convertNullToString(sanadHesabdariItemEntity.getDescription()));
 		
+		setMandehBedehkar(0d);
+		setMandehBestankar(0d);
+		
+		setBedehkar(sanadHesabdariItemEntity.getBedehkar());
+		setBestankar(sanadHesabdariItemEntity.getBestankar());
+		
+		setHesabKolMahyat(sanadHesabdariItemEntity.getHesabKol().getMahyatKol());
 		String bedehkarFormatted = getBigDecimalFormatted(sanadHesabdariItemEntity.getBedehkar(),0);
-		setBedehkar(bedehkarFormatted.equals("0") ? "" : bedehkarFormatted);
+		setBedehkarFormatted(bedehkarFormatted.equals("0") ? "" : bedehkarFormatted);
 		
 		String bestankarFormatted = getBigDecimalFormatted(sanadHesabdariItemEntity.getBestankar(),0);
-		setBestankar(bestankarFormatted.equals("0") ? "" : bestankarFormatted);
+		setBestankarFormatted(bestankarFormatted.equals("0") ? "" : bestankarFormatted);
 		
 //		if(sanadHesabdariItemEntity.getMarkazHazine()!=null && sanadHesabdariItemEntity.getMarkazHazine().getId()!=null){
 //			setMarkazHazineID(convertNullToString(sanadHesabdariItemEntity.getMarkazHazine().getId()));
@@ -140,19 +162,19 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 		this.type = type;
 	}
 
-	public java.lang.String getBestankar() {
+	public java.lang.Double getBestankar() {
 		return bestankar;
 	}
 
-	public void setBestankar(java.lang.String bestankar) {
+	public void setBestankar(java.lang.Double bestankar) {
 		this.bestankar = bestankar;
 	}
 
-	public java.lang.String getBedehkar() {
+	public java.lang.Double getBedehkar() {
 		return bedehkar;
 	}
 
-	public void setBedehkar(java.lang.String bedehkar) {
+	public void setBedehkar(java.lang.Double bedehkar) {
 		this.bedehkar = bedehkar;
 	}
 
@@ -345,45 +367,147 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	}
 
 
-/*	public java.lang.String getHesabTafsiliInstanceID() {
-		return hesabTafsiliInstanceID;
+	public Double getMandehBedehkarEbtedayDore() {
+		return mandehBedehkarEbtedayDore;
 	}
 
 
-	public void setHesabTafsiliInstanceID(java.lang.String hesabTafsiliInstanceID) {
-		this.hesabTafsiliInstanceID = hesabTafsiliInstanceID;
+	public void setMandehBedehkarEbtedayDore(Double mandehBedehkarEbtedayDore) {
+		this.mandehBedehkarEbtedayDore = mandehBedehkarEbtedayDore;
 	}
 
 
-	public java.lang.String getHesabTafsiliInstanceName() {
-		return hesabTafsiliInstanceName;
+	public Double getMandehBestankarEbtedayDore() {
+		return mandehBestankarEbtedayDore;
 	}
 
 
-	public void setHesabTafsiliInstanceName(
-			java.lang.String hesabTafsiliInstanceName) {
-		this.hesabTafsiliInstanceName = hesabTafsiliInstanceName;
+	public void setMandehBestankarEbtedayDore(Double mandehBestankarEbtedayDore) {
+		this.mandehBestankarEbtedayDore = mandehBestankarEbtedayDore;
 	}
 
 
-	public java.lang.String getHesabMoeenInstanceID() {
-		return hesabMoeenInstanceID;
+	public Double getOperationSummaryBedehkar() {
+		return operationSummaryBedehkar;
 	}
 
 
-	public void setHesabMoeenInstanceID(java.lang.String hesabMoeenInstanceID) {
-		this.hesabMoeenInstanceID = hesabMoeenInstanceID;
+	public void setOperationSummaryBedehkar(Double operationSummaryBedehkar) {
+		this.operationSummaryBedehkar = operationSummaryBedehkar;
 	}
 
 
-	public java.lang.String getHesabMoeenInstanceName() {
-		return hesabMoeenInstanceName;
+	public Double getOperationSummaryBestankar() {
+		return operationSummaryBestankar;
 	}
 
 
-	public void setHesabMoeenInstanceName(java.lang.String hesabMoeenInstanceName) {
-		this.hesabMoeenInstanceName = hesabMoeenInstanceName;
-	}*/
+	public void setOperationSummaryBestankar(Double operationSummaryBestankar) {
+		this.operationSummaryBestankar = operationSummaryBestankar;
+	}
+
+
+	public Double getMandehBedehkar() {
+		return mandehBedehkar;
+	}
+
+
+	public void setMandehBedehkar(Double mandehBedehkar) {
+		this.mandehBedehkar = mandehBedehkar;
+	}
+
+
+	public Double getMandehBestankar() {
+		return mandehBestankar;
+	}
+
+
+	public void setMandehBestankar(Double mandehBestankar) {
+		this.mandehBestankar = mandehBestankar;
+	}
+
+
+	public String getMandehByMahiyatHesabStr() {
+		return mandehByMahiyatHesabStr;
+	}
+
+
+	public void setMandehByMahiyatHesabStr(String mandehByMahiyatHesabStr) {
+		this.mandehByMahiyatHesabStr = mandehByMahiyatHesabStr;
+	}
+
+
+	public Double getMandehByMahiyatHesabDbl() {
+		return mandehByMahiyatHesabDbl;
+	}
+
+
+	public void setMandehByMahiyatHesabDbl(Double mandehByMahiyatHesabDbl) {
+		this.mandehByMahiyatHesabDbl = mandehByMahiyatHesabDbl;
+	}
+
+
+	public java.lang.String getBestankarFormatted() {
+		return bestankarFormatted;
+	}
+
+
+	public void setBestankarFormatted(java.lang.String bestankarFormatted) {
+		this.bestankarFormatted = bestankarFormatted;
+	}
+
+
+	public java.lang.String getBedehkarFormatted() {
+		return bedehkarFormatted;
+	}
+
+
+	public void setBedehkarFormatted(java.lang.String bedehkarFormatted) {
+		this.bedehkarFormatted = bedehkarFormatted;
+	}
+
+
+	public String getHesabKolCode() {
+		return hesabKolCode;
+	}
+
+
+	public void setHesabKolCode(String hesabKolCode) {
+		this.hesabKolCode = hesabKolCode;
+	}
+
+
+	public String getHesabMoeenCode() {
+		return hesabMoeenCode;
+	}
+
+
+	public void setHesabMoeenCode(String hesabMoeenCode) {
+		this.hesabMoeenCode = hesabMoeenCode;
+	}
+
+
+	public String getHesabTafsiliCode() {
+		return hesabTafsiliCode;
+	}
+
+
+	public void setHesabTafsiliCode(String hesabTafsiliCode) {
+		this.hesabTafsiliCode = hesabTafsiliCode;
+	}
+
+
+	public MahyatKolEnum getHesabKolMahyat() {
+		return hesabKolMahyat;
+	}
+
+
+	public void setHesabKolMahyat(MahyatKolEnum hesabKolMahyat) {
+		this.hesabKolMahyat = hesabKolMahyat;
+	}
+
+
+
 
 	
 

@@ -54,7 +54,7 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.code}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeenCode}" />
 				</p:column>
 
 				<p:column>
@@ -74,7 +74,7 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.name}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeenName}" />
 				</p:column>
 
 
@@ -191,7 +191,7 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.code}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeenCode}" />
 				</p:column>
 
 				<p:column>
@@ -211,7 +211,7 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.name}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeenName}" />
 				</p:column>
 
 
@@ -329,7 +329,7 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.code}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeenCode}" />
 				</p:column>
 
 				<p:column>
@@ -345,11 +345,11 @@
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabMoeen.code"
+							<f:setPropertyActionListener value="hesabMoeen.name"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.name}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeenName}" />
 				</p:column>
 
 
