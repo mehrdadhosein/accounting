@@ -344,7 +344,7 @@
 						permission="sanadHesabdariItem.tarazKolLocalView" icon="Account-justice-balance" />
 					<MenuItem id="sanadHesabdariItemtarazTafsiliLocalView" value="تفصیلی"
 						valueClick="../sanadhesabdariitem/sanadHesabdariItem.tarazTafsiliLocalView.jsf"
-						permission="sanadHesabdariItem.tarazKolLocalView" icon="Account-justice-balance" />
+						permission="sanadHesabdariItem.tarazKolLocalView_" icon="Account-justice-balance" />
 				</MenuItem>
 
 				<MenuItem value="صورت سود و زیان" icon="Account-dollar-exchange">

@@ -557,27 +557,27 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 				return null;
 		return getCurrentUserActiveSaalMaali();
 	}
-	public List<SanadHesabdariItemEntity> getTarazKolAzmayeshi() {
+	public List<SanadHesabdariItemVO> getTarazKolAzmayeshi() {
 		if(!FacesContext.getCurrentInstance().getRenderResponse())
-			return new ArrayList<SanadHesabdariItemEntity>();
+			return new ArrayList<SanadHesabdariItemVO>();
 		setSearchAction(true);
-		List<SanadHesabdariItemEntity> tarazKolAzmayeshi = extractTarazKolAzmayeshi(getCurrentOrgan());
+		List<SanadHesabdariItemVO> tarazKolAzmayeshi = extractTarazKolAzmayeshi(getCurrentOrgan());
 		return tarazKolAzmayeshi;
 	}
 
-	public List<SanadHesabdariItemEntity> getHierarchicalTarazKolAzmayeshi() {
+	public List<SanadHesabdariItemVO> getHierarchicalTarazKolAzmayeshi() {
 		if(!FacesContext.getCurrentInstance().getRenderResponse())
-			return new ArrayList<SanadHesabdariItemEntity>();
+			return new ArrayList<SanadHesabdariItemVO>();
 		setSearchAction(true);
 		OrganEntity selectedOrgan = getSelectedOrganId()!=null ? getOrganService().load(getSelectedOrganId()) : null;
-		List<SanadHesabdariItemEntity> tarazKolAzmayeshi = extractTarazKolAzmayeshi(selectedOrgan);
+		List<SanadHesabdariItemVO> tarazKolAzmayeshi = extractTarazKolAzmayeshi(selectedOrgan);
 		return tarazKolAzmayeshi; 
 	}
 
-	private List<SanadHesabdariItemEntity> extractTarazKolAzmayeshi(OrganEntity organEntity) {
+	private List<SanadHesabdariItemVO> extractTarazKolAzmayeshi(OrganEntity organEntity) {
 		populateFilterFromRequest();
-		List<SanadHesabdariItemEntity> tarazKolAzmayeshi = getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity, getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
-		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : tarazKolAzmayeshi) {
+		List<SanadHesabdariItemVO> tarazKolAzmayeshi = getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity, getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+		for (SanadHesabdariItemVO sanadHesabdariItemEntity : tarazKolAzmayeshi) {
 			totalBedehkar += sanadHesabdariItemEntity.getBedehkar();
 			totalBestankar += sanadHesabdariItemEntity.getBestankar();			
 			totalMandehBedehkar += sanadHesabdariItemEntity.getMandehBedehkar();
@@ -587,27 +587,27 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 
 	
-	public List<SanadHesabdariItemEntity> getTarazMoeenAzmayeshi() {
+	public List<SanadHesabdariItemVO> getTarazMoeenAzmayeshi() {
 		if(!FacesContext.getCurrentInstance().getRenderResponse())
-			return new ArrayList<SanadHesabdariItemEntity>();
+			return new ArrayList<SanadHesabdariItemVO>();
 		setSearchAction(true);
-		List<SanadHesabdariItemEntity> tarazMoeenAzmayeshi = extractTarazMoeenAzmayeshi(getCurrentOrgan());
+		List<SanadHesabdariItemVO> tarazMoeenAzmayeshi = extractTarazMoeenAzmayeshi(getCurrentOrgan());
 		return tarazMoeenAzmayeshi;
 	}
 
-	public List<SanadHesabdariItemEntity> getHierarchicalTarazMoeenAzmayeshi() {
+	public List<SanadHesabdariItemVO> getHierarchicalTarazMoeenAzmayeshi() {
 		if(!FacesContext.getCurrentInstance().getRenderResponse())
-			return new ArrayList<SanadHesabdariItemEntity>();
+			return new ArrayList<SanadHesabdariItemVO>();
 		setSearchAction(true);
 		OrganEntity selectedOrgan = getSelectedOrganId()!=null ? getOrganService().load(getSelectedOrganId()) : null;
-		List<SanadHesabdariItemEntity> tarazMoeenAzmayeshi = extractTarazMoeenAzmayeshi(selectedOrgan);
+		List<SanadHesabdariItemVO> tarazMoeenAzmayeshi = extractTarazMoeenAzmayeshi(selectedOrgan);
 		return tarazMoeenAzmayeshi; 
 	}
 
-	private List<SanadHesabdariItemEntity> extractTarazMoeenAzmayeshi(OrganEntity organEntity) {
+	private List<SanadHesabdariItemVO> extractTarazMoeenAzmayeshi(OrganEntity organEntity) {
 		populateFilterFromRequest();
-		List<SanadHesabdariItemEntity> tarazMoeenAzmayeshi = getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity, getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
-		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : tarazMoeenAzmayeshi) {
+		List<SanadHesabdariItemVO> tarazMoeenAzmayeshi = getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity, getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+		for (SanadHesabdariItemVO sanadHesabdariItemEntity : tarazMoeenAzmayeshi) {
 			totalBedehkar += sanadHesabdariItemEntity.getBedehkar();
 			totalBestankar += sanadHesabdariItemEntity.getBestankar();	
 			totalMandehBedehkar += sanadHesabdariItemEntity.getMandehBedehkar();
@@ -616,22 +616,22 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		return tarazMoeenAzmayeshi;
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazTafsiliAzmayeshi() {
+	public List<SanadHesabdariItemVO> getTarazTafsiliAzmayeshi() {
 		System.out.println(FacesContext.getCurrentInstance().getRenderResponse());
 		if(!FacesContext.getCurrentInstance().getRenderResponse())
-			return new ArrayList<SanadHesabdariItemEntity>();
+			return new ArrayList<SanadHesabdariItemVO>();
 		setSearchAction(true);
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = extractTarazTafsiliAzmayeshi(getCurrentOrgan());
+		List<SanadHesabdariItemVO> tarazTafsiliAzmayeshi = extractTarazTafsiliAzmayeshi(getCurrentOrgan());
 		return tarazTafsiliAzmayeshi;
 	}
 
 
-	public List<SanadHesabdariItemEntity> getHierarchicalTarazTafsilAzmayeshi() {
+	public List<SanadHesabdariItemVO> getHierarchicalTarazTafsilAzmayeshi() {
 		if(!FacesContext.getCurrentInstance().getRenderResponse())
-			return new ArrayList<SanadHesabdariItemEntity>();
+			return new ArrayList<SanadHesabdariItemVO>();
 		setSearchAction(true);
 		OrganEntity selectedOrgan = getSelectedOrganId()!=null ? getOrganService().load(getSelectedOrganId()) : null;
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = extractTarazTafsiliAzmayeshi(selectedOrgan);
+		List<SanadHesabdariItemVO> tarazTafsiliAzmayeshi = extractTarazTafsiliAzmayeshi(selectedOrgan);
 		return tarazTafsiliAzmayeshi; 
 	}
 	
@@ -682,10 +682,10 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		return tarazAccountingMarkazAzmayeshi; 
 	}
 
-	private List<SanadHesabdariItemEntity> extractTarazTafsiliAzmayeshi(OrganEntity organEntity) {
+	private List<SanadHesabdariItemVO> extractTarazTafsiliAzmayeshi(OrganEntity organEntity) {
 		populateFilterFromRequest();
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshi = getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity, getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
-		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : tarazTafsiliAzmayeshi) {
+		List<SanadHesabdariItemVO> tarazTafsiliAzmayeshi = getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),null,organEntity, getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
+		for (SanadHesabdariItemVO sanadHesabdariItemEntity : tarazTafsiliAzmayeshi) {
 			totalBedehkar += sanadHesabdariItemEntity.getBedehkar();
 			totalBestankar += sanadHesabdariItemEntity.getBestankar();
 			totalMandehBedehkar += sanadHesabdariItemEntity.getMandehBedehkar();
@@ -730,68 +730,68 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		return tarazAccountingMarkazAzmayeshi;
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazKolDarayi() {
+	public List<SanadHesabdariItemVO> getTarazKolDarayi() {
 		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.ASSET,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazKolBedehi() {
+	public List<SanadHesabdariItemVO> getTarazKolBedehi() {
 		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.LIABILITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazKolSarmaye() {
+	public List<SanadHesabdariItemVO> getTarazKolSarmaye() {
 		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EQUITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazMoeenDarayi() {
+	public List<SanadHesabdariItemVO> getTarazMoeenDarayi() {
 		return getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.ASSET,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazMoeenBedehi() {
+	public List<SanadHesabdariItemVO> getTarazMoeenBedehi() {
 		return getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.LIABILITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazMoeenSarmaye() {
+	public List<SanadHesabdariItemVO> getTarazMoeenSarmaye() {
 		return getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EQUITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazTafsiliDarayi() {
+	public List<SanadHesabdariItemVO> getTarazTafsiliDarayi() {
 		return getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.ASSET,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazTafsiliBedehi() {
+	public List<SanadHesabdariItemVO> getTarazTafsiliBedehi() {
 		return getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.LIABILITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 	}
 	
-	public List<SanadHesabdariItemEntity> getTarazTafsiliSarmaye() {
+	public List<SanadHesabdariItemVO> getTarazTafsiliSarmaye() {
 		return getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EQUITY,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 	}
 	
-	public List<SanadHesabdariItemEntity> getIncomeGroupByHesabKol( ){
+	public List<SanadHesabdariItemVO> getIncomeGroupByHesabKol( ){
 		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.INCOME,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 //		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.INCOME,getCurrentOrgan());
 	}
 	
-	public List<SanadHesabdariItemEntity> getIncomeGroupByHesabMoeen( ){
+	public List<SanadHesabdariItemVO> getIncomeGroupByHesabMoeen( ){
 		return getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.INCOME,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 //		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.INCOME,getCurrentOrgan());
 	}
 	
-	public List<SanadHesabdariItemEntity> getIncomeGroupByHesabTafsili( ){
+	public List<SanadHesabdariItemVO> getIncomeGroupByHesabTafsili( ){
 		return getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.INCOME,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 //		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.INCOME,getCurrentOrgan());
 	}
 	
-	public List<SanadHesabdariItemEntity> getExpenseGroupByHesabKol(){
+	public List<SanadHesabdariItemVO> getExpenseGroupByHesabKol(){
 		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EXPENSE,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 //		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EXPENSE,getCurrentOrgan());
 	}
 
-	public List<SanadHesabdariItemEntity> getExpenseGroupByHesabMoeen(){
+	public List<SanadHesabdariItemVO> getExpenseGroupByHesabMoeen(){
 		return getMyService().getTarazMoeenAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EXPENSE,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 //		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EXPENSE,getCurrentOrgan());
 	}
 	
-	public List<SanadHesabdariItemEntity> getExpenseGroupByHesabTafsili(){
+	public List<SanadHesabdariItemVO> getExpenseGroupByHesabTafsili(){
 		return getMyService().getTarazTafsiliAzmayeshi(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getArticleTafsiliIds(), getAccountingMarkazIds(),HesabTypeEnum.EXPENSE,getCurrentOrgan(), getFromSerial(), getToSerial(), getSanadhesabdariItemFilter());
 //		return getMyService().getTarazKolAzmayeshi(getSelectedSaalMaali(), getHesabKolIds(), getFromDate(), getToDate(), HesabTypeEnum.EXPENSE,getCurrentOrgan());
 	}
@@ -801,7 +801,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		Double soodeVijeh = 0D;
 		// daramad bestankar ast
 		if(getIncomeGroupByHesabKol()!=null)
-			for (SanadHesabdariItemEntity income : getIncomeGroupByHesabKol()) {
+			for (SanadHesabdariItemVO income : getIncomeGroupByHesabKol()) {
 				Double bedehkar = income.getBedehkar();
 				Double bestankar = income.getBestankar();
 				if(bedehkar!=null)
@@ -811,7 +811,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			}
 		// hazine bedehkar ast
 		if(getExpenseGroupByHesabKol()!=null)
-			for (SanadHesabdariItemEntity expense : getExpenseGroupByHesabKol()) {
+			for (SanadHesabdariItemVO expense : getExpenseGroupByHesabKol()) {
 				Double bedehkar = expense.getBedehkar();
 				Double bestankar = expense.getBestankar();
 				if(bedehkar!=null)
@@ -1287,7 +1287,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		columnsLabel.put("operationSummaryBestankar", SerajMessageUtil.getMessage("SanadHesabdariItem_operationSummaryBestankar"));
 		columnsLabel.put("mandehBedehkar", SerajMessageUtil.getMessage("SanadHesabdariItem_mandeh_bedehkar"));
 		columnsLabel.put("mandehBestankar", SerajMessageUtil.getMessage("SanadHesabdariItem_mandeh_bestankar"));
-		List<SanadHesabdariItemEntity> tarazKolAzmayehiList = extractTarazKolAzmayeshi(getCurrentOrgan());
+		List<SanadHesabdariItemVO> tarazKolAzmayehiList = extractTarazKolAzmayeshi(getCurrentOrgan());
 		try {
 			ByteArrayOutputStream byteArrayOutputStream = getMyService().exportSimpleObjectListToXLSX(tarazKolAzmayehiList, columnsToShow, columnsLabel);
 			downloadStream(byteArrayOutputStream.toByteArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "tarazKolAzmayeshi.xlsx");
@@ -1320,7 +1320,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 
 	private String printTarazKolAzmayeshi(String organName, OrganEntity organEntity) {
-		List<SanadHesabdariItemEntity> tarazKolAzmayehiList = extractTarazKolAzmayeshi(organEntity);
+		List<SanadHesabdariItemVO> tarazKolAzmayehiList = extractTarazKolAzmayeshi(organEntity);
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("organName", organName); 
 		parameters.put("creatorUser", getCurrentUser().getShakhsName()); 
@@ -1400,7 +1400,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		columnsLabel.put("mandehBedehkar", SerajMessageUtil.getMessage("SanadHesabdariItem_mandeh_bedehkar"));
 		columnsLabel.put("mandehBestankar", SerajMessageUtil.getMessage("SanadHesabdariItem_mandeh_bestankar"));
 		
-		List<SanadHesabdariItemEntity> tarazMoeenAzmayehiList = extractTarazMoeenAzmayeshi(getCurrentOrgan());
+		List<SanadHesabdariItemVO> tarazMoeenAzmayehiList = extractTarazMoeenAzmayeshi(getCurrentOrgan());
 		try {
 			ByteArrayOutputStream byteArrayOutputStream = getMyService().exportSimpleObjectListToXLSX(tarazMoeenAzmayehiList, columnsToShow, columnsLabel);
 			downloadStream(byteArrayOutputStream.toByteArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "tarazMoeenAzmayeshi.xlsx");
@@ -1433,7 +1433,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	}
 
 	private String printTarazMoeenAzmayeshi(String organName, OrganEntity organEntity) {
-		List<SanadHesabdariItemEntity> tarazMoeenAzmayehiList = extractTarazMoeenAzmayeshi(organEntity);
+		List<SanadHesabdariItemVO> tarazMoeenAzmayehiList = extractTarazMoeenAzmayeshi(organEntity);
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("organName", organName);
 		parameters.put("creatorUser", getCurrentUser().getShakhsName()); 
@@ -1519,7 +1519,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		columnsLabel.put("operationSummaryBestankar", SerajMessageUtil.getMessage("SanadHesabdariItem_operationSummaryBestankar"));
 		columnsLabel.put("mandehBedehkar", SerajMessageUtil.getMessage("SanadHesabdariItem_mandeh_bedehkar"));
 		columnsLabel.put("mandehBestankar", SerajMessageUtil.getMessage("SanadHesabdariItem_mandeh_bestankar"));
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayehiList = extractTarazTafsiliAzmayeshi(getCurrentOrgan());
+		List<SanadHesabdariItemVO> tarazTafsiliAzmayehiList = extractTarazTafsiliAzmayeshi(getCurrentOrgan());
 		try {
 			ByteArrayOutputStream byteArrayOutputStream = getMyService().exportSimpleObjectListToXLSX(tarazTafsiliAzmayehiList, columnsToShow, columnsLabel);
 			downloadStream(byteArrayOutputStream.toByteArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "tarazTafsiliAzmayeshi.xlsx");
@@ -1615,7 +1615,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		columnsLabel.put("operationSummaryBestankar", SerajMessageUtil.getMessage("SanadHesabdariItem_operationSummaryBestankar"));
 		columnsLabel.put("mandehBedehkar", SerajMessageUtil.getMessage("SanadHesabdariItem_mandeh_bedehkar"));
 		columnsLabel.put("mandehBestankar", SerajMessageUtil.getMessage("SanadHesabdariItem_mandeh_bestankar"));
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayehiList = extractTarazTafsiliAzmayeshi(getCurrentOrgan());
+		List<SanadHesabdariItemVO> tarazTafsiliAzmayehiList = extractTarazTafsiliAzmayeshi(getCurrentOrgan());
 		try {
 			ByteArrayOutputStream byteArrayOutputStream = getMyService().exportSimpleObjectListToXLSX(tarazTafsiliAzmayehiList, columnsToShow, columnsLabel);
 			downloadStream(byteArrayOutputStream.toByteArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "tarazTafsiliAzmayeshi.xlsx");
@@ -1653,7 +1653,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 
 	private String printTarazTafsiliAzmayeshi(String organName, OrganEntity organEntity) {
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayehiList = extractTarazTafsiliAzmayeshi(organEntity);
+		List<SanadHesabdariItemVO> tarazTafsiliAzmayehiList = extractTarazTafsiliAzmayeshi(organEntity);
 		Map<String, Object> parameters = populateReportParameters(organName);
 		
 		String reportPath = getLocalFilePath("/WEB-INF/classes/report/taraz/tarazTafsiliAzmayeshi-"+getColumnsCount()+"_col.jrxml");
@@ -1914,9 +1914,9 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 	public String printTarazKol() {
 		
-		List<SanadHesabdariItemEntity> tarazKolBedehi = getTarazKolBedehi();
-		List<SanadHesabdariItemEntity> tarazKolDarayi = getTarazKolDarayi();
-		List<SanadHesabdariItemEntity> tarazKolSarmaye = getTarazKolSarmaye();
+		List<SanadHesabdariItemVO> tarazKolBedehi = getTarazKolBedehi();
+		List<SanadHesabdariItemVO> tarazKolDarayi = getTarazKolDarayi();
+		List<SanadHesabdariItemVO> tarazKolSarmaye = getTarazKolSarmaye();
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("organName", getCurrentOrgan().getName());
@@ -1954,9 +1954,9 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	
 	public String printTarazMoeen() {
 		
-		List<SanadHesabdariItemEntity> tarazMoeenBedehi = getTarazMoeenBedehi();
-		List<SanadHesabdariItemEntity> tarazMoeenDarayi = getTarazMoeenDarayi();
-		List<SanadHesabdariItemEntity> tarazMoeenSarmaye = getTarazMoeenSarmaye();
+		List<SanadHesabdariItemVO> tarazMoeenBedehi = getTarazMoeenBedehi();
+		List<SanadHesabdariItemVO> tarazMoeenDarayi = getTarazMoeenDarayi();
+		List<SanadHesabdariItemVO> tarazMoeenSarmaye = getTarazMoeenSarmaye();
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("organName", getCurrentOrgan().getName());
@@ -1991,12 +1991,15 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		
 		return null;
 	}
-	
+
+	/*
+	 * this print may have problems, it's link in menu is commented
+	 */
 	public String printTarazTafsili() {
 		
-		List<SanadHesabdariItemEntity> tarazTafsiliBedehi = getTarazTafsiliBedehi();
-		List<SanadHesabdariItemEntity> tarazTafsiliDarayi = getTarazTafsiliDarayi();
-		List<SanadHesabdariItemEntity> tarazTafsiliSarmaye = getTarazTafsiliSarmaye();
+		List<SanadHesabdariItemVO> tarazTafsiliBedehi = getTarazTafsiliBedehi();
+		List<SanadHesabdariItemVO> tarazTafsiliDarayi = getTarazTafsiliDarayi();
+		List<SanadHesabdariItemVO> tarazTafsiliSarmaye = getTarazTafsiliSarmaye();
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("organName", getCurrentOrgan().getName());
