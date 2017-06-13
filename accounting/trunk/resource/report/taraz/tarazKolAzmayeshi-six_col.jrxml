@@ -14,13 +14,10 @@
 	<parameter name="saalMaali" class="java.lang.String"/>
 	<parameter name="creationDate" class="java.lang.String"/>
 	<parameter name="creatorUser" class="java.lang.String"/>
-	<field name="sanadHesabdari" class="ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity"/>
-	<field name="hesabTafsili" class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"/>
-	<field name="hesabMoeen" class="ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="bedehkar" class="java.lang.Double"/>
 	<field name="bestankar" class="java.lang.Double"/>
-	<field name="hesabKol" class="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"/>
+	<field name="hesabKolDesc" class="java.lang.String"/>
 	<field name="mandehBedehkar" class="java.lang.Double"/>
 	<field name="mandehBestankar" class="java.lang.Double"/>
 	<field name="mandehBedehkarEbtedayDore" class="java.lang.Double"/>
@@ -294,7 +291,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{hesabKol}.getDesc()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hesabKolDesc}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="93cb357b-6648-4f26-9c7b-fe15aa6689d4" stretchType="RelativeToTallestObject" x="110" y="0" width="110" height="20"/>

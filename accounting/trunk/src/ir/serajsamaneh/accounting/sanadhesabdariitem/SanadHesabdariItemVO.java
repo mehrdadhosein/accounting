@@ -20,16 +20,21 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	
 	protected java.lang.String hesabKolID="";
 	protected java.lang.String hesabKolName="";
+	protected java.lang.String hesabKolDesc="";
 
 	protected java.lang.String hesabTafsiliID="";
 	protected java.lang.String hesabTafsiliName="";
+	protected java.lang.String hesabTafsiliDesc="";
 	
 	protected java.lang.String hesabMoeenID="";
 	protected java.lang.String hesabMoeenName="";
+	protected java.lang.String hesabMoeenDesc="";
 	
 	String hesabKolCode;
 	String hesabMoeenCode;
 	String hesabTafsiliCode;
+	
+	String articleTafsiliDesc;
 	
 	protected java.lang.String markazHazineID="";
 	protected java.lang.String markazHazineName="";
@@ -43,6 +48,10 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	
 	protected java.lang.String accountingMarkazID="";
 	protected java.lang.String accountingMarkazName="";
+	protected java.lang.String accountingMarkazCode="";
+	protected java.lang.String accountingMarkazDesc="";
+	
+	
 	protected java.lang.String accountingMarkazLevels="";
 	protected java.lang.String accountingMarkazDescs="";
 	protected java.lang.String accountingMarkazLevelNames="";
@@ -75,17 +84,10 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 		String bestankarFormatted = getBigDecimalFormatted(sanadHesabdariItemEntity.getBestankar(),0);
 		setBestankarFormatted(bestankarFormatted.equals("0") ? "" : bestankarFormatted);
 		
-//		if(sanadHesabdariItemEntity.getMarkazHazine()!=null && sanadHesabdariItemEntity.getMarkazHazine().getId()!=null){
-//			setMarkazHazineID(convertNullToString(sanadHesabdariItemEntity.getMarkazHazine().getId()));
-//			setMarkazHazineName(convertNullToString(sanadHesabdariItemEntity.getMarkazHazine().getOnvan()));
-//		}
-
-
 		if(sanadHesabdariItemEntity.getHesabTafsili()!=null){
-			setHesabTafsiliName(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getDesc()));
+			setHesabTafsiliName(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getName()));
+			setHesabTafsiliDesc(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getDesc()));
 			setHesabTafsiliID(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getId()));
-//			setHesabTafsiliInstanceName(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getName()));
-//			setHesabTafsiliInstanceID(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getId()));
 		}else{
 			setHesabTafsiliName("");
 			setHesabTafsiliID("");
@@ -104,8 +106,6 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 		if(sanadHesabdariItemEntity.getAccountingMarkaz()!=null){
 			setAccountingMarkazName(convertNullToString(sanadHesabdariItemEntity.getAccountingMarkaz().getDesc()));
 			setAccountingMarkazID(convertNullToString(sanadHesabdariItemEntity.getAccountingMarkaz().getId()));
-//			setAccountingMarkazInstanceName(convertNullToString(sanadHesabdariItemEntity.getAccountingMarkaz().getName()));
-//			setAccountingMarkazInstanceID(convertNullToString(sanadHesabdariItemEntity.getAccountingMarkaz().getId()));
 		}else{
 			setAccountingMarkazName("");
 			setAccountingMarkazID("");
@@ -121,11 +121,14 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 			}
 		}
 		
-		setHesabKolName(convertNullToString(sanadHesabdariItemEntity.getHesabKol().getDesc()));
+		setHesabKolName(convertNullToString(sanadHesabdariItemEntity.getHesabKol().getName()));
 		setHesabKolID(convertNullToString(sanadHesabdariItemEntity.getHesabKol().getId()));
-
+		setHesabKolDesc(convertNullToString(sanadHesabdariItemEntity.getHesabKol().getDesc()));
+		
 		String moeenDesc = sanadHesabdariItemEntity.getHesabMoeen()!=null ? sanadHesabdariItemEntity.getHesabMoeen().getDesc() : "";
-		setHesabMoeenName(convertNullToString(moeenDesc));
+		String moeenName = sanadHesabdariItemEntity.getHesabMoeen()!=null ? sanadHesabdariItemEntity.getHesabMoeen().getName() : "";
+		setHesabMoeenName(convertNullToString(moeenName));
+		setHesabMoeenDesc(convertNullToString(moeenDesc));
 		
 		setHesabMoeenID(convertNullToString(sanadHesabdariItemEntity.getHesabMoeen()!=null ? sanadHesabdariItemEntity.getHesabMoeen().getId() : ""));
 		setTarikhArticle(convertNullToString(sanadHesabdariItemEntity.getTarikhArticle()));
@@ -504,6 +507,66 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 
 	public void setHesabKolMahyat(MahyatKolEnum hesabKolMahyat) {
 		this.hesabKolMahyat = hesabKolMahyat;
+	}
+
+
+	public String getArticleTafsiliDesc() {
+		return articleTafsiliDesc;
+	}
+
+
+	public void setArticleTafsiliDesc(String articleTafsiliDesc) {
+		this.articleTafsiliDesc = articleTafsiliDesc;
+	}
+
+
+	public java.lang.String getHesabKolDesc() {
+		return hesabKolDesc;
+	}
+
+
+	public void setHesabKolDesc(java.lang.String hesabKolDesc) {
+		this.hesabKolDesc = hesabKolDesc;
+	}
+
+
+	public java.lang.String getHesabTafsiliDesc() {
+		return hesabTafsiliDesc;
+	}
+
+
+	public void setHesabTafsiliDesc(java.lang.String hesabTafsiliDesc) {
+		this.hesabTafsiliDesc = hesabTafsiliDesc;
+	}
+
+
+	public java.lang.String getHesabMoeenDesc() {
+		return hesabMoeenDesc;
+	}
+
+
+	public void setHesabMoeenDesc(java.lang.String hesabMoeenDesc) {
+		this.hesabMoeenDesc = hesabMoeenDesc;
+	}
+
+
+	public java.lang.String getAccountingMarkazDesc() {
+		return accountingMarkazDesc;
+	}
+
+
+	public void setAccountingMarkazDesc(java.lang.String accountingMarkazDesc) {
+		this.accountingMarkazDesc = accountingMarkazDesc;
+	}
+
+
+	public java.lang.String getAccountingMarkazCode() {
+		return accountingMarkazCode;
+	}
+
+
+	public void setAccountingMarkazCode(java.lang.String accountingMarkazCode) {
+		this.accountingMarkazCode = accountingMarkazCode;
 	}
 
 

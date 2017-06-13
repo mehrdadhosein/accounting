@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazKol_subreport_sarmaye" pageWidth="280" pageHeight="300" whenNoDataType="AllSectionsNoDetail" columnWidth="280" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="ea9022f1-c533-4f34-ae1a-efb9dbb23fed">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazTafsili_subreport_bedehi" pageWidth="280" pageHeight="300" columnWidth="280" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="6fcfb824-6077-41b7-b0d9-aa52b6b6bb54">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -9,10 +9,10 @@
 	<style name="text" isDefault="true" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
 	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="organName" class="java.lang.String" isForPrompting="false"/>
+	<field name="hesabTafsiliName" class="java.lang.String"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="bedehkar" class="java.lang.Double"/>
 	<field name="bestankar" class="java.lang.Double"/>
-	<field name="hesabKolName" class="java.lang.String"/>
 	<field name="mandehBestankar" class="java.lang.Double"/>
 	<field name="mandehByMahiyatHesabStr" class="java.lang.String"/>
 	<field name="mandehByMahiyatHesabDbl" class="java.lang.Double"/>
@@ -20,7 +20,7 @@
 		<variableExpression><![CDATA[new Integer(1)]]></variableExpression>
 		<initialValueExpression><![CDATA[1]]></initialValueExpression>
 	</variable>
-	<variable name="sarmayeBestankarSum" class="java.lang.Double" resetType="Page" calculation="Sum">
+	<variable name="bedehiBestankarSum" class="java.lang.Double" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[$F{mandehByMahiyatHesabDbl}]]></variableExpression>
 		<initialValueExpression><![CDATA[0d]]></initialValueExpression>
 	</variable>
@@ -30,7 +30,7 @@
 	<title>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="de6d9cb1-342f-47ca-af21-6e8cd9779c02" style="reportTitle" x="0" y="0" width="280" height="30"/>
+				<reportElement uuid="eff35153-c9dc-4ed1-9c15-f646c20855df" style="reportTitle" x="0" y="0" width="280" height="30"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -41,7 +41,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="20" isBold="true" isStrikeThrough="false" pdfFontName="BNazanin.ttf"/>
 				</textElement>
-				<text><![CDATA[سرمایه]]></text>
+				<text><![CDATA[بدهی]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -54,7 +54,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement uuid="05bac01b-24a0-4817-abcd-1be53334e080" style="text" stretchType="RelativeToTallestObject" x="248" y="0" width="32" height="20"/>
+				<reportElement uuid="59914931-8f47-4c64-a759-b5b0ab809856" style="text" stretchType="RelativeToTallestObject" x="248" y="0" width="32" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -66,7 +66,7 @@
 				<textFieldExpression><![CDATA[$V{rowCount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="7b0b1be3-b034-4dd2-a22e-db78d2322538" x="0" y="0" width="100" height="20"/>
+				<reportElement uuid="c8bf9146-1d1f-4034-868a-5015cf3c581d" x="0" y="0" width="100" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -78,7 +78,7 @@
 				<textFieldExpression><![CDATA[$F{mandehByMahiyatHesabStr}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="4f47a6fa-acf0-4ad6-9f48-3255bb8dd152" x="100" y="0" width="148" height="20"/>
+				<reportElement uuid="a6c1a5af-2144-46bc-bfa6-e42848e18737" x="100" y="0" width="148" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -87,7 +87,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{hesabKolName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hesabTafsiliName}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -97,7 +97,7 @@
 	<pageFooter>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="65886a32-e8a3-4b4c-ab11-3c1bf5eab70b" x="100" y="0" width="100" height="20"/>
+				<reportElement uuid="784449ea-f83e-4f87-800c-08e6b98feacb" x="100" y="0" width="100" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -109,7 +109,7 @@
 				<text><![CDATA[جمع کل]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="20825f43-190c-4093-8f22-106df5097851" x="0" y="0" width="100" height="20"/>
+				<reportElement uuid="88e298d4-6c59-462a-92cd-98a7849e7b40" x="0" y="0" width="100" height="20"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -118,7 +118,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement/>
-				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{sarmayeBestankarSum})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$V{bedehiBestankarSum})]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

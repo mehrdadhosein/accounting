@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazKol" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="00a9b8a6-422d-47d2-9a86-5ba5a812137e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazTafsili" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="00a9b8a6-422d-47d2-9a86-5ba5a812137e">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -9,15 +9,15 @@
 	<style name="text" isDefault="true" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
 	<parameter name="title" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="organName" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="tarazKolDarayi" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="tarazTafsiliDarayi" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["D:\\projects\\etehadieh\\accounting\\resource\\report\\"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="tarazKolBedehi" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<parameter name="tarazKolSarmaye" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<parameter name="tarazKolBedehiJasperReport" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="tarazKolDarayiJasperReport" class="net.sf.jasperreports.engine.JasperReport"/>
-	<parameter name="tarazKolSarmayehJasperReport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="tarazTafsiliBedehi" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="tarazTafsiliSarmaye" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="tarazTafsiliBedehiJasperReport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="tarazTafsiliDarayiJasperReport" class="net.sf.jasperreports.engine.JasperReport"/>
+	<parameter name="tarazTafsiliSarmayehJasperReport" class="net.sf.jasperreports.engine.JasperReport"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="bedehkar" class="java.lang.Double"/>
 	<field name="bestankar" class="java.lang.Double"/>
@@ -67,7 +67,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="B Titr" size="20" isBold="true" isStrikeThrough="false" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
-				<text><![CDATA[تراز کل]]></text>
+				<text><![CDATA[تراز تفصیلی]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -77,20 +77,20 @@
 				<reportElement uuid="098d60ac-2fd4-458a-8699-598f77293827" x="280" y="0" width="275" height="600"/>
 				<subreportParameter name="title"/>
 				<subreportParameter name="organName"/>
-				<dataSourceExpression><![CDATA[$P{tarazKolDarayi}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{tarazKolDarayiJasperReport}]]></subreportExpression>
+				<dataSourceExpression><![CDATA[$P{tarazTafsiliDarayi}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{tarazTafsiliDarayiJasperReport}]]></subreportExpression>
 			</subreport>
 			<subreport runToBottom="false">
 				<reportElement uuid="ae230931-3c42-4f5c-b18c-b4049fb0c3a4" x="0" y="0" width="280" height="300"/>
 				<subreportParameter name="title"/>
 				<subreportParameter name="organName"/>
-				<dataSourceExpression><![CDATA[$P{tarazKolBedehi}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{tarazKolBedehiJasperReport}]]></subreportExpression>
+				<dataSourceExpression><![CDATA[$P{tarazTafsiliBedehi}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{tarazTafsiliBedehiJasperReport}]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement uuid="658a8c3d-8d39-4069-885a-e0e5b7133d90" x="0" y="300" width="280" height="300"/>
-				<dataSourceExpression><![CDATA[$P{tarazKolSarmaye}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{tarazKolSarmayehJasperReport}]]></subreportExpression>
+				<dataSourceExpression><![CDATA[$P{tarazTafsiliSarmaye}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{tarazTafsiliSarmayehJasperReport}]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
