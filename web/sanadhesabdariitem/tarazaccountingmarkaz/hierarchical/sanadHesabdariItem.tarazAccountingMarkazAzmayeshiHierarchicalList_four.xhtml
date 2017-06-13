@@ -50,7 +50,7 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.accountingMarkaz.code}" />
+					<h:outputText styleClass="CellClass" value="#{item.accountingMarkazCode}" />
 				</p:column>
 
 				<p:column>
@@ -66,22 +66,12 @@
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="accountingMarkaz.code"
+							<f:setPropertyActionListener value="accountingMarkaz.name"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.accountingMarkaz.desc}" />
+					<h:outputText styleClass="CellClass" value="#{item.accountingMarkazDesc}" />
 				</p:column>
-
-				<p:column>
-					<f:facet name="header">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['AccountingMarkaz_shenavar_list']}" />
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.articleAccountingMarkazDesc}" />
-				</p:column>
-
-
 
 				<p:column>
 					<f:facet name="header">
@@ -181,8 +171,8 @@
 						<h:outputText value="" />
 					</f:facet>
 
-					<h:outputLink  rendered="#{item.accountingMarkaz.id!=null}"
-						onclick="openDaftarAccountingMarkaz('#{item.accountingMarkaz.id}'); return false;">
+					<h:outputLink  rendered="#{item.accountingMarkazID!=null}"
+						onclick="openDaftarAccountingMarkaz('#{item.accountingMarkazID}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarAccountingMarkaz']}" />
 					</h:outputLink>
 				</p:column>

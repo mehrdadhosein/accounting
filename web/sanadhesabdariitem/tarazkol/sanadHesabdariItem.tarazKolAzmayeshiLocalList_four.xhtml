@@ -51,7 +51,7 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.code}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabKolCode}" />
 				</p:column>
 
 				<p:column>
@@ -67,11 +67,11 @@
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabMoeen.hesabKol.code"
+							<f:setPropertyActionListener value="hesabMoeen.hesabKol.name"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabKolName}" />
 				</p:column>
 
 
@@ -173,7 +173,7 @@
 					</f:facet>
 
 					<h:outputLink 
-						onclick="openDaftarKol('#{item.hesabKol.id}'); return false;">
+						onclick="openDaftarKol('#{item.hesabKolID}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarKol']}" />
 					</h:outputLink>
 				</p:column>				
@@ -184,7 +184,7 @@
 					</f:facet>
 
 					<h:outputLink 
-						onclick="openTarazMoeen('#{item.hesabKol.id}'); return false;">
+						onclick="openTarazMoeen('#{item.hesabKolID}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazMoeen']}" />
 					</h:outputLink>
 				</p:column>

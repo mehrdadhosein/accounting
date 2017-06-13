@@ -130,6 +130,11 @@ public class SanadHesabdariItemService extends
 
 	@Transactional(readOnly=true)
 	public List<SanadHesabdariItemVO> getTarazKolAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
+		return getTarazKolAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true);
+	}
+	
+	@Transactional(readOnly=true)
+	public List<SanadHesabdariItemVO> getTarazKolAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz) {
 		List<SanadHesabdariItemVO> tarazKolAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter = populateTarazFilter(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter);
@@ -143,8 +148,10 @@ public class SanadHesabdariItemService extends
 			Object[] a = (Object[])object;
 			Long hesabKolId = new Long(a[0].toString());
 			HesabKolEntity hesabKolEntity = getHesabKolService().load(hesabKolId);
+			entity.setHesabKolDesc(hesabKolEntity.getDesc());
 			entity.setHesabKolName(hesabKolEntity.getName());
 			entity.setHesabKolCode(hesabKolEntity.getCode());
+			entity.setHesabKolID(hesabKolEntity.getId().toString());
 			entity.setHesabKolMahyat(hesabKolEntity.getMahyatKol());
 			
 			entity.setBestankar((Double) a[2]);
@@ -188,7 +195,11 @@ public class SanadHesabdariItemService extends
 				}
 				
 			}
-			tarazKolAzmayeshiList.add(entity);
+			
+			if(entity.getMandehBestankar() != 0 || entity.getMandehBedehkar() != 0)
+				tarazKolAzmayeshiList.add(entity);
+			else if(displayZeroMandehInTaraz)
+				tarazKolAzmayeshiList.add(entity);
 		}
 		return tarazKolAzmayeshiList;
 	}
@@ -208,6 +219,7 @@ public class SanadHesabdariItemService extends
 			Object[] a = (Object[])object;
 			Long hesabKolId = new Long(a[0].toString());
 			HesabKolEntity hesabKolEntity = getHesabKolService().load(hesabKolId);
+			entity.setHesabKolDesc(hesabKolEntity.getDesc());
 			entity.setHesabKolName(hesabKolEntity.getName());
 			entity.setHesabKolCode(hesabKolEntity.getCode());
 
@@ -349,7 +361,7 @@ public class SanadHesabdariItemService extends
 	}
 	
 	@Transactional(readOnly=true)
-	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(Map<Long, SanadHesabdariItemEntity> tarazMarkazAzmayeshiMap, SaalMaaliEntity saalMaaliEntity) {
+	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMarkazAzmayeshiMap, SaalMaaliEntity saalMaaliEntity) {
 		List<SanadHesabdariEntity> sanadEftetahiehha = getSanadHesabdariService().getSanadEftetahiehha(saalMaaliEntity);
 		for (SanadHesabdariEntity sanadEftetahieh : sanadEftetahiehha) {
 			applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazMarkazAzmayeshiMap, sanadEftetahieh);
@@ -357,7 +369,7 @@ public class SanadHesabdariItemService extends
 	}
 	
 	@Transactional(readOnly=true)
-	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(Map<Long, SanadHesabdariItemEntity> tarazMarkazAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
+	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMarkazAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
 		SanadHesabdariEntity sanadEftetahieh = getSanadHesabdariService().getSanadEftetahieh(saalMaaliEntity,organEntity);
 		if(sanadEftetahieh == null || sanadEftetahieh.getSanadHesabdariItem() == null)
 			return;
@@ -366,7 +378,7 @@ public class SanadHesabdariItemService extends
 
 	@Transactional(readOnly=true)
 	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(
-			Map<Long, SanadHesabdariItemEntity> tarazMarkazAzmayeshiMap,
+			Map<Long, SanadHesabdariItemVO> tarazMarkazAzmayeshiMap,
 			SanadHesabdariEntity sanadEftetahieh) {
 		List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadEftetahieh.getSanadHesabdariItem();
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
@@ -376,9 +388,9 @@ public class SanadHesabdariItemService extends
 				continue;
 			
 			Long accountingMarkazId = accountingMarkazEntity.getId();
-			SanadHesabdariItemEntity itemEntity = tarazMarkazAzmayeshiMap.get(accountingMarkazId);
+			SanadHesabdariItemVO itemEntity = tarazMarkazAzmayeshiMap.get(accountingMarkazId);
 			if(itemEntity == null)
-				tarazMarkazAzmayeshiMap.put(accountingMarkazId, sanadHesabdariItemEntity);
+				tarazMarkazAzmayeshiMap.put(accountingMarkazId, new SanadHesabdariItemVO(sanadHesabdariItemEntity));
 			else{
 				itemEntity.setBestankar(itemEntity.getBestankar()+sanadHesabdariItemEntity.getBestankar());
 				itemEntity.setBedehkar(itemEntity.getBedehkar()+sanadHesabdariItemEntity.getBedehkar());
@@ -400,6 +412,7 @@ public class SanadHesabdariItemService extends
 			SanadHesabdariItemVO entity = new SanadHesabdariItemVO();
 			Long hesabMoeenId = new Long(a[0].toString());
 			HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().load(hesabMoeenId);
+			entity.setHesabMoeenDesc(hesabMoeenEntity.getDesc());
 			entity.setHesabMoeenCode(hesabMoeenEntity.getCode());
 			entity.setHesabMoeenName(hesabMoeenEntity.getName());
 			
@@ -441,8 +454,10 @@ public class SanadHesabdariItemService extends
 			if(a[0]!=null){
 				hesabTafsiliId = new Long(a[0].toString());
 				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(hesabTafsiliId);
+				entity.setHesabTafsiliDesc(hesabTafsiliEntity.getDesc());
 				entity.setHesabTafsiliName(hesabTafsiliEntity.getName());
 				entity.setHesabTafsiliCode(hesabTafsiliEntity.getCode().toString());
+				entity.setHesabTafsiliID(hesabTafsiliEntity.getId().toString());
 			}else{
 				HesabTafsiliEntity nullHesabTafsili = new HesabTafsiliEntity();
 				nullHesabTafsili.setName(SerajMessageUtil.getMessage("common_undefined"));
@@ -487,6 +502,7 @@ public class SanadHesabdariItemService extends
 			if(a[0]!=null){
 				hesabTafsiliId = new Long(a[0].toString());
 				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(hesabTafsiliId);
+				entity.setHesabTafsiliDesc(hesabTafsiliEntity.getDesc());
 				entity.setHesabTafsiliName(hesabTafsiliEntity.getName());
 				entity.setHesabTafsiliCode(hesabTafsiliEntity.getCode().toString());
 			}else{
@@ -517,8 +533,8 @@ public class SanadHesabdariItemService extends
 	}
 
 	@Transactional(readOnly=true)
-	private Map<Long, SanadHesabdariItemEntity> getTarazAccountingMarkazAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity) {
-		Map<Long, SanadHesabdariItemEntity> tarazAccountingMarkazAzmayeshiMap = new HashMap<Long, SanadHesabdariItemEntity>();
+	private Map<Long, SanadHesabdariItemVO> getTarazAccountingMarkazAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity) {
+		Map<Long, SanadHesabdariItemVO> tarazAccountingMarkazAzmayeshiMap = new HashMap<Long, SanadHesabdariItemVO>();
 		Map<String, Object> localFilter =  new HashMap<String, Object>();
 		localFilter = populateMandehTarazFilter(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity);
 
@@ -526,17 +542,20 @@ public class SanadHesabdariItemService extends
 		localFilter.put("articleTafsili.level@eq", 2);
 		List<Object[]> rawList = getMyDAO().getTarazAccountingMarkazShenavarAzmayeshi(localFilter);
 		for (Object[] object : rawList) {
-			SanadHesabdariItemEntity entity = new SanadHesabdariItemEntity();
+			SanadHesabdariItemVO entity = new SanadHesabdariItemVO();
 			Object[] a = (Object[])object;
 			
 			Long accountingMarkazId = -1l;
 			if(a[0]!=null){
 				accountingMarkazId = new Long(a[0].toString());
-				entity.setAccountingMarkaz(getAccountingMarkazService().load(accountingMarkazId));
+				AccountingMarkazEntity accountingMarkazEntity = getAccountingMarkazService().load(accountingMarkazId);
+				entity.setAccountingMarkazName(accountingMarkazEntity.getName());
+				entity.setAccountingMarkazCode(accountingMarkazEntity.getCode());
+				entity.setAccountingMarkazDesc(accountingMarkazEntity.getDesc());
 			}else{
 				AccountingMarkazEntity nullAccountingMarkazEntity = new AccountingMarkazEntity();
 				nullAccountingMarkazEntity.setName(SerajMessageUtil.getMessage("common_undefined"));
-				entity.setAccountingMarkaz(nullAccountingMarkazEntity);
+				entity.setAccountingMarkazName(nullAccountingMarkazEntity.getName());
 			}
 			
 			
@@ -562,6 +581,11 @@ public class SanadHesabdariItemService extends
 	
 	@Transactional(readOnly=true)
 	public List<SanadHesabdariItemVO> getTarazMoeenAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
+		return getTarazMoeenAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true);
+	}
+	
+	@Transactional(readOnly=true)
+	public List<SanadHesabdariItemVO> getTarazMoeenAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz) {
 		Map<String, Object> localFilter =  new HashMap<String, Object>();
 		localFilter = populateTarazFilter(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter);
 		List<SanadHesabdariItemVO> tarazMoeenAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
@@ -573,8 +597,13 @@ public class SanadHesabdariItemService extends
 			Object[] a = (Object[])object;
 			Long hesabMoeenId = new Long(a[0].toString());
 			HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().load(hesabMoeenId);
+
+			entity.setHesabMoeenDesc(hesabMoeenEntity.getDesc());
 			entity.setHesabMoeenName(hesabMoeenEntity.getName());
 			entity.setHesabMoeenCode(hesabMoeenEntity.getCode());
+			entity.setHesabMoeenID(hesabMoeenEntity.getId().toString());
+
+			entity.setHesabKolDesc(hesabMoeenEntity.getHesabKol().getDesc());
 			entity.setHesabKolName(hesabMoeenEntity.getHesabKol().getName());
 			entity.setHesabKolCode(hesabMoeenEntity.getHesabKol().getCode());
 			entity.setHesabKolMahyat(hesabMoeenEntity.getHesabKol().getMahyatKol());
@@ -622,13 +651,21 @@ public class SanadHesabdariItemService extends
 				}
 				
 			}
-			tarazMoeenAzmayeshiList.add(entity);
+			
+			if(entity.getMandehBestankar() != 0 || entity.getMandehBedehkar() != 0)
+				tarazMoeenAzmayeshiList.add(entity);
+			else if(displayZeroMandehInTaraz)
+				tarazMoeenAzmayeshiList.add(entity);
 		}
 		return tarazMoeenAzmayeshiList;
 	}
 	
 	@Transactional(readOnly=true)
 	public List<SanadHesabdariItemVO> getTarazTafsiliAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
+		return getTarazTafsiliAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true);
+	}
+	@Transactional(readOnly=true)
+	public List<SanadHesabdariItemVO> getTarazTafsiliAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz) {
 		List<SanadHesabdariItemVO> tarazTafsiliAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
@@ -644,8 +681,10 @@ public class SanadHesabdariItemService extends
 			if(a[0]!=null){
 				hesabTafsiliId = new Long(a[0].toString());
 				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(hesabTafsiliId);
+				entity.setHesabTafsiliDesc(hesabTafsiliEntity.getDesc());
 				entity.setHesabTafsiliName(hesabTafsiliEntity.getName());
 				entity.setHesabTafsiliCode(hesabTafsiliEntity.getCode().toString());
+				entity.setHesabTafsiliID(hesabTafsiliEntity.getId().toString());
 			}else{
 				HesabTafsiliEntity nullHesabTafsili = new HesabTafsiliEntity();
 				nullHesabTafsili.setDesc(SerajMessageUtil.getMessage("common_undefined"));
@@ -701,14 +740,18 @@ public class SanadHesabdariItemService extends
 				entity.setMandehByMahiyatHesabDbl(entity.getMandehBestankar());
 
 			}
-			tarazTafsiliAzmayeshiList.add(entity);
+			
+			if(entity.getMandehBestankar() != 0 || entity.getMandehBedehkar() != 0)
+				tarazTafsiliAzmayeshiList.add(entity);
+			else if(displayZeroMandehInTaraz)
+				tarazTafsiliAzmayeshiList.add(entity);
 		}
 		return tarazTafsiliAzmayeshiList;
 	}
 
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemEntity> getTarazTafsiliShenavarAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, Integer level) {
-		List<SanadHesabdariItemEntity> tarazTafsiliAzmayeshiList = new ArrayList<SanadHesabdariItemEntity>();
+	public List<SanadHesabdariItemVO> getTarazTafsiliShenavarAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, Integer level, boolean displayZeroMandehInTaraz) {
+		List<SanadHesabdariItemVO> tarazTafsiliAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
 				articleTafsiliIds,accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter);
@@ -719,17 +762,20 @@ public class SanadHesabdariItemService extends
 		Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMandeh = getTarazTafsiliShenavarAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, level);
 		
 		for (Object[] object : rawList) {
-			SanadHesabdariItemEntity entity = new SanadHesabdariItemEntity();
+			SanadHesabdariItemVO entity = new SanadHesabdariItemVO();
 			Object[] a = (Object[])object;
 			Long hesabTafsiliId = -1l;
 			if(a[0]!=null){
 				hesabTafsiliId = new Long(a[0].toString());
 				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(hesabTafsiliId);
-				entity.setHesabTafsili(hesabTafsiliEntity);
+				entity.setHesabTafsiliDesc(hesabTafsiliEntity.getDesc());
+				entity.setHesabTafsiliName(hesabTafsiliEntity.getName());
+				entity.setHesabTafsiliCode(hesabTafsiliEntity.getCode().toString());
+				entity.setHesabTafsiliID(hesabTafsiliEntity.getId().toString());
 			}else{
 				HesabTafsiliEntity nullHesabTafsili = new HesabTafsiliEntity();
 				nullHesabTafsili.setDesc(SerajMessageUtil.getMessage("common_undefined"));
-				entity.setHesabTafsili(nullHesabTafsili);
+				entity.setHesabTafsiliName(nullHesabTafsili.getName());
 			}
 			
 			entity.setBestankar((Double) a[2]);
@@ -754,34 +800,39 @@ public class SanadHesabdariItemService extends
 				entity.setMandehBedehkar(entity.getBedehkar() - entity.getBestankar());
 			else if(entity.getBestankar()-entity.getBedehkar() > 0)
 				entity.setMandehBestankar(entity.getBestankar()-entity.getBedehkar());
-			tarazTafsiliAzmayeshiList.add(entity);
+			
+			if(entity.getMandehBestankar() != 0 || entity.getMandehBedehkar() != 0)
+				tarazTafsiliAzmayeshiList.add(entity);
+			else if(displayZeroMandehInTaraz)
+				tarazTafsiliAzmayeshiList.add(entity);
 		}
 		return tarazTafsiliAzmayeshiList;
 	}
 	
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemEntity> getTarazAccountingMarkazAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
-		List<SanadHesabdariItemEntity> tarazAccountingMarkazAzmayeshiList = new ArrayList<SanadHesabdariItemEntity>();
+	public List<SanadHesabdariItemVO> getTarazAccountingMarkazAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
+		List<SanadHesabdariItemVO> tarazAccountingMarkazAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
 				articleTafsiliIds,accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter);
 		
 		
 		List<Object[]> rawList = getMyDAO().getTarazAccountingMarkazAzmayeshi(filter);
-		Map<Long, SanadHesabdariItemEntity> tarazAccountingMarkazAzmayeshiMandeh = getTarazAccountingMarkazAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity);
+		Map<Long, SanadHesabdariItemVO> tarazAccountingMarkazAzmayeshiMandeh = getTarazAccountingMarkazAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity);
 		
 		for (Object[] object : rawList) {
-			SanadHesabdariItemEntity entity = new SanadHesabdariItemEntity();
+			SanadHesabdariItemVO entity = new SanadHesabdariItemVO();
 			Object[] a = (Object[])object;
 			Long accoutingMarkazId = -1l;
 			if(a[0]!=null){
 				accoutingMarkazId = new Long(a[0].toString());
 				AccountingMarkazEntity accoutingMarkazEntity = getAccountingMarkazService().load(accoutingMarkazId);
-				entity.setAccountingMarkaz(accoutingMarkazEntity);
+				entity.setAccountingMarkazName(accoutingMarkazEntity.getName());
+				entity.setAccountingMarkazCode(accoutingMarkazEntity.getCode());
 			}else{
 				AccountingMarkazEntity nullAccountingMarkaz = new AccountingMarkazEntity();
 				nullAccountingMarkaz.setDesc(SerajMessageUtil.getMessage("common_undefined"));
-				entity.setAccountingMarkaz(nullAccountingMarkaz);
+				entity.setAccountingMarkazName(nullAccountingMarkaz.getName());
 			}
 			
 			entity.setBestankar((Double) a[2]);
@@ -820,7 +871,7 @@ public class SanadHesabdariItemService extends
 		
 		filter.put("articleTafsili.level@eq", 2);
 		List<Object[]> rawList = getMyDAO().getTarazAccountingMarkazShenavarAzmayeshi(filter);
-		Map<Long, SanadHesabdariItemEntity> tarazAccountingMarkazAzmayeshiMandeh = getTarazAccountingMarkazAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity);
+		Map<Long, SanadHesabdariItemVO> tarazAccountingMarkazAzmayeshiMandeh = getTarazAccountingMarkazAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity);
 		
 		for (Object[] object : rawList) {
 			SanadHesabdariItemEntity entity = new SanadHesabdariItemEntity();

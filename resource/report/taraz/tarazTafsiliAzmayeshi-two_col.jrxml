@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarazAzmayeshiKol" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="3ddb2afb-d94e-4f5f-b8f2-cb8b6b3dd890">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="17"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="title" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="12" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
 	<style name="reportTitle" hAlign="Center" vAlign="Middle" fontName="B Tir" fontSize="16" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BTitr.ttf" pdfEncoding="Identity-H"/>
@@ -18,13 +18,10 @@
 	<parameter name="hesabKol" class="java.lang.String"/>
 	<parameter name="hesabTafsili" class="java.lang.String"/>
 	<parameter name="hesabShenavar" class="java.lang.String"/>
-	<field name="sanadHesabdari" class="ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity"/>
-	<field name="hesabTafsili" class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"/>
-	<field name="hesabMoeen" class="ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity"/>
+	<field name="hesabTafsiliDesc" class="java.lang.String"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="bedehkar" class="java.lang.Double"/>
 	<field name="bestankar" class="java.lang.Double"/>
-	<field name="hesabKol" class="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"/>
 	<field name="mandehBedehkar" class="java.lang.Double"/>
 	<field name="mandehBestankar" class="java.lang.Double"/>
 	<variable name="rowCount" class="java.lang.Integer" calculation="Count">
@@ -246,7 +243,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{hesabTafsili}.getDesc()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hesabTafsiliDesc}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="35d57df4-7e2f-4050-927f-b9caf54ccb3d" x="220" y="0" width="220" height="20"/>

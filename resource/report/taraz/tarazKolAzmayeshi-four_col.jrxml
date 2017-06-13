@@ -14,13 +14,10 @@
 	<parameter name="saalMaali" class="java.lang.String"/>
 	<parameter name="creationDate" class="java.lang.String"/>
 	<parameter name="creatorUser" class="java.lang.String"/>
-	<field name="sanadHesabdari" class="ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity"/>
-	<field name="hesabTafsili" class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"/>
-	<field name="hesabMoeen" class="ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="bedehkar" class="java.lang.Double"/>
 	<field name="bestankar" class="java.lang.Double"/>
-	<field name="hesabKol" class="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"/>
+	<field name="hesabKolDesc" class="java.lang.String"/>
 	<field name="mandehBedehkar" class="java.lang.Double"/>
 	<field name="mandehBestankar" class="java.lang.Double"/>
 	<variable name="rowCount" class="java.lang.Integer" calculation="Count">
@@ -256,7 +253,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{hesabKol}.getDesc()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hesabKolDesc}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="e1e28c40-a02e-411a-a865-66ba8a19c73e" x="130" y="0" width="130" height="20"/>

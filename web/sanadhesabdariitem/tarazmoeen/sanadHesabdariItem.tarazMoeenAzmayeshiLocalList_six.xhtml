@@ -36,7 +36,7 @@
 							<h:outputText styleClass="headerCellClass"
 								value="#{messages['HesabKol_title']}" />
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabKolName}" />
 				</p:column>
 								
 				<p:column>
@@ -56,7 +56,7 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.code}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeenCode}" />
 				</p:column>
 
 				<p:column>
@@ -72,11 +72,11 @@
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabMoeen.code"
+							<f:setPropertyActionListener value="hesabMoeen.name"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.desc}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeenName}" />
 				</p:column>
 
 								
@@ -196,7 +196,7 @@
 					</f:facet>
 
 					<h:outputLink 
-						onclick="openDaftarMoeen('#{item.hesabMoeen.id}'); return false;">
+						onclick="openDaftarMoeen('#{item.hesabMoeenID}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarMoeen']}" />
 					</h:outputLink>
 				</p:column>						
@@ -207,7 +207,7 @@
 					</f:facet>
 
 					<h:outputLink 
-						onclick="openTarazTafsili('#{item.hesabMoeen.id}'); return false;">
+						onclick="openTarazTafsili('#{item.hesabMoeenID}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazTafsili']}" />
 					</h:outputLink>
 				</p:column>
