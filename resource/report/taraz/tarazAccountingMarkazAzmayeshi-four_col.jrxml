@@ -17,16 +17,12 @@
 	<parameter name="hesabKol" class="java.lang.String"/>
 	<parameter name="hesabMoeen" class="java.lang.String"/>
 	<parameter name="hesabTafsili" class="java.lang.String"/>
-	<field name="sanadHesabdari" class="ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity"/>
-	<field name="hesabTafsili" class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"/>
-	<field name="hesabMoeen" class="ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="bedehkar" class="java.lang.Double"/>
 	<field name="bestankar" class="java.lang.Double"/>
-	<field name="hesabKol" class="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"/>
 	<field name="mandehBedehkar" class="java.lang.Double"/>
 	<field name="mandehBestankar" class="java.lang.Double"/>
-	<field name="accountingMarkaz" class="ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity"/>
+	<field name="accountingMarkazDesc" class="java.lang.String"/>
 	<variable name="rowCount" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[new Integer(1)]]></variableExpression>
 		<initialValueExpression><![CDATA[1]]></initialValueExpression>
@@ -286,7 +282,7 @@
 					<rightPen lineWidth="0.25"/>
 				</box>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{accountingMarkaz}.getDesc()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{accountingMarkazDesc}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="cad28327-b3cb-4a27-83e5-fd0e6ca33311" stretchType="RelativeToTallestObject" x="110" y="0" width="110" height="20"/>
