@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	
+	
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
+
+
+<div id="tafsiliMoeenDIV">
+	<table id="tafsiliMoeenTable">
+	</table>
+</div>
+
+<div id="rootHesabsDIV" class="collapse fade" style="vertical-align: top;display: inline-block;" role="">
+
+						<div id="rootHesabsBodyDiv" class="">
+							
+						</div>
+</div>
+
+<t:jsValueSet name="moeenKolMap" value="#{hesabMoeen.moeenKolMap}" />
+<t:jsValueSet name="tafsiliMoeenMap" value="#{hesabTafsili.tafsiliMoeenMap}" />
+<script>
+/* <![CDATA[ */
+var myPop = new dhtmlXPopup();
+myPop.attachObject("tafsiliMoeenDIV");
+
+	$$(function() {
+		$$.ajax({
+			  url: '${request.contextPath}/jersey/accountingRestFace/getRootHesabsMap',
+			  cache: false,
+			  success: function(result){
+				
+				var inpId = 'rootHesabs_id';
+				var componentName='rootHesabs';
+				var inputText = $$('<input type="text" class="form-control"  style="font-family:Tahoma;float:right;width:200px"/>').prop('id','rootHesabs_desc');
+				var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px"/>').prop('id','rootHesabs_id');
+				var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');
+
+				$$('#rootHesabsBodyDiv').append(inputText);
+				$$('#rootHesabsBodyDiv').append(inputHidden);
+				$$('#rootHesabsBodyDiv').append(inputClear);
+				$$('#rootHesabsBodyDiv').append('<br/>');
+				createRootHesabsAutocomplete('rootHesabs',result,'0');	
+			  },
+			  error: function(jqXHR, textStatus, errorThrown){
+					alert(errorThrown);
+				}
+		});
+	});
+
+    function createRootHesabsAutocomplete(id,src, minLength){
+		$$('#'+id+'_desc').autocomplete({
+			minLength: minLength,
+			source: src,
+			appendTo: '#rootHesabsBodyDiv',
+			focus: function(event, ui) {
+				//$$('#'+id+'_desc').val(ui.item.label);
+				return false;
+			},
+			select: function(event, ui) {
+				//alert('select');
+				//debugger;
+				$$('#'+id+'_id').val(ui.item.value);
+				$$('#'+id+'_desc').val(ui.item.label);
+				fireRootHesabsOnChange();
+				//element = document.getElementById(id+'_id');
+				
+				//this statement cause onchange event to be fired
+				//$$('#'+id+'_desc').blur();
+				//fireEvent(element,"change");
+				//eval("evalOnselect"+id+"()");
+				return false;
+			},
+			change: function(event, ui) {
+				//alert('change');
+			}			
+		});
+	}	
+
+	function fireRootHesabsOnChange(){
+		//debugger;
+		var hesabId = $$('#rootHesabs_id').val();
+		
+		if(hesabId.startsWith("Moeen_")){
+			var ind = hesabId.indexOf('_');
+			var moeenId = hesabId.substring(ind+1); 
+			kolMap = moeenKolMap[moeenId];
+			kolDesc = kolMap.label;
+			kolId = kolMap.value;
+			moeenDesc = $$('#rootHesabs_desc').val();
+			
+			addRootHesabsToGrid(kolId, kolDesc, moeenId, moeenDesc, '', '');
+			
+			//alert(hesabMoeenId);
+		}else if(hesabId.startsWith("Tafsili_")){
+			var ind = hesabId.indexOf('_');
+			var hesabTafsiliId = hesabId.substring(ind+1); 
+			hesabTafsiliDesc = $$('#rootHesabs_desc').val();
+			//alert(hesabTafsiliDesc);
+			hesabMoeenList = tafsiliMoeenMap[hesabTafsiliId];
+			if(hesabMoeenList.length == 1){
+				moeenMap = hesabMoeenList[0];
+				var moeenId = moeenMap.value; 
+				var moeenDesc = moeenMap.label; 
+				kolMap = moeenKolMap[moeenId];
+				kolId = kolMap.value;
+				kolDesc = kolMap.label;
+				
+				addRootHesabsToGrid(kolId, kolDesc, moeenId, moeenDesc, hesabTafsiliId, hesabTafsiliDesc);
+			}else{
+				showRootNodeMoeenList(hesabTafsiliId, hesabTafsiliDesc)
+			}
+			//alert(hesabTafsiliId);
+		}else
+			alert('error');
+	}	
+
+	function addRootHesabsToGrid(kolId, kolDesc, hesabMoeenID, hesabMoeenName, hesabTafsiliID, hesabTafsiliName){
+		addItem('hesabKolIds', kolId, kolDesc);
+		addItem('moeens', hesabMoeenID, hesabMoeenName);
+		addItem('tafsilis', hesabTafsiliID, hesabTafsiliName);
+
+		clearAutocomplete('rootHesabs');
+		$$('#rootHesabs_desc').focus();
+
+	}	
+
+		function showRootNodeMoeenList(hesabTafsiliId, hesabTafsiliDesc){
+			//debugger;
+
+			var moeenMap = tafsiliMoeenMap[hesabTafsiliId];
+			var index =0;
+			
+			var tbl = $$('#tafsiliMoeenTable');
+			tbl.html('');
+			var tHead = $$('<thead>');
+			var tHeadRow = $$('<tr>');
+			tHeadCellKol = $$('<th style="width: 300px;">').append("حساب کل").addClass("ui-state-default");
+			tHeadCellMoeen = $$('<th style="width: 300px;">').append("حساب معین").addClass("ui-state-default");
+			tHeadRow.append(tHeadCellKol);
+			tHeadRow.append(tHeadCellMoeen);
+			tHead.append(tHeadRow);
+			tbl.append(tHead); 
+			
+			for(index =0 ; index<moeenMap.length; index++){
+				//alert(moeenMap[index].label);
+				var moeenId = moeenMap[index].value;
+				var moeenDesc = moeenMap[index].label;
+				
+				kolMap = moeenKolMap[moeenId];
+				kolDesc = kolMap.label;
+				kolId = kolMap.value;
+				
+				var tRow = $$('<tr>');
+				
+				//kolLabel = moeenKolMap[moeenId].moeenDesc;
+				var tStrong1 = $$('<strong>').html(kolDesc);
+				var tP1 = $$('<p>').append(tStrong1);
+				tCellKol = $$('<td style="width: 300px;padding:5px">').append(tP1).addClass("ui-widget-content");
+				
+				//addRootHesabsToGrid("#sanadHesabdariGrid", kolDesc, moeenId, moeenDesc, hesabTafsiliId, hesabTafsiliDesc,description);
+				var outputLink = '<a onclick="addRootHesabsToGrid('+kolId+',\''+kolDesc+'\',\''+moeenId+'\',\''+moeenDesc+'\',\''+hesabTafsiliId+'\',\''+hesabTafsiliDesc+'\');myPop.hide();" style="height:100px;" class="">'+moeenMap[index].label+'</a>';
+				var tStrong2 = $$('<strong>').html(outputLink);
+				var tP2 = $$('<p>').append(tStrong2);
+				tCellMoeen = $$('<td style="width: 300px;padding:5px">').append(tP2).addClass("ui-widget-content").css({ cursor: "pointer"});
+				
+				tRow.append(tCellKol);
+				tRow.append(tCellMoeen);
+				
+				//var outputLink = $$('<a onclick="onSelectMoeenOnDialogue('+id+',\''+label+'\','+tafsiliId+',\''+tafsiliDesc+'\')" style="height:100px;" class="">'+moeenMap[index].label+'</a>');
+				//$$('#tafsiliMoeenTable').append(outputLink);
+				tbl.append(tRow);
+
+			}
+			
+			//$$('#rootHesabsDIV').modal('toggle');
+			//$$('#tafsiliMoeenDIV').modal('toggle');
+			inp = document.getElementById('rootHesabs_desc');
+				var x = window.dhx4.absLeft(inp);
+				var y = window.dhx4.absTop(inp);
+				var w = inp.offsetWidth;
+				var h = inp.offsetHeight;
+				myPop.show(x,y,w,h);			
+			myPop.show(x,y,w,h);
+			//$$('#tafsiliMoeenDIV').dialog({width: '600px',modal: false});
+			//alert("unitMap : "+unitMap.length);
+			//var filtered = moeenMap;
+			//alert(inspect(filtered,10,10));
+
+		}	
+	/* ]]> */	
+</script>
+</html>
