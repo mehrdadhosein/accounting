@@ -1,6 +1,6 @@
 		function showMoeenList(moeen,tafsili){
 			//debugger;
-			console.log('showMoeenList');
+			//console.log('showMoeenList');
 			var moeenId = $$('#hesabMoeen_id').val();
 			
 			if(!(moeenId == null || moeenId == ''))

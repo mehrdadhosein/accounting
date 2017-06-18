@@ -111,7 +111,8 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 //	}
 
 	public SaalMaaliEntity getSaalmaaliByDate(Date date, OrganEntity organEntity) {
-		
+		if(organEntity == null || organEntity.getId() == null)
+			throw new FatalException("Organ id is null");
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organ.id@eq",organEntity.getId());
 		localFilter.put("startDate@le",date);

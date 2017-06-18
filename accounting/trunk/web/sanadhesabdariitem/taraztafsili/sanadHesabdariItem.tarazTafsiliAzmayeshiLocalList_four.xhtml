@@ -181,10 +181,10 @@
 					</f:facet>
 
 					<h:outputLink rendered="#{item.hesabTafsiliID!=null}"
-						onclick="openTarazShenavar('#{item.hesabTafsiliID}'); return false;">
-						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazShenavar']}" />
+						onclick="openDaftarTafsili('#{item.hesabTafsiliID}'); return false;">
+						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarTafsili']}" />
 					</h:outputLink>
-				</p:column>
+				</p:column>				
 				<p:column styleClass="action">
 
 					<f:facet name="header">
@@ -192,10 +192,11 @@
 					</f:facet>
 
 					<h:outputLink rendered="#{item.hesabTafsiliID!=null}"
-						onclick="openDaftarTafsili('#{item.hesabTafsiliID}'); return false;">
-						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarTafsili']}" />
+						onclick="openTarazShenavar('#{item.hesabTafsiliID}'); return false;">
+						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazShenavar']}" />
 					</h:outputLink>
 				</p:column>
+
 			</p:dataTable>
 		</t:div>
 <script>

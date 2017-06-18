@@ -49,6 +49,14 @@
 				</h:panelGroup>
 
 				<h:panelGroup>
+				</h:panelGroup>
+				<h:panelGroup>
+					<button id="rootHesabDivButton" type="button" class="btn btn-success" data-toggle="collapse" data-target="#rootHesabsDIV" style="font-family: yekan;"><i class="glyphicon glyphicon-plus position-left"></i> انتخاب حساب </button>										
+					<ui:include src="/common/rootHesabModal.xhtml" />
+				</h:panelGroup>
+				
+
+				<h:panelGroup>
 					<h:outputLabel for="codeTafsiliAzTa"
 						value="#{messages['SanadHesabdari_codeTafsili']}" /> : 
 				</h:panelGroup>
@@ -198,6 +206,9 @@
 	//Initial load of page
 	function tafsilisrendered(){
 		var tafsilis = getURLParameters('tafsiliIds');
+		if(tafsilis == undefined)
+			return;
+		
 		//alert(tafsilis);
 		populatetafsilis(tafsilis);
 		document.getElementById("tafsilis_id").value=tafsilis;
@@ -212,6 +223,9 @@
 
 	function moeensrendered(){
 		var moeens = getURLParameters('moeenIds');
+		if(moeens == undefined)
+			return;
+		
 		//alert(tafsilis);
 		populatemoeens(moeens);
 		document.getElementById("moeens_id").value=moeens;

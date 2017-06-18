@@ -50,6 +50,14 @@
 
 
 				<h:panelGroup>
+				</h:panelGroup>
+				<h:panelGroup>
+					<button id="rootHesabDivButton" type="button" class="btn btn-success" data-toggle="collapse" data-target="#rootHesabsDIV" style="font-family: yekan;"><i class="glyphicon glyphicon-plus position-left"></i> انتخاب حساب </button>										
+					<ui:include src="/common/rootHesabModal.xhtml" />
+				</h:panelGroup>
+				
+
+				<h:panelGroup>
 					<h:outputLabel for="codeTafsiliAzTa"
 						value="#{messages['SanadHesabdari_codeTafsili']}" /> : 
 				</h:panelGroup>
@@ -168,6 +176,9 @@
 	//Initial load of page
 	function hesabKolIdsrendered(){
 		var hesabKolIds = getURLParameters('hesabKolIds');
+		if(hesabKolIds == undefined)
+			return;
+		
 		//alert(hesabKolIds);
 		populatehesabKolIds(hesabKolIds);
 		document.getElementById("hesabKolIds_id").value=hesabKolIds;
