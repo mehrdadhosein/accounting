@@ -19,6 +19,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 
 import com.opencsv.CSVReader;
@@ -812,6 +813,7 @@ public class SanadHesabdariForm extends
 	}
 	
 	@Override
+	@PreAuthorize("hasRole('ROLEE_USER_')")
 	public DataModel<SanadHesabdariEntity> getLocalDataModel() {
 		getFilter().put("sanadType.id@in", getSanadTypeIds());
 		return super.getLocalDataModel();

@@ -160,13 +160,22 @@
 		var localItems = getItems(gridId);
 		for ( var j = 0; j < localItems.length; j++){
 			fieldId = localItems[j];
+			if(fieldId == 'hesabTafsiliName'){
+				debugger;
+				$$('#hesabTafsili_desc').val('');
+				$$('#hesabTafsili_desc').val('');
+				$$( "#hesabTafsili_desc" ).autocomplete('option', 'source', hesabTafsilis);
+				continue;
+			}
 			if(fieldId == 'hesabTafsiliLevels'){
 				$$('input.tafsiliInput').each(function( i ) {
 					var id_desc = $( this ).prop('id');
 					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
 					$$('#'+id+"_desc").val('');
 					$$('#'+id+"_id").val('');
+					
 				});
+
 				continue;
 			}
 			if(fieldId == 'hesabTafsiliDescs'){

@@ -18,18 +18,6 @@
 <script type='text/javascript'	src='${request.contextPath}/common/sanadHesabdari.grid.js?p=23'> </script>
 <script type='text/javascript'	src='${request.contextPath}/common/sanadHesabdari.gridNew.advanced.js?p=23'> </script>
 <style>
-.dialogViewLableCol {
-	text-align: left;
-	width: 33%;
-	vertical-align: middle;
-	font-family: tahoma;
-	color: gray;
-	font-size: 12px;
-	padding-left: 10px;
-}
-.sanadHesabdariDialog-dialog{
-width: 33%;
-}
 .ui-autocomplete {
   position: absolute;
  }
@@ -95,17 +83,21 @@ width: 33%;
 		});
 	}
 		var hesabTafsilis;
+		function populateHesabTafsiliInputs(hesabTafsiliMap){
+			//hesabTafsilis=result;
+			$$('input.tafsiliInput').each(function( i ) {
+				var id_desc = $( this ).prop('id');
+				var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
+				createAutocomplete(id,hesabTafsiliMap,'0');	
+			});	
+		}
        	$$(function() {
 			$$.ajax({
 				  url: '${request.contextPath}/entities?entity=HesabTafsili&property=desc&all=true&autocomplete=true&isHierarchical=true&level=1',
 				  cache: false,
 				  success: function(result){
 				    hesabTafsilis=result;
-					$$('input.tafsiliInput').each(function( i ) {
-						var id_desc = $( this ).prop('id');
-						var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
-						createAutocomplete(id,hesabTafsilis,'0');	
-					});					    
+					populateHesabTafsiliInputs(hesabTafsilis);
 				  },
 				  error: function(jqXHR, textStatus, errorThrown){
 						alert(errorThrown);
@@ -158,9 +150,15 @@ width: 33%;
  
 /* ]]> */
 </script>			
-<t:div id="sanadHesabdariDialog" forceId="true" style="display:none">
-	<p:panelGrid columns="8" layout="grid" width="90%"
-		columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9, viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9,viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9, viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9" styleClass="inputForm  ">
+<style>
+	.paddingzero{
+		//padding-right: 0 !important;
+		//padding-left: 0 !important;
+	}
+</style>
+<t:div id="sanadHesabdariDialog" style="display:none">
+	<p:panelGrid columns="6" layout="grid" width="90%"
+		columnClasses="viewLableColResponsive paddingzero ui-grid-col-3,inputCol paddingzero ui-grid-col-9, viewLableColResponsive paddingzero ui-grid-col-3,inputCol ui-grid-col-9,viewLableColResponsive paddingzero ui-grid-col-3,inputCol ui-grid-col-9, viewLableColResponsive paddingzero ui-grid-col-3,inputCol ui-grid-col-9" styleClass="inputForm  ">
 
 		<h:panelGroup>
 			<h:outputText value="#{messages['HesabKol_title']}: " />
@@ -210,7 +208,7 @@ width: 33%;
 					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px">').prop('id','hesabTafsili#{item}_id');
 					var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');
 
-					$$(inputText).prop('class','tafsiliInput');
+					$$(inputText).prop('class','tafsiliInput  ui-autocomplete-input ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all');
 					$$(inputText).attr('onchange','fireTafsiliShenavarOnChange("'+inpId+'");');
 					$$('#tafsilis').append(inputText);
 					$$('#tafsilis').append(inputHidden);
@@ -251,7 +249,7 @@ width: 33%;
 					
 					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:200px">').prop('id','accountingMarkaz#{item}_desc');
 					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px">').prop('id','accountingMarkaz#{item}_id');
-					$$(inputText).prop('class','accountingMarkazInput');
+					$$(inputText).prop('class','accountingMarkazInput ui-autocomplete-input ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all');
 					$$(inputText).attr('onchange','fireAccountingMarkazShenavarOnChange("'+inpId+'");');
 
 					var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');					
@@ -556,8 +554,9 @@ width: 33%;
 		updateFooter();
 
 		$$('#sanadHesabdariGrid').jqGrid('setSelection', globalRowId, true);
-
+		debugger;
 		clearSanadHesabdariDialog('#sanadHesabdariGrid');
+		
 		$$('#hesabMoeen_desc').focus();
 		var bestankarTotal= sumColumnOfGrid('sanadHesabdariGrid','bestankar');
 		var bedehkarTotal= sumColumnOfGrid('sanadHesabdariGrid','bedehkar');
@@ -610,6 +609,7 @@ width: 33%;
 	$$(window).bind('resize', function() {
 		resize();
 	}).trigger('resize');
+
 	
 	/* ]]> */
 </script>

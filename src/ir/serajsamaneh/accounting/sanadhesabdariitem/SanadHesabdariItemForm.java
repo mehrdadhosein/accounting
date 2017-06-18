@@ -266,32 +266,26 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		if(StringUtils.hasText(tafsiliIds)){
 			List<Long> list = CSVtoListOfLongConverter.convert(tafsiliIds);
 			setTafsiliIds(list);
-			
-			if(getTafsiliIds()!=null && !getTafsiliIds().isEmpty())
-				getFilter().put("hesabTafsili.id@in", getTafsiliIds());
-			else
-				getFilter().put("hesabTafsili.id@in", null);
-		}
+			getFilter().put("hesabTafsili.id@in", getTafsiliIds());
+		}else
+			getFilter().put("hesabTafsili.id@in", null);
+
 		
 		String articleTafsiliIds = getRequest().getParameter("articleTafsiliIds");
 		if(StringUtils.hasText(articleTafsiliIds)){
 			List<Long> list = CSVtoListOfLongConverter.convert(articleTafsiliIds);
 			setArticleTafsiliIds(list);
-			if(getArticleTafsiliIds()!=null && !articleTafsiliIds.isEmpty())
-				getFilter().put("articleTafsili.hesabTafsili.id@in",getArticleTafsiliIds());			
-			else
-				getFilter().put("articleTafsili.hesabTafsili.id@in",null);
-		}
+			getFilter().put("articleTafsili.hesabTafsili.id@in",getArticleTafsiliIds());			
+		}else
+			getFilter().put("articleTafsili.hesabTafsili.id@in",null);
 		
 		String accountingMarkazIds = getRequest().getParameter("accountingMarkazIds");
 		if(StringUtils.hasText(accountingMarkazIds)){
 			List<Long> list = CSVtoListOfLongConverter.convert(accountingMarkazIds);
 			setAccountingMarkazIds(list);
-			if(getAccountingMarkazIds()!=null && !getAccountingMarkazIds().isEmpty())
-				getFilter().put("accountingMarkaz.id@in",getAccountingMarkazIds());			
-			else
-				getFilter().put("accountingMarkaz.id@in",null);
-		}
+			getFilter().put("accountingMarkaz.id@in",getAccountingMarkazIds());			
+		}else
+			getFilter().put("accountingMarkaz.id@in",null);
 		
 		String searchAction = getRequest().getParameter("searchAction");
 		if(StringUtils.hasText(searchAction)){
