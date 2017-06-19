@@ -1,11 +1,14 @@
 package ir.serajsamaneh.accounting.hesabmoeentemplate;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,11 +64,19 @@ public class HesabMoeenTemplateForm extends
 
 	
 	public Map<Long, ListOrderedMap> getMoeenKolTemplateMap() {
-		return HesabTemplateRelationsUtil.getMoeenKolTemplateMap(getCurrentUserActiveSaalMaali().getOrgan());
+		try{
+			return HesabTemplateRelationsUtil.getMoeenKolTemplateMap(getCurrentUserActiveSaalMaali().getOrgan());
+		}catch(NoSaalMaaliFoundException e){
+			return new HashMap<>();
+		}
 	}
 	
 	public Map<Long, List<ListOrderedMap>> getMoeenTafsiliTemplateMap() {
-		return HesabTemplateRelationsUtil.getMoeenTafsiliTemplateMap(getCurrentUserActiveSaalMaali().getOrgan()); 
+		try{
+			return HesabTemplateRelationsUtil.getMoeenTafsiliTemplateMap(getCurrentUserActiveSaalMaali().getOrgan()); 
+		}catch(NoSaalMaaliFoundException e){
+			return new HashMap<>();
+		}
 	}
 
 	public Map<Long, List<ListOrderedMap>> getAccountingMarkazTemplateMap() {
@@ -76,15 +87,19 @@ public class HesabMoeenTemplateForm extends
 	public List<? extends BaseEntity> getJsonList(String property, String term,
 			boolean all, Map<String, String> params) {
 		
-		String isHierarchical = params.get("isHierarchical");
-		
-		params.put("isLocal","false");
-		//getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(), "ding"));
-
-		if (isHierarchical !=null && isHierarchical.equals("true")){
-			getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-//			getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+		try{
+			String isHierarchical = params.get("isHierarchical");
+			
 			params.put("isLocal","false");
+			//getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(), "ding"));
+	
+			if (isHierarchical !=null && isHierarchical.equals("true")){
+				getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+	//			getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+				params.put("isLocal","false");
+			}
+		}catch(NoSaalMaaliFoundException e){
+			return new ArrayList<>();
 		}
 		
 		return super.getJsonList(property, term, all, params);
