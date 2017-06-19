@@ -123,8 +123,16 @@ myPop.attachObject("tafsiliMoeenDIV");
 	}	
 
 	function addRootHesabsToGrid(kolId, kolDesc, hesabMoeenID, hesabMoeenName, hesabTafsiliID, hesabTafsiliName){
+		$$('#hesabKolIds_id').val($$('#hesabKolIds_id').val()+","+kolId);
+		$$('#hesabKolIds_desc').val('');
 		addItem('hesabKolIds', kolId, kolDesc);
+
+		$$('#moeens_id').val($$('#moeens_id').val()+","+hesabMoeenID);
+		$$('#moeens_desc').val('');		
 		addItem('moeens', hesabMoeenID, hesabMoeenName);
+
+		$$('#tafsilis_id').val($$('#tafsilis_id').val()+","+hesabTafsiliID);
+		$$('#tafsilis_desc').val('');
 		addItem('tafsilis', hesabTafsiliID, hesabTafsiliName);
 
 		clearAutocomplete('rootHesabs');
