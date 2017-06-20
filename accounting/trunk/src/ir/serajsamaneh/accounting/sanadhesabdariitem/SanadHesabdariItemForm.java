@@ -462,6 +462,8 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	public DataModel<SanadHesabdariItemEntity> getDaftarKolDataModel() {
 //		setRowsPerPage(1000);
 //		setSearchAction(false);
+		
+		setSortCol("sanadHesabdari.tarikhSanad");
 		createDaftarLocalFilter(getCurrentOrgan());
 		return getDataModel();
 	}
