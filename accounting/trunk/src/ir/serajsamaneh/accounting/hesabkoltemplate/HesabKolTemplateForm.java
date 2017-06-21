@@ -61,8 +61,11 @@ public class HesabKolTemplateForm extends
 		//getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(), "ding"));
 
 		if (isHierarchical !=null && isHierarchical.equals("true")){
-			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-			this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+			List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
+			getFilter().put("organ.id@in", topOrganList);
+			
+//			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+//			this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 			params.put("isLocal","false");
 		}
 

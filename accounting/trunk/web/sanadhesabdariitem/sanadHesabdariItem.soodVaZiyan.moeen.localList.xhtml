@@ -26,7 +26,7 @@
 				value="#{sanadHesabdariItem.incomeGroupByHesabMoeen}"
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
 				style="width: 97%" align="center"
-				rows="#{sanadHesabdariItem.rowsPerPage}">
+				>
 				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
 
 				<f:facet name="header">
@@ -41,7 +41,7 @@
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['SanadHesabdariItem_hesabMoeen']}" />
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.desc}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeenDesc}" />
 				</p:column>
 
 
@@ -72,7 +72,7 @@
 				value="#{sanadHesabdariItem.expenseGroupByHesabMoeen}"
 				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
 				style="width: 97%" align="center"
-				rows="#{sanadHesabdariItem.rowsPerPage}">
+				>
 				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
 
 				<f:facet name="header">
@@ -87,7 +87,7 @@
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['SanadHesabdariItem_hesabMoeen']}" />
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabMoeen.desc}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabMoeenDesc}" />
 				</p:column>
 
 

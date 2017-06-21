@@ -151,8 +151,11 @@ public class HesabTafsiliTemplateForm extends
 			// "ding"));
 	
 			if (isHierarchical != null && isHierarchical.equals("true")) {
-				this.getFilter().put("organ.code@startlk",
-						getCurrentUserActiveSaalMaali().getOrgan().getCode());
+				List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
+				getFilter().put("organ.id@in", topOrganList);
+				
+//				this.getFilter().put("organ.code@startlk",
+//						getCurrentUserActiveSaalMaali().getOrgan().getCode());
 				params.put("isLocal", "false");
 			}
 	

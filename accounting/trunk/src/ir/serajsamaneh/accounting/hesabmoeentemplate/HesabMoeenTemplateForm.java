@@ -94,7 +94,11 @@ public class HesabMoeenTemplateForm extends
 			//getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(), "ding"));
 	
 			if (isHierarchical !=null && isHierarchical.equals("true")){
-				getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+				
+				List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
+				getFilter().put("organ.id@in", topOrganList);
+				
+//				getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 	//			getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 				params.put("isLocal","false");
 			}
