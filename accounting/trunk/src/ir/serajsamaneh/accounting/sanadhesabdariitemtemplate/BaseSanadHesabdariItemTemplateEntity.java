@@ -1,14 +1,14 @@
 package ir.serajsamaneh.accounting.sanadhesabdariitemtemplate;
 
+import java.io.Serializable;
+
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
+import ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.organ.OrganEntity;
-
-import java.io.Serializable;
-
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
 
@@ -25,6 +25,10 @@ import serajcomponent.SerajDateTimePickerType;
 
 public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6012549268108506327L;
 	public static String REF = "SanadHesabdariItemEntity";
 	public static String PROP_HESAB_KOL = "hesabKol";
 	public static String PROP_TARIKH_ARTICLE = "tarikhArticle";
@@ -52,17 +56,17 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 		initialize();
 	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public BaseSanadHesabdariItemTemplateEntity (
-		java.lang.Long id,
-		ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity sanadHesabdari) {
-
-		this.setId(id);
-		this.setSanadHesabdari(sanadHesabdari);
-		initialize();
-	}
+//	/**
+//	 * Constructor for required fields
+//	 */
+//	public BaseSanadHesabdariItemTemplateEntity (
+//		java.lang.Long id,
+//		ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity sanadHesabdari) {
+//
+//		this.setId(id);
+//		this.setSanadHesabdari(sanadHesabdari);
+//		initialize();
+//	}
 
 	protected void initialize () {}
 
@@ -84,12 +88,14 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 
 	// many to one
 	private AccountingMarkazTemplateEntity accountingMarkazTemplate; 
-	private ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity sanadHesabdari;
+//	private ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity sanadHesabdari;
 
 	private HesabKolTemplateEntity hesabKolTemplate;
 	private HesabMoeenTemplateEntity hesabMoeenTemplate;
 	private HesabTafsiliTemplateEntity hesabTafsiliTemplate;
 
+	private java.util.Set<ArticleTafsiliTemplateEntity> articleTafsiliTemplate;
+	
 	OrganEntity organ;
 	// collections
 //	private java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> articleTafsili;
@@ -284,24 +290,32 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 
 
 
-	/**
-	 * Return the value associated with the column: sanad_hesabdari_id
-	 */
-	public ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity getSanadHesabdari () {
-		return sanadHesabdari;
+//	/**
+//	 * Return the value associated with the column: sanad_hesabdari_id
+//	 */
+//	public ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity getSanadHesabdari () {
+//		return sanadHesabdari;
+//	}
+//
+//	/**
+//	 * Set the value related to the column: sanad_hesabdari_id
+//	 * @param sanadHesabdari the sanad_hesabdari_id value
+//	 */
+//	public void setSanadHesabdari (ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity sanadHesabdari) {
+//		this.sanadHesabdari = sanadHesabdari;
+//	}
+
+
+
+public java.util.Set<ArticleTafsiliTemplateEntity> getArticleTafsiliTemplate() {
+		return articleTafsiliTemplate;
 	}
 
-	/**
-	 * Set the value related to the column: sanad_hesabdari_id
-	 * @param sanadHesabdari the sanad_hesabdari_id value
-	 */
-	public void setSanadHesabdari (ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity sanadHesabdari) {
-		this.sanadHesabdari = sanadHesabdari;
+	public void setArticleTafsiliTemplate(java.util.Set<ArticleTafsiliTemplateEntity> articleTafsiliTemplate) {
+		this.articleTafsiliTemplate = articleTafsiliTemplate;
 	}
 
-
-
-/*	*//**
+	/*	*//**
 	 * Return the value associated with the column: articleTafsili
 	 *//*
 	public java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> getArticleTafsili () {
@@ -321,18 +335,21 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 		getArticleTafsili().add(articleTafsiliEntity);
 	}*/
 
-
-
-
-	public boolean equals (Object obj) {
-		if (null == obj) return false;
-		if (!(obj instanceof ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity)) return false;
-		else {
-			ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity sanadHesabdariItemEntity = (ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity) obj;
-			if (null == this.getId() || null == sanadHesabdariItemEntity.getId()) return false;
-			else return (this.getId().equals(sanadHesabdariItemEntity.getId()));
-		}
+	public void addToarticleTafsiliTemplate (ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity articleTafsiliTemplateEntity) {
+		if (null == getArticleTafsiliTemplate()) setArticleTafsiliTemplate(new java.util.TreeSet<ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity>());
+		getArticleTafsiliTemplate().add(articleTafsiliTemplateEntity);
 	}
+
+
+//	public boolean equals (Object obj) {
+//		if (null == obj) return false;
+//		if (!(obj instanceof ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity)) return false;
+//		else {
+//			ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity sanadHesabdariItemEntity = (ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity) obj;
+//			if (null == this.getId() || null == sanadHesabdariItemEntity.getId()) return false;
+//			else return (this.getId().equals(sanadHesabdariItemEntity.getId()));
+//		}
+//	}
 
 	public int hashCode () {
 		if (Integer.MIN_VALUE == this.hashCode) {

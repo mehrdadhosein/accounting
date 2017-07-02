@@ -1824,7 +1824,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 				setFromDate(getSelectedSaalMaali().getStartDate());
 		
 		if(getToDate() == null)
-			setToDate(DateConverter.getCurrentDate());
+			setToDate(getSelectedSaalMaali().getEndDate());
 		
 		
 		parameters.put("organName", organName);

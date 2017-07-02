@@ -222,7 +222,7 @@ public class SanadHesabdariForm extends
 	Integer incorrectInputExceptionRow;
 	protected String incorectItem;
 
-	protected SanadHesabdariItemEntity populateSanadKala(
+	protected SanadHesabdariItemEntity populateSanadHesabdariItem(
 			Map<String, String> map,
 			SanadHesabdariItemEntity sanadHesabdariItemEntity, Boolean isInMultipleLevelMode) {
 
@@ -357,7 +357,7 @@ public class SanadHesabdariForm extends
 			for (Map<String, String> map : list) {
 				++incorrectInputExceptionRow;
 				SanadHesabdariItemEntity sanadHesabdariItemEntity = new SanadHesabdariItemEntity();
-				sanadHesabdariItemEntity = populateSanadKala(map,
+				sanadHesabdariItemEntity = populateSanadHesabdariItem(map,
 						sanadHesabdariItemEntity, isInMultipleLevelMode);
 				// sanadKalaEntity.setSanad(sanadEntity);
 				// sanadEntity.addToSanadKala(sanadKalaEntity);

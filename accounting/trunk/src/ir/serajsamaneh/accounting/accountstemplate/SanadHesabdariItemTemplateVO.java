@@ -1,5 +1,7 @@
 package ir.serajsamaneh.accounting.accountstemplate;
 
+import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
+import ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemVO;
 import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemTemplateEntity;
 
@@ -168,14 +170,14 @@ public class SanadHesabdariItemTemplateVO extends SanadHesabdariItemVO {
 			setHesabTafsiliTemplateID("");
 		}
 
-/*		if(sanadHesabdariItemTemplateEntity.getArticleTafsili()!= null && !sanadHesabdariItemTemplateEntity.getArticleTafsili().isEmpty()){
-			hesabTafsiliLevelNames="";
-			for(ArticleTafsiliEntity articleTafsiliEntity : sanadHesabdariItemTemplateEntity.getArticleTafsili()){
-				hesabTafsiliLevels = hesabTafsiliLevels +",hesabTafsili"+articleTafsiliEntity.getLevel()+"="+articleTafsiliEntity.getHesabTafsili().getId();
-				hesabTafsiliDescs = hesabTafsiliDescs +",hesabTafsili"+articleTafsiliEntity.getLevel()+"="+articleTafsiliEntity.getHesabTafsili().getDesc();
-				hesabTafsiliLevelNames = hesabTafsiliLevelNames +","+articleTafsiliEntity.getHesabTafsili().getDesc();
+		if(sanadHesabdariItemTemplateEntity.getArticleTafsiliTemplate()!= null && !sanadHesabdariItemTemplateEntity.getArticleTafsiliTemplate().isEmpty()){
+			hesabTafsiliTemplateLevelNames="";
+			for(ArticleTafsiliTemplateEntity articleTafsiliTemplateEntity : sanadHesabdariItemTemplateEntity.getArticleTafsiliTemplate()){
+				hesabTafsiliTemplateLevels = hesabTafsiliTemplateLevels +",hesabTafsiliTemplate"+articleTafsiliTemplateEntity.getLevel()+"="+articleTafsiliTemplateEntity.getHesabTafsiliTemplate().getId();
+				hesabTafsiliTemplateDescs = hesabTafsiliTemplateDescs +",hesabTafsiliTemplate"+articleTafsiliTemplateEntity.getLevel()+"="+articleTafsiliTemplateEntity.getHesabTafsiliTemplate().getDesc();
+				hesabTafsiliTemplateLevelNames = hesabTafsiliTemplateLevelNames +","+articleTafsiliTemplateEntity.getHesabTafsiliTemplate().getDesc();
 			}
-		}*/
+		}
 
 
 		if(sanadHesabdariItemTemplateEntity.getAccountingMarkazTemplate()!=null){

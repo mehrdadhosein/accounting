@@ -128,18 +128,20 @@
 			bindedFieldId = 'hesabTafsili_id';
 		else if(fieldId == 'hesabTafsiliTemplateName')
 			bindedFieldId = 'hesabTafsili_desc';
-		else if(fieldId == 'accountingMarkazID')
+		else if(fieldId == 'accountingMarkazTemplateID')
 			bindedFieldId = 'accountingMarkaz_id';
-		else if(fieldId == 'accountingMarkazName')
+		else if(fieldId == 'accountingMarkazTemplateName')
 			bindedFieldId = 'accountingMarkaz_desc';		
 		return bindedFieldId;
 	}
 
 	function clearSanadHesabdariDialog(gridId){
-		var localItems = getItems(gridId);
+		debugger;
+		//var localItems = getItems(gridId);
+		var localItems = new Array('id','templateType','hesabKolTemplateID','hesabKolTemplateName','hesabMoeenTemplateID','hesabMoeenTemplateName','hesabTafsiliTemplateID','hesabTafsiliTemplateName','hesabTafsiliTemplateLevelNames','hesabTafsiliTemplateLevels','hesabTafsiliTemplateDescs','accountingMarkazTemplateID','accountingMarkazTemplateName','accountingMarkazLevelNames','accountingMarkazLevels','accountingMarkazDescs','applyAutomaticTafsili','applyAutomaticTafsiliName','description')
 		for ( var j = 0; j < localItems.length; j++){
 			fieldId = localItems[j];
-			if(fieldId == 'hesabTafsiliLevels'){
+			if(fieldId == 'hesabTafsiliTemplateLevels'){
 				$$('input.tafsiliInput').each(function( i ) {
 					var id_desc = $( this ).prop('id');
 					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
@@ -149,7 +151,7 @@
 				});
 				continue;
 			}
-			if(fieldId == 'hesabTafsiliDescs'){
+			if(fieldId == 'hesabTafsiliTemplateDescs'){
 				continue;
 			}
 			if(fieldId == 'accountingMarkazLevels'){
@@ -179,7 +181,7 @@
 		for ( var j = 0; j < localItems.length; j++){
 			var fieldId = localItems[j];
 			
-			if(fieldId == 'hesabTafsiliLevels'){
+			if(fieldId == 'hesabTafsiliTemplateLevels'){
 				var hesabTafsiliLevels='';
 				$$('input.tafsiliInput').each(function( i ) {
 					var id_desc = $( this ).prop('id');
@@ -187,10 +189,10 @@
 					var tafsiliValue = $$('#'+id+"_id").val();
 					hesabTafsiliLevels = hesabTafsiliLevels +","+id+'='+ tafsiliValue;
 				});
-				datarow['hesabTafsiliLevels']=hesabTafsiliLevels;
+				datarow['hesabTafsiliTemplateLevels']=hesabTafsiliLevels;
 				continue;
 			}
-			if(fieldId == 'hesabTafsiliDescs'){
+			if(fieldId == 'hesabTafsiliTemplateDescs'){
 				var hesabTafsiliDescs='';
 				$$('input.tafsiliInput').each(function( i ) {
 					var id_desc = $( this ).prop('id');
@@ -198,10 +200,10 @@
 					var desc = $( this ).val();
 					hesabTafsiliDescs = hesabTafsiliDescs +","+id+'='+ desc;
 				});
-				datarow['hesabTafsiliDescs']=hesabTafsiliDescs;
+				datarow['hesabTafsiliTemplateDescs']=hesabTafsiliDescs;
 				continue;
 			}
-			if(fieldId == 'hesabTafsiliLevelNames'){
+			if(fieldId == 'hesabTafsiliTemplateLevelNames'){
 				var hesabTafsiliLevelNames='';
 				$$('input.tafsiliInput').each(function( i ) {
 					var id_desc = $( this ).prop('id');
@@ -209,7 +211,7 @@
 					var desc = $( this ).val();
 					hesabTafsiliLevelNames = hesabTafsiliLevelNames +","+ desc;
 				});
-				datarow['hesabTafsiliLevelNames']=hesabTafsiliLevelNames;
+				datarow['hesabTafsiliTemplateLevelNames']=hesabTafsiliLevelNames;
 				continue;
 			}
 

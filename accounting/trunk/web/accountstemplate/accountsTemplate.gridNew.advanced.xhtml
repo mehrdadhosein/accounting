@@ -17,44 +17,58 @@
 
 <script type="text/javascript">
 
+//this function is used without jsf tag
+function createAutocomplete(id,src, minLength){
+	$$('#'+id+'_desc').autocomplete({
+		minLength: minLength,
+		source: src,
+		focus: function(event, ui) {
+			//$$('#'+id+'_desc').val(ui.item.label);
+			return false;
+		},
+		select: function(event, ui) {
+			//alert('select');
+			$$('#'+id+'_id').val(ui.item.value);
+			$$('#'+id+'_desc').val(ui.item.label);
+			//alert('ddddddddd');
+			//element = document.getElementById(id+'_id');
+			
+			//this statement cause onchange event to be fired
+			//$$('#'+id+'_desc').blur();
+			//fireEvent(element,"change");
+			//eval("evalOnselect"+id+"()");
+			return false;
+		},
+		change: function(event, ui) {
+			//alert('change');
+		}			
+	});
+}
+
 /* <![CDATA[ */
-		var hesabTafsiliTemplates;
+		var hesabTafsilis;
+		function populateHesabTafsiliInputs(hesabTafsiliMap){
+			//hesabTafsilis=result;
+			$$('input.tafsiliInput').each(function( i ) {
+				var id_desc = $( this ).prop('id');
+				var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
+				createAutocomplete(id,hesabTafsiliMap,'0');	
+			});	
+		}
+				
        	$$(function() {
 			$$.ajax({
 				  url: '${request.contextPath}/entities?entity=HesabTafsiliTemplate&property=name&all=true&autocomplete=true&isHierarchical=true&level=1',
 				  cache: false,
 				  success: function(result){
-				    hesabTafsiliTemplates=result;
-					$$('input.tafsiliTemplateInput').each(function( i ) {
-						var id_desc = $( this ).prop('id');
-						var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
-						renderOne(id,hesabTafsiliTemplates,'0');	
-					});					    
+					    hesabTafsilis=result;
+						populateHesabTafsiliInputs(hesabTafsilis);
 				  },
 				  error: function(jqXHR, textStatus, errorThrown){
 						alert(errorThrown);
 					}
 			});
 		});
-		
-		var hesabTafsilis;
-       	$$(function() {
-			$$.ajax({
-				  url: '${request.contextPath}/entities?entity=HesabTafsili&property=name&all=true&autocomplete=true&isHierarchical=true&level=1',
-				  cache: false,
-				  success: function(result){
-				    hesabTafsilis=result;
-					$$('input.tafsiliInput').each(function( i ) {
-						var id_desc = $( this ).prop('id');
-						var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
-						renderOne(id,hesabTafsilis,'0');	
-					});					    
-				  },
-				  error: function(jqXHR, textStatus, errorThrown){
-						alert(errorThrown);
-					}
-			});
-       	});
 
 		$$(function() {
 				$$.ajax({
@@ -104,12 +118,12 @@
 		</h:panelGroup>
 		
 		
-		<h:panelGroup>
-			<h:outputText styleClass="required" value=" " />
+		<h:panelGroup rendered="#{hesabMoeen.levelsSize > 0}">
+			<h:outputText styleClass="required" value="  " />
 			<h:outputLabel 
-				value="#{messages['HesabTafsili_shenavar_list']}" /> : 
+				value="#{messages['HesabTafsili_shenavar_list']}: " />
 		</h:panelGroup>
-		<h:panelGroup>
+		<h:panelGroup  rendered="#{hesabMoeen.levelsSize > 0}">
 			<div id="tafsilis">
 			</div>
 			<p:dataList   type="definition" class="datalist-noborder" value="#{hesabMoeen.levels}" rendered="true"
@@ -119,12 +133,14 @@
 				/* <![CDATA[ */
 					//alert('hesabTafsili#{item}_desc');
 					var inpId = 'hesabTafsiliTemplate#{item}_id';
+					var componentName='hesabTafsiliTemplate#{item}';
 					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:220px">').prop('id','hesabTafsiliTemplate#{item}_desc');
 					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:220px">').prop('id','hesabTafsiliTemplate#{item}_id');
-					$$(inputText).prop('class','tafsiliInput');
+					$$(inputText).prop('class','tafsiliInput  ui-autocomplete-input ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all');
 					$$(inputText).attr('onchange','fireTafsiliShenavarOnChange("'+inpId+'");');
 					$$('#tafsilis').append(inputText);
 					$$('#tafsilis').append(inputHidden);
+					$$('#tafsilis').append('<br/>');
 				/* ]]> */
 				</script>
 			</p:dataList>
@@ -377,8 +393,8 @@
 							{name :'hesabTafsiliTemplateLevelNames', index :'hesabTafsiliTemplateLevels', width :150, sorttype :'string'}, 							
 							{name :'hesabTafsiliTemplateLevels', index :'hesabTafsiliTemplateLevels', width :100, sorttype :'string'}, 
 							{name :'hesabTafsiliTemplateDescs', index :'hesabTafsiliTemplateDescs', width :100, sorttype :'string'},
-							{name :'accountingMarkazID', index :'accountingMarkazID', width :20, sorttype :'string'}, 
-							{name :'accountingMarkazName', index :'accountingMarkazName', width :150, sorttype :'string'}, 
+							{name :'accountingMarkazTemplateID', index :'accountingMarkazTemplateID', width :20, sorttype :'string'}, 
+							{name :'accountingMarkazTemplateName', index :'accountingMarkazTemplateName', width :150, sorttype :'string'}, 
 							{name :'accountingMarkazLevelNames', index :'accountingMarkazLevels', width :150, sorttype :'string'}, 							
 							{name :'accountingMarkazLevels', index :'accountingMarkazLevels', width :100, sorttype :'string'}, 
 							{name :'accountingMarkazDescs', index :'accountingMarkazDescs', width :100, sorttype :'string'}, 							
@@ -439,7 +455,7 @@
 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazLevels'); 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazDescs');
-	$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazID'); 
+	$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazTemplateID'); 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','applyAutomaticTafsili'); 
 
 	
@@ -454,8 +470,8 @@
 
 	
 	function createSanadHesabdariTable(sanadHesabdariXML){
-		var gridItems=new Array('id','templateType','hesabKolTemplateID','hesabKolTemplateName','hesabMoeenTemplateID','hesabMoeenTemplateName','hesabTafsiliTemplateID','hesabTafsiliTemplateName','hesabTafsiliTemplateLevelNames','hesabTafsiliTemplateLevels','hesabTafsiliTemplateDescs','accountingMarkazID','accountingMarkazName','accountingMarkazLevelNames','accountingMarkazLevels','accountingMarkazDescs','applyAutomaticTafsili','applyAutomaticTafsiliName','description');
-		setItems("#sanadHesabdariGrid",gridItems);
+		var gridItems=new Array('id','templateType','hesabKolTemplateID','hesabKolTemplateName','hesabMoeenTemplateID','hesabMoeenTemplateName','hesabTafsiliTemplateID','hesabTafsiliTemplateName','hesabTafsiliTemplateLevelNames','hesabTafsiliTemplateLevels','hesabTafsiliTemplateDescs','accountingMarkazTemplateID','accountingMarkazTemplateName','accountingMarkazLevelNames','accountingMarkazLevels','accountingMarkazDescs','applyAutomaticTafsili','applyAutomaticTafsiliName','description');
+		setItems('#sanadHesabdariGrid',gridItems);
 		
 		createSanadHesabdariGrid(sanadHesabdariXML);
 		var cnt = $$('#sanadHesabdariGrid').jqGrid('getGridParam', 'records');
@@ -515,6 +531,7 @@
 
 	function editSanadHesabdariRowData(gridId,rowId,title){
 		$$(gridId).jqGrid('saveRow',lastRow, false, 'clientArray');
+		clearSanadHesabdariDialog('#sanadHesabdariDialog');
 		var su=$$(gridId).getRowData(rowId);
 
 		var localItems = getItems(gridId);
