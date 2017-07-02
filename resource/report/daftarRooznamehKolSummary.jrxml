@@ -147,18 +147,6 @@
 				<textFieldExpression><![CDATA[$P{toDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="1cdc2cd8-a018-4772-8d54-7ae9e10925f1" style="text" x="104" y="2" width="49" height="20"/>
-				<textElement textAlignment="Right">
-					<font fontName="B Nazanin" size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[تاریخ ایجاد :]]></text>
-			</staticText>
-			<textField isStretchWithOverflow="true">
-				<reportElement uuid="79f21cff-9f06-48bb-abf6-13f64d8e5b54" x="4" y="2" width="100" height="20" isPrintWhenDetailOverflows="true"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$P{creationDate}]]></textFieldExpression>
-			</textField>
-			<staticText>
 				<reportElement uuid="8d36525d-4149-4747-b995-365000c5cdf4" style="text" x="527" y="2" width="61" height="20"/>
 				<textElement textAlignment="Right">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
