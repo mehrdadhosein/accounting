@@ -10,6 +10,7 @@ import ir.serajsamaneh.core.contact.contact.ContactService;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.NoRecordFoundException;
+import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 import java.util.HashMap;
@@ -122,6 +123,15 @@ public class ContactHesabService extends
 		return dataList;
 	}
 
+	public List<ContactHesabEntity> getListBySaalMaali(SaalMaaliEntity saalMaali, OrganEntity organEntity) {
+		
+		HashMap<String,Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("saalMaali.id@eq", saalMaali.getId());
+		localFilter.put("contact.organ.id@eq", organEntity.getId());
+		List<ContactHesabEntity> dataList = getDataList(null, localFilter);
+		return dataList;
+	}
+	
 	@Transactional
 	public ContactHesabEntity createContactHesab(AccountingMarkazTemplateEntity accountingMarkazTemplate, ContactEntity contact, HesabMoeenEntity hesabMoeen, HesabTafsiliEntity hesabTafsili, SaalMaaliEntity saalMaali){
 		ContactHesabEntity contactHesabEntity = new ContactHesabEntity();
