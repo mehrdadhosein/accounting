@@ -639,7 +639,7 @@ public class HesabKolService extends
 	
 	public void copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali,
 			SaalMaaliEntity destSaalMaali, OrganEntity currentOrgan) {
-		List<HesabMoeenEntity> activeMoeens = getHesabMoeenService().getActiveMoeens(srcSaalMaali);
+		List<HesabMoeenEntity> activeMoeens = getHesabMoeenService().getActiveMoeens(srcSaalMaali, currentOrgan);
 		for (HesabMoeenEntity srcHesabMoeenEntity : activeMoeens) {
 			
 			HesabMoeenEntity destHesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(),destSaalMaali, FlushMode.MANUAL);
