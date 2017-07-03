@@ -126,7 +126,7 @@ function createAutocomplete(id,src, minLength){
 		<h:panelGroup  rendered="#{hesabMoeen.levelsSize > 0}">
 			<div id="tafsilis">
 			</div>
-			<p:dataList   type="definition" class="datalist-noborder" value="#{hesabMoeen.levels}" rendered="true"
+			<p:dataList   type="definition" class="datalist-noborder" value="#{hesabMoeen.levels}" rendered="true"  emptyMessage="" 
 				style="list-style-type: none;font-family:Tahoma;font-size:12px"
 				headerClass="header" var="item" align="center">
 				<script>
@@ -166,7 +166,7 @@ function createAutocomplete(id,src, minLength){
 		<h:panelGroup>
 			<div id="accountingMarkazs">
 			</div>
-			<p:dataList   type="definition" class="datalist-noborder" value="#{hesabMoeen.levels}" rendered="true" 
+			<p:dataList   type="definition" class="datalist-noborder" value="#{hesabMoeen.levels}" rendered="true"  emptyMessage="" 
 				style="list-style-type: none;font-family:Tahoma;font-size:12px"
 				headerClass="header" var="item" align="center">
 				<script>
