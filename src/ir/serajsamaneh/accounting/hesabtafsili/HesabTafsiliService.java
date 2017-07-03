@@ -458,7 +458,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			
 			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntityByName = getHesabTafsiliTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
 			if(hesabTafsiliTemplateEntityByName!=null && !hesabTafsiliTemplateEntityByName.getId().equals(hesabTafsiliTemplateEntity.getId()))
-				throw new FatalException(SerajMessageUtil.getMessage("HesabTafsiliTemplate_cantCreateHesabTafsiliTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
+				throw new FatalException(SerajMessageUtil.getMessage("HesabTafsiliTemplate_cantCreateHesabTafsiliTemplateWithDuplicateNameAndnewCode", entity.getCode(),hesabTafsiliTemplateEntityByName.getName()+"("+hesabTafsiliTemplateEntityByName.getCode()+")"));
  
 			hesabTafsiliTemplateEntity.setCode(entity.getCode());
 			hesabTafsiliTemplateEntity.setName(entity.getName());

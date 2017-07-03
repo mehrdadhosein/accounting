@@ -26,25 +26,20 @@
 						value="#{messages['HesabTafsiliTemplate_code']}" /> : 
 				</h:panelGroup>
 				<p:inputText id="code" converter="javax.faces.Long"
-					value="#{hesabTafsiliTemplate.filter['code@eq']}" />
+					value="#{owner.filter['code@eq']}" />
 				<h:panelGroup>
 					<h:outputLabel for="name"
 						value="#{messages['HesabTafsiliTemplate_name']}" /> : 
 				</h:panelGroup>
 				<p:inputText id="name"
-					value="#{hesabTafsiliTemplate.filter['name@lk']}" />
-				<h:panelGroup>
-					<h:outputLabel for="tafsilType"
-						value="#{messages['HesabTafsiliTemplate_tafsilType']}" /> : 
-				</h:panelGroup>
-				<p:inputText id="tafsilType"
-					value="#{hesabTafsiliTemplate.filter['tafsilType@lk']}" />
+					value="#{owner.filter['name@lk']}" />
+
 				<h:panelGroup>
 					<h:outputLabel for="description"
 						value="#{messages['HesabTafsiliTemplate_description']}" /> : 
 				</h:panelGroup>
 				<p:inputText id="description"
-					value="#{hesabTafsiliTemplate.filter['description@lk']}" />
+					value="#{owner.filter['description@lk']}" />
 
 
 			</p:panelGrid>

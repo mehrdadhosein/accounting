@@ -516,8 +516,8 @@ public class HesabKolService extends
 	}
 
 	@Transactional(readOnly=false)
-	public void copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali, SaalMaaliEntity destSaalMaali){
-		List<AccountingMarkazEntity> srcActiveAccountingMarkaz = getAccountingMarkazService().getActiveAccountingMarkaz(srcSaalMaali);
+	public void copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali, SaalMaaliEntity destSaalMaali, OrganEntity organEntity){
+		List<AccountingMarkazEntity> srcActiveAccountingMarkaz = getAccountingMarkazService().getActiveAccountingMarkaz(srcSaalMaali, organEntity);
 		for (AccountingMarkazEntity srcAccountingMarkazEntity : srcActiveAccountingMarkaz) {
 			AccountingMarkazEntity destAccountingMarkazEntity = getAccountingMarkazService().loadAccountingMarkazByCode(srcAccountingMarkazEntity.getCode(), destSaalMaali,FlushMode.ALWAYS);
 			if(destAccountingMarkazEntity == null || destAccountingMarkazEntity.getId() == null){
@@ -536,26 +536,10 @@ public class HesabKolService extends
 
 	}
 	@Transactional(readOnly=false)
-	public void copycontactHesabsFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali, SaalMaaliEntity destSaalMaali){
+	public void copycontactHesabsFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali, SaalMaaliEntity destSaalMaali, OrganEntity organEntity){
 		
-//		List<AccountingMarkazEntity> srcActiveAccountingMarkaz = getAccountingMarkazService().getActiveAccountingMarkaz(srcSaalMaali);
-//		for (AccountingMarkazEntity srcAccountingMarkazEntity : srcActiveAccountingMarkaz) {
-//			AccountingMarkazEntity destAccountingMarkazEntity = getAccountingMarkazService().loadAccountingMarkazByCode(srcAccountingMarkazEntity.getCode(), destSaalMaali,FlushMode.ALWAYS);
-//			if(destAccountingMarkazEntity == null || destAccountingMarkazEntity.getId() == null){
-//				destAccountingMarkazEntity = getAccountingMarkazService().createAccountingMarkaz(destSaalMaali, srcAccountingMarkazEntity);
-//			}
-//
-//			AccountingMarkazTemplateEntity accountingMarkazTemplateEntity = getAccountingMarkazTemplateService().load(destAccountingMarkazEntity.getCode(), destSaalMaali.getOrgan());
-//			if(accountingMarkazTemplateEntity == null)
-//				accountingMarkazTemplateEntity = getAccountingMarkazTemplateService().createAccountingMarkazTemplate(destAccountingMarkazEntity.getCode(), destAccountingMarkazEntity.getName(), destSaalMaali.getOrgan());
-//		}
-//		
-//		for (AccountingMarkazEntity srcAccountingMarkazEntity : srcActiveAccountingMarkaz) {
-//			AccountingMarkazEntity destAccountingMarkazEntity = getAccountingMarkazService().loadAccountingMarkazByCode(srcAccountingMarkazEntity.getCode(), destSaalMaali,FlushMode.ALWAYS);
-//			getAccountingMarkazService().createAccountingMarkazRelatedEntities(srcAccountingMarkazEntity, destAccountingMarkazEntity, destSaalMaali);
-//		}
 		
-		List<ContactHesabEntity> contactHesabList = getContactHesabService().getListBySaalMaali(srcSaalMaali);
+		List<ContactHesabEntity> contactHesabList = getContactHesabService().getListBySaalMaali(srcSaalMaali, organEntity);
 		for (ContactHesabEntity contactHesabEntity : contactHesabList) {
 			try{
 				getContactHesabService().getContactHesabByContactIdAndSaalMaali(contactHesabEntity.getContact().getId(), destSaalMaali);
@@ -575,8 +559,8 @@ public class HesabKolService extends
 	}
 
 	public void copyHesabTafsiliRelatedEntities(SaalMaaliEntity srcSaalMaali,
-			SaalMaaliEntity destSaalMaali) {
-		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali);
+			SaalMaaliEntity destSaalMaali, OrganEntity organEntity) {
+		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali, organEntity);
 		for (HesabTafsiliEntity srcHesabTafsiliEntity : srcActiveTafsilis) {
 			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali);
 			getHesabTafsiliService().copyHesabTafsiliRelatedEntities(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
@@ -587,7 +571,7 @@ public class HesabKolService extends
 	@Transactional(readOnly=false)
 	public void copyHesabTafsilissFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali,
 			SaalMaaliEntity destSaalMaali, OrganEntity currentOrgan) {
-		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali);
+		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali, currentOrgan);
 		for (HesabTafsiliEntity srcHesabTafsiliEntity : srcActiveTafsilis) {
 
 			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali,FlushMode.ALWAYS);
@@ -608,9 +592,8 @@ public class HesabKolService extends
 					System.out.println(e.getDesc());
 					continue;//not important exception
 				}
-			}
-			
-			getHesabTafsiliService().createOrUpdateRelatedHesabTafsiliTemplate(srcHesabTafsiliEntity, srcSaalMaali.getOrgan());
+			}else
+				getHesabTafsiliService().createOrUpdateRelatedHesabTafsiliTemplate(srcHesabTafsiliEntity, srcSaalMaali.getOrgan());
 			
 //			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCode(destHesabTafsiliEntity.getCode().toString(), destSaalMaali.getOrgan());
 //			if(hesabTafsiliTemplateEntity == null){

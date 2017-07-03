@@ -193,9 +193,9 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 		getHesabKolService().copyHesabKolsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
 		getHesabKolService().copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
 		getHesabKolService().copyHesabTafsilissFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
-		getHesabKolService().copyHesabTafsiliRelatedEntities(getSrcSaalMaali(), getEntity());
-		getHesabKolService().copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity());
-		getHesabKolService().copycontactHesabsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity());
+		getHesabKolService().copyHesabTafsiliRelatedEntities(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
+		getHesabKolService().copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
+		getHesabKolService().copycontactHesabsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
 	}
 }
