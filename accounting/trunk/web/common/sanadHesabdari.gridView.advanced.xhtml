@@ -146,7 +146,7 @@
 	resize();
 	}
 
-	#{dwrFormName}.getSanadHesabdariItemList('#{owner.entity.id}',function(sanadHesabdariList){
+	sanadHesabdari.getSanadHesabdariItemList('#{owner.entity.id}',function(sanadHesabdariList){
 		var gridItems=new Array('id','hesabKolID','hesabKolName','hesabMoeenID','hesabMoeenName','hesabTafsiliID','hesabTafsiliName','hesabTafsiliLevelNames','hesabTafsiliLevels','hesabTafsiliDescs','accountingMarkazID','accountingMarkazName','accountingMarkazLevelNames','accountingMarkazLevels','accountingMarkazDescs','markazHazineID','markazHazineName','projectID','projectName','bedehkar','bestankar','description');
 		var globalRowId = sanadHesabdariList.length;
 		setGridGlobalRowId('sanadHesabdariGrid',globalRowId);
