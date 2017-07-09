@@ -70,6 +70,8 @@
 			<column name='hesab_classification_id' />
 		</many-to-one>
 		
+		<!--property name='isShenavar' type='boolean' column='is_shenavar' /-->
+		
 	</class>
 
 </hibernate-mapping>
