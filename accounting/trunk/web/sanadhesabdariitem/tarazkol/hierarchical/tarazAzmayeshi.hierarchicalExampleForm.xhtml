@@ -157,7 +157,14 @@
 				</h:panelGroup>
 				<h:selectBooleanCheckbox id="displayZeroMandehInTaraz" label="displayZeroMandehInTaraz"
 					value="#{owner.displayZeroMandehInTaraz}" />
-					
+
+				<h:panelGroup>
+					<h:outputLabel for="beforeClosingAccounts"
+						value="#{messages['SanadHesabdari_beforeClosingAccounts']}" /> : 
+				</h:panelGroup>
+				<h:selectBooleanCheckbox id="beforeClosingAccounts" label="beforeClosingAccounts"
+					value="#{owner.beforeClosingAccounts}" />
+										
 			</p:panelGrid>
 			<t:div>
 				<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel" 

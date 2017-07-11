@@ -93,204 +93,74 @@
 	</ui:define>
 
 	<ui:define name="listsection">
+	<style>
+		.even{
+			background-color:#E6E6FA;
+		}
+		.uneven{
+			background-color:#F0F8FF;
+		}
+		div.gridbox_material.gridbox table.hdr td div.hdrcell{
+			font-family:yekan;
+		}
+		div.gridbox_material.gridbox table.obj.row20px tr.rowselected td{
+			font-family:yekan;
+		}
+		div.gridbox_material.gridbox table.obj.row20px tr td{
+			font-family:yekan;
+		}
 		
-		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
-			<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
-			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			reflow="true"
-			 dir="rtl"
-			 id="sanadHesabdariItems"
-				value="#{sanadHesabdariItem.daftarKolDataModel}"
-				headerClass="header" var="item" rowClasses="RowOdd,RowEven"
-				style="width: 97%" align="center">
-				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
+		table.hdr{
+			margin-left: 20px!important;
+			padding-left: 20px!important;
+			margin-right: 0px!important;
+			padding-right: 0px!important;			
+		}
 
-
-
-				<p:column style="width:50px">
-					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
-							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['SanadHesabdari_tempSerial']}">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SanadHesabdari_tempSerial']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="sanadHesabdari.tempSerial"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
-					</f:facet>
-					<h:outputText styleClass="CellClass"
-						value="#{item.sanadHesabdari.tempSerial}" />
-				</p:column>
-
-				<p:column style="width:50px">
-					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
-							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['SanadHesabdari_serial']}">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SanadHesabdari_serial']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="sanadHesabdari.serial"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
-					</f:facet>
-					<h:outputText styleClass="CellClass"
-						value="#{item.sanadHesabdari.serial}" />
-				</p:column>
-
-				<p:column style="width:100px">
-					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
-							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['SanadHesabdari_tarikhSanad']}">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SanadHesabdari_tarikhSanad']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="sanadHesabdari.tarikhSanad"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
-					</f:facet>
-					<h:outputText styleClass="CellClass"
-						value="#{item.sanadHesabdari.tarikhSanad}" />
-				</p:column>
-
-
-				<p:column style="width:150px">
-					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
-							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['SanadHesabdariItem_hesabKol']}">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SanadHesabdariItem_hesabKol']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabKol.name"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabKol.desc}" />
-				</p:column>
-
-				<p:column style="width:50px">
-					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
-							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['HesabKol_code']}">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['HesabKol_code']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabMoeen.hesabKol.code"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
-					</f:facet>
-					<h:outputText styleClass="CellClass"
-						value="#{item.hesabMoeen.hesabKol.code}" />
-				</p:column>
-
-				<p:column>
-					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
-							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['SanadHesabdariItem_description']}">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SanadHesabdariItem_description']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="description"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.description}" />
-				</p:column>
-
-
-
-				<p:column style="width:100px">
-					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
-							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['SanadHesabdariItem_bedehkar']}">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SanadHesabdariItem_bedehkar']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="bedehkar"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"
-						converter="seraj.converter.accountingNumberFormatter" />
-				</p:column>
-
-				<p:column style="width:100px">
-					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
-							oncomplete="hideLoading();" styleClass="headerCellClass"
-							title="#{messages['SanadHesabdariItem_bestankar']}">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SanadHesabdariItem_bestankar']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="bestankar"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.bestankar}"
-						converter="seraj.converter.accountingNumberFormatter" />
-				</p:column>
-
-				<p:column styleClass="action">
-					<f:facet name="header">
-						<h:outputText styleClass="headerCellClass"
-							value="#{messages['common_view']}" />
-					</f:facet>
-
-					<h:commandLink id="viewSanadLink"
-						onclick="viewSanad(#{item.sanadHesabdari.id});return false;">
-						<h:graphicImage value="/images/view.png" style="border:0" />
-					</h:commandLink>
-				</p:column>
-			</p:dataTable>
-		</t:div>
-		<custom:dataTableRowCount for="sanadHesabdariItems" />
-
+		div.gridbox_material.gridbox table.hdr tr:nth-child(2) td{
+			text-align: right;
+		}
+		
+		div.gridbox table{
+			direction:RTL;
+		}
+	</style>	
+		<h:inputHidden value="#{owner.daftarKolJsonList}" id="daftarKolJsonList" />
+		<div id="gridbox" style="height:500px; background-color:white;"></div>		
+		<script>
+			var myGrid;
+			function createGrid(){
+				debugger;
+				myGrid = new dhtmlXGridObject('gridbox');
+				myGrid.setImagePath("${request.contextPath}/js/dhtmlxSuite_v508_pro_eval/skins/terrace/imgs/dhxgrid_terrace/");
+				//myGrid.setSkin('Material');
+				myGrid.setHeader("&nbsp;,entityId,#{messages['SanadHesabdari_tempSerial']}, #{messages['SanadHesabdari_serial']}, #{messages['SanadHesabdari_tarikhSanad']},#{messages['SanadHesabdariItem_hesabKol']},#{messages['HesabKol_code']},#{messages['SanadHesabdariItem_description']},#{messages['SanadHesabdariItem_bedehkar']},#{messages['SanadHesabdariItem_bestankar']}");
+				myGrid.setInitWidths("40,40,80,80,100,250,50,400,100,100,*");
+				myGrid.enableAutoWidth(true);
+				myGrid.enableAutoHeight(true);
+				myGrid.setColAlign("right,right,left,left,left,left,left,left,left,left");
+				myGrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
+				myGrid.setColumnColor("#CCE2FE");
+				myGrid.setNumberFormat("0,000.00",0,".",","); 
+				myGrid.csv.cell=';';
+				//myGrid.setColSorting("int,str,str");
+				myGrid.attachEvent("onRowDblClicked",doOnRowSelect);
+				myGrid.setColumnHidden(1,true);
+				myGrid.init();
+				myGrid.splitAt(1);
+				myGrid.enableLightMouseNavigation(true);
+				//myGrid.load($$('#daftarKolJsonList'),"json");
+				myGrid.enableAlterCss("even","uneven");
+				myGrid.parse($$('#daftarKolJsonList').val(),"csv");
+			}		
+			
+			function doOnRowSelect(rowId){
+				debugger;
+				//var row = myGrid.getRowData(rowId);
+				var cell = myGrid.cellById(rowId,1);
+				viewSanad(cell.getValue());
+			}
+		</script>
 		<p:panel id="mandehAzGhablPanel"
 			style="z-index:1;display:none;border: #6694E3 3px solid; left:30%;top:5%;width:50%;max-height:90%;overflow: scroll;background-color:#F3F3F3;position:fixed">
 			<p:panelGrid columns="2" layout="grid" width="90%"
