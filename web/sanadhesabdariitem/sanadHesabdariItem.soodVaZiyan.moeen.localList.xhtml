@@ -19,8 +19,6 @@
 	<ui:define name="listsection">
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
 			<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
-			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			
 			 dir="rtl"
 			 id="sanadHesabdariINCOMEItems"
 				value="#{sanadHesabdariItem.incomeGroupByHesabMoeen}"
@@ -65,8 +63,6 @@
 
 			</p:dataTable>
 			<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
-			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			
 			 dir="rtl"
 			 id="sanadHesabdariEXPENSEItems"
 				value="#{sanadHesabdariItem.expenseGroupByHesabMoeen}"
