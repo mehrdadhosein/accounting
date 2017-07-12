@@ -25,7 +25,6 @@ import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
-import ir.serajsamaneh.core.base.model.SerajDataModel;
 import ir.serajsamaneh.core.converter.CSVtoListOfLongConverter;
 import ir.serajsamaneh.core.exception.MaxExcelRecordExportException;
 import ir.serajsamaneh.core.organ.OrganEntity;
@@ -904,28 +903,33 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 	
 	public String printDaftarKol() {
 		
-		createDaftarLocalFilter(getCurrentOrgan());
 		String organName = getCurrentOrgan().getName();
 		return printDaftarKol(organName);
 	}
 	
 	public String printHierarchicalDaftarKol() {
 		
-		createDaftarHierarchicalFilter();
+		
 		String organName = getHierarchicalOrganName();
-		//setDefaultSortCol("sanadHesabdari.tarikhSanad");
 		return printDaftarKol(organName);
 	}
 
 
 
 	private String printDaftarKol(String organName) {
+		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getDaftarKolList();
+		return printDaftarKol(organName, daftarKolListSortedByMahiat);
+	}
+
+
+
+	private List<SanadHesabdariItemEntity> getDaftarKolList() {
 		setDefaultSortType(true);
-		
+		createDaftarHierarchicalFilter();
 		List<String> orderByCols = Arrays.asList("hesabKol.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
 		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getSanadHesabdariItemListSortedByMahiat(daftarKolList);
-		return printDaftarKol(organName, daftarKolListSortedByMahiat);
+		return daftarKolListSortedByMahiat;
 	}
 
 	
@@ -2163,12 +2167,16 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		StringWriter writer = new StringWriter();
 		CSVWriter csvWriter = new CSVWriter(writer, ';',CSVWriter.NO_QUOTE_CHARACTER);
 		try {
-			List<SanadHesabdariItemEntity> list = ((SerajDataModel<SanadHesabdariItemEntity>)getDaftarKolDataModel()).fetchAll();
+			List<SanadHesabdariItemEntity> list = getDaftarKolList();//((SerajDataModel<SanadHesabdariItemEntity>)getDaftarKolDataModel()).fetchAll();
 			Integer index = 0;
+			Double mandeh = 0d;
+			String tashkhis = "";
 			List<SanadHesabdariItemVO> sanadHesabdariItemVOs = new ArrayList<>();
 			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : list) {
 				sanadHesabdariItemVOs.add(new SanadHesabdariItemVO(sanadHesabdariItemEntity));
-				String[] nextLine = {new Integer(++index).toString(), sanadHesabdariItemEntity.getSanadHesabdari().getId().toString(), sanadHesabdariItemEntity.getTempSanadSerial(), sanadHesabdariItemEntity.getSanadSerial(), sanadHesabdariItemEntity.getSanadHesabdari().getTarikhSanadFA(), sanadHesabdariItemEntity.getHesabKol().getName(), sanadHesabdariItemEntity.getHesabKolCode(), sanadHesabdariItemEntity.getDescription(), getBigDecimalFormatted(sanadHesabdariItemEntity.getBedehkar(),0), getBigDecimalFormatted(sanadHesabdariItemEntity.getBestankar(),0)};
+				mandeh = sanadHesabdariItemEntity.getBedehkar() - sanadHesabdariItemEntity.getBestankar() +  mandeh;
+				tashkhis = mandeh > 0 ? SerajMessageUtil.getMessage("SanadHesabdari_bed") : SerajMessageUtil.getMessage("SanadHesabdari_bes");
+				String[] nextLine = {new Integer(++index).toString(), sanadHesabdariItemEntity.getSanadHesabdari().getId().toString(), sanadHesabdariItemEntity.getTempSanadSerial(), sanadHesabdariItemEntity.getSanadSerial(), sanadHesabdariItemEntity.getSanadHesabdari().getTarikhSanadFA(), sanadHesabdariItemEntity.getHesabKol().getName(), sanadHesabdariItemEntity.getHesabKolCode(), sanadHesabdariItemEntity.getDescription(), getBigDecimalFormatted(sanadHesabdariItemEntity.getBedehkar(),0), getBigDecimalFormatted(sanadHesabdariItemEntity.getBestankar(),0), getBigDecimalFormatted(mandeh,0),tashkhis};
 				csvWriter.writeNext(nextLine);
 //				Map data = new HashMap<>();
 			}
