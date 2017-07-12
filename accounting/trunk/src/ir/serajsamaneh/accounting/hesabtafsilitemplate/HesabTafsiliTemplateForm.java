@@ -1,15 +1,6 @@
 package ir.serajsamaneh.accounting.hesabtafsilitemplate;
 
-import ir.serajsamaneh.accounting.base.BaseAccountingForm;
-import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
-import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
-import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.util.SerajMessageUtil;
-import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,6 +8,14 @@ import java.util.Set;
 import javax.faces.model.DataModel;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
+
+import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
+import ir.serajsamaneh.core.base.BaseEntity;
+import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
+import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
 public class HesabTafsiliTemplateForm extends
 		BaseAccountingForm<HesabTafsiliTemplateEntity, Long> {
@@ -129,7 +128,7 @@ public class HesabTafsiliTemplateForm extends
 				.getTafsiliMoeenTemplateMap(getCurrentOrgan());
 	}
 
-	public Map<Long, List<ListOrderedMap>> getTafsiliChildTemplateMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliChildTemplateMap() {
 		return HesabTemplateRelationsUtil
 				.getTafsiliChildTemplateMap(getCurrentOrgan());
 	}
