@@ -39,6 +39,7 @@
 
 	</ui:define>
 	<ui:define name="topSection">
+<link href="${request.contextPath}/js/dhtmlxSuite_v508_pro_eval/skins/material/dhtmlx.css" rel="stylesheet" type="text/css" />	
 
 		<style>
 .ui-shadow {
@@ -95,19 +96,26 @@
 	<ui:define name="listsection">
 	<style>
 		.even{
-			background-color:#E6E6FA;
+			background-color:white;
 		}
 		.uneven{
-			background-color:#F0F8FF;
+			background-color:#f9f9f9;
+		}
+		div.gridbox_material.gridbox table.obj tr td{
+			font-family:yekan!important;
+			font-size:12px!important;
 		}
 		div.gridbox_material.gridbox table.hdr td div.hdrcell{
-			font-family:yekan;
+			font-family:yekan!important;
+			font-size:12px!important;
 		}
 		div.gridbox_material.gridbox table.obj.row20px tr.rowselected td{
-			font-family:yekan;
+			font-family:yekan!important;
+			font-size:12px!important;
 		}
 		div.gridbox_material.gridbox table.obj.row20px tr td{
-			font-family:yekan;
+			font-family:yekan!important;
+			font-size:12px!important;
 		}
 		
 		table.hdr{
@@ -118,40 +126,50 @@
 		}
 
 		div.gridbox_material.gridbox table.hdr tr:nth-child(2) td{
-			text-align: right;
+			text-align: right!important;
 		}
 		
 		div.gridbox table{
 			direction:RTL;
 		}
+		div.gridbox_material.gridbox .xhdr {
+			background-color: #f4f4f4;
+			border-bottom: 2px solid #53abe6;
+		}		
 	</style>	
 		<h:inputHidden value="#{owner.daftarKolJsonList}" id="daftarKolJsonList" />
-		<div id="gridbox" style="height:500px; background-color:white;"></div>		
+		<div id="gridbox" style="direction:rtl; width:100%;height:500px; background-color:white;"></div>		
 		<script>
 			var myGrid;
 			function createGrid(){
 				debugger;
+				if(myGrid)
+					myGrid.destructor();
 				myGrid = new dhtmlXGridObject('gridbox');
 				myGrid.setImagePath("${request.contextPath}/js/dhtmlxSuite_v508_pro_eval/skins/terrace/imgs/dhxgrid_terrace/");
 				//myGrid.setSkin('Material');
-				myGrid.setHeader("&nbsp;,entityId,#{messages['SanadHesabdari_tempSerial']}, #{messages['SanadHesabdari_serial']}, #{messages['SanadHesabdari_tarikhSanad']},#{messages['SanadHesabdariItem_hesabKol']},#{messages['HesabKol_code']},#{messages['SanadHesabdariItem_description']},#{messages['SanadHesabdariItem_bedehkar']},#{messages['SanadHesabdariItem_bestankar']}");
-				myGrid.setInitWidths("40,40,80,80,100,250,50,400,100,100,*");
+				myGrid.setHeader("&nbsp;,entityId,#{messages['SanadHesabdari_tempSerial']}, #{messages['SanadHesabdari_serial']}, #{messages['SanadHesabdari_tarikhSanad']},#{messages['SanadHesabdariItem_hesabKol']},#{messages['HesabKol_code']},#{messages['SanadHesabdariItem_description']},#{messages['SanadHesabdariItem_bedehkar']},#{messages['SanadHesabdariItem_bestankar']},#{messages['SanadHesabdariItem_mandeh']}, &nbsp;");
+				myGrid.setInitWidths("30,1,65,60,65,150,50,*,90,90,90,30");
 				myGrid.enableAutoWidth(true);
 				myGrid.enableAutoHeight(true);
-				myGrid.setColAlign("right,right,left,left,left,left,left,left,left,left");
-				myGrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
+				myGrid.setColAlign("right,right,left,left,left,left,left,left,left,left,left,left");
+				myGrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
 				myGrid.setColumnColor("#CCE2FE");
 				myGrid.setNumberFormat("0,000.00",0,".",","); 
+				//myGrid.attachFooter("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
 				myGrid.csv.cell=';';
 				//myGrid.setColSorting("int,str,str");
 				myGrid.attachEvent("onRowDblClicked",doOnRowSelect);
 				myGrid.setColumnHidden(1,true);
+				myGrid.enableMultiline(true);
+				dhtmlxEvent(window, "resize", function () { myGrid.setSizes(); });
 				myGrid.init();
 				myGrid.splitAt(1);
 				myGrid.enableLightMouseNavigation(true);
 				//myGrid.load($$('#daftarKolJsonList'),"json");
 				myGrid.enableAlterCss("even","uneven");
 				myGrid.parse($$('#daftarKolJsonList').val(),"csv");
+				$$('#daftarKolJsonList').val("");
 			}		
 			
 			function doOnRowSelect(rowId){

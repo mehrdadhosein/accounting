@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="daftarKol" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="d72d72b6-9572-48be-ad60-61a7fd22964b">
 	<property name="ireport.zoom" value="1.0000000000000002"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="24"/>
 	<property name="ireport.y" value="0"/>
 	<style name="title" hAlign="Center" vAlign="Middle" fontName="B Nazanin" fontSize="16" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BNazanin.ttf" pdfEncoding="Identity-H"/>
 	<style name="reportTitle" hAlign="Center" vAlign="Middle" fontName="B Tir" fontSize="16" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="BTitr.ttf" pdfEncoding="Identity-H"/>
@@ -189,25 +189,25 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="beea4c71-3f7a-4fda-a8eb-896721cbd522" style="reportTitle" x="316" y="32" width="189" height="30"/>
+				<reportElement uuid="beea4c71-3f7a-4fda-a8eb-896721cbd522" style="reportTitle" x="203" y="32" width="302" height="30"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="B Nazanin" size="22" isBold="true" isStrikeThrough="false" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<text><![CDATA[دفتر کل]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="2c568c28-95c6-4735-aa47-809ce318801d" x="505" y="40" width="227" height="20" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="2c568c28-95c6-4735-aa47-809ce318801d" x="505" y="40" width="200" height="20" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{hesabMoeen}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="5ed80b96-b44a-4238-8e07-dc82a456a81d" x="505" y="21" width="227" height="20" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="5ed80b96-b44a-4238-8e07-dc82a456a81d" x="505" y="21" width="200" height="20" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{hesabKol}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="0e3e3f27-1d3f-4883-b652-7dba561bb73d" style="text" x="100" y="59" width="49" height="20"/>
-				<textElement textAlignment="Right">
+				<reportElement uuid="0e3e3f27-1d3f-4883-b652-7dba561bb73d" style="text" x="100" y="59" width="80" height="20"/>
+				<textElement textAlignment="Left">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[تاریخ سند تا : ]]></text>
@@ -227,33 +227,33 @@
 				<textFieldExpression><![CDATA[$P{toDate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="4dac9001-9b72-4620-b795-aaeb330f343a" style="text" x="100" y="40" width="49" height="20"/>
-				<textElement textAlignment="Right">
+				<reportElement uuid="4dac9001-9b72-4620-b795-aaeb330f343a" style="text" x="100" y="40" width="80" height="20"/>
+				<textElement textAlignment="Left">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[تاریخ سند از : ]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="fa6231fb-b451-4aab-b818-14812a51d1c2" x="505" y="59" width="227" height="20" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="fa6231fb-b451-4aab-b818-14812a51d1c2" x="505" y="59" width="200" height="20" isPrintWhenDetailOverflows="true"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{hesabTafsili}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="6a60acaf-ebe3-49e4-9063-65a5b7ea8c89" style="text" x="100" y="21" width="49" height="20"/>
-				<textElement textAlignment="Right">
+				<reportElement uuid="6a60acaf-ebe3-49e4-9063-65a5b7ea8c89" style="text" x="100" y="21" width="80" height="20"/>
+				<textElement textAlignment="Left">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[ایجاد کننده : ]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="d6579e4a-785f-4655-ad78-cbc42ebacd05" x="149" y="3" width="356" height="29"/>
-				<textElement textAlignment="Right">
+				<reportElement uuid="d6579e4a-785f-4655-ad78-cbc42ebacd05" x="203" y="3" width="302" height="29"/>
+				<textElement>
 					<font fontName="B Nazanin" size="22" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{organName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="6aa1256e-832b-4715-b8b1-96d6c18c98cd" x="632" y="2" width="100" height="20"/>
+				<reportElement uuid="6aa1256e-832b-4715-b8b1-96d6c18c98cd" x="505" y="2" width="200" height="20"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$P{saalMaali}]]></textFieldExpression>
 			</textField>
@@ -263,29 +263,29 @@
 				<textFieldExpression><![CDATA[$P{creatorUser}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="0a172950-a932-4845-bfba-527ca70dfbfb" style="text" x="732" y="40" width="61" height="20"/>
-				<textElement textAlignment="Right">
+				<reportElement uuid="0a172950-a932-4845-bfba-527ca70dfbfb" style="text" x="705" y="40" width="88" height="20"/>
+				<textElement textAlignment="Left">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[حساب معین : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="887b52fd-6874-4ef3-8b9b-0562d04f0c09" style="text" x="732" y="2" width="61" height="20"/>
-				<textElement textAlignment="Right">
+				<reportElement uuid="887b52fd-6874-4ef3-8b9b-0562d04f0c09" style="text" x="705" y="2" width="88" height="20"/>
+				<textElement textAlignment="Left">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[سال مالی : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="97c45e26-4a95-476e-a139-5dfd1d828eda" style="text" x="732" y="21" width="61" height="20"/>
-				<textElement textAlignment="Right">
+				<reportElement uuid="97c45e26-4a95-476e-a139-5dfd1d828eda" style="text" x="705" y="21" width="88" height="20"/>
+				<textElement textAlignment="Left">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[حساب کل : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2187d370-b38c-4156-9792-c40f95cfcf8b" style="text" x="732" y="59" width="61" height="20"/>
-				<textElement textAlignment="Right">
+				<reportElement uuid="2187d370-b38c-4156-9792-c40f95cfcf8b" style="text" x="705" y="59" width="88" height="20"/>
+				<textElement textAlignment="Left">
 					<font fontName="B Nazanin" size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[حساب تفصیلی : ]]></text>
