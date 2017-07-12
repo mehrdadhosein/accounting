@@ -160,14 +160,14 @@ public class HesabTafsiliTemplateService extends
 	}
 
 	@Transactional(readOnly=true)
-	public Map<Long, List<ListOrderedMap>> getTafsiliChildTemplateMap(OrganEntity organEntity) {
-		Map<Long, List<ListOrderedMap>> tafsiliChildTemplateMap = new HashMap<>();
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliChildTemplateMap(OrganEntity organEntity) {
+		Map<Long, List<ListOrderedMap<String, Object>>> tafsiliChildTemplateMap = new HashMap<>();
 		List<HesabTafsiliTemplateEntity> tafsiliList = getActiveTafsilis(organEntity);
 		for (HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity : tafsiliList) {
-			List<ListOrderedMap> hesabTafsiliTemplateList = new ArrayList<ListOrderedMap>();
+			List<ListOrderedMap<String, Object>> hesabTafsiliTemplateList = new ArrayList<ListOrderedMap<String, Object>>();
 			for (HesabTafsiliTemplateEntity tafsiliEntity : hesabTafsiliTemplateEntity.getChilds()) {
 				if(tafsiliEntity.getHidden().equals(false)){
-					ListOrderedMap bankBranchItemMap = new ListOrderedMap();
+					ListOrderedMap<String, Object> bankBranchItemMap = new ListOrderedMap<String, Object>();
 					bankBranchItemMap.put("value",tafsiliEntity.getID());
 					bankBranchItemMap.put("label",tafsiliEntity.getDesc());
 					hesabTafsiliTemplateList.add(bankBranchItemMap);

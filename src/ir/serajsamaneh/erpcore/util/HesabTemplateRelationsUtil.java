@@ -222,17 +222,17 @@ public class HesabTemplateRelationsUtil {
 	
 	////////////////tafsili child map//////////////////////////////////////////
 	
-	public static Map<Long, Map<Long, List<ListOrderedMap>>> organizationalTafsiliChildTemplateMap = new HashMap<Long, Map<Long,List<ListOrderedMap>>>();
+	public static Map<Long, Map<Long, List<ListOrderedMap<String, Object>>>> organizationalTafsiliChildTemplateMap = new HashMap<Long, Map<Long,List<ListOrderedMap<String, Object>>>>();
 	
 	public static void resetTafsiliChildTemplateMap(OrganEntity organEntity){
 		organizationalTafsiliChildTemplateMap.put(organEntity.getId(), null);
 	}
 	
-	public static Map<Long, List<ListOrderedMap>> getTafsiliChildTemplateMap(OrganEntity organEntity) {
+	public static Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliChildTemplateMap(OrganEntity organEntity) {
 
-		Map<Long, List<ListOrderedMap>> tafsiliChildTemplateMap = organizationalTafsiliChildTemplateMap.get(organEntity.getId());
+		Map<Long, List<ListOrderedMap<String, Object>>> tafsiliChildTemplateMap = organizationalTafsiliChildTemplateMap.get(organEntity.getId());
 		if(tafsiliChildTemplateMap == null){
-			tafsiliChildTemplateMap = new HashMap<Long, List<ListOrderedMap>>();
+			tafsiliChildTemplateMap = new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 			tafsiliChildTemplateMap = getHesabTafsiliTemplateService().getTafsiliChildTemplateMap(organEntity);
 			
 			organizationalTafsiliChildTemplateMap.put(organEntity.getId(), tafsiliChildTemplateMap);
