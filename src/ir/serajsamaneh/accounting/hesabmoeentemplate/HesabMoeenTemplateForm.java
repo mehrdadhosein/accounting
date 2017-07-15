@@ -80,7 +80,12 @@ public class HesabMoeenTemplateForm extends
 	}
 
 	public Map<Long, List<ListOrderedMap>> getAccountingMarkazTemplateMap() {
-		return HesabTemplateRelationsUtil.getAccountingMarkazTemplateMap(getCurrentUserActiveSaalMaali().getOrgan());
+		try{
+			return HesabTemplateRelationsUtil.getAccountingMarkazTemplateMap(getCurrentUserActiveSaalMaali().getOrgan());
+		}catch(NoSaalMaaliFoundException e){
+			return new HashMap<Long, List<ListOrderedMap>>();
+		}		
+		
 	}
 	
 	@Override
