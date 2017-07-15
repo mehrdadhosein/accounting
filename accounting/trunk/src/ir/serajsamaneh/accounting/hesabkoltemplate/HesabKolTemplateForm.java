@@ -1,12 +1,14 @@
 package ir.serajsamaneh.accounting.hesabkoltemplate;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +50,11 @@ public class HesabKolTemplateForm extends
 	}
 
 	public Map<Long, List<ListOrderedMap>> getKolMoeenTemplateMap() {
-		return HesabTemplateRelationsUtil.getKolMoeenTemplateMap(getCurrentUserActiveSaalMaali().getOrgan());
+		try{
+			return HesabTemplateRelationsUtil.getKolMoeenTemplateMap(getCurrentUserActiveSaalMaali().getOrgan());
+		}catch(NoSaalMaaliFoundException e){
+			return new HashMap<Long, List<ListOrderedMap>>();
+		}
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.collections4.map.ListOrderedMap;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.moeenaccountingmarkaz.MoeenAccountingMarkazEntity;
@@ -158,18 +159,26 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	@Override
 	public List<? extends BaseEntity> getJsonList(String property, String term,
 			boolean all, Map<String, String> params) {
-		String isHierarchical = params.get("isHierarchical");
-		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
-		
-		if (isHierarchical !=null && isHierarchical.equals("true")){
-			List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
-			getFilter().put("organ.id@in", topOrganList);
+
+		try{
+			String isHierarchical = params.get("isHierarchical");
+			getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 			
-//			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-			params.put("isLocal","false");
-		}
+			if (isHierarchical !=null && isHierarchical.equals("true")){
+				List<Long> topOrganList = getTopOrgansIdList(getCurrentOrgan());
+				getFilter().put("organ.id@in", topOrganList);
+				
+//				this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+				params.put("isLocal","false");
+			}
+			
+			return super.getJsonList(property, term, all, params);
+		}catch(NoSaalMaaliFoundException e){
+			return new ArrayList<>();
+		}		
+
 		
-		return super.getJsonList(property, term, all, params);
+
 	}
 
 	public Map<Long, List<ListOrderedMap>> getAccountingMarkazChildMap() {
