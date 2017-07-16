@@ -26,6 +26,14 @@
 
 				<h:panelGroup>
 					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="code"
+						value="#{messages['HesabClassification_code']}" /> : 
+				</h:panelGroup>
+				<p:inputText required="true" id="code" label="code"
+					value="#{hesabClassification.entity.code}" size="50" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
 					<h:outputLabel for="name"
 						value="#{messages['HesabClassification_name']}" /> : 
 				</h:panelGroup>

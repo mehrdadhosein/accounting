@@ -6,26 +6,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
-import ir.serajsamaneh.accounting.base.BaseAccountingForm;
-import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
-import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
-import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
-import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
-import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
-import ir.serajsamaneh.core.base.BaseEntityForm;
-
 import javax.faces.model.DataModel;
 import javax.faces.model.SelectItem;
 
-public class HesabClassificationForm   extends BaseAccountingForm<HesabClassificationEntity,Long>  {
+import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
+import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
+import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
 
-
+public class HesabClassificationForm extends BaseAccountingForm<HesabClassificationEntity, Long> {
 
 	HesabMoeenService hesabMoeenService;
 	HesabClassificationService hesabClassificationService;
-
-
 
 	public HesabMoeenService getHesabMoeenService() {
 		return hesabMoeenService;
@@ -40,20 +32,13 @@ public class HesabClassificationForm   extends BaseAccountingForm<HesabClassific
 		return hesabClassificationService;
 	}
 
-
-
-
-
-	
-	
 	public void setHesabClassificationService(HesabClassificationService hesabClassificationService) {
 		this.hesabClassificationService = hesabClassificationService;
 	}
-	
+
 	public HesabClassificationService getHesabClassificationService() {
 		return hesabClassificationService;
 	}
-
 
 	public List<SelectItem> getLocalHesabClassification() {
 
@@ -61,33 +46,30 @@ public class HesabClassificationForm   extends BaseAccountingForm<HesabClassific
 
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organ.id@eq", getCurrentUser().getOrgan().getId());
-		List<HesabClassificationEntity> dataList = getMyService().getDataList(null,
-				localFilter);
+		List<HesabClassificationEntity> dataList = getMyService().getDataList(null, localFilter);
 		SelectItem item = new SelectItem(null, "---------");
 		localHesabClassificationList.add(item);
 		for (HesabClassificationEntity hesabClassificationEntity : dataList) {
-			item = new SelectItem(hesabClassificationEntity.getId(),hesabClassificationEntity.getName());
+			item = new SelectItem(hesabClassificationEntity.getId(), hesabClassificationEntity.getName());
 			localHesabClassificationList.add(item);
 		}
 		return localHesabClassificationList;
 	}
-	
+
 	public String localSave() {
 		getEntity().setOrgan(getCurrentOrgan());
 		save();
 		return getLocalViewUrl();
 	}
-	
 
 	List<Long> moeenIds;
 	List<Long> tafsiliIds;
 
-
 	public List<Long> getTafsiliIds() {
-		if(tafsiliIds==null){
+		if (tafsiliIds == null) {
 			tafsiliIds = new ArrayList<Long>();
 			Set<HesabTafsiliTemplateEntity> tafsilies = getEntity().getHesabTafsiliTemplate();
-			if(tafsilies!=null){
+			if (tafsilies != null) {
 				for (HesabTafsiliTemplateEntity tafsiliEntity : tafsilies) {
 					tafsiliIds.add(tafsiliEntity.getId());
 				}
@@ -96,17 +78,15 @@ public class HesabClassificationForm   extends BaseAccountingForm<HesabClassific
 		return tafsiliIds;
 	}
 
-
 	public void setTafsiliIds(List<Long> childTafsiliIds) {
 		this.tafsiliIds = childTafsiliIds;
 	}
 
-
 	public List<Long> getMoeenIds() {
-		if(moeenIds==null){
+		if (moeenIds == null) {
 			moeenIds = new ArrayList<Long>();
 			Set<HesabMoeenTemplateEntity> moeens = getEntity().getHesabMoeenTemplate();
-			if(moeens!=null){
+			if (moeens != null) {
 				for (HesabMoeenTemplateEntity moeen : moeens) {
 					moeenIds.add(moeen.getId());
 				}
@@ -118,21 +98,19 @@ public class HesabClassificationForm   extends BaseAccountingForm<HesabClassific
 	public void setMoeenIds(List<Long> moeenIds) {
 		this.moeenIds = moeenIds;
 	}
-	
+
 	@Override
 	public String save() {
 		getMyService().save(getEntity(), getMoeenIds(), getTafsiliIds());
 		return getViewUrl();
 	}
 
-	
 	public DataModel<HesabClassificationEntity> getLocalArchiveDataModel() {
 		return getLocalDataModel();
-	}	
-	
+	}
+
 	public Boolean getIsCreated() {
 		return null;
 	}
-	
 
 }

@@ -192,7 +192,7 @@ public class AccountingRestFace {
 	@Path("getRootHesabsMap")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ListOrderedMap> getRootHesabsMap()
+	public List<ListOrderedMap<String, Object>> getRootHesabsMap()
 	{
 		try {
 			SaalMaaliEntity activeSaalMaali = getSaalMaaliService().getUserActiveSaalMaali(getCurrentUser().getOrgan(), getCurrentUser());
@@ -208,7 +208,7 @@ public class AccountingRestFace {
 	@Path("getRootHesabTemplatesMap")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ListOrderedMap> getRootHesabTemplatesMap()
+	public List<ListOrderedMap<String, String>> getRootHesabTemplatesMap()
 	{
 		try {
 			return HesabTemplateRelationsUtil.getRootHesabs(getCurrentUser().getOrgan());

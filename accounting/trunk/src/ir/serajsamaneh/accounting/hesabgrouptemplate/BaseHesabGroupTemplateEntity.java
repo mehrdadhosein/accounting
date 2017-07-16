@@ -52,7 +52,7 @@ public abstract class BaseHesabGroupTemplateEntity  extends BaseEntity<Long>   i
 
 	// fields
 	private java.lang.String name;
-	private java.lang.String code;
+	private java.lang.Long code;
 
 	// many to one
 	private ir.serajsamaneh.core.organ.OrganEntity organ;
@@ -101,7 +101,7 @@ public abstract class BaseHesabGroupTemplateEntity  extends BaseEntity<Long>   i
 	/**
 	 * Return the value associated with the column: code
 	 */
-	public java.lang.String getCode () {
+	public java.lang.Long getCode () {
 		return code;
 	}
 
@@ -109,7 +109,7 @@ public abstract class BaseHesabGroupTemplateEntity  extends BaseEntity<Long>   i
 	 * Set the value related to the column: code
 	 * @param code the code value
 	 */
-	public void setCode (java.lang.String code) {
+	public void setCode (java.lang.Long code) {
 		this.code = code;
 	}
 

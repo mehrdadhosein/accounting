@@ -29,7 +29,7 @@
 					<h:outputText styleClass="required" value="* " />
 					<h:outputLabel for="code" value="#{messages['HesabGroup_code']}" /> : 
 				</h:panelGroup>
-				<p:inputText required="true" id="code" label="code"
+				<p:inputText required="true" id="code" label="code" converter="javax.faces.Long"
 					value="#{owner.entity.code}" />
 
 

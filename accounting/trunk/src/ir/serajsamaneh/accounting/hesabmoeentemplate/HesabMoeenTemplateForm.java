@@ -63,7 +63,7 @@ public class HesabMoeenTemplateForm extends
 //	}
 
 	
-	public Map<Long, ListOrderedMap> getMoeenKolTemplateMap() {
+	public Map<Long, ListOrderedMap<String, Object>> getMoeenKolTemplateMap() {
 		try{
 			return HesabTemplateRelationsUtil.getMoeenKolTemplateMap(getCurrentUserActiveSaalMaali().getOrgan());
 		}catch(NoSaalMaaliFoundException e){
@@ -71,7 +71,7 @@ public class HesabMoeenTemplateForm extends
 		}
 	}
 	
-	public Map<Long, List<ListOrderedMap>> getMoeenTafsiliTemplateMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getMoeenTafsiliTemplateMap() {
 		try{
 			return HesabTemplateRelationsUtil.getMoeenTafsiliTemplateMap(getCurrentUserActiveSaalMaali().getOrgan()); 
 		}catch(NoSaalMaaliFoundException e){
@@ -79,11 +79,11 @@ public class HesabMoeenTemplateForm extends
 		}
 	}
 
-	public Map<Long, List<ListOrderedMap>> getAccountingMarkazTemplateMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getAccountingMarkazTemplateMap() {
 		try{
 			return HesabTemplateRelationsUtil.getAccountingMarkazTemplateMap(getCurrentUserActiveSaalMaali().getOrgan());
 		}catch(NoSaalMaaliFoundException e){
-			return new HashMap<Long, List<ListOrderedMap>>();
+			return new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 		}		
 		
 	}

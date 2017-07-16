@@ -1,13 +1,5 @@
 package ir.serajsamaneh.accounting.hesabkoltemplate;
 
-import ir.serajsamaneh.accounting.base.BaseAccountingForm;
-import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
-import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.util.SerajMessageUtil;
-import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +7,13 @@ import java.util.Map;
 import javax.faces.model.DataModel;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
+
+import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
+import ir.serajsamaneh.core.base.BaseEntity;
+import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
+import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
 public class HesabKolTemplateForm extends
 		BaseAccountingForm<HesabKolTemplateEntity, Long> {
@@ -49,11 +48,11 @@ public class HesabKolTemplateForm extends
 		return null;
 	}
 
-	public Map<Long, List<ListOrderedMap>> getKolMoeenTemplateMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getKolMoeenTemplateMap() {
 		try{
 			return HesabTemplateRelationsUtil.getKolMoeenTemplateMap(getCurrentUserActiveSaalMaali().getOrgan());
 		}catch(NoSaalMaaliFoundException e){
-			return new HashMap<Long, List<ListOrderedMap>>();
+			return new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 		}
 	}
 

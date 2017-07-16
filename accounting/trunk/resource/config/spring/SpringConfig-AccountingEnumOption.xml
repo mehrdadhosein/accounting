@@ -18,6 +18,7 @@
 				<entry key="MarkazHazineType" value="ir.serajsamaneh.accounting.enumeration.MarkazhazineType" />
 				<entry key="SanadTypeEnum" value="ir.serajsamaneh.accounting.enumeration.SanadTypeEnum" />
 				<entry key="SaalMaaliStatusEnum" value="ir.serajsamaneh.enumeration.SaalMaaliStatusEnum" />
+				<entry key="HesabTafsiliCodingTypeEnum" value="ir.serajsamaneh.accounting.enumeration.HesabTafsiliCodingTypeEnum" />
 			</map>
 		</property>
 	</bean>

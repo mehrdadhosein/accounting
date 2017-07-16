@@ -15,7 +15,7 @@
 		</property>
 		<property name='mahyatGroup' type='MahyatGroupEnum' column='mahyat_group'>
 		</property>
-		<property name='code' type='string' column='code'>
+		<property name='code' type='long' column='code'>
 		</property>
 
 		<property name='type' type='HesabTypeEnum' column='type'>

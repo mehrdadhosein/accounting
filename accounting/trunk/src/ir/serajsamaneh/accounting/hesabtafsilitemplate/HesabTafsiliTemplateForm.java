@@ -123,7 +123,7 @@ public class HesabTafsiliTemplateForm extends
 		return getViewUrl();
 	}
 
-	public Map<Long, List<ListOrderedMap>> getTafsiliMoeenTemplateMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliMoeenTemplateMap() {
 		return HesabTemplateRelationsUtil
 				.getTafsiliMoeenTemplateMap(getCurrentOrgan());
 	}
@@ -133,7 +133,7 @@ public class HesabTafsiliTemplateForm extends
 				.getTafsiliChildTemplateMap(getCurrentOrgan());
 	}
 
-	public Map<Long, List<ListOrderedMap>> getTafsiliAccountingMarkazChildTemplateMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliAccountingMarkazChildTemplateMap() {
 		return HesabTemplateRelationsUtil
 				.getTafsiliAccountingMarkazChildTemplateMap(getCurrentOrgan());
 	}

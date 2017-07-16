@@ -69,12 +69,12 @@ public abstract class BaseHesabGroupEntity  extends BaseEntity<Long>   implement
 
 
 
-	private String code;
-	public String getCode() {
+	private Long code;
+	public Long getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(Long code) {
 		this.code = code;
 	}
 

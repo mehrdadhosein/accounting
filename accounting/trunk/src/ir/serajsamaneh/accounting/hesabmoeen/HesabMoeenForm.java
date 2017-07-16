@@ -212,23 +212,23 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	}
 	
 	
-	public Map<Long, ListOrderedMap> getMoeenKolMap() {
+	public Map<Long, ListOrderedMap<String, Object>> getMoeenKolMap() {
 		return HesabRelationsUtil.getMoeenKolMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
-//	public List<ListOrderedMap> getRootHesabsMap() {
+//	public List<ListOrderedMap<String, Object>> getRootHesabsMap() {
 //		return HesabRelationsUtil.getRootHesabs(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 //	}
 	
-	public Map<Long, List<ListOrderedMap>> getMoeenTafsiliMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getMoeenTafsiliMap() {
 		return HesabRelationsUtil.getMoeenTafsiliMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
-	public Map<Long, List<ListOrderedMap>> getTafsiliChildrenMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliChildrenMap() {
 		return HesabRelationsUtil.getTafsiliChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 
-	public Map<Long, List<ListOrderedMap>> getAccountingMarkazMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getAccountingMarkazMap() {
 		return HesabRelationsUtil.getAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
