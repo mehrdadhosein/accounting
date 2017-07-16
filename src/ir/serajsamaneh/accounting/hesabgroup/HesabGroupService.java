@@ -1,22 +1,20 @@
 package ir.serajsamaneh.accounting.hesabgroup;
 
-import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateEntity;
-import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateService;
-import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
-import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
-import ir.serajsamaneh.core.base.BaseEntityService;
-import ir.serajsamaneh.core.exception.DuplicateException;
-import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
-import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.core.util.SerajMessageUtil;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
+
+import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateEntity;
+import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateService;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
+import ir.serajsamaneh.core.base.BaseEntityService;
+import ir.serajsamaneh.core.exception.DuplicateException;
+import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
+import ir.serajsamaneh.core.organ.OrganEntity;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 public class HesabGroupService extends
 		BaseEntityService<HesabGroupEntity, Long> {
@@ -98,7 +96,7 @@ public class HesabGroupService extends
 		return getMyDAO().getHesabGroupByCode(hesabGroupCode);
 	}
 
-	public HesabGroupEntity loadHesabByCode(String code,
+	public HesabGroupEntity loadHesabByCode(Long code,
 			SaalMaaliEntity saalMaaliEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);

@@ -308,7 +308,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		return super.getJsonList(property, term, all, params);
 	}
 
-	public Map<Long, List<ListOrderedMap>> getKolMoeenMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getKolMoeenMap() {
 		return HesabRelationsUtil.getKolMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	

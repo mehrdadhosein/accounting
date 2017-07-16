@@ -61,6 +61,7 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 	// fields
 	private java.lang.String name;
 	private java.lang.String description;
+	Long code;
 
 	// many to one
 	private ir.serajsamaneh.core.organ.OrganEntity organ;
@@ -94,6 +95,14 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 
 
  
+	public Long getCode() {
+		return code;
+	}
+
+	public void setCode(Long code) {
+		this.code = code;
+	}
+
 	/**
 	 * Return the value associated with the column: name
 	 */

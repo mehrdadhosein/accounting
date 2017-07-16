@@ -29,7 +29,7 @@ public class HesabGroupTemplateService extends
 		return hesabGroupTemplateDAO;
 	}
 
-	public HesabGroupTemplateEntity load(String code, OrganEntity organ) {
+	public HesabGroupTemplateEntity load(Long code, OrganEntity organ) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
@@ -37,7 +37,7 @@ public class HesabGroupTemplateService extends
 	}
 
 	@Transactional(readOnly = false)
-	public void createHesabGroupTemplate(String hesabGroupCode, String hesabGroupName, String mahyatGroup, OrganEntity organEntity) {
+	public void createHesabGroupTemplate(Long hesabGroupCode, String hesabGroupName, String mahyatGroup, OrganEntity organEntity) {
 		
 		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(hesabGroupCode, organEntity);
 		if (hesabGroupTemplateEntity == null){

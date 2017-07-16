@@ -662,21 +662,21 @@ public class HesabKolService extends
 	}
 
 	@Transactional(readOnly=true)
-	public List<ListOrderedMap> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan) {
-		List<ListOrderedMap> rootHesabsList;
+	public List<ListOrderedMap<String, Object>> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan) {
+		List<ListOrderedMap<String, Object>> rootHesabsList;
 		List<HesabMoeenEntity> rootHesabMoeens = getHesabMoeenService().getRootHesabs(saalMaaliEntity, currentOrgan);
 		
-		rootHesabsList = new ArrayList<ListOrderedMap>(); 
+		rootHesabsList = new ArrayList<ListOrderedMap<String, Object>>(); 
 		
 		for (HesabMoeenEntity hesabMoeenEntity : rootHesabMoeens) {
-			ListOrderedMap hesabMoeenMap = new ListOrderedMap();
+			ListOrderedMap<String, Object> hesabMoeenMap = new ListOrderedMap<String, Object>();
 			hesabMoeenMap.put("value","Moeen_"+hesabMoeenEntity.getId());
 			hesabMoeenMap.put("label",hesabMoeenEntity.getDesc());
 			rootHesabsList.add(hesabMoeenMap);
 		}
 		List<HesabTafsiliEntity> rootHesabTafsilies = getHesabTafsiliService().getRootHesabs(saalMaaliEntity, currentOrgan);
 		for (HesabTafsiliEntity hesabTafsiliEntity : rootHesabTafsilies) {
-			ListOrderedMap hesabTafsiliMap = new ListOrderedMap();
+			ListOrderedMap<String, Object> hesabTafsiliMap = new ListOrderedMap<String, Object>();
 			hesabTafsiliMap.put("value","Tafsili_"+hesabTafsiliEntity.getId());
 			hesabTafsiliMap.put("label",hesabTafsiliEntity.getDesc());
 			rootHesabsList.add(hesabTafsiliMap);

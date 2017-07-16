@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
+import ir.serajsamaneh.accounting.hesabclassification.HesabClassificationService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
@@ -41,7 +42,16 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	SaalMaaliService saalMaaliService;
 	ContactService contactService;
 	ContactHesabService contactHesabService;
+	HesabClassificationService hesabClassificationService;
 
+
+	public HesabClassificationService getHesabClassificationService() {
+		return hesabClassificationService;
+	}
+
+	public void setHesabClassificationService(HesabClassificationService hesabClassificationService) {
+		this.hesabClassificationService = hesabClassificationService;
+	}
 
 	public ContactHesabService getContactHesabService() {
 		return contactHesabService;
@@ -194,6 +204,9 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	@Override
 	public String save() {
 		getEntity().setOrgan(getCurrentOrgan()); 
+		if(getEntity().getHesabClassification()!=null && getEntity().getHesabClassification().getId()!=null)
+			getEntity().setHesabClassification(getHesabClassificationService().load(getEntity().getHesabClassification().getId()));
+		
 		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getParentTafsiliIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		resetHesabRelations();
 		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
@@ -280,15 +293,15 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		}
 	}
 	
-	public Map<Long, List<ListOrderedMap>> getTafsiliMoeenMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliMoeenMap() {
 		return HesabRelationsUtil.getTafsiliMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
-	public Map<Long, List<ListOrderedMap>> getTafsiliChildMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliChildMap() {
 		return HesabRelationsUtil.getTafsiliChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
-	public Map<Long, List<ListOrderedMap>> getTafsiliAccountingMarkazChildMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliAccountingMarkazChildMap() {
 		return HesabRelationsUtil.getTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 

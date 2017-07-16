@@ -17,15 +17,12 @@ import ir.serajsamaneh.accounting.hesabgroup.HesabGroupService;
 import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateDAO;
 import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
-import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateDAO;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
-import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateDAO;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.organ.OrganEntity;
@@ -127,7 +124,7 @@ public class HesabKolTemplateService extends
 	@Transactional(readOnly = false)
 	public void createHesabGroup(Element hesbaGroupElem, OrganEntity organ) {
 		String typeEnum = hesbaGroupElem.getAttribute("type");
-		String code = hesbaGroupElem.getAttribute("code");
+		Long code = new Long(hesbaGroupElem.getAttribute("code"));
 		String mahyatEnum = hesbaGroupElem.getAttribute("mahyat");
 		String hesabGroupName = hesbaGroupElem.getAttribute("name");
 		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(code, organ);
@@ -146,7 +143,7 @@ public class HesabKolTemplateService extends
 	public void createHesabKolTemplate(Element hesbaKolElem, OrganEntity organEntity) {
 		String hesabKolCode = hesbaKolElem.getAttribute("code");
 		String hesabKolName = hesbaKolElem.getAttribute("name");
-		String hesabGroupCode = hesbaKolElem.getAttribute("HesabGroup");
+		Long hesabGroupCode = new Long(hesbaKolElem.getAttribute("HesabGroup"));
 		String mahyatKol = hesbaKolElem.getAttribute("mahyat");
 		
 		createHesabKolTemplate(hesabKolCode, hesabKolName, hesabGroupCode, mahyatKol, organEntity);
@@ -194,7 +191,7 @@ public class HesabKolTemplateService extends
 
 	@Transactional(readOnly = false)
 	public HesabKolTemplateEntity createHesabKolTemplate(String hesabKolCode, String hesabKolName,
-			String hesabGroupCode, String mahyatKol, OrganEntity organEntity) {
+			Long hesabGroupCode, String mahyatKol, OrganEntity organEntity) {
 		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(hesabGroupCode, organEntity);
 		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateByCode(hesabKolCode, organEntity);
 		if (hesabKolTemplateEntity == null){
@@ -274,21 +271,21 @@ public class HesabKolTemplateService extends
 	}
 
 	@Transactional(readOnly=true)
-	public List<ListOrderedMap> getRootHesabs(OrganEntity currentOrgan) {
-		List<ListOrderedMap> rootHesabsList;
+	public List<ListOrderedMap<String, String>> getRootHesabs(OrganEntity currentOrgan) {
+		List<ListOrderedMap<String, String>> rootHesabsList;
 		List<HesabMoeenTemplateEntity> rootHesabMoeens = getHesabMoeenTemplateService().getRootHesabs(currentOrgan);
 		
-		rootHesabsList = new ArrayList<ListOrderedMap>(); 
+		rootHesabsList = new ArrayList<ListOrderedMap<String, String>>(); 
 		
 		for (HesabMoeenTemplateEntity hesabMoeenEntity : rootHesabMoeens) {
-			ListOrderedMap hesabMoeenMap = new ListOrderedMap();
+			ListOrderedMap<String, String> hesabMoeenMap = new ListOrderedMap<String, String>();
 			hesabMoeenMap.put("value","Moeen_"+hesabMoeenEntity.getId());
 			hesabMoeenMap.put("label",hesabMoeenEntity.getDesc());
 			rootHesabsList.add(hesabMoeenMap);
 		}
 		List<HesabTafsiliTemplateEntity> rootHesabTafsilies = getHesabTafsiliTemplateService().getRootHesabs(currentOrgan);
 		for (HesabTafsiliTemplateEntity hesabTafsiliEntity : rootHesabTafsilies) {
-			ListOrderedMap hesabTafsiliMap = new ListOrderedMap();
+			ListOrderedMap<String, String> hesabTafsiliMap = new ListOrderedMap<String, String>();
 			hesabTafsiliMap.put("value","Tafsili_"+hesabTafsiliEntity.getId());
 			hesabTafsiliMap.put("label",hesabTafsiliEntity.getDesc());
 			rootHesabsList.add(hesabTafsiliMap);

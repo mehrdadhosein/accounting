@@ -34,6 +34,7 @@ import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.organ.OrganEntity;
+import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 public class HesabTafsiliService extends
@@ -53,7 +54,16 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	AccountingMarkazService accountingMarkazService;
 	HesabClassificationService hesabClassificationService;
 	SanadHesabdariItemService sanadHesabdariItemService;
+	SystemConfigService systemConfigService;
 	
+	public SystemConfigService getSystemConfigService() {
+		return systemConfigService;
+	}
+
+	public void setSystemConfigService(SystemConfigService systemConfigService) {
+		this.systemConfigService = systemConfigService;
+	}
+
 	public SanadHesabdariItemService getSanadHesabdariItemService() {
 		return sanadHesabdariItemService;
 	}
@@ -198,11 +208,11 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		super.saveOrUpdate(entity);
 	}
 	
-	private synchronized Long generateHesabTafsiliCode(HesabTafsiliEntity entity, OrganEntity currentOrgan, SaalMaaliEntity currentUserSaalMaaliEntity) {
-			Long maxHesabTafsiliCode = getMyDAO().getMaxHesabTafsiliCode(currentOrgan, currentUserSaalMaaliEntity);
+/*	private synchronized Long generateHesabTafsiliCode(HesabTafsiliEntity entity, OrganEntity currentOrgan, SaalMaaliEntity currentUserSaalMaaliEntity) {
+			Long maxHesabTafsiliCode = getMyDAO().getMaxHesabTafsiliCode(currentOrgan);
 //			return new Long(++maxHesabTafsiliCode).toString();
 			return ++maxHesabTafsiliCode;
-	}
+	}*/
 	
 	@Transactional
 	public void save(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> parentTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
@@ -278,6 +288,26 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			checkCycleInParentTafsiliHierarchy(mainEntity, parentTfsili);
 		}
 	}
+	
+	static Long maxHesabTafsiliCode = null;
+
+	private  Long generateHesabTafsiliCode(HesabTafsiliEntity entity, OrganEntity organEntity, SaalMaaliEntity activeSaalMaaliEntity) {
+		if (getSystemConfigService().getValue(organEntity, null, "HesabTafsiliCodingType").equals("SERIAL")) {
+			maxHesabTafsiliCode = getMyDAO().getMaxHesabTafsiliCode(null, 0, organEntity, activeSaalMaaliEntity);
+			return maxHesabTafsiliCode;
+		} else if (getSystemConfigService().getValue(organEntity, null, "HesabTafsiliCodingType").equals("VARIABLE_HIERARCHICAL")) {
+			Long maxHierArchicalHesabTafsiliCode = getMyDAO().getMaxHesabTafsiliCode(entity.getHesabClassification(),0,organEntity, activeSaalMaaliEntity);
+			return maxHierArchicalHesabTafsiliCode;
+		} else if (getSystemConfigService().getValue(organEntity, null, "HesabTafsiliCodingType").equals("CONSTANT_HIERARCHICAL")) {
+			Integer HesabTafsiliCodeCharactersNumber=Integer.parseInt(getSystemConfigService().getValue(organEntity, null, "hesabTafsiliCodeCharactersNumber"));
+			Long maxHierArchicalHesabTafsiliCode = getMyDAO().getMaxHesabTafsiliCode(entity.getHesabClassification(),HesabTafsiliCodeCharactersNumber,organEntity, activeSaalMaaliEntity);
+			
+			return maxHierArchicalHesabTafsiliCode;
+		}
+			throw new IllegalStateException("Code is required");
+
+	}
+	
 	@Transactional
 	private void commonSave(HesabTafsiliEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, List<Long> parentTafsiliIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan) {
 		
@@ -288,6 +318,11 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			entity.setBedehkar(0d);
 			entity.setBestankr(0d);
 		}
+		
+		if (entity.getCode() == null) {
+			entity.setCode(generateHesabTafsiliCode(entity, currentOrgan, activeSaalMaaliEntity));
+		}
+		
 		if (entity.getMoeenTafsili() == null) {
 			entity.setMoeenTafsili(new HashSet<MoeenTafsiliEntity>());
 		}
@@ -349,10 +384,10 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		}
 		
 //		if (!StringUtils.hasText(entity.getCode())) {
-		if (entity.getCode()==null) {
-			
-			entity.setCode(generateHesabTafsiliCode(entity,currentOrgan, activeSaalMaaliEntity));
-		}
+//		if (entity.getCode()==null) {
+//			
+//			entity.setCode(generateHesabTafsiliCode(entity,currentOrgan, activeSaalMaaliEntity));
+//		}
 		checkHesabUniqueNess(entity, activeSaalMaaliEntity, currentOrgan);
 		
 		checkCycleInChildTafsiliHierarchy(entity, childTafsiliIds);
@@ -866,17 +901,17 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 
 	@Transactional(readOnly=true)
-	public Map<Long, List<ListOrderedMap>> getTafsiliMoeenMap(SaalMaaliEntity saalMaaliEntity,
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliMoeenMap(SaalMaaliEntity saalMaaliEntity,
 			OrganEntity currentOrgan) {
-		Map<Long, List<ListOrderedMap>> tafsiliMoeenMap;
-		tafsiliMoeenMap = new HashMap<Long, List<ListOrderedMap>>();
+		Map<Long, List<ListOrderedMap<String, Object>>> tafsiliMoeenMap;
+		tafsiliMoeenMap = new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 
 		List<HesabTafsiliEntity> list = getActiveTafsilis(saalMaaliEntity, currentOrgan);
 		for (HesabTafsiliEntity hesabTafsiliEntity : list) {
 			Set<MoeenTafsiliEntity> moeenTafsiliSet = hesabTafsiliEntity.getMoeenTafsili();
-			List<ListOrderedMap> hesabMoeenList = new ArrayList<ListOrderedMap>();
+			List<ListOrderedMap<String, Object>> hesabMoeenList = new ArrayList<ListOrderedMap<String, Object>>();
 			for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsiliSet) {
-				ListOrderedMap moeenItemMap = new ListOrderedMap();
+				ListOrderedMap<String, Object> moeenItemMap = new ListOrderedMap<String, Object>();
 				moeenItemMap.put("value",moeenTafsiliEntity.getHesabMoeen().getID());
 				moeenItemMap.put("label",moeenTafsiliEntity.getHesabMoeen().getDesc());
 				hesabMoeenList.add(moeenItemMap);

@@ -10,7 +10,7 @@
 			<generator class='increment' />
 		</id>
 		<version name="version" type="long" />
-		<property name='code' type='string' column='code'>
+		<property name='code' type='long' column='code'>
 		</property>
 		<property name='name' type='string' column='name'>
 		</property>

@@ -1,7 +1,5 @@
 package ir.serajsamaneh.accounting.hesabgrouptemplate;
 
-import com.sun.corba.se.impl.ior.GenericTaggedComponent;
-
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
