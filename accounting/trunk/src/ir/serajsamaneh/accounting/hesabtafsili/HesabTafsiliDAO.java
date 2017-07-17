@@ -109,18 +109,16 @@ public class HesabTafsiliDAO extends BaseHibernateDAO<HesabTafsiliEntity,Long> {
 			String maxCodeStr="";
 			String parentCode = hesabClassification.getCode().toString();
 			
-			Integer noeZeroDigitCount = parentCode.length() + maxCode.toString().length();
-			Integer zeroDigitCount =  kalaCodeCharactersNumber - noeZeroDigitCount;
-			if(zeroDigitCount < 0)
-				throw new FatalException();
-			
-			for(int i = 0 ; i<zeroDigitCount; ++i)
-				parentCode = parentCode + "0";
+			if(kalaCodeCharactersNumber>0){
+				Integer noeZeroDigitCount = parentCode.length() + maxCode.toString().length();
+				Integer zeroDigitCount =  kalaCodeCharactersNumber - noeZeroDigitCount;
+				if(zeroDigitCount < 0)
+					throw new FatalException();
+				
+				for(int i = 0 ; i<zeroDigitCount; ++i)
+					parentCode = parentCode + "0";
+			}
 			maxCodeStr = parentCode + maxCode;
-	//		if (maxCode < 10)
-	//			maxCodeStr = parentCode + "0" + maxCode;
-	//		else
-	//			maxCodeStr = parentCode + maxCode;
 			return maxCodeStr;
 		}else
 			return  maxCode.toString();
