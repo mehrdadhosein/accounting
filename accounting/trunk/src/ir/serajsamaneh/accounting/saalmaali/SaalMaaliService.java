@@ -228,6 +228,8 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 	
 	@Transactional
 	public void save(SaalMaaliEntity entity, OrganEntity currentOrgan) {
+		checkCycleInSaalMaali(entity, currentOrgan);
+//		checkSaalMaaliStartDate(entity, currentOrgan);
 		if(entity.getId() == null)
 			entity.setStatus(SaalMaaliStatusEnum.InProgress);
 		Map<String, Object> filter = new HashMap<String, Object>();
@@ -245,6 +247,23 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 				"",
 				"", 
 				entity.getLog());
+	}
+
+	private void checkCycleInSaalMaali(SaalMaaliEntity entity, OrganEntity currentOrgan) {
+		Map<String, Object> filter = new HashMap<>();
+		filter.put("organ.id@eq", currentOrgan.getId());
+		List<SaalMaaliEntity> dataList = getDataList(filter);
+		for (SaalMaaliEntity saalMaaliEntity : dataList) {
+			if(entity.getId()!=null &&  saalMaaliEntity.getId().equals(entity.getId()))
+				continue;
+			if(entity.getStartDate().after(saalMaaliEntity.getEndDate()) && entity.getEndDate().after(saalMaaliEntity.getEndDate()) || 
+					entity.getStartDate().before(saalMaaliEntity.getStartDate()) && entity.getEndDate().before(saalMaaliEntity.getStartDate()))
+				continue;
+			else
+				throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_overlapWith",saalMaaliEntity));
+				
+		}
+		
 	}
 
 	@Transactional
@@ -285,6 +304,8 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 	public void checkSaalMaaliStartDate(SaalMaaliEntity entity, OrganEntity currentOrgan){
 		try{
 			SaalMaaliEntity previousSaalMaali = getPreviousSaalMaali(entity.getStartDate(), currentOrgan);
+			if(entity.getId()!=null && previousSaalMaali.getId().equals(entity.getId()))
+				return;
 
 //		SaalMaaliEntity lastSaalMaali = getMyDAO().getLastSaalMaali(currentOrgan);
 //		if(previousSaalMaali == null)
