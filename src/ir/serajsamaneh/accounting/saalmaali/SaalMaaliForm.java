@@ -127,8 +127,8 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 	@Override
 	public String save() {
 		
-		if(getEntity().getId() == null)
-			getMyService().checkSaalMaaliStartDate(getEntity(), getCurrentOrgan());
+//		if(getEntity().getId() == null)
+//		getMyService().checkSaalMaaliStartDate(getEntity(), getCurrentOrgan());
 		//boolean checkEndDay=getMyService().checkSaalMaaliEndDate(getEntity());
 		if(getEntity().getOrgan() == null || getEntity().getOrgan().getId() == null)
 			getEntity().setOrgan(getCurrentOrgan());

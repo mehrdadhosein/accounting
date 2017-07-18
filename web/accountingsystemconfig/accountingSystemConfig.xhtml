@@ -119,23 +119,37 @@
 						<h:outputLabel for="hesabTafsiliCodingType"
 							value="#{messages['HesabTafsili_hesabTafsiliCodingType']}" /> : 
 					</h:panelGroup>
-					<h:selectOneMenu required="true" value="#{owner.hesabTafsiliCodingType}"
+					<h:selectOneMenu required="true" value="#{owner.hesabTafsiliCodingType}" onchange="showHesabTafsiliCodeCharactersNumber();"
 						converter="seraj.converter.Enum" label="hesabTafsiliCodingType" id="hesabTafsiliCodingType">
 						<f:selectItems value="#{requiredEnums.HesabTafsiliCodingTypeEnum}" size="50" />
 					</h:selectOneMenu>
 	
-					<h:panelGroup>
+					<h:panelGroup id="hesabTafsiliCodeCharactersNumberPanel" style="display:none">
 					<h:outputText styleClass="required" value="  " />
 						<h:outputLabel for="hesabTafsiliCodeCharactersNumber"
 							value="#{messages['HesabTafsili_hesabTafsiliCodeCharactersNumber']}" /> : 
 					</h:panelGroup>
-					<p:inputText id="hesabTafsiliCodeCharactersNumber" label="#{messages['HesabTafsili_hesabTafsiliCodeCharactersNumber']}"
-						value="#{owner.hesabTafsiliCodeCharactersNumber}" type="number" min="6" max="20" style="width:220px" >
+					<p:inputText id="hesabTafsiliCodeCharactersNumber" label="#{messages['HesabTafsili_hesabTafsiliCodeCharactersNumber']}"  
+						value="#{owner.hesabTafsiliCodeCharactersNumber}" type="number" min="6" max="20" style="width:220px;display:none" >
 						 <f:validateLongRange minimum="6" maximum="20" />
 				</p:inputText>
 								
 				</p:panelGrid>
 
+<script>
+	showHesabTafsiliCodeCharactersNumber();
+	function showHesabTafsiliCodeCharactersNumber(){
+		debugger;
+		hesabTafsiliCodingType = $$('#hesabTafsiliCodingType').val();
+		if(hesabTafsiliCodingType == 'ir.serajsamaneh.accounting.enumeration.HesabTafsiliCodingTypeEnum@CONSTANT_HIERARCHICAL'){
+			$$('#hesabTafsiliCodeCharactersNumberPanel').show()
+			$$('#hesabTafsiliCodeCharactersNumber').show()
+		}else{
+			$$('#hesabTafsiliCodeCharactersNumberPanel').hide()
+			$$('#hesabTafsiliCodeCharactersNumber').hide()
+		}
+	}
+</script>
 	</ui:define>
 
 

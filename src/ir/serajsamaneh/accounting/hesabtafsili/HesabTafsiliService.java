@@ -33,6 +33,7 @@ import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
+import ir.serajsamaneh.core.exception.RequiredFieldNotSetException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
@@ -304,7 +305,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			
 			return maxHierArchicalHesabTafsiliCode;
 		}
-			throw new IllegalStateException("Code is required");
+			throw new IllegalStateException("HesabTafsiliCodingType is required");
 
 	}
 	
@@ -319,8 +320,12 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			entity.setBestankr(0d);
 		}
 		
-		if (entity.getCode() == null) {
+		if (entity.getCode() == null && !getSystemConfigService().getValue(currentOrgan, null, "HesabTafsiliCodingType").equals("MANUAL")) {
 			entity.setCode(generateHesabTafsiliCode(entity, currentOrgan, activeSaalMaaliEntity));
+		}
+		
+		if (entity.getCode() == null){
+			throw new RequiredFieldNotSetException(SerajMessageUtil.getMessage("HesabTafsili_code"));
 		}
 		
 		if (entity.getMoeenTafsili() == null) {
