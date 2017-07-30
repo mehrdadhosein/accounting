@@ -300,11 +300,13 @@ public class SanadHesabdariService extends
 			checkHesabDependencies(entity, organEntity); 
 		
 		checkSaalMaaliAndTarikhSanadConflict(entity);
-
+		
 		if (entity.getId() == null) {
 			entity.setOrgan(organEntity);
+		}
+
+		if(entity.getTempSerial() == null && !entity.getState().equals(SanadStateEnum.TEMP)) {
 			entity.setTempSerial(getNextTempSanadHesabdariSerial(entity.getSaalMaali()));
-			
 			Map<String, Object> localFilter = new HashMap<String, Object>();
 			localFilter.put("tempSerial@eq", entity.getTempSerial());
 			localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
