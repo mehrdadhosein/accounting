@@ -31,6 +31,7 @@ import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.enumeration.SanadFunctionEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.accounting.exception.NoActiveSaalMaaliFoundException;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
@@ -765,6 +766,8 @@ public class SanadHesabdariForm extends
 			getFilter().put("state@eq", SanadStateEnum.MOVAGHAT);
 			getFilter().put("saalMaali.id@eq",
 				getCurrentUserActiveSaalMaali().getId());
+		}catch (NoSaalMaaliFoundException e) {
+			return -1;			
 		}catch (NoActiveSaalMaaliFoundException e) {
 			return -1;
 		}catch (NoOrganFoundException e) {
@@ -787,6 +790,8 @@ public class SanadHesabdariForm extends
 			getFilter().put("state@eq", SanadStateEnum.BARRESI_SHODE);
 			getFilter().put("saalMaali.id@eq",
 					getCurrentUserActiveSaalMaali().getId());
+		}catch (NoSaalMaaliFoundException e) {
+			return -1;
 		}catch (NoActiveSaalMaaliFoundException e) {
 			return -1;
 		}catch (NoOrganFoundException e) {
@@ -824,6 +829,8 @@ public class SanadHesabdariForm extends
 		try{
 			getFilter().put("state@eq", SanadStateEnum.DAEM);
 			getFilter().put("saalMaali.id@eq",	getCurrentUserActiveSaalMaali().getId());
+		}catch (NoSaalMaaliFoundException e) {
+			return -1;			
 		}catch (NoActiveSaalMaaliFoundException e) {
 			return -1;
 		}catch (NoOrganFoundException e) {
