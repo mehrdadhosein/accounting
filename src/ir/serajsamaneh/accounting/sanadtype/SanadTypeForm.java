@@ -20,6 +20,7 @@ public class SanadTypeForm extends BaseAccountingForm<SanadTypeEntity, Long> {
 
 	@Override
 	public DataModel<SanadTypeEntity> getDataModel() {
+		setSearchAction(true);
 		this.getFilter().put("organ.id@eq", getCurrentOrgan().getId());
 		return super.getDataModel();
 	};
