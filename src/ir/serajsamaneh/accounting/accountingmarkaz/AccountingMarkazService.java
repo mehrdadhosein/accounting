@@ -1,13 +1,22 @@
 package ir.serajsamaneh.accounting.accountingmarkaz;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.hibernate.FlushMode;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateService;
-import ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity;
-import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
-import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
+import ir.serajsamaneh.accounting.exception.CycleInHesabTafsiliException;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
+import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
 import ir.serajsamaneh.accounting.moeenaccountingmarkaz.MoeenAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.moeenaccountingmarkaz.MoeenAccountingMarkazService;
@@ -19,18 +28,7 @@ import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.exception.MoreThanOneRecordFoundException;
 import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.core.security.ActionLogUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.hibernate.FlushMode;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 public class AccountingMarkazService extends
 BaseEntityService<AccountingMarkazEntity, Long> {
@@ -150,7 +148,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	}
 
 	@Transactional
-	public void save(AccountingMarkazEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, SaalMaaliEntity activeSaalMaaliEntity, Boolean applyMoeenOnSubMarkaz) {
+	public void save(AccountingMarkazEntity entity, List<Long> moeenIds, List<Long> childAccountingMarkazIds, SaalMaaliEntity activeSaalMaaliEntity, Boolean applyMoeenOnSubMarkaz) {
 		if (entity.getId() == null) {
 			entity.setBedehkar(0d);
 			entity.setBestankr(0d);
@@ -177,8 +175,8 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		}
 		
 		entity.getChilds().clear();
-		for (Long tafsiliId : childTafsiliIds) {
-			entity.getChilds().add(load(tafsiliId));
+		for (Long accountingMarkazId : childAccountingMarkazIds) {
+			entity.getChilds().add(load(accountingMarkazId));
 		}
 		
 		save(entity);
@@ -188,6 +186,32 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		
 		if(applyMoeenOnSubMarkaz){
 			applyMoeenOnSubMarkaz(entity, moeenIds);
+		}
+		
+		checkCycleInChildAccountingMarkazHierarchy(entity, childAccountingMarkazIds);
+	}
+	
+	private void checkCycleInChildAccountingMarkazHierarchy(AccountingMarkazEntity entity,
+			List<Long> childTafsiliIds) {
+		for (Long tafsiliId : childTafsiliIds) {
+			AccountingMarkazEntity mainChildEntity = load(tafsiliId);
+			
+			try{
+				checkCycleInChildAccountingMarkazHierarchy(entity, mainChildEntity);
+			}catch(FatalException e){
+				throw new FatalException(SerajMessageUtil.getMessage("AccountingMarkaz_cycleDetected", entity.getDesc(), mainChildEntity.getDesc()));
+			}
+		}
+		
+	}
+	
+	private void checkCycleInChildAccountingMarkazHierarchy(AccountingMarkazEntity mainEntity,
+			AccountingMarkazEntity mainChildEntity) {
+		if(mainEntity.getId()!=null && mainEntity.getId().equals(mainChildEntity.getId()))
+			throw new FatalException();
+		Set<AccountingMarkazEntity> childs = mainChildEntity.getChilds();
+		for (AccountingMarkazEntity childAccountingMarkaz : childs) {
+			checkCycleInChildAccountingMarkazHierarchy(mainEntity, childAccountingMarkaz);
 		}
 	}
 
@@ -267,6 +291,8 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		localFilter.put("saalMaali.id@eq",activeSaalMaaliEntity.getId());
 		
 		checkUniqueNess(entity, AccountingMarkazEntity.PROP_CODE, entity.getCode(),	localFilter, false);
+		
+
 		
 		createOrUpdateRelatedAccountingMarkazTemplate(entity, activeSaalMaaliEntity.getOrgan());
 	}

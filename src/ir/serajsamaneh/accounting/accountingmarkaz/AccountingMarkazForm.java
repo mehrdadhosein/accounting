@@ -77,11 +77,11 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	}
 
 	List<Long> moeenIds;
-	List childAccountingMarkazIds;
+	List<Long> childAccountingMarkazIds;
 
-	public List getChildAccountingMarkazIds() {
+	public List<Long> getChildAccountingMarkazIds() {
 		if(childAccountingMarkazIds==null){
-			childAccountingMarkazIds = new ArrayList();
+			childAccountingMarkazIds = new ArrayList<Long>();
 			Set<AccountingMarkazEntity> accountingMarkazes = getEntity().getChilds();
 			if(accountingMarkazes!=null){
 				for (AccountingMarkazEntity accountingMarkazEntity : accountingMarkazes) {
@@ -93,7 +93,7 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	}
 
 
-	public void setChildAccountingMarkazIds(List childAccountingMarkazIds) {
+	public void setChildAccountingMarkazIds(List<Long> childAccountingMarkazIds) {
 		this.childAccountingMarkazIds = childAccountingMarkazIds;
 	}
 
@@ -111,7 +111,7 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 		return moeenIds;
 	}
 
-	public void setMoeenIds(List moeenIds) {
+	public void setMoeenIds(List<Long> moeenIds) {
 		this.moeenIds = moeenIds;
 	}
 	@Override
@@ -191,21 +191,21 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	
 
 	
-	static Map<Long, List> accountingMarkazMoeenMap;
+	static Map<Long, List<ListOrderedMap<String, Object>>> accountingMarkazMoeenMap;
 
 	public  void resetAccountingMarkazMoeenMap() {
 		accountingMarkazMoeenMap = null;
 	}
-	public Map<Long, List> getAccountingMarkazMoeenMap() {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getAccountingMarkazMoeenMap() {
 		//if (accountingMarkazMoeenMap == null) {
-			accountingMarkazMoeenMap = new HashMap<Long, List>();
+			accountingMarkazMoeenMap = new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 
 			List<AccountingMarkazEntity> list = getMyService().getActiveAccountingMarkaz(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 			for (AccountingMarkazEntity accountingMarkazEntity : list) {
 				Set<MoeenAccountingMarkazEntity> moeenAccountingMarkazSet = accountingMarkazEntity.getMoeenAccountingMarkaz();
-				List moeenAccountingMarkazList = new ArrayList();
+				List<ListOrderedMap<String, Object>> moeenAccountingMarkazList = new ArrayList<ListOrderedMap<String, Object>>();
 				for (MoeenAccountingMarkazEntity moeenAccountingMarkazEntityEntity : moeenAccountingMarkazSet) {
-					ListOrderedMap moeenItemMap = new ListOrderedMap();
+					ListOrderedMap<String, Object> moeenItemMap = new ListOrderedMap<String, Object>();
 					moeenItemMap.put("value",moeenAccountingMarkazEntityEntity.getHesabMoeen().getID());
 					moeenItemMap.put("label",moeenAccountingMarkazEntityEntity.getHesabMoeen().getDesc());
 					moeenAccountingMarkazList.add(moeenItemMap);
