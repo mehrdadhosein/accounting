@@ -1,14 +1,13 @@
 package ir.serajsamaneh.accounting.accountingmarkaz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
 import ir.serajsamaneh.accounting.enumeration.TafsilTypeEnum;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
-import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.moeenaccountingmarkaz.MoeenAccountingMarkazEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 
@@ -30,7 +29,7 @@ public class AccountingMarkazEntity extends BaseAccountingMarkazEntity {
 /*[CONSTRUCTOR MARKER END]*/
 
 	List<HesabMoeenEntity> hesabMoeenList = null;
-	public List getHesabMoeenList(){
+	public List<HesabMoeenEntity> getHesabMoeenList(){
 		if(hesabMoeenList == null){
 			hesabMoeenList = new ArrayList<HesabMoeenEntity>();
 			if(getMoeenAccountingMarkaz()!=null)
