@@ -731,7 +731,7 @@ public class SanadHesabdariForm extends
 	}
 	
 	public DataModel<SanadHesabdariEntity> getLocalMovaghatDataModel() {
-
+		setSearchAction(true);
 		setRowsPerPage(-1);
 		getFilter().put("state@eq", SanadStateEnum.MOVAGHAT);
 		
