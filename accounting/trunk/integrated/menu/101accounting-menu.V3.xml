@@ -29,6 +29,10 @@
 					permission="hesabClassification.localList" icon="Account-dollar-coins-and-hand" />
 				<MenuItem id="accountingMarkazlocalList" value="مرکز" pagetitle="مرکز"  valueClick="../accountingmarkaz/accountingMarkaz.localList.jsf"
 					permission="accountingMarkaz.list" icon="Account-federal-bank" />
+				<MenuItem id="contactlocalList" value="مخاطبین"
+					valueClick="../contact/contact.hierarchicalList.jsf" permission="contact.list"
+					icon="BusinessSeoElements-businesswoman-1
+					" />
 										
 			</MenuItem>
 
@@ -489,6 +493,9 @@
 					permission="user.adminPermission" icon="Bank-signing-the-contract" />
 
 			</MenuItem>
+			<MenuItem id="accountsTemplatelocalList" value="تنظیم صدور خودکار سند"
+					permission="hotel.accounts.template" valueClick="../accountstemplate/accountsTemplate.localList.jsf"
+					icon="Ecommerce-invoice-12" />
 			<MenuItem id="help_accounting" value="راهنما" valueClick="../doc/help_accounting.pdf" permission="hesabdari.help"
 				 icon="images/menu/help-icon.png" />
 		</MenuItem>
