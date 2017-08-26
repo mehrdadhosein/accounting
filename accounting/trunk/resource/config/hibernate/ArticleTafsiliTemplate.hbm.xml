@@ -10,7 +10,7 @@
       </id>
       <property  name='level' type='integer' column='level_'>
 	      </property>
-      <many-to-one  name='hesabTafsiliTemplate' class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity' not-null='true' cascade='none' foreign-key='fk_art_ta_hesab_taf_id'>
+      <many-to-one  name='hesabTafsiliTemplate' class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity' not-null='true' cascade='none' foreign-key='fk_art_ta_temp_hesab_taf_id'>
 	         <column name='hesab_tafsili_template_id'/>
       </many-to-one>
       <many-to-one  name='sanadHesabdariItemTemplate' class='ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemTemplateEntity' not-null='true' cascade='none' foreign-key='fk_art_taf_sanad_hes_item_id'>
