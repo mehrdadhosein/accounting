@@ -19,6 +19,7 @@
 				<entry key="SanadTypeEnum" value="ir.serajsamaneh.accounting.enumeration.SanadTypeEnum" />
 				<entry key="SaalMaaliStatusEnum" value="ir.serajsamaneh.enumeration.SaalMaaliStatusEnum" />
 				<entry key="HesabTafsiliCodingTypeEnum" value="ir.serajsamaneh.accounting.enumeration.HesabTafsiliCodingTypeEnum" />
+				<entry key="HesabMoeenCodingTypeEnum" value="ir.serajsamaneh.accounting.enumeration.HesabMoeenCodingTypeEnum" />
 			</map>
 		</property>
 	</bean>

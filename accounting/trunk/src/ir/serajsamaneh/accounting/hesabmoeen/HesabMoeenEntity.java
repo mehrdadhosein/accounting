@@ -102,7 +102,7 @@ public class HesabMoeenEntity extends BaseHesabMoeenEntity {
 		String hesabKolName = SerajMessageUtil.getMessage("HesabMoeen_hesabKol")+":"+this.getHesabKol()+" , ";
 		String hesabMoeenCode = SerajMessageUtil.getMessage("HesabMoeen_code")+":"+this.getCode()+" , ";
 		String desc = this.getDescription()!=null ? SerajMessageUtil.getMessage("HesabMoeen_description")+":"+this.getDescription()+" , " : "";
-		String hidden = SerajMessageUtil.getMessage("HesabMoeen_hidden")+":"+this.getHidden();
+//		String hidden = SerajMessageUtil.getMessage("HesabMoeen_hidden")+":"+this.getHidden();
 		String message= hesabMoeenName+hesabKolName+hesabMoeenCode+desc+   hidden;
 		if (!this.getTafsiliList().isEmpty()) {
 			message+=",[";

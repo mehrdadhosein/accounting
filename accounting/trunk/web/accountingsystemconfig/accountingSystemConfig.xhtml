@@ -125,15 +125,36 @@
 					</h:selectOneMenu>
 	
 					<h:panelGroup id="hesabTafsiliCodeCharactersNumberPanel" style="display:none">
-					<h:outputText styleClass="required" value="  " />
+						<h:outputText styleClass="required" value="  " />
 						<h:outputLabel for="hesabTafsiliCodeCharactersNumber"
 							value="#{messages['HesabTafsili_hesabTafsiliCodeCharactersNumber']}" /> : 
 					</h:panelGroup>
 					<p:inputText id="hesabTafsiliCodeCharactersNumber" label="#{messages['HesabTafsili_hesabTafsiliCodeCharactersNumber']}"  
 						value="#{owner.hesabTafsiliCodeCharactersNumber}" type="number" min="6" max="20" style="width:220px;display:none" >
 						 <f:validateLongRange minimum="6" maximum="20" />
-				</p:inputText>
-								
+					</p:inputText>
+
+
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="* " />
+						<h:outputLabel for="hesabMoeenCodingType"
+							value="#{messages['HesabMoeen_hesabMoeenCodingType']}" /> : 
+					</h:panelGroup>
+					<h:selectOneMenu required="true" value="#{owner.hesabMoeenCodingType}" onchange="showHesabMoeenCodeCharactersNumber();"
+						converter="seraj.converter.Enum" label="hesabMoeenCodingType" id="hesabMoeenCodingType">
+						<f:selectItems value="#{requiredEnums.HesabMoeenCodingTypeEnum}" size="50" />
+					</h:selectOneMenu>
+											 
+					<h:panelGroup id="hesabMoeenCodeCharactersNumberPanel" style="display:none">
+						<h:outputText styleClass="required" value="  " />
+						<h:outputLabel for="hesabMoeenCodeCharactersNumber"
+							value="#{messages['HesabMoeen_hesabMoeenCodeCharactersNumber']}" /> : 
+					</h:panelGroup>
+					<p:inputText id="hesabMoeenCodeCharactersNumber" label="#{messages['HesabTafsili_hesabMoeenCodeCharactersNumber']}"  
+						value="#{owner.hesabMoeenCodeCharactersNumber}" type="number" min="6" max="20" style="width:220px;display:none" >
+						 <f:validateLongRange minimum="6" maximum="20" />
+					</p:inputText>
+													
 				</p:panelGrid>
 
 <script>
@@ -142,11 +163,23 @@
 		debugger;
 		hesabTafsiliCodingType = $$('#hesabTafsiliCodingType').val();
 		if(hesabTafsiliCodingType == 'ir.serajsamaneh.accounting.enumeration.HesabTafsiliCodingTypeEnum@CONSTANT_HIERARCHICAL'){
-			$$('#hesabTafsiliCodeCharactersNumberPanel').show()
-			$$('#hesabTafsiliCodeCharactersNumber').show()
+			$$('#hesabTafsiliCodeCharactersNumberPanel').show();
+			$$('#hesabTafsiliCodeCharactersNumber').show();
 		}else{
-			$$('#hesabTafsiliCodeCharactersNumberPanel').hide()
-			$$('#hesabTafsiliCodeCharactersNumber').hide()
+			$$('#hesabTafsiliCodeCharactersNumberPanel').hide();
+			$$('#hesabTafsiliCodeCharactersNumber').hide();
+		}
+	}
+	showHesabMoeenCodeCharactersNumber();
+	function showHesabMoeenCodeCharactersNumber(){
+		debugger;
+		hesabMoeenCodingType = $$('#hesabMoeenCodingType').val();
+		if(hesabMoeenCodingType == 'ir.serajsamaneh.accounting.enumeration.HesabMoeenCodingTypeEnum@CONSTANT_HIERARCHICAL'){
+			$$('#hesabMoeenCodeCharactersNumberPanel').show();
+			$$('#hesabMoeenCodeCharactersNumber').show();
+		}else{
+			$$('#hesabMoeenCodeCharactersNumberPanel').hide();
+			$$('#hesabMoeenCodeCharactersNumber').hide();
 		}
 	}
 </script>

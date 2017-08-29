@@ -30,6 +30,7 @@ import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.organ.OrganEntity;
+import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 public class HesabMoeenService extends
@@ -47,6 +48,15 @@ public class HesabMoeenService extends
 	HesabTafsiliService hesabTafsiliService;
 	MoeenTafsiliService moeenTafsiliService;
 	SanadHesabdariItemService sanadHesabdariItemService;
+	SystemConfigService systemConfigService;
+
+	public SystemConfigService getSystemConfigService() {
+		return systemConfigService;
+	}
+
+	public void setSystemConfigService(SystemConfigService systemConfigService) {
+		this.systemConfigService = systemConfigService;
+	}
 
 	public SanadHesabdariItemService getSanadHesabdariItemService() {
 		return sanadHesabdariItemService;
@@ -148,13 +158,18 @@ public class HesabMoeenService extends
 			entity.setBedehkar(0d);
 			entity.setBestankr(0d);
 		}
+		
+		if (!StringUtils.hasText(entity.getCode()) && !getSystemConfigService().getValue(currentOrgan, null, "HesabMoeenCodingType").equals("MANUAL")) {
+			entity.setCode(generateHesabMoeenCode(entity, currentOrgan, activeSaalMaaliEntity));
+		}
+		
 		if(entity.getSaalMaali() == null || entity.getSaalMaali().getId() == null)
 			entity.setSaalMaali(activeSaalMaaliEntity);
 		
-		if (!StringUtils.hasText(entity.getCode())) {
-			
-			entity.setCode(generateHesabCode(entity, currentOrgan, activeSaalMaaliEntity));
-		}
+//		if (!StringUtils.hasText(entity.getCode())) {
+//			
+//			entity.setCode(generateHesabCode(entity, currentOrgan, activeSaalMaaliEntity));
+//		}
 		if(entity.getHidden() == null)
 			entity.setHidden(Boolean.FALSE);
 		checkHesabUniqueNess(entity, activeSaalMaaliEntity, currentOrgan);
@@ -162,6 +177,24 @@ public class HesabMoeenService extends
 		createOrUpdateRelatedHesabMoeenTemplate(entity, currentOrgan);
 	}
 
+	private  String generateHesabMoeenCode(HesabMoeenEntity entity, OrganEntity organEntity, SaalMaaliEntity activeSaalMaaliEntity) {
+		String maxHesabMoeenCode = null;
+		if (getSystemConfigService().getValue(organEntity, null, "HesabMoeenCodingType").equals("SERIAL")) {
+			maxHesabMoeenCode = getMyDAO().getMaxHesabMoeenCode(null, 0, organEntity, activeSaalMaaliEntity);
+			return maxHesabMoeenCode;
+		} else if (getSystemConfigService().getValue(organEntity, null, "HesabMoeenCodingType").equals("VARIABLE_HIERARCHICAL")) {
+			String maxHierArchicalHesabMoeenCode = getMyDAO().getMaxHesabMoeenCode(entity.getHesabKol(),0,organEntity, activeSaalMaaliEntity);
+			return maxHierArchicalHesabMoeenCode;
+		} else if (getSystemConfigService().getValue(organEntity, null, "HesabMoeenCodingType").equals("CONSTANT_HIERARCHICAL")) {
+			Integer HesabMoeenCodeCharactersNumber=Integer.parseInt(getSystemConfigService().getValue(organEntity, null, "hesabMoeenCodeCharactersNumber"));
+			String maxHierArchicalHesabMoeenCode = getMyDAO().getMaxHesabMoeenCode(entity.getHesabKol(),HesabMoeenCodeCharactersNumber,organEntity, activeSaalMaaliEntity);
+			
+			return maxHierArchicalHesabMoeenCode;
+		}
+			throw new IllegalStateException("HesabMoeenCodingType is required");
+
+	}
+	
 	@Transactional
 	public void createOrUpdateRelatedHesabMoeenTemplate(HesabMoeenEntity entity,OrganEntity organEntity) {
 
@@ -244,11 +277,11 @@ public class HesabMoeenService extends
 		saveOrUpdate(entity);
 	}
 	
-	static Long maxKalaCode = null;
-	private synchronized String generateHesabCode(HesabMoeenEntity entity, OrganEntity currentOrgan, SaalMaaliEntity activeSaalMaaliEntity) {
-		String maxHierArchicalHesabMoeenCode = getMyDAO().getMaxHesabMoeenCode(entity.getHesabKol(), currentOrgan, activeSaalMaaliEntity);
-		return maxHierArchicalHesabMoeenCode;
-	}
+//	static Long maxKalaCode = null;
+//	private synchronized String generateHesabCode(HesabMoeenEntity entity, OrganEntity currentOrgan, SaalMaaliEntity activeSaalMaaliEntity) {
+//		String maxHierArchicalHesabMoeenCode = getMyDAO().getMaxHesabMoeenCode(entity.getHesabKol(), currentOrgan, activeSaalMaaliEntity);
+//		return maxHierArchicalHesabMoeenCode;
+//	}
 	
 	@Override
 	public String getDifferences(HesabMoeenEntity entity
