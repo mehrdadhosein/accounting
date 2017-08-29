@@ -992,10 +992,6 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			
 			if(sanadHesabdariItemEntity.getBedehkar() > 0)
 				firstList.add(sanadHesabdariItemEntity);
-//			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBestankar() > 0)
-//				firstList.add(sanadHesabdariItemEntity);
-//			else if(sanadHesabdariItemEntity.getHesabKol().getMahyatKol().equals(MahyatKolEnum.Bestankar) && sanadHesabdariItemEntity.getBedehkar() > 0)
-//				lastList.add(sanadHesabdariItemEntity);
 			else if(sanadHesabdariItemEntity.getBestankar() > 0)
 				lastList.add(sanadHesabdariItemEntity);
 		}
