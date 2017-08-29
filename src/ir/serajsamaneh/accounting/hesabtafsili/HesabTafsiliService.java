@@ -290,9 +290,9 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		}
 	}
 	
-	static Long maxHesabTafsiliCode = null;
 
 	private  Long generateHesabTafsiliCode(HesabTafsiliEntity entity, OrganEntity organEntity, SaalMaaliEntity activeSaalMaaliEntity) {
+		Long maxHesabTafsiliCode = null;
 		if (getSystemConfigService().getValue(organEntity, null, "HesabTafsiliCodingType").equals("SERIAL")) {
 			maxHesabTafsiliCode = getMyDAO().getMaxHesabTafsiliCode(null, 0, organEntity, activeSaalMaaliEntity);
 			return maxHesabTafsiliCode;

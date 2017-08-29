@@ -2,6 +2,7 @@ package ir.serajsamaneh.accounting.accountingsystemconfig;
 
 import javax.faces.context.FacesContext;
 
+import ir.serajsamaneh.accounting.enumeration.HesabMoeenCodingTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.HesabTafsiliCodingTypeEnum;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
@@ -73,8 +74,47 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	Integer hesabTafsiliCodeCharactersNumber;
 	HesabTafsiliCodingTypeEnum hesabTafsiliCodingType;
 	
+	Integer hesabMoeenCodeCharactersNumber;
+	HesabMoeenCodingTypeEnum hesabMoeenCodingType;
+	
 
 
+	public HesabMoeenCodingTypeEnum getHesabMoeenCodingType() {
+		if (hesabMoeenCodingType == null && FacesContext.getCurrentInstance().getRenderResponse())
+			if (getSystemConfigService().getValue(getCurrentOrgan(), null, "HesabMoeenCodingType") != null) {
+				if (getSystemConfigService().getValue(getCurrentOrgan(), null, "HesabMoeenCodingType").equals(
+						"MANUAL")) {
+					setHesabMoeenCodingType(HesabMoeenCodingTypeEnum.MANUAL);
+				} else if (getSystemConfigService().getValue(getCurrentOrgan(), null, "HesabMoeenCodingType")
+						.equals("SERIAL")) {
+					setHesabMoeenCodingType(HesabMoeenCodingTypeEnum.SERIAL);
+				} else if (getSystemConfigService().getValue(getCurrentOrgan(), null, "HesabMoeenCodingType")
+						.equals("CONSTANT_HIERARCHICAL")) {
+					setHesabMoeenCodingType(HesabMoeenCodingTypeEnum.CONSTANT_HIERARCHICAL);
+				} else if (getSystemConfigService().getValue(getCurrentOrgan(), null, "HesabMoeenCodingType")
+						.equals("VARIABLE_HIERARCHICAL")) {
+					setHesabMoeenCodingType(HesabMoeenCodingTypeEnum.VARIABLE_HIERARCHICAL);
+				}
+			}		
+		return hesabMoeenCodingType;
+	}
+	
+	public void setHesabMoeenCodingType(HesabMoeenCodingTypeEnum hesabMoeenCodingType) {
+		this.hesabMoeenCodingType = hesabMoeenCodingType;
+	}
+	
+	public Integer getHesabMoeenCodeCharactersNumber() {
+		if (hesabMoeenCodeCharactersNumber == null && FacesContext.getCurrentInstance().getRenderResponse())
+			if (getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabMoeenCodeCharactersNumber") != null) {
+				hesabMoeenCodeCharactersNumber = Integer
+						.parseInt(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabMoeenCodeCharactersNumber"));
+			}		
+		return hesabMoeenCodeCharactersNumber;
+	}
+	
+	public void setHesabMoeenCodeCharactersNumber(Integer hesabMoeenCodeCharactersNumber) {
+		this.hesabMoeenCodeCharactersNumber = hesabMoeenCodeCharactersNumber;
+	}
 	public HesabTafsiliCodingTypeEnum getHesabTafsiliCodingType() {
 		if (hesabTafsiliCodingType == null && FacesContext.getCurrentInstance().getRenderResponse())
 			if (getSystemConfigService().getValue(getCurrentOrgan(), null, "HesabTafsiliCodingType") != null) {
@@ -272,6 +312,11 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	
 		getSystemConfigService().insertKeyValue("HesabTafsiliCodingType",	getHesabTafsiliCodingType().toString(), null, getCurrentOrgan());
 
+		if(getHesabMoeenCodeCharactersNumber()!=null)
+			getSystemConfigService().insertKeyValue("hesabMoeenCodeCharactersNumber",	getHesabMoeenCodeCharactersNumber().toString(), null, getCurrentOrgan());
+		
+		getSystemConfigService().insertKeyValue("HesabMoeenCodingType",	getHesabMoeenCodingType().toString(), null, getCurrentOrgan());
+		
 		
 		getSystemConfigService().insertKeyValue("validateHesabMoeenHasChild",	getValidateHesabMoeenHasChild().value().toString(), null, getCurrentOrgan());
 		getSystemConfigService().insertKeyValue("validateHesabTafsiliHasChild",	getValidateHesabTafsiliHasChild().value().toString(), null, getCurrentOrgan());
