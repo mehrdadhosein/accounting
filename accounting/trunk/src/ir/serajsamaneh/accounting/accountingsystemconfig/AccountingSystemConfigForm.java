@@ -329,8 +329,8 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 //		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasMarkazValue.nameWithClass()));
 		
 		if(olddefaultSanadTypeId!=null&&!olddefaultSanadTypeId.equals(getDefaultSanadTypeId().toString())){
-			HesabMoeenTemplateEntity oldEntity = getHesabMoeenTemplateService().load(new Long(olddefaultSanadTypeId));
-			HesabMoeenTemplateEntity newEntity = getHesabMoeenTemplateService().load(getDefaultSanadTypeId());
+			SanadTypeEntity oldEntity = getSanadTypeService().load(new Long(olddefaultSanadTypeId));
+			SanadTypeEntity newEntity = getSanadTypeService().load(getDefaultSanadTypeId());
 			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_defaultSanadType")+" : "+oldEntity.getDesc()+"-->"+newEntity.getDesc()+"]";
 		}
 		
