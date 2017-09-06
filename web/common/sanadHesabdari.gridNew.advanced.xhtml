@@ -436,7 +436,7 @@ $$(document).ready(function() {
 									'#{messages['common_delete']}', 
 									'#{messages['common_edit']}' 
 									],
-						colModel : [ 
+						colModel : [
 							{name :'id', index :'id', width :2, sorttype :'int'}, 
 							{name :'hesabKolID', index :'hesabKolID', width :2, sorttype :'string'}, 
 							{name :'hesabKolName', index :'hesabKolName', width :174, sorttype :'string'}, 
@@ -456,8 +456,8 @@ $$(document).ready(function() {
 							{name :'markazHazineName', index :'markazHazineName', width :100, sorttype :'string'},
 							{name :'projectID', index :'projectID', width :2, sorttype :'string'}, 
 							{name :'projectName', index :'projectName', width :100, sorttype :'string'},
-							{name :'bedehkar', index :'bedehkar', width :125, sortable :false, editable:true}, 
-							{name :'bestankar', index :'bestankar', width :125, sortable :false, editable:true}, 
+							{name :'bedehkar', index :'bedehkar', width :150, sortable :false, editable:true,formatter: numberFormatter}, 
+							{name :'bestankar', index :'bestankar', width :150, sortable :false, editable:true,formatter: numberFormatter}, 
 							{name :'description', index :'description', width :150, sortable :false, editable:true}, 
 							{name :'act', index :'act', width :30, sortable :false}, 
 							{name :'editAct', index :'editAct', width :45, sortable :false}

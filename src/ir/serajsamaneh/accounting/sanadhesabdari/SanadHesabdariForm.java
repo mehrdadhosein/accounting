@@ -921,8 +921,8 @@ public class SanadHesabdariForm extends
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getProjectID()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getProjectName()+ "</cell>";
 						
-				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getBedehkar() + "</cell>";
-				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getBestankar() + "</cell>";
+				sanadItemsXML += "<cell>" +getBigDecimalFormatted(sanadHesabdariItemVO.getBedehkar(), 0)  + "</cell>";
+				sanadItemsXML += "<cell>" +getBigDecimalFormatted(sanadHesabdariItemVO.getBestankar(), 0) + "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getDescription() + "</cell>";
 
 				String deleteFunction = "deleteRowData(getSanadHesabdariGridId(),"
