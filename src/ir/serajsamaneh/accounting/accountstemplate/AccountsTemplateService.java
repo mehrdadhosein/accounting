@@ -77,15 +77,15 @@ public class AccountsTemplateService extends
 	public void updateTemplate(AccountsTemplateEntity entity,
 			List<SanadHesabdariItemTemplateEntity> sanadHesabdariItemList) {
 		SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBedehkar = entity.getSanadHesabdariItemTemplateBedehkar();
-		if(sanadHesabdariItemTemplateBedehkar!=null && sanadHesabdariItemTemplateBedehkar.getId() != null){
-			getSanadHesabdariItemTemplateService().delete(sanadHesabdariItemTemplateBedehkar.getId());
+		if(entity.getId()!=null && sanadHesabdariItemTemplateBedehkar!=null && sanadHesabdariItemTemplateBedehkar.getId() != null && !sanadHesabdariItemList.contains(sanadHesabdariItemTemplateBedehkar)){
 			entity.setSanadHesabdariItemTemplateBedehkar(null);
+			getSanadHesabdariItemTemplateService().delete(sanadHesabdariItemTemplateBedehkar.getId());
 		}
 
 		SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBestankar = entity.getSanadHesabdariItemTemplateBestankar();
-		if(sanadHesabdariItemTemplateBestankar!=null && sanadHesabdariItemTemplateBestankar.getId() != null){
-			getSanadHesabdariItemTemplateService().delete(sanadHesabdariItemTemplateBestankar.getId());
+		if(entity.getId()!=null && sanadHesabdariItemTemplateBestankar!=null && sanadHesabdariItemTemplateBestankar.getId() != null && !sanadHesabdariItemList.contains(sanadHesabdariItemTemplateBestankar)){
 			entity.setSanadHesabdariItemTemplateBestankar(null);
+			getSanadHesabdariItemTemplateService().delete(sanadHesabdariItemTemplateBestankar.getId());
 		}
 
 		for (SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateEntity : sanadHesabdariItemList) {
@@ -132,7 +132,7 @@ public class AccountsTemplateService extends
 			throw new FatalException("More Than One records Found");
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional
 	public void createAutomaticSanadTemplates(OrganEntity organEntity) {
 		getLogger().info("initializing accounts tempaltes");
 		try {
@@ -142,7 +142,7 @@ public class AccountsTemplateService extends
 		}
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional
 	private void createDefaultAutomaticSanadTemplates(OrganEntity organEntity) throws IOException{
 		URL resource = getClass().getResource("/config/automaticSanadTemplates");
 		if (resource == null)
@@ -187,7 +187,7 @@ public class AccountsTemplateService extends
 		}
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional
 	private void createAutomaticSanadTemplate(Element automaticSanadTemplateElem, OrganEntity organEntity) {
 		String automaticSanadTemplateName = automaticSanadTemplateElem.getAttribute("actionName");
 		String automaticSanadTemplateActionId = automaticSanadTemplateElem.getAttribute("actionId");
