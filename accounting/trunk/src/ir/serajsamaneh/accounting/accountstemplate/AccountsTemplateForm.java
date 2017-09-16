@@ -387,6 +387,7 @@ public class AccountsTemplateForm extends
 		getLogger().info("initializing accounts tempaltes");
 		getMyService().createAutomaticSanadTemplates(getCurrentOrgan());
 		((SerajDataModel)getLocalDataModel()).clearPage();
+		addInfoMessage("SUCCESSFUL_ACTION");
 	}
 
 }
