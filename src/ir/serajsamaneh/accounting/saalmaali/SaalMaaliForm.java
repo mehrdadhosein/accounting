@@ -35,12 +35,6 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 		return saalMaaliService;
 	}
 
-	@Override
-	public DataModel<SaalMaaliEntity> getDataModel() {
-		setSearchAction(true);
-		this.getFilter().put("organ.id@eq", getCurrentOrgan().getId());
-		return super.getDataModel();
-	};
 
 	Long saalMaaliID;
 

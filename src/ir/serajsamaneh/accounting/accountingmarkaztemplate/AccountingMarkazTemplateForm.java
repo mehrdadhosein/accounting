@@ -44,11 +44,6 @@ public class AccountingMarkazTemplateForm extends BaseAccountingForm<AccountingM
 		this.saalMaaliService = saalMaaliService;
 	}
 
-	
-	public DataModel<AccountingMarkazTemplateEntity> getGlobalDataModel() {
-		setSearchAction(true);
-		return getDataModel();
-	}
 		
 	HesabMoeenTemplateService hesabMoeenTemplateService;
 	

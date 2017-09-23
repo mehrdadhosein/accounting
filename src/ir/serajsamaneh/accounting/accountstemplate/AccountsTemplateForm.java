@@ -92,11 +92,6 @@ public class AccountsTemplateForm extends
 		this.hesabTafsiliService = hesabTafsiliService;
 	}
 
-	@Override
-	public DataModel getDataModel() {
-		this.getFilter().put("organ.id@eq", getCurrentOrgan().getId());
-		return super.getDataModel();
-	};
 
 	public String localSave() {
 		getEntity().setOrgan(getCurrentOrgan());

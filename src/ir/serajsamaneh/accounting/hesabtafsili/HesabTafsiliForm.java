@@ -102,15 +102,6 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 		return super.getHierarchicalDataModelCount();
 	}
-	
-	
-	public DataModel<HesabTafsiliEntity> getGlobalDataModel() {
-		setSearchAction(true);
-		return super.getDataModel();
-	}
-		
-
-
 
 	HesabMoeenService hesabMoeenService;
 	

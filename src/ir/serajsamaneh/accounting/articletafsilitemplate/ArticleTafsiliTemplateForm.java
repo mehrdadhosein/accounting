@@ -26,12 +26,8 @@ public class ArticleTafsiliTemplateForm extends BaseEntityForm<ArticleTafsiliTem
 		return getLocalViewUrl();
 	}
 
-	public DataModel<ArticleTafsiliTemplateEntity> getLocalDataModel() {
-		return getDataModel();
-	}
-
 	public DataModel<ArticleTafsiliTemplateEntity> getLocalArchiveDataModel() {
-		return getDataModel();
+		return getLocalDataModel();
 	}
 
 	public Boolean getIsCreated() {

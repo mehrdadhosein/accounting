@@ -37,12 +37,8 @@ public class HesabGroupTemplateForm   extends BaseEntityForm<HesabGroupTemplateE
 		return getLocalViewUrl();
 	}
 
-	public DataModel getLocalDataModel() {
-		return getDataModel();
-	}
-	
-	public DataModel getLocalArchiveDataModel() {
-		return getDataModel();
+	public DataModel<HesabGroupTemplateEntity> getLocalArchiveDataModel() {
+		return getLocalDataModel();
 	}	
 	
 	public Boolean getIsCreated() {

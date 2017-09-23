@@ -37,12 +37,8 @@ public class MoeenAccountingMarkazForm   extends BaseEntityForm<MoeenAccountingM
 		return getLocalViewUrl();
 	}
 
-	public DataModel getLocalDataModel() {
-		return getDataModel();
-	}
-	
-	public DataModel getLocalArchiveDataModel() {
-		return getDataModel();
+	public DataModel<MoeenAccountingMarkazEntity> getLocalArchiveDataModel() {
+		return getLocalDataModel();
 	}	
 	
 	public Boolean getIsCreated() {

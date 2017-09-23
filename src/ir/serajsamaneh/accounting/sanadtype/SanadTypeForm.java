@@ -1,15 +1,14 @@
 package ir.serajsamaneh.accounting.sanadtype;
 
-import ir.serajsamaneh.accounting.base.BaseAccountingForm;
-import ir.serajsamaneh.core.base.BaseEntity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.model.DataModel;
 import javax.faces.model.SelectItem;
+
+import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.core.base.BaseEntity;
 
 public class SanadTypeForm extends BaseAccountingForm<SanadTypeEntity, Long> {
 
@@ -17,13 +16,6 @@ public class SanadTypeForm extends BaseAccountingForm<SanadTypeEntity, Long> {
 	protected SanadTypeService getMyService() {
 		return sanadTypeService;
 	}
-
-	@Override
-	public DataModel<SanadTypeEntity> getDataModel() {
-		setSearchAction(true);
-		this.getFilter().put("organ.id@eq", getCurrentOrgan().getId());
-		return super.getDataModel();
-	};
 
 	public String localSave() {
 		getEntity().setOrgan(getCurrentOrgan());
