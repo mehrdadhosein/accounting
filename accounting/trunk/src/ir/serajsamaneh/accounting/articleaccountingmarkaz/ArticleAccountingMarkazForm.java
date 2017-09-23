@@ -39,12 +39,8 @@ public class ArticleAccountingMarkazForm   extends BaseEntityForm<ArticleAccount
 		return getLocalViewUrl();
 	}
 
-	public DataModel getLocalDataModel() {
-		return getDataModel();
-	}
-	
-	public DataModel getLocalArchiveDataModel() {
-		return getDataModel();
+	public DataModel<ArticleAccountingMarkazEntity> getLocalArchiveDataModel() {
+		return getLocalDataModel();
 	}	
 	
 	public Boolean getIsCreated() {

@@ -52,14 +52,6 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 		this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 		return getDataModel();
 	}
-	
-	public DataModel<AccountingMarkazEntity> getGlobalDataModel() {
-		setSearchAction(true);
-		return super.getDataModel();
-	}
-		
-
-
 
 	HesabMoeenService hesabMoeenService;
 	
