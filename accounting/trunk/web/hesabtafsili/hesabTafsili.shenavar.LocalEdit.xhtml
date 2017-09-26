@@ -64,17 +64,7 @@
 					label="#{messages['HesabClassification_title']}" id="hesabClassification">
 					<f:selectItems value="#{localEntities.hesabClassification}" />
 				</h:selectOneMenu>
-			
 
-				<h:panelGroup>
-					<h:outputLabel for="moeens"
-						value="#{messages['HesabTafsili_moeens']}" /> : 
-				</h:panelGroup>
-				<h:panelGroup>
-					<custom:autocomplete-multiple id="moeens" width="220px"
-						selectedIds="#{hesabTafsili.moeenIds}" entity="HesabMoeen"
-						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
-				</h:panelGroup>
 
 				<h:panelGroup>
 					<h:outputLabel for="childTafsilies"
@@ -84,6 +74,16 @@
 					<custom:autocomplete-multiple id="childTafsilies" width="220px"
 						selectedIds="#{hesabTafsili.childTafsiliIds}" entity="HesabTafsili"
 						property="code, name" ajax="false" extraParams="isCurrentOrgan=true&amp;isShenavar=true"/>
+				</h:panelGroup>
+
+				<h:panelGroup>
+					<h:outputLabel for="parentTafsilies"
+						value="#{messages['HesabTafsili_parents']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-multiple id="parentTafsilies" width="220px"
+						selectedIds="#{hesabTafsili.parentTafsiliIds}" entity="HesabTafsili"
+						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
 				</h:panelGroup>
 
 				<h:panelGroup>
@@ -108,7 +108,7 @@
 	</ui:define>
 	<ui:define name="buttonsection">
 		<h:commandButton styleClass=" gwt-Button"  rendered="#{owner.editable  and owner.isForMyOrgan}"
-			action="#{owner.localTafsilSave}" value="#{messages['common_save']}"
+			action="#{owner.localShenavarSave}" value="#{messages['common_save']}"
 			image="/images/savebtn.png" />
 
 		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"

@@ -617,6 +617,15 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		return getDataList(null, localFilter);
 	}
 	
+	public List<HesabTafsiliEntity> getActiveTafsilis(SaalMaaliEntity currentSaalMaali, Boolean isShenavar) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		
+		localFilter.put("isShenavar@eq", isShenavar);
+		localFilter.put("hidden@eq", Boolean.FALSE);
+		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
+		return getDataList(null, localFilter);
+	}
+	
 	@Transactional(readOnly=false)
 	public void importFromHesabTafsiliTemplateList(SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
@@ -894,13 +903,25 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 	
 	@Transactional(readOnly=true)
-	public List<HesabTafsiliEntity> getRootHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
+	public List<HesabTafsiliEntity> getRootTafsiliHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
 		List<HesabTafsiliEntity> rootList = new ArrayList<HesabTafsiliEntity>();
-		List<HesabTafsiliEntity> activeTafsilis = getActiveTafsilis(saalMaaliEntity);
+		List<HesabTafsiliEntity> activeTafsilis = getActiveTafsilis(saalMaaliEntity, Boolean.FALSE);
 		for (HesabTafsiliEntity hesabTafsiliEntity : activeTafsilis) {
 			if(hesabTafsiliEntity.getChilds()==null || hesabTafsiliEntity.getChilds().isEmpty())
 				if(hesabTafsiliEntity.getMoeenTafsili()!= null && !hesabTafsiliEntity.getMoeenTafsili().isEmpty())
 				rootList.add(hesabTafsiliEntity);
+		}
+		return rootList;
+	}
+	
+	@Transactional(readOnly=true)
+	public List<HesabTafsiliEntity> getRootShenavarHesabs(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
+		List<HesabTafsiliEntity> rootList = new ArrayList<HesabTafsiliEntity>();
+		List<HesabTafsiliEntity> activeTafsilis = getActiveTafsilis(saalMaaliEntity, Boolean.TRUE);
+		for (HesabTafsiliEntity hesabTafsiliEntity : activeTafsilis) {
+			if(hesabTafsiliEntity.getChilds()==null || hesabTafsiliEntity.getChilds().isEmpty())
+				if(hesabTafsiliEntity.getMoeenTafsili()!= null && !hesabTafsiliEntity.getMoeenTafsili().isEmpty())
+					rootList.add(hesabTafsiliEntity);
 		}
 		return rootList;
 	}

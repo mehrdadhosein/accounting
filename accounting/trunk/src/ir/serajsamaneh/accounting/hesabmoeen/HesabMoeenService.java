@@ -396,6 +396,7 @@ public class HesabMoeenService extends
 		localFilter.put("hesabTafsili.saalMaali.id@eq", saalMaaliEntity.getId());
 		
 		localFilter.put("hesabMoeen.id@eq", hesabMoeenEntity.getId());
+		localFilter.put("hesabTafsili.isShenavar@eq", Boolean.FALSE);
 		List<MoeenTafsiliEntity> dataList = getMoeenTafsiliService().getDataList(null, localFilter);
 		
 		List<HesabTafsiliEntity> hesabTafsiliEntities = new ArrayList<HesabTafsiliEntity>();

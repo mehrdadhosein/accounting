@@ -77,6 +77,16 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		this.saalMaaliService = saalMaaliService;
 	}
 
+	public DataModel<HesabTafsiliEntity> getLocalShenavarDataModel() {
+		getFilter().put("isShenavar@eq",Boolean.TRUE);
+		return getLocalDataModel();
+	}
+	
+	public DataModel<HesabTafsiliEntity> getLocalTafsiliDataModel() {
+		getFilter().put("isShenavar@eq",Boolean.FALSE);
+		return getLocalDataModel();
+	}
+	
 	public DataModel<HesabTafsiliEntity> getLocalDataModel() {
 		setSearchAction(true);
 		
@@ -87,6 +97,16 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		return getDataModel();
 	}
 
+	public DataModel<HesabTafsiliEntity> getUpsetTafsiliDataModel() {
+		getFilter().put("isShenavar@eq",Boolean.FALSE);
+		return getUpsetDataModel();
+	}
+	
+	public DataModel<HesabTafsiliEntity> getUpsetShenavarDataModel() {
+		getFilter().put("isShenavar@eq",Boolean.TRUE);
+		return getUpsetDataModel();
+	}
+	
 	@Override
 	public DataModel<HesabTafsiliEntity> getUpsetDataModel() {
 		setSearchAction(true);
@@ -217,8 +237,16 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		}
 	}
 	
-	public String localSave() {
+	public String localTafsilSave() {
 		getEntity().setOrgan(getCurrentOrgan());
+		getEntity().setIsShenavar(Boolean.FALSE);
+		save();
+		return getLocalViewUrl();
+	}
+	
+	public String localShenavarSave() {
+		getEntity().setOrgan(getCurrentOrgan());
+		getEntity().setIsShenavar(Boolean.TRUE);
 		save();
 		return getLocalViewUrl();
 	}
@@ -255,6 +283,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 			boolean all, Map<String, String> params) {
 		try{
 			String isLocalUser = params.get("isCurrentOrgan");
+			String isShenavar = params.get("isShenavar");
 			
 			this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 			
@@ -262,6 +291,12 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 				getFilter().put("organ.id@eq",getCurrentOrgan().getId());
 			}
 	
+			if (isShenavar !=null && isShenavar.equals("true")){
+				getFilter().put("isShenavar@eq",Boolean.TRUE);
+			}else if (isShenavar !=null && isShenavar.equals("false")){
+				getFilter().put("isShenavar@eq",Boolean.FALSE);
+			}
+			
 			String isHierarchical = params.get("isHierarchical");
 			String hidden = params.get("hidden");
 			
@@ -320,6 +355,9 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		return getEntity().getOrgan().getId().equals(getCurrentOrgan().getId());
 	}
 
+	public String localShenavarEdit() {
+		return getFacesUrl("/hesabtafsili/hesabTafsili.shenavar.LocalEdit.xhtml");
+	}
 
 
 }

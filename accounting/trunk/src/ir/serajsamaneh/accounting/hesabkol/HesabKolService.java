@@ -674,10 +674,17 @@ public class HesabKolService extends
 			hesabMoeenMap.put("label",hesabMoeenEntity.getDesc());
 			rootHesabsList.add(hesabMoeenMap);
 		}
-		List<HesabTafsiliEntity> rootHesabTafsilies = getHesabTafsiliService().getRootHesabs(saalMaaliEntity, currentOrgan);
+		List<HesabTafsiliEntity> rootHesabTafsilies = getHesabTafsiliService().getRootTafsiliHesabs(saalMaaliEntity, currentOrgan);
 		for (HesabTafsiliEntity hesabTafsiliEntity : rootHesabTafsilies) {
 			ListOrderedMap<String, Object> hesabTafsiliMap = new ListOrderedMap<String, Object>();
 			hesabTafsiliMap.put("value","Tafsili_"+hesabTafsiliEntity.getId());
+			hesabTafsiliMap.put("label",hesabTafsiliEntity.getDesc());
+			rootHesabsList.add(hesabTafsiliMap);
+		}
+		List<HesabTafsiliEntity> rootHesabShenavars = getHesabTafsiliService().getRootShenavarHesabs(saalMaaliEntity, currentOrgan);
+		for (HesabTafsiliEntity hesabTafsiliEntity : rootHesabShenavars) {
+			ListOrderedMap<String, Object> hesabTafsiliMap = new ListOrderedMap<String, Object>();
+			hesabTafsiliMap.put("value","Shenavar_"+hesabTafsiliEntity.getId());
 			hesabTafsiliMap.put("label",hesabTafsiliEntity.getDesc());
 			rootHesabsList.add(hesabTafsiliMap);
 		}
