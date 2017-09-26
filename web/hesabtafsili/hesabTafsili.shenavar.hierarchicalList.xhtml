@@ -19,20 +19,27 @@
 	<ui:param name="searchpage"
 		value="/hesabtafsili/hesabTafsili.localExampleForm.xhtml" />
 	<ui:define name="listsection">
+		
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
 			<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			
+			reflow="true"
 			 dir="rtl"
 			 id="hesabTafsilis"
-				value="#{hesabTafsili.localTafsiliDataModel}" headerClass="header"
+				value="#{hesabTafsili.upsetShenavarDataModel}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center" rows="#{hesabTafsili.rowsPerPage}">
 				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
 
-
-
 				<p:column>
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['Organ_title']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.organ}" />
+				</p:column>
+
+				<p:column priority="2">
 					<f:facet name="header">
 						<p:commandLink action="#{owner.sort}" update="hesabTafsilis"
 							onclick="showLoading();" oncomplete="hideLoading();"
@@ -93,7 +100,8 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.bestankr}"   converter="seraj.converter.accountingNumberFormatter" />
+					<h:outputText styleClass="CellClass" value="#{item.bestankr}"
+						converter="seraj.converter.accountingNumberFormatter" />
 				</p:column>
 
 
@@ -115,26 +123,28 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"  converter="seraj.converter.accountingNumberFormatter"   />
+					<h:outputText styleClass="CellClass" value="#{item.bedehkar}"
+						converter="seraj.converter.accountingNumberFormatter" />
 				</p:column>
 
-
-				<p:column>
-					<f:facet name="header">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['SaalMaali_title']}" />
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.saalMaali}" />
-				</p:column>
 
 				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
-								value="#{messages['SaalMaali_title']}" />
+							value="#{messages['SaalMaali_title']}" />
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.saalMaali.nameWithOrgan}"   />
+					<h:outputText styleClass="CellClass" value="#{item.saalMaali}" />
 				</p:column>
-				
+
+				<p:column priority="3">
+					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['SaalMaali_title']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass"
+						value="#{item.saalMaali.nameWithOrgan}" />
+				</p:column>
+
 				<p:column rendered="#{hesabTafsili.deletable}"
 					styleClass="action">
 					<f:facet name="header">
@@ -142,7 +152,7 @@
 							value="#{messages['common_delete']}" />
 					</f:facet>
 
-					<h:commandLink action="#{hesabTafsili.delete}" immediate="true"  
+					<h:commandLink action="#{hesabTafsili.delete}" immediate="true"
 						onclick="if(!confirmDelete()) return false;">
 						<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
 						<f:setPropertyActionListener value="#{item.id}"
@@ -156,12 +166,12 @@
 							value="#{messages['common_edit']}" />
 					</f:facet>
 
-					<h:commandLink action="#{hesabTafsili.localEdit}" immediate="true">
+					<h:commandLink action="#{hesabTafsili.localShenavarEdit}" immediate="true">
 						<h:graphicImage value="/images/edit.png" style="border:0"></h:graphicImage>
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{hesabTafsili.ID}" converter="javax.faces.Long" />
 						<f:setPropertyActionListener
-							value="/hesabtafsili/hesabTafsili.localList.xhtml"
+							value="/hesabtafsili/hesabTafsili.shenavar.hierarchicalList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
 				</p:column>
@@ -176,7 +186,7 @@
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{hesabTafsili.ID}" converter="javax.faces.Long" />
 						<f:setPropertyActionListener
-							value="/hesabtafsili/hesabTafsili.localList.xhtml"
+							value="/hesabtafsili/hesabTafsili.shenavar.hierarchicalList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
 				</p:column>
@@ -186,11 +196,11 @@
 
 	</ui:define>
 	<ui:define name="buttonsection">
-		<h:commandButton action="#{owner.localEdit}" styleClass=" gwt-Button"
+		<h:commandButton action="#{owner.localShenavarEdit}" styleClass=" gwt-Button"
 			rendered="#{owner.creatable}" value="#{messages['common_new']}"
 			immediate="true" image="/images/buttons/btn_add.png">
 			<f:setPropertyActionListener
-				value="/hesabtafsili/hesabTafsili.localList.xhtml"
+				value="/hesabtafsili/hesabTafsili.shenavar.hierarchicalList.xhtml"
 				target="#{owner.returnUrl}" />
 		</h:commandButton>
 		<h:commandButton action="#{owner.importFromHesabTafsiliTemplateList}"
@@ -201,7 +211,7 @@
 			update="listPanel,recoredCounter">
 		</h:commandButton>
 
-		<h:commandButton action="#{owner.exportToExcel}"
+		<h:commandButton action="#{owner.exportToHierarchicalExcel}"
 			styleClass=" gwt-Button" rendered="#{owner.creatable}"
 			value="#{messages['common_excel']}" immediate="true"
 			image="/images/excelBtn.png" />

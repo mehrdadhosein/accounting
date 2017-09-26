@@ -93,7 +93,7 @@
 		}
        	$$(function() {
 			$$.ajax({
-				  url: '${request.contextPath}/entities?entity=HesabTafsili&property=desc&all=true&autocomplete=true&isHierarchical=true&level=1',
+				  url: '${request.contextPath}/entities?entity=HesabTafsili&property=desc&all=true&autocomplete=true&isHierarchical=true&level=1&isShenavar=true',
 				  cache: false,
 				  success: function(result){
 				    hesabTafsilis=result;
@@ -184,7 +184,7 @@
 		</h:panelGroup>
 		<h:panelGroup>
 			<custom:autocomplete-one id="hesabTafsili" entity="HesabTafsili" property="desc"
-				width="200px" client="true" extraParams="isHierarchical=true" onchange="showMoeenList('hesabMoeen','hesabTafsili');fillDestTafsili('hesabTafsili','hesabTafsili1');fillDestMarkazAccountingByTafsili('hesabTafsili','accountingMarkaz');"/>
+				width="200px" client="true" extraParams="isHierarchical=true&amp;&amp;isShenavar=false" onchange="showMoeenList('hesabMoeen','hesabTafsili');fillDestTafsili('hesabTafsili','hesabTafsili1');fillDestMarkazAccountingByTafsili('hesabTafsili','accountingMarkaz');"/>
 		</h:panelGroup>
 		
 		

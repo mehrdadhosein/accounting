@@ -25,7 +25,7 @@
 			
 			 dir="rtl"
 			 id="hesabTafsilis"
-				value="#{hesabTafsili.localTafsiliDataModel}" headerClass="header"
+				value="#{hesabTafsili.localShenavarDataModel}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center" rows="#{hesabTafsili.rowsPerPage}">
 				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
@@ -156,12 +156,12 @@
 							value="#{messages['common_edit']}" />
 					</f:facet>
 
-					<h:commandLink action="#{hesabTafsili.localEdit}" immediate="true">
+					<h:commandLink action="#{hesabTafsili.localShenavarEdit}" immediate="true">
 						<h:graphicImage value="/images/edit.png" style="border:0"></h:graphicImage>
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{hesabTafsili.ID}" converter="javax.faces.Long" />
 						<f:setPropertyActionListener
-							value="/hesabtafsili/hesabTafsili.localList.xhtml"
+							value="/hesabtafsili/hesabTafsili.shenavar.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
 				</p:column>
@@ -176,7 +176,7 @@
 						<f:setPropertyActionListener value="#{item.id}"
 							target="#{hesabTafsili.ID}" converter="javax.faces.Long" />
 						<f:setPropertyActionListener
-							value="/hesabtafsili/hesabTafsili.localList.xhtml"
+							value="/hesabtafsili/hesabTafsili.shenavar.localList.xhtml"
 							target="#{owner.returnUrl}" />
 					</h:commandLink>
 				</p:column>
@@ -186,11 +186,11 @@
 
 	</ui:define>
 	<ui:define name="buttonsection">
-		<h:commandButton action="#{owner.localEdit}" styleClass=" gwt-Button"
+		<h:commandButton action="#{owner.localShenavarEdit}" styleClass=" gwt-Button"
 			rendered="#{owner.creatable}" value="#{messages['common_new']}"
 			immediate="true" image="/images/buttons/btn_add.png">
 			<f:setPropertyActionListener
-				value="/hesabtafsili/hesabTafsili.localList.xhtml"
+				value="/hesabtafsili/hesabTafsili.shenavar.localList.xhtml"
 				target="#{owner.returnUrl}" />
 		</h:commandButton>
 		<h:commandButton action="#{owner.importFromHesabTafsiliTemplateList}"
