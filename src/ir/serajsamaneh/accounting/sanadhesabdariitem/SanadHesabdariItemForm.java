@@ -26,6 +26,7 @@ import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.converter.CSVtoListOfLongConverter;
+import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.MaxExcelRecordExportException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.security.ActionLogUtil;
@@ -363,7 +364,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		if(organEntity!=null)
 			getFilter().put("sanadHesabdari.organ.id@eq", organEntity.getId());
 		else
-			getFilter().put("sanadHesabdari.organ.id@eq", null);
+			throw new FatalException();//getFilter().put("sanadHesabdari.organ.id@eq", null);
 
 		List<SanadStateEnum> sanadStates = new ArrayList<SanadStateEnum>();
 		sanadStates.add(SanadStateEnum.DAEM);
@@ -475,6 +476,13 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		return getDataModel();
 	}
 	
+	
+	public DataModel<SanadHesabdariItemEntity> getDaftarKolSummaryDataModel() {
+//		setRowsPerPage(1000);
+		createDaftarSummaryDaftarLocalFilter(getCurrentOrgan());
+		return getDataModel();
+	}
+	
 	public DataModel<SanadHesabdariItemEntity> getDaftarKolDataModel() {
 //		setRowsPerPage(1000);
 //		setSearchAction(false);
@@ -483,12 +491,7 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		createDaftarLocalFilter(getCurrentOrgan());
 		return getDataModel();
 	}
-	
-	public DataModel<SanadHesabdariItemEntity> getDaftarKolSummaryDataModel() {
-//		setRowsPerPage(1000);
-		createDaftarSummaryDaftarLocalFilter(getCurrentOrgan());
-		return getDataModel();
-	}
+
 	
 	public DataModel<SanadHesabdariItemEntity> getDaftarKolHierarchicalDataModel() {
 		setRowsPerPage(1000);
@@ -925,13 +928,22 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 
 	private List<SanadHesabdariItemEntity> getDaftarKolList() {
 		setDefaultSortType(true);
-		createDaftarHierarchicalFilter();
+		createDaftarLocalFilter(getCurrentOrgan());
 		List<String> orderByCols = Arrays.asList("hesabKol.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
 		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
 		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getSanadHesabdariItemListSortedByMahiat(daftarKolList);
 		return daftarKolListSortedByMahiat;
 	}
 
+	private List<SanadHesabdariItemEntity> getDaftarKolHierarchicalList() {
+		setDefaultSortType(true);
+		createDaftarHierarchicalFilter();
+		List<String> orderByCols = Arrays.asList("hesabKol.id","sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
+		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
+		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getSanadHesabdariItemListSortedByMahiat(daftarKolList);
+		return daftarKolListSortedByMahiat;
+	}
+	
 	
 	private String printMonthlySummaryDaftarKol(String organName) {
 		setDefaultSortType(true);
