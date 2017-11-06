@@ -75,7 +75,8 @@ public abstract class BaseHesabTafsiliEntity  extends BaseEntity<Long>   impleme
 	private java.lang.String description;
 	private java.lang.Double bedehkar;
 	private java.lang.Double bestankr;
-	private java.lang.Boolean isShenavar;
+//	private java.lang.Boolean isShenavar;
+	private java.lang.Integer level;
 
 	// many to one
 	private ir.serajsamaneh.core.organ.OrganEntity organ;
@@ -114,13 +115,21 @@ public abstract class BaseHesabTafsiliEntity  extends BaseEntity<Long>   impleme
 
 
  
-	public java.lang.Boolean getIsShenavar() {
-		return isShenavar;
+	public java.lang.Integer getLevel() {
+		return level;
 	}
 
-	public void setIsShenavar(java.lang.Boolean isShenavar) {
-		this.isShenavar = isShenavar;
+	public void setLevel(java.lang.Integer level) {
+		this.level = level;
 	}
+//
+//	public java.lang.Boolean getIsShenavar() {
+//		return isShenavar;
+//	}
+//
+//	public void setIsShenavar(java.lang.Boolean isShenavar) {
+//		this.isShenavar = isShenavar;
+//	}
 
 	/**
 	 * Return the value associated with the column: code

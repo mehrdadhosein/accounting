@@ -232,10 +232,10 @@ public class SanadHesabdariForm extends
 			sanadHesabdariItemEntity.setEntityId(map.get("entityId"));
 
 		incorectItem = "SanadHesabdariItem_hesabTafsili";
-		if(isInMultipleLevelMode && StringUtils.hasText(map.get("hesabTafsiliID")))
-			sanadHesabdariItemEntity.setHesabTafsili(getHesabTafsiliService().load(new Long(map.get("hesabTafsiliID"))));
+		if(isInMultipleLevelMode && StringUtils.hasText(map.get("hesabTafsiliOneID")))
+			sanadHesabdariItemEntity.setHesabTafsili(getHesabTafsiliService().load(new Long(map.get("hesabTafsiliOneID"))));
 		else if(!isInMultipleLevelMode)
-			sanadHesabdariItemEntity.setHesabTafsili(getHesabTafsiliService().load(new Long(map.get("hesabTafsiliID"))));
+			sanadHesabdariItemEntity.setHesabTafsili(getHesabTafsiliService().load(new Long(map.get("hesabTafsiliOneID"))));
 
 		incorectItem = "SanadHesabdariItem_accountingMarkaz";
 		if(isInMultipleLevelMode && StringUtils.hasText(map.get("accountingMarkazID")))
@@ -903,8 +903,8 @@ public class SanadHesabdariForm extends
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabMoeenID()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabMoeenName()+ "</cell>";
 
-				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliID()+ "</cell>";
-				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliName()+ "</cell>";
+				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliOneID()+ "</cell>";
+				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliOneName()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliLevelNames()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliLevels()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliDescs()+ "</cell>";

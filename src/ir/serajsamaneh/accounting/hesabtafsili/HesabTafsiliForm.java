@@ -25,6 +25,7 @@ import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
+import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
 
@@ -77,13 +78,13 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		this.saalMaaliService = saalMaaliService;
 	}
 
-	public DataModel<HesabTafsiliEntity> getLocalShenavarDataModel() {
-		getFilter().put("isShenavar@eq",Boolean.TRUE);
-		return getLocalDataModel();
-	}
+//	public DataModel<HesabTafsiliEntity> getLocalShenavarDataModel() {
+//		getFilter().put("isShenavar@eq",Boolean.TRUE);
+//		return getLocalDataModel();
+//	}
 	
 	public DataModel<HesabTafsiliEntity> getLocalTafsiliDataModel() {
-		getFilter().put("isShenavar@eq",Boolean.FALSE);
+//		getFilter().put("isShenavar@eq",Boolean.FALSE);
 		return getLocalDataModel();
 	}
 	
@@ -98,14 +99,14 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	}
 
 	public DataModel<HesabTafsiliEntity> getUpsetTafsiliDataModel() {
-		getFilter().put("isShenavar@eq",Boolean.FALSE);
+//		getFilter().put("isShenavar@eq",Boolean.FALSE);
 		return getUpsetDataModel();
 	}
 	
-	public DataModel<HesabTafsiliEntity> getUpsetShenavarDataModel() {
-		getFilter().put("isShenavar@eq",Boolean.TRUE);
-		return getUpsetDataModel();
-	}
+//	public DataModel<HesabTafsiliEntity> getUpsetShenavarDataModel() {
+//		getFilter().put("isShenavar@eq",Boolean.TRUE);
+//		return getUpsetDataModel();
+//	}
 	
 	@Override
 	public DataModel<HesabTafsiliEntity> getUpsetDataModel() {
@@ -230,7 +231,8 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		for (Long organId : subsetOrganIds) {
 			OrganEntity organEntity = getOrganService().load(organId);
 			HesabRelationsUtil.resetTafsiliMoeenMap(getCurrentUserActiveSaalMaali(), organEntity);
-			HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali(), organEntity);
+			HesabRelationsUtil.resetmoeenTafsiliOneMap(getCurrentUserActiveSaalMaali(), organEntity);
+			HesabRelationsUtil.resetmoeenTafsiliTwoMap(getCurrentUserActiveSaalMaali(), organEntity);
 			HesabRelationsUtil.resetTafsiliChildMap(getCurrentUserActiveSaalMaali(), organEntity);
 			HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), organEntity);
 			HesabRelationsUtil.resetRootHesabsMap(getCurrentUserActiveSaalMaali(), organEntity);
@@ -239,17 +241,17 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	
 	public String localTafsilSave() {
 		getEntity().setOrgan(getCurrentOrgan());
-		getEntity().setIsShenavar(Boolean.FALSE);
+//		getEntity().setIsShenavar(Boolean.FALSE);
 		save();
 		return getLocalViewUrl();
 	}
 	
-	public String localShenavarSave() {
-		getEntity().setOrgan(getCurrentOrgan());
-		getEntity().setIsShenavar(Boolean.TRUE);
-		save();
-		return getLocalViewUrl();
-	}
+//	public String localShenavarSave() {
+//		getEntity().setOrgan(getCurrentOrgan());
+//		getEntity().setIsShenavar(Boolean.TRUE);
+//		save();
+//		return getLocalViewUrl();
+//	}
 	
 	public DataModel<HesabTafsiliEntity> getActiveDataModel() {
 		getFilter().put("hidden@eq", Boolean.FALSE); 
@@ -283,7 +285,8 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 			boolean all, Map<String, String> params) {
 		try{
 			String isLocalUser = params.get("isCurrentOrgan");
-			String isShenavar = params.get("isShenavar");
+//			String isShenavar = params.get("isShenavar");
+			String tafsiliLevel = params.get("tafsiliLevel");
 			
 			this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 			
@@ -291,10 +294,16 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 				getFilter().put("organ.id@eq",getCurrentOrgan().getId());
 			}
 	
-			if (isShenavar !=null && isShenavar.equals("true")){
-				getFilter().put("isShenavar@eq",Boolean.TRUE);
-			}else if (isShenavar !=null && isShenavar.equals("false")){
-				getFilter().put("isShenavar@eq",Boolean.FALSE);
+//			if (isShenavar !=null && isShenavar.equals("true")){
+//				getFilter().put("isShenavar@eq",Boolean.TRUE);
+//			}else if (isShenavar !=null && isShenavar.equals("false")){
+//				getFilter().put("isShenavar@eq",Boolean.FALSE);
+//			}
+			
+			if (StringUtil.hasText(tafsiliLevel)){
+				getFilter().put("level@eq",new Integer(tafsiliLevel));
+			}else{
+				throw new FatalException("tafsili level is null");
 			}
 			
 			String isHierarchical = params.get("isHierarchical");

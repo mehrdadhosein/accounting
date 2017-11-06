@@ -39,6 +39,17 @@
 					value="#{hesabTafsili.entity.name}" size="50" />
 
 				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="level" value="#{messages['HesabTafsili_level']}" /> :  
+				</h:panelGroup>
+				<p:selectOneMenu id="level" value="#{hesabTafsili.entity.level}"  converter="javax.faces.Integer"
+					label="#{messages['HesabTafsili_level']}">
+					<f:selectItem itemLabel="1" itemValue="1"/>
+					<f:selectItem itemLabel="2" itemValue="2"/>
+				</p:selectOneMenu>				
+
+
+				<h:panelGroup>
 					<h:outputLabel for="tafsilType"
 						value="#{messages['HesabTafsili_tafsilType']}" /> : 
 				</h:panelGroup>
@@ -76,21 +87,21 @@
 						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
 				</h:panelGroup>
 
-				<h:panelGroup>
+				<h:panelGroup rendered="false">
 					<h:outputLabel for="childTafsilies"
 						value="#{messages['HesabTafsili_childs']}" /> : 
 				</h:panelGroup>
-				<h:panelGroup>
+				<h:panelGroup rendered="false">
 					<custom:autocomplete-multiple id="childTafsilies" width="220px"
 						selectedIds="#{hesabTafsili.childTafsiliIds}" entity="HesabTafsili"
 						property="code, name" ajax="false" extraParams="isCurrentOrgan=true&amp;isShenavar=true"/>
 				</h:panelGroup>
 
-				<h:panelGroup>
+				<h:panelGroup rendered="false">
 					<h:outputLabel for="childAccountingMarkazes"
 						value="#{messages['HesabTafsili_childAccountingMarkazs']}" /> : 
 				</h:panelGroup>
-				<h:panelGroup>
+				<h:panelGroup rendered="false">
 					<custom:autocomplete-multiple id="childAccountingMarkazes" width="220px"
 						selectedIds="#{hesabTafsili.childAccountingMarkazIds}" entity="AccountingMarkaz"
 						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>

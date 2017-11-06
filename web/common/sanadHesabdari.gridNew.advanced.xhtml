@@ -82,7 +82,32 @@
 			}			
 		});
 	}
-		var hesabTafsilis;
+		var hesabTafsilisOne;
+		var hesabTafsilisTwo;
+		 $$(function() {
+			$$.ajax({
+				  url: '${request.contextPath}/entities?entity=HesabTafsili&property=desc&all=true&autocomplete=true&isHierarchical=true&tafsiliLevel=1',
+				  cache: false,
+				  success: function(result){
+				    hesabTafsilisOne=result;
+				  },
+				  error: function(jqXHR, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+			});
+
+			$$.ajax({
+				  url: '${request.contextPath}/entities?entity=HesabTafsili&property=desc&all=true&autocomplete=true&isHierarchical=true&tafsiliLevel=2',
+				  cache: false,
+				  success: function(result){
+				    hesabTafsilisTwo=result;
+				  },
+				  error: function(jqXHR, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+			});			
+       	});
+		/*var hesabTafsilis;
 		function populateHesabTafsiliInputs(hesabTafsiliMap){
 			//hesabTafsilis=result;
 			$$('input.tafsiliInput').each(function( i ) {
@@ -90,8 +115,8 @@
 				var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
 				createAutocomplete(id,hesabTafsiliMap,'0');	
 			});	
-		}
-       	$$(function() {
+		}*/
+       	/*$$(function() {
 			$$.ajax({
 				  url: '${request.contextPath}/entities?entity=HesabTafsili&property=desc&all=true&autocomplete=true&isHierarchical=true&level=1&isShenavar=true',
 				  cache: false,
@@ -103,7 +128,7 @@
 						alert(errorThrown);
 					}
 			});
-       	});
+       	});*/ 
        	$$(function() {
 			$$.ajax({
 				  url: '${request.contextPath}/jersey/accountingRestFace/getRootHesabsMap',
@@ -174,50 +199,29 @@
 		</h:panelGroup>
 		<h:panelGroup>
 			<custom:autocomplete-one id="hesabMoeen" entity="HesabMoeen" property="desc"
-				width="200px" onchange="fillDest('hesabMoeen','hesabTafsili');fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');" client="true" 
-				extraParams="isHierarchical=true" onclear="fillDest('hesabMoeen','hesabTafsili');fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');"/>
+				onchange="fillDesthesabTafsiliOne('hesabMoeen','hesabTafsiliOne');fillDesthesabTafsiliTwo('hesabMoeen','hesabTafsiliTwo');fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');" client="true" 
+				 onclear="fillDesthesabTafsiliOne('hesabMoeen','hesabTafsiliOne');fillDesthesabTafsiliTwo('hesabMoeen','hesabTafsiliTwo');fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');"
+				extraParams="isHierarchical=true" width="200px" />
 		</h:panelGroup>
 
 		<h:panelGroup> 
 			<h:outputText styleClass="required" value="  " />
-			<h:outputLabel  value="#{messages['HesabTafsili_title']}: " />
+			<h:outputLabel  value="#{messages['HesabTafsili_One']}: " />
 		</h:panelGroup>
 		<h:panelGroup>
-			<custom:autocomplete-one id="hesabTafsili" entity="HesabTafsili" property="desc"
-				width="200px" client="true" extraParams="isHierarchical=true&amp;&amp;isShenavar=false" onchange="showMoeenList('hesabMoeen','hesabTafsili');fillDestTafsili('hesabTafsili','hesabTafsili1');fillDestMarkazAccountingByTafsili('hesabTafsili','accountingMarkaz');"/>
+			<custom:autocomplete-one id="hesabTafsiliOne" entity="HesabTafsili" property="desc"
+				width="200px" client="true" extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=1" onchange="showMoeenList('hesabMoeen','hesabTafsiliOne');"/>
 		</h:panelGroup>
 		
-		
-		<h:panelGroup rendered="#{hesabMoeen.levelsSize > 0}">
+		<h:panelGroup> 
 			<h:outputText styleClass="required" value="  " />
-			<h:outputLabel 
-				value="#{messages['HesabTafsili_shenavar_list']}: " />
+			<h:outputLabel  value="#{messages['HesabTafsili_Two']}: " />
 		</h:panelGroup>
-		<h:panelGroup  rendered="#{hesabMoeen.levelsSize > 0}">
-			<div id="tafsilis">
-			</div>
-			<p:dataList   type="definition" class="datalist-noborder" value="#{hesabMoeen.levels}" rendered="true" emptyMessage="" 
-				style="list-style-type: none;font-family:Tahoma;font-size:12px"
-				headerClass="header" var="item" align="center">
-				<script>
-				/* <![CDATA[ */
-					//alert('hesabTafsili#{item}_desc');
-					var inpId = 'hesabTafsili#{item}_id';
-					var componentName='hesabTafsili#{item}';
-					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:200px"><br').prop('id','hesabTafsili#{item}_desc');
-					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px">').prop('id','hesabTafsili#{item}_id');
-					var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');
+		<h:panelGroup>
+			<custom:autocomplete-one id="hesabTafsiliTwo" entity="HesabTafsili" property="desc"
+				width="200px" client="true" extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=2" onchange="showMoeenList('hesabMoeen','hesabTafsiliTwo');"/>
+		</h:panelGroup>
 
-					$$(inputText).prop('class','tafsiliInput  ui-autocomplete-input ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all');
-					$$(inputText).attr('onchange','fireTafsiliShenavarOnChange("'+inpId+'");');
-					$$('#tafsilis').append(inputText);
-					$$('#tafsilis').append(inputHidden);
-					$$('#tafsilis').append(inputClear);
-					$$('#tafsilis').append('<br/>');
-				/* ]]> */
-				</script>
-			</p:dataList>
-			</h:panelGroup>
 
 
 		<h:panelGroup> 
@@ -225,44 +229,11 @@
 			<h:outputLabel  value="#{messages['AccountingMarkaz_title']}: " />
 		</h:panelGroup>
 		<h:panelGroup>
-			<custom:autocomplete-one id="accountingMarkaz" entity="AccountingMarkaz" property="name"
-				width="200px" client="true" extraParams="isHierarchical=true" onchange="fillDestMarkazAccountingByMarkaz('accountingMarkaz','accountingMarkaz1');"/>
+			<custom:autocomplete-one id="accountingMarkaz" entity="accountingMarkaz" property="name"
+				width="200px" client="true" extraParams="isHierarchical=true&amp;&amp;accountingMarkazLevel=1"/>
 		</h:panelGroup>
 
 
-		<h:panelGroup rendered="#{hesabMoeen.levelsSize > 0}">
-			<h:outputText styleClass="required" value="  " />
-			<h:outputLabel 
-				value="#{messages['AccountingMarkaz_shenavar_list']}: " />
-		</h:panelGroup>
-		<h:panelGroup rendered="#{hesabMoeen.levelsSize > 0}">
-			<div id="accountingMarkazs">
-			</div>
-			<p:dataList   type="definition" class="datalist-noborder" value="#{hesabMoeen.levels}" rendered="true" emptyMessage="" 
-				style="list-style-type: none;font-family:Tahoma;font-size:12px"
-				headerClass="header" var="item" align="center">
-				<script>
-				/* <![CDATA[ */
-					//alert('accountingMarkaz#{item}_desc');
-					var inpId = 'accountingMarkaz#{item}_id';
-					var componentName='accountingMarkaz#{item}';
-					
-					var inputText = $$('<input type="text"  style="font-family:Tahoma;float:right;width:200px">').prop('id','accountingMarkaz#{item}_desc');
-					var inputHidden = $$('<input type="hidden"  style="font-family:Tahoma;float:right;width:200px">').prop('id','accountingMarkaz#{item}_id');
-					$$(inputText).prop('class','accountingMarkazInput ui-autocomplete-input ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all');
-					$$(inputText).attr('onchange','fireAccountingMarkazShenavarOnChange("'+inpId+'");');
-
-					var inputClear = $$('<button onclick="clearAutocomplete(\''+componentName+'\');return false;" id="'+componentName+'_clearAutocomplete" class="clearAutocomplete"  tabindex="-1">');					
-					
-					$$('#accountingMarkazs').append(inputText);
-					$$('#accountingMarkazs').append(inputHidden);
-					$$('#accountingMarkazs').append(inputClear);
-					$$('#accountingMarkazs').append('<br/>');					
-				/* ]]> */
-				</script>
-			</p:dataList>
-			</h:panelGroup>
-			
 		<h:panelGroup>
 			<h:outputText styleClass="required" value="* " />
 			<h:outputLabel for="bedehkar"
@@ -285,14 +256,7 @@
 		<p:inputText name="description" id="description" style="width:200px;"/>					
 		<h:panelGroup/>
 		<h:panelGroup/>
-		<h:panelGroup/>
-		<h:panelGroup/>
-		<h:panelGroup/>
-		<h:panelGroup/>
-		<h:panelGroup rendered="#{hesabMoeen.levelsSize == 0}"/>
-		<h:panelGroup rendered="#{hesabMoeen.levelsSize == 0}"/>
-		<h:panelGroup rendered="#{hesabMoeen.levelsSize == 0}"/>		
-		<h:panelGroup rendered="#{hesabMoeen.levelsSize == 0}"/>
+
 
 	</p:panelGrid>
 </t:div>
@@ -345,19 +309,66 @@
 <t:jsValueSet name="kolMoeenMap" value="#{hesabKol.kolMoeenMap}" />
 <t:jsValueSet name="moeenKolMap" value="#{hesabMoeen.moeenKolMap}" />
 
-<t:jsValueSet name="moeenTafsiliMap"	value="#{hesabMoeen.moeenTafsiliMap}" />
+<t:jsValueSet name="moeenTafsiliOneMap"	value="#{hesabMoeen.moeenTafsiliOneMap}" />
+<t:jsValueSet name="moeenTafsiliTwoMap"	value="#{hesabMoeen.moeenTafsiliTwoMap}" />
 <t:jsValueSet name="moeenAccountingMarkazMap"	value="#{hesabMoeen.accountingMarkazMap}" />
-<t:jsValueSet name="tafsiliChildMap"	value="#{hesabTafsili.tafsiliChildMap}" />
-<t:jsValueSet name="tafsiliAccountingMarkazChildMap"	value="#{hesabTafsili.tafsiliAccountingMarkazChildMap}" />
+<t:jsValueSet name="tafsiliChildMap"	value="#{hesabTafsili.tafsiliChildMap}" rendered="false"/>
+<t:jsValueSet name="tafsiliAccountingMarkazChildMap"	value="#{hesabTafsili.tafsiliAccountingMarkazChildMap}" rendered="false"/>
 <t:jsValueSet name="accountingMarkazChildMap"	value="#{accountingMarkaz.accountingMarkazChildMap}" />
 
 <script type="text/javascript">
 
 /* <![CDATA[ */
 
+		function fillDesthesabTafsiliOne(moeen,tafsili){
+			var moeenId = $$('#hesabMoeen_id').val();
+			
+			if(moeenId == null || moeenId == ''){
+				//alert('==null');
+				$$('#'+tafsili+'_desc').autocomplete('option','source','<ul></ul>');
+				clearAutocomplete(tafsili);
+				$$('#hesabKolName').val('');
+				renderOne(tafsili,hesabTafsilisOne,'0');	
+				return;
+			}
+			clearAutocomplete(tafsili);
+			tafsiliMap = moeenTafsiliOneMap[moeenId];
+			//alert(inspect(tafsiliMap,10,10));
+			kolMap = moeenKolMap[moeenId];
+			//alert("unitMap : "+unitMap.length);
+			//var filtered = tafsiliMap;
+			//alert(inspect(filtered,10,10));
+			$$('#'+tafsili+'_desc').autocomplete('option','source',tafsiliMap);
+			 $$('#hesabKolName').val(kolMap.label);
+			 //$$('#hesabTafsili_desc').autocomplete({source:filtered});
+		}
+
+		
+		function fillDesthesabTafsiliTwo(moeen,tafsili){
+			var moeenId = $$('#hesabMoeen_id').val();
+			
+			if(moeenId == null || moeenId == ''){
+				//alert('==null');
+				$$('#'+tafsili+'_desc').autocomplete('option','source','<ul></ul>');
+				clearAutocomplete(tafsili);
+				$$('#hesabKolName').val('');
+				renderOne(tafsili,hesabTafsilisTwo,'0');	
+				return;
+			}
+			clearAutocomplete(tafsili);
+			tafsiliMap = moeenTafsiliTwoMap[moeenId];
+			//alert(inspect(tafsiliMap,10,10));
+			kolMap = moeenKolMap[moeenId];
+			//alert("unitMap : "+unitMap.length);
+			//var filtered = tafsiliMap;
+			//alert(inspect(filtered,10,10));
+			$$('#'+tafsili+'_desc').autocomplete('option','source',tafsiliMap);
+			 $$('#hesabKolName').val(kolMap.label);
+			 //$$('#hesabTafsili_desc').autocomplete({source:filtered});
+		}
 		function fillDestMarkazAccountingByMoeen(moeen,accountingMarkaz){
 			//return; //must be corrected in future
-			debugger;
+			//debugger;
 			clearAutocomplete(accountingMarkaz);
 			//alert('fillDestMarkazAccountingByMoeen : '+accountingMarkaz);
 			var moeenId = $$('#hesabMoeen_id').val();
@@ -373,22 +384,7 @@
 			 //$$('#hesabAccountingMarkaza_desc').autocomplete({source:filtered});
 		}
 
-		function fillDestMarkazAccountingByTafsili(tafsiliSrc,accountingMarkazDest){
-			return; //must be corrected in future
-			debugger;
-			//alert('tafsiliSrc : '+tafsiliSrc);
-			//alert('accountingMarkazDest : '+accountingMarkazDest);
-			var tafsiliSrcId = $$('#'+tafsiliSrc+'_id').val();
-			
-			if(tafsiliSrcId == null || tafsiliSrcId=='')
-				return;
-			clearAutocomplete(accountingMarkazDest);
-			accountingMarkazMap = tafsiliAccountingMarkazChildMap[tafsiliSrcId];
-			//alert("unitMap : "+unitMap.length);
-			var filtered = accountingMarkazMap;
-			//alert(inspect(filtered,10,10));
-			 $$('#'+accountingMarkazDest+'_desc').autocomplete('option','source',filtered);
-		}
+
 		
 $$(document).ready(function() {
 	$$('[id="bedehkar"]').digitize();
@@ -417,8 +413,8 @@ $$(document).ready(function() {
 									'hesabMoeenID', 
 									'#{messages['SanadHesabdariItem_hesabMoeen']}', 
 									'hesabTafsiliID', 
-									'#{messages['SanadHesabdariItem_hesabTafsili']}', 
-									'#{messages['HesabTafsili_shenavar_list']}',
+									'#{messages['HesabTafsili_One']}', 
+									'#{messages['HesabTafsili_other_list']}',
 									'hesabTafsiliLevels', 
 									'hesabTafsiliDescs', 
 									'accountingMarkazID', 
@@ -442,8 +438,8 @@ $$(document).ready(function() {
 							{name :'hesabKolName', index :'hesabKolName', width :174, sorttype :'string'}, 
 							{name :'hesabMoeenID', index :'hesabMoeenID', width :2, sorttype :'string'}, 
 							{name :'hesabMoeenName', index :'hesabMoeenName', width :175, sorttype :'string'}, 
-							{name :'hesabTafsiliID', index :'hesabTafsiliID', width :20, sorttype :'string'}, 
-							{name :'hesabTafsiliName', index :'hesabTafsiliName', width :150, sorttype :'string'}, 
+							{name :'hesabTafsiliOneID', index :'hesabTafsiliID', width :20, sorttype :'string'}, 
+							{name :'hesabTafsiliOneName', index :'hesabTafsiliName', width :150, sorttype :'string'}, 
 							{name :'hesabTafsiliLevelNames', index :'hesabTafsiliLevelNames', width :100, sorttype :'string'}, 							
 							{name :'hesabTafsiliLevels', index :'hesabTafsiliLevels', width :100, sorttype :'string'}, 
 							{name :'hesabTafsiliDescs', index :'hesabTafsiliDescs', width :100, sorttype :'string'},
@@ -533,7 +529,7 @@ $$(document).ready(function() {
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliLevels'); 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliDescs'); 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabMoeenID'); 
-	$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliID'); 
+	$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliOneID'); 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','markazHazineID');
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','markazHazineName');
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','projectID');
@@ -650,7 +646,84 @@ $$(document).ready(function() {
 		resize();
 	}).trigger('resize');
 
-	
+	function getSanadHesabdariDataRow(gridId){
+		debugger;
+		var datarow={};
+		var localItems = getItems(gridId);
+		for ( var j = 0; j < localItems.length; j++){
+			var fieldId = localItems[j];
+			
+			if(fieldId == 'hesabTafsiliLevels'){
+				var hesabTafsiliLevels='';
+				var tafsiliTwoId = $$('#hesabTafsiliTwo_id').val();
+				hesabTafsiliLevels = hesabTafsiliLevels +",hesabTafsili1="+ tafsiliTwoId;
+				
+				datarow['hesabTafsiliLevels']=hesabTafsiliLevels;
+				continue;
+			}
+			if(fieldId == 'hesabTafsiliDescs'){
+				var hesabTafsiliDescs='';
+				var tafsiliTwoDesc = $$('#hesabTafsiliTwo_desc').val();
+				hesabTafsiliDescs = hesabTafsiliDescs +",hesabTafsili1="+ tafsiliTwoDesc;
+				
+
+				datarow['hesabTafsiliDescs']=hesabTafsiliDescs;
+				continue;
+			}
+			if(fieldId == 'hesabTafsiliLevelNames'){
+				var hesabTafsiliLevelNames='';
+				var tafsiliTwoDesc = $$('#hesabTafsiliTwo_desc').val();
+				hesabTafsiliLevelNames = hesabTafsiliLevelNames +","+ tafsiliTwoDesc;
+				datarow['hesabTafsiliLevelNames']=hesabTafsiliLevelNames;
+				continue;
+			}
+
+			
+			if(fieldId == 'accountingMarkazLevels'){
+				var accountingMarkazLevels='';
+				$$('input.accountingMarkazInput').each(function( i ) {
+					var id_desc = $( this ).prop('id');
+					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
+					var accountingMarkazValue = $$('#'+id+"_id").val();
+					accountingMarkazLevels = accountingMarkazLevels +","+id+'='+ accountingMarkazValue;
+				});
+				datarow['accountingMarkazLevels']=accountingMarkazLevels;
+				continue;
+			}
+			if(fieldId == 'accountingMarkazDescs'){
+				var accountingMarkazDescs='';
+				$$('input.accountingMarkazInput').each(function( i ) {
+					var id_desc = $( this ).prop('id');
+					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
+					var desc = $( this ).val();
+					accountingMarkazDescs = accountingMarkazDescs +","+id+'='+ desc;
+				});
+				datarow['accountingMarkazDescs']=accountingMarkazDescs;
+				continue;
+			}
+			if(fieldId == 'accountingMarkazLevelNames'){
+				var accountingMarkazLevelNames='';
+				$$('input.accountingMarkazInput').each(function( i ) {
+					var id_desc = $( this ).prop('id');
+					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
+					var desc = $( this ).val();
+					accountingMarkazLevelNames = accountingMarkazLevelNames +","+ desc;
+				});
+				datarow['accountingMarkazLevelNames']=accountingMarkazLevelNames;
+				continue;
+			}
+			
+			var convertedFieldId = getBindedSanadHesabdariFieldId(fieldId);
+			var val = $$('#'+convertedFieldId).val();
+			if(fieldId == 'bedehkar' && val == '')
+				val =0;
+			if(fieldId == 'bestankar' && val == '')
+				val =0;
+			datarow[fieldId]=val;
+		}
+		
+		return datarow;
+	}	
 	/* ]]> */
 </script>
 </html>

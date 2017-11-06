@@ -455,13 +455,13 @@ public class SanadHesabdariItemService extends
 				hesabTafsiliId = new Long(a[0].toString());
 				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(hesabTafsiliId);
 				entity.setHesabTafsiliDesc(hesabTafsiliEntity.getDesc());
-				entity.setHesabTafsiliName(hesabTafsiliEntity.getName());
+				entity.setHesabTafsiliOneName(hesabTafsiliEntity.getName());
 				entity.setHesabTafsiliCode(hesabTafsiliEntity.getCode().toString());
-				entity.setHesabTafsiliID(hesabTafsiliEntity.getId().toString());
+				entity.setHesabTafsiliOneID(hesabTafsiliEntity.getId().toString());
 			}else{
 				HesabTafsiliEntity nullHesabTafsili = new HesabTafsiliEntity();
 				nullHesabTafsili.setName(SerajMessageUtil.getMessage("common_undefined"));
-				entity.setHesabTafsiliName(nullHesabTafsili.getName());
+				entity.setHesabTafsiliOneName(nullHesabTafsili.getName());
 			}
 			
 			
@@ -503,12 +503,12 @@ public class SanadHesabdariItemService extends
 				hesabTafsiliId = new Long(a[0].toString());
 				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(hesabTafsiliId);
 				entity.setHesabTafsiliDesc(hesabTafsiliEntity.getDesc());
-				entity.setHesabTafsiliName(hesabTafsiliEntity.getName());
+				entity.setHesabTafsiliOneName(hesabTafsiliEntity.getName());
 				entity.setHesabTafsiliCode(hesabTafsiliEntity.getCode().toString());
 			}else{
 				HesabTafsiliEntity nullHesabTafsili = new HesabTafsiliEntity();
 				nullHesabTafsili.setName(SerajMessageUtil.getMessage("common_undefined"));
-				entity.setHesabTafsiliName(nullHesabTafsili.getName());
+				entity.setHesabTafsiliOneName(nullHesabTafsili.getName());
 			}
 			
 			
@@ -684,13 +684,13 @@ public class SanadHesabdariItemService extends
 				hesabTafsiliId = new Long(a[0].toString());
 				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(hesabTafsiliId);
 				entity.setHesabTafsiliDesc(hesabTafsiliEntity.getDesc());
-				entity.setHesabTafsiliName(hesabTafsiliEntity.getName());
+				entity.setHesabTafsiliOneName(hesabTafsiliEntity.getName());
 				entity.setHesabTafsiliCode(hesabTafsiliEntity.getCode().toString());
-				entity.setHesabTafsiliID(hesabTafsiliEntity.getId().toString());
+				entity.setHesabTafsiliOneID(hesabTafsiliEntity.getId().toString());
 			}else{
 				HesabTafsiliEntity nullHesabTafsili = new HesabTafsiliEntity();
 				nullHesabTafsili.setDesc(SerajMessageUtil.getMessage("common_undefined"));
-				entity.setHesabTafsiliName(nullHesabTafsili.getName());
+				entity.setHesabTafsiliOneName(nullHesabTafsili.getName());
 			}
 			
 			entity.setBestankar((Double) a[2]);
@@ -771,13 +771,13 @@ public class SanadHesabdariItemService extends
 				hesabTafsiliId = new Long(a[0].toString());
 				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(hesabTafsiliId);
 				entity.setHesabTafsiliDesc(hesabTafsiliEntity.getDesc());
-				entity.setHesabTafsiliName(hesabTafsiliEntity.getName());
+				entity.setHesabTafsiliOneName(hesabTafsiliEntity.getName());
 				entity.setHesabTafsiliCode(hesabTafsiliEntity.getCode().toString());
-				entity.setHesabTafsiliID(hesabTafsiliEntity.getId().toString());
+				entity.setHesabTafsiliOneID(hesabTafsiliEntity.getId().toString());
 			}else{
 				HesabTafsiliEntity nullHesabTafsili = new HesabTafsiliEntity();
 				nullHesabTafsili.setDesc(SerajMessageUtil.getMessage("common_undefined"));
-				entity.setHesabTafsiliName(nullHesabTafsili.getName());
+				entity.setHesabTafsiliOneName(nullHesabTafsili.getName());
 			}
 			
 			entity.setBestankar((Double) a[2]);

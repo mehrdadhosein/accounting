@@ -81,6 +81,27 @@
 					<h:outputText styleClass="CellClass" value="#{item.name}" />
 				</p:column>
 
+				<p:column>
+					<f:facet name="header">
+						<p:commandLink action="#{owner.sort}" update="hesabTafsilis"
+							onclick="showLoading();" oncomplete="hideLoading();"
+							styleClass="headerCellClass"
+							title="#{messages['HesabTafsili_level']}">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_level']}" />
+							<h:graphicImage value="/images/icon_ascending.gif"
+								rendered="#{owner.sortType}"
+								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
+							<h:graphicImage value="/images/icon_descending.gif"
+								rendered="#{!owner.sortType}"
+								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
+							<f:setPropertyActionListener value="level"
+								target="#{owner.sortCol}" />
+						</p:commandLink>
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.level}" />
+				</p:column>
+
 
 				<p:column>
 					<f:facet name="header">
