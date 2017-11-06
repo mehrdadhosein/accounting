@@ -69,7 +69,7 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliName}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliOneName}" />
 				</p:column>
 
 
@@ -124,8 +124,8 @@
 						<h:outputText value="" />
 					</f:facet>
 
-					<h:outputLink  rendered="#{item.hesabTafsiliID!=null}"
-						onclick="openDaftarShenavar('#{item.hesabTafsiliID}'); return false;">
+					<h:outputLink  rendered="#{item.hesabTafsiliOneID!=null}"
+						onclick="openDaftarShenavar('#{item.hesabTafsiliOneID}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarShenavar']}" />
 					</h:outputLink>
 				</p:column>

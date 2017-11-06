@@ -69,7 +69,7 @@
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliName}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliOneName}" />
 				</p:column>
 
 								
@@ -196,8 +196,8 @@
 						<h:outputText value="" />
 					</f:facet>
 
-					<h:outputLink rendered="#{item.hesabTafsiliID!=null}"
-						onclick="openDaftarTafsili('#{item.hesabTafsiliID}'); return false;">
+					<h:outputLink rendered="#{item.hesabTafsiliOneID!=null}"
+						onclick="openDaftarTafsili('#{item.hesabTafsiliOneID}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarTafsili']}" />
 					</h:outputLink>
 				</p:column>				
@@ -207,8 +207,8 @@
 						<h:outputText value="" />
 					</f:facet>
 
-					<h:outputLink rendered="#{item.hesabTafsiliID!=null}"
-						onclick="openTarazShenavar('#{item.hesabTafsiliID}'); return false;">
+					<h:outputLink rendered="#{item.hesabTafsiliOneID!=null}"
+						onclick="openTarazShenavar('#{item.hesabTafsiliOneID}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazShenavar']}" />
 					</h:outputLink>
 				</p:column>
