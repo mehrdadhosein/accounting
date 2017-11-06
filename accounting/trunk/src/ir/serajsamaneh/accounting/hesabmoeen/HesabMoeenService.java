@@ -388,15 +388,19 @@ public class HesabMoeenService extends
 	}
 
 	public List<HesabTafsiliEntity> getActiveTafsilies(HesabMoeenEntity hesabMoeenEntity, SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan) {
+		return getActiveTafsilies(hesabMoeenEntity, saalMaaliEntity, curentOrgan, null);
+	}
+	public List<HesabTafsiliEntity> getActiveTafsilies(HesabMoeenEntity hesabMoeenEntity, SaalMaaliEntity saalMaaliEntity, OrganEntity curentOrgan, Integer level) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		List<Long> topOrganList = getTopOrgansIdList(curentOrgan);
 		localFilter.put("hesabTafsili.organ.id@in", topOrganList);
 		
+		localFilter.put("hesabTafsili.level@eq", level);
 		localFilter.put("hesabTafsili.hidden@eq", Boolean.FALSE);
 		localFilter.put("hesabTafsili.saalMaali.id@eq", saalMaaliEntity.getId());
 		
 		localFilter.put("hesabMoeen.id@eq", hesabMoeenEntity.getId());
-		localFilter.put("hesabTafsili.isShenavar@eq", Boolean.FALSE);
+//		localFilter.put("hesabTafsili.isShenavar@eq", Boolean.FALSE);
 		List<MoeenTafsiliEntity> dataList = getMoeenTafsiliService().getDataList(null, localFilter);
 		
 		List<HesabTafsiliEntity> hesabTafsiliEntities = new ArrayList<HesabTafsiliEntity>();

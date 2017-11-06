@@ -164,7 +164,8 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 			OrganEntity organEntity = getOrganService().load(organId);
 			HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), organEntity);
 			HesabRelationsUtil.resetMoeenKolMap(getCurrentUserActiveSaalMaali(), organEntity);
-			HesabRelationsUtil.resetmoeenTafsiliMap(getCurrentUserActiveSaalMaali(), organEntity);
+			HesabRelationsUtil.resetmoeenTafsiliOneMap(getCurrentUserActiveSaalMaali(), organEntity);
+			HesabRelationsUtil.resetmoeenTafsiliTwoMap(getCurrentUserActiveSaalMaali(), organEntity);
 			HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali(), organEntity);
 			HesabRelationsUtil.resetRootHesabsMap(getCurrentUserActiveSaalMaali(), organEntity);
 			
@@ -221,8 +222,12 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 //		return HesabRelationsUtil.getRootHesabs(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 //	}
 	
-	public Map<Long, List<ListOrderedMap<String, Object>>> getMoeenTafsiliMap() {
-		return HesabRelationsUtil.getMoeenTafsiliMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+	public Map<Long, List<ListOrderedMap<String, Object>>> getMoeenTafsiliOneMap() {
+		return HesabRelationsUtil.getMoeenTafsiliOneMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+	}
+	
+	public Map<Long, List<ListOrderedMap<String, Object>>> getMoeenTafsiliTwoMap() {
+		return HesabRelationsUtil.getMoeenTafsiliTwoMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
 	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliChildrenMap() {

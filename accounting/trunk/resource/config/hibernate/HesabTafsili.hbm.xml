@@ -70,7 +70,8 @@
 			<column name='hesab_classification_id' />
 		</many-to-one>
 		
-		<property name='isShenavar' type='boolean' column='is_shenavar' />
+		<!-- property name='isShenavar' type='boolean' column='is_shenavar' /-->
+		<property name='level' type='integer' column='level_' />
 		
 	</class>
 

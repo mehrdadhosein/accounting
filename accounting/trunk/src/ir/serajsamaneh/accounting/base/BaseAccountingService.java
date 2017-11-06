@@ -81,6 +81,10 @@ public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends 
 		return getSaalMaaliService().getSaalmaaliByDate(date, organEntity);
 	}
 	
+	public boolean checkIfMustValidateTafsiliOneAndTwoAreRelated(OrganEntity organEntity) {
+		return false;
+	}
+	
 	public Boolean checkIfMustValidateHesabTafsiliHasChild(OrganEntity organ){
 		String validateHesabTafsiliHasChild = getSystemConfigService().getValue(organ, null, "validateHesabTafsiliHasChild");
 		if(validateHesabTafsiliHasChild == null)

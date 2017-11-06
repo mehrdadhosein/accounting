@@ -22,8 +22,8 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	protected java.lang.String hesabKolName="";
 	protected java.lang.String hesabKolDesc="";
 
-	protected java.lang.String hesabTafsiliID="";
-	protected java.lang.String hesabTafsiliName="";
+	protected java.lang.String hesabTafsiliOneID="";
+	protected java.lang.String hesabTafsiliOneName="";
 	protected java.lang.String hesabTafsiliDesc="";
 	
 	protected java.lang.String hesabMoeenID="";
@@ -85,19 +85,20 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 		setBestankarFormatted(bestankarFormatted.equals("0") ? "" : bestankarFormatted);
 		
 		if(sanadHesabdariItemEntity.getHesabTafsili()!=null){
-			setHesabTafsiliName(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getName()));
+			setHesabTafsiliOneName(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getName()));
 			setHesabTafsiliDesc(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getDesc()));
-			setHesabTafsiliID(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getId()));
+			setHesabTafsiliOneID(convertNullToString(sanadHesabdariItemEntity.getHesabTafsili().getId()));
 		}else{
-			setHesabTafsiliName("");
-			setHesabTafsiliID("");
+			setHesabTafsiliOneName("");
+			setHesabTafsiliOneID("");
 		}
 
 		if(sanadHesabdariItemEntity.getArticleTafsili()!= null && !sanadHesabdariItemEntity.getArticleTafsili().isEmpty()){
 			hesabTafsiliLevelNames="";
 			for(ArticleTafsiliEntity articleTafsiliEntity : sanadHesabdariItemEntity.getArticleTafsili()){
-				hesabTafsiliLevels = hesabTafsiliLevels +",hesabTafsili"+articleTafsiliEntity.getLevel()+"="+articleTafsiliEntity.getHesabTafsili().getId();
-				hesabTafsiliDescs = hesabTafsiliDescs +",hesabTafsili"+articleTafsiliEntity.getLevel()+"="+articleTafsiliEntity.getHesabTafsili().getDesc();
+				String level = articleTafsiliEntity.getLevel()==1 ? "Two" : (articleTafsiliEntity.getLevel()==2 ? "Three" : "");
+				hesabTafsiliLevels = hesabTafsiliLevels +",hesabTafsili"+level+"="+articleTafsiliEntity.getHesabTafsili().getId();
+				hesabTafsiliDescs = hesabTafsiliDescs +",hesabTafsili"+level+"="+articleTafsiliEntity.getHesabTafsili().getDesc();
 				hesabTafsiliLevelNames = hesabTafsiliLevelNames +","+articleTafsiliEntity.getHesabTafsili().getDesc();
 			}
 		}
@@ -189,12 +190,12 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 		this.tarikhArticle = tarikhArticle;
 	}
 
-	public java.lang.String getHesabTafsiliName() {
-		return hesabTafsiliName;
+	public java.lang.String getHesabTafsiliOneName() {
+		return hesabTafsiliOneName;
 	}
 
-	public void setHesabTafsiliName(java.lang.String hesabTafsiliName) {
-		this.hesabTafsiliName = hesabTafsiliName;
+	public void setHesabTafsiliOneName(java.lang.String hesabTafsiliOneName) {
+		this.hesabTafsiliOneName = hesabTafsiliOneName;
 	}
 
 	public String getId() {
@@ -226,13 +227,13 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	}
 
 
-	public java.lang.String getHesabTafsiliID() {
-		return hesabTafsiliID;
+	public java.lang.String getHesabTafsiliOneID() {
+		return hesabTafsiliOneID;
 	}
 
 
-	public void setHesabTafsiliID(java.lang.String hesabTafsiliID) {
-		this.hesabTafsiliID = hesabTafsiliID;
+	public void setHesabTafsiliOneID(java.lang.String hesabTafsiliOneID) {
+		this.hesabTafsiliOneID = hesabTafsiliOneID;
 	}
 
 	public java.lang.String getHesabMoeenID() {
