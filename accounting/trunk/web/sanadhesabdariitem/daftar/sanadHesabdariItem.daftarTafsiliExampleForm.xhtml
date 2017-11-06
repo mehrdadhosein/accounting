@@ -80,12 +80,12 @@
 				
 				<h:panelGroup>
 					<h:outputLabel for="	"
-						value="#{messages['HesabTafsili_shenavar_list']}" /> : 
+						value="#{messages['HesabTafsili_Two']}" /> : 
 				</h:panelGroup>
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="articleTafsiliIds" width="220px"
 						selectedIds="#{owner.articleTafsiliIds}" entity="HesabTafsili"
-						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
+						property="code, name" ajax="false" extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=2"/>
 				</h:panelGroup>
 
 				<h:panelGroup>
