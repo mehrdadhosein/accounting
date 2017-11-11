@@ -1,5 +1,18 @@
 package ir.serajsamaneh.accounting.hesabmoeen;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+import javax.faces.model.DataModel;
+import javax.faces.model.SelectItem;
+
+import org.apache.commons.collections4.map.ListOrderedMap;
+import org.springframework.util.StringUtils;
+
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
@@ -14,21 +27,6 @@ import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.JQueryUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.StringTokenizer;
-
-import javax.faces.model.DataModel;
-import javax.faces.model.SelectItem;
-
-import org.apache.commons.collections4.map.ListOrderedMap;
-import org.springframework.util.StringUtils;
 
 
 public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
@@ -238,27 +236,27 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		return HesabRelationsUtil.getAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 	}
 	
-	private List<TafsiliLevelVo> getTafsiliLevelsList(Long mooenId){
-		HesabMoeenEntity hesabMoeenEntity = getMyService().load(mooenId);
-		List<TafsiliLevelVo> tafsiliLevelsList = new ArrayList<TafsiliLevelVo>();
-		Map<Integer, List<HesabTafsiliEntity>> tafsiliLevelMap = new HashMap<Integer, List<HesabTafsiliEntity>>();
-
-		for(int level = 1 ; level<=getLevelsSize();level++)
-			tafsiliLevelMap.put(level, new ArrayList<HesabTafsiliEntity>());
-
-		
-		Set<MoeenTafsiliEntity> moeenTafsiliSet = hesabMoeenEntity.getMoeenTafsili();
-		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsiliSet) {
-			tafsiliLevelMap.get(moeenTafsiliEntity.getLevel()).add(moeenTafsiliEntity.getHesabTafsili());
-		}
-		
-		Set<Entry<Integer, List<HesabTafsiliEntity>>> entrySet = tafsiliLevelMap.entrySet();
-		for (Entry<Integer, List<HesabTafsiliEntity>> entry : entrySet) {
-			tafsiliLevelsList.add(new TafsiliLevelVo(entry.getKey(), entry.getValue()));
-		}
-		
-		return tafsiliLevelsList;
-	}
+//	private List<TafsiliLevelVo> getTafsiliLevelsList(Long mooenId){
+//		HesabMoeenEntity hesabMoeenEntity = getMyService().load(mooenId);
+//		List<TafsiliLevelVo> tafsiliLevelsList = new ArrayList<TafsiliLevelVo>();
+//		Map<Integer, List<HesabTafsiliEntity>> tafsiliLevelMap = new HashMap<Integer, List<HesabTafsiliEntity>>();
+//
+//		for(int level = 1 ; level<=getLevelsSize();level++)
+//			tafsiliLevelMap.put(level, new ArrayList<HesabTafsiliEntity>());
+//
+//		
+//		Set<MoeenTafsiliEntity> moeenTafsiliSet = hesabMoeenEntity.getMoeenTafsili();
+//		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsiliSet) {
+//			tafsiliLevelMap.get(moeenTafsiliEntity.getLevel()).add(moeenTafsiliEntity.getHesabTafsili());
+//		}
+//		
+//		Set<Entry<Integer, List<HesabTafsiliEntity>>> entrySet = tafsiliLevelMap.entrySet();
+//		for (Entry<Integer, List<HesabTafsiliEntity>> entry : entrySet) {
+//			tafsiliLevelsList.add(new TafsiliLevelVo(entry.getKey(), entry.getValue()));
+//		}
+//		
+//		return tafsiliLevelsList;
+//	}
 
 
 	String tafsiliLevelsXML = null;
@@ -282,25 +280,25 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		xmlString += "<rows>\n";
 		xmlString += "<page>1</page>\n";
 		xmlString += "<total>1</total>\n";
-		xmlString += "<records>" + getLevelsSize() + "</records>\n";
-		Integer index = 1;
-		for (TafsiliLevelVo tafsiliLevelVo : getTafsiliLevelsList(hesabMoeenId)) {
-			xmlString += "<row id='" + index + "'>";
-
-			xmlString += "<cell>" + index + "</cell>";
-			xmlString += "<cell>" + tafsiliLevelVo.getLevel() + "</cell>";
-			xmlString += "<cell>" + tafsiliLevelVo.getHesabTafsiliListStr() + "</cell>";
-			xmlString += "<cell>" + tafsiliLevelVo.getHesabTafsiliListIds() + "</cell>";
-			String editFunction = "editTafsiliLevelsRowData(getGridId(),"
-					+ index + ",getEditDialogTitle());";
-			String edit = "<input style=\'\' type=\'image\' src=\'"
-					+ getServletContext().getContextPath()
-					+ "/images/edit.png\'  value=\'Edit\' onclick=\'return "
-					+ editFunction + "\' />";
-			xmlString += "<cell><![CDATA[ " + edit + "]]></cell>";
-			xmlString += "</row>";
-			++index;
-		}
+		xmlString += "<records>0</records>\n";
+//		Integer index = 1;
+//		for (TafsiliLevelVo tafsiliLevelVo : getTafsiliLevelsList(hesabMoeenId)) {
+//			xmlString += "<row id='" + index + "'>";
+//
+//			xmlString += "<cell>" + index + "</cell>";
+//			xmlString += "<cell>" + tafsiliLevelVo.getLevel() + "</cell>";
+//			xmlString += "<cell>" + tafsiliLevelVo.getHesabTafsiliListStr() + "</cell>";
+//			xmlString += "<cell>" + tafsiliLevelVo.getHesabTafsiliListIds() + "</cell>";
+//			String editFunction = "editTafsiliLevelsRowData(getGridId(),"
+//					+ index + ",getEditDialogTitle());";
+//			String edit = "<input style=\'\' type=\'image\' src=\'"
+//					+ getServletContext().getContextPath()
+//					+ "/images/edit.png\'  value=\'Edit\' onclick=\'return "
+//					+ editFunction + "\' />";
+//			xmlString += "<cell><![CDATA[ " + edit + "]]></cell>";
+//			xmlString += "</row>";
+//			++index;
+//		}
 		xmlString += "</rows>\n";
 		return xmlString;
 	}

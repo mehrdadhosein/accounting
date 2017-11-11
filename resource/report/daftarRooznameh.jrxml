@@ -27,7 +27,7 @@
 	<field name="bedehkar" class="java.lang.Double"/>
 	<field name="bestankar" class="java.lang.Double"/>
 	<field name="hesabKol" class="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"/>
-	<field name="articleTafsiliDesc" class="java.lang.String"/>
+	<field name="hesabTafsiliTwo" class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"/>
 	<variable name="rowCount" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[new Integer(1)]]></variableExpression>
 		<initialValueExpression><![CDATA[1]]></initialValueExpression>
@@ -437,7 +437,7 @@
 				<textElement verticalAlignment="Middle" markup="none">
 					<font fontName="B Nazanin" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["تفصیلی شناور"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["تفصیلی دو"]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
 				<reportElement uuid="4b7fb978-4d6f-4cfb-aed8-fe107a696020" style="text" mode="Opaque" x="88" y="0" width="65" height="24" backcolor="#EDEDED"/>
@@ -652,7 +652,7 @@
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{articleTafsiliDesc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hesabTafsiliTwo}.getDesc()]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="ba8c3bff-fab2-4890-b623-f0d0d77acb1b" style="text" stretchType="RelativeToTallestObject" x="1" y="0" width="22" height="20" isPrintWhenDetailOverflows="true"/>

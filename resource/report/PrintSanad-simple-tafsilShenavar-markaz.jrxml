@@ -21,8 +21,7 @@
 	<field name="bestankar" class="java.lang.Double"/>
 	<field name="hesabKol" class="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"/>
 	<field name="accountingMarkaz" class="ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity"/>
-	<field name="articleTafsiliDesc" class="java.lang.String"/>
-	<field name="articleAccountingMarkazDesc" class="java.lang.String"/>
+	<field name="hesabTafsiliTwo" class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"/>
 	<variable name="rowCount" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[new Integer(1)]]></variableExpression>
 		<initialValueExpression><![CDATA[1]]></initialValueExpression>
@@ -238,7 +237,7 @@
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[شناور]]></text>
+				<text><![CDATA[تفصیل دو]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="18bc7d84-8b4e-4c0c-b325-fccbca03b0c4" mode="Opaque" x="401" y="0" width="60" height="20" backcolor="#99CCFF"/>
@@ -385,8 +384,7 @@
 				<textElement>
 					<font fontName="B Nazanin" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{articleTafsiliDesc} == "" ? "----" :
-    $F{articleTafsiliDesc})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hesabTafsiliTwo}.getNameWithCode()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

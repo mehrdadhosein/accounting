@@ -25,7 +25,6 @@ import org.springframework.util.StringUtils;
 import com.opencsv.CSVReader;
 
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
-import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.enumeration.SanadFunctionEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
@@ -283,27 +282,27 @@ public class SanadHesabdariForm extends
 //		}
 		
 		
-		if (StringUtils.hasText(map.get("accountingMarkazLevels"))){
-			String accountingMarkazLevels = map.get("accountingMarkazLevels");
-			String[] splited = accountingMarkazLevels.split(",");
-			for (String accountingMarkazLevel : splited) {
-				if(accountingMarkazLevel.isEmpty())
-					continue;
-				String[] keyValue = accountingMarkazLevel.split("=");
-				if(keyValue.length == 1)
-					continue;
-				String key = keyValue[0];
-				String value = keyValue[1];
-				
-				Integer level = new Integer(key.substring("accountingMarkaz".length()));
-				ArticleAccountingMarkazEntity articleAccountingMarkazEntity = new ArticleAccountingMarkazEntity();
-				articleAccountingMarkazEntity.setAccountingMarkaz(getAccountingMarkazService().load(new Long(value)));
-				articleAccountingMarkazEntity.setLevel(level);
-				articleAccountingMarkazEntity.setSanadHesabdariItem(sanadHesabdariItemEntity);
-				sanadHesabdariItemEntity.addToarticleAccountingMarkaz(articleAccountingMarkazEntity);
-				
-			}
-		}
+//		if (StringUtils.hasText(map.get("accountingMarkazLevels"))){
+//			String accountingMarkazLevels = map.get("accountingMarkazLevels");
+//			String[] splited = accountingMarkazLevels.split(",");
+//			for (String accountingMarkazLevel : splited) {
+//				if(accountingMarkazLevel.isEmpty())
+//					continue;
+//				String[] keyValue = accountingMarkazLevel.split("=");
+//				if(keyValue.length == 1)
+//					continue;
+//				String key = keyValue[0];
+//				String value = keyValue[1];
+//				
+//				Integer level = new Integer(key.substring("accountingMarkaz".length()));
+//				ArticleAccountingMarkazEntity articleAccountingMarkazEntity = new ArticleAccountingMarkazEntity();
+//				articleAccountingMarkazEntity.setAccountingMarkaz(getAccountingMarkazService().load(new Long(value)));
+//				articleAccountingMarkazEntity.setLevel(level);
+//				articleAccountingMarkazEntity.setSanadHesabdariItem(sanadHesabdariItemEntity);
+//				sanadHesabdariItemEntity.addToarticleAccountingMarkaz(articleAccountingMarkazEntity);
+//				
+//			}
+//		}
 		
 		
 
@@ -918,9 +917,9 @@ public class SanadHesabdariForm extends
 
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getAccountingMarkazID()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getAccountingMarkazName()+ "</cell>";
-				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getAccountingMarkazLevelNames()+ "</cell>";
-				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getAccountingMarkazLevels()+ "</cell>";
-				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getAccountingMarkazDescs()+ "</cell>";
+//				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getAccountingMarkazLevelNames()+ "</cell>";
+//				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getAccountingMarkazLevels()+ "</cell>";
+//				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getAccountingMarkazDescs()+ "</cell>";
 				
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getMarkazHazineID()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getMarkazHazineName()+ "</cell>";

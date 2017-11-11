@@ -21,8 +21,6 @@
 	<field name="bestankar" class="java.lang.Double"/>
 	<field name="hesabKol" class="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"/>
 	<field name="accountingMarkaz" class="ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity"/>
-	<field name="articleTafsiliDesc" class="java.lang.String"/>
-	<field name="articleAccountingMarkazDesc" class="java.lang.String"/>
 	<field name="this" class="ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity">
 		<fieldDescription><![CDATA[_THIS]]></fieldDescription>
 	</field>

@@ -58,23 +58,6 @@
 				</h:panelGroup>				
 
 				<h:panelGroup>
-					<h:outputLabel for="applyMoeenOnSubMarkaz"
-						value="#{messages['AccountingMarkaz_applyMoeenOnSubMarkaz']}" /> : 
-				</h:panelGroup>
-				<h:selectBooleanCheckbox id="applyMoeenOnSubMarkaz" label="applyMoeenOnSubMarkaz"
-					value="#{accountingMarkaz.applyMoeenOnSubMarkaz}" />
-					
-				<h:panelGroup>
-					<h:outputLabel for="accountingMarkazes"
-						value="#{messages['AccountingMarkaz_childs']}" /> : 
-				</h:panelGroup>
-				<h:panelGroup>
-					<custom:autocomplete-multiple id="accountingMarkazes" width="220px"
-						selectedIds="#{accountingMarkaz.childAccountingMarkazIds}" entity="AccountingMarkaz"
-						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
-				</h:panelGroup>
-
-				<h:panelGroup>
 					<h:outputLabel for="hidden"
 						value="#{messages['AccountingMarkaz_hidden']}" /> : 
 				</h:panelGroup>

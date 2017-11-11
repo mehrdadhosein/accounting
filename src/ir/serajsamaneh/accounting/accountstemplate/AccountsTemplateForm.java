@@ -1,5 +1,11 @@
 package ir.serajsamaneh.accounting.accountstemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.util.StringUtils;
+
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateService;
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
@@ -12,15 +18,6 @@ import ir.serajsamaneh.core.base.model.SerajDataModel;
 import ir.serajsamaneh.core.exception.InCorrectInputException;
 import ir.serajsamaneh.core.util.JQueryUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.model.DataModel;
-
-import org.springframework.util.StringUtils;
-
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
 
@@ -348,11 +345,9 @@ public class AccountsTemplateForm extends
 				+ sanadHesabdariItemVO.getAccountingMarkazTemplateID() + "</cell>";
 		sanadItemsXML += "<cell>"
 				+ sanadHesabdariItemVO.getAccountingMarkazTemplateName() + "</cell>";
-		sanadItemsXML += "<cell>"
-				+ sanadHesabdariItemVO.getAccountingMarkazLevelNames()
-				+ "</cell>";
-		sanadItemsXML += "<cell>"	+ sanadHesabdariItemVO.getAccountingMarkazLevels() + "</cell>";
-		sanadItemsXML += "<cell>"	+ sanadHesabdariItemVO.getAccountingMarkazDescs() + "</cell>";
+//		sanadItemsXML += "<cell>"	+ sanadHesabdariItemVO.getAccountingMarkazLevelNames()	+ "</cell>";
+//		sanadItemsXML += "<cell>"	+ sanadHesabdariItemVO.getAccountingMarkazLevels() + "</cell>";
+//		sanadItemsXML += "<cell>"	+ sanadHesabdariItemVO.getAccountingMarkazDescs() + "</cell>";
 
 		sanadItemsXML += "<cell>"	+ sanadHesabdariItemVO.getApplyAutomaticTafsili() + "</cell>";
 		sanadItemsXML += "<cell>"	+ sanadHesabdariItemVO.getApplyAutomaticTafsiliName() + "</cell>";

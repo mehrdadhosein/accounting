@@ -21,8 +21,7 @@
 	<field name="bestankar" class="java.lang.Double"/>
 	<field name="hesabKol" class="ir.serajsamaneh.accounting.hesabkol.HesabKolEntity"/>
 	<field name="accountingMarkaz" class="ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity"/>
-	<field name="articleTafsiliDesc" class="java.lang.String"/>
-	<field name="articleAccountingMarkazDesc" class="java.lang.String"/>
+	<field name="hesabTafsiliTwo" class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"/>
 	<variable name="rowCount" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA[new Integer(1)]]></variableExpression>
 		<initialValueExpression><![CDATA[1]]></initialValueExpression>
@@ -143,7 +142,7 @@
 				<text><![CDATA[ردیف]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="5fdb0648-e1e5-485d-90b5-48007e91f358" mode="Opaque" x="120" y="0" width="80" height="20" backcolor="#99CCFF"/>
+				<reportElement uuid="5fdb0648-e1e5-485d-90b5-48007e91f358" mode="Opaque" x="120" y="0" width="120" height="20" backcolor="#99CCFF"/>
 				<box leftPadding="0">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -238,7 +237,7 @@
 				<textElement>
 					<font size="11" isBold="false"/>
 				</textElement>
-				<text><![CDATA[شناور]]></text>
+				<text><![CDATA[تفصیل دو]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="18bc7d84-8b4e-4c0c-b325-fccbca03b0c4" mode="Opaque" x="401" y="0" width="60" height="20" backcolor="#99CCFF"/>
@@ -253,20 +252,6 @@
 					<font size="11" isBold="false"/>
 				</textElement>
 				<text><![CDATA[معین]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="52f946f3-c252-48a2-8024-4985e2bf227a" mode="Opaque" x="200" y="0" width="40" height="20" backcolor="#99CCFF"/>
-				<box leftPadding="0">
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement>
-					<font size="11" isBold="false"/>
-				</textElement>
-				<text><![CDATA[شناور]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -287,7 +272,7 @@
 				<textFieldExpression><![CDATA[new DecimalFormat().format((Double)$F{bestankar})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="e8ac467d-6da3-4813-bd4e-45fa3e5ea2cf" style="Tahoma-8" stretchType="RelativeToTallestObject" x="120" y="0" width="80" height="19"/>
+				<reportElement uuid="e8ac467d-6da3-4813-bd4e-45fa3e5ea2cf" style="Tahoma-8" stretchType="RelativeToTallestObject" x="120" y="0" width="120" height="19"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
 					<topPen lineWidth="0.25"/>
@@ -388,20 +373,6 @@
     $F{hesabMoeen}.getNameWithCode())]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement uuid="66e2b528-2cc9-48b0-9d17-116b9fb072e3" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="200" y="0" width="40" height="19"/>
-				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
-					<pen lineWidth="0.25"/>
-					<topPen lineWidth="0.25"/>
-					<leftPen lineWidth="0.25"/>
-					<bottomPen lineWidth="0.25"/>
-					<rightPen lineWidth="0.25"/>
-				</box>
-				<textElement>
-					<font fontName="B Nazanin" size="9" isBold="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{articleAccountingMarkazDesc}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
 				<reportElement uuid="dcaea81a-c4ae-404c-97f3-1922e003ad12" style="BNazanin-Column-Detail" stretchType="RelativeToTallestObject" x="281" y="0" width="60" height="19"/>
 				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.25"/>
@@ -413,8 +384,7 @@
 				<textElement>
 					<font fontName="B Nazanin" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{articleTafsiliDesc} == "" ? "----" :
-    $F{articleTafsiliDesc})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{hesabTafsiliTwo}.getNameWithCode()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
