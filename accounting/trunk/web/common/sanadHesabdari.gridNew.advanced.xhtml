@@ -155,7 +155,7 @@
 			});
    		});   
 
-       	$$(function() {
+       	/*$$(function() {
 			$$.ajax({
 				  url: '${request.contextPath}/entities?entity=AccountingMarkaz&property=desc&all=true&autocomplete=true&isHierarchical=true&level=1',
 				  cache: false,
@@ -170,7 +170,7 @@
 						alert(errorThrown);
 					}
 			});
-   		});    	
+   		});    	*/
 
  
 /* ]]> */
@@ -230,7 +230,7 @@
 		</h:panelGroup>
 		<h:panelGroup>
 			<custom:autocomplete-one id="accountingMarkaz" entity="accountingMarkaz" property="name"
-				width="200px" client="true" extraParams="isHierarchical=true&amp;&amp;accountingMarkazLevel=1"/>
+				width="200px" client="true" extraParams="isHierarchical=true"/>
 		</h:panelGroup>
 
 
@@ -314,7 +314,7 @@
 <t:jsValueSet name="moeenAccountingMarkazMap"	value="#{hesabMoeen.accountingMarkazMap}" />
 <t:jsValueSet name="tafsiliChildMap"	value="#{hesabTafsili.tafsiliChildMap}" rendered="false"/>
 <t:jsValueSet name="tafsiliAccountingMarkazChildMap"	value="#{hesabTafsili.tafsiliAccountingMarkazChildMap}" rendered="false"/>
-<t:jsValueSet name="accountingMarkazChildMap"	value="#{accountingMarkaz.accountingMarkazChildMap}" />
+<t:jsValueSet name="accountingMarkazChildMap"	value="#{accountingMarkaz.accountingMarkazChildMap}" rendered="false" />
 
 <script type="text/javascript">
 
@@ -390,7 +390,7 @@ $$(document).ready(function() {
 	$$('[id="bedehkar"]').digitize();
 	$$('[id="bestankar"]').digitize();
 });
-	var maxLevel = parseInt(#{hesabMoeen.levelsSize});
+	
 
 
 		 
@@ -418,9 +418,6 @@ $$(document).ready(function() {
 									'#{messages['HesabTafsili_Two']}',
 									'accountingMarkazID', 
 									'#{messages['SanadHesabdariItem_accountingMarkaz']}', 
-									'#{messages['AccountingMarkaz_shenavar_list']}',
-									'accountingMarkazLevels', 
-									'accountingMarkazDescs', 									
 									'markazHazineID', 
 									'#{messages['MarkazHazine_title']}',
 									'#{messages['common_id']}', 
@@ -443,9 +440,6 @@ $$(document).ready(function() {
 							{name :'hesabTafsiliTwoName', index :'hesabTafsiliTwoName', width :150, sorttype :'string'}, 
 							{name :'accountingMarkazID', index :'accountingMarkazID', width :20, sorttype :'string'}, 
 							{name :'accountingMarkazName', index :'accountingMarkazName', width :50, sorttype :'string'}, 
-							{name :'accountingMarkazLevelNames', index :'accountingMarkazLevelNames', width :100, sorttype :'string'}, 							
-							{name :'accountingMarkazLevels', index :'accountingMarkazLevels', width :100, sorttype :'string'}, 
-							{name :'accountingMarkazDescs', index :'accountingMarkazDescs', width :100, sorttype :'string'}, 							
 							{name :'markazHazineID', index :'markazHazineID', width :2, sorttype :'string'}, 
 							{name :'markazHazineName', index :'markazHazineName', width :100, sorttype :'string'},
 							{name :'projectID', index :'projectID', width :2, sorttype :'string'}, 
@@ -535,8 +529,6 @@ $$(document).ready(function() {
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','projectName');
 
 	//$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazLevelNames'); 
-	$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazLevels'); 
-	$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazDescs');
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazID'); 
 	
 	
@@ -678,7 +670,7 @@ $$(document).ready(function() {
 			}
 */
 			
-			if(fieldId == 'accountingMarkazLevels'){
+			/*if(fieldId == 'accountingMarkazLevels'){
 				var accountingMarkazLevels='';
 				$$('input.accountingMarkazInput').each(function( i ) {
 					var id_desc = $( this ).prop('id');
@@ -710,7 +702,7 @@ $$(document).ready(function() {
 				});
 				datarow['accountingMarkazLevelNames']=accountingMarkazLevelNames;
 				continue;
-			}
+			}*/
 			
 			var convertedFieldId = getBindedSanadHesabdariFieldId(fieldId);
 			var val = $$('#'+convertedFieldId).val();

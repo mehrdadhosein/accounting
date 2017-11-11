@@ -308,7 +308,7 @@
 					</MenuItem>	
 										
 				</MenuItem>		
-				<MenuItem value="تراز مرکز شناور آزمايشي" permission=""
+				<!-- MenuItem value="تراز مرکز شناور آزمايشي" permission=""
 					icon="Bank-increased-revenue">
 					<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiLocalList_two" value="دو ستوني" pagetitle="تراز مرکز  شناور آزمایشی دو ستوني"
 						valueClick="../sanadhesabdariitem/tarazaccountingmarkazshenavar/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiLocalList_two.jsf"
@@ -339,7 +339,7 @@
 							permission="tarazAccountingMarkazShenavarAzmayeshi.eight" icon="images/menu/report.png"/>
 					</MenuItem>	
 										
-				</MenuItem>						
+				</MenuItem-->						
 
 				<MenuItem  value="تراز نامه" icon="Account-justice-balance" >
 					<MenuItem id="sanadHesabdariItemtarazKolLocalView" value="کل"
@@ -466,7 +466,7 @@
 							valueClick="../sanadhesabdariitem/tarazaccountingmarkaz/hierarchical/sanadHesabdariItem.tarazAccountingMarkazAzmayeshiHierarchicalList_eight.jsf"
 							permission="tarazAccountingMarkazAzmayeshi.eight" icon="images/menu/report.png"/>
 				</MenuItem>		
-				<MenuItem value="تراز مرکز شناور آزمايشي" permission=""
+				<!-- MenuItem value="تراز مرکز شناور آزمايشي" permission=""
 					icon="Bank-increased-revenue">
 						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiHierarchicalList_two" value="دو ستوني" pagetitle="تراز مرکز  شناور آزمایشی دو ستوني"
 							valueClick="../sanadhesabdariitem/tarazaccountingmarkazshenavar/hierarchical/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiHierarchicalList_two.jsf"
@@ -480,7 +480,7 @@
 						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazShenavarAzmayeshiHierarchicalList_eight" value="هشت ستوني" pagetitle="تراز مرکز  شناور آزمایشی هشت ستوني"
 							valueClick="../sanadhesabdariitem/tarazaccountingmarkazshenavar/hierarchical/sanadHesabdariItem.tarazAccountingMarkazShenavarAzmayeshiHierarchicalList_eight.jsf"
 							permission="tarazAccountingMarkazShenavarAzmayeshi.eight" icon="images/menu/report.png"/>
-				</MenuItem>						
+				</MenuItem-->						
 
 			</MenuItem>
 			<MenuItem id="saalMaalilocalSpecialAction" value="سند افتتاحیه-اختتامیه"

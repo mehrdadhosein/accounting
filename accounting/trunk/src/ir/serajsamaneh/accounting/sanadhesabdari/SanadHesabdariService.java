@@ -17,7 +17,6 @@ import org.springframework.util.StringUtils;
 
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
-import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.base.BaseAccountingService;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
@@ -466,7 +465,7 @@ public class SanadHesabdariService extends
 			HesabTafsiliEntity hesabTafsiliTwo = sanadHesabdariItemEntity.getHesabTafsiliTwo();
 			AccountingMarkazEntity accountingMarkaz = sanadHesabdariItemEntity.getAccountingMarkaz();
 //			Set<ArticleTafsiliEntity> articleTafsiliSet = sanadHesabdariItemEntity.getArticleTafsili();
-			Set<ArticleAccountingMarkazEntity> articleAccountingMarkazSet = sanadHesabdariItemEntity.getArticleAccountingMarkaz();
+//			Set<ArticleAccountingMarkazEntity> articleAccountingMarkazSet = sanadHesabdariItemEntity.getArticleAccountingMarkaz();
 			
 			boolean hesabMoeenValidation = hesabMoeen !=null ? !hesabMoeen.getSaalMaali().equals(entity.getSaalMaali()) : false;
 			if(!hesabKol.getSaalMaali().equals(entity.getSaalMaali())
@@ -485,13 +484,13 @@ public class SanadHesabdariService extends
 //				}
 //			}
 			
-			if(articleAccountingMarkazSet!=null)
-				for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : articleAccountingMarkazSet) {
-					AccountingMarkazEntity markaz = articleAccountingMarkazEntity.getAccountingMarkaz();
-					if(markaz!=null && !markaz.getSaalMaali().equals(entity.getSaalMaali()))
-						throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleSaalMaaliConflict", entity.getDesc(), sanadHesabdariItemEntity.getDesc()));
-					
-				}
+//			if(articleAccountingMarkazSet!=null)
+//				for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : articleAccountingMarkazSet) {
+//					AccountingMarkazEntity markaz = articleAccountingMarkazEntity.getAccountingMarkaz();
+//					if(markaz!=null && !markaz.getSaalMaali().equals(entity.getSaalMaali()))
+//						throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleSaalMaaliConflict", entity.getDesc(), sanadHesabdariItemEntity.getDesc()));
+//					
+//				}
 		}
 		
 	}
@@ -793,13 +792,13 @@ public class SanadHesabdariService extends
 //				throw new FatalException("unImplementedTask : "+sanadHesabdariItemEntity);
 
 			
-			if(sanadHesabdariItemEntity.getArticleAccountingMarkaz()!=null)
-				for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : sanadHesabdariItemEntity.getArticleAccountingMarkaz()) {
-	
-					if(sanadHesabdariItemEntity.getAccountingMarkaz()==null || articleAccountingMarkazEntity.getAccountingMarkaz().getId() ==sanadHesabdariItemEntity.getAccountingMarkaz().getId())
-						throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleIncorrect",sanadHesabdariItemEntity.getDesc(), sanadHesabdariEntity.getCompleteInfo()));
-
-				}
+//			if(sanadHesabdariItemEntity.getArticleAccountingMarkaz()!=null)
+//				for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : sanadHesabdariItemEntity.getArticleAccountingMarkaz()) {
+//	
+//					if(sanadHesabdariItemEntity.getAccountingMarkaz()==null || articleAccountingMarkazEntity.getAccountingMarkaz().getId() ==sanadHesabdariItemEntity.getAccountingMarkaz().getId())
+//						throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleIncorrect",sanadHesabdariItemEntity.getDesc(), sanadHesabdariEntity.getCompleteInfo()));
+//
+//				}
 		}
 	}
 
@@ -1174,21 +1173,21 @@ public class SanadHesabdariService extends
 //						}
 //					}
 
-					Set<ArticleAccountingMarkazEntity> articleAccountingMarkazSet = sanadHesabdariItemEntity.getArticleAccountingMarkaz();
-					if(articleAccountingMarkazSet!=null){
-						entity.setArticleAccountingMarkaz(new HashSet<ArticleAccountingMarkazEntity>());
-						for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : articleAccountingMarkazSet) {
-
-							if(accountingMarkaz==null || articleAccountingMarkazEntity.getAccountingMarkaz().getId() ==accountingMarkaz.getId())
-								throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleIncorrect",sanadHesabdariItemEntity.getDesc(), sanadHesabdariEntity.getCompleteInfo()));
-
-							ArticleAccountingMarkazEntity aame = new ArticleAccountingMarkazEntity();
-							aame.setAccountingMarkaz(articleAccountingMarkazEntity.getAccountingMarkaz());
-							aame.setLevel(articleAccountingMarkazEntity.getLevel());
-							aame.setSanadHesabdariItem(entity);
-							entity.getArticleAccountingMarkaz().add(aame);
-						}
-					}
+//					Set<ArticleAccountingMarkazEntity> articleAccountingMarkazSet = sanadHesabdariItemEntity.getArticleAccountingMarkaz();
+//					if(articleAccountingMarkazSet!=null){
+//						entity.setArticleAccountingMarkaz(new HashSet<ArticleAccountingMarkazEntity>());
+//						for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : articleAccountingMarkazSet) {
+//
+//							if(accountingMarkaz==null || articleAccountingMarkazEntity.getAccountingMarkaz().getId() ==accountingMarkaz.getId())
+//								throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleIncorrect",sanadHesabdariItemEntity.getDesc(), sanadHesabdariEntity.getCompleteInfo()));
+//
+//							ArticleAccountingMarkazEntity aame = new ArticleAccountingMarkazEntity();
+//							aame.setAccountingMarkaz(articleAccountingMarkazEntity.getAccountingMarkaz());
+//							aame.setLevel(articleAccountingMarkazEntity.getLevel());
+//							aame.setSanadHesabdariItem(entity);
+//							entity.getArticleAccountingMarkaz().add(aame);
+//						}
+//					}
 					
 					entity.setBedehkar(sanadHesabdariItemEntity.getBestankar());
 					entity.setDescription("-");

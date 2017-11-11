@@ -1,8 +1,5 @@
 package ir.serajsamaneh.accounting.sanadhesabdariitem;
 
-import java.util.Set;
-
-import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 
@@ -164,16 +161,16 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 //		
 //	}
 
-	public ArticleAccountingMarkazEntity getArticleAccountingMarkaz(Integer level) {
-		Set<ArticleAccountingMarkazEntity> set = getArticleAccountingMarkaz();
-		if(set == null)
-			return null;
-		for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : set) {
-			if(articleAccountingMarkazEntity.getLevel().intValue() == level)
-				return articleAccountingMarkazEntity;
-		}
-		return null;
-	}
+//	public ArticleAccountingMarkazEntity getArticleAccountingMarkaz(Integer level) {
+//		Set<ArticleAccountingMarkazEntity> set = getArticleAccountingMarkaz();
+//		if(set == null)
+//			return null;
+//		for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : set) {
+//			if(articleAccountingMarkazEntity.getLevel().intValue() == level)
+//				return articleAccountingMarkazEntity;
+//		}
+//		return null;
+//	}
 
 	public String getHesabKolName() {
 		return getHesabKol().getName();
@@ -247,15 +244,15 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 //		return hesabTafsiliLevelNames;
 //	}
 	
-	public String getArticleAccountingMarkazDesc(){
-		String accountingMarkazLevelNames="";
-		if(getArticleAccountingMarkaz()!= null && !getArticleAccountingMarkaz().isEmpty()){
-			for(ArticleAccountingMarkazEntity accountingMarkazEntity : getArticleAccountingMarkaz()){
-				accountingMarkazLevelNames = accountingMarkazLevelNames +","+accountingMarkazEntity.getAccountingMarkaz().getNameWithCode();
-			}
-		}
-		return accountingMarkazLevelNames;
-	}
+//	public String getArticleAccountingMarkazDesc(){
+//		String accountingMarkazLevelNames="";
+//		if(getArticleAccountingMarkaz()!= null && !getArticleAccountingMarkaz().isEmpty()){
+//			for(ArticleAccountingMarkazEntity accountingMarkazEntity : getArticleAccountingMarkaz()){
+//				accountingMarkazLevelNames = accountingMarkazLevelNames +","+accountingMarkazEntity.getAccountingMarkaz().getNameWithCode();
+//			}
+//		}
+//		return accountingMarkazLevelNames;
+//	}
 
 	public String getSanadSerial(){
 		if(getSanadHesabdari().getId()!=null && getSanadHesabdari().getSerial()!=null)

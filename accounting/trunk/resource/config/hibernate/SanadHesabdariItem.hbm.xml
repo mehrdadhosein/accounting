@@ -60,10 +60,10 @@
 	        <key column='sanad_hesabdari_item_id' foreign-key='fk_artcl_tf_snd_hsbdri_itm'/>
 	       <one-to-many class='ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity' />
 	    </set-->
-	    <set  name='articleAccountingMarkaz' inverse='true' cascade="all-delete-orphan"  fetch="join" batch-size="100">
+	    <!-- set  name='articleAccountingMarkaz' inverse='true' cascade="all-delete-orphan"  fetch="join" batch-size="100">
 	        <key column='sanad_hesabdari_item_id' foreign-key='fk_artcl_acmrkz_snd_hsbdr_itm'/>
 	       <one-to-many class='ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity' />
-	    </set>
+	    </set-->
 		
 	</class>
 

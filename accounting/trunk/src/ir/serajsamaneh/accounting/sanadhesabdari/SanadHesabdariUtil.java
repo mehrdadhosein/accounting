@@ -14,7 +14,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
-import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
@@ -295,18 +294,18 @@ public class SanadHesabdariUtil {
 	}
 
 
-	public static  List<Integer> getLevels(OrganEntity currentOrgan){
-		String maxSanadHesabdariTafsilLevel = getSystemConfigService().getValue(currentOrgan, null, "maxSanadHesabdariTafsilLevel");
-		ArrayList<Integer> levelList = new ArrayList<Integer>();
-		if(maxSanadHesabdariTafsilLevel!=null){
-			Integer maxLevels = new Integer(maxSanadHesabdariTafsilLevel);
-			for(int i=1; i<=maxLevels; ++i)
-				levelList.add(i);
-			return levelList;
-		}
-		
-		return levelList;
-	}
+//	public static  List<Integer> getLevels(OrganEntity currentOrgan){
+//		String maxSanadHesabdariTafsilLevel = getSystemConfigService().getValue(currentOrgan, null, "maxSanadHesabdariTafsilLevel");
+//		ArrayList<Integer> levelList = new ArrayList<Integer>();
+//		if(maxSanadHesabdariTafsilLevel!=null){
+//			Integer maxLevels = new Integer(maxSanadHesabdariTafsilLevel);
+//			for(int i=1; i<=maxLevels; ++i)
+//				levelList.add(i);
+//			return levelList;
+//		}
+//		
+//		return levelList;
+//	}
 	
 	public static String createMapKey(
 			SanadHesabdariItemEntity sanadHesabdariItemEntity, OrganEntity currentOrgan) {
@@ -334,10 +333,10 @@ public class SanadHesabdariUtil {
 		String markazCode = sanadHesabdariItemEntity.getAccountingMarkaz() != null ? sanadHesabdariItemEntity.getAccountingMarkaz().getCode() :"";
 		mapKey+="_"+markazCode;
 		
-		for(Integer level : getLevels(currentOrgan)) {
-			ArticleAccountingMarkazEntity articleAccountingMarkazEntity = sanadHesabdariItemEntity.getArticleAccountingMarkaz(level);
-			mapKey+="_"+(articleAccountingMarkazEntity !=null ? articleAccountingMarkazEntity.getAccountingMarkaz().getCode() : "");
-		}
+//		for(Integer level : getLevels(currentOrgan)) {
+//			ArticleAccountingMarkazEntity articleAccountingMarkazEntity = sanadHesabdariItemEntity.getArticleAccountingMarkaz(level);
+//			mapKey+="_"+(articleAccountingMarkazEntity !=null ? articleAccountingMarkazEntity.getAccountingMarkaz().getCode() : "");
+//		}
 		return mapKey;
 	}	
 

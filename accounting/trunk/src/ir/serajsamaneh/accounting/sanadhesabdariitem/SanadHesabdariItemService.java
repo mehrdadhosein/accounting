@@ -7,14 +7,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
-import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
-import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazService;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.MahyatKolEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadFunctionEnum;
@@ -49,16 +46,16 @@ public class SanadHesabdariItemService extends
 	SanadHesabdariService sanadHesabdariService;
 	AccountingMarkazService accountingMarkazService;
 //	ArticleTafsiliService articleTafsiliService;
-	ArticleAccountingMarkazService articleAccountingMarkazService;
-
-	public ArticleAccountingMarkazService getArticleAccountingMarkazService() {
-		return articleAccountingMarkazService;
-	}
-
-	public void setArticleAccountingMarkazService(
-			ArticleAccountingMarkazService articleAccountingMarkazService) {
-		this.articleAccountingMarkazService = articleAccountingMarkazService;
-	}
+//	ArticleAccountingMarkazService articleAccountingMarkazService;
+//
+//	public ArticleAccountingMarkazService getArticleAccountingMarkazService() {
+//		return articleAccountingMarkazService;
+//	}
+//
+//	public void setArticleAccountingMarkazService(
+//			ArticleAccountingMarkazService articleAccountingMarkazService) {
+//		this.articleAccountingMarkazService = articleAccountingMarkazService;
+//	}
 //
 //	public ArticleTafsiliService getArticleTafsiliService() {
 //		return articleTafsiliService;
@@ -537,8 +534,8 @@ public class SanadHesabdariItemService extends
 		localFilter = populateMandehTarazFilter(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
 
 		
-		localFilter.put("articleTafsili.level@eq", 2);
-		List<Object[]> rawList = getMyDAO().getTarazAccountingMarkazShenavarAzmayeshi(localFilter);
+//		localFilter.put("articleTafsili.level@eq", 2);
+		List<Object[]> rawList = getMyDAO().getTarazAccountingMarkazAzmayeshi(localFilter);
 		for (Object[] object : rawList) {
 			SanadHesabdariItemVO entity = new SanadHesabdariItemVO();
 			Object[] a = (Object[])object;
@@ -828,6 +825,7 @@ public class SanadHesabdariItemService extends
 				accoutingMarkazId = new Long(a[0].toString());
 				AccountingMarkazEntity accoutingMarkazEntity = getAccountingMarkazService().load(accoutingMarkazId);
 				entity.setAccountingMarkazName(accoutingMarkazEntity.getName());
+				entity.setAccountingMarkazDesc(accoutingMarkazEntity.getDesc());
 				entity.setAccountingMarkazCode(accoutingMarkazEntity.getCode());
 			}else{
 				AccountingMarkazEntity nullAccountingMarkaz = new AccountingMarkazEntity();
@@ -1059,17 +1057,17 @@ public class SanadHesabdariItemService extends
 //			}
 //		}
 		
-		Set<ArticleAccountingMarkazEntity> articleAccountingMarkaz = srcEntity.getArticleAccountingMarkaz();
-		if(articleAccountingMarkaz !=null){
-			destEntity.getArticleAccountingMarkaz().clear();
-			for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : articleAccountingMarkaz) {
-				ArticleAccountingMarkazEntity destArticleAccountingMarkazEntity = new ArticleAccountingMarkazEntity();;
-				destArticleAccountingMarkazEntity.setAccountingMarkaz(articleAccountingMarkazEntity.getAccountingMarkaz());
-				destArticleAccountingMarkazEntity.setLevel(articleAccountingMarkazEntity.getLevel());
-				destArticleAccountingMarkazEntity.setSanadHesabdariItem(destEntity);
-				destArticleAccountingMarkazEntity.setDesc(articleAccountingMarkazEntity.getAccountingMarkaz().getDesc());
-				destEntity.getArticleAccountingMarkaz().add(destArticleAccountingMarkazEntity);
-			}
-		}
+//		Set<ArticleAccountingMarkazEntity> articleAccountingMarkaz = srcEntity.getArticleAccountingMarkaz();
+//		if(articleAccountingMarkaz !=null){
+//			destEntity.getArticleAccountingMarkaz().clear();
+//			for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : articleAccountingMarkaz) {
+//				ArticleAccountingMarkazEntity destArticleAccountingMarkazEntity = new ArticleAccountingMarkazEntity();;
+//				destArticleAccountingMarkazEntity.setAccountingMarkaz(articleAccountingMarkazEntity.getAccountingMarkaz());
+//				destArticleAccountingMarkazEntity.setLevel(articleAccountingMarkazEntity.getLevel());
+//				destArticleAccountingMarkazEntity.setSanadHesabdariItem(destEntity);
+//				destArticleAccountingMarkazEntity.setDesc(articleAccountingMarkazEntity.getAccountingMarkaz().getDesc());
+//				destEntity.getArticleAccountingMarkaz().add(destArticleAccountingMarkazEntity);
+//			}
+//		}
 	}
 }

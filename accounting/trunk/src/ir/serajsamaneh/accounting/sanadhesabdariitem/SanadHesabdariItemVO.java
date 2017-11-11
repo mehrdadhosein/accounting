@@ -1,6 +1,5 @@
 package ir.serajsamaneh.accounting.sanadhesabdariitem;
 
-import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.enumeration.MahyatKolEnum;
 import ir.serajsamaneh.core.base.BaseValueObject;
 
@@ -85,9 +84,9 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	protected java.lang.String accountingMarkazDesc="";
 	
 	
-	protected java.lang.String accountingMarkazLevels="";
-	protected java.lang.String accountingMarkazDescs="";
-	protected java.lang.String accountingMarkazLevelNames="";
+//	protected java.lang.String accountingMarkazLevels="";
+//	protected java.lang.String accountingMarkazDescs="";
+//	protected java.lang.String accountingMarkazLevelNames="";
 	
 	Double mandehBedehkarEbtedayDore;
 	Double mandehBestankarEbtedayDore;
@@ -148,6 +147,7 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 
 		if(sanadHesabdariItemEntity.getAccountingMarkaz()!=null){
 			setAccountingMarkazName(convertNullToString(sanadHesabdariItemEntity.getAccountingMarkaz().getDesc()));
+			setAccountingMarkazDesc(convertNullToString(sanadHesabdariItemEntity.getAccountingMarkaz().getDesc()));
 			setAccountingMarkazID(convertNullToString(sanadHesabdariItemEntity.getAccountingMarkaz().getId()));
 		}else{
 			setAccountingMarkazName("");
@@ -155,14 +155,14 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 		}
 
 		
-		if(sanadHesabdariItemEntity.getArticleAccountingMarkaz()!= null && !sanadHesabdariItemEntity.getArticleAccountingMarkaz().isEmpty()){
-			accountingMarkazLevelNames="";
-			for(ArticleAccountingMarkazEntity articleAccountingMarkazEntity : sanadHesabdariItemEntity.getArticleAccountingMarkaz()){
-				accountingMarkazLevels = accountingMarkazLevels +",accountingMarkaz"+articleAccountingMarkazEntity.getLevel()+"="+articleAccountingMarkazEntity.getAccountingMarkaz().getId();
-				accountingMarkazDescs = accountingMarkazDescs +",accountingMarkaz"+articleAccountingMarkazEntity.getLevel()+"="+articleAccountingMarkazEntity.getAccountingMarkaz().getDesc();
-				accountingMarkazLevelNames = accountingMarkazLevelNames +","+articleAccountingMarkazEntity.getAccountingMarkaz().getDesc();
-			}
-		}
+//		if(sanadHesabdariItemEntity.getArticleAccountingMarkaz()!= null && !sanadHesabdariItemEntity.getArticleAccountingMarkaz().isEmpty()){
+//			accountingMarkazLevelNames="";
+//			for(ArticleAccountingMarkazEntity articleAccountingMarkazEntity : sanadHesabdariItemEntity.getArticleAccountingMarkaz()){
+//				accountingMarkazLevels = accountingMarkazLevels +",accountingMarkaz"+articleAccountingMarkazEntity.getLevel()+"="+articleAccountingMarkazEntity.getAccountingMarkaz().getId();
+//				accountingMarkazDescs = accountingMarkazDescs +",accountingMarkaz"+articleAccountingMarkazEntity.getLevel()+"="+articleAccountingMarkazEntity.getAccountingMarkaz().getDesc();
+//				accountingMarkazLevelNames = accountingMarkazLevelNames +","+articleAccountingMarkazEntity.getAccountingMarkaz().getDesc();
+//			}
+//		}
 		
 		setHesabKolName(convertNullToString(sanadHesabdariItemEntity.getHesabKol().getName()));
 		setHesabKolID(convertNullToString(sanadHesabdariItemEntity.getHesabKol().getId()));
@@ -382,35 +382,35 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	}
 
 
-	public java.lang.String getAccountingMarkazLevels() {
-		return accountingMarkazLevels;
-	}
-
-
-	public void setAccountingMarkazLevels(java.lang.String accountingMarkazLevels) {
-		this.accountingMarkazLevels = accountingMarkazLevels;
-	}
-
-
-	public java.lang.String getAccountingMarkazDescs() {
-		return accountingMarkazDescs;
-	}
-
-
-	public void setAccountingMarkazDescs(java.lang.String accountingMarkazDescs) {
-		this.accountingMarkazDescs = accountingMarkazDescs;
-	}
-
-
-	public java.lang.String getAccountingMarkazLevelNames() {
-		return accountingMarkazLevelNames;
-	}
-
-
-	public void setAccountingMarkazLevelNames(
-			java.lang.String accountingMarkazLevelNames) {
-		this.accountingMarkazLevelNames = accountingMarkazLevelNames;
-	}
+//	public java.lang.String getAccountingMarkazLevels() {
+//		return accountingMarkazLevels;
+//	}
+//
+//
+//	public void setAccountingMarkazLevels(java.lang.String accountingMarkazLevels) {
+//		this.accountingMarkazLevels = accountingMarkazLevels;
+//	}
+//
+//
+//	public java.lang.String getAccountingMarkazDescs() {
+//		return accountingMarkazDescs;
+//	}
+//
+//
+//	public void setAccountingMarkazDescs(java.lang.String accountingMarkazDescs) {
+//		this.accountingMarkazDescs = accountingMarkazDescs;
+//	}
+//
+//
+//	public java.lang.String getAccountingMarkazLevelNames() {
+//		return accountingMarkazLevelNames;
+//	}
+//
+//
+//	public void setAccountingMarkazLevelNames(
+//			java.lang.String accountingMarkazLevelNames) {
+//		this.accountingMarkazLevelNames = accountingMarkazLevelNames;
+//	}
 
 
 	public Double getMandehBedehkarEbtedayDore() {

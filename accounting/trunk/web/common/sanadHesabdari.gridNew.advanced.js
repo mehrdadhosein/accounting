@@ -161,7 +161,7 @@
 			if(fieldId == 'hesabTafsiliDescs'){
 				continue;
 			}
-			if(fieldId == 'accountingMarkazLevels'){
+/*			if(fieldId == 'accountingMarkazLevels'){
 				$$('input.accountingMarkazInput').each(function( i ) {
 					var id_desc = $( this ).prop('id');
 					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
@@ -172,7 +172,7 @@
 			}
 			if(fieldId == 'accountingMarkazDescs'){
 				continue;
-			}			
+			}			*/
 			var bindedFieldId=getBindedSanadHesabdariFieldId(fieldId);
 			$$('#'+bindedFieldId).val(elems[fieldId]);
 		}
@@ -343,16 +343,12 @@
 			
 			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabKolName'); 
 			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabMoeenName'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliLevelNames'); 
-			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazLevelNames'); 
 			$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazName'); 
 			$$('#sanadHesabdariGrid').jqGrid('hideCol','hesabTafsiliName'); 
 			$$('#sanadHesabdariGrid').setGridWidth($$(window).width()-20);
 		}else{
 			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabKolName'); 
 			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabMoeenName'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliLevelNames'); 
-			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazLevelNames'); 
 			$$('#sanadHesabdariGrid').jqGrid('showCol','accountingMarkazName'); 
 			$$('#sanadHesabdariGrid').jqGrid('showCol','hesabTafsiliName'); 
 
@@ -483,7 +479,7 @@
 
 		
 	function createSanadHesabdariTable(sanadHesabdariXML){
-		var gridItems=new Array('id','hesabKolID','hesabKolName','hesabMoeenID','hesabMoeenName','hesabTafsiliOneID','hesabTafsiliOneName','hesabTafsiliTwoID','hesabTafsiliTwoName','accountingMarkazID','accountingMarkazName','accountingMarkazLevelNames','accountingMarkazLevels','accountingMarkazDescs','markazHazineID','markazHazineName','projectID','projectName','bedehkar','bestankar','description');
+		var gridItems=new Array('id','hesabKolID','hesabKolName','hesabMoeenID','hesabMoeenName','hesabTafsiliOneID','hesabTafsiliOneName','hesabTafsiliTwoID','hesabTafsiliTwoName','accountingMarkazID','accountingMarkazName','markazHazineID','markazHazineName','projectID','projectName','bedehkar','bestankar','description');
 		setItems("#sanadHesabdariGrid",gridItems);
 		createSanadHesabdariGrid(sanadHesabdariXML);
 		var cnt = $$('#sanadHesabdariGrid').jqGrid('getGridParam', 'records');
@@ -669,7 +665,7 @@
 			 $$('#'+tafsiliDest+'_desc').autocomplete('option','source',filtered);
 		}*/
 		
-		function fillDestMarkazAccountingByMarkaz(accountingMarkazSrc,accountingMarkazDest){
+		/*function fillDestMarkazAccountingByMarkaz(accountingMarkazSrc,accountingMarkazDest){
 			//alert('accountingMarkazSrc : '+accountingMarkazSrc);
 			//alert('accountingMarkazDest : '+accountingMarkazDest);
 			var accountingMarkazSrcId = $$('#'+accountingMarkazSrc+'_id').val();
@@ -682,7 +678,7 @@
 			var filtered = accountingMarkazMap;
 			//alert(inspect(filtered,10,10));
 			 $$('#'+accountingMarkazDest+'_desc').autocomplete('option','source',filtered);
-		}
+		}*/
 		
 
 		
