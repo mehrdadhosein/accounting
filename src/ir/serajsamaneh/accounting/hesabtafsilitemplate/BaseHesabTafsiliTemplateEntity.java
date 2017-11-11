@@ -58,6 +58,7 @@ public abstract class BaseHesabTafsiliTemplateEntity  extends BaseEntity<Long>  
 	private java.lang.Long code;
 	private java.lang.String name;
 	private java.lang.String description;
+	private java.lang.Integer level;
 	OrganEntity organ;
 	
 	// collections
@@ -133,6 +134,14 @@ public abstract class BaseHesabTafsiliTemplateEntity  extends BaseEntity<Long>  
 
 
  
+	public java.lang.Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(java.lang.Integer level) {
+		this.level = level;
+	}
+
 	/**
 	 * Return the value associated with the column: description
 	 */

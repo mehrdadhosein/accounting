@@ -1,9 +1,13 @@
 package ir.serajsamaneh.erpcore.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountstemplate.AccountsTemplateEntity;
 import ir.serajsamaneh.accounting.accountstemplate.AccountsTemplateService;
-import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
 import ir.serajsamaneh.accounting.common.KolMoeenTafsiliVO;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
@@ -22,13 +26,6 @@ import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabEntity;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 
 public class AutomaticSanadUtil extends SanadHesabdariUtil {
 
@@ -195,7 +192,8 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			article.setHesabTafsili(hesabTafsiliEntityONE);
 			
 			if(createArticleTafsili && hesabTafsiliTWO!=null && hesabTafsiliTWO.getId()!=null && hesabTafsiliEntityONE.getId().longValue()!=hesabTafsiliTWO.getId().longValue()){
-				createAddSubArticle(hesabTafsiliTWO, article, 1);
+				//createAddSubArticle(hesabTafsiliTWO, article, 1);
+				article.setHesabTafsiliTwo(hesabTafsiliTWO);
 			}
 		}else{
 			article.setHesabTafsili(hesabTafsiliTWO);
@@ -233,7 +231,15 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		article.setHesabKol(hesabKolEntity);
 		article.setHesabMoeen(hesabMoeenEntity);
 
-		articleAttachTafsili(article, hesbTafsilis, createArticleTafsili);
+		if(hesbTafsilis!=null && !hesbTafsilis.isEmpty()) {
+			if(hesbTafsilis.size() == 1)
+				article.setHesabTafsili(hesbTafsilis.get(0));
+			else if(hesbTafsilis.size() == 2) {
+				article.setHesabTafsili(hesbTafsilis.get(0));
+				article.setHesabTafsiliTwo(hesbTafsilis.get(1));
+			}
+		}
+//		articleAttachTafsili(article, hesbTafsilis, createArticleTafsili);
 
 		article.setBedehkar(bedehkarAmount);
 		article.setBestankar(0d);
@@ -376,7 +382,15 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		article.setHesabKol(hesabKolEntity);
 		article.setHesabMoeen(hesabMoeenEntity);
 		
-		articleAttachTafsili(article, hesbTafsilis, createArticleTafsili);
+		if(hesbTafsilis!=null && !hesbTafsilis.isEmpty()) {
+			if(hesbTafsilis.size() == 1)
+				article.setHesabTafsili(hesbTafsilis.get(0));
+			else if(hesbTafsilis.size() == 2) {
+				article.setHesabTafsili(hesbTafsilis.get(0));
+				article.setHesabTafsiliTwo(hesbTafsilis.get(1));
+			}
+		}
+//		articleAttachTafsili(article, hesbTafsilis, createArticleTafsili);
 		
 		article.setBedehkar(0d);
 		article.setBestankar(bestanKarAmount);
@@ -392,35 +406,35 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	 * @param createArticleTafsili
 	 * @author Armin
 	 */
-	private static void articleAttachTafsili(SanadHesabdariItemEntity article, List<HesabTafsiliEntity> hesbTafsilis,
-			boolean createArticleTafsili) {
-		LinkedList<HesabTafsiliEntity> hesabs = new LinkedList<HesabTafsiliEntity>();
-
-		// Validate and queue every hesab tafsili
-		for (int i = 0; i < hesbTafsilis.size(); i++) {
-			HesabTafsiliEntity hesTafsili = hesbTafsilis.get(i);
-			if (null != hesTafsili)
-				if (!hesabs.isEmpty()) {
-					if (null != hesTafsili.getId()
-							&& hesabs.peekLast().getId().longValue() != hesTafsili.getId().longValue())
-						hesabs.add(hesTafsili);
-				} else {
-					hesabs.add(hesTafsili);
-				}
-
-		}
-
-		if (!hesabs.isEmpty()) {
-			// Top level hesab tafsili
-			article.setHesabTafsili(hesabs.remove());
-
-			// Add other levels
-			if (createArticleTafsili)
-				for (Integer level = 1; !hesabs.isEmpty(); level++) {
-					createAddSubArticle(hesabs.remove(), article, level);
-				}
-		}
-	}
+//	private static void articleAttachTafsili(SanadHesabdariItemEntity article, List<HesabTafsiliEntity> hesbTafsilis,
+//			boolean createArticleTafsili) {
+//		LinkedList<HesabTafsiliEntity> hesabs = new LinkedList<HesabTafsiliEntity>();
+//
+//		// Validate and queue every hesab tafsili
+//		for (int i = 0; i < hesbTafsilis.size(); i++) {
+//			HesabTafsiliEntity hesTafsili = hesbTafsilis.get(i);
+//			if (null != hesTafsili)
+//				if (!hesabs.isEmpty()) {
+//					if (null != hesTafsili.getId()
+//							&& hesabs.peekLast().getId().longValue() != hesTafsili.getId().longValue())
+//						hesabs.add(hesTafsili);
+//				} else {
+//					hesabs.add(hesTafsili);
+//				}
+//
+//		}
+//
+//		if (!hesabs.isEmpty()) {
+//			// Top level hesab tafsili
+//			article.setHesabTafsili(hesabs.remove());
+//
+//			// Add other levels
+//			if (createArticleTafsili)
+//				for (Integer level = 1; !hesabs.isEmpty(); level++) {
+//					createAddSubArticle(hesabs.remove(), article, level);
+//				}
+//		}
+//	}
 	
 
 	/**
@@ -431,15 +445,15 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	 * @param level starts with 1 to higher values in order
 	 * @author Armin
 	 */
-	private static void createAddSubArticle(HesabTafsiliEntity hesabTafsili, SanadHesabdariItemEntity article, Integer level) {
-		ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
-		articleTafsiliEntity.setHesabTafsili(hesabTafsili);
-		articleTafsiliEntity.setLevel(level);
-		articleTafsiliEntity.setSanadHesabdariItem(article);
-		if(article.getArticleTafsili() == null)
-			article.setArticleTafsili(new HashSet<>());
-		article.getArticleTafsili().add(articleTafsiliEntity);
-	}
+//	private static void createAddSubArticle(HesabTafsiliEntity hesabTafsili, SanadHesabdariItemEntity article, Integer level) {
+//		ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
+//		articleTafsiliEntity.setHesabTafsili(hesabTafsili);
+//		articleTafsiliEntity.setLevel(level);
+//		articleTafsiliEntity.setSanadHesabdariItem(article);
+//		if(article.getArticleTafsili() == null)
+//			article.setArticleTafsili(new HashSet<>());
+//		article.getArticleTafsili().add(articleTafsiliEntity);
+//	}
 	
 	protected static SanadHesabdariItemEntity createBestankarArticle(HesabKolEntity hesabKolEntity, HesabMoeenEntity hesabMoeenEntity,	HesabTafsiliEntity hesabTafsiliEntityONE, 
 			HesabTafsiliEntity hesabTafsiliTWO, Double bestanKarAmount, boolean createArticleTafsili,
@@ -459,7 +473,8 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			article.setHesabTafsili(hesabTafsiliEntityONE);
 			
 			if(createArticleTafsili && hesabTafsiliTWO!=null && hesabTafsiliTWO.getId()!= null && hesabTafsiliTWO.getId().longValue()!=hesabTafsiliEntityONE.getId().longValue()){
-				createAddSubArticle(hesabTafsiliTWO, article, 1);
+//				createAddSubArticle(hesabTafsiliTWO, article, 1);
+				article.setHesabTafsiliTwo(hesabTafsiliTWO);
 			}
 		}else{
 			article.setHesabTafsili(hesabTafsiliTWO);
@@ -477,15 +492,12 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		SanadHesabdariItemEntity bestankarArticle = createBestankarArticle(hesabKolEntity, hesabMoeenEntity, hesabTafsiliEntityONE, hesabTafsiliTWO, bedehkarAmount, createArticleTafsili, accountingMarkazEntity, description);
 		if(bestankarArticle.getHesabTafsili() == null)
 			bestankarArticle.setHesabTafsili(sandoghDar);
-		else if(bestankarArticle.getArticleTafsili() == null || bestankarArticle.getArticleTafsili().isEmpty()){
+		else if(bestankarArticle.getHesabTafsiliTwo() == null){
 			if(createArticleTafsili && sandoghDar!=null){
-				createAddSubArticle(sandoghDar, bestankarArticle, 1);
+				bestankarArticle.setHesabTafsiliTwo(sandoghDar);
 			}
-		} else if(bestankarArticle.getArticleTafsili() != null || !bestankarArticle.getArticleTafsili().isEmpty()){
-			if(createArticleTafsili && sandoghDar!=null){
-				createAddSubArticle(sandoghDar, bestankarArticle, 2);
-			}
-		}
+		} else 
+			throw new FatalException();
 		
 		return bestankarArticle;
 	}
@@ -496,16 +508,12 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		SanadHesabdariItemEntity bedehkarArticle = createBedehkarArticle(hesabKolEntity, hesabMoeenEntity, hesabTafsiliEntityONE, hesabTafsiliTWO, bedehkarAmount, createArticleTafsili, accountingMarkazEntity, description);
 		if(bedehkarArticle.getHesabTafsili() == null)
 			bedehkarArticle.setHesabTafsili(actorTafsili);
-		else if(bedehkarArticle.getArticleTafsili() == null || bedehkarArticle.getArticleTafsili().isEmpty()){
+		else if(bedehkarArticle.getHesabTafsiliTwo() == null){
 			if(createArticleTafsili && actorTafsili!=null){
-				createAddSubArticle(actorTafsili, bedehkarArticle, 1);
+				bedehkarArticle.setHesabTafsiliTwo(actorTafsili);
 			}
-		} else if(bedehkarArticle.getArticleTafsili() != null || !bedehkarArticle.getArticleTafsili().isEmpty()){
-			
-			if(createArticleTafsili && actorTafsili!=null){
-				createAddSubArticle(actorTafsili, bedehkarArticle, 2);
-			}
-		}
+		} else 
+			throw new FatalException();
 			
 		return bedehkarArticle;
 	}

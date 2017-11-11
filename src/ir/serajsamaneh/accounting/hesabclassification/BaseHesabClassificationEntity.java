@@ -61,6 +61,7 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 	// fields
 	private java.lang.String name;
 	private java.lang.String description;
+	private java.lang.Integer level;
 	Long code;
 
 	// many to one
@@ -121,6 +122,14 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 
 
  
+	public java.lang.Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(java.lang.Integer level) {
+		this.level = level;
+	}
+
 	/**
 	 * Return the value associated with the column: description
 	 */

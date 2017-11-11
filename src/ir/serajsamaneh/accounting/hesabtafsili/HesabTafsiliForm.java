@@ -303,7 +303,8 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 			if (StringUtil.hasText(tafsiliLevel)){
 				getFilter().put("level@eq",new Integer(tafsiliLevel));
 			}else{
-				throw new FatalException("tafsili level is null");
+				//throw new FatalException("tafsili level is null");
+				return new ArrayList<>();
 			}
 			
 			String isHierarchical = params.get("isHierarchical");
@@ -364,9 +365,9 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		return getEntity().getOrgan().getId().equals(getCurrentOrgan().getId());
 	}
 
-	public String localShenavarEdit() {
-		return getFacesUrl("/hesabtafsili/hesabTafsili.shenavar.LocalEdit.xhtml");
-	}
+//	public String localShenavarEdit() {
+//		return getFacesUrl("/hesabtafsili/hesabTafsili.shenavar.LocalEdit.xhtml");
+//	}
 
 
 }

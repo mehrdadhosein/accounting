@@ -15,6 +15,7 @@ import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
+import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
 public class HesabTafsiliTemplateForm extends
@@ -144,11 +145,18 @@ public class HesabTafsiliTemplateForm extends
 
 		try{
 			String isHierarchical = params.get("isHierarchical");
-	
+			String tafsiliLevel = params.get("tafsiliLevel");
+			
 			// params.put("isLocal","false");
 			// getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(),
 			// "ding"));
-	
+
+			if (StringUtil.hasText(tafsiliLevel)){
+				getFilter().put("level@eq",new Integer(tafsiliLevel));
+			}else{
+				return new ArrayList<>();
+			}
+
 			if (isHierarchical != null && isHierarchical.equals("true")) {
 				List<Long> topOrganList = getTopOrgansIdList(getCurrentUserActiveSaalMaali().getOrgan());
 				getFilter().put("organ.id@in", topOrganList);

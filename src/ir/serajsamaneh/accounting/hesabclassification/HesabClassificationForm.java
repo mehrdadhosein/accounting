@@ -40,6 +40,11 @@ public class HesabClassificationForm extends BaseAccountingForm<HesabClassificat
 		return hesabClassificationService;
 	}
 
+	@Override
+	public DataModel<HesabClassificationEntity> getLocalDataModel() {
+		setSearchAction(true);
+		return super.getLocalDataModel();
+	}
 	public List<SelectItem> getLocalHesabClassification() {
 
 		List<SelectItem> localHesabClassificationList = new ArrayList<SelectItem>();

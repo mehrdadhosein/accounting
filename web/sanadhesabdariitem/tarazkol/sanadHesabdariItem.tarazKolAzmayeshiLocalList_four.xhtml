@@ -198,11 +198,11 @@ function openTarazMoeen(hesabKolId){
 	toDate = document.getElementById('tatarikhExample').value;
 	moeens = document.getElementById('moeens_id').value;
 	tafsiliIds = document.getElementById('tafsilis_id').value;
-	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	tafsiliTwoIds = document.getElementById('tafsiliTwoIds_id').value;	
 	fromSerial=document.getElementById('azserialExample').value;
 	toSerial=document.getElementById('taserialExample').value;
 
-	var url = '../tarazmoeen/sanadHesabdariItem.tarazMoeenAzmayeshiLocalList_four.jsf?searchAction=true&hesabKolIds='+hesabKolId+'&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
+	var url = '../tarazmoeen/sanadHesabdariItem.tarazMoeenAzmayeshiLocalList_four.jsf?searchAction=true&hesabKolIds='+hesabKolId+'&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&tafsiliTwoIds='+tafsiliTwoIds+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
 	popupFullscreen(url, 'tarazMoeen');
 }
 function openDaftarKol(hesabKolId){
@@ -211,11 +211,11 @@ function openDaftarKol(hesabKolId){
 	toDate = document.getElementById('tatarikhExample').value;
 	moeens = document.getElementById('moeens_id').value;
 	tafsiliIds = document.getElementById('tafsilis_id').value;
-	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	tafsiliTwoIds = document.getElementById('tafsiliTwoIds_id').value;	
 	fromSerial=document.getElementById('azserialExample').value;
 	toSerial=document.getElementById('taserialExample').value;
 
-	var url = '../daftar/sanadHesabdariItem.kolLocalList.jsf?searchAction=true&hesabKolIds='+hesabKolId+'&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;	
+	var url = '../daftar/sanadHesabdariItem.kolLocalList.jsf?searchAction=true&hesabKolIds='+hesabKolId+'&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&tafsiliTwoIds='+tafsiliTwoIds+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;	
 	popupFullscreen(url, 'daftarKol');
 }
 /* ]]> */

@@ -6,8 +6,6 @@ import ir.serajsamaneh.core.base.BaseEntity;
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
 
-import java.util.HashSet;
-
 
 
 /**
@@ -28,6 +26,7 @@ public abstract class BaseSanadHesabdariItemEntity  extends BaseEntity<Long>   i
 	public static String PROP_DESCRIPTION = "description";
 	public static String PROP_HESAB_MOEEN = "hesabMoeen";
 	public static String PROP_HESAB_TAFSILI = "hesabTafsili";
+	public static String PROP_HESAB_TAFSILI_TWO = "hesabTafsiliTwo";
 	public static String PROP_TYPE = "type";
 	public static String PROP_ROW = "row";
 	public static String PROP_BEDEHKAR = "bedehkar";
@@ -81,11 +80,12 @@ public abstract class BaseSanadHesabdariItemEntity  extends BaseEntity<Long>   i
 	private ir.serajsamaneh.accounting.hesabkol.HesabKolEntity hesabKol;
 	private ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity hesabMoeen;
 	private ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabTafsili;
+	private ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabTafsiliTwo;
 	private ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity accountingMarkaz;
 	private ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity sanadHesabdari;
 
 	// collections
-	private java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> articleTafsili;
+//	private java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> articleTafsili;
 	private java.util.Set<ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity> articleAccountingMarkaz;
 
 
@@ -277,6 +277,14 @@ public abstract class BaseSanadHesabdariItemEntity  extends BaseEntity<Long>   i
 
 
 
+	public ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity getHesabTafsiliTwo() {
+		return hesabTafsiliTwo;
+	}
+
+	public void setHesabTafsiliTwo(ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabTafsiliTwo) {
+		this.hesabTafsiliTwo = hesabTafsiliTwo;
+	}
+
 	public ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity getAccountingMarkaz() {
 		return accountingMarkaz;
 	}
@@ -303,20 +311,20 @@ public abstract class BaseSanadHesabdariItemEntity  extends BaseEntity<Long>   i
 
 
 
-	/**
-	 * Return the value associated with the column: articleTafsili
-	 */
-	public java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> getArticleTafsili () {
-		return articleTafsili;
-	}
-
-	/**
-	 * Set the value related to the column: articleTafsili
-	 * @param articleTafsili the articleTafsili value
-	 */
-	public void setArticleTafsili (java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> articleTafsili) {
-		this.articleTafsili = articleTafsili;
-	}
+//	/**
+//	 * Return the value associated with the column: articleTafsili
+//	 */
+//	public java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> getArticleTafsili () {
+//		return articleTafsili;
+//	}
+//
+//	/**
+//	 * Set the value related to the column: articleTafsili
+//	 * @param articleTafsili the articleTafsili value
+//	 */
+//	public void setArticleTafsili (java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> articleTafsili) {
+//		this.articleTafsili = articleTafsili;
+//	}
 
 	public java.util.Set<ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity> getArticleAccountingMarkaz() {
 		return articleAccountingMarkaz;
@@ -327,10 +335,10 @@ public abstract class BaseSanadHesabdariItemEntity  extends BaseEntity<Long>   i
 		this.articleAccountingMarkaz = articleAccountingMarkaz;
 	}
 
-	public void addToarticleTafsili (ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity articleTafsiliEntity) {
-		if (null == getArticleTafsili()) setArticleTafsili(new java.util.TreeSet<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity>());
-		getArticleTafsili().add(articleTafsiliEntity);
-	}
+//	public void addToarticleTafsili (ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity articleTafsiliEntity) {
+//		if (null == getArticleTafsili()) setArticleTafsili(new java.util.TreeSet<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity>());
+//		getArticleTafsili().add(articleTafsiliEntity);
+//	}
 
 	public void addToarticleAccountingMarkaz (ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity articleAccountingMarkazEntity) {
 		if (null == getArticleAccountingMarkaz()) setArticleAccountingMarkaz(new java.util.TreeSet<ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity>());

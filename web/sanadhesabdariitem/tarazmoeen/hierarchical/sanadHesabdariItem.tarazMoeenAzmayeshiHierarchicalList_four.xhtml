@@ -205,11 +205,11 @@ function openTarazTafsili(hesabMoeenEntityId){
 	selectedOrganId = document.getElementById('organ').value;
 	hesabKolIds = document.getElementById("hesabKolIds_id").value;
 	tafsiliIds = document.getElementById('tafsilis_id').value;
-	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	tafsiliTwoIds = document.getElementById('tafsiliTwoIds_id').value;	
 	fromSerial=document.getElementById('azserialExample').value;
 	toSerial=document.getElementById('taserialExample').value;
 
-	var url = '../../taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId+'&fromSerial='+fromSerial+'&toSerial='+toSerial;	
+	var url = '../../taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&tafsiliTwoIds='+tafsiliTwoIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId+'&fromSerial='+fromSerial+'&toSerial='+toSerial;	
 	popupFullscreen(url, 'tarazTafsili');
 }
 function openDaftarMoeen(hesabMoeenEntityId){
@@ -219,11 +219,11 @@ function openDaftarMoeen(hesabMoeenEntityId){
 	selectedOrganId = document.getElementById('organ').value;
 	hesabKolIds = document.getElementById("hesabKolIds_id").value;
 	tafsiliIds = document.getElementById('tafsilis_id').value;
-	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	tafsiliTwoIds = document.getElementById('tafsiliTwoIds_id').value;	
 	fromSerial=document.getElementById('azserialExample').value;
 	toSerial=document.getElementById('taserialExample').value;
 
-	var url = '../../daftar/hierarchical/sanadHesabdariItem.moeenHierarchicalList.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId+'&fromSerial='+fromSerial+'&toSerial='+toSerial;	
+	var url = '../../daftar/hierarchical/sanadHesabdariItem.moeenHierarchicalList.jsf?searchAction=true&hesabKolIds='+hesabKolIds+'&moeenIds='+hesabMoeenEntityId+'&tafsiliIds='+tafsiliIds+'&tafsiliTwoIds='+tafsiliTwoIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId+'&fromSerial='+fromSerial+'&toSerial='+toSerial;	
 	popupFullscreen(url, 'daftarMoeen');
 }
 /* ]]> */

@@ -1,11 +1,9 @@
 package ir.serajsamaneh.accounting.sanadhesabdariitem;
 
-import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
-import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
-import ir.serajsamaneh.core.util.SerajMessageUtil;
-
-import java.util.List;
 import java.util.Set;
+
+import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 
 
@@ -149,22 +147,22 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 		this.entityId = entityId;
 	}
 
-	public List<ArticleTafsiliEntity> getSortedArticleTafsili() {
-		
-		return null;
-	}
-
-	public ArticleTafsiliEntity getArticleTafsiliByLevel(Integer level) {
-		Set<ArticleTafsiliEntity> set = getArticleTafsili();
-		if(set == null)
-			return null;
-		for (ArticleTafsiliEntity articleTafsiliEntity : set) {
-			if(articleTafsiliEntity.getLevel().intValue() == level)
-				return articleTafsiliEntity;
-		}
-		return null;
-		
-	}
+//	public List<ArticleTafsiliEntity> getSortedArticleTafsili() {
+//		
+//		return null;
+//	}
+//
+//	public ArticleTafsiliEntity getArticleTafsiliByLevel(Integer level) {
+//		Set<ArticleTafsiliEntity> set = getArticleTafsili();
+//		if(set == null)
+//			return null;
+//		for (ArticleTafsiliEntity articleTafsiliEntity : set) {
+//			if(articleTafsiliEntity.getLevel().intValue() == level)
+//				return articleTafsiliEntity;
+//		}
+//		return null;
+//		
+//	}
 
 	public ArticleAccountingMarkazEntity getArticleAccountingMarkaz(Integer level) {
 		Set<ArticleAccountingMarkazEntity> set = getArticleAccountingMarkaz();
@@ -189,36 +187,46 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 		return getHesabTafsili().getName();
 	}
 	
-	public String getHesabShenavarName(Integer level) {
-		if(getArticleTafsili()!= null && !getArticleTafsili().isEmpty()){
-			for(ArticleTafsiliEntity articleTafsiliEntity : getArticleTafsili()){
-				if(articleTafsiliEntity.getLevel().equals(level))
-					return articleTafsiliEntity.getHesabTafsili().getName();
-			}
-		}
-		return null;
+	public String getHesabTafsiliTwoName() {
+		return getHesabTafsili().getName();
 	}
 	
-	public String getHesabShenavarCode(Integer level) {
-		if(getArticleTafsili()!= null && !getArticleTafsili().isEmpty()){
-			for(ArticleTafsiliEntity articleTafsiliEntity : getArticleTafsili()){
-				if(articleTafsiliEntity.getLevel().equals(level))
-					return articleTafsiliEntity.getHesabTafsili().getCode().toString();
-			}
-		}
-		return null;
+	public String getHesabTafsiliTwoDesc() {
+		if(getHesabTafsili()!=null)
+			return getHesabTafsili().getDesc();
+		return "";
 	}
 	
-	public String getArticleTafsiliDesc(){
-		String hesabTafsiliLevelNames="";
-		if(getArticleTafsili()!= null && !getArticleTafsili().isEmpty()){
-			for(ArticleTafsiliEntity articleTafsiliEntity : getArticleTafsili()){
-				hesabTafsiliLevelNames = hesabTafsiliLevelNames +","+articleTafsiliEntity.getHesabTafsili().getNameWithCode();
-			}
-		}
-		return hesabTafsiliLevelNames;
-	}
-	
+//	public String getHesabShenavarName(Integer level) {
+//		if(getArticleTafsili()!= null && !getArticleTafsili().isEmpty()){
+//			for(ArticleTafsiliEntity articleTafsiliEntity : getArticleTafsili()){
+//				if(articleTafsiliEntity.getLevel().equals(level))
+//					return articleTafsiliEntity.getHesabTafsili().getName();
+//			}
+//		}
+//		return null;
+//	}
+//	
+//	public String getHesabShenavarCode(Integer level) {
+//		if(getArticleTafsili()!= null && !getArticleTafsili().isEmpty()){
+//			for(ArticleTafsiliEntity articleTafsiliEntity : getArticleTafsili()){
+//				if(articleTafsiliEntity.getLevel().equals(level))
+//					return articleTafsiliEntity.getHesabTafsili().getCode().toString();
+//			}
+//		}
+//		return null;
+//	}
+//	
+//	public String getArticleTafsiliDesc(){
+//		String hesabTafsiliLevelNames="";
+//		if(getArticleTafsili()!= null && !getArticleTafsili().isEmpty()){
+//			for(ArticleTafsiliEntity articleTafsiliEntity : getArticleTafsili()){
+//				hesabTafsiliLevelNames = hesabTafsiliLevelNames +","+articleTafsiliEntity.getHesabTafsili().getNameWithCode();
+//			}
+//		}
+//		return hesabTafsiliLevelNames;
+//	}
+//	
 //	public String getIndentedArticleTafsiliDesc(){
 //		String hesabTafsiliLevelNames="";
 //		if(getArticleTafsili()!= null && !getArticleTafsili().isEmpty()){

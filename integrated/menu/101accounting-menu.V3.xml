@@ -98,9 +98,9 @@
 					<MenuItem id="sanadHesabdariItemaccountingMarkazLocalList" value="دفتر مرکز"
 						valueClick="../sanadhesabdariitem/daftar/sanadHesabdariItem.accountingMarkazLocalList.jsf"
 						permission="sanadHesabdariItem.accountingMarkazLocalList" icon="BankTransfer-folder" />
-					<MenuItem id="sanadHesabdariItemshenavarLocalList" value="دفتر شناور"
+					<!-- MenuItem id="sanadHesabdariItemshenavarLocalList" value="دفتر شناور"
 						valueClick="../sanadhesabdariitem/daftar/sanadHesabdariItem.shenavarLocalList.jsf"
-						permission="sanadHesabdariItem.tafsiliLocalList" icon="BankTransfer-clipboard" />
+						permission="sanadHesabdariItem.tafsiliLocalList" icon="BankTransfer-clipboard" /-->
 					<MenuItem id="sanadHesabdariItemtafsiliLocalList" value="دفتر تفصیلی"
 						valueClick="../sanadhesabdariitem/daftar/sanadHesabdariItem.tafsiliLocalList.jsf"
 						permission="sanadHesabdariItem.tafsiliLocalList" icon="BankTransfer-file" />
@@ -127,9 +127,9 @@
 						<MenuItem id="sanadHesabdariItemaccountingMarkazHierarchicalList" value="دفتر مرکز"
 							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.accountingMarkazHierarchicalList.jsf"
 							permission="sanadHesabdariItem.accountingMarkazHierarchicalList" icon="images/menu/rozname-icon.png" />
-						<MenuItem id="sanadHesabdariItemshenavarHierarchicalList" value="دفتر شناور"
+						<!-- MenuItem id="sanadHesabdariItemshenavarHierarchicalList" value="دفتر شناور"
 							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.shenavarHierarchicalList.jsf"
-							permission="sanadHesabdariItem.tafsiliHierarchicalList" icon="images/menu/rozname-icon.png" />
+							permission="sanadHesabdariItem.tafsiliHierarchicalList" icon="images/menu/rozname-icon.png" /-->
 						<MenuItem id="sanadHesabdariItemtafsiliHierarchicalList" value="دفتر تفصیلی"
 							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.tafsiliHierarchicalList.jsf"
 							permission="sanadHesabdariItem.tafsiliHierarchicalList" icon="images/menu/rozname-icon.png" />
@@ -240,7 +240,7 @@
 						</MenuItem>
 										
 				</MenuItem>
-				<MenuItem value="تراز شناور آزمایشی" permission=""
+				<!-- MenuItem value="تراز شناور آزمایشی" permission=""
 					icon="Bank-businessman-success
 						">
 					<MenuItem id="sanadHesabdariItemtarazShenavarAzmayeshiLocalList_two" value="دو ستونی" pagetitle="تراز شناور آزمایشی دو ستونی"
@@ -273,7 +273,7 @@
 								permission="tarazTafsiliAzmayeshi.eight" icon="images/menu/report.png"/>
 						</MenuItem>
 										
-				</MenuItem>				
+				</MenuItem-->				
 				<MenuItem value="تراز مرکز  آزمايشي" permission=""
 					icon="Bank-labyrinth-and-arrow
  							">
@@ -376,9 +376,9 @@
 						<MenuItem id="sanadHesabdariItemaccountingMarkazHierarchicalList" value="دفتر مرکز"
 							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.accountingMarkazHierarchicalList.jsf"
 							permission="sanadHesabdariItem.accountingMarkazHierarchicalList" icon="images/menu/rozname-icon.png" />
-						<MenuItem id="sanadHesabdariItemshenavarHierarchicalList" value="دفتر شناور"
+						<!-- MenuItem id="sanadHesabdariItemshenavarHierarchicalList" value="دفتر شناور"
 							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.shenavarHierarchicalList.jsf"
-							permission="sanadHesabdariItem.tafsiliHierarchicalList" icon="images/menu/rozname-icon.png" />
+							permission="sanadHesabdariItem.tafsiliHierarchicalList" icon="images/menu/rozname-icon.png" /-->
 						<MenuItem id="sanadHesabdariItemtafsiliHierarchicalList" value="دفتر تفصیلی"
 							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.tafsiliHierarchicalList.jsf"
 							permission="sanadHesabdariItem.tafsiliHierarchicalList" icon="images/menu/rozname-icon.png" />
@@ -436,7 +436,7 @@
 								valueClick="../sanadhesabdariitem/taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf"
 								permission="tarazTafsiliAzmayeshi.eight" icon="images/menu/report.png"/>
 				</MenuItem>
-				<MenuItem value="تراز شناور آزمایشی" permission=""
+				<!-- MenuItem value="تراز شناور آزمایشی" permission=""
 					icon="Bank-businessman-success">
 							<MenuItem id="sanadHesabdariItemtarazShenavarAzmayeshiHierarchicalList_two" value="دو ستونی" pagetitle="تراز شناور آزمایشی دو ستونی"
 								valueClick="../sanadhesabdariitem/tarazshenavar/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_two.jsf"
@@ -450,7 +450,7 @@
 							<MenuItem id="sanadHesabdariItemtarazShenavarAzmayeshiHierarchicalList_eight" value="هشت ستونی" pagetitle="تراز شناور آزمایشی هشت ستونی"
 								valueClick="../sanadhesabdariitem/tarazshenavar/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf"
 								permission="tarazTafsiliAzmayeshi.eight" icon="images/menu/report.png"/>
-				</MenuItem>				
+				</MenuItem-->				
 				<MenuItem value="تراز مرکز  آزمايشي" permission=""
 					icon="Bank-labyrinth-and-arrow">
 						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazAzmayeshiHierarchicalList_two" value="دو ستوني" pagetitle="تراز مرکز آزمایشی دو ستونی"

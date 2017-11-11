@@ -13,32 +13,19 @@
 
 <h:panelGroup id="searchProcessPanel">
 <p:panel>
-	<p:panelGrid layout="grid" columns="1" style="width:100%"
-		styleClass="inputForm  ui-panelgrid-blank">
-		<p:panelGrid layout="grid" columns="2" width="90%"
-			columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
+		<p:panelGrid layout="grid" columns="1" style="width:100%"
 			styleClass="inputForm  ui-panelgrid-blank">
+			<p:panelGrid layout="grid" columns="2" width="90%"
+				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9" styleClass="inputForm  ui-panelgrid-blank">
 
 				<h:panelGroup>
-					<h:outputLabel for="organ"
-						value="#{messages['Organ_title']}" /> : 
-				</h:panelGroup>
-
-				<t:selectOneMenu id="organ" styleClass="selectOneMenu" 
-					value="#{owner.selectedOrganId}" converter="javax.faces.Long">
-					<f:selectItems value="#{organ.hierarchicalList}" />
-				</t:selectOneMenu>
-				
-				<h:panelGroup>
-					<h:outputText styleClass="required" value=" " />
 					<h:outputLabel for="hesabKolIds"
-						value="#{messages['HesabMoeen_hesabKol']}" /> : 
+						value="#{messages['HesabKol_list']}" /> : 
 				</h:panelGroup>
-
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="hesabKolIds" width="220px"
 						selectedIds="#{owner.hesabKolIds}" entity="HesabKol"
-						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
+						property="code, name" ajax="false" extraParams="isLocal=true&amp;currentSaalMaali=true"/>
 				</h:panelGroup>
 
 				<h:panelGroup>
@@ -49,7 +36,7 @@
 					<custom:autocomplete-multiple id="moeens" width="220px"
 						selectedIds="#{owner.moeenIds}" entity="HesabMoeen"
 						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
-				</h:panelGroup>
+				</h:panelGroup>				
 
 				<h:panelGroup>
 					<h:outputLabel 
@@ -61,6 +48,7 @@
 						property="code, name" ajax="false" extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=1"/>
 				</h:panelGroup>
 
+
 				<h:panelGroup>
 				</h:panelGroup>
 				<h:panelGroup>
@@ -68,6 +56,7 @@
 					<ui:include src="/common/rootHesabModal.xhtml" />
 				</h:panelGroup>
 				
+
 				<h:panelGroup>
 					<h:outputLabel for="codeTafsiliAzTa"
 						value="#{messages['SanadHesabdari_codeTafsili']}" /> : 
@@ -91,55 +80,49 @@
 				</h:panelGroup>
 				
 
-							
 				<h:panelGroup>
-					<h:outputLabel for="tafsiliTwoIds"
-						value="#{messages['HesabTafsili_shenavar_list']}" /> : 
+					<h:outputLabel for="description"
+						value="#{messages['SanadHesabdariItem_description']}" /> : 
 				</h:panelGroup>
+					<p:inputText id="description"
+						value="#{owner.filter['description@lk']}">
+				</p:inputText>
+
 				<h:panelGroup>
-					<custom:autocomplete-multiple id="tafsiliTwoIds" width="220px"
-						selectedIds="#{owner.tafsiliTwoIds}" entity="HesabTafsili"
-						property="code, name" ajax="false" extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=2"/>
-				</h:panelGroup>
-																
-				<h:panelGroup>
-					<h:outputLabel  for="tarikhAzTa"
+					<h:outputLabel for="tarikhAzTa"
 						value="#{messages['SanadHesabdari_tarikhSanad']}" /> : 
 				</h:panelGroup>
-				
-				
+
+
 				<h:panelGroup id="tarikhAzTa">
 					<p:panelGrid layout="grid" columns="2" width="90%"
-							columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
-							  >
-					 
+						columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9">
+
 						<h:outputLabel for="aztarikhExample"
-								value="#{messages['from']} : " />
+							value="#{messages['from']} : " />
 						<custom:DateTimePicker id="aztarikhExample"
-								value="#{owner.fromDate}" type="Date"
-								lang="Shamsi">
+							value="#{owner.fromDate}"
+							type="Date" lang="Shamsi">
 						</custom:DateTimePicker>
 					</p:panelGrid>
-					
+
 					<p:panelGrid layout="grid" columns="2" width="90%"
-							columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
-							  >
-							 
-						<h:outputLabel for="tatarikhExample"
-							value="#{messages['to']} : " />
+						columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9">
+
+						<h:outputLabel for="tatarikhExample" value="#{messages['to']} : " />
 						<custom:DateTimePicker id="tatarikhExample"
-							value="#{owner.toDate}" type="Date"
-							lang="Shamsi">
+							value="#{owner.toDate}"
+							type="Date" lang="Shamsi">
 						</custom:DateTimePicker>
 					</p:panelGrid>
 				</h:panelGroup>
 
 				<h:panelGroup>
-					<h:outputLabel  for="serialAzTa"
+					<h:outputLabel for="serialAzTa"
 						value="#{messages['SanadHesabdari_serial']}" /> : 
 				</h:panelGroup>
-				
-				
+
+
 				<h:panelGroup id="serialAzTa">
 
 						<h:outputLabel for="azserialExample"
@@ -155,65 +138,72 @@
 							converter="javax.faces.Long">
 						</p:inputText>
 				</h:panelGroup>
-	
+
 
 				<h:panelGroup>
-					<h:outputLabel for="displayZeroMandehInTaraz"
-						value="#{messages['SanadHesabdari_displayZeroMandehInTaraz']}" /> : 
+					<h:outputLabel for="searchBySaalMaali"
+						value="#{messages['SanadHesabdariItem_searchBySaalMaali']}" /> : 
 				</h:panelGroup>
-				<h:selectBooleanCheckbox id="displayZeroMandehInTaraz" label="displayZeroMandehInTaraz"
-					value="#{owner.displayZeroMandehInTaraz}" />	
-
 				<h:panelGroup>
-					<h:outputLabel for="beforeClosingAccounts"
-						value="#{messages['SanadHesabdari_beforeClosingAccounts']}" /> : 
+					<t:selectBooleanCheckbox id="searchBySaalMaali" onclick="toggleSaalMaaliSelect('searchBySaalMaali')"
+						value="#{owner.searchBySaalMaali}" />
 				</h:panelGroup>
-				<h:selectBooleanCheckbox id="beforeClosingAccounts" label="beforeClosingAccounts"
-					value="#{owner.beforeClosingAccounts}" />
-														
+				<h:panelGroup/>
+				<t:div id="saalMaaliPanel">
+					<h:selectOneMenu id="saalMaali" 
+						styleClass="selectOneMenu"
+						value="#{owner.saalMaaliId}"
+						converter="javax.faces.Long">
+								<f:selectItems value="#{hierarchicalEntities.saalMaali}" />
+					</h:selectOneMenu>				
+				</t:div>
+			</p:panelGrid>
+			<t:div>
+
+
+				<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel" 
+					styleClass=" gwt-Button" update="listPanel"  onclick="showLoading()"
+					value="#{messages['common_search']}" action="#{owner.search}"
+					oncomplete="hideLoading();closeSearchDiv();">
+				</p:commandButton>
+				
+
+				<h:commandButton id="return"
+					onclick="hideLoading(); closeSearchDiv();return false;"
+					styleClass=" gwt-Button" image="/images/buttons/btn_return.png" />
+			</t:div>
 		</p:panelGrid>
-		<t:div>
-		<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel"   styleClass=" gwt-Button"  update="listPanel"  onclick="showLoading()"
-			value="#{messages['common_search']}" action="#{owner.search}" oncomplete="hideLoading();closeSearchDiv();">
-		</p:commandButton>
-
-	<h:commandButton id="return"
-		onclick="hideLoading(); closeSearchDiv();return false;"
-		styleClass=" gwt-Button" image="/images/buttons/btn_return.png" />
-		</t:div>		
-	</p:panelGrid>
-</p:panel>
+	</p:panel>
 </h:panelGroup>
 <script>
+	//Initial load of page
+	function hesabKolIdsrendered(){
+		var hesabKolIds = getURLParameters('hesabKolIds');
+		if(hesabKolIds == undefined)
+			return;
+		
+		//alert(hesabKolIds);
+		populatehesabKolIds(hesabKolIds);
+		document.getElementById("hesabKolIds_id").value=hesabKolIds;
+	}
+	
+	destElement = document.getElementById('saalMaaliPanel');
+	destElement.style.display = 'none';
+	
+	function toggleSaalMaaliSelect(checkBox) {
+		srcElement = document.getElementById(checkBox);
+		destElement = document.getElementById('saalMaaliPanel');
+		if (srcElement.checked) {
+			//alert(srcElement.checked)
+			destElement.style.display = '';
+		}
+		if (!srcElement.checked) {
+			//alert(srcElement.checked)
+			destElement.style.display = 'none';
+		}
 
-//Initial load of page
-function tafsilisrendered(){
-	var tafsilis = getURLParameters('tafsiliIds');
-	//alert(tafsilis);
-	populatetafsilis(tafsilis);
-	document.getElementById("tafsilis_id").value=tafsilis;
-}
-
-function moeensrendered(){
-	var moeens = getURLParameters('moeenIds');
-	//alert(moeens);
-	populatemoeens(moeens);
-	document.getElementById("moeens_id").value=moeens;
-}
-
-function hesabKolIdsrendered(){
-	var hesabKolIds = getURLParameters('hesabKolIds');
-	//alert(hesabKolIds);
-	populatehesabKolIds(hesabKolIds);
-	document.getElementById("hesabKolIds_id").value=hesabKolIds;
-}
-
-function tafsiliTwoIdsrendered(){
-	var tafsiliTwoIds = getURLParameters('tafsiliTwoIds');
-	//alert(tafsiliTwoIds);
-	populatetafsiliTwoIds(tafsiliTwoIds);
-	document.getElementById("tafsiliTwoIds_id").value=tafsiliTwoIds;
-}
+		return;
+	}
 
 </script>
 </html>

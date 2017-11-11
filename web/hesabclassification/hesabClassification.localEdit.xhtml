@@ -48,6 +48,16 @@
 				<p:inputText required="true" id="description" label="description"
 					value="#{hesabClassification.entity.description}" size="50" />
 
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="level" value="#{messages['HesabClassification_level']}" /> :  
+				</h:panelGroup>
+				<p:selectOneMenu required="true" id="level" widgetVar="hesabClassificationLevel" value="#{owner.entity.level}"  converter="javax.faces.Integer" onchange="changeLevel(this.value);"
+					label="#{messages['HesabClassification_level']}">
+					<f:selectItem itemLabel="---" itemValue=""/>
+					<f:selectItem itemLabel="#{messages['common_one']}" itemValue="1"/>
+					<f:selectItem itemLabel="#{messages['common_two']}" itemValue="2"/>
+				</p:selectOneMenu>
 				
 				<h:panelGroup>
 					<h:outputLabel for="moeens"
@@ -67,13 +77,44 @@
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="tafsilies" width="220px" label="#{messages['HesabClassification_hesabTafsilies']}"
 						selectedIds="#{owner.tafsiliIds}" entity="HesabTafsiliTemplate"
-						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
+						property="code, name" ajax="false" extraParams="isHierarchical=true&amp;tafsiliLevel=#{owner.entity.level}"/>
 				</h:panelGroup>
 								
 				
 				
 			</p:panelGrid>
 		</p:panel>
+<script>
+/* <![CDATA[ */
+var hesabTafsilis;
+$$(function() {
+	//alert(PF('hesabClassificationLevel').getSelectedValue());
+	populateTafsilis(PF('hesabClassificationLevel').getSelectedValue());
+});
+ 
+ function changeLevel(level){
+ 		$$('#tafsilies_div').empty();
+		$$('#tafsilies_id').val('');
+		populateTafsilis(level);
+ }
+ function populateTafsilis(level){
+		debugger;
+	 	if(level =='' || level == undefined)
+	 		render('tafsilies', {}, 0);
+		$$.ajax({
+			  url: '${request.contextPath}/entities?entity=HesabTafsiliTemplate&property=desc&all=true&autocomplete=true&isHierarchical=true&tafsiliLevel='+level,
+			  cache: false,
+			  success: function(result){
+			    render('tafsilies', result, 0);
+			  },
+			  error: function(jqXHR, textStatus, errorThrown){
+					alert(errorThrown);
+				}
+		});
+	 
+ }
+	/* ]]> */
+</script>		
 	</ui:define>
 	<ui:define name="buttonsection">
 		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.editable}"

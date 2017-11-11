@@ -38,7 +38,8 @@
 			class='ir.serajsamaneh.core.organ.OrganEntity' not-null='true'
 			cascade='none' foreign-key='fk_tafsili_template_organ_id'>
 			<column name='organ_id' />
-		</many-to-one>	      
+		</many-to-one>	    
+		<property name='level' type='integer' column='level_' />  
    </class>
 
 </hibernate-mapping>

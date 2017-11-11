@@ -1,7 +1,6 @@
 package ir.serajsamaneh.accounting.sanadhesabdariitem;
 
 import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
-import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
 import ir.serajsamaneh.accounting.enumeration.MahyatKolEnum;
 import ir.serajsamaneh.core.base.BaseValueObject;
 
@@ -26,6 +25,40 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	protected java.lang.String hesabTafsiliOneName="";
 	protected java.lang.String hesabTafsiliDesc="";
 	
+	protected java.lang.String hesabTafsiliTwoID="";
+	protected java.lang.String hesabTafsiliTwoName="";
+	protected java.lang.String hesabTafsiliTwoDesc="";
+	
+	public java.lang.String getHesabTafsiliTwoID() {
+		return hesabTafsiliTwoID;
+	}
+
+
+	public void setHesabTafsiliTwoID(java.lang.String hesabTafsiliTwoID) {
+		this.hesabTafsiliTwoID = hesabTafsiliTwoID;
+	}
+
+
+	public java.lang.String getHesabTafsiliTwoName() {
+		return hesabTafsiliTwoName;
+	}
+
+
+	public void setHesabTafsiliTwoName(java.lang.String hesabTafsiliTwoName) {
+		this.hesabTafsiliTwoName = hesabTafsiliTwoName;
+	}
+
+
+	public java.lang.String getHesabTafsiliTwoDesc() {
+		return hesabTafsiliTwoDesc;
+	}
+
+
+	public void setHesabTafsiliTwoDesc(java.lang.String hesabTafsiliTwoDesc) {
+		this.hesabTafsiliTwoDesc = hesabTafsiliTwoDesc;
+	}
+
+
 	protected java.lang.String hesabMoeenID="";
 	protected java.lang.String hesabMoeenName="";
 	protected java.lang.String hesabMoeenDesc="";
@@ -34,7 +67,7 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	String hesabMoeenCode;
 	String hesabTafsiliCode;
 	
-	String articleTafsiliDesc;
+//	String articleTafsiliDesc;
 	
 	protected java.lang.String markazHazineID="";
 	protected java.lang.String markazHazineName="";
@@ -42,9 +75,9 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	protected java.lang.String projectID="";
 	protected java.lang.String projectName="";
 
-	protected java.lang.String hesabTafsiliLevels="";
-	protected java.lang.String hesabTafsiliDescs="";
-	protected java.lang.String hesabTafsiliLevelNames="";
+//	protected java.lang.String hesabTafsiliLevels="";
+//	protected java.lang.String hesabTafsiliDescs="";
+//	protected java.lang.String hesabTafsiliLevelNames="";
 	
 	protected java.lang.String accountingMarkazID="";
 	protected java.lang.String accountingMarkazName="";
@@ -93,15 +126,24 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 			setHesabTafsiliOneID("");
 		}
 
-		if(sanadHesabdariItemEntity.getArticleTafsili()!= null && !sanadHesabdariItemEntity.getArticleTafsili().isEmpty()){
-			hesabTafsiliLevelNames="";
-			for(ArticleTafsiliEntity articleTafsiliEntity : sanadHesabdariItemEntity.getArticleTafsili()){
-				String level = articleTafsiliEntity.getLevel()==1 ? "Two" : (articleTafsiliEntity.getLevel()==2 ? "Three" : "");
-				hesabTafsiliLevels = hesabTafsiliLevels +",hesabTafsili"+level+"="+articleTafsiliEntity.getHesabTafsili().getId();
-				hesabTafsiliDescs = hesabTafsiliDescs +",hesabTafsili"+level+"="+articleTafsiliEntity.getHesabTafsili().getDesc();
-				hesabTafsiliLevelNames = hesabTafsiliLevelNames +","+articleTafsiliEntity.getHesabTafsili().getDesc();
-			}
+		if(sanadHesabdariItemEntity.getHesabTafsiliTwo()!=null){
+			setHesabTafsiliTwoName(convertNullToString(sanadHesabdariItemEntity.getHesabTafsiliTwo().getName()));
+			setHesabTafsiliTwoDesc(convertNullToString(sanadHesabdariItemEntity.getHesabTafsiliTwo().getDesc()));
+			setHesabTafsiliTwoID(convertNullToString(sanadHesabdariItemEntity.getHesabTafsiliTwo().getId()));
+		}else{
+			setHesabTafsiliTwoName("");
+			setHesabTafsiliTwoID("");
 		}
+		
+//		if(sanadHesabdariItemEntity.getArticleTafsili()!= null && !sanadHesabdariItemEntity.getArticleTafsili().isEmpty()){
+//			hesabTafsiliLevelNames="";
+//			for(ArticleTafsiliEntity articleTafsiliEntity : sanadHesabdariItemEntity.getArticleTafsili()){
+//				String level = articleTafsiliEntity.getLevel()==1 ? "Two" : (articleTafsiliEntity.getLevel()==2 ? "Three" : "");
+//				hesabTafsiliLevels = hesabTafsiliLevels +",hesabTafsili"+level+"="+articleTafsiliEntity.getHesabTafsili().getId();
+//				hesabTafsiliDescs = hesabTafsiliDescs +",hesabTafsili"+level+"="+articleTafsiliEntity.getHesabTafsili().getDesc();
+//				hesabTafsiliLevelNames = hesabTafsiliLevelNames +","+articleTafsiliEntity.getHesabTafsili().getDesc();
+//			}
+//		}
 
 
 		if(sanadHesabdariItemEntity.getAccountingMarkaz()!=null){
@@ -290,34 +332,34 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	}
 
 
-	public java.lang.String getHesabTafsiliLevels() {
-		return hesabTafsiliLevels;
-	}
-
-
-	public void setHesabTafsiliLevels(java.lang.String hesabTafsiliLevels) {
-		this.hesabTafsiliLevels = hesabTafsiliLevels;
-	}
-
-
-	public java.lang.String getHesabTafsiliDescs() {
-		return hesabTafsiliDescs;
-	}
-
-
-	public void setHesabTafsiliDescs(java.lang.String hesabTafsiliDescs) {
-		this.hesabTafsiliDescs = hesabTafsiliDescs;
-	}
-
-
-	public java.lang.String getHesabTafsiliLevelNames() {
-		return hesabTafsiliLevelNames;
-	}
-
-
-	public void setHesabTafsiliLevelNames(java.lang.String hesabTafsiliLevelNames) {
-		this.hesabTafsiliLevelNames = hesabTafsiliLevelNames;
-	}
+//	public java.lang.String getHesabTafsiliLevels() {
+//		return hesabTafsiliLevels;
+//	}
+//
+//
+//	public void setHesabTafsiliLevels(java.lang.String hesabTafsiliLevels) {
+//		this.hesabTafsiliLevels = hesabTafsiliLevels;
+//	}
+//
+//
+//	public java.lang.String getHesabTafsiliDescs() {
+//		return hesabTafsiliDescs;
+//	}
+//
+//
+//	public void setHesabTafsiliDescs(java.lang.String hesabTafsiliDescs) {
+//		this.hesabTafsiliDescs = hesabTafsiliDescs;
+//	}
+//
+//
+//	public java.lang.String getHesabTafsiliLevelNames() {
+//		return hesabTafsiliLevelNames;
+//	}
+//
+//
+//	public void setHesabTafsiliLevelNames(java.lang.String hesabTafsiliLevelNames) {
+//		this.hesabTafsiliLevelNames = hesabTafsiliLevelNames;
+//	}
 
 
 	public java.lang.String getAccountingMarkazID() {
@@ -511,14 +553,14 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	}
 
 
-	public String getArticleTafsiliDesc() {
-		return articleTafsiliDesc;
-	}
-
-
-	public void setArticleTafsiliDesc(String articleTafsiliDesc) {
-		this.articleTafsiliDesc = articleTafsiliDesc;
-	}
+//	public String getArticleTafsiliDesc() {
+//		return articleTafsiliDesc;
+//	}
+//
+//
+//	public void setArticleTafsiliDesc(String articleTafsiliDesc) {
+//		this.articleTafsiliDesc = articleTafsiliDesc;
+//	}
 
 
 	public java.lang.String getHesabKolDesc() {

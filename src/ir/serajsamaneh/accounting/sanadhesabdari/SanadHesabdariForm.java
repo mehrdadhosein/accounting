@@ -26,7 +26,6 @@ import com.opencsv.CSVReader;
 
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
 import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
-import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.enumeration.SanadFunctionEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
@@ -237,6 +236,12 @@ public class SanadHesabdariForm extends
 		else if(!isInMultipleLevelMode)
 			sanadHesabdariItemEntity.setHesabTafsili(getHesabTafsiliService().load(new Long(map.get("hesabTafsiliOneID"))));
 
+		incorectItem = "SanadHesabdariItem_hesabTafsiliTwo";
+		if(isInMultipleLevelMode && StringUtils.hasText(map.get("hesabTafsiliTwoID")))
+			sanadHesabdariItemEntity.setHesabTafsiliTwo(getHesabTafsiliService().load(new Long(map.get("hesabTafsiliTwoID"))));
+		else if(!isInMultipleLevelMode)
+			sanadHesabdariItemEntity.setHesabTafsiliTwo(getHesabTafsiliService().load(new Long(map.get("hesabTafsiliTwoID"))));
+		
 		incorectItem = "SanadHesabdariItem_accountingMarkaz";
 		if(isInMultipleLevelMode && StringUtils.hasText(map.get("accountingMarkazID")))
 			sanadHesabdariItemEntity.setAccountingMarkaz(getAccountingMarkazService().load(new Long(map.get("accountingMarkazID"))));
@@ -255,27 +260,27 @@ public class SanadHesabdariForm extends
 		}*/
 		
 		
-		if (StringUtils.hasText(map.get("hesabTafsiliLevels"))){
-			String hesabTafsiliLevels = map.get("hesabTafsiliLevels");
-			String[] splited = hesabTafsiliLevels.split(",");
-			for (String hesabTafsiliLevel : splited) {
-				if(hesabTafsiliLevel.isEmpty())
-					continue;
-				String[] keyValue = hesabTafsiliLevel.split("=");
-				if(keyValue.length == 1)
-					continue;
-				String key = keyValue[0];
-				String value = keyValue[1];
-				
-				Integer level = new Integer(key.substring("hesabTafsili".length()));
-				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
-				articleTafsiliEntity.setHesabTafsili(getHesabTafsiliService().load(new Long(value)));
-				articleTafsiliEntity.setLevel(level);
-				articleTafsiliEntity.setSanadHesabdariItem(sanadHesabdariItemEntity);
-				sanadHesabdariItemEntity.addToarticleTafsili(articleTafsiliEntity);
-				
-			}
-		}
+//		if (StringUtils.hasText(map.get("hesabTafsiliLevels"))){
+//			String hesabTafsiliLevels = map.get("hesabTafsiliLevels");
+//			String[] splited = hesabTafsiliLevels.split(",");
+//			for (String hesabTafsiliLevel : splited) {
+//				if(hesabTafsiliLevel.isEmpty())
+//					continue;
+//				String[] keyValue = hesabTafsiliLevel.split("=");
+//				if(keyValue.length == 1)
+//					continue;
+//				String key = keyValue[0];
+//				String value = keyValue[1];
+//				
+//				Integer level = new Integer(key.substring("hesabTafsili".length()));
+//				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
+//				articleTafsiliEntity.setHesabTafsili(getHesabTafsiliService().load(new Long(value)));
+//				articleTafsiliEntity.setLevel(level);
+//				articleTafsiliEntity.setSanadHesabdariItem(sanadHesabdariItemEntity);
+//				sanadHesabdariItemEntity.addToarticleTafsili(articleTafsiliEntity);
+//				
+//			}
+//		}
 		
 		
 		if (StringUtils.hasText(map.get("accountingMarkazLevels"))){
@@ -905,9 +910,11 @@ public class SanadHesabdariForm extends
 
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliOneID()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliOneName()+ "</cell>";
-				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliLevelNames()+ "</cell>";
-				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliLevels()+ "</cell>";
-				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliDescs()+ "</cell>";
+				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliTwoID()+ "</cell>";
+				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliTwoName()+ "</cell>";
+//				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliLevelNames()+ "</cell>";
+//				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliLevels()+ "</cell>";
+//				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliDescs()+ "</cell>";
 
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getAccountingMarkazID()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getAccountingMarkazName()+ "</cell>";

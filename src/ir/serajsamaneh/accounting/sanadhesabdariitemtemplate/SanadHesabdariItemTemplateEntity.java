@@ -1,9 +1,5 @@
 package ir.serajsamaneh.accounting.sanadhesabdariitemtemplate;
 
-import java.util.Set;
-
-import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
-import ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.enumeration.YesNoEnum;
 
@@ -60,6 +56,10 @@ public class SanadHesabdariItemTemplateEntity extends BaseSanadHesabdariItemTemp
 		return getHesabTafsiliTemplate().getCode();
 	}
 
+	public Long getHesabTafsiliTwoCode() {
+		return getHesabTafsiliTemplateTwo().getCode();
+	}
+	
 /*	
 	public MarkazHazineEntity getMarkazHazine() {
 		return markazHazine;
@@ -84,16 +84,16 @@ public class SanadHesabdariItemTemplateEntity extends BaseSanadHesabdariItemTemp
 		return applyAutomaticTafsiliName;
 	}
 	
-	public ArticleTafsiliTemplateEntity getArticleTafsiliByLevel(Integer level) {
-		Set<ArticleTafsiliTemplateEntity> set = getArticleTafsiliTemplate();
-		if(set == null)
-			return null;
-		for (ArticleTafsiliTemplateEntity articleTafsiliEntity : set) {
-			if(articleTafsiliEntity.getLevel().intValue() == level)
-				return articleTafsiliEntity;
-		}
-		return null;
-		
-	}
+//	public ArticleTafsiliTemplateEntity getArticleTafsiliByLevel(Integer level) {
+//		Set<ArticleTafsiliTemplateEntity> set = getArticleTafsiliTemplate();
+//		if(set == null)
+//			return null;
+//		for (ArticleTafsiliTemplateEntity articleTafsiliEntity : set) {
+//			if(articleTafsiliEntity.getLevel().intValue() == level)
+//				return articleTafsiliEntity;
+//		}
+//		return null;
+//		
+//	}
 
 }

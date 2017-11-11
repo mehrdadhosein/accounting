@@ -488,11 +488,12 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 					hesabTafsiliTemplateEntity.setName(entity.getName());
 					hesabTafsiliTemplateEntity.setTafsilType(entity.getTafsilType());
 					hesabTafsiliTemplateEntity.setDescription(entity.getDescription());
+					hesabTafsiliTemplateEntity.setLevel(entity.getLevel());
 					updateRelatedHesbTafsilies(hesabTafsiliTemplateEntity);
 				}else
 					throw new FatalException(SerajMessageUtil.getMessage("HesabTafsiliTemplate_cantCreateHesabTafsiliTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
 			}else
-				hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().createHesabTafsiliTemplate(entity.getCode(), entity.getName(), organEntity, entity.getTafsilType(), entity.getDescription());
+				hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().createHesabTafsiliTemplate(entity.getCode(), entity.getName(), organEntity, entity.getTafsilType(), entity.getDescription(), entity.getLevel());
 		}
 		else{
 			
@@ -504,6 +505,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			hesabTafsiliTemplateEntity.setName(entity.getName());
 			hesabTafsiliTemplateEntity.setTafsilType(entity.getTafsilType());
 			hesabTafsiliTemplateEntity.setDescription(entity.getDescription());
+			hesabTafsiliTemplateEntity.setLevel(entity.getLevel());
 		}
 		
 		if(hesabTafsiliTemplateEntity.getMoeenTafsiliTemplate() == null)
