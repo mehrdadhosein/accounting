@@ -78,7 +78,7 @@
 							<h:outputText styleClass="headerCellClass"
 								value="#{messages['HesabTafsili_shenavar_list']}" />
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.articleTafsiliDesc}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliTwoDesc}" />
 				</p:column>
 				
 								
@@ -251,12 +251,12 @@ function openDaftarTafsili(hesabTafsiliEntityId){
 	//alert(hesabKolId);
 	fromDate = document.getElementById('aztarikhExample').value;
 	toDate = document.getElementById('tatarikhExample').value;	
-	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	tafsiliTwoIds = document.getElementById('tafsiliTwoIds_id').value;	
 	moeens = document.getElementById('moeens_id').value;	
 	fromSerial=document.getElementById('azserialExample').value;
 	toSerial=document.getElementById('taserialExample').value;
 	
-	var url = '../daftar/sanadHesabdariItem.tafsiliLocalList.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&articleTafsiliIds='+articleTafsiliIds+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
+	var url = '../daftar/sanadHesabdariItem.tafsiliLocalList.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&tafsiliTwoIds='+tafsiliTwoIds+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
 	popupFullscreen(url, 'daftartarazTafsili');
 }
 /* ]]> */

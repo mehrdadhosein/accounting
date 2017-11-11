@@ -32,6 +32,8 @@
 				class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity'
 				foreign-key='clssfcaton_tafsili_tmplt' column='hesab_tafsili_tmplt_id' />
 		</set>		
+		
+		<property name='level' type='integer' column='level_' />
 	</class>
 
 </hibernate-mapping>

@@ -39,6 +39,12 @@
 			<column name='hesab_tafsili_id' />
 		</many-to-one>
 
+		<many-to-one name='hesabTafsiliTwo'
+			class='ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity'
+			foreign-key='fk_snd_hsbdri_itm_hsb_tf2'>
+			<column name='hesab_tafsili_two_id' />
+		</many-to-one>
+
 		<many-to-one name='accountingMarkaz'
 			class='ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity'
 			foreign-key='fk_snd_hsbdri_itm_acc_mrkz'>
@@ -50,10 +56,10 @@
 			not-null='true' cascade='none' foreign-key='fk_snd_hsbdri_itm_snd_hsbdri'>
 			<column name='sanad_hesabdari_id' />
 		</many-to-one>
-	    <set  name='articleTafsili' inverse='true' cascade="all-delete-orphan" fetch="join" batch-size="100">
+	    <!-- set  name='articleTafsili' inverse='true' cascade="all-delete-orphan" fetch="join" batch-size="100">
 	        <key column='sanad_hesabdari_item_id' foreign-key='fk_artcl_tf_snd_hsbdri_itm'/>
 	       <one-to-many class='ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity' />
-	    </set>
+	    </set-->
 	    <set  name='articleAccountingMarkaz' inverse='true' cascade="all-delete-orphan"  fetch="join" batch-size="100">
 	        <key column='sanad_hesabdari_item_id' foreign-key='fk_artcl_acmrkz_snd_hsbdr_itm'/>
 	       <one-to-many class='ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity' />

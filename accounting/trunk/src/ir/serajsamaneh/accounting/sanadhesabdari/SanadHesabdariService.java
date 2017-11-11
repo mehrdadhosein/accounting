@@ -1,10 +1,23 @@
 package ir.serajsamaneh.accounting.sanadhesabdari;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.hibernate.FlushMode;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
 import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
-import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
-import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliService;
 import ir.serajsamaneh.accounting.base.BaseAccountingService;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
@@ -44,22 +57,6 @@ import ir.serajsamaneh.enumeration.ActionTypeEnum;
 import ir.serajsamaneh.enumeration.SaalMaaliStatusEnum;
 import ir.serajsamaneh.enumeration.YesNoEnum;
 import ir.serajsamaneh.erpcore.util.AutomaticSanadUtil;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import org.hibernate.FlushMode;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDatePartEnum;
 
@@ -84,15 +81,15 @@ public class SanadHesabdariService extends
 	SanadHesabdariItemService sanadHesabdariItemService;
 	MonthService monthService;
 
-	ArticleTafsiliService articleTafsiliService;
-	
-	public ArticleTafsiliService getArticleTafsiliService() {
-		return articleTafsiliService;
-	}
-
-	public void setArticleTafsiliService(ArticleTafsiliService articleTafsiliService) {
-		this.articleTafsiliService = articleTafsiliService;
-	}
+//	ArticleTafsiliService articleTafsiliService;
+//	
+//	public ArticleTafsiliService getArticleTafsiliService() {
+//		return articleTafsiliService;
+//	}
+//
+//	public void setArticleTafsiliService(ArticleTafsiliService articleTafsiliService) {
+//		this.articleTafsiliService = articleTafsiliService;
+//	}
 
 	public MonthService getMonthService() {
 		return monthService;
@@ -466,25 +463,27 @@ public class SanadHesabdariService extends
 			HesabKolEntity hesabKol = sanadHesabdariItemEntity.getHesabKol();
 			HesabMoeenEntity hesabMoeen = sanadHesabdariItemEntity.getHesabMoeen();
 			HesabTafsiliEntity hesabTafsili = sanadHesabdariItemEntity.getHesabTafsili();
+			HesabTafsiliEntity hesabTafsiliTwo = sanadHesabdariItemEntity.getHesabTafsiliTwo();
 			AccountingMarkazEntity accountingMarkaz = sanadHesabdariItemEntity.getAccountingMarkaz();
-			Set<ArticleTafsiliEntity> articleTafsiliSet = sanadHesabdariItemEntity.getArticleTafsili();
+//			Set<ArticleTafsiliEntity> articleTafsiliSet = sanadHesabdariItemEntity.getArticleTafsili();
 			Set<ArticleAccountingMarkazEntity> articleAccountingMarkazSet = sanadHesabdariItemEntity.getArticleAccountingMarkaz();
 			
 			boolean hesabMoeenValidation = hesabMoeen !=null ? !hesabMoeen.getSaalMaali().equals(entity.getSaalMaali()) : false;
 			if(!hesabKol.getSaalMaali().equals(entity.getSaalMaali())
 					|| hesabMoeenValidation
 					|| (hesabTafsili!=null && hesabTafsili.getId()!=null && !hesabTafsili.getSaalMaali().equals(entity.getSaalMaali()))
+					|| (hesabTafsiliTwo!=null && hesabTafsiliTwo.getId()!=null && !hesabTafsiliTwo.getSaalMaali().equals(entity.getSaalMaali()))
 					|| (accountingMarkaz!=null && accountingMarkaz.getId()!=null && !accountingMarkaz.getSaalMaali().equals(entity.getSaalMaali()))
 					)
 				throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleSaalMaaliConflict", entity.getDesc(), sanadHesabdariItemEntity.getDesc()));
 			
-			if(articleTafsiliSet!=null){
-				for (ArticleTafsiliEntity articleTafsiliEntity : articleTafsiliSet) {
-					HesabTafsiliEntity tafsili = articleTafsiliEntity.getHesabTafsili();
-					if(tafsili!=null && !tafsili.getSaalMaali().equals(entity.getSaalMaali()))
-						throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleSaalMaaliConflict", entity.getDesc(), sanadHesabdariItemEntity.getDesc()));
-				}
-			}
+//			if(articleTafsiliSet!=null){
+//				for (ArticleTafsiliEntity articleTafsiliEntity : articleTafsiliSet) {
+//					HesabTafsiliEntity tafsili = articleTafsiliEntity.getHesabTafsili();
+//					if(tafsili!=null && !tafsili.getSaalMaali().equals(entity.getSaalMaali()))
+//						throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleSaalMaaliConflict", entity.getDesc(), sanadHesabdariItemEntity.getDesc()));
+//				}
+//			}
 			
 			if(articleAccountingMarkazSet!=null)
 				for (ArticleAccountingMarkazEntity articleAccountingMarkazEntity : articleAccountingMarkazSet) {
@@ -717,16 +716,23 @@ public class SanadHesabdariService extends
 				hesabTafsili.setBedehkar(hesabTafsili.getBedehkar()!= null ?hesabTafsili.getBedehkar()+bedehkar  : bedehkar);
 				hesabTafsili.setBestankr(hesabTafsili.getBestankr()!= null ?hesabTafsili.getBestankr()+bestankar : bestankar);
 				getHesabTafsiliService().updateValues(hesabTafsili);
-				
-				if(isInMultipleLevelMode && sanadHesabdariItemEntity.getArticleTafsili()!=null){
-					for(ArticleTafsiliEntity articleTafsiliEntity : sanadHesabdariItemEntity.getArticleTafsili()){
-						HesabTafsiliEntity tafsili = getHesabTafsiliService().load(articleTafsiliEntity.getHesabTafsili().getId());
-						tafsili.setBedehkar(tafsili.getBedehkar()!= null ?hesabTafsili.getBedehkar()+bedehkar  : bedehkar);
-						tafsili.setBestankr(tafsili.getBestankr()!= null ?hesabTafsili.getBestankr()+bestankar :bestankar);
-	
-						getHesabTafsiliService().updateValues(tafsili);
-					}
+
+				if(sanadHesabdariItemEntity.getHesabTafsiliTwo()!=null && sanadHesabdariItemEntity.getHesabTafsiliTwo().getId()!=null) {
+					HesabTafsiliEntity hesabTafsiliTwo = getHesabTafsiliService().load(sanadHesabdariItemEntity.getHesabTafsiliTwo().getId());
+					hesabTafsiliTwo.setBedehkar(hesabTafsiliTwo.getBedehkar()!= null ?hesabTafsiliTwo.getBedehkar()+bedehkar  : bedehkar);
+					hesabTafsiliTwo.setBestankr(hesabTafsiliTwo.getBestankr()!= null ?hesabTafsiliTwo.getBestankr()+bestankar : bestankar);
+					getHesabTafsiliService().updateValues(hesabTafsili);
 				}
+				
+//				if(isInMultipleLevelMode && sanadHesabdariItemEntity.getArticleTafsili()!=null){
+//					for(ArticleTafsiliEntity articleTafsiliEntity : sanadHesabdariItemEntity.getArticleTafsili()){
+//						HesabTafsiliEntity tafsili = getHesabTafsiliService().load(articleTafsiliEntity.getHesabTafsili().getId());
+//						tafsili.setBedehkar(tafsili.getBedehkar()!= null ?hesabTafsili.getBedehkar()+bedehkar  : bedehkar);
+//						tafsili.setBestankr(tafsili.getBestankr()!= null ?hesabTafsili.getBestankr()+bestankar :bestankar);
+//	
+//						getHesabTafsiliService().updateValues(tafsili);
+//					}
+//				}
 			}
 
 			
@@ -765,22 +771,26 @@ public class SanadHesabdariService extends
 				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_accountingMarkazDoesnotBelongToMoeen",tempSerial+" ("+DateConverter.toShamsiDate(sanadHesabdariEntity.getTarikhSanad())+")",sanadHesabdariItemEntity.getDescription(),  accountingMarkazEntity.getDesc(), hesabMoeen.getDesc()));
 			
 			if(checkIfMustValidateTafsiliOneAndTwoAreRelated(organEntity)){
-				ArticleTafsiliEntity articleTafsiliEntityTWO = sanadHesabdariItemEntity.getArticleTafsiliByLevel(1);
-				if(hesabTafsili!=null && articleTafsiliEntityTWO!=null && articleTafsiliEntityTWO.getHesabTafsili()!=null && articleTafsiliEntityTWO.getHesabTafsili().getId()!=null /*&& articleTafsiliEntityTWO.getId()!=null*/){
-	//				articleTafsiliEntityTWO = getArticleTafsiliService().load(articleTafsiliEntityTWO.getId());
-	//				HesabTafsiliEntity hesabTafsiliShenavar = articleTafsiliEntityTWO.getHesabTafsili();
-					HesabTafsiliEntity hesabTafsiliShenavar = getHesabTafsiliService().load(articleTafsiliEntityTWO.getHesabTafsili().getId());
-					if(!hesabTafsiliShenavar.getParents().contains(hesabTafsili))
-						throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_tafsiliShenavarDoesnotBelongToTafsili",hesabTafsiliShenavar.getDesc(),hesabTafsiliShenavar.getSaalMaali(), hesabTafsili.getDesc(), hesabTafsili.getSaalMaali()));
+				if(sanadHesabdariItemEntity.getHesabTafsiliTwo() != null && sanadHesabdariItemEntity.getHesabTafsiliTwo().getId()!=null) {
+					HesabTafsiliEntity hesabTafsiliTwo = getHesabTafsiliService().load(sanadHesabdariItemEntity.getHesabTafsiliTwo().getId());
+					if(!hesabTafsiliTwo.getParents().contains(hesabTafsili))
+						throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_tafsiliShenavarDoesnotBelongToTafsili",hesabTafsiliTwo.getDesc(),hesabTafsiliTwo.getSaalMaali(), hesabTafsili.getDesc(), hesabTafsili.getSaalMaali()));
+
 				}
+//				ArticleTafsiliEntity articleTafsiliEntityTWO = sanadHesabdariItemEntity.getArticleTafsiliByLevel(1);
+//				if(hesabTafsili!=null && articleTafsiliEntityTWO!=null && articleTafsiliEntityTWO.getHesabTafsili()!=null && articleTafsiliEntityTWO.getHesabTafsili().getId()!=null /*&& articleTafsiliEntityTWO.getId()!=null*/){
+//					HesabTafsiliEntity hesabTafsiliShenavar = getHesabTafsiliService().load(articleTafsiliEntityTWO.getHesabTafsili().getId());
+//					if(!hesabTafsiliShenavar.getParents().contains(hesabTafsili))
+//						throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_tafsiliShenavarDoesnotBelongToTafsili",hesabTafsiliShenavar.getDesc(),hesabTafsiliShenavar.getSaalMaali(), hesabTafsili.getDesc(), hesabTafsili.getSaalMaali()));
+//				}
 			}			
 			if(checkIfMustValidateHesabTafsiliHasChild(organEntity) && hesabTafsili!=null && hesabTafsili.getChilds()!=null && hesabTafsili.getChilds().size()>0){
 					throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_hesabTafsiliMustHaveShenavar",hesabTafsili.getDesc(), tempSerial+" ("+DateConverter.toShamsiDate(sanadHesabdariEntity.getTarikhSanad())+")",sanadHesabdariItemEntity.getDescription(), sanadHesabdariEntity.getSaalMaali()));				
 			}
 			
-			ArticleTafsiliEntity articleTafsiliEntityThree = sanadHesabdariItemEntity.getArticleTafsiliByLevel(2);
-			if(articleTafsiliEntityThree!=null)
-				throw new FatalException("unImplementedTask : "+sanadHesabdariItemEntity);
+//			ArticleTafsiliEntity articleTafsiliEntityThree = sanadHesabdariItemEntity.getArticleTafsiliByLevel(2);
+//			if(articleTafsiliEntityThree!=null)
+//				throw new FatalException("unImplementedTask : "+sanadHesabdariItemEntity);
 
 			
 			if(sanadHesabdariItemEntity.getArticleAccountingMarkaz()!=null)
@@ -1131,6 +1141,7 @@ public class SanadHesabdariService extends
 				
 				HesabMoeenEntity hesabMoeen = sanadHesabdariItemEntity.getHesabMoeen();
 				HesabTafsiliEntity hesabTafsili = sanadHesabdariItemEntity.getHesabTafsili();
+				HesabTafsiliEntity hesabTafsiliTwo = sanadHesabdariItemEntity.getHesabTafsiliTwo();
 				AccountingMarkazEntity accountingMarkaz = sanadHesabdariItemEntity.getAccountingMarkaz();
 				if(accountingMarkaz!=null && accountingMarkaz.getId()!=null && !sanadHesabdariCloseTemporalAccountsEntity.getSaalMaali().equals(accountingMarkaz.getSaalMaali()))
 					throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_saalMaali_Not_equal_accountingMarkaz_saalMaali", sanadHesabdariCloseTemporalAccountsEntity, accountingMarkaz));
@@ -1144,23 +1155,24 @@ public class SanadHesabdariService extends
 					entity.setHesabKol(hesabKol);
 					entity.setHesabMoeen(hesabMoeen);
 					entity.setHesabTafsili(hesabTafsili);
+					entity.setHesabTafsiliTwo(hesabTafsiliTwo);
 					entity.setAccountingMarkaz(accountingMarkaz);
 					
-					Set<ArticleTafsiliEntity> articleTafsiliSet = sanadHesabdariItemEntity.getArticleTafsili();
-					if(articleTafsiliSet!=null){
-						entity.setArticleTafsili(new HashSet<ArticleTafsiliEntity>());
-						for (ArticleTafsiliEntity articleTafsiliEntity : articleTafsiliSet) {
-							
-							if(hesabTafsili==null || articleTafsiliEntity.getHesabTafsili().getId() ==hesabTafsili.getId())
-								throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleIncorrect",sanadHesabdariItemEntity.getDesc(), sanadHesabdariEntity.getCompleteInfo()));
-							
-							ArticleTafsiliEntity ate = new ArticleTafsiliEntity();
-							ate.setHesabTafsili(articleTafsiliEntity.getHesabTafsili());
-							ate.setLevel(articleTafsiliEntity.getLevel());
-							ate.setSanadHesabdariItem(entity);
-							entity.getArticleTafsili().add(ate);
-						}
-					}
+//					Set<ArticleTafsiliEntity> articleTafsiliSet = sanadHesabdariItemEntity.getArticleTafsili();
+//					if(articleTafsiliSet!=null){
+//						entity.setArticleTafsili(new HashSet<ArticleTafsiliEntity>());
+//						for (ArticleTafsiliEntity articleTafsiliEntity : articleTafsiliSet) {
+//							
+//							if(hesabTafsili==null || articleTafsiliEntity.getHesabTafsili().getId() ==hesabTafsili.getId())
+//								throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_articleIncorrect",sanadHesabdariItemEntity.getDesc(), sanadHesabdariEntity.getCompleteInfo()));
+//							
+//							ArticleTafsiliEntity ate = new ArticleTafsiliEntity();
+//							ate.setHesabTafsili(articleTafsiliEntity.getHesabTafsili());
+//							ate.setLevel(articleTafsiliEntity.getLevel());
+//							ate.setSanadHesabdariItem(entity);
+//							entity.getArticleTafsili().add(ate);
+//						}
+//					}
 
 					Set<ArticleAccountingMarkazEntity> articleAccountingMarkazSet = sanadHesabdariItemEntity.getArticleAccountingMarkaz();
 					if(articleAccountingMarkazSet!=null){
@@ -1305,26 +1317,28 @@ public class SanadHesabdariService extends
 
 					HesabMoeenEntity hesabMoeen = sanadHesabdariItemEntity.getHesabMoeen();
 					HesabTafsiliEntity hesabTafsili = sanadHesabdariItemEntity.getHesabTafsili();
+					HesabTafsiliEntity hesabTafsiliTwo = sanadHesabdariItemEntity.getHesabTafsiliTwo();
 					
 					SanadHesabdariItemEntity entity = new SanadHesabdariItemEntity();
 					entity.setHesabKol(hesabKol);
 					entity.setHesabMoeen(hesabMoeen);
 					entity.setHesabTafsili(hesabTafsili);
+					entity.setHesabTafsiliTwo(hesabTafsiliTwo);
 					
-					if(sanadHesabdariItemEntity.getArticleTafsili()!=null){
-						Set<ArticleTafsiliEntity> articleTafsiliSet = sanadHesabdariItemEntity.getArticleTafsili();
-						Set<ArticleTafsiliEntity> newArticleTafsiliSet = new HashSet<ArticleTafsiliEntity>();
-						for (ArticleTafsiliEntity articleTafsiliEntity : articleTafsiliSet) {
-							HesabTafsiliEntity tafsili = articleTafsiliEntity.getHesabTafsili();
-							
-							ArticleTafsiliEntity newArticleTafsiliEntity = new ArticleTafsiliEntity();
-							newArticleTafsiliEntity.setHesabTafsili(tafsili);
-							newArticleTafsiliEntity.setLevel(articleTafsiliEntity.getLevel());
-							newArticleTafsiliEntity.setSanadHesabdariItem(entity);
-							newArticleTafsiliSet.add(newArticleTafsiliEntity);
-						}
-						entity.setArticleTafsili(newArticleTafsiliSet);
-					}
+//					if(sanadHesabdariItemEntity.getArticleTafsili()!=null){
+//						Set<ArticleTafsiliEntity> articleTafsiliSet = sanadHesabdariItemEntity.getArticleTafsili();
+//						Set<ArticleTafsiliEntity> newArticleTafsiliSet = new HashSet<ArticleTafsiliEntity>();
+//						for (ArticleTafsiliEntity articleTafsiliEntity : articleTafsiliSet) {
+//							HesabTafsiliEntity tafsili = articleTafsiliEntity.getHesabTafsili();
+//							
+//							ArticleTafsiliEntity newArticleTafsiliEntity = new ArticleTafsiliEntity();
+//							newArticleTafsiliEntity.setHesabTafsili(tafsili);
+//							newArticleTafsiliEntity.setLevel(articleTafsiliEntity.getLevel());
+//							newArticleTafsiliEntity.setSanadHesabdariItem(entity);
+//							newArticleTafsiliSet.add(newArticleTafsiliEntity);
+//						}
+//						entity.setArticleTafsili(newArticleTafsiliSet);
+//					}
 					
 					entity.setBedehkar(sanadHesabdariItemEntity.getBestankar());
 					entity.setBestankar(sanadHesabdariItemEntity.getBedehkar());
@@ -1485,25 +1499,34 @@ public class SanadHesabdariService extends
 					itemEntity.setHesabTafsili(hesabTafsiliEntity);
 				}
 				
-				if(sanadHesabdariItemEntity.getArticleTafsili()!=null){
-					Set<ArticleTafsiliEntity> articleTafsiliSet = sanadHesabdariItemEntity.getArticleTafsili();
-					Set<ArticleTafsiliEntity> newArticleTafsiliSet = new HashSet<ArticleTafsiliEntity>();
-					for (ArticleTafsiliEntity articleTafsiliEntity : articleTafsiliSet) {
-						HesabTafsiliEntity hesabTafsili = articleTafsiliEntity.getHesabTafsili();
-						HesabTafsiliEntity newHesabTafsili = getHesabTafsiliService().loadHesabTafsiliByCode(hesabTafsili.getCode(), activeSaalmaali,FlushMode.ALWAYS);
-						if(newHesabTafsili == null){
-							newHesabTafsili = getHesabTafsiliService().createHesabTafsili(activeSaalmaali, hesabTafsili, currentOrgan);
-							getHesabTafsiliService().createHesabTafsiliRelatedEntities(hesabTafsili, newHesabTafsili, activeSaalmaali);
-						}
-						
-						ArticleTafsiliEntity newArticleTafsiliEntity = new ArticleTafsiliEntity();
-						newArticleTafsiliEntity.setHesabTafsili(newHesabTafsili);
-						newArticleTafsiliEntity.setLevel(articleTafsiliEntity.getLevel());
-						newArticleTafsiliEntity.setSanadHesabdariItem(itemEntity);
-						newArticleTafsiliSet.add(newArticleTafsiliEntity);
+				if(sanadHesabdariItemEntity.getHesabTafsiliTwo()!=null && sanadHesabdariItemEntity.getHesabTafsiliTwo().getId()!=null){
+					HesabTafsiliEntity hesabTafsiliTwoEntity = getHesabTafsiliService().loadHesabTafsiliByCode(sanadHesabdariItemEntity.getHesabTafsiliTwo().getCode(), activeSaalmaali,FlushMode.ALWAYS);
+					if(hesabTafsiliTwoEntity == null){
+						hesabTafsiliTwoEntity = getHesabTafsiliService().createHesabTafsili(activeSaalmaali, sanadHesabdariItemEntity.getHesabTafsiliTwo(), currentOrgan);
+						getHesabTafsiliService().createHesabTafsiliRelatedEntities(sanadHesabdariItemEntity.getHesabTafsili(), hesabTafsiliTwoEntity, activeSaalmaali);
 					}
-					itemEntity.setArticleTafsili(newArticleTafsiliSet);
+					itemEntity.setHesabTafsiliTwo(hesabTafsiliTwoEntity);
 				}
+				
+//				if(sanadHesabdariItemEntity.getArticleTafsili()!=null){
+//					Set<ArticleTafsiliEntity> articleTafsiliSet = sanadHesabdariItemEntity.getArticleTafsili();
+//					Set<ArticleTafsiliEntity> newArticleTafsiliSet = new HashSet<ArticleTafsiliEntity>();
+//					for (ArticleTafsiliEntity articleTafsiliEntity : articleTafsiliSet) {
+//						HesabTafsiliEntity hesabTafsili = articleTafsiliEntity.getHesabTafsili();
+//						HesabTafsiliEntity newHesabTafsili = getHesabTafsiliService().loadHesabTafsiliByCode(hesabTafsili.getCode(), activeSaalmaali,FlushMode.ALWAYS);
+//						if(newHesabTafsili == null){
+//							newHesabTafsili = getHesabTafsiliService().createHesabTafsili(activeSaalmaali, hesabTafsili, currentOrgan);
+//							getHesabTafsiliService().createHesabTafsiliRelatedEntities(hesabTafsili, newHesabTafsili, activeSaalmaali);
+//						}
+//						
+//						ArticleTafsiliEntity newArticleTafsiliEntity = new ArticleTafsiliEntity();
+//						newArticleTafsiliEntity.setHesabTafsili(newHesabTafsili);
+//						newArticleTafsiliEntity.setLevel(articleTafsiliEntity.getLevel());
+//						newArticleTafsiliEntity.setSanadHesabdariItem(itemEntity);
+//						newArticleTafsiliSet.add(newArticleTafsiliEntity);
+//					}
+//					itemEntity.setArticleTafsili(newArticleTafsiliSet);
+//				}
 				
 				itemEntity.setTarikhArticle(DateConverter.getCurrentDate());
 				sanadEftetahiehArticles.add(itemEntity);

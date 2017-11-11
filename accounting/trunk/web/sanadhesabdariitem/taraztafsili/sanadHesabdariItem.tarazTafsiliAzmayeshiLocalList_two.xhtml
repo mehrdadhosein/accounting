@@ -81,7 +81,7 @@
 							value="#{messages['HesabTafsili_shenavar_list']}" />
 					</f:facet>
 					<h:outputText styleClass="CellClass"
-						value="#{item.articleTafsiliDesc}" />
+						value="#{item.hesabTafsiliTwoDesc}" />
 				</p:column>
 
 				<p:column>
@@ -181,7 +181,7 @@
 				//alert(hesabKolId);
 				fromDate = document.getElementById('aztarikhExample').value;
 				toDate = document.getElementById('tatarikhExample').value;
-				articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;
+				tafsiliTwoIds = document.getElementById('tafsiliTwoIds_id').value;
 				moeens = document.getElementById('moeens_id').value;
 				fromSerial=document.getElementById('azserialExample').value;
 				toSerial=document.getElementById('taserialExample').value;
@@ -190,8 +190,8 @@
 						+ moeens
 						+ '&tafsiliIds='
 						+ hesabTafsiliEntityId
-						+ '&articleTafsiliIds='
-						+ articleTafsiliIds
+						+ '&tafsiliTwoIds='
+						+ tafsiliTwoIds
 						+ '&fromDate=' + fromDate + '&toDate=' + toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
 				popupFullscreen(url, 'daftartarazTafsili');
 			}

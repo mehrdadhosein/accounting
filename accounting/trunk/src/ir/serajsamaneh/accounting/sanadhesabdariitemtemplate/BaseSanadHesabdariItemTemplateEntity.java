@@ -3,7 +3,6 @@ package ir.serajsamaneh.accounting.sanadhesabdariitemtemplate;
 import java.io.Serializable;
 
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
-import ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
@@ -36,6 +35,7 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 	public static String PROP_DESCRIPTION = "description";
 	public static String PROP_HESAB_MOEEN = "hesabMoeen";
 	public static String PROP_HESAB_TAFSILI = "hesabTafsili";
+	public static String PROP_HESAB_TAFSILI_TWO = "hesabTafsiliTemplateTwo";
 	public static String PROP_TYPE = "type";
 	public static String PROP_ROW = "row";
 	public static String PROP_BEDEHKAR = "bedehkar";
@@ -93,8 +93,9 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 	private HesabKolTemplateEntity hesabKolTemplate;
 	private HesabMoeenTemplateEntity hesabMoeenTemplate;
 	private HesabTafsiliTemplateEntity hesabTafsiliTemplate;
+	private HesabTafsiliTemplateEntity hesabTafsiliTemplateTwo;
 
-	private java.util.Set<ArticleTafsiliTemplateEntity> articleTafsiliTemplate;
+//	private java.util.Set<ArticleTafsiliTemplateEntity> articleTafsiliTemplate;
 	
 	OrganEntity organ;
 	// collections
@@ -307,12 +308,20 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 
 
 
-public java.util.Set<ArticleTafsiliTemplateEntity> getArticleTafsiliTemplate() {
-		return articleTafsiliTemplate;
+//	public java.util.Set<ArticleTafsiliTemplateEntity> getArticleTafsiliTemplate() {
+//		return articleTafsiliTemplate;
+//	}
+//
+//	public void setArticleTafsiliTemplate(java.util.Set<ArticleTafsiliTemplateEntity> articleTafsiliTemplate) {
+//		this.articleTafsiliTemplate = articleTafsiliTemplate;
+//	}
+
+	public HesabTafsiliTemplateEntity getHesabTafsiliTemplateTwo() {
+		return hesabTafsiliTemplateTwo;
 	}
 
-	public void setArticleTafsiliTemplate(java.util.Set<ArticleTafsiliTemplateEntity> articleTafsiliTemplate) {
-		this.articleTafsiliTemplate = articleTafsiliTemplate;
+	public void setHesabTafsiliTemplateTwo(HesabTafsiliTemplateEntity hesabTafsiliTemplateTwo) {
+		this.hesabTafsiliTemplateTwo = hesabTafsiliTemplateTwo;
 	}
 
 	/*	*//**
@@ -335,10 +344,10 @@ public java.util.Set<ArticleTafsiliTemplateEntity> getArticleTafsiliTemplate() {
 		getArticleTafsili().add(articleTafsiliEntity);
 	}*/
 
-	public void addToarticleTafsiliTemplate (ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity articleTafsiliTemplateEntity) {
-		if (null == getArticleTafsiliTemplate()) setArticleTafsiliTemplate(new java.util.TreeSet<ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity>());
-		getArticleTafsiliTemplate().add(articleTafsiliTemplateEntity);
-	}
+//	public void addToarticleTafsiliTemplate (ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity articleTafsiliTemplateEntity) {
+//		if (null == getArticleTafsiliTemplate()) setArticleTafsiliTemplate(new java.util.TreeSet<ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity>());
+//		getArticleTafsiliTemplate().add(articleTafsiliTemplateEntity);
+//	}
 
 
 //	public boolean equals (Object obj) {

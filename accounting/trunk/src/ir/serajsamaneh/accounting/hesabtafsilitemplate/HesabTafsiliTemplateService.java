@@ -101,7 +101,7 @@ public class HesabTafsiliTemplateService extends
 
 	
 	@Transactional
-	public HesabTafsiliTemplateEntity createHesabTafsiliTemplate(Long hesabTafsiliCode, String hesabTafsiliName, OrganEntity organ, TafsilTypeEnum tafsilType, String description) {
+	public HesabTafsiliTemplateEntity createHesabTafsiliTemplate(Long hesabTafsiliCode, String hesabTafsiliName, OrganEntity organ, TafsilTypeEnum tafsilType, String description, Integer level) {
 		
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = new HesabTafsiliTemplateEntity();
 		hesabTafsiliTemplateEntity.setScope(HesabScopeEnum.LCAOL);
@@ -111,6 +111,7 @@ public class HesabTafsiliTemplateService extends
 		hesabTafsiliTemplateEntity.setTafsilType(tafsilType);
 		hesabTafsiliTemplateEntity.setDescription(description);
 		hesabTafsiliTemplateEntity.setHidden(false);
+		hesabTafsiliTemplateEntity.setLevel(level);
 		save(hesabTafsiliTemplateEntity);
 		return hesabTafsiliTemplateEntity;
 	}

@@ -42,6 +42,12 @@
 			<column name='hesab_tafsili_template_id' />
 		</many-to-one>
 
+		<many-to-one name='hesabTafsiliTemplateTwo'
+			class='ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity'
+			foreign-key='snd_hsbdri_itm_tmpl_tafsil2'>
+			<column name='hesab_tafsili_template_two_id' />
+		</many-to-one>
+
 
 		<many-to-one name='accountingMarkazTemplate'
 			class='ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity'
@@ -50,10 +56,10 @@
 		</many-to-one>
 
 
-	    <set  name='articleTafsiliTemplate' inverse='true' cascade="all-delete-orphan" fetch="join" batch-size="100">
+	    <!-- set  name='articleTafsiliTemplate' inverse='true' cascade="all-delete-orphan" fetch="join" batch-size="100">
 	        <key column='sanad_hesabdari_item_tmpl_id' foreign-key='artcl_tf_tmpl_snd_hsbdri_itm'/>
 	       <one-to-many class='ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity' />
-	    </set>
+	    </set-->
 		
 		<property name='applyAutomaticTafsili' type='YesNoEnum' column='apply_automatic_tafsili'/>
 	</class>

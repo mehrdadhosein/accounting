@@ -137,14 +137,14 @@ function openDaftarShenavar(hesabTafsiliShenavarEntityId){
 	//alert(hesabKolId);
 	fromDate = document.getElementById('aztarikhExample').value;
 	toDate = document.getElementById('tatarikhExample').value;	
-	articleTafsiliIds = document.getElementById('articleTafsiliIds_id').value;	
+	tafsiliTwoIds = document.getElementById('tafsiliTwoIds_id').value;	
 	tafsiliIds = document.getElementById('tafsilis_id').value;	
 	moeens = document.getElementById('moeens_id').value;	
 	selectedOrganId = document.getElementById('organ').value;
 	fromSerial=document.getElementById('azserialExample').value;
 	toSerial=document.getElementById('taserialExample').value;
 	
-	var url = '../../daftar/hierarchical/sanadHesabdariItem.shenavarHierarchicalList.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&articleTafsiliIds='+hesabTafsiliShenavarEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
+	var url = '../../daftar/hierarchical/sanadHesabdariItem.shenavarHierarchicalList.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+tafsiliIds+'&tafsiliTwoIds='+hesabTafsiliShenavarEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
 	popupFullscreen(url, 'daftartarazTafsili');
 }
 /* ]]> */

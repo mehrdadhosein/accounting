@@ -15,7 +15,6 @@ import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
 import ir.serajsamaneh.accounting.articleaccountingmarkaz.ArticleAccountingMarkazEntity;
-import ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
@@ -324,10 +323,13 @@ public class SanadHesabdariUtil {
 		String tafsiliCode = sanadHesabdariItemEntity.getHesabTafsili()!=null ? sanadHesabdariItemEntity.getHesabTafsili().getCode().toString() : "";
 		mapKey+="_"+tafsiliCode;
 		
-		for(Integer level : getLevels(currentOrgan)) {
-			ArticleTafsiliEntity articleTafsiliEntity = sanadHesabdariItemEntity.getArticleTafsiliByLevel(level);
-			mapKey+="_"+(articleTafsiliEntity!=null ? articleTafsiliEntity.getHesabTafsili().getCode() : "");
-		}
+		String tafsiliTwoCode = sanadHesabdariItemEntity.getHesabTafsiliTwo()!=null ? sanadHesabdariItemEntity.getHesabTafsiliTwo().getCode().toString() : "";
+		mapKey+="_"+tafsiliTwoCode;
+		
+//		for(Integer level : getLevels(currentOrgan)) {
+//			ArticleTafsiliEntity articleTafsiliEntity = sanadHesabdariItemEntity.getArticleTafsiliByLevel(level);
+//			mapKey+="_"+(articleTafsiliEntity!=null ? articleTafsiliEntity.getHesabTafsili().getCode() : "");
+//		}
 		
 		String markazCode = sanadHesabdariItemEntity.getAccountingMarkaz() != null ? sanadHesabdariItemEntity.getAccountingMarkaz().getCode() :"";
 		mapKey+="_"+markazCode;

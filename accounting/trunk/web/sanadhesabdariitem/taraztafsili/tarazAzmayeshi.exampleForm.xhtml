@@ -82,12 +82,12 @@
 				
 							
 				<h:panelGroup>
-					<h:outputLabel for="articleTafsiliIds"
+					<h:outputLabel for="tafsiliTwoIds"
 						value="#{messages['HesabTafsili_Two']}" /> : 
 				</h:panelGroup>
 				<h:panelGroup>
-					<custom:autocomplete-multiple id="articleTafsiliIds" width="220px"
-						selectedIds="#{owner.articleTafsiliIds}" entity="HesabTafsili"
+					<custom:autocomplete-multiple id="tafsiliTwoIds" width="220px"
+						selectedIds="#{owner.tafsiliTwoIds}" entity="HesabTafsili"
 						property="code, name" ajax="false" extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=2"/>
 				</h:panelGroup>
 									
@@ -195,11 +195,11 @@
 		document.getElementById("hesabKolIds_id").value=hesabKolIds;
 	}
 	
-	function articleTafsiliIdsrendered(){
-		var articleTafsiliIds = getURLParameters('articleTafsiliIds');
-		//alert(articleTafsiliIds);
-		populatearticleTafsiliIds(articleTafsiliIds);
-		document.getElementById("articleTafsiliIds_id").value=articleTafsiliIds;
+	function tafsiliTwoIdsrendered(){
+		var tafsiliTwoIds = getURLParameters('tafsiliTwoIds');
+		//alert(tafsiliTwoIds);
+		populatetafsiliTwoIds(tafsiliTwoIds);
+		document.getElementById("tafsiliTwoIds_id").value=tafsiliTwoIds;
 	}
 
 </script>

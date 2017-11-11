@@ -37,11 +37,10 @@
 				<dwr:include method="bestankar"/>
 				<dwr:include method="bedehkar"/>
 				<dwr:include method="tarikhArticle"/>
-				<dwr:include method="hesabTafsiliName"/>
-				<dwr:include method="hesabTafsiliID"/>
-				<dwr:include method="hesabTafsiliLevelNames"/>
-				<dwr:include method="hesabTafsiliLevels"/>
-				<dwr:include method="hesabTafsiliDescs"/>
+				<dwr:include method="hesabTafsiliOneName"/>
+				<dwr:include method="hesabTafsiliOneID"/>
+				<dwr:include method="hesabTafsiliTwoName"/>
+				<dwr:include method="hesabTafsiliTwoID"/>
 
 				<dwr:include method="accountingMarkazName"/>
 				<dwr:include method="accountingMarkazID"/>

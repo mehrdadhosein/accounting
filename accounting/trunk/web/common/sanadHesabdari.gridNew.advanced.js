@@ -119,6 +119,10 @@
 			bindedFieldId = 'hesabTafsiliOne_id';
 		else if(fieldId == 'hesabTafsiliOneName')
 			bindedFieldId = 'hesabTafsiliOne_desc';
+		else if(fieldId == 'hesabTafsiliTwoID')
+			bindedFieldId = 'hesabTafsiliTwo_id';
+		else if(fieldId == 'hesabTafsiliTwoName')
+			bindedFieldId = 'hesabTafsiliTwo_desc';
 		else if(fieldId == 'accountingMarkazID')
 			bindedFieldId = 'accountingMarkaz_id';
 		else if(fieldId == 'accountingMarkazName')
@@ -418,13 +422,13 @@
 	}
 
 	function updateSanadHesabdariField(fieldId,fieldValue){
-		
+		debugger;
 		if(fieldId == 'hesabMoeen_desc'){
 			fillDest('hesabMoeen','hesabTafsili');
 			fillDestMarkazAccountingByMoeen('hesabMoeen','accountingMarkaz');
 		}
 		
-		if(fieldId == 'hesabTafsiliLevels'){
+/*		if(fieldId == 'hesabTafsiliLevels'){
 			var hesabTafsiliLevels=fieldValue.split(',');
 			for(var index =0 ;index<hesabTafsiliLevels.length; index++){
 				if(hesabTafsiliLevels[index] == '')
@@ -447,7 +451,7 @@
 				$$('#'+key+'_desc').val(value);
 			}
 			return;
-		}
+		}*/
 		if(fieldId == 'accountingMarkazLevels'){
 			var accountingMarkazLevels=fieldValue.split(',');
 			for(var index =0 ;index<accountingMarkazLevels.length; index++){
@@ -479,7 +483,7 @@
 
 		
 	function createSanadHesabdariTable(sanadHesabdariXML){
-		var gridItems=new Array('id','hesabKolID','hesabKolName','hesabMoeenID','hesabMoeenName','hesabTafsiliOneID','hesabTafsiliOneName','hesabTafsiliLevelNames','hesabTafsiliLevels','hesabTafsiliDescs','accountingMarkazID','accountingMarkazName','accountingMarkazLevelNames','accountingMarkazLevels','accountingMarkazDescs','markazHazineID','markazHazineName','projectID','projectName','bedehkar','bestankar','description');
+		var gridItems=new Array('id','hesabKolID','hesabKolName','hesabMoeenID','hesabMoeenName','hesabTafsiliOneID','hesabTafsiliOneName','hesabTafsiliTwoID','hesabTafsiliTwoName','accountingMarkazID','accountingMarkazName','accountingMarkazLevelNames','accountingMarkazLevels','accountingMarkazDescs','markazHazineID','markazHazineName','projectID','projectName','bedehkar','bestankar','description');
 		setItems("#sanadHesabdariGrid",gridItems);
 		createSanadHesabdariGrid(sanadHesabdariXML);
 		var cnt = $$('#sanadHesabdariGrid').jqGrid('getGridParam', 'records');
