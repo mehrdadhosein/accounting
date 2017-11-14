@@ -124,10 +124,10 @@
 			bindedFieldId = 'hesabMoeen_id';
 		else if(fieldId == 'hesabMoeenTemplateName')
 			bindedFieldId = 'hesabMoeen_desc';
-		else if(fieldId == 'hesabTafsiliTemplateID')
-			bindedFieldId = 'hesabTafsili_id';
-		else if(fieldId == 'hesabTafsiliTemplateName')
-			bindedFieldId = 'hesabTafsili_desc';
+		else if(fieldId == 'hesabTafsiliTemplateOneID')
+			bindedFieldId = 'hesabTafsiliOne_id';
+		else if(fieldId == 'hesabTafsiliTemplateOneName')
+			bindedFieldId = 'hesabTafsiliOne_desc';
 		else if(fieldId == 'accountingMarkazTemplateID')
 			bindedFieldId = 'accountingMarkaz_id';
 		else if(fieldId == 'accountingMarkazTemplateName')
@@ -136,12 +136,12 @@
 	}
 
 	function clearSanadHesabdariDialog(gridId){
-		debugger;
+		//debugger;
 		//var localItems = getItems(gridId);
 		var localItems = new Array('id','templateType','hesabKolTemplateID','hesabKolTemplateName','hesabMoeenTemplateID','hesabMoeenTemplateName','hesabTafsiliTemplateID','hesabTafsiliTemplateName','hesabTafsiliTemplateLevelNames','hesabTafsiliTemplateLevels','hesabTafsiliTemplateDescs','accountingMarkazTemplateID','accountingMarkazTemplateName','accountingMarkazLevelNames','accountingMarkazLevels','accountingMarkazDescs','applyAutomaticTafsili','applyAutomaticTafsiliName','description')
 		for ( var j = 0; j < localItems.length; j++){
 			fieldId = localItems[j];
-			if(fieldId == 'hesabTafsiliTemplateLevels'){
+/*			if(fieldId == 'hesabTafsiliTemplateLevels'){
 				$$('input.tafsiliInput').each(function( i ) {
 					var id_desc = $( this ).prop('id');
 					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
@@ -168,7 +168,7 @@
 				continue;
 			}	
 			
-			
+	*/		
 			var bindedFieldId=getBindedSanadHesabdariFieldId(fieldId);
 			$$('#'+bindedFieldId).val(elems[fieldId]);
 		}
