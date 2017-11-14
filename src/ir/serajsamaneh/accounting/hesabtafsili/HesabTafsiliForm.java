@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.SelectItem;
 
@@ -15,6 +17,7 @@ import org.springframework.util.StringUtils;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
+import ir.serajsamaneh.accounting.hesabclassification.HesabClassificationEntity;
 import ir.serajsamaneh.accounting.hesabclassification.HesabClassificationService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
@@ -369,5 +372,29 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 //		return getFacesUrl("/hesabtafsili/hesabTafsili.shenavar.LocalEdit.xhtml");
 //	}
 
+	List<HesabClassificationEntity> hesabClassifications;
 
+	public List<HesabClassificationEntity> getHesabClassifications() {
+		if(hesabClassifications == null) {
+			if(getEntity().getLevel()!=null) {
+				Map<String, Object> localFilter = new HashMap<>();
+				localFilter.put("level@eq", getEntity().getLevel());
+				hesabClassifications = getHesabClassificationService().getDataList(localFilter);
+			}else
+				hesabClassifications = new ArrayList<>();
+		}
+		return hesabClassifications;
+	}
+
+	public void setHesabClassifications(List<HesabClassificationEntity> hesabClassifications) {
+		this.hesabClassifications = hesabClassifications;
+	}
+
+	public void handleChangelevel(AjaxBehaviorEvent vce) {
+//		Integer level= (Integer) ((UIOutput) vce.getSource()).getValue();
+//		if(level == null)
+//			getEntity().setLevel(null);
+		//System.out.println(getEntity().getLevel());
+		setHesabClassifications(null);
+	}
 }

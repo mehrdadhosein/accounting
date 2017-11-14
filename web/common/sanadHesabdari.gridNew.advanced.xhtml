@@ -253,7 +253,7 @@
 			<h:outputLabel for="description"
 				value="#{messages['SanadHesabdariItem_description']}: " />
 		</h:panelGroup>
-		<p:inputText name="description" id="description" style="width:200px;"/>					
+		<p:inputTextarea name="description" id="description" rows="5" cols="30"/>					
 		<h:panelGroup/>
 		<h:panelGroup/>
 
@@ -265,7 +265,13 @@
 	<tr>
 		<td>&nbsp;</td>
 	</tr>
+	
 </table>
+<div id="buttons" style="text-align: center;padding: 5px;">
+	<button type="button" class="btn btn-success" onclick="openArticleDialogu();"  style="font-family: yekan;"><i class="glyphicon glyphicon-plus position-left"></i> #{messages['common_new']} </button>
+	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#rootHesabsDIV" style="font-family: yekan;"><i class="glyphicon glyphicon-plus position-left"></i> #{messages['SanadHesabdari_newRootHesab']} </button>
+</div>
+
 <div id="sanadHesabdariPcustbut"></div>
 
 		
@@ -486,25 +492,9 @@ $$(document).ready(function() {
 						userDataOnFooter : true
 					});
 		$$('#sanadHesabdariGrid').jqGrid('navGrid','#sanadHesabdariPcustbut',{edit:false,add:false,del:false,search:false,page:false, searchtext:'#{messages['common_search']}'}); 
-		$$('#sanadHesabdariGrid').jqGrid('navButtonAdd','#sanadHesabdariPcustbut',{caption:'#{messages['common_new']}', buttonicon:"ui-icon-circle-plus",  
+/*		$$('#sanadHesabdariGrid').jqGrid('navButtonAdd','#sanadHesabdariPcustbut',{caption:'#{messages['common_new']}', buttonicon:"ui-icon-circle-plus",  
 				onClickButton:function(){ 
-					clearSanadHesabdariDialog('#sanadHesabdariGrid');
-					$$('#sanadHesabdariDialog').dialog({position: { my: "top", at: "top", of: window  }
-					, title:'#{messages['SanadHesabdariItem_title']}', width: '100%',modal: true, autoOpen: true,close: function() {$$(this).off('keydown');} ,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_add']}': function() { addSanadHesabdariRowData('#sanadHesabdariGrid'); }}});
-					$$('#sanadHesabdariDialog').on('keydown', function(e) {
-						
-						 var code = (e.keyCode ? e.keyCode : e.which);
-						 //alert(code);
-						 if(code == 45) { //INS key adds article to sanadGrid
-							//alert('new : 45');
-							var result = addSanadHesabdariRowData('#sanadHesabdariGrid');
-							$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
-							lastRow=rowId;
-							$$('#sanadHesabdariGrid').focus();
-							return false;
-						 }
-					});		
-					$$('#hesabMoeen_desc').focus();					
+						openArticleDialogu();
 				} 
 			});
 		$$('#sanadHesabdariGrid').jqGrid('navButtonAdd','#sanadHesabdariPcustbut',{caption:'#{messages['SanadHesabdari_newRootHesab']}', 
@@ -513,7 +503,7 @@ $$(document).ready(function() {
 				$$('#rootHesabsDIV').modal('toggle');
 				
 			}
-		});
+		});*/
 	$$("#sanadHesabdariGrid").jqGrid('bindKeys', {"onEnter":function( rowid ) { editSanadHesabdariRowData("#sanadHesabdariGrid",rowid,"Edit"); return false;} } );
 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','id'); 
@@ -542,7 +532,25 @@ $$(document).ready(function() {
 
 	
 
-
+	function openArticleDialogu(){
+		clearSanadHesabdariDialog('#sanadHesabdariGrid');
+		$$('#sanadHesabdariDialog').dialog({position: { my: "top", at: "top", of: window  }
+		, title:'#{messages['SanadHesabdariItem_title']}', width: '100%',modal: true, autoOpen: true,close: function() {$$(this).off('keydown');} ,buttons: { '#{messages['common_close']}': function() { $$(this).dialog('close'); },'#{messages['common_add']}': function() { addSanadHesabdariRowData('#sanadHesabdariGrid'); }}});
+		$$('#sanadHesabdariDialog').on('keydown', function(e) {
+			
+			 var code = (e.keyCode ? e.keyCode : e.which);
+			 //alert(code);
+			 if(code == 45) { //INS key adds article to sanadGrid
+				//alert('new : 45');
+				var result = addSanadHesabdariRowData('#sanadHesabdariGrid');
+				$$('#sanadHesabdariGrid').jqGrid('setSelection', rowId, true);
+				lastRow=rowId;
+				$$('#sanadHesabdariGrid').focus();
+				return false;
+			 }
+		});		
+		$$('#hesabMoeen_desc').focus();	
+	}
 	
 	function addSanadHesabdariRowData(gridId){
 		globalRowId = getGridGlobalRowId(gridId); 
