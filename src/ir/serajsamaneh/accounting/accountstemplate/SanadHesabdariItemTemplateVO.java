@@ -6,9 +6,9 @@ import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemT
 public class SanadHesabdariItemTemplateVO extends SanadHesabdariItemVO {
 
 	String templateType=""; //bedehkar/bestankar
-	String hesabTafsiliTemplateCode;
-	String hesabTafsiliTemplateName;
-	String hesabTafsiliTemplateID;
+	String hesabTafsiliTemplateOneCode;
+	String hesabTafsiliTemplateOneName;
+	String hesabTafsiliTemplateOneID;
 	
 	String hesabTafsiliTemplateTwoCode;
 	String hesabTafsiliTemplateTwoName;
@@ -26,9 +26,9 @@ public class SanadHesabdariItemTemplateVO extends SanadHesabdariItemVO {
 	private String applyAutomaticTafsili="";
 	private String applyAutomaticTafsiliName="";
 	
-	protected java.lang.String hesabTafsiliTemplateLevels="";
-	protected java.lang.String hesabTafsiliTemplateDescs="";
-	protected java.lang.String hesabTafsiliTemplateLevelNames="";
+//	protected java.lang.String hesabTafsiliTemplateLevels="";
+//	protected java.lang.String hesabTafsiliTemplateDescs="";
+//	protected java.lang.String hesabTafsiliTemplateLevelNames="";
 	
 	public String getApplyAutomaticTafsili() {
 		return applyAutomaticTafsili;
@@ -62,32 +62,32 @@ public class SanadHesabdariItemTemplateVO extends SanadHesabdariItemVO {
 		this.accountingMarkazTemplateID = accountingMarkazTemplateID;
 	}
 
-	public java.lang.String getHesabTafsiliTemplateLevels() {
-		return hesabTafsiliTemplateLevels;
-	}
-
-	public void setHesabTafsiliTemplateLevels(
-			java.lang.String hesabTafsiliTemplateLevels) {
-		this.hesabTafsiliTemplateLevels = hesabTafsiliTemplateLevels;
-	}
-
-	public java.lang.String getHesabTafsiliTemplateDescs() {
-		return hesabTafsiliTemplateDescs;
-	}
-
-	public void setHesabTafsiliTemplateDescs(
-			java.lang.String hesabTafsiliTemplateDescs) {
-		this.hesabTafsiliTemplateDescs = hesabTafsiliTemplateDescs;
-	}
-
-	public java.lang.String getHesabTafsiliTemplateLevelNames() {
-		return hesabTafsiliTemplateLevelNames;
-	}
-
-	public void setHesabTafsiliTemplateLevelNames(
-			java.lang.String hesabTafsiliTemplateLevelNames) {
-		this.hesabTafsiliTemplateLevelNames = hesabTafsiliTemplateLevelNames;
-	}
+//	public java.lang.String getHesabTafsiliTemplateLevels() {
+//		return hesabTafsiliTemplateLevels;
+//	}
+//
+//	public void setHesabTafsiliTemplateLevels(
+//			java.lang.String hesabTafsiliTemplateLevels) {
+//		this.hesabTafsiliTemplateLevels = hesabTafsiliTemplateLevels;
+//	}
+//
+//	public java.lang.String getHesabTafsiliTemplateDescs() {
+//		return hesabTafsiliTemplateDescs;
+//	}
+//
+//	public void setHesabTafsiliTemplateDescs(
+//			java.lang.String hesabTafsiliTemplateDescs) {
+//		this.hesabTafsiliTemplateDescs = hesabTafsiliTemplateDescs;
+//	}
+//
+//	public java.lang.String getHesabTafsiliTemplateLevelNames() {
+//		return hesabTafsiliTemplateLevelNames;
+//	}
+//
+//	public void setHesabTafsiliTemplateLevelNames(
+//			java.lang.String hesabTafsiliTemplateLevelNames) {
+//		this.hesabTafsiliTemplateLevelNames = hesabTafsiliTemplateLevelNames;
+//	}
 
 	public String getHesabTafsiliTemplateTwoCode() {
 		return hesabTafsiliTemplateTwoCode;
@@ -145,28 +145,28 @@ public class SanadHesabdariItemTemplateVO extends SanadHesabdariItemVO {
 		this.hesabKolTemplateID = hesabKolTemplateID;
 	}
 
-	public String getHesabTafsiliTemplateID() {
-		return hesabTafsiliTemplateID;
+	public String getHesabTafsiliTemplateOneID() {
+		return hesabTafsiliTemplateOneID;
 	}
 
-	public void setHesabTafsiliTemplateID(String hesabTafsiliTemplateID) {
-		this.hesabTafsiliTemplateID = hesabTafsiliTemplateID;
+	public void setHesabTafsiliTemplateOneID(String hesabTafsiliTemplateOneID) {
+		this.hesabTafsiliTemplateOneID = hesabTafsiliTemplateOneID;
 	}
 
-	public String getHesabTafsiliTemplateName() {
-		return hesabTafsiliTemplateName;
+	public String getHesabTafsiliTemplateOneName() {
+		return hesabTafsiliTemplateOneName;
 	}
 
-	public void setHesabTafsiliTemplateName(String hesabTafsiliTemplateName) {
-		this.hesabTafsiliTemplateName = hesabTafsiliTemplateName;
+	public void setHesabTafsiliTemplateOneName(String hesabTafsiliTemplateOneName) {
+		this.hesabTafsiliTemplateOneName = hesabTafsiliTemplateOneName;
 	}
 
-	public String getHesabTafsiliTemplateCode() {
-		return hesabTafsiliTemplateCode;
+	public String getHesabTafsiliTemplateOneCode() {
+		return hesabTafsiliTemplateOneCode;
 	}
 
-	public void setHesabTafsiliTemplateCode(String hesabTafsiliTemplateCode) {
-		this.hesabTafsiliTemplateCode = hesabTafsiliTemplateCode;
+	public void setHesabTafsiliTemplateOneCode(String hesabTafsiliTemplateOneCode) {
+		this.hesabTafsiliTemplateOneCode = hesabTafsiliTemplateOneCode;
 	}
 
 	
@@ -189,11 +189,11 @@ public class SanadHesabdariItemTemplateVO extends SanadHesabdariItemVO {
 		}
 		
 		if(sanadHesabdariItemTemplateEntity.getHesabTafsiliTemplate()!=null){
-			setHesabTafsiliTemplateName(convertNullToString(sanadHesabdariItemTemplateEntity.getHesabTafsiliTemplate().getDesc()));
-			setHesabTafsiliTemplateID(convertNullToString(sanadHesabdariItemTemplateEntity.getHesabTafsiliTemplate().getId()));
+			setHesabTafsiliTemplateOneName(convertNullToString(sanadHesabdariItemTemplateEntity.getHesabTafsiliTemplate().getDesc()));
+			setHesabTafsiliTemplateOneID(convertNullToString(sanadHesabdariItemTemplateEntity.getHesabTafsiliTemplate().getId()));
 		}else{
-			setHesabTafsiliTemplateName("");
-			setHesabTafsiliTemplateID("");
+			setHesabTafsiliTemplateOneName("");
+			setHesabTafsiliTemplateOneID("");
 		}
 
 		if(sanadHesabdariItemTemplateEntity.getHesabTafsiliTemplateTwo()!=null){

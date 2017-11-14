@@ -330,16 +330,16 @@ public class AccountsTemplateForm extends
 		sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabMoeenTemplateName()
 				+ "</cell>";
 
-		sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliTemplateID()
+		sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliTemplateOneID()
 				+ "</cell>";
-		sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliTemplateName()
+		sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliTemplateOneName()
 				+ "</cell>";
-		sanadItemsXML += "<cell>"
-				+ sanadHesabdariItemVO.getHesabTafsiliTemplateLevelNames() + "</cell>";
-		sanadItemsXML += "<cell>"
-				+ sanadHesabdariItemVO.getHesabTafsiliTemplateLevels() + "</cell>";
-		sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliTemplateDescs()
-				+ "</cell>";
+//		sanadItemsXML += "<cell>"
+//				+ sanadHesabdariItemVO.getHesabTafsiliTemplateLevelNames() + "</cell>";
+//		sanadItemsXML += "<cell>"
+//				+ sanadHesabdariItemVO.getHesabTafsiliTemplateLevels() + "</cell>";
+//		sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabTafsiliTemplateDescs()
+//				+ "</cell>";
 
 		sanadItemsXML += "<cell>"
 				+ sanadHesabdariItemVO.getAccountingMarkazTemplateID() + "</cell>";
