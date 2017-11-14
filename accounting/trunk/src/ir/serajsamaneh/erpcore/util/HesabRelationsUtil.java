@@ -69,7 +69,7 @@ public class HesabRelationsUtil {
 		organizationalTafsiliMoeenMap.put(saalMaaliEntity.getId()+"_"+currentOrgan.getId(), null);
 	}
 	public static Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliMoeenMap(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan) {
-		Map<Long, List<ListOrderedMap<String, Object>>> tafsiliMoeenMap = organizationalTafsiliMoeenMap.get(saalMaaliEntity.getId()+"_"+currentOrgan.getId()+"_"+currentOrgan.getId());
+		Map<Long, List<ListOrderedMap<String, Object>>> tafsiliMoeenMap = organizationalTafsiliMoeenMap.get(saalMaaliEntity.getId()+"_"+currentOrgan.getId());
 		if (tafsiliMoeenMap == null) {
 			tafsiliMoeenMap = getHesabTafsiliService().getTafsiliMoeenMap(saalMaaliEntity, currentOrgan);
 			organizationalTafsiliMoeenMap.put(saalMaaliEntity.getId()+"_"+currentOrgan.getId(), tafsiliMoeenMap);

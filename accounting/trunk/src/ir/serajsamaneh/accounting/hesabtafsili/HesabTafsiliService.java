@@ -899,6 +899,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 
 	@Override
 	public void save(HesabTafsiliEntity entity) {
+		if(entity.getLevel() == null)
+			throw new RequiredFieldNotSetException(SerajMessageUtil.getMessage("HesabTafsili_level"));
 		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabTafsili_code"));
 		super.save(entity);
