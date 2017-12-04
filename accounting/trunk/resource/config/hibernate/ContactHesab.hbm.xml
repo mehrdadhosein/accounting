@@ -21,14 +21,19 @@
   </many-to-one>
   <many-to-one
    class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"
-   foreign-key="contact_hesab_hesab_tafsili" name="hesabTafsili">
+   foreign-key="contact_hesab_hesab_tafsili" name="hesabTafsiliOne">
    <column name="hesab_tafsili_id"/>
   </many-to-one>
   <many-to-one
    class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"
+   foreign-key="contact_hesab_hesab_tafsilitwo" name="hesabTafsiliTwo">
+   <column name="hesab_tafsili_two_id"/>
+  </many-to-one>
+  <!-- many-to-one
+   class="ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity"
    foreign-key="contact_hesab_tafsili_shenavar" name="hesabShenavar">
    <column name="hesab_shenavar_id"/>
-  </many-to-one>
+  </many-to-one-->
   <many-to-one
    class="ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity"
    foreign-key="fk_contact_hesab_saal_maali" name="saalMaali" not-null="true">

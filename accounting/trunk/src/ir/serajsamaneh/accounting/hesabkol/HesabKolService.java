@@ -550,8 +550,8 @@ public class HesabKolService extends
 					
 					if(contactHesabEntity.getHesabMoeen()!=null && contactHesabEntity.getHesabMoeen().getId()!=null)
 						destHsabMoeenEntity = getHesabMoeenService().getHesabMoeenByCodeAndSaalMaali(contactHesabEntity.getHesabMoeen().getCode(), destSaalMaali);
-					if(contactHesabEntity.getHesabTafsili()!=null && contactHesabEntity.getHesabTafsili().getId()!=null)
-						destHesabTafsiliEntity = getHesabTafsiliService().getHesabTafsiliByCodeAndSaalMaali(contactHesabEntity.getHesabTafsili().getCode(), destSaalMaali);
+					if(contactHesabEntity.getHesabTafsiliOne()!=null && contactHesabEntity.getHesabTafsiliOne().getId()!=null)
+						destHesabTafsiliEntity = getHesabTafsiliService().getHesabTafsiliByCodeAndSaalMaali(contactHesabEntity.getHesabTafsiliOne().getCode(), destSaalMaali);
 					
 					getContactHesabService().createContactHesab(contactHesabEntity.getAccountingMarkazTemplate(), contactHesabEntity.getContact(), destHsabMoeenEntity, destHesabTafsiliEntity, destSaalMaali);
 			}
