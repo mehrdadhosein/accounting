@@ -68,7 +68,9 @@ public abstract class BaseContactHesabEntity  extends BaseEntity<Long>   impleme
 	// many to one
 	private ir.serajsamaneh.core.contact.contact.ContactEntity contact;
 	private ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity hesabMoeen;
-	private ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabTafsili;
+//	private ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabTafsili;
+	private ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabTafsiliOne;
+	private ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabTafsiliTwo;
 	SaalMaaliEntity saalMaali;
 
 	private AccountingMarkazTemplateEntity accountingMarkazTemplate; 
@@ -148,24 +150,21 @@ public abstract class BaseContactHesabEntity  extends BaseEntity<Long>   impleme
 	}
 
 
-
-	/**
-	 * Return the value associated with the column: hesab_tafsili_id
-	 */
-	public ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity getHesabTafsili () {
-		return hesabTafsili;
+	public ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity getHesabTafsiliOne() {
+		return hesabTafsiliOne;
 	}
 
-	/**
-	 * Set the value related to the column: hesab_tafsili_id
-	 * @param hesabTafsili the hesab_tafsili_id value
-	 */
-	public void setHesabTafsili (ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabTafsili) {
-		this.hesabTafsili = hesabTafsili;
+	public void setHesabTafsiliOne(ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabTafsiliOne) {
+		this.hesabTafsiliOne = hesabTafsiliOne;
 	}
 
+	public ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity getHesabTafsiliTwo() {
+		return hesabTafsiliTwo;
+	}
 
-
+	public void setHesabTafsiliTwo(ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabTafsiliTwo) {
+		this.hesabTafsiliTwo = hesabTafsiliTwo;
+	}
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;

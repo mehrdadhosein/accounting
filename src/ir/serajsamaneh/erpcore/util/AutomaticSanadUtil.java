@@ -587,9 +587,9 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			if (null != hesabShenavarParam && null != hesabShenavarParam.getId())
 				hesabTafsiliEntityTWO = hesabShenavarParam;
 			else
-				hesabTafsiliEntityTWO = contactHesab.getHesabShenavar();
+				hesabTafsiliEntityTWO = contactHesab.getHesabTafsiliTwo();
 		} else
-			hesabTafsiliEntityONE = contactHesab.getHesabTafsili();
+			hesabTafsiliEntityONE = contactHesab.getHesabTafsiliOne();
 
 		kolMoeenTafsiliVO.setHesabKolEntity(hesabKolEntity);
 		kolMoeenTafsiliVO.setHesabMoeenEntity(hesabMoeenEntity);

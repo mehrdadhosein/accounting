@@ -28,36 +28,24 @@
 			desc="#{owner.entity.hesabMoeen.desc}" width="320px" client="true"
 			extraParams="isHierarchical=true"
 			label="#{messages['HesabMoeen_title']}"
-			onchange="fillDest('hesabMoeen','hesabTafsili');clearAutocomplete('hesabTafsili');clearAutocomplete('hesabShenavar');" />
+			onchange="fillDesthesabTafsiliOne('hesabMoeen','hesabTafsiliOne');clearAutocomplete('hesabTafsiliOne');clearAutocomplete('hesabShenavar');" />
 	</h:panelGroup>
 	
 	<h:panelGroup>
 		<h:outputText styleClass="required" value="  " />
 		<h:outputLabel 
-			value="#{messages['HesabTafsili_title']}" /> : 
+			value="#{messages['HesabTafsiliOne_title']}" /> : 
 	</h:panelGroup>
 	<h:panelGroup>
-		<custom:autocomplete-one id="hesabTafsili" entity="HesabTafsili" onInit="tafsiliInited();"
-			property="desc" identity="#{owner.entity.hesabTafsili.id}"
-			desc="#{owner.entity.hesabTafsili.desc}" width="320px" client="true"
-			extraParams="isHierarchical=true"
-			onchange="fillDest('hesabMoeen','hesabTafsili');clearAutocomplete('hesabShenavar');" />			
-	</h:panelGroup>
-	
-	<h:panelGroup>
-		<h:outputLabel 
-			value="#{messages['HesabTafsili_shenavar']}" /> : 
-	</h:panelGroup>
-	<h:panelGroup>
-		<custom:autocomplete-one id="hesabShenavar" entity="HesabTafsili" onInit="tafsiliInited();"
-			property="desc" identity="#{owner.entity.hesabShenavar.id}"
-			desc="#{owner.entity.hesabShenavar.desc}" width="320px" client="true"
-			extraParams="isHierarchical=true" />
+		<custom:autocomplete-one id="hesabTafsiliOne" entity="HesabTafsili" onInit="tafsiliInited();"
+			property="desc" identity="#{owner.entity.hesabTafsiliOne.id}"
+			desc="#{owner.entity.hesabTafsiliOne.desc}" width="320px" client="true"
+			extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=1"
+			 />			
 	</h:panelGroup>
 	
 	<t:jsValueSet name="moeenKolMap" value="#{hesabMoeen.moeenKolMap}" />
-	
-	<t:jsValueSet name="moeenTafsiliMap" value="#{hesabMoeen.moeenTafsiliMap}" />
+	<t:jsValueSet name="moeenTafsiliOneMap"	value="#{hesabMoeen.moeenTafsiliOneMap}" />
 
 	<t:jsValueSet name="moeenTafsiliChildMap" value="#{hesabMoeen.tafsiliChildrenMap}" />
 
@@ -68,7 +56,27 @@
 			if (moeenId == null || moeenId == '')
 				return;
 				
-			fillDest('hesabMoeen', 'hesabTafsili')
+			fillDest('hesabMoeen', 'hesabTafsiliOne')
+		}
+
+		function fillDesthesabTafsiliOne(moeen,tafsili){
+			var moeenId = $$('#hesabMoeen_id').val();
+			
+			if (moeenId == null || moeenId == '')
+				return;
+
+			kolMap = moeenKolMap[moeenId];
+			$$('#hesabKolName').val(kolMap.label);
+			
+				//clearAutocomplete(tafsili);
+			tafsiliMap = moeenTafsiliOneMap[moeenId];
+
+			//alert("unitMap : "+unitMap.length);
+			var filtered = tafsiliMap;
+			//alert(inspect(filtered,10,10));
+			//alert('aaa');
+			$$('#' + tafsili + '_desc').autocomplete('option', 'source', filtered);
+			
 		}
 		
 	   /* There is no point in giving paramter for this method
@@ -77,7 +85,7 @@
 		*  This approach is a [Paradox]
 		*  I [Armin] took the path of paradox to reduce the number of changes (none-aggressive method)
 		*/
-		function fillDest(moeen, tafsili) {
+		/*function fillDest(moeen, tafsili) {
 			var moeenId = $$('#hesabMoeen_id').val();
 	
 			if (moeenId == null || moeenId == '')
@@ -87,7 +95,7 @@
 			$$('#hesabKolName').val(kolMap.label);
 			
 				//clearAutocomplete(tafsili);
-			tafsiliMap = moeenTafsiliMap[moeenId];
+			tafsiliMap = moeenTafsiliOneMap[moeenId];
 
 			//alert("unitMap : "+unitMap.length);
 			var filtered = tafsiliMap;
@@ -106,6 +114,6 @@
 			var elShenavar = '#hesabShenavar';
 			var childMap = moeenTafsiliChildMap[tafsiliId];	
 			$$(elShenavar + '_desc').autocomplete('option', 'source', childMap);
-		}
+		}*/
 	</script>
 </html>

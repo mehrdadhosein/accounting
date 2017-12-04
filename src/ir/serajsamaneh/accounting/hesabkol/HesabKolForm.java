@@ -320,8 +320,8 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		try{
 			ContactHesabEntity contactHesabEntity = getContactHesabService().getContactHesabByContactId(contactId, getCurrentUserActiveSaalMaali());
 			
-			HesabTafsiliEntity hesabShenavar = contactHesabEntity.getHesabShenavar();
-			HesabTafsiliEntity hesabTafsiliEntity = contactHesabEntity.getHesabTafsili();
+			HesabTafsiliEntity hesabShenavar = contactHesabEntity.getHesabTafsiliTwo();
+			HesabTafsiliEntity hesabTafsiliEntity = contactHesabEntity.getHesabTafsiliOne();
 			HesabMoeenEntity hesabMoeenEntity = contactHesabEntity.getHesabMoeen();
 			Long hesabTafsiliId = hesabTafsiliEntity!=null ? hesabTafsiliEntity.getId() : null;
 			Long hesabShenavarId = hesabShenavar!=null ? hesabShenavar.getId() : null;
@@ -423,7 +423,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		try{
 			ContactHesabEntity contactHesabEntity = getContactHesabService().getContactHesabByContactId(getOrganService().load(organId).getContact().getId(), getCurrentUserActiveSaalMaali());
 			
-			HesabTafsiliEntity hesabTafsiliEntity = contactHesabEntity.getHesabTafsili();
+			HesabTafsiliEntity hesabTafsiliEntity = contactHesabEntity.getHesabTafsiliOne();
 			HesabMoeenEntity hesabMoeenEntity = contactHesabEntity.getHesabMoeen();
 			
 			if(hesabTafsiliEntity!=null){

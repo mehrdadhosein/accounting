@@ -55,7 +55,7 @@ public class ContactHesabService extends
 		ContactHesabEntity contactHesabEntity = load(null, localFilter, FlushMode.MANUAL);
 		if(contactHesabEntity == null)
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_NoTafsiliDefinedFor",contactEntity));
-		return contactHesabEntity.getHesabTafsili();
+		return contactHesabEntity.getHesabTafsiliOne();
 	}
 
 	public ContactHesabEntity getContactHesabByContactId(Long contactId, SaalMaaliEntity saalMaaliEntity) {
@@ -92,10 +92,10 @@ public class ContactHesabService extends
 	@Override
 	@Transactional
 	public void save(ContactHesabEntity entity) {
-		if(entity.getHesabTafsili()!=null && entity.getHesabTafsili().getId()!=null){
+		if(entity.getHesabTafsiliOne()!=null && entity.getHesabTafsiliOne().getId()!=null){
 			Map<String, Object> localFilter = new HashMap<String, Object>();
 			try{
-				localFilter.put("hesabTafsili.id@eq", entity.getHesabTafsili().getId());
+				localFilter.put("hesabTafsiliOne.id@eq", entity.getHesabTafsiliOne().getId());
 				localFilter.put("saalMaali.id@eq", entity.getSaalMaali().getId());
 				checkUniqueNess(entity, localFilter, false, FlushMode.MANUAL);
 			}catch(DuplicateException e){
@@ -106,8 +106,8 @@ public class ContactHesabService extends
 		
 		super.save(entity);
 		ContactEntity contact = entity.getContact();
-		if(entity.getHesabTafsili()!=null && entity.getHesabTafsili().getId()!=null)
-			contact.setHesabTafsili(entity.getHesabTafsili().getDesc());
+		if(entity.getHesabTafsiliOne()!=null && entity.getHesabTafsiliOne().getId()!=null)
+			contact.setHesabTafsili(entity.getHesabTafsiliOne().getDesc());
 		
 		if(entity.getHesabMoeen()!=null && entity.getHesabMoeen().getId()!=null)
 			contact.setHesabMoeen(entity.getHesabMoeen().getDesc());
@@ -138,7 +138,7 @@ public class ContactHesabService extends
 		contactHesabEntity.setAccountingMarkazTemplate(accountingMarkazTemplate);
 		contactHesabEntity.setContact(contact);
 		contactHesabEntity.setHesabMoeen(hesabMoeen);
-		contactHesabEntity.setHesabTafsili(hesabTafsili);
+		contactHesabEntity.setHesabTafsiliOne(hesabTafsili);
 		contactHesabEntity.setSaalMaali(saalMaali);
 		save(contactHesabEntity);
 		return contactHesabEntity;
