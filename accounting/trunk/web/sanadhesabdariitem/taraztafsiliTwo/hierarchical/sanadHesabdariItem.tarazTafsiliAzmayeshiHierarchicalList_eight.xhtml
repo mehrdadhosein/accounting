@@ -72,6 +72,15 @@
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliOneName}" />
 				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_Two']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliTwoDesc}" />
+				</p:column>
+				
 								
 				<p:column>
 					<f:facet name="header">
@@ -216,8 +225,8 @@
 					</f:facet>
 
 					<h:outputLink rendered="#{item.hesabTafsiliOneID!=null}"
-						onclick="openTarazTafsiliTwo('#{item.hesabTafsiliOneID}'); return false;">
-						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarTafsiliTwo']}" />
+						onclick="openTarazShenavar('#{item.hesabTafsiliOneID}'); return false;">
+						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazShenavar']}" />
 					</h:outputLink>
 				</p:column>
 			</p:dataTable>
@@ -226,13 +235,13 @@
 /* <![CDATA[ */
 
              
- function openTarazTafsiliTwo(hesabTafsiliEntityId){
+ function openTarazShenavar(hesabTafsiliEntityId){
 	//alert(hesabKolId);
 	fromDate = document.getElementById('aztarikhExample').value;
 	toDate = document.getElementById('tatarikhExample').value;	
 	moeens = document.getElementById('moeens_id').value;
 	selectedOrganId = document.getElementById('organ').value;
-	var url = '../../taraztafsiliTwo/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
+	var url = '../../tarazshenavar/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
 	popupFullscreen(url, 'tarazShenavar');
 }
 

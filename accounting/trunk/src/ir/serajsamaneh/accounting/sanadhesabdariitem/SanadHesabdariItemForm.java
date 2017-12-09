@@ -678,6 +678,15 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		return tarazTafsiliAzmayeshi;
 	}
 
+	public List<SanadHesabdariItemVO> getTarazTafsiliAzmayeshiTwo() {
+		System.out.println(FacesContext.getCurrentInstance().getRenderResponse());
+		if(!FacesContext.getCurrentInstance().getRenderResponse())
+			return new ArrayList<SanadHesabdariItemVO>();
+		setSearchAction(true);
+		List<SanadHesabdariItemVO> tarazTafsiliAzmayeshiTwo = extractTarazTafsiliAzmayeshiTwo(getCurrentOrgan());
+		return tarazTafsiliAzmayeshiTwo;
+	}
+	
 
 	public List<SanadHesabdariItemVO> getHierarchicalTarazTafsilAzmayeshi() {
 		if(!FacesContext.getCurrentInstance().getRenderResponse())
@@ -745,6 +754,18 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			totalMandehBestankar += sanadHesabdariItemEntity.getMandehBestankar();		
 		}
 		return tarazTafsiliAzmayeshi;
+	}
+	
+	private List<SanadHesabdariItemVO> extractTarazTafsiliAzmayeshiTwo(OrganEntity organEntity) {
+		populateFilterFromRequest();
+		List<SanadHesabdariItemVO> tarazTafsiliAzmayeshiTwo = getMyService().getTarazTafsiliAzmayeshiTwo(getSelectedSaalMaali(), getFromDate(), getToDate(), getHesabKolIds(),getMoeenIds(), getTafsiliIds(), getTafsiliTwoIds(), getAccountingMarkazIds(),null,organEntity, getFromSerial(), getToSerial(), getSanadhesabdariItemFilter(), getDisplayZeroMandehInTaraz());
+		for (SanadHesabdariItemVO sanadHesabdariItemEntity : tarazTafsiliAzmayeshiTwo) {
+			totalBedehkar += sanadHesabdariItemEntity.getBedehkar();
+			totalBestankar += sanadHesabdariItemEntity.getBestankar();
+			totalMandehBedehkar += sanadHesabdariItemEntity.getMandehBedehkar();
+			totalMandehBestankar += sanadHesabdariItemEntity.getMandehBestankar();		
+		}
+		return tarazTafsiliAzmayeshiTwo;
 	}
 	
 //	private List<SanadHesabdariItemVO> extractTarazShenavarAzmayeshi(OrganEntity organEntity, Integer level) {

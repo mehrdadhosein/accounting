@@ -189,8 +189,8 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 	}
 	
 	public String getHesabTafsiliTwoDesc() {
-		if(getHesabTafsili()!=null)
-			return getHesabTafsili().getDesc();
+		if(getHesabTafsiliTwo()!=null)
+			return getHesabTafsiliTwo().getDesc();
 		return "";
 	}
 	

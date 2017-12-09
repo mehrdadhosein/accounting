@@ -31,7 +31,6 @@
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center">
 
-
 								
 				<p:column>
 					<f:facet name="header">
@@ -72,7 +71,16 @@
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliOneName}" />
 				</p:column>
+
 								
+				<p:column>
+					<f:facet name="header">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_Two']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliTwoDesc}" />
+				</p:column>
+				
 				<p:column>
 					<f:facet name="header">
 						<h:outputText styleClass="headerCellClass"
@@ -136,22 +144,6 @@
 					</f:facet>					
 				</p:column>
 
-								
-				<p:column>
-					<f:facet name="header">
-						<h:outputText styleClass="headerCellClass"
-							value="#{messages['SanadHesabdariItem_operationSummaryBedehkar']}" />
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.operationSummaryBedehkar}" converter="seraj.converter.accountingNumberFormatter"   />
-				</p:column>
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputText styleClass="headerCellClass"
-							value="#{messages['SanadHesabdariItem_operationSummaryBestankar']}" />
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.operationSummaryBestankar}" converter="seraj.converter.accountingNumberFormatter"   />
-				</p:column>
 
 				<p:column>
 					<f:facet name="header">
@@ -197,7 +189,7 @@
 					<f:facet name="footer">
 						<h:outputText value="#{owner.totalMandehBestankar}"    converter="seraj.converter.accountingNumberFormatter" />
 					</f:facet>						
-				</p:column>			
+				</p:column>
 				<p:column styleClass="action">
 
 					<f:facet name="header">
@@ -216,8 +208,8 @@
 					</f:facet>
 
 					<h:outputLink rendered="#{item.hesabTafsiliOneID!=null}"
-						onclick="openTarazTafsiliTwo('#{item.hesabTafsiliOneID}'); return false;">
-						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarTafsiliTwo']}" />
+						onclick="openTarazShenavar('#{item.hesabTafsiliOneID}'); return false;">
+						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazShenavar']}" />
 					</h:outputLink>
 				</p:column>
 			</p:dataTable>
@@ -226,13 +218,13 @@
 /* <![CDATA[ */
 
              
- function openTarazTafsiliTwo(hesabTafsiliEntityId){
+ function openTarazShenavar(hesabTafsiliEntityId){
 	//alert(hesabKolId);
 	fromDate = document.getElementById('aztarikhExample').value;
 	toDate = document.getElementById('tatarikhExample').value;	
 	moeens = document.getElementById('moeens_id').value;
 	selectedOrganId = document.getElementById('organ').value;
-	var url = '../../taraztafsiliTwo/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
+	var url = '../../tarazshenavar/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
 	popupFullscreen(url, 'tarazShenavar');
 }
 
@@ -258,7 +250,7 @@ function openDaftarTafsili(hesabTafsiliEntityId){
 			image="/images/print.png"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['common_print']}">
-			<f:setPropertyActionListener value="eight"
+			<f:setPropertyActionListener value="six"
 				target="#{owner.columnsCount}" />			
 		</h:commandButton>
 		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_two.jsf" styleClass=" gwt-Button"
@@ -280,7 +272,7 @@ function openDaftarTafsili(hesabTafsiliEntityId){
 			image="/images/buttons/btn_eight_column.png"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['common_print']}">
-		</h:commandButton>			
+		</h:commandButton>		
 	</ui:define>
 </ui:composition>
 </html>
