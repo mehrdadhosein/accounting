@@ -15,7 +15,7 @@
 
 	<ui:param name="title" value="tarazAzmayeshiTafsili" />
 	<ui:param name="owner" value="#{sanadHesabdariItem}" />
-	<ui:param name="searchpage" value="/sanadhesabdariitem/taraztafsili/hierarchical/tarazAzmayeshi.hierarchicalExampleForm.xhtml" />
+	<ui:param name="searchpage" value="/sanadhesabdariitem/taraztafsili/tarazAzmayeshi.exampleForm.xhtml" />
 	<ui:define name="fixsection">
 
 	</ui:define>
@@ -27,7 +27,7 @@
 			reflow="true"
 			 dir="rtl"
 			 id="sanadHesabdariItems"
-				value="#{sanadHesabdariItem.hierarchicalTarazTafsilAzmayeshi}" headerClass="header"
+				value="#{sanadHesabdariItem.tarazTafsiliAzmayeshi}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center">
 
@@ -72,6 +72,15 @@
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliOneName}" />
 				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+							<h:outputText styleClass="headerCellClass"
+								value="#{messages['HesabTafsili_Two']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliTwoDesc}" />
+				</p:column>
+				
 								
 				<p:column>
 					<f:facet name="header">
@@ -216,8 +225,8 @@
 					</f:facet>
 
 					<h:outputLink rendered="#{item.hesabTafsiliOneID!=null}"
-						onclick="openTarazTafsiliTwo('#{item.hesabTafsiliOneID}'); return false;">
-						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarTafsiliTwo']}" />
+						onclick="openTarazShenavar('#{item.hesabTafsiliOneID}'); return false;">
+						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazShenavar']}" />
 					</h:outputLink>
 				</p:column>
 			</p:dataTable>
@@ -226,13 +235,15 @@
 /* <![CDATA[ */
 
              
- function openTarazTafsiliTwo(hesabTafsiliEntityId){
+ function openTarazShenavar(hesabTafsiliEntityId){
 	//alert(hesabKolId);
 	fromDate = document.getElementById('aztarikhExample').value;
 	toDate = document.getElementById('tatarikhExample').value;	
 	moeens = document.getElementById('moeens_id').value;
-	selectedOrganId = document.getElementById('organ').value;
-	var url = '../../taraztafsiliTwo/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
+	fromSerial=document.getElementById('azserialExample').value;
+	toSerial=document.getElementById('taserialExample').value;
+	
+	var url = '../tarazshenavar/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_eight.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;	
 	popupFullscreen(url, 'tarazShenavar');
 }
 
@@ -242,8 +253,10 @@ function openDaftarTafsili(hesabTafsiliEntityId){
 	toDate = document.getElementById('tatarikhExample').value;	
 	tafsiliTwoIds = document.getElementById('tafsiliTwoIds_id').value;	
 	moeens = document.getElementById('moeens_id').value;	
-	selectedOrganId = document.getElementById('organ').value;
-	var url = '../../daftar/hierarchical/sanadHesabdariItem.tafsiliHierarchicalList.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&tafsiliTwoIds='+tafsiliTwoIds+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;
+	fromSerial=document.getElementById('azserialExample').value;
+	toSerial=document.getElementById('taserialExample').value;
+	
+	var url = '../daftar/sanadHesabdariItem.tafsiliLocalList.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&tafsiliTwoIds='+tafsiliTwoIds+'&fromDate='+fromDate+'&toDate='+toDate+'&fromSerial='+fromSerial+'&toSerial='+toSerial;
 	popupFullscreen(url, 'daftartarazTafsili');
 }
 /* ]]> */
@@ -254,29 +267,29 @@ function openDaftarTafsili(hesabTafsiliEntityId){
 					styleClass=" gwt-Button" value="#{messages['common_excel']}"
 					rendered="#{owner.exportable}" image="/images/excelBtn.png" />
 
-		<h:commandButton action="#{owner.printHierarchicalTarazTafsiliAzmayeshi}" styleClass=" gwt-Button"
+		<h:commandButton action="#{owner.printLocalTarazTafsiliAzmayeshi}" styleClass=" gwt-Button"
 			image="/images/print.png"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['common_print']}">
 			<f:setPropertyActionListener value="eight"
 				target="#{owner.columnsCount}" />			
 		</h:commandButton>
-		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_two.jsf" styleClass=" gwt-Button"
+		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf" styleClass=" gwt-Button"
 			image="/images/buttons/btn_two_column.png"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['common_print']}">
 		</h:commandButton>		
-		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_four.jsf" styleClass=" gwt-Button"
+		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_four.jsf" styleClass=" gwt-Button"
 			image="/images/buttons/btn_four_column.png"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['common_print']}">
 		</h:commandButton>		
-		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_six.jsf" styleClass=" gwt-Button"
+		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_six.jsf" styleClass=" gwt-Button"
 			image="/images/buttons/btn_six_column.png"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['common_print']}">
 		</h:commandButton>		
-		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf" styleClass=" gwt-Button"
+		<h:commandButton action="sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_eight.jsf" styleClass=" gwt-Button"
 			image="/images/buttons/btn_eight_column.png"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['common_print']}">

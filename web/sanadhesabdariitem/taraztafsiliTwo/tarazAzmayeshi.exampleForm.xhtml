@@ -19,28 +19,17 @@
 			columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
 			styleClass="inputForm  ui-panelgrid-blank">
 
-				<h:panelGroup>
-					<h:outputLabel for="organ"
-						value="#{messages['Organ_title']}" /> : 
-				</h:panelGroup>
 
-				<t:selectOneMenu id="organ" styleClass="selectOneMenu" 
-					value="#{owner.selectedOrganId}" converter="javax.faces.Long">
-					<f:selectItems value="#{organ.hierarchicalList}" />
-				</t:selectOneMenu>
-				
 				<h:panelGroup>
-					<h:outputText styleClass="required" value=" " />
 					<h:outputLabel for="hesabKolIds"
-						value="#{messages['HesabMoeen_hesabKol']}" /> : 
+						value="#{messages['HesabKol_list']}" /> : 
 				</h:panelGroup>
-
 				<h:panelGroup>
 					<custom:autocomplete-multiple id="hesabKolIds" width="220px"
 						selectedIds="#{owner.hesabKolIds}" entity="HesabKol"
 						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
 				</h:panelGroup>
-
+				
 				<h:panelGroup>
 					<h:outputLabel for="moeens"
 						value="#{messages['HesabMoeen_list']}" /> : 
@@ -50,6 +39,7 @@
 						selectedIds="#{owner.moeenIds}" entity="HesabMoeen"
 						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
 				</h:panelGroup>
+
 
 				<h:panelGroup>
 					<h:outputLabel 
@@ -90,7 +80,6 @@
 						</p:inputText>
 				</h:panelGroup>
 				
-
 							
 				<h:panelGroup>
 					<h:outputLabel for="tafsiliTwoIds"
@@ -101,7 +90,7 @@
 						selectedIds="#{owner.tafsiliTwoIds}" entity="HesabTafsili"
 						property="code, name" ajax="false" extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=2"/>
 				</h:panelGroup>
-																
+									
 				<h:panelGroup>
 					<h:outputLabel  for="tarikhAzTa"
 						value="#{messages['SanadHesabdari_tarikhSanad']}" /> : 
@@ -155,7 +144,6 @@
 							converter="javax.faces.Long">
 						</p:inputText>
 				</h:panelGroup>
-	
 
 				<h:panelGroup>
 					<h:outputLabel for="displayZeroMandehInTaraz"
@@ -170,7 +158,7 @@
 				</h:panelGroup>
 				<h:selectBooleanCheckbox id="beforeClosingAccounts" label="beforeClosingAccounts"
 					value="#{owner.beforeClosingAccounts}" />
-														
+										
 		</p:panelGrid>
 		<t:div>
 		<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel"   styleClass=" gwt-Button"  update="listPanel"  onclick="showLoading()"
@@ -185,35 +173,34 @@
 </p:panel>
 </h:panelGroup>
 <script>
+	//Initial load of page
+	function tafsilisrendered(){
+		var tafsilis = getURLParameters('tafsiliIds');
+		//alert(tafsilis);
+		populatetafsilis(tafsilis);
+		document.getElementById("tafsilis_id").value=tafsilis;
+	}
 
-//Initial load of page
-function tafsilisrendered(){
-	var tafsilis = getURLParameters('tafsiliIds');
-	//alert(tafsilis);
-	populatetafsilis(tafsilis);
-	document.getElementById("tafsilis_id").value=tafsilis;
-}
-
-function moeensrendered(){
-	var moeens = getURLParameters('moeenIds');
-	//alert(moeens);
-	populatemoeens(moeens);
-	document.getElementById("moeens_id").value=moeens;
-}
-
-function hesabKolIdsrendered(){
-	var hesabKolIds = getURLParameters('hesabKolIds');
-	//alert(hesabKolIds);
-	populatehesabKolIds(hesabKolIds);
-	document.getElementById("hesabKolIds_id").value=hesabKolIds;
-}
-
-function tafsiliTwoIdsrendered(){
-	var tafsiliTwoIds = getURLParameters('tafsiliTwoIds');
-	//alert(tafsiliTwoIds);
-	populatetafsiliTwoIds(tafsiliTwoIds);
-	document.getElementById("tafsiliTwoIds_id").value=tafsiliTwoIds;
-}
+	function moeensrendered(){
+		var moeens = getURLParameters('moeenIds');
+		//alert(moeens);
+		populatemoeens(moeens);
+		document.getElementById("moeens_id").value=moeens;
+	}
+	
+	function hesabKolIdsrendered(){
+		var hesabKolIds = getURLParameters('hesabKolIds');
+		//alert(hesabKolIds);
+		populatehesabKolIds(hesabKolIds);
+		document.getElementById("hesabKolIds_id").value=hesabKolIds;
+	}
+	
+	function tafsiliTwoIdsrendered(){
+		var tafsiliTwoIds = getURLParameters('tafsiliTwoIds');
+		//alert(tafsiliTwoIds);
+		populatetafsiliTwoIds(tafsiliTwoIds);
+		document.getElementById("tafsiliTwoIds_id").value=tafsiliTwoIds;
+	}
 
 </script>
 </html>

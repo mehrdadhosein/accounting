@@ -117,29 +117,7 @@
 						valueClick="../sanadhesabdariitem/daftar/sanadHesabdariItem.kolSummaryLocalList.jsf"
 						permission="sanadHesabdariItem.kolLocalList" icon="BankTransfer-folder-1
 						" />
-		
-					<MenuItem value="سلسله مراتبی" permission=""
-						icon="BusinessSeoElements-hierarchical-structure
-						">
-						<MenuItem id="sanadHesabdariItemdaftarRooznamehHierarchicalList" value="دفتر روزنامه"
-							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.daftarRooznamehHierarchicalList.jsf"
-							permission="sanadHesabdariItem.daftarRooznamehHierarchicalList" icon="images/menu/rozname-icon.png" />
-						<MenuItem id="sanadHesabdariItemaccountingMarkazHierarchicalList" value="دفتر مرکز"
-							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.accountingMarkazHierarchicalList.jsf"
-							permission="sanadHesabdariItem.accountingMarkazHierarchicalList" icon="images/menu/rozname-icon.png" />
-						<!-- MenuItem id="sanadHesabdariItemshenavarHierarchicalList" value="دفتر شناور"
-							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.shenavarHierarchicalList.jsf"
-							permission="sanadHesabdariItem.tafsiliHierarchicalList" icon="images/menu/rozname-icon.png" /-->
-						<MenuItem id="sanadHesabdariItemtafsiliHierarchicalList" value="دفتر تفصیلی"
-							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.tafsiliHierarchicalList.jsf"
-							permission="sanadHesabdariItem.tafsiliHierarchicalList" icon="images/menu/rozname-icon.png" />
-						<MenuItem id="sanadHesabdariItemmoeenHierarchicalList" value="دفتر معین"
-							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.moeenHierarchicalList.jsf"
-							permission="sanadHesabdariItem.moeenHierarchicalList" icon="images/menu/daftarMoeen-icon.png" />
-						<MenuItem id="sanadHesabdariItemkolHierarchicalList" value="دفتر کل"
-							valueClick="../sanadhesabdariitem/daftar/hierarchical/sanadHesabdariItem.kolHierarchicalList.jsf"
-							permission="sanadHesabdariItem.kolHierarchicalList" icon="images/menu/totalBook-icon.png" />
-					</MenuItem>
+
 										
 				</MenuItem>
 				<MenuItem value="تراز کل آزمایشی" permission=""
@@ -158,21 +136,6 @@
 						valueClick="../sanadhesabdariitem/tarazkol/sanadHesabdariItem.tarazKolAzmayeshiLocalList_eight.jsf"
 						permission="tarazKolAzmayeshi.eight" icon="Touchscreen-push-screen"/>
 
-						<MenuItem value="تراز کل آزمایشی سلسله مراتبی" permission=""
-							icon="Touchscreen-movement">
-							<MenuItem id="sanadHesabdariItemtarazKolAzmayeshiHierarchicalList_two" value="دو ستونی" pagetitle="تراز کل آزمایشی دو ستونی"
-								valueClick="../sanadhesabdariitem/tarazkol/hierarchical/sanadHesabdariItem.tarazKolAzmayeshiHierarchicalList_two.jsf"
-								permission="tarazKolAzmayeshi.two" icon="images/menu/report.png"/>
-							<MenuItem id="sanadHesabdariItemtarazKolAzmayeshiHierarchicalList_four" value="چهار ستونی" pagetitle="تراز کل آزمایشی چهار ستونی"
-								valueClick="../sanadhesabdariitem/tarazkol/hierarchical/sanadHesabdariItem.tarazKolAzmayeshiHierarchicalList_four.jsf"
-								permission="tarazKolAzmayeshi.four" icon="images/menu/report.png"/>
-							<MenuItem id="sanadHesabdariItemtarazKolAzmayeshiHierarchicalList_six" value="شش ستونی" pagetitle="تراز کل آزمایشی شش ستونی"
-								valueClick="../sanadhesabdariitem/tarazkol/hierarchical/sanadHesabdariItem.tarazKolAzmayeshiHierarchicalList_six.jsf"
-								permission="tarazKolAzmayeshi.six" icon="images/menu/report.png"/>
-							<MenuItem id="sanadHesabdariItemtarazKolAzmayeshiHierarchicalList_eight" value="هشت ستونی" pagetitle="تراز کل آزمایشی هشت ستونی"
-								valueClick="../sanadhesabdariitem/tarazkol/hierarchical/sanadHesabdariItem.tarazKolAzmayeshiHierarchicalList_eight.jsf"
-								permission="tarazKolAzmayeshi.eight" icon="images/menu/report.png"/>
-						</MenuItem>
 										
 				</MenuItem>
 				<MenuItem value="تراز معین آزمایشی" permission=""
@@ -190,22 +153,7 @@
 					<MenuItem id="sanadHesabdariItemtarazMoeenAzmayeshiLocalList_eight" value="هشت ستونی" pagetitle="تراز معین آزمایشی هشت ستونی"
 						valueClick="../sanadhesabdariitem/tarazmoeen/sanadHesabdariItem.tarazMoeenAzmayeshiLocalList_eight.jsf"
 						permission="tarazMoeinAzmayeshi.eight" icon="Touchscreen-push-screen"/>
-						
-						<MenuItem value="تراز معین آزمایشی سلسله مراتبی" permission=""
-							icon="Touchscreen-movement">
-							<MenuItem id="sanadHesabdariItemtarazMoeenAzmayeshiHierarchicalList_two" value="دو ستونی" pagetitle="تراز معین آزمایشی دو ستونی"
-								valueClick="../sanadhesabdariitem/tarazmoeen/hierarchical/sanadHesabdariItem.tarazMoeenAzmayeshiHierarchicalList_two.jsf"
-								permission="tarazMoeinAzmayeshi.two" icon="images/menu/report.png"/>
-							<MenuItem id="sanadHesabdariItemtarazMoeenAzmayeshiHierarchicalList_four" value="چهار ستونی" pagetitle="تراز معین آزمایشی چهار ستونی"
-								valueClick="../sanadhesabdariitem/tarazmoeen/hierarchical/sanadHesabdariItem.tarazMoeenAzmayeshiHierarchicalList_four.jsf"
-								permission="tarazMoeinAzmayeshi.four" icon="images/menu/report.png"/>
-							<MenuItem id="sanadHesabdariItemtarazMoeenAzmayeshiHierarchicalList_six" value="شش ستونی" pagetitle="تراز معین آزمایشی شش ستونی"
-								valueClick="../sanadhesabdariitem/tarazmoeen/hierarchical/sanadHesabdariItem.tarazMoeenAzmayeshiHierarchicalList_six.jsf"
-								permission="tarazMoeinAzmayeshi.six" icon="images/menu/report.png"/>
-							<MenuItem id="sanadHesabdariItemtarazMoeenAzmayeshiHierarchicalList_eight" value="هشت ستونی" pagetitle="تراز معین آزمایشی هشت ستونی"
-								valueClick="../sanadhesabdariitem/tarazmoeen/hierarchical/sanadHesabdariItem.tarazMoeenAzmayeshiHierarchicalList_eight.jsf"
-								permission="tarazMoeinAzmayeshi.eight" icon="images/menu/report.png"/>
-						</MenuItem>				
+			
 								
 				</MenuItem>
 				<MenuItem value="تراز تفصیلی آزمایشی" permission=""
@@ -223,21 +171,6 @@
 						valueClick="../sanadhesabdariitem/taraztafsili/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_eight.jsf"
 						permission="tarazTafsiliAzmayeshi.eight" icon="Touchscreen-push-screen"/>
 
-						<MenuItem value="تراز تفصیلی آزمایشی سلسله مراتبی" permission=""
-							icon="Touchscreen-movement">
-							<MenuItem id="sanadHesabdariItemtarazTafsiliAzmayeshiHierarchicalList_two" value="دو ستونی" pagetitle="تراز تفصیلی آزمایشی دو ستونی"
-								valueClick="../sanadhesabdariitem/taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_two.jsf"
-								permission="tarazTafsiliAzmayeshi.two" icon="Account-dual-chart"/>
-							<MenuItem id="sanadHesabdariItemtarazTafsiliAzmayeshiHierarchicalList_four" value="چهار ستونی" pagetitle="تراز تفصیلی آزمایشی چهار ستونی"
-								valueClick="../sanadhesabdariitem/taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_four.jsf"
-								permission="tarazTafsiliAzmayeshi.four" icon="images/menu/report.png"/>
-							<MenuItem id="sanadHesabdariItemtarazTafsiliAzmayeshiHierarchicalList_six" value="شش ستونی" pagetitle="تراز تفصیلی آزمایشی شش ستونی"
-								valueClick="../sanadhesabdariitem/taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_six.jsf"
-								permission="tarazTafsiliAzmayeshi.six" icon="images/menu/report.png"/>
-							<MenuItem id="sanadHesabdariItemtarazTafsiliAzmayeshiHierarchicalList_eight" value="هشت ستونی" pagetitle="تراز تفصیلی آزمایشی هشت ستونی"
-								valueClick="../sanadhesabdariitem/taraztafsili/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf"
-								permission="tarazTafsiliAzmayeshi.eight" icon="images/menu/report.png"/>
-						</MenuItem>
 										
 				</MenuItem>
 				<!-- MenuItem value="تراز شناور آزمایشی" permission=""
@@ -291,21 +224,6 @@
 						valueClick="../sanadhesabdariitem/tarazaccountingmarkaz/sanadHesabdariItem.tarazAccountingMarkazAzmayeshiLocalList_eight.jsf"
 						permission="tarazAccountingMarkazAzmayeshi.eight" icon="Touchscreen-push-screen"/>
 
-					<MenuItem value="تراز مرکز  آزمايشي سلسله مراتبی" permission=""
-						icon="Touchscreen-movement">
-						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazAzmayeshiHierarchicalList_two" value="دو ستوني" pagetitle="تراز مرکز آزمایشی دو ستونی"
-							valueClick="../sanadhesabdariitem/tarazaccountingmarkaz/hierarchical/sanadHesabdariItem.tarazAccountingMarkazAzmayeshiHierarchicalList_two.jsf"
-							permission="tarazAccountingMarkazAzmayeshi.two" icon="images/menu/report.png"/>
-						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazAzmayeshiHierarchicalList_four" value="چهار ستوني" pagetitle="تراز مرکز آزمایشی چهار ستونی"
-							valueClick="../sanadhesabdariitem/tarazaccountingmarkaz/hierarchical/sanadHesabdariItem.tarazAccountingMarkazAzmayeshiHierarchicalList_four.jsf"
-							permission="tarazAccountingMarkazAzmayeshi.four" icon="images/menu/report.png"/>
-						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazAzmayeshiHierarchicalList_six" value="شش ستوني" pagetitle="تراز مرکز آزمایشی شش ستونی"
-							valueClick="../sanadhesabdariitem/tarazaccountingmarkaz/hierarchical/sanadHesabdariItem.tarazAccountingMarkazAzmayeshiHierarchicalList_six.jsf"
-							permission="tarazAccountingMarkazAzmayeshi.six" icon="images/menu/report.png"/>
-						<MenuItem id="sanadHesabdariItemtarazAccountingMarkazAzmayeshiHierarchicalList_eight" value="هشت ستوني" pagetitle="تراز مرکز آزمایشی هشت ستونی"
-							valueClick="../sanadhesabdariitem/tarazaccountingmarkaz/hierarchical/sanadHesabdariItem.tarazAccountingMarkazAzmayeshiHierarchicalList_eight.jsf"
-							permission="tarazAccountingMarkazAzmayeshi.eight" icon="images/menu/report.png"/>
-					</MenuItem>	
 										
 				</MenuItem>		
 				<!-- MenuItem value="تراز مرکز شناور آزمايشي" permission=""

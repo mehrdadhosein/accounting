@@ -77,6 +77,15 @@
 
 				<p:column>
 					<f:facet name="header">
+						<h:outputText styleClass="headerCellClass"
+							value="#{messages['HesabTafsili_Two']}" />
+					</f:facet>
+					<h:outputText styleClass="CellClass"
+						value="#{item.hesabTafsiliTwoDesc}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
 						<p:commandLink action="#{owner.sort}" update="sanadHesabdariItems" onclick="showLoading();"
 							oncomplete="hideLoading();" styleClass="headerCellClass"
 							title="#{messages['SanadHesabdariItem_bedehkar']}">
@@ -143,8 +152,8 @@
 					</f:facet>
 
 					<h:outputLink rendered="#{item.hesabTafsiliOneID!=null}"
-						onclick="openTarazTafsiliTwo('#{item.hesabTafsiliOneID}'); return false;">
-						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarTafsiliTwo']}" />
+						onclick="openTarazShenavar('#{item.hesabTafsiliOneID}'); return false;">
+						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazShenavar']}" />
 					</h:outputLink>
 				</p:column>
 			</p:dataTable>
@@ -152,7 +161,7 @@
 		<script>
 			/* <![CDATA[ */
 
-			function openTarazTafsiliTwo(hesabTafsiliEntityId) {
+			function openTarazShenavar(hesabTafsiliEntityId) {
 				//alert(hesabKolId);
 				fromDate = document.getElementById('aztarikhExample').value;
 				toDate = document.getElementById('tatarikhExample').value;
@@ -160,7 +169,7 @@
 				fromSerial=document.getElementById('azserialExample').value;
 				toSerial=document.getElementById('taserialExample').value;
 							
-				var url = '../taraztafsiliTwo/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf?searchAction=true&moeenIds='
+				var url = '../tarazshenavar/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList_two.jsf?searchAction=true&moeenIds='
 						+ moeens
 						+ '&tafsiliIds='
 						+ hesabTafsiliEntityId

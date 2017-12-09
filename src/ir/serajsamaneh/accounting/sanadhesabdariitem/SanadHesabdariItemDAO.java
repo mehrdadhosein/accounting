@@ -87,6 +87,28 @@ public class SanadHesabdariItemDAO  extends BaseHibernateDAO<SanadHesabdariItemE
 	}
 	
 	@Transactional(readOnly=true)
+	public List<Object[]> getTarazTafsiliAzmayeshiTwo(Map<String,Object> filter) {
+		
+		Criteria criteria = getEmptyCriteria();
+		Map<String, String> aliasMap = addFilterCriteria(filter, criteria);
+		
+		String tafsiliId = newCreateAlias(criteria, aliasMap, "hesabTafsiliTwo.id", JoinType.INNER_JOIN /*CriteriaSpecification.INNER_JOIN*/);
+		String tafsiliCode = newCreateAlias(criteria, aliasMap, "hesabTafsiliTwo.code", JoinType.INNER_JOIN /*CriteriaSpecification.INNER_JOIN*/);		
+		
+		ProjectionList projections = Projections.projectionList();
+		projections.add(Projections.groupProperty(tafsiliId));
+		projections.add(Projections.groupProperty(tafsiliCode));
+		projections.add(Projections.sum("bestankar"));
+		projections.add(Projections.sum("bedehkar"));
+		
+		criteria.setProjection(projections);
+		criteria.addOrder(Order.asc(tafsiliCode));
+		
+		List<Object[]> list = criteria.list();
+		return list;
+	}
+	
+	@Transactional(readOnly=true)
 	public List<Object[]> getTarazShenavarAzmayeshi(Map<String,Object> filter) {
 		
 		Criteria criteria = getEmptyCriteria();
