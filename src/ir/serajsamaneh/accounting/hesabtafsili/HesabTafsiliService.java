@@ -420,8 +420,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			filter.put("sanadHesabdari.state@neq", SanadStateEnum.EBTAL);
 			filter.put("sanadHesabdari.saalMaali.id@eq", entity.getSaalMaali().getId());
 			filter.put("hesabTafsili.id@eq", entity.getId());
-			filter.put("articleTafsili.hesabTafsili.id@eq", hesabTafsiliEntity.getId());
-			filter.put("articleTafsili.level@eq", 1);
+			filter.put("hesabTafsiliTwo.id@eq", hesabTafsiliEntity.getId());
+
 			Integer rowCount = getSanadHesabdariItemService().getRowCount(null,filter);
 			if(rowCount>0)
 				throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_childIsUsedInSomeArticles",hesabTafsiliEntity));
