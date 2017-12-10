@@ -42,7 +42,7 @@
 					<h:outputText styleClass="required" value="* " />
 					<h:outputLabel for="level" value="#{messages['HesabTafsili_level']}" /> :  
 				</h:panelGroup>
-				<p:selectOneMenu id="level" value="#{hesabTafsili.entity.level}"  converter="javax.faces.Integer"
+				<p:selectOneMenu id="level" value="#{hesabTafsili.entity.level}" widgetVar="hesabTafsiliLevelWidget"  converter="javax.faces.Integer" onchange="changeLevel(this.value);"
 					label="#{messages['HesabTafsili_level']}">
 					<p:ajax listener="#{hesabTafsili.handleChangelevel}" update="hesabClassification" />
 					<f:selectItem itemLabel="-------" itemValue=""/>
@@ -91,14 +91,14 @@
 						property="code, name" ajax="false" extraParams="isHierarchical=true"/>
 				</h:panelGroup>
 
-				<h:panelGroup rendered="false">
+				<h:panelGroup rendered="true">
 					<h:outputLabel for="childTafsilies"
 						value="#{messages['HesabTafsili_childs']}" /> : 
 				</h:panelGroup>
-				<h:panelGroup rendered="false">
+				<h:panelGroup rendered="true">
 					<custom:autocomplete-multiple id="childTafsilies" width="220px"
 						selectedIds="#{hesabTafsili.childTafsiliIds}" entity="HesabTafsili"
-						property="code, name" ajax="false" extraParams="isCurrentOrgan=true&amp;isShenavar=true"/>
+						property="code, name" ajax="false" extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=#{hesabTafsili.entity.level}"/>
 				</h:panelGroup>
 
 				<h:panelGroup rendered="false">
@@ -120,6 +120,40 @@
 
 			</p:panelGrid>
 		</p:panel>
+		<script>
+		/* <![CDATA[ */
+		var hesabTafsilis;
+		$$(function() {
+			//alert(PF('hesabTafsiliLevelWidget').getSelectedValue());
+			//populateTafsilis(PF('hesabTafsiliLevelWidget').getSelectedValue());
+		});
+		 
+		 function changeLevel(level){
+		 		$$('#childTafsilies_div').empty();
+				$$('#childTafsilies_id').val('');
+				populateTafsilis(level);
+		 }
+		 function populateTafsilis(level){
+				debugger;
+				alert('level : '+level);
+			 	if(level =='' || level == undefined)
+			 		render('tafsilies', {}, 0);
+				var intLevel = parseInt(level)+parseInt(1);
+				$$.ajax({
+					  url: '${request.contextPath}/entities?entity=HesabTafsili&property=desc&all=true&autocomplete=true&isHierarchical=true&tafsiliLevel='+intLevel,
+					  cache: false,
+					  success: function(result){
+					    render('childTafsilies', result, 0);
+					  },
+					  error: function(jqXHR, textStatus, errorThrown){
+							alert(errorThrown);
+						}
+				});
+			 
+		 }
+			/* ]]> */
+		</script>		
+		
 	</ui:define>
 	<ui:define name="buttonsection">
 		<h:commandButton styleClass=" gwt-Button"  rendered="#{owner.editable  and owner.isForMyOrgan}"
