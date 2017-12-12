@@ -27,7 +27,7 @@
 			reflow="true"
 			 dir="rtl"
 			 id="sanadHesabdariItems"
-				value="#{sanadHesabdariItem.hierarchicalTarazTafsilAzmayeshi}" headerClass="header"
+				value="#{sanadHesabdariItem.hierarchicalTarazTafsilAzmayeshiTwo}" headerClass="header"
 				var="item" rowClasses="RowOdd,RowEven" style="width: 97%"
 				align="center">
 
@@ -45,7 +45,7 @@
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabTafsili.code"
+							<f:setPropertyActionListener value="hesabTafsiliTwo.code"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
@@ -65,29 +65,13 @@
 							<h:graphicImage value="/images/icon_descending.gif"
 								rendered="#{!owner.sortType}"
 								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="hesabTafsili.name"
+							<f:setPropertyActionListener value="hesabTafsiliTwo.name"
 								target="#{owner.sortCol}" />
 						</p:commandLink>
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliOneName}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliTwoName}" />
 				</p:column>
 
-								
-				<p:column>
-					<f:facet name="header">
-							<h:outputText styleClass="headerCellClass"
-								value="#{messages['HesabTafsili_Two']}" />
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliTwoDesc}" />
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header">
-						<h:outputText styleClass="headerCellClass"
-							value="#{messages['SanadHesabdariItem_mandeh_bedehkar_ebtedaye_dore']}" />
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.mandehBedehkarEbtedayDore}"  converter="seraj.converter.accountingNumberFormatter"   />
-				</p:column>
 
 				<p:column>
 					<f:facet name="header">
@@ -190,28 +174,17 @@
 						<h:outputText value="#{owner.totalMandehBestankar}"    converter="seraj.converter.accountingNumberFormatter" />
 					</f:facet>						
 				</p:column>
-				<p:column styleClass="action">
+				<p:column styleClass="action" rendered="false">
 
 					<f:facet name="header">
 						<h:outputText value="" />
 					</f:facet>
 
-					<h:outputLink rendered="#{item.hesabTafsiliOneID!=null}"
-						onclick="openDaftarTafsili('#{item.hesabTafsiliOneID}'); return false;">
+					<h:outputLink rendered="#{item.hesabTafsiliTwoID!=null}"
+						onclick="openDaftarTafsili('#{item.hesabTafsiliTwoID}'); return false;">
 						<h:outputText 	value="#{messages['SanadHesabdariItem_daftarTafsili']}" />
 					</h:outputLink>
 				</p:column>				
-				<p:column styleClass="action">
-
-					<f:facet name="header">
-						<h:outputText value="" />
-					</f:facet>
-
-					<h:outputLink rendered="#{item.hesabTafsiliOneID!=null}"
-						onclick="openTarazShenavar('#{item.hesabTafsiliOneID}'); return false;">
-						<h:outputText 	value="#{messages['SanadHesabdariItem_tarazShenavar']}" />
-					</h:outputLink>
-				</p:column>
 			</p:dataTable>
 		</t:div>
 <script>
@@ -224,7 +197,7 @@
 	toDate = document.getElementById('tatarikhExample').value;	
 	moeens = document.getElementById('moeens_id').value;
 	selectedOrganId = document.getElementById('organ').value;
-	var url = '../../tarazshenavar/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
+	var url = '../../taraztafsiliTwo/hierarchical/sanadHesabdariItem.tarazTafsiliAzmayeshiHierarchicalList_eight.jsf?searchAction=true&moeenIds='+moeens+'&tafsiliIds='+hesabTafsiliEntityId+'&fromDate='+fromDate+'&toDate='+toDate+'&selectedOrganId='+selectedOrganId;	
 	popupFullscreen(url, 'tarazShenavar');
 }
 
