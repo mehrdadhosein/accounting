@@ -379,6 +379,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 			if(getEntity().getLevel()!=null) {
 				Map<String, Object> localFilter = new HashMap<>();
 				localFilter.put("level@eq", getEntity().getLevel());
+				localFilter.put("organ.id@eq", getCurrentOrgan().getId());
 				hesabClassifications = getHesabClassificationService().getDataList(localFilter);
 			}else
 				hesabClassifications = new ArrayList<>();
