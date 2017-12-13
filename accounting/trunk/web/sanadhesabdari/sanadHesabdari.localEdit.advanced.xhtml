@@ -38,19 +38,19 @@
 				<t:outputText id="tempSerial" label="tempSerial" style="width:250px"
 					value="#{sanadHesabdari.entity.tempSerial}" size="50" />
 
-				<h:panelGroup>
+				<h:panelGroup rendered="false">
 					<h:outputLabel for="primaryNumber"
 						value="#{messages['Sanad_atfNumber']}" /> : 
 				</h:panelGroup>
-				<p:inputText id="atfNumber" label="#{messages['Sanad_atfNumber']}"
+				<p:inputText id="atfNumber" label="#{messages['Sanad_atfNumber']}" rendered="false"
 					value="#{sanadHesabdari.entity.atfNumber}" style="width:200px" />
 
-				<h:panelGroup>
+				<h:panelGroup rendered="false">
 
 					<h:outputLabel for="farieNumber"
 						value="#{messages['Sanad_farieNumber']}" /> : 
 				</h:panelGroup>
-				<p:inputText id="farieNumber"
+				<p:inputText id="farieNumber" rendered="false"
 					label="#{messages['Sanad_farieNumber']}"
 					value="#{sanadHesabdari.entity.farieNumber}" style="width:200px" />
 
