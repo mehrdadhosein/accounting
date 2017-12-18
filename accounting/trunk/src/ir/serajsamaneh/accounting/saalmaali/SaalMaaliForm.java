@@ -152,14 +152,14 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 				return "";
 			return currentUserActiveSaalMaali.getNameWithOrgan();
 		}catch(NoActiveSaalMaaliFoundException e){
-			e.printStackTrace();
-			return "";
+			System.out.println(e.getDesc());
+			return SerajMessageUtil.getMessage("common_undefined");
 		}catch(NoOrganFoundException e){
-			System.out.println(e.getMessage()); 
-			return "";
+			System.out.println(e.getDesc()); 
+			return SerajMessageUtil.getMessage("common_undefined");
 		}catch(NoSaalMaaliFoundException  e){
-			e.printStackTrace();
-			return "";
+			System.out.println(e.getDesc());
+			return SerajMessageUtil.getMessage("common_undefined");
 		}
 	}
 	
@@ -191,5 +191,11 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 		getHesabKolService().copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
 		getHesabKolService().copycontactHesabsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrgan());
 		addInfoMessage("SUCCESSFUL_ACTION");
+	}
+	
+	@Override
+	public DataModel<SaalMaaliEntity> getLocalDataModel() {
+		setSearchAction(true);
+		return super.getLocalDataModel();
 	}
 }
