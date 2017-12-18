@@ -84,7 +84,7 @@ public class ContactHesabForm extends BaseAccountingForm<ContactHesabEntity, Lon
 
 	public DataModel<ContactHesabEntity> getActiveSaalMaaliDataModel() {
 		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
-		getFilter().put("hesabMoeen.id@isNotNullORhesabTafsili.id@isNotNullORhesabShenavar.id@isNotNull", Arrays.asList("ding","ding","ding"));  
+		getFilter().put("hesabMoeen.id@isNotNullORhesabTafsiliOne.id@isNotNullORhesabTafsiliTwo.id@isNotNull", Arrays.asList("ding","ding","ding"));  
 		return super.getDataModel();
 	}
 }

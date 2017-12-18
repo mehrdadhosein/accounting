@@ -113,7 +113,7 @@
 			</classification>
 		</classification>
 	
-		<classification id="5" name="گزارش اکسل">
+		<classification id="5" name="گزارش اکسل حسابداری">
 				<permission id="51" action="HesabGroup.export" name="گزارشگیری اکسل گروه حساب"
 					 role="1" />
 				<permission id="52" action="HesabKol.export" name="گزارشگیری اکسل حساب کل"

@@ -1,19 +1,5 @@
 package ir.serajsamaneh.accounting.base;
 
-import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
-import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
-import ir.serajsamaneh.accounting.hesabkol.HesabVO;
-import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
-import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
-import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariUtil;
-import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.base.BaseEntityForm;
-import ir.serajsamaneh.core.exception.NoOrganFoundException;
-import ir.serajsamaneh.core.util.XMLUtil;
-import serajcomponent.DateConverter;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -25,6 +11,20 @@ import javax.xml.transform.TransformerException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
+import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
+import ir.serajsamaneh.accounting.hesabkol.HesabVO;
+import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
+import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.core.base.BaseEntity;
+import ir.serajsamaneh.core.base.BaseEntityForm;
+import ir.serajsamaneh.core.exception.NoOrganFoundException;
+import ir.serajsamaneh.core.exception.SerajException;
+import ir.serajsamaneh.core.util.XMLUtil;
+import serajcomponent.DateConverter;
 
 public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Serializable>
 		extends BaseEntityForm<T, U> {
@@ -173,6 +173,19 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 		SaalMaaliEntity currentUserSaalMaaliEntity = getSaalMaaliService().getUserActiveSaalMaali(getCurrentOrgan(), /*getTopOrgan(),*/ getCurrentUser());
 		
 		return currentUserSaalMaaliEntity;
+	}
+	
+	public Boolean getIsCurrentUserActiveSaalMaaliConfigured() {
+		if(getCurrentOrgan().getId() == null)
+			return false;
+		try {
+			SaalMaaliEntity currentUserSaalMaaliEntity = getSaalMaaliService().getUserActiveSaalMaali(getCurrentOrgan(), /*getTopOrgan(),*/ getCurrentUser());
+		}catch(SerajException e) { 
+			System.out.println(e.getDesc());
+			return false;
+		}
+		
+		return true;
 	}
 	
 

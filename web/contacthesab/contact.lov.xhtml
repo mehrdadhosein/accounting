@@ -46,8 +46,8 @@
 				value="#{messages['ContactHesab_hesabTafsili']} : " />
 			<h:panelGroup>
 				<custom:lov id="hesabTafsili"
-					identity="#{contactHesab.filter['hesabTafsili.id@eq']}"
-					desc="#{contactHesab.example.hesabTafsili.desc}"
+					identity="#{contactHesab.filter['hesabTafsiliOne.id@eq']}"
+					desc="#{contactHesab.example.hesabTafsiliOne.desc}"
 					url="${request.contextPath}/hesabtafsili/hesabTafsili.lov.jsf?pId=hesabTafsili" />
 
 			</h:panelGroup>
@@ -87,7 +87,7 @@
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['ContactHesab_hesabTafsili']}" />
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.hesabTafsili}" />
+					<h:outputText styleClass="CellClass" value="#{item.hesabTafsiliOne}" />
 				</p:column>
 
 				<p:column>
