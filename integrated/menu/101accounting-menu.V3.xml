@@ -11,6 +11,10 @@
 					permission="accounting.config" icon="serajicon-settings-5" />
 				<MenuItem id="userConfig" value="دوره مالی فعال" valueClick="../accountingsystemconfig/userConfig.jsf"
 					permission="user.config" icon="serajicon-settings-1-1" />
+				<MenuItem id="accountsTemplatelocalList" value="تنظیم صدور خودکار سند"
+					permission="hotel.accounts.template" valueClick="../accountstemplate/accountsTemplate.localList.jsf"
+					icon="Ecommerce-invoice-12" />
+					
 			</MenuItem>
 
 			<MenuItem value="اطلاعات پایه" pagetitle="اطلاعات پایه"  separator="true"
