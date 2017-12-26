@@ -72,17 +72,17 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			AccountsTemplateEntity templateEntity,
 			boolean createArticleTafsili,
 			HesabTafsiliTemplateEntity hesabTafsiliTemplate,
-			HesabTafsiliTemplateEntity hesabShenavarTemplate,
+			HesabTafsiliTemplateEntity hesabTafsiliTemplateTwo,
 			AccountingMarkazEntity accountingMarkazEntity,
 			String description,
 			OrganEntity organEntity,
 			SaalMaaliEntity saalMaaliEntity) {
 		
 		HesabTafsiliEntity hesabTafsili = getHesabTafsiliByTemplate(hesabTafsiliTemplate, saalMaaliEntity);
-		HesabTafsiliEntity hesabShenavar = getHesabTafsiliByTemplate(hesabShenavarTemplate, saalMaaliEntity);
+		HesabTafsiliEntity hesabTafsiliTwo = getHesabTafsiliByTemplate(hesabTafsiliTemplateTwo, saalMaaliEntity);
 		
 		return createBedehkarArticle(bedehkarAmount, templateEntity, createArticleTafsili, accountingMarkazEntity,
-				description, saalMaaliEntity, new ArrayList<>(Arrays.asList(hesabTafsili, hesabShenavar)));
+				description, saalMaaliEntity, new ArrayList<>(Arrays.asList(hesabTafsili, hesabTafsiliTwo)));
 	}
 	
 	protected static SanadHesabdariItemEntity createBedehkarArticle(Double bedehkarAmount,
@@ -238,6 +238,10 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 				article.setHesabTafsili(hesbTafsilis.get(0));
 				article.setHesabTafsiliTwo(hesbTafsilis.get(1));
 			}
+			else{
+				article.setHesabTafsili(hesbTafsilis.get(0));
+				article.setHesabTafsiliTwo(hesbTafsilis.get(1));
+			}
 		}
 //		articleAttachTafsili(article, hesbTafsilis, createArticleTafsili);
 
@@ -386,6 +390,10 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			if(hesbTafsilis.size() == 1)
 				article.setHesabTafsili(hesbTafsilis.get(0));
 			else if(hesbTafsilis.size() == 2) {
+				article.setHesabTafsili(hesbTafsilis.get(0));
+				article.setHesabTafsiliTwo(hesbTafsilis.get(1));
+			}
+			else{
 				article.setHesabTafsili(hesbTafsilis.get(0));
 				article.setHesabTafsiliTwo(hesbTafsilis.get(1));
 			}
