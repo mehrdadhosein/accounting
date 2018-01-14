@@ -7,8 +7,6 @@ import ir.serajsamaneh.core.base.BaseEntity;
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
 
-import java.util.HashSet;
-
 
 
 /**
