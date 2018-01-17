@@ -98,7 +98,7 @@
 				<h:panelGroup rendered="true">
 					<custom:autocomplete-multiple id="childTafsilies" width="220px"
 						selectedIds="#{hesabTafsili.childTafsiliIds}" entity="HesabTafsili"
-						property="code, name" ajax="false" extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=#{hesabTafsili.entity.level}"/>
+						property="code, name" ajax="false" extraParams="isHierarchical=true&amp;&amp;tafsiliLevel=#{hesabTafsili.entity.level+1}"/>
 				</h:panelGroup>
 
 				<h:panelGroup rendered="false">
