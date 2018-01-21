@@ -748,10 +748,20 @@ public class SanadHesabdariService extends
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
 			HesabMoeenEntity hesabMoeen = getHesabMoeenService().load(sanadHesabdariItemEntity.getHesabMoeen().getId());
 			HesabTafsiliEntity hesabTafsili = null;
+			HesabTafsiliEntity hesabTafsiliTwo = null;
 			AccountingMarkazEntity accountingMarkazEntity = null;
 			
-			if(sanadHesabdariItemEntity.getHesabTafsili() != null && sanadHesabdariItemEntity.getHesabTafsili().getId()!=null)
+			if(sanadHesabdariItemEntity.getHesabTafsili() != null && sanadHesabdariItemEntity.getHesabTafsili().getId()!=null) {
 				hesabTafsili = getHesabTafsiliService().load(sanadHesabdariItemEntity.getHesabTafsili().getId());
+				if(hesabTafsili.getLevel().intValue() != 1)
+					throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_notApplicableForLevel",hesabTafsili,SerajMessageUtil.getMessage("common_one")));
+			}
+			
+			if(sanadHesabdariItemEntity.getHesabTafsiliTwo() != null && sanadHesabdariItemEntity.getHesabTafsiliTwo().getId()!=null) {
+				hesabTafsiliTwo = getHesabTafsiliService().load(sanadHesabdariItemEntity.getHesabTafsiliTwo().getId());
+				if(hesabTafsiliTwo.getLevel().intValue() != 2)
+					throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_notApplicableForLevel",hesabTafsiliTwo,SerajMessageUtil.getMessage("common_two")));
+			}
 			
 			if(sanadHesabdariItemEntity.getAccountingMarkaz() != null && sanadHesabdariItemEntity.getAccountingMarkaz().getId()!=null)
 				accountingMarkazEntity = getAccountingMarkazService().load(sanadHesabdariItemEntity.getAccountingMarkaz().getId());
@@ -770,8 +780,11 @@ public class SanadHesabdariService extends
 				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_accountingMarkazDoesnotBelongToMoeen",tempSerial+" ("+DateConverter.toShamsiDate(sanadHesabdariEntity.getTarikhSanad())+")",sanadHesabdariItemEntity.getDescription(),  accountingMarkazEntity.getDesc(), hesabMoeen.getDesc()));
 			
 			if(checkIfMustValidateTafsiliOneAndTwoAreRelated(organEntity)){
-				if(sanadHesabdariItemEntity.getHesabTafsiliTwo() != null && sanadHesabdariItemEntity.getHesabTafsiliTwo().getId()!=null) {
-					HesabTafsiliEntity hesabTafsiliTwo = getHesabTafsiliService().load(sanadHesabdariItemEntity.getHesabTafsiliTwo().getId());
+				if(hesabTafsiliTwo!=null) {
+//					HesabTafsiliEntity hesabTafsiliTwo = getHesabTafsiliService().load(sanadHesabdariItemEntity.getHesabTafsiliTwo().getId());
+//					if(hesabTafsiliTwo.getLevel().intValue() != 2)
+//						throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_notApplicableForLevel",hesabTafsiliTwo,SerajMessageUtil.getMessage("common_two")));
+
 					if(!hesabTafsiliTwo.getParents().contains(hesabTafsili))
 						throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_tafsiliShenavarDoesnotBelongToTafsili",hesabTafsiliTwo.getDesc(),hesabTafsiliTwo.getSaalMaali(), hesabTafsili.getDesc(), hesabTafsili.getSaalMaali()));
 
