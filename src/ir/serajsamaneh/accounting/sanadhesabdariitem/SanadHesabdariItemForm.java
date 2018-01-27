@@ -1927,8 +1927,10 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 		
 		List<Long> tafsiliTwoIds = getTafsiliTwoIds();
 		String hesabtafsiliTwoNames="";
-		for (Long tafsiliTwoId : tafsiliTwoIds) {
-			hesabtafsiliTwoNames=hesabtafsiliTwoNames+getHesabTafsiliService().load(tafsiliTwoId)+" - ";
+		if(tafsiliTwoIds!=null) {
+			for (Long tafsiliTwoId : tafsiliTwoIds) {
+				hesabtafsiliTwoNames=hesabtafsiliTwoNames+getHesabTafsiliService().load(tafsiliTwoId)+" - ";
+			}
 		}
 		parameters.put("hesabTafsiliTwo", hesabtafsiliTwoNames);
 		
