@@ -49,7 +49,10 @@ import serajcomponent.DateConverter;
 
 public class SanadHesabdariUtil {
 
-	
+
+	static String TEMP_SANAD_TYPE="TEMP_SANAD";
+	static String MERGED_SANAD_TYPE="MERGED_SANAD_TYPE";
+
 	static SanadHesabdariService sanadHesabdariService;
 	static SanadTypeService sanadTypeService;
 	static HesabTafsiliService hesabTafsiliService;
@@ -127,7 +130,7 @@ public class SanadHesabdariUtil {
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : mergedArticles) {
 			sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEkhtetamieh", saalMaaliEntity.getDesc()));
 		}
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress);
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null);
 	}
 	
 	public static SanadHesabdariEntity createMergedSanadHesabdari(OrganEntity organEntity,
@@ -135,7 +138,7 @@ public class SanadHesabdariUtil {
 		
 		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organEntity);
 		
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress);
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null);
 	}
 
 	public static List<SanadHesabdariItemEntity> createMergedArticles(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
@@ -164,18 +167,26 @@ public class SanadHesabdariUtil {
 	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
 			Date sanadHesabdariDate,
 			List<SanadHesabdariItemEntity> articles, String description, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) {
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, null, sanadStateEnum, validateSaalMaaliInProgress);
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, null, sanadStateEnum, validateSaalMaaliInProgress, null);
 	}
+	
+
 	
 	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
 			Date sanadHesabdariDate,
 			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum) {
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, true);
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, true, null);
 	}
 	
 	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
 			Date sanadHesabdariDate,
 			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) { 
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null);
+	}
+	
+	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
+			Date sanadHesabdariDate,
+			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, String sanadRole) { 
 		SanadHesabdariEntity totalSanadHesabdariEntity = new SanadHesabdariEntity();
 		totalSanadHesabdariEntity.setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
 		totalSanadHesabdariEntity.setTarikhSanad(sanadHesabdariDate);
@@ -188,6 +199,7 @@ public class SanadHesabdariUtil {
 		totalSanadHesabdariEntity.getSanadHesabdariItem().addAll(sortedSanadHesabdariItem);
 		totalSanadHesabdariEntity.setDescription(description);
 		totalSanadHesabdariEntity.setSanadType(sanadType);
+		totalSanadHesabdariEntity.setSanadRole(sanadRole);
 		
 		SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().getSaalmaaliByDate(sanadHesabdariDate, organEntity);
 		

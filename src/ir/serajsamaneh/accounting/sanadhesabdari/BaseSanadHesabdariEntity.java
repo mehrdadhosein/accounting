@@ -78,6 +78,7 @@ public abstract class BaseSanadHesabdariEntity  extends BaseEntity<Long>   imple
 	private java.lang.Long tempSerial;
 	private java.lang.Long atfNumber;
 	private java.lang.Long farieNumber;
+	String sanadRole;
 
 	Double bedehkarSum;
 	Double bestankarSum;
@@ -155,6 +156,15 @@ public abstract class BaseSanadHesabdariEntity  extends BaseEntity<Long>   imple
 
 
  
+	public String getSanadRole() {
+		return sanadRole;
+	}
+
+	public void setSanadRole(String sanadRole) {
+		this.sanadRole = sanadRole;
+	}
+
+
 	/**
 	 * Return the value associated with the column: description
 	 */
