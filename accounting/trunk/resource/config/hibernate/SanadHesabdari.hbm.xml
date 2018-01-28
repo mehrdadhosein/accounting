@@ -77,7 +77,8 @@
 			<many-to-many class='ir.serajsamaneh.core.file.FileEntity'
 				foreign-key='fk_sanad_hesabdari_zamimeh' column='zamimeh_id' />
 		</set>
-
+		<property name='sanadRole' type='string' column='sanad_role' />
+		
 	</class>
 
 </hibernate-mapping>
