@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	
+	
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template-edit.xhtml">
+	<ui:param name="title" value="AccountingMarkazGroup_edit_create" />
+	<ui:param name="owner" value="#{accountingMarkazGroup}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="editsection">
+
+		<p:panel styleClass="emptyDiv" bodyClass="emptyDiv">
+			<p:panelGrid layout="grid"  columns="2" width="90%"
+				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
+				styleClass="inputForm  ">
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="code"
+						value="#{messages['AccountingMarkazGroup_code']}" /> : 
+				</h:panelGroup>
+				<p:inputText required="true" id="code" label="code"
+					value="#{owner.entity.code}" size="50" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="name"
+						value="#{messages['AccountingMarkazGroup_name']}" /> : 
+				</h:panelGroup>
+				<p:inputText required="true" id="name" label="name"
+					value="#{owner.entity.name}" size="50" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="description"
+						value="#{messages['AccountingMarkazGroup_description']}" /> : 
+				</h:panelGroup>
+				<p:inputText required="true" id="description" label="description"
+					value="#{owner.entity.description}" size="50" />
+
+				<h:panelGroup>
+					<h:outputText styleClass="required" value="* " />
+					<h:outputLabel for="level" value="#{messages['AccountingMarkazGroup_level']}" /> :  
+				</h:panelGroup>
+				<p:selectOneMenu required="true" id="level" widgetVar="accountingMarkazGroupLevel" value="#{owner.entity.level}"  converter="javax.faces.Integer" onchange="changeLevel(this.value);"
+					label="#{messages['AccountingMarkazGroup_level']}">
+					<f:selectItem itemLabel="---" itemValue=""/>
+					<f:selectItem itemLabel="#{messages['common_one']}" itemValue="1"/>
+					<f:selectItem itemLabel="#{messages['common_two']}" itemValue="2"/>
+				</p:selectOneMenu>
+				
+				<h:panelGroup>
+					<h:outputLabel for="accountingMarkazs"
+						value="#{messages['AccountingMarkazGroup_accountingMarkazs']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:autocomplete-multiple id="accountingMarkazs" width="220px" label="#{messages['AccountingMarkazGroup_accountingMarkazs']}"
+						selectedIds="#{owner.accountingMarkazTemplateIds}" entity="AccountingMarkazTemplate"
+						property="code, name" ajax="false" extraParams="isHierarchical=true&amp;tafsiliLevel=#{owner.entity.level}"/>
+				</h:panelGroup>
+								
+				
+				
+			</p:panelGrid>
+		</p:panel>
+<script>
+/* <![CDATA[ */
+var hesabTafsilis;
+$$(function() {
+	//alert(PF('accountingMarkazGroupLevel').getSelectedValue());
+	populateTafsilis(PF('accountingMarkazGroupLevel').getSelectedValue());
+});
+ 
+ function changeLevel(level){
+ 		$$('#accountingMarkazs_div').empty();
+		$$('#accountingMarkazs_id').val('');
+		populateTafsilis(level);
+ }
+ function populateTafsilis(level){
+		debugger;
+	 	if(level =='' || level == undefined)
+	 		render('accountingMarkazs', {}, 0);
+		$$.ajax({
+			  url: '${request.contextPath}/entities?entity=AccountingMarkazTemplate&property=desc&all=true&autocomplete=true&isHierarchical=true&tafsiliLevel='+level,
+			  cache: false,
+			  success: function(result){
+			    render('accountingMarkazs', result, 0);
+			  },
+			  error: function(jqXHR, textStatus, errorThrown){
+					alert(errorThrown);
+				}
+		});
+	 
+ }
+	/* ]]> */
+</script>		
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.editable}"
+			action="#{owner.localSave}" value="#{messages['common_save']}"
+			image="/images/buttons/btn_save.png" />
+
+		<h:commandButton styleClass=" gwt-Button" rendered="#{owner.backable}"
+			action="#{owner.back}" value="#{messages['common_back']}"
+			immediate="true" image="/images/listbtn.png" />
+	</ui:define>
+</ui:composition>
+
+</html>

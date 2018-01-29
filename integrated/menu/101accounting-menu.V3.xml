@@ -33,6 +33,8 @@
 					permission="hesabTafsili.list" icon="Account-dollar-spot" /-->
 				<MenuItem id="hesabClassificationlocalList" value="گروه بندی تفصیل" pagetitle="گروه بندی تفصیل"  valueClick="../hesabclassification/hesabClassification.localList.jsf"
 					permission="hesabClassification.localList" icon="Account-dollar-coins-and-hand" />
+				<MenuItem id="accountingMarkazGrouplocalList" value="گروه مرکز" pagetitle="گروه مرکز"  valueClick="../accountingmarkazgroup/accountingMarkazGroup.localList.jsf"
+					permission="accountingMarkazGroup.localList" icon="Account-federal-bank" />
 				<MenuItem id="accountingMarkazlocalList" value="مرکز" pagetitle="مرکز"  valueClick="../accountingmarkaz/accountingMarkaz.localList.jsf"
 					permission="accountingMarkaz.list" icon="Account-federal-bank" />
 				<MenuItem id="contactlocalList" value="مخاطبین"

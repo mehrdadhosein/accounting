@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	
+	xmlns:p="http://primefaces.org/ui">
+
+<t:saveState value="#{owner.ID}" />
+<t:saveState value="#{owner.quickLoaded}" />
+
+<p:panel id="hesabClassificationInput" style="width: 100%; border-color: RGB(188,190,192); background-color: RGB(248,249,250);" >
+		<p:panelGrid columns="2" layout="grid" width="90%"
+					columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
+					styleClass="inputForm  ">
+				<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="hesabKol" value="#{messages['HesabClassification_hesabKol']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="hesabKol"  required="true" descWidth="250" label="#{messages['HesabClassification_hesabKol']}"
+							identity="#{hesabClassification.entity.hesabKol.id}"
+							desc="#{hesabClassification.entity.hesabKol.desc}"
+					  		url="${request.contextPath}/hesabkol/hesabKol.lov.jsf?pId=hesabKol" />
+				</h:panelGroup>				  		
+				
+					
+				<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="hesabMoeen" value="#{messages['HesabClassification_hesabMoeen']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="hesabMoeen"  required="true" descWidth="250" label="#{messages['HesabClassification_hesabMoeen']}"
+							identity="#{hesabClassification.entity.hesabMoeen.id}"
+							desc="#{hesabClassification.entity.hesabMoeen.desc}"
+					  		url="${request.contextPath}/hesabmoeen/hesabMoeen.lov.jsf?pId=hesabMoeen" />
+				</h:panelGroup>				  		
+				
+					
+				<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+					<h:outputLabel for="hesabTafsili" value="#{messages['HesabClassification_hesabTafsili']}" /> : 
+				</h:panelGroup>
+				<h:panelGroup>
+					<custom:lov id="hesabTafsili"  required="true" descWidth="250" label="#{messages['HesabClassification_hesabTafsili']}"
+							identity="#{hesabClassification.entity.hesabTafsili.id}"
+							desc="#{hesabClassification.entity.hesabTafsili.desc}"
+					  		url="${request.contextPath}/hesabtafsili/hesabTafsili.lov.jsf?pId=hesabTafsili" />
+				</h:panelGroup>				  		
+				
+					
+
+					<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="name" value="#{messages['HesabClassification_name']}" /> : 
+				</h:panelGroup>
+				<p:inputText  required="true" id="name" label="name" value="#{hesabClassification.entity.name}"  size="50"/>
+	
+						<h:panelGroup>
+					<h:outputText styleClass="required"	value="* " />
+	 				<h:outputLabel for="description" value="#{messages['HesabClassification_description']}" /> : 
+				</h:panelGroup>
+				<p:inputText  required="true" id="description" label="description" value="#{hesabClassification.entity.description}"  size="50"/>
+	
+		</p:panelGrid>
+	<h:commandButton action="#{hesabClassification.qSave}"
+		value="#{messages['common_save']}" />
+
+	<h:commandButton value="#{messages['back_to_search']}" id="searchLink"
+		onclick="javascript:copyCreateToSearch();toggleToSearch();return false" />
+
+	<h:panelGroup id="quickLoadProcessPanel" rendered="#{!hesabClassification.quickLoaded}">
+		<t:inputHidden id="objectId" value="#{owner.quickLoadID}"
+			converter="javax.faces.Long" />
+		<p:commandButton id="loadCommand" action="#{hesabClassification.load}"
+			style="display:none; visibility: hidden;"
+			value="#{messages['common_load']}" reupdate="hesabClassificationInput" />
+	</h:panelGroup>
+
+</p:panel>
+</html>

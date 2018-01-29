@@ -4,10 +4,6 @@ import java.io.Serializable;
 
 import ir.serajsamaneh.accounting.moeenaccountingmarkaztemplate.MoeenAccountingMarkazTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntity;
-import serajcomponent.DateConverter;
-import serajcomponent.SerajDateTimePickerType;
-
-import java.util.HashSet;
 
 
 
@@ -76,7 +72,7 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 	private java.lang.String code;
 	private java.lang.String name;
 	private java.lang.String description;
-
+	private java.lang.Integer level;
 	// many to one
 	private ir.serajsamaneh.core.organ.OrganEntity organ;
 	private ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity hesabTafsiliTemplate;
@@ -129,6 +125,14 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 
 
  
+	public java.lang.Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(java.lang.Integer level) {
+		this.level = level;
+	}
+
 	/**
 	 * Return the value associated with the column: name
 	 */

@@ -1,0 +1,162 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	
+	
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/template/template-list.xhtml">
+	<ui:param name="title" value="HesabClassification_list" />
+	<ui:param name="owner" value="#{hesabClassification}" />
+	<ui:param name="searchpage"
+		value="/hesabclassification/hesabClassification.exampleForm.xhtml" />
+	<ui:define name="listsection">
+<t:div forceId="true" id="dtspan" styleClass="emptyDiv">	
+		<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}" 
+			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			
+			 dir="rtl"
+			 id="hesabClassifications" value="#{hesabClassification.dataModel}"   headerClass="header"
+			var="item" rowClasses="RowOdd,RowEven" style="width: 97%" align="center" rows="#{hesabClassification.rowsPerPage}">
+				<p:ajax event="page" listener="#{owner.onPage}" onstart="showLoading();" oncomplete="hideLoading();" onerror="hideLoading();alert('error');"/>
+
+			
+	
+			<p:column>
+				<f:facet name="header">
+							<p:commandLink action="#{owner.sort}" update="hesabClassifications" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['HesabClassification_hesabKol']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['HesabClassification_hesabKol']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="hesabKol"
+									target="#{owner.sortCol}" />
+							</p:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabKol}" />
+			</p:column>
+		
+			<p:column>
+				<f:facet name="header">
+							<p:commandLink action="#{owner.sort}" update="hesabClassifications" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['HesabClassification_name']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['HesabClassification_name']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="name"
+									target="#{owner.sortCol}" />
+							</p:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.name}" />
+			</p:column>
+		
+			<p:column>
+				<f:facet name="header">
+							<p:commandLink action="#{owner.sort}" update="hesabClassifications" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['HesabClassification_description']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['HesabClassification_description']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="description"
+									target="#{owner.sortCol}" />
+							</p:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.description}" />
+			</p:column>
+		
+			<p:column>
+				<f:facet name="header">
+							<p:commandLink action="#{owner.sort}" update="hesabClassifications" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['HesabClassification_hesabMoeen']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['HesabClassification_hesabMoeen']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="hesabMoeen"
+									target="#{owner.sortCol}" />
+							</p:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabMoeen}" />
+			</p:column>
+		
+			<p:column>
+				<f:facet name="header">
+							<p:commandLink action="#{owner.sort}" update="hesabClassifications" 
+								onclick="showLoading();"	oncomplete="hideLoading();"
+								styleClass="headerCellClass" title="#{messages['HesabClassification_hesabTafsili']}">
+								<h:outputText styleClass="headerCellClass"
+									value="#{messages['HesabClassification_hesabTafsili']}" />
+								<h:graphicImage value="/images/icon_ascending.gif"  rendered="#{owner.sortType}" 
+									title="#{messages['common_descending']}" style="border:0"></h:graphicImage>									
+								<h:graphicImage value="/images/icon_descending.gif"  rendered="#{!owner.sortType}" 
+									title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>									
+								<f:setPropertyActionListener value="hesabTafsili"
+									target="#{owner.sortCol}" />
+							</p:commandLink>				
+				</f:facet>
+				<h:outputText styleClass="CellClass"  value="#{item.hesabTafsili}" />
+			</p:column>
+						
+			
+			
+			<p:column rendered="#{hesabClassification.deletable}" styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_delete']}" />
+				</f:facet>
+			
+				<h:commandLink action="#{hesabClassification.delete}"  immediate="true" onclick="if(!confirmDelete()) return false;">
+					<h:graphicImage value="/images/remove.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{hesabClassification.ID}"  converter="javax.faces.Long" />
+				</h:commandLink>
+			</p:column>
+
+			<p:column rendered="#{hesabClassification.editable}" styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_edit']}" />
+				</f:facet>
+			
+				<h:commandLink action="#{hesabClassification.edit}"  immediate="true">
+					<h:graphicImage value="/images/edit.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{hesabClassification.ID}"  converter="javax.faces.Long" />
+				</h:commandLink>
+			</p:column>
+			<p:column styleClass="action">
+				<f:facet name="header">
+					<h:outputText  styleClass="headerCellClass" value="#{messages['common_view']}" />
+				</f:facet>
+						
+				<h:commandLink action="#{hesabClassification.view}" immediate="true">
+				<h:graphicImage value="/images/view.png" style="border:0"></h:graphicImage>
+					<f:setPropertyActionListener value="#{item.id}"  target="#{hesabClassification.ID}"  converter="javax.faces.Long" />
+				</h:commandLink>
+			</p:column >
+		</p:dataTable>
+</t:div>		
+		<custom:dataTableRowCount for="hesabClassifications" ></custom:dataTableRowCount>
+			
+	</ui:define>
+</ui:composition>
+</html>
