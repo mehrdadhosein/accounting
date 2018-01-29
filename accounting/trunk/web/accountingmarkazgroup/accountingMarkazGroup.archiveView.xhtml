@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	
+	
+	xmlns:custom="http://seraj.com/seraj/facelet"
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/template-view.xhtml">
+
+	<ui:param name="title" value="HesabClassification_view" />
+	<ui:param name="owner" value="#{hesabClassification}" />
+	<ui:define name="fixsection">
+	</ui:define>
+
+	<ui:define name="viewsection">
+
+		<p:panel	 styleClass="emptyDiv" bodyClass="emptyDiv">
+			<p:panelGrid layout="grid"  columns="2" width="90%"
+				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
+				styleClass="inputForm  ">
+
+
+
+				<h:outputLabel for="hesabKol" value="#{messages['HesabClassification_hesabKol']} : " />
+				<h:outputText id="hesabKol" 
+					value="#{hesabClassification.entity.hesabKol.desc}" />
+				  		
+				
+					
+				<h:outputLabel for="hesabMoeen" value="#{messages['HesabClassification_hesabMoeen']} : " />
+				<h:outputText id="hesabMoeen" 
+					value="#{hesabClassification.entity.hesabMoeen.desc}" />
+				  		
+				
+					
+				<h:outputLabel for="hesabTafsili" value="#{messages['HesabClassification_hesabTafsili']} : " />
+				<h:outputText id="hesabTafsili" 
+					value="#{hesabClassification.entity.hesabTafsili.desc}" />
+				  		
+				
+					
+
+					<h:outputLabel for="name" value="#{messages['HesabClassification_name']} : " />
+				<h:outputText id="name" value="#{hesabClassification.entity.name}" />
+	
+						<h:outputLabel for="description" value="#{messages['HesabClassification_description']} : " />
+				<h:outputText id="description" value="#{hesabClassification.entity.description}" />
+	
+				</p:panelGrid>
+		</p:panel>
+	</ui:define>
+	<ui:define name="buttonsection">
+		<h:commandButton action="#{owner.back}" styleClass=" gwt-Button"
+			image="/images/listbtn.png"
+			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
+			value="#{messages['common_list']}" immediate="true">
+		</h:commandButton>
+
+	</ui:define>	
+</ui:composition>
+
+</html>	

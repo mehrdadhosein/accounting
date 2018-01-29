@@ -48,7 +48,7 @@
 		</property>
 		<property name='bestankr' type='java.lang.Double' column='bestankr'>
 		</property>
-
+		<property name='level' type='integer' column='level_' />
 
 	</class>
 

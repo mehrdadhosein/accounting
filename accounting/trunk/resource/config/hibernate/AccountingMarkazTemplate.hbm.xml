@@ -35,7 +35,7 @@
 				class='ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity'
 				foreign-key='fk_accntng_markaz_tmpl_parent' column='parents_id' />
 		</set>
-
+		<property name='level' type='integer' column='level_' />
 		
 	</class>
 

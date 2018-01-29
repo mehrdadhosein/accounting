@@ -77,7 +77,7 @@ public abstract class BaseAccountingMarkazEntity  extends BaseEntity<Long>   imp
 	private java.lang.String description;
 	private java.lang.Double bedehkar;
 	private java.lang.Double bestankr;
-
+	private java.lang.Integer level;
 	// many to one
 	private ir.serajsamaneh.core.organ.OrganEntity organ;
 	private ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity saalMaali;
@@ -131,6 +131,14 @@ public abstract class BaseAccountingMarkazEntity  extends BaseEntity<Long>   imp
 
 
  
+	public java.lang.Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(java.lang.Integer level) {
+		this.level = level;
+	}
+
 	/**
 	 * Return the value associated with the column: name
 	 */

@@ -132,19 +132,19 @@
 					 role="1" />	 
 		</classification>
 	
-		<classification id="45" name="مرکز هزینه">
-				<permission id="451" action="MarkazHazine.create" name="ساخت مراکز هزینه"						role="1" />
-				<permission id="452" action="MarkazHazine.delete" name="حذف  مراکز هزینه"						role="1" />
-				<permission id="453" action="MarkazHazine.view" name="مشاهده مراکز هزینه"						role="1" />
-				<permission id="454" action="markazHazine.edit" name="صفحه ویرایش مراکز هزینه"				role="1" />
-				<permission id="455" action="markazHazine.list" name="صفحه فهرست مراکز هزینه"					role="1" />
-				<permission id="456" action="markazHazine.lov" name="صفحه انتخاب مراکز هزینه"					role="1" />
-				<permission id="457" action="markazHazine.quickCreate" name="صفحه ساخت سریع مراکز هزینه"		role="1" />
-				<permission id="458" action="markazHazine.view" name="صفحه مشاهده مراکز هزینه"				role="1" />
-				<permission id="459" action="markazHazine.localList" name="صفحه فهرست محلی مراکز هزینه"		role="1" />
-				<permission id="460" action="markazHazine.localEdit" name="صفحه ویرایش محلی مراکز هزینه"		role="1" />
-				<permission id="461" action="markazHazine.localView" name="صفحه مشاهده محلی مراکز هزینه"		role="1" />
-				<permission id="462" action="markazHazine.globalList" name="صفحه فهرست مراکز هزینه سراسری"					role="2" />
+		<classification id="45" name="گروه مرکز">
+				<permission id="451" action="AccountingMarkazGroup.create" name="ساخت گروه مرکز"						role="1" />
+				<permission id="452" action="AccountingMarkazGroup.delete" name="حذف  گروه مرکز"						role="1" />
+				<permission id="453" action="AccountingMarkazGroup.view" name="مشاهده گروه مرکز"						role="1" />
+				<permission id="454" action="accountingMarkazGroup.edit" name="صفحه ویرایش گروه مرکز"				role="1" />
+				<permission id="455" action="accountingMarkazGroup.list" name="صفحه فهرست گروه مرکز"					role="1" />
+				<permission id="456" action="accountingMarkazGroup.lov" name="صفحه انتخاب گروه مرکز"					role="1" />
+				<permission id="457" action="accountingMarkazGroup.quickCreate" name="صفحه ساخت سریع گروه مرکز"		role="1" />
+				<permission id="458" action="accountingMarkazGroup.view" name="صفحه مشاهده گروه مرکز"				role="1" />
+				<permission id="459" action="accountingMarkazGroup.localList" name="صفحه فهرست محلی گروه مرکز"		role="1" />
+				<permission id="460" action="accountingMarkazGroup.localEdit" name="صفحه ویرایش محلی گروه مرکز"		role="1" />
+				<permission id="461" action="accountingMarkazGroup.localView" name="صفحه مشاهده محلی گروه مرکز"		role="1" />
+				<permission id="462" action="accountingMarkazGroup.globalList" name="صفحه فهرست گروه مرکز سراسری"					role="2" />
 		</classification>
 		
 		<classification id="6" name="تراز آزمایشی">
