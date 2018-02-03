@@ -158,10 +158,10 @@ public class AccountsTemplateForm extends
 			sanadHesabdariItemEntity.setTemplateType(map.get("templateType"));
 		
 		incorectItem = "SanadHesabdariItem_hesabTafsili";
-		if(isInMultipleLevelMode && StringUtils.hasText(map.get("hesabTafsiliTemplateID")))
-			sanadHesabdariItemEntity.setHesabTafsiliTemplate(getHesabTafsiliTemplateService().load(new Long(map.get("hesabTafsiliTemplateID"))));
+		if(isInMultipleLevelMode && StringUtils.hasText(map.get("hesabTafsiliTemplateOneID")))
+			sanadHesabdariItemEntity.setHesabTafsiliTemplate(getHesabTafsiliTemplateService().load(new Long(map.get("hesabTafsiliTemplateOneID"))));
 		else if(!isInMultipleLevelMode)
-			sanadHesabdariItemEntity.setHesabTafsiliTemplate(getHesabTafsiliTemplateService().load(new Long(map.get("hesabTafsiliTemplateID"))));
+			sanadHesabdariItemEntity.setHesabTafsiliTemplate(getHesabTafsiliTemplateService().load(new Long(map.get("hesabTafsiliTemplateOneID"))));
 
 		incorectItem = "SanadHesabdariItem_accountingMarkaz";
 		if(isInMultipleLevelMode && StringUtils.hasText(map.get("accountingMarkazTemplateID")))
