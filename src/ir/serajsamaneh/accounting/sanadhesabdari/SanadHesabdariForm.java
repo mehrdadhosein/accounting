@@ -102,6 +102,7 @@ public class SanadHesabdariForm extends
 	public void setSanadTypeIds(List<Long> sanadTypeIds) {
 		this.sanadTypeIds = sanadTypeIds;
 	}
+
 	
 	public List<SelectItem> getHierarchicalSanadTypes() {
 		if(sanadTypes == null){
@@ -745,20 +746,42 @@ public class SanadHesabdariForm extends
 		return getLocalDataModel();
 	}
 	
-	
+	String sanadRoles;
+	public String getSanadRoles() {
+		if (sanadRoles == null){
+			sanadRoles = getRequest().getParameter("sanadRoles");
+		}
+
+		return sanadRoles;
+	}
+
+	public void setSanadRoles(String sanadRoles) {
+		this.sanadRoles = sanadRoles;
+	}
+
+
 	
 	public DataModel<SanadHesabdariEntity> getLocalTempDataModel() {
 		
 		setRowsPerPage(-1);
+		if(StringUtil.hasText(getSanadRoles())) {
+			String[] roles = getSanadRoles().split(",");
+			getFilter().put("sanadRole@in", Arrays.asList(roles));
+		}else
+			return getEmptyDataModel();
 		getFilter().put("state@eq", SanadStateEnum.TEMP);
-		getFilter().put("saalMaali.id@eq",
-				getCurrentUserActiveSaalMaali().getId());
+		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		return getLocalDataModel();
 	}
 	
 	public DataModel<SanadHesabdariEntity> getLocalMergedDataModel() {
 		
 //		setRowsPerPage(-1);
+		if(StringUtil.hasText(getSanadRoles())) {
+			String[] roles = getSanadRoles().split(",");
+			getFilter().put("sanadRole@in", Arrays.asList(roles));
+		}else
+			return getEmptyDataModel();		
 		getFilter().put("state@eq", SanadStateEnum.MERGED);
 		getFilter().put("saalMaali.id@eq",
 				getCurrentUserActiveSaalMaali().getId());
