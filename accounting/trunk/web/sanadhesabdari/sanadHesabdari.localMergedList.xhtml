@@ -19,7 +19,7 @@
 	<ui:param name="searchpage"
 		value="/sanadhesabdari/sanadHesabdari.localActiveExampleForm.xhtml" />
 	<ui:define name="listsection">
-	
+		<t:saveState value="#{owner.sanadRoles}" />
 		<t:div forceId="true" id="dtspan" styleClass="emptyDiv">
 			<p:dataTable widgetVar="tableList" emptyMessage="#{messages['common_noRecordsFound']}"  reflow="true" 
 			paginator="true" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
