@@ -118,10 +118,10 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 
 		if (hesabKolEntity == null || hesabKolEntity.getId() == null)
 			throw new FatalException(SerajMessageUtil.getMessage("HesabKol_notDefinedForOrgan",
-					sanadHesabdariItemTemplateBedehkar.getHesabKolTemplate().getName()));
+					sanadHesabdariItemTemplateBedehkar.getHesabKolTemplate()));
 		if (hesabMoeenEntity == null || hesabMoeenEntity.getId() == null)
 			throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_notDefinedForOrgan",
-					sanadHesabdariItemTemplateBedehkar.getHesabMoeenTemplate().getName()));
+					sanadHesabdariItemTemplateBedehkar.getHesabMoeenTemplate()));
 		
 		return createBedehkarArticle(hesabKolEntity, hesabMoeenEntity, hesabTafsiliEntityONE, hesabTafsiliTWO,
 				bedehkarAmount, createArticleTafsili, accountingMarkazEntity, description);
@@ -160,10 +160,10 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		
 		if (hesabKolEntity == null || hesabKolEntity.getId() == null)
 			throw new FatalException(SerajMessageUtil.getMessage("HesabKol_notDefinedForOrgan",
-					sanadHesabdariItemTemplateBedehkar.getHesabKolTemplate().getName()));
+					sanadHesabdariItemTemplateBedehkar.getHesabKolTemplate()));
 		if (hesabMoeenEntity == null || hesabMoeenEntity.getId() == null)
 			throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_notDefinedForOrgan",
-					sanadHesabdariItemTemplateBedehkar.getHesabMoeenTemplate().getName()));
+					sanadHesabdariItemTemplateBedehkar.getHesabMoeenTemplate()));
 		
 		 ArrayList<HesabTafsiliEntity> hesabs = new ArrayList<HesabTafsiliEntity>();
 		 if (null != hesabTafsiliEntityONE)
@@ -301,10 +301,10 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		
 		if (hesabKolEntity == null || hesabKolEntity.getId() == null)
 			throw new FatalException(SerajMessageUtil.getMessage("HesabKol_notDefinedForOrgan",
-					sanadHesabdariItemTemplateBestankar.getHesabKolTemplate().getName()));
+					sanadHesabdariItemTemplateBestankar.getHesabKolTemplate()));
 		if (hesabMoeenEntity == null || hesabMoeenEntity.getId() == null)
 			throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_notDefinedForOrgan",
-					sanadHesabdariItemTemplateBestankar.getHesabMoeenTemplate().getName()));
+					sanadHesabdariItemTemplateBestankar.getHesabMoeenTemplate()));
 		
 		ArrayList<HesabTafsiliEntity> tafsilHesabs = new ArrayList<HesabTafsiliEntity>();
 		
@@ -349,10 +349,10 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 
 		if (hesabKolEntity == null || hesabKolEntity.getId() == null)
 			throw new FatalException(SerajMessageUtil.getMessage("HesabKol_notDefinedForOrgan",
-					sanadHesabdariItemTemplateBestankar.getHesabKolTemplate().getName()));
+					sanadHesabdariItemTemplateBestankar.getHesabKolTemplate()));
 		if (hesabMoeenEntity == null || hesabMoeenEntity.getId() == null)
 			throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_notDefinedForOrgan",
-					sanadHesabdariItemTemplateBestankar.getHesabMoeenTemplate().getName()));
+					sanadHesabdariItemTemplateBestankar.getHesabMoeenTemplate()));
 
 		return createBestankarArticle(hesabKolEntity, hesabMoeenEntity, hesabTafsiliEntityONE, hesabTafsiliTWO,
 				bestanKarAmount, createArticleTafsili, accountingMarkazEntity, description);
