@@ -164,7 +164,8 @@ public class HesabGroupService extends
 				try{
 					createHesabGroup(activeSaalMaaliEntity, hesabGroupTemplateEntity, currentOrgan);
 				}catch(DuplicateException e){
-					e.printStackTrace();
+					System.out.println(e.getMessage());
+//					e.printStackTrace();
 				}
 			}
 		}

@@ -32,7 +32,7 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 	}
 
 	@Transactional
-	public void save(Long hesabTafsiliCode, String hesabTafsiliName, String hesabMoeenCode, OrganEntity organ) {
+	public void save(Long hesabTafsiliCode, String hesabTafsiliName, String hesabMoeenCode, OrganEntity organ, Integer level) {
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getGlobalHesabTafsiliByCode(hesabTafsiliCode);
 		if (hesabTafsiliTemplateEntity == null){
 			hesabTafsiliTemplateEntity = new HesabTafsiliTemplateEntity();
@@ -43,6 +43,7 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 		hesabTafsiliTemplateEntity.setCode(hesabTafsiliCode);
 		hesabTafsiliTemplateEntity.setOrgan(organ);
 		hesabTafsiliTemplateEntity.setHidden(false);
+		hesabTafsiliTemplateEntity.setLevel(level);
 		
 		HesabMoeenTemplateEntity moeenTemplateEntity = getHesabMoeenTemplateDAO().getHesabMoeenTemplateByCode(hesabMoeenCode, organ);
 		

@@ -819,6 +819,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		hesabTafsiliEntity.setName(hesabTafsiliTemplateEntity.getName());
 		hesabTafsiliEntity.setScope(hesabTafsiliTemplateEntity.getScope());
 		hesabTafsiliEntity.setTafsilType(hesabTafsiliTemplateEntity.getTafsilType());
+		hesabTafsiliEntity.setLevel(hesabTafsiliTemplateEntity.getLevel());
 		return hesabTafsiliEntity;
 	}
 	
