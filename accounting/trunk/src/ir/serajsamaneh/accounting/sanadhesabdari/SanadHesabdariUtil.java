@@ -187,6 +187,16 @@ public class SanadHesabdariUtil {
 	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
 			Date sanadHesabdariDate,
 			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, String sanadRole) { 
+		SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().getSaalmaaliByDate(sanadHesabdariDate, organEntity);
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum,
+				validateSaalMaaliInProgress, sanadRole, saalMaaliEntity);
+	}
+
+
+	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity, Date sanadHesabdariDate,
+			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType,
+			SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, String sanadRole,
+			SaalMaaliEntity saalMaaliEntity) {
 		SanadHesabdariEntity totalSanadHesabdariEntity = new SanadHesabdariEntity();
 		totalSanadHesabdariEntity.setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
 		totalSanadHesabdariEntity.setTarikhSanad(sanadHesabdariDate);
@@ -201,7 +211,6 @@ public class SanadHesabdariUtil {
 		totalSanadHesabdariEntity.setSanadType(sanadType);
 		totalSanadHesabdariEntity.setSanadRole(sanadRole);
 		
-		SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().getSaalmaaliByDate(sanadHesabdariDate, organEntity);
 		
 		if(sanadStateEnum == null)
 			getSanadHesabdariService().saveMovaghat(totalSanadHesabdariEntity, null, organEntity, saalMaaliEntity, validateSaalMaaliInProgress);
