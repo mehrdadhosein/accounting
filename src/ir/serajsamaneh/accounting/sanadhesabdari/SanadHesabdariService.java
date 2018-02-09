@@ -279,7 +279,7 @@ public class SanadHesabdariService extends
 		if(entity.getDeletable() == null)
 			entity.setDeletable(YesNoEnum.YES);
 
-		if(saalMaaliEntity!=null && (entity.getSaalMaali()==null || entity.getSaalMaali().getId() == null))
+		if(saalMaaliEntity!=null)
 			entity.setSaalMaali(saalMaaliEntity);
 		
 		if(entity.getSaalMaali()==null || entity.getSaalMaali().getId() == null)
