@@ -740,8 +740,7 @@ public class SanadHesabdariForm extends
 		setRowsPerPage(-1);
 		getFilter().put("state@eq", SanadStateEnum.MOVAGHAT);
 		
-		getFilter().put("saalMaali.id@eq",
-				getCurrentUserActiveSaalMaali().getId());
+		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		
 		return getLocalDataModel();
 	}
