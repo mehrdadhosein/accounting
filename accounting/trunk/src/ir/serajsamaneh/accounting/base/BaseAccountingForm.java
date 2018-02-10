@@ -202,14 +202,14 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 		getFilter().put("organ.id@in", topOrganList);
 	}
 
-	public Boolean getHasCurrentDateSaalMaali(){
-		try{
-			getSaalMaaliService().getSaalmaaliByDate(DateConverter.getCurrentDate(), getCurrentOrgan());
-		}catch(NoSaalMaaliFoundException e){
-			return false;
-		}catch(NoOrganFoundException e){
-			return false;
-		}
-		return true;
-	}
+//	public Boolean getHasCurrentDateSaalMaali(){
+//		try{
+//			getSaalMaaliService().getSaalmaaliByDate(DateConverter.getCurrentDate(), getCurrentOrgan());
+//		}catch(NoSaalMaaliFoundException e){
+//			return false;
+//		}catch(NoOrganFoundException e){
+//			return false;
+//		}
+//		return true;
+//	}
 }
