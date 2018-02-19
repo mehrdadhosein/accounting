@@ -118,27 +118,27 @@ public class SanadHesabdariUtil {
 	}
 	
 	public static SanadHesabdariEntity createMergedSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum) {
-		return createMergedSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, concatDescriptions, sanadStateEnum, true);
+			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaali) {
+		return createMergedSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, concatDescriptions, sanadStateEnum, true, saalMaali);
 	}
 	
 	public static SanadHesabdariEntity createMergedEkhtetamiehSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) {
+			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, SaalMaaliEntity currentUserActiveSaalMaali) {
 		
 		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organEntity);
-		SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().getSaalmaaliByDate(sanadHesabdariDate, organEntity);
+//		SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().getSaalmaaliByDate(sanadHesabdariDate, organEntity);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : mergedArticles) {
-			sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEkhtetamieh", saalMaaliEntity.getDesc()));
+			sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEkhtetamieh", currentUserActiveSaalMaali.getDesc()));
 		}
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null);
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null, currentUserActiveSaalMaali);
 	}
 	
 	public static SanadHesabdariEntity createMergedSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) {
+			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, SaalMaaliEntity saalMaali) {
 		
 		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organEntity);
 		
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null);
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null, saalMaali);
 	}
 
 	public static List<SanadHesabdariItemEntity> createMergedArticles(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
@@ -158,40 +158,31 @@ public class SanadHesabdariUtil {
 	}
 	
 	
-	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate,
-			List<SanadHesabdariItemEntity> articles, String description, SanadStateEnum sanadStateEnum) {
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadStateEnum, true);
-	}
+//	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
+//			Date sanadHesabdariDate,
+//			List<SanadHesabdariItemEntity> articles, String description, SanadStateEnum sanadStateEnum) {
+//		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadStateEnum, true);
+//	}
 
-	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate,
-			List<SanadHesabdariItemEntity> articles, String description, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) {
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, null, sanadStateEnum, validateSaalMaaliInProgress, null);
-	}
+//	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
+//			Date sanadHesabdariDate,
+//			List<SanadHesabdariItemEntity> articles, String description, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) {
+//		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, null, sanadStateEnum, validateSaalMaaliInProgress, null);
+//	}
 	
 
 	
 	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
 			Date sanadHesabdariDate,
-			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum) {
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, true, null);
+			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaaliEntity) {
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, true, null, saalMaaliEntity);
 	}
 	
-	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate,
-			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) { 
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null);
-	}
-	
-	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate,
-			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, String sanadRole) { 
-		SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().getSaalmaaliByDate(sanadHesabdariDate, organEntity);
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum,
-				validateSaalMaaliInProgress, sanadRole, saalMaaliEntity);
-	}
-
+//	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
+//			Date sanadHesabdariDate,
+//			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) { 
+//		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null);
+//	}
 
 	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity, Date sanadHesabdariDate,
 			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType,
