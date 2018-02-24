@@ -98,11 +98,17 @@ public class ContactHesabService extends
 				localFilter.put("hesabTafsiliOne.id@eq", entity.getHesabTafsiliOne().getId());
 				localFilter.put("saalMaali.id@eq", entity.getSaalMaali().getId());
 				checkUniqueNess(entity, localFilter, false, FlushMode.MANUAL);
+
 			}catch(DuplicateException e){
 				List<ContactHesabEntity> dataList = getDataList(null, localFilter);
 				throw new DuplicateException(e.getDesc()+" "+dataList);
 			}
 		}
+		
+		Map<String, Object> contactFilter = new HashMap<String, Object>();
+		contactFilter.put("contact.id@eq", entity.getContact().getId());
+		contactFilter.put("saalMaali.id@eq", entity.getSaalMaali().getId());
+		checkUniqueNess(entity, contactFilter, false, FlushMode.MANUAL);
 		
 		super.save(entity);
 		ContactEntity contact = entity.getContact();
