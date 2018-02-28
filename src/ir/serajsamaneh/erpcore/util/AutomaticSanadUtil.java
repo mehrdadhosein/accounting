@@ -325,11 +325,9 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		if (bestanKarAmount == null || bestanKarAmount == 0)
 			return null;
 
-		SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBestankar = templateEntity
-				.getSanadHesabdariItemTemplateBestankar();
+		SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBestankar = templateEntity.getSanadHesabdariItemTemplateBestankar();
 		if (sanadHesabdariItemTemplateBestankar == null)
-			throw new FatalException(SerajMessageUtil.getMessage("AccountsTemplate_BestankarNotDefined",
-					templateEntity.getActionName()));
+			throw new FatalException(SerajMessageUtil.getMessage("AccountsTemplate_BestankarNotDefined", templateEntity.getActionName()));
 
 		if (sanadHesabdariItemTemplateBestankar.getHesabKolTemplate() == null
 				|| sanadHesabdariItemTemplateBestankar.getHesabKolTemplate().getId() == null)
