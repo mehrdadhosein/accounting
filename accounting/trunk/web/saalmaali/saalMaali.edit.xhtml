@@ -68,7 +68,7 @@
 		</p:panel>
 		<p:panel rendered="#{owner.ID != null}">
 	
-			<h:commandButton action="#{hesabKol.importFromHesabKolTemplateList}"
+			<h:commandButton action="#{hesabKol.importFromHesabKolTemplateList}" 
 				styleClass=" gwt-Button" onclick="showLoading()"
 				rendered="#{permissionProvider.importFromHesabKolTemplate}"
 				value="importFromHesabKolTemplateList" immediate="true"
@@ -98,7 +98,7 @@
 						</t:selectOneMenu>
 					</h:panelGroup>	
 			</p:panelGrid>
-		<h:commandButton styleClass="gwt-Button" render="messageGrid"
+		<h:commandButton styleClass="gwt-Button" render="messageGrid" onclick="showLoading();"
 			value="copyHesabsFromSourceSaalMaaliToDestSaalMaali" 
 			image="/images/buttons/btn_copyHesabsFromSourceSaalMaaliToDestSaalMaali.png"
 			action="#{owner.copyHesabsFromSourceSaalMaaliToDestSaalMaali}" />

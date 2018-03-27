@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
+import ir.serajsamaneh.accounting.accountingmarkaz.BaseAccountingMarkazEntity;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.accounting.exception.CycleInHesabTafsiliException;
 import ir.serajsamaneh.accounting.hesabclassification.HesabClassificationService;
@@ -727,7 +728,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		createHesabTafsiliRelatedMoeenTafsilis(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 		
 		update(destHesabTafsiliEntity);
-		createOrUpdateRelatedHesabTafsiliTemplate(destHesabTafsiliEntity, destSaalMaali.getOrgan());
+		createOrUpdateRelatedHesabTafsiliTemplate(destHesabTafsiliEntity, srcHesabTafsiliEntity.getOrgan());
 	}
 
 	@Transactional(readOnly=false)
@@ -780,26 +781,25 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 
 	public HesabTafsiliEntity createHesabTafsili(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity, OrganEntity currentOrgan) {
+			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity, OrganEntity organ) {
 		HesabTafsiliEntity hesabTafsiliEntity = loadHesabTafsiliByTemplate(hesabTafsiliTemplateEntity, activeSaalMaaliEntity);
 		if(hesabTafsiliEntity == null){
 			hesabTafsiliEntity = populateHesabTafsili(activeSaalMaaliEntity,
 					hesabTafsiliTemplateEntity);
-			save(hesabTafsiliEntity, activeSaalMaaliEntity, currentOrgan);
+			save(hesabTafsiliEntity, activeSaalMaaliEntity, organ);
 		}
 		return hesabTafsiliEntity;
 	}
 	
 	@Transactional
-	public HesabTafsiliEntity createHesabTafsili(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabTafsiliEntity srcHesabTafsiliEntity, OrganEntity currentOrgan) {
-		HesabTafsiliEntity hesabTafsiliEntity = loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), activeSaalMaaliEntity);
+	public HesabTafsiliEntity createHesabTafsili(SaalMaaliEntity destSaalMaaliEntity,	HesabTafsiliEntity srcHesabTafsiliEntity, OrganEntity organ) {
+		HesabTafsiliEntity hesabTafsiliEntity = loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaaliEntity, FlushMode.MANUAL, organ);
 		if(hesabTafsiliEntity == null)
-			hesabTafsiliEntity = loadHesabTafsiliByName(srcHesabTafsiliEntity.getName(), activeSaalMaaliEntity);
+			hesabTafsiliEntity = loadHesabTafsiliByName(srcHesabTafsiliEntity.getName(), destSaalMaaliEntity, FlushMode.MANUAL, organ);
 		
 		if(hesabTafsiliEntity == null){
-			hesabTafsiliEntity = populateHesabTafsili(activeSaalMaaliEntity, srcHesabTafsiliEntity);
-			save(hesabTafsiliEntity, activeSaalMaaliEntity, currentOrgan);
+			hesabTafsiliEntity = populateHesabTafsili(destSaalMaaliEntity, srcHesabTafsiliEntity, organ);
+			save(hesabTafsiliEntity, destSaalMaaliEntity, organ);
 		}
 		return hesabTafsiliEntity;
 	}
@@ -823,8 +823,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		return hesabTafsiliEntity;
 	}
 	
-	private HesabTafsiliEntity populateHesabTafsili(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabTafsiliEntity srcHesabTafsiliEntity) {
+	private HesabTafsiliEntity populateHesabTafsili(SaalMaaliEntity destSaalMaaliEntity,
+			HesabTafsiliEntity srcHesabTafsiliEntity, OrganEntity organ) {
 		HesabTafsiliEntity hesabTafsiliEntity;
 		hesabTafsiliEntity = new HesabTafsiliEntity();
 		hesabTafsiliEntity.setBedehkar(0d);
@@ -833,11 +833,12 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		hesabTafsiliEntity.setDescription(srcHesabTafsiliEntity.getDescription());
 		hesabTafsiliEntity.setHesabTafsiliTemplate(srcHesabTafsiliEntity.getHesabTafsiliTemplate());
 		hesabTafsiliEntity.setHidden(srcHesabTafsiliEntity.getHidden());
-		hesabTafsiliEntity.setOrgan(activeSaalMaaliEntity.getOrgan());
-		hesabTafsiliEntity.setSaalMaali(activeSaalMaaliEntity);
+		hesabTafsiliEntity.setOrgan(organ);
+		hesabTafsiliEntity.setSaalMaali(destSaalMaaliEntity);
 		hesabTafsiliEntity.setName(srcHesabTafsiliEntity.getName());
 		hesabTafsiliEntity.setScope(srcHesabTafsiliEntity.getScope());
 		hesabTafsiliEntity.setTafsilType(srcHesabTafsiliEntity.getTafsilType());
+		hesabTafsiliEntity.setLevel(srcHesabTafsiliEntity.getLevel());
 		return hesabTafsiliEntity;
 	}
 	
@@ -881,10 +882,28 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		return hesabTafsiliEntity;
 	}
 
+	public HesabTafsiliEntity loadHesabTafsiliByCode(Long code,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode, OrganEntity organ) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("code@eq",code);
+		localFilter.put("organ.id@eq",organ.getId());
+		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
+		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
+		return hesabTafsiliEntity;
+	}
+	
 	public HesabTafsiliEntity loadHesabTafsiliByName(String name,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq",name);
 //		localFilter.put("organ.id@eq",saalMaaliEntity.getOrgan().getId());
+		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
+		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
+		return hesabTafsiliEntity;
+	}
+	
+	public HesabTafsiliEntity loadHesabTafsiliByName(String name,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode, OrganEntity organ) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("name@eq",name);
+		localFilter.put("organ.id@eq",organ.getId());
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
 		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
 		return hesabTafsiliEntity;

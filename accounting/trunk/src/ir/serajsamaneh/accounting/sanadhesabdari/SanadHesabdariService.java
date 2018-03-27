@@ -1467,7 +1467,7 @@ public class SanadHesabdariService extends
 				itemEntity.setDescription("-");
 				HesabKolEntity hesabKol = getHesabKolService().loadHesabKolByCode(sanadHesabdariItemEntity.getHesabKolCode(), activeSaalmaali, FlushMode.ALWAYS);
 				if(hesabKol == null)
-					hesabKol = getHesabKolService().createHesabKolStateLess(activeSaalmaali, sanadHesabdariItemEntity.getHesabKol(), currentOrgan);
+					hesabKol = getHesabKolService().createHesabKolStateLess(activeSaalmaali, sanadHesabdariItemEntity.getHesabKol());
 
 				itemEntity.setHesabKol(hesabKol);
 				
