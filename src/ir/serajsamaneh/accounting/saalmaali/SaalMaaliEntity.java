@@ -27,8 +27,8 @@ public class SaalMaaliEntity extends BaseSaalMaaliEntity {
 
 	@Override
 	public String toString() {
-		if(getSaal()!=null)
-			return getSaal().toString();
+		if(getId()!=null)
+			return getSaal().toString()+"("+getOrgan()+")";
 		return "";
 	}
 	
