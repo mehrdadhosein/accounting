@@ -18,6 +18,9 @@
 		<MenuItem id="sanadHesabdariLocalEdit" title="سند آخر"
 			url="../sanadhesabdari/sanadHesabdari.lastSanad.localEdit.jsf?newReturnUrl=/sanadhesabdari/sanadHesabdari.localList.xhtml"
 			permission="sanadHesabdari.localEdit" icon="images/shortcut/32/sales-report-icon.png" />
+		<MenuItem id="userConfig" title="دوره مالی فعال" url="../accountingsystemconfig/userConfig.jsf"
+			permission="" icon="serajicon-settings-1-1" />
+			
 
 	</Group>
 	<Group id="accountingReports" title="گزارشات حسابداری"

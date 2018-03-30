@@ -146,15 +146,17 @@ public class HesabTafsiliTemplateForm extends
 		try{
 			String isHierarchical = params.get("isHierarchical");
 			String tafsiliLevel = params.get("tafsiliLevel");
+			String showAll = params.get("showAll");
 			
 			// params.put("isLocal","false");
 			// getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(),
 			// "ding"));
-
-			if (StringUtil.hasText(tafsiliLevel)){
-				getFilter().put("level@eq",new Integer(tafsiliLevel));
-			}else{
-				return new ArrayList<>();
+			if(!(StringUtil.hasText(showAll) && showAll.equals("true"))) {
+				if (StringUtil.hasText(tafsiliLevel)){
+					getFilter().put("level@eq",new Integer(tafsiliLevel));
+				}else{
+					return new ArrayList<>();
+				}
 			}
 
 			if (isHierarchical != null && isHierarchical.equals("true")) {
