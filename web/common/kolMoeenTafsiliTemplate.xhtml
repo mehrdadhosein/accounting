@@ -41,7 +41,7 @@
 		<custom:autocomplete-one id="hesabTafsili" entity="HesabTafsiliTemplate" onInit="tafsiliInited();"
 			property="desc" identity="#{owner.entity.hesabTafsiliTemplate.id}"
 			desc="#{owner.entity.hesabTafsiliTemplate.desc}" width="320px" client="true"
-			extraParams="isHierarchical=true"
+			extraParams="isHierarchical=true&amp;&amp;showAll=true"
 			onchange="fillDestTafsili('hesabTafsili','hesabShenavar');" />
 	</h:panelGroup>
 	
@@ -53,7 +53,7 @@
 		<custom:autocomplete-one id="hesabShenavar" entity="HesabTafsiliTemplate" onInit="tafsiliInited();"
 			property="desc" identity="#{owner.entity.hesabShenavarTemplate.id}"
 			desc="#{owner.entity.hesabShenavarTemplate.desc}" width="320px" client="true"
-			extraParams="isHierarchical=true" />
+			extraParams="isHierarchical=true&amp;&amp;showAll=true" />
 	</h:panelGroup>
 	
 	<t:jsValueSet name="moeenKolTemplateMap" value="#{hesabMoeenTemplate.moeenKolTemplateMap}" />
