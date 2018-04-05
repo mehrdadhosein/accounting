@@ -283,6 +283,7 @@
 			<permission id="7101" action="accounting.config"		name="تنظیمات حسابداری" role="1" />
 			<permission id="7102" action="user.config"		name="تنظیمات شخصی حسابداری" role="1" />
 			<permission id="7103" action="menu.viewSaalMaali"		name="مشاهده سال مالی در صفحه نخست" role="1,2" />
+			<permission id="7104" action="accounts.template"		name="تنظیم صدور خودکار سند" role="1,2" />
 		</classification>
 
 	    <classification id="720" name="تراز مرکز  شناور آزمایشی">

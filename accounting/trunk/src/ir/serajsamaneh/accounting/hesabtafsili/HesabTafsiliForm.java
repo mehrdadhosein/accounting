@@ -30,6 +30,7 @@ import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
+import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
 
 public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long> {
@@ -238,6 +239,11 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 			HesabRelationsUtil.resetTafsiliChildMap(getCurrentUserActiveSaalMaali(), organEntity);
 			HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), organEntity);
 			HesabRelationsUtil.resetRootHesabsMap(getCurrentUserActiveSaalMaali(), organEntity);
+			
+			HesabTemplateRelationsUtil.resetMoeenKolTemplateMap(organEntity);
+			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(organEntity);
+			HesabTemplateRelationsUtil.resetAccountingMarkazTemplateMap(organEntity);
+
 		}
 	}
 	
