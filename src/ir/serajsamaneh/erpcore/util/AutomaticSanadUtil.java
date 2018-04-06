@@ -85,7 +85,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	}
 	
 	protected static SanadHesabdariItemEntity createBedehkarArticle(Double bedehkarAmount,
-			AccountsTemplateEntity templateEntity, boolean createArticleTafsili, HesabTafsiliEntity hesabTafsiliTWO, 
+			AccountsTemplateEntity templateEntity, HesabTafsiliEntity hesabTafsiliTWO, 
 			AccountingMarkazEntity accountingMarkazEntity, String description,
 			SaalMaaliEntity saalMaaliEntity) {
 
@@ -123,7 +123,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 					sanadHesabdariItemTemplateBedehkar.getHesabMoeenTemplate()));
 		
 		return createBedehkarArticle(hesabKolEntity, hesabMoeenEntity, hesabTafsiliEntityONE, hesabTafsiliTWO,
-				bedehkarAmount, createArticleTafsili, accountingMarkazEntity, description);
+				bedehkarAmount, accountingMarkazEntity, description);
 	}
 	
 	protected static SanadHesabdariItemEntity createBedehkarArticle(Double bedehkarAmount,
@@ -180,7 +180,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	}
 
 	public static SanadHesabdariItemEntity createBedehkarArticle(HesabKolEntity hesabKolEntity, HesabMoeenEntity hesabMoeenEntity,	HesabTafsiliEntity hesabTafsiliEntityONE, 
-			HesabTafsiliEntity hesabTafsiliTWO, Double bedehkarAmount, boolean createArticleTafsili,
+			HesabTafsiliEntity hesabTafsiliTWO, Double bedehkarAmount, 
 			AccountingMarkazEntity accountingMarkazEntity, String description) {
 
 		if(hesabKolEntity == null){
@@ -194,7 +194,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		if(hesabTafsiliEntityONE != null && hesabTafsiliEntityONE.getId() != null){
 			article.setHesabTafsili(hesabTafsiliEntityONE);
 			
-			if(createArticleTafsili && hesabTafsiliTWO!=null && hesabTafsiliTWO.getId()!=null && hesabTafsiliEntityONE.getId().longValue()!=hesabTafsiliTWO.getId().longValue()){
+			if(hesabTafsiliTWO!=null && hesabTafsiliTWO.getId()!=null && hesabTafsiliEntityONE.getId().longValue()!=hesabTafsiliTWO.getId().longValue()){
 				//createAddSubArticle(hesabTafsiliTWO, article, 1);
 				article.setHesabTafsiliTwo(hesabTafsiliTWO);
 			}
@@ -258,7 +258,6 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	
 	protected static SanadHesabdariItemEntity createBestankarArticle(Double bestanKarAmount,
 			AccountsTemplateEntity templateEntity,
-			boolean createArticleTafsili,
 			HesabTafsiliTemplateEntity hesabTafsiliTemplateTWO,
 			HesabTafsiliTemplateEntity hesabShenavarTemlate,
 			AccountingMarkazEntity accountingMarkazEntity,
@@ -325,7 +324,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	}
 	
 	protected static SanadHesabdariItemEntity createBestankarArticle(Double bestanKarAmount,
-			AccountsTemplateEntity templateEntity, boolean createArticleTafsili, HesabTafsiliEntity hesabTafsiliTWO,
+			AccountsTemplateEntity templateEntity, HesabTafsiliEntity hesabTafsiliTWO,
 			AccountingMarkazEntity accountingMarkazEntity, String description, SaalMaaliEntity saalMaaliEntity) {
 
 		if (bestanKarAmount == null || bestanKarAmount == 0)
@@ -359,7 +358,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 					sanadHesabdariItemTemplateBestankar.getHesabMoeenTemplate()));
 
 		return createBestankarArticle(hesabKolEntity, hesabMoeenEntity, hesabTafsiliEntityONE, hesabTafsiliTWO,
-				bestanKarAmount, createArticleTafsili, accountingMarkazEntity, description);
+				bestanKarAmount, accountingMarkazEntity, description);
 	}
 
 	/**
@@ -468,7 +467,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 //	}
 	
 	protected static SanadHesabdariItemEntity createBestankarArticle(HesabKolEntity hesabKolEntity, HesabMoeenEntity hesabMoeenEntity,	HesabTafsiliEntity hesabTafsiliEntityONE, 
-			HesabTafsiliEntity hesabTafsiliTWO, Double bestanKarAmount, boolean createArticleTafsili,
+			HesabTafsiliEntity hesabTafsiliTWO, Double bestanKarAmount, 
 			AccountingMarkazEntity accountingMarkazEntity, String description) {
 
 		if(hesabKolEntity==null || hesabKolEntity.getId() == null)
@@ -484,7 +483,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 		if(hesabTafsiliEntityONE != null && hesabTafsiliEntityONE.getId() != null){
 			article.setHesabTafsili(hesabTafsiliEntityONE);
 			
-			if(createArticleTafsili && hesabTafsiliTWO!=null && hesabTafsiliTWO.getId()!= null && hesabTafsiliTWO.getId().longValue()!=hesabTafsiliEntityONE.getId().longValue()){
+			if(hesabTafsiliTWO!=null && hesabTafsiliTWO.getId()!= null && hesabTafsiliTWO.getId().longValue()!=hesabTafsiliEntityONE.getId().longValue()){
 //				createAddSubArticle(hesabTafsiliTWO, article, 1);
 				article.setHesabTafsiliTwo(hesabTafsiliTWO);
 			}
@@ -500,12 +499,12 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	
 	
 	protected static SanadHesabdariItemEntity createBestankarArticle(HesabKolEntity hesabKolEntity, HesabMoeenEntity hesabMoeenEntity,	HesabTafsiliEntity hesabTafsiliEntityONE, 
-			HesabTafsiliEntity hesabTafsiliTWO,Double bedehkarAmount, boolean createArticleTafsili, AccountingMarkazEntity accountingMarkazEntity, String description, HesabTafsiliEntity sandoghDar) {
-		SanadHesabdariItemEntity bestankarArticle = createBestankarArticle(hesabKolEntity, hesabMoeenEntity, hesabTafsiliEntityONE, hesabTafsiliTWO, bedehkarAmount, createArticleTafsili, accountingMarkazEntity, description);
+			HesabTafsiliEntity hesabTafsiliTWO,Double bedehkarAmount, AccountingMarkazEntity accountingMarkazEntity, String description, HesabTafsiliEntity sandoghDar) {
+		SanadHesabdariItemEntity bestankarArticle = createBestankarArticle(hesabKolEntity, hesabMoeenEntity, hesabTafsiliEntityONE, hesabTafsiliTWO, bedehkarAmount, accountingMarkazEntity, description);
 		if(bestankarArticle.getHesabTafsili() == null)
 			bestankarArticle.setHesabTafsili(sandoghDar);
 		else if(bestankarArticle.getHesabTafsiliTwo() == null){
-			if(createArticleTafsili && sandoghDar!=null){
+			if(sandoghDar!=null){
 				bestankarArticle.setHesabTafsiliTwo(sandoghDar);
 			}
 		} else 
@@ -515,13 +514,13 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	}
 
 	protected static SanadHesabdariItemEntity createBedehkarArticle(HesabKolEntity hesabKolEntity, HesabMoeenEntity hesabMoeenEntity,	HesabTafsiliEntity hesabTafsiliEntityONE, 
-			HesabTafsiliEntity hesabTafsiliTWO,Double bedehkarAmount, boolean createArticleTafsili, AccountingMarkazEntity accountingMarkazEntity, String description, HesabTafsiliEntity actorTafsili) {
+			HesabTafsiliEntity hesabTafsiliTWO,Double bedehkarAmount, AccountingMarkazEntity accountingMarkazEntity, String description, HesabTafsiliEntity actorTafsili) {
 		//SanadHesabdariItemEntity bedehkarArticle = createBedehkarArticle(bedehkarAmount, templateEntity, createArticleTafsili, hesabTafsili, accountingMarkazEntity, description);
-		SanadHesabdariItemEntity bedehkarArticle = createBedehkarArticle(hesabKolEntity, hesabMoeenEntity, hesabTafsiliEntityONE, hesabTafsiliTWO, bedehkarAmount, createArticleTafsili, accountingMarkazEntity, description);
+		SanadHesabdariItemEntity bedehkarArticle = createBedehkarArticle(hesabKolEntity, hesabMoeenEntity, hesabTafsiliEntityONE, hesabTafsiliTWO, bedehkarAmount, accountingMarkazEntity, description);
 		if(bedehkarArticle.getHesabTafsili() == null)
 			bedehkarArticle.setHesabTafsili(actorTafsili);
 		else if(bedehkarArticle.getHesabTafsiliTwo() == null){
-			if(createArticleTafsili && actorTafsili!=null){
+			if(actorTafsili!=null){
 				bedehkarArticle.setHesabTafsiliTwo(actorTafsili);
 			}
 		} else 
