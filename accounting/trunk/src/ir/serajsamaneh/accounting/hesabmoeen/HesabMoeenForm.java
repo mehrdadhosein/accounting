@@ -14,6 +14,7 @@ import org.apache.commons.collections4.map.ListOrderedMap;
 import org.springframework.util.StringUtils;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
@@ -188,6 +189,10 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 			try{
 				String isHierarchical = params.get("isHierarchical");
 				String hidden = params.get("hidden");
+				String hesabType = params.get("hesabType");
+				
+				if(StringUtils.hasText(hesabType) && hesabType.equals(HesabTypeEnum.EXPENSE.name()))
+					this.getFilter().put("hesabKol.hesabGroup.type@eq",HesabTypeEnum.EXPENSE);
 				
 				this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 				
