@@ -194,6 +194,9 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 				if(StringUtils.hasText(hesabType) && hesabType.equals(HesabTypeEnum.EXPENSE.name()))
 					this.getFilter().put("hesabKol.hesabGroup.type@eq",HesabTypeEnum.EXPENSE);
 				
+				if(StringUtils.hasText(hesabType) && hesabType.equals(HesabTypeEnum.INCOME.name()))
+					this.getFilter().put("hesabKol.hesabGroup.type@eq",HesabTypeEnum.INCOME);
+				
 				this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 				
 				if(StringUtils.hasText(hidden) && hidden.equals("false")){
