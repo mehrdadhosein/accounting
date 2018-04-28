@@ -12,6 +12,7 @@ import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.organ.OrganEntity;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 public class HesabTafsiliDAO extends BaseHibernateDAO<HesabTafsiliEntity,Long> {
 
@@ -113,7 +114,7 @@ public class HesabTafsiliDAO extends BaseHibernateDAO<HesabTafsiliEntity,Long> {
 				Integer noeZeroDigitCount = parentCode.length() + maxCode.toString().length();
 				Integer zeroDigitCount =  kalaCodeCharactersNumber - noeZeroDigitCount;
 				if(zeroDigitCount < 0)
-					throw new FatalException();
+					throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_hesabTafsiliCodeCharactersNumberIsShort"));
 				
 				for(int i = 0 ; i<zeroDigitCount; ++i)
 					parentCode = parentCode + "0";
