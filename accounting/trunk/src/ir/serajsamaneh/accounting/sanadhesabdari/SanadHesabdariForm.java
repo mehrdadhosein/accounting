@@ -1320,7 +1320,7 @@ public class SanadHesabdariForm extends
 	public void closeTemporalAccounts(){
 		if(getTarikhSanad() == null)
 			setTarikhSanad(getCurrentUserActiveSaalMaali().getEndDate());
-		getMyService().closeTemporalAccounts(getCurrentOrgan(), getTarikhSanad(), getIsInMultipleLevelMode());
+		getMyService().closeTemporalAccounts(getCurrentOrgan(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali());
 		addInfoMessage("SUCCESSFUL_ACTION");
 	}
 	
@@ -1335,7 +1335,7 @@ public class SanadHesabdariForm extends
 	}
 
 	public void createSanadEkhtetamieh(){
-		getMyService().createSanadEkhtetamieh(getCurrentOrgan(), getTarikhSanad(), getIsInMultipleLevelMode());
+		getMyService().createSanadEkhtetamieh(getCurrentOrgan(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali());
 		addInfoMessage("SUCCESSFUL_SAVE", SerajMessageUtil.getMessage("SanadHesabdari_title"));
 	}
 
@@ -1361,7 +1361,7 @@ public class SanadHesabdariForm extends
 
 	
 	public void createSanadEftetahieh(){
-		getMyService().createSanadEftetahieh(getCurrentOrgan(), getTarikhSanad(), getIsInMultipleLevelMode());
+		getMyService().createSanadEftetahieh(getCurrentOrgan(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali());
 		addInfoMessage("SUCCESSFUL_SAVE", SerajMessageUtil.getMessage("SanadHesabdari_title"));
 	}
 	
