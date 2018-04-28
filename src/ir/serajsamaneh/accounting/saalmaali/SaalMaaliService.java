@@ -212,11 +212,11 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 	}
 
 	
-	public SaalMaaliEntity getPreviousSaalMaali(SaalMaaliEntity saalMaaliEntity, OrganEntity currentOrgan){
+	public SaalMaaliEntity getPreviousSaalMaali(SaalMaaliEntity saalMaaliEntity){
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(saalMaaliEntity.getStartDate());
 		calendar.add(Calendar.DAY_OF_YEAR, -1);
-		return getSaalmaaliByDate(calendar.getTime(), currentOrgan);
+		return getSaalmaaliByDate(calendar.getTime(), saalMaaliEntity.getOrgan());
 	}
 	
 	public SaalMaaliEntity getPreviousSaalMaali(Date tarikh, OrganEntity currentOrgan){

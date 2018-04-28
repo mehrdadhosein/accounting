@@ -131,7 +131,7 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 			return getSerial().toString();
 		else if(getTempSerial() != null)
 			return getTempSerial().toString();
-		return "";
+		return getDescription();
 	}
 	
 	public Boolean getIsEkhtetamieh(){
