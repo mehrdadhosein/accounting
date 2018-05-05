@@ -625,6 +625,10 @@ public class HesabKolService extends
 	public void copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali,	SaalMaaliEntity destSaalMaali) {
 		List<HesabMoeenEntity> activeMoeens = getHesabMoeenService().getActiveMoeens(srcSaalMaali);
 		for (HesabMoeenEntity srcHesabMoeenEntity : activeMoeens) {
+			srcHesabMoeenEntity = getHesabMoeenService().load(srcHesabMoeenEntity.getId());
+			if(srcHesabMoeenEntity.getHesabKol() == null || srcHesabMoeenEntity.getHesabKol().getId() == null) {
+				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_hesabKolNotDefined",srcHesabMoeenEntity,srcSaalMaali));
+			}
 			
 			HesabMoeenEntity destHesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(),destSaalMaali, FlushMode.MANUAL, srcHesabMoeenEntity.getOrgan());
 			if(destHesabMoeenEntity == null){
