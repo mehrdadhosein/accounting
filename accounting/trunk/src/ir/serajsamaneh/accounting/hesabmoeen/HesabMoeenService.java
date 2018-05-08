@@ -436,8 +436,10 @@ public class HesabMoeenService extends
 				}
 			}else{
 				if(hesabMoeen.getHesabKol() == null){
-					HesabKolEntity hesabKolEntity = getHesabKolService().loadHesabKolByTemplate(hesabMoeenTemplateEntity.getHesabKolTemplate(), activeSaalMaaliEntity);
-					hesabMoeen.setHesabKol(hesabKolEntity);
+					if(hesabMoeenTemplateEntity.getHesabKolTemplate()!=null) {
+						HesabKolEntity hesabKolEntity = getHesabKolService().loadHesabKolByTemplate(hesabMoeenTemplateEntity.getHesabKolTemplate(), activeSaalMaaliEntity);
+						hesabMoeen.setHesabKol(hesabKolEntity);
+					}
 				}
 			}
 		}

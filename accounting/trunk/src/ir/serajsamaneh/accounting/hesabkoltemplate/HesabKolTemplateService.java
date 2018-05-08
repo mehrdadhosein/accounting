@@ -195,8 +195,11 @@ public class HesabKolTemplateService extends
 		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(hesabGroupCode, organEntity);
 		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateByCode(hesabKolCode, organEntity);
 		if (hesabKolTemplateEntity == null){
-			hesabKolTemplateEntity = new HesabKolTemplateEntity();
-			hesabKolTemplateEntity.setHidden(false);
+			hesabKolTemplateEntity = getHesabKolTemplateByName(hesabKolName, organEntity);
+			if(hesabKolTemplateEntity == null) {
+				hesabKolTemplateEntity = new HesabKolTemplateEntity();
+				hesabKolTemplateEntity.setHidden(false);
+			}
 		}
 		hesabKolTemplateEntity.setName(hesabKolName);
 		hesabKolTemplateEntity.setCode(hesabKolCode);
@@ -210,6 +213,8 @@ public class HesabKolTemplateService extends
 	
 
 	
+
+
 	@Override
 	public void saveOrUpdateStateLess(HesabKolTemplateEntity entity) {
 		if(entity.getHidden() == null)
@@ -220,6 +225,11 @@ public class HesabKolTemplateService extends
 	@Transactional
 	public HesabKolTemplateEntity getHesabKolTemplateByCode(String hesabCode, OrganEntity organEntity) {
 		return getMyDAO().getHesabKolTemplateByCode(hesabCode, organEntity);
+	}
+	
+	@Transactional
+	public HesabKolTemplateEntity getHesabKolTemplateByName(String hesabKolName, OrganEntity organEntity) {
+		return getMyDAO().getHesabKolTemplateByName(hesabKolName, organEntity);
 	}
 
 	public HesabKolTemplateEntity loadHierarchical(String code, OrganEntity organEntity) {

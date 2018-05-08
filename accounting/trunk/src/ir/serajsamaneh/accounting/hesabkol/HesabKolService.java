@@ -343,6 +343,10 @@ public class HesabKolService extends
 				}catch(DuplicateException e){
 					e.printStackTrace();
 				}
+			}else {
+				loadHesabKol.setCode(hesabKolTemplateEntity.getCode());
+				loadHesabKol.setName(hesabKolTemplateEntity.getName());
+				save(loadHesabKol);
 			}
 		}
 		
