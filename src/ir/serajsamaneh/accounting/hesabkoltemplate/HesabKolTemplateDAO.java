@@ -54,6 +54,15 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 			throw new IllegalStateException();
 	}
 	
+	public HesabKolTemplateEntity getHesabKolTemplateByName(String hesabKolName, OrganEntity organEntity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("name@eq", hesabKolName);
+		localFilter.put("organ.id@eq", organEntity.getId());
+		HesabKolTemplateEntity hesabKolTemplateEntity = load(null, localFilter, FlushMode.MANUAL, false);
+		return hesabKolTemplateEntity;
+
+	}
+	
 	@Override
 	public void saveOrUpdate(HesabKolTemplateEntity entity) {
 		if(entity.getHidden() == null)
@@ -86,5 +95,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 		
 		super.save(entity);
 	}
+
+
 
 }
