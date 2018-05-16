@@ -63,19 +63,19 @@
 	</ui:define>
 	<ui:define name="buttonsection">
 	<h:panelGroup rendered="#{owner.isCurrentUserActiveSaalMaaliConfigured}">
-		<p:commandButton action="#{sanadHesabdari.createMonthlySummarySanad}" 
+		<p:commandButton action="#{sanadHesabdari.createMonthlySummarySanad}" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;vertical-align:top;" ajax="false" 
 			value="#{messages['SanadHesabdari_createMonthlySummarySanad']}">
 		</p:commandButton>
 		
 		<h:commandButton action="#{sanadHesabdari.createSanadEftetahieh}" styleClass=" gwt-Button" rendered="#{owner.isInProgress and !sanadHesabdari.hasSanadEftetahieh}"
-			image="/images/buttons/btn_createSanadEftetahieh.png"
+			image="/images/buttons/btn_createSanadEftetahieh.png" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['createSanadEftetahieh']}">
 		</h:commandButton>
 
 		<h:commandButton action="#{sanadHesabdari.editSanadEftetahieh}" styleClass=" gwt-Button" rendered="#{owner.isInProgress and sanadHesabdari.hasSanadEftetahiehMovaghat}"
-			image="/images/buttons/btn_editSanadEftetahieh.png"
+			image="/images/buttons/btn_editSanadEftetahieh.png" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['SanadEftetahiehCreated']}">
 				<f:setPropertyActionListener value="/saalmaali/saalMaali.localSpecialAction.jsf"
@@ -83,13 +83,13 @@
 		</h:commandButton>
 				
 		<h:commandButton action="#{sanadHesabdari.deleteSanadEftetahieh}" styleClass=" gwt-Button" rendered="#{owner.isInProgress and sanadHesabdari.hasSanadEftetahiehMovaghat}"
-			image="/images/buttons/btn_deleteSanadEftetahieh.png"
+			image="/images/buttons/btn_deleteSanadEftetahieh.png" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['SanadEftetahiehDelete']}">
 		</h:commandButton>
 				
 		<h:commandButton action="#{sanadHesabdari.viewSanadEftetahieh}" styleClass=" gwt-Button" rendered="#{owner.isInProgress and sanadHesabdari.hasSanadEftetahiehDaemi}"
-			image="/images/buttons/btn_viewSanadEftetahieh.png"
+			image="/images/buttons/btn_viewSanadEftetahieh.png" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['viewSanadEftetahieh']}">
 				<f:setPropertyActionListener value="/saalmaali/saalMaali.localSpecialAction.jsf"
@@ -97,25 +97,25 @@
 		</h:commandButton>
 		
 		<h:commandButton action="#{sanadHesabdari.closeTemporalAccounts}" styleClass=" gwt-Button" rendered="#{owner.isInProgress}"
-			image="/images/buttons/btn_closeTemporalAccounts.png"
+			image="/images/buttons/btn_closeTemporalAccounts.png" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['closeTemporalAccounts']}" immediate="true">
 		</h:commandButton>
 
 		<h:commandButton action="#{sanadHesabdari.deleteTemporalSanadHesabdari}" styleClass=" gwt-Button" rendered="#{owner.isTemporalAccountsClosed}"
-			image="/images/buttons/btn_deleteTemporalSanadHesabdari.png"
+			image="/images/buttons/btn_deleteTemporalSanadHesabdari.png" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['deleteTemporalSanadHesabdari']}" immediate="true">
 		</h:commandButton>
 
 		<h:commandButton action="#{sanadHesabdari.createSanadEkhtetamieh}" styleClass=" gwt-Button" rendered="#{owner.isTemporalAccountsClosed}"
-			image="/images/buttons/btn_createSanadEkhtetamieh.png"
+			image="/images/buttons/btn_createSanadEkhtetamieh.png" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['createSanadEkhtetamieh']}">
 		</h:commandButton>
 		
 		<h:commandButton action="#{sanadHesabdari.editSanadEkhtetamieh}" styleClass=" gwt-Button" rendered="#{sanadHesabdari.hasSanadEkhtetamiehMovaghat}"
-			image="/images/buttons/btn_editSanadEkhtetamieh.png"
+			image="/images/buttons/btn_editSanadEkhtetamieh.png" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['SanadEkhtetamiehCreated']}">
 				<f:setPropertyActionListener value="/saalmaali/saalMaali.localSpecialAction.jsf"
@@ -123,13 +123,13 @@
 		</h:commandButton>
 				
 		<h:commandButton action="#{sanadHesabdari.deleteSanadEkhtetamieh}" styleClass=" gwt-Button" rendered="#{sanadHesabdari.hasSanadEkhtetamiehMovaghat}"
-			image="/images/buttons/btn_deleteSanadEkhtetamieh.png"
+			image="/images/buttons/btn_deleteSanadEkhtetamieh.png" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['SanadEkhtetamiehDelete']}">
 		</h:commandButton>
 				
 		<h:commandButton action="#{sanadHesabdari.viewSanadEkhtetamieh}" styleClass=" gwt-Button" rendered="#{sanadHesabdari.hasSanadEkhtetamiehDaemi or sanadHesabdari.hasSanadEkhtetamiehBarresiShode}"
-			image="/images/buttons/btn_viewSanadEkhtetamieh.png"
+			image="/images/buttons/btn_viewSanadEkhtetamieh.png" onclick="showLoading();"
 			style="font-family:tahoma;font-size:12px cursor: pointer;text-align:center;"
 			value="#{messages['viewSanadEkhtetamieh']}">
 				<f:setPropertyActionListener value="/saalmaali/saalMaali.localSpecialAction.jsf"
