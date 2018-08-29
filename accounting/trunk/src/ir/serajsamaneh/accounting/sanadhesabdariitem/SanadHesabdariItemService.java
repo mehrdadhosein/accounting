@@ -124,18 +124,18 @@ public class SanadHesabdariItemService extends
 	}
 
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemVO> getTarazKolAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter) {
-		return getTarazKolAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true, true);
+	public List<SanadHesabdariItemVO> getTarazKolAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, int numberOfDecimals) {
+		return getTarazKolAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true, true, numberOfDecimals);
 	}
 	
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemVO> getTarazKolAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts) {
+	public List<SanadHesabdariItemVO> getTarazKolAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts, int numberOfDecimals) {
 		List<SanadHesabdariItemVO> tarazKolAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter = populateTarazFilter(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, beforeClosingAccounts);
 		
 		List<Object[]> rawList = getMyDAO().getTarazKolAzmayeshi(localFilter);
-		Map<Long, SanadHesabdariItemVO> tarazKolAzmayeshiMandeh = getTarazKolAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
+		Map<Long, SanadHesabdariItemVO> tarazKolAzmayeshiMandeh = getTarazKolAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts, numberOfDecimals);
 		
 		for (int i=0; i<rawList.size(); i++) {
 			Object[] object = rawList.get(i);
@@ -202,7 +202,7 @@ public class SanadHesabdariItemService extends
 
 	//this method is used to calculate the MANDEH EBTEDAYTE DORE
 	@Transactional(readOnly=true)
-	private Map<Long, SanadHesabdariItemVO> getTarazKolAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, boolean beforeClosingAccounts) {
+	private Map<Long, SanadHesabdariItemVO> getTarazKolAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, boolean beforeClosingAccounts, int numberOfDecimals) {
 		Map<Long, SanadHesabdariItemVO> tarazKolAzmayeshiMap = new HashMap<Long, SanadHesabdariItemVO>();
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter = populateMandehTarazFilter(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
@@ -233,32 +233,32 @@ public class SanadHesabdariItemService extends
 		}
 		
 		if(organEntity == null)
-			applySanadEftetahiehOnTarazKolAzmayeshiMandeh(tarazKolAzmayeshiMap, saalMaaliEntity);
+			applySanadEftetahiehOnTarazKolAzmayeshiMandeh(tarazKolAzmayeshiMap, saalMaaliEntity, numberOfDecimals);
 		else
-			applySanadEftetahiehOnTarazKolAzmayeshiMandeh(tarazKolAzmayeshiMap, saalMaaliEntity, organEntity);
+			applySanadEftetahiehOnTarazKolAzmayeshiMandeh(tarazKolAzmayeshiMap, saalMaaliEntity, organEntity, numberOfDecimals);
 		return tarazKolAzmayeshiMap;
 	}
 	
 	@Transactional(readOnly=true)
-	private void applySanadEftetahiehOnTarazKolAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazKolAzmayeshiMap, SaalMaaliEntity saalMaaliEntity) {
+	private void applySanadEftetahiehOnTarazKolAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazKolAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, int numberOfDecimals) {
 		List<SanadHesabdariEntity> sanadEftetahiehha = getSanadHesabdariService().getSanadEftetahiehha(saalMaaliEntity);
 		for (SanadHesabdariEntity sanadEftetahieh : sanadEftetahiehha) {
-			applySanadEftetahiehOnTarazKolAzmayeshiMandeh(tarazKolAzmayeshiMap, sanadEftetahieh);
+			applySanadEftetahiehOnTarazKolAzmayeshiMandeh(tarazKolAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
 		}
 	}
 	
 	@Transactional(readOnly=true)
-	private void applySanadEftetahiehOnTarazKolAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazKolAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
+	private void applySanadEftetahiehOnTarazKolAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazKolAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity, int numberOfDecimals) {
 		SanadHesabdariEntity sanadEftetahieh = getSanadHesabdariService().getSanadEftetahieh(saalMaaliEntity,organEntity);
 		if(sanadEftetahieh == null || sanadEftetahieh.getSanadHesabdariItem() == null)
 			return;
-		applySanadEftetahiehOnTarazKolAzmayeshiMandeh(tarazKolAzmayeshiMap, sanadEftetahieh);
+		applySanadEftetahiehOnTarazKolAzmayeshiMandeh(tarazKolAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
 	}
 
 	@Transactional(readOnly=true)
 	private void applySanadEftetahiehOnTarazKolAzmayeshiMandeh(
 			Map<Long, SanadHesabdariItemVO> tarazKolAzmayeshiMap,
-			SanadHesabdariEntity sanadEftetahieh) {
+			SanadHesabdariEntity sanadEftetahieh, int numberOfDecimals) {
 		List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadEftetahieh.getSanadHesabdariItem();
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
 			HesabKolEntity hesabKolEntity = sanadHesabdariItemEntity.getHesabKol();
@@ -266,7 +266,7 @@ public class SanadHesabdariItemService extends
 			SanadHesabdariItemVO itemEntity = tarazKolAzmayeshiMap.get(hesabKolId);
 			if(itemEntity == null){
 
-				tarazKolAzmayeshiMap.put(hesabKolId, new SanadHesabdariItemVO(sanadHesabdariItemEntity));
+				tarazKolAzmayeshiMap.put(hesabKolId, new SanadHesabdariItemVO(sanadHesabdariItemEntity, numberOfDecimals));
 			}
 			else{
 				itemEntity.setBestankar(itemEntity.getBestankar()+sanadHesabdariItemEntity.getBestankar());
@@ -277,25 +277,25 @@ public class SanadHesabdariItemService extends
 	}
 	
 	@Transactional(readOnly=true)
-	private void applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMoeenAzmayeshiMap, SaalMaaliEntity saalMaaliEntity) {
+	private void applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMoeenAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, int numberOfDecimals) {
 		List<SanadHesabdariEntity> sanadEftetahiehha = getSanadHesabdariService().getSanadEftetahiehha(saalMaaliEntity);
 		for (SanadHesabdariEntity sanadEftetahieh : sanadEftetahiehha) {
-			applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(tarazMoeenAzmayeshiMap, sanadEftetahieh);
+			applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(tarazMoeenAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
 		}
 	}
 	
 	@Transactional(readOnly=true)
-	private void applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMoeenAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
+	private void applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMoeenAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity, int numberOfDecimals) {
 		SanadHesabdariEntity sanadEftetahieh = getSanadHesabdariService().getSanadEftetahieh(saalMaaliEntity,organEntity);
 		if(sanadEftetahieh == null || sanadEftetahieh.getSanadHesabdariItem() == null)
 			return;
-		applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(tarazMoeenAzmayeshiMap, sanadEftetahieh);
+		applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(tarazMoeenAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
 	}
 
 	@Transactional(readOnly=true)
 	private void applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(
 			Map<Long, SanadHesabdariItemVO> tarazMoeenAzmayeshiMap,
-			SanadHesabdariEntity sanadEftetahieh) {
+			SanadHesabdariEntity sanadEftetahieh, int numberOfDecimals) {
 		List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadEftetahieh.getSanadHesabdariItem();
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
 			HesabMoeenEntity hesabMoeenEntity = sanadHesabdariItemEntity.getHesabMoeen();
@@ -304,7 +304,7 @@ public class SanadHesabdariItemService extends
 			if(itemEntity == null){
 //				sanadHesabdariItemEntity.setMandehBedehkar(0d);
 //				sanadHesabdariItemEntity.setMandehBestankar(0d);
-				tarazMoeenAzmayeshiMap.put(hesabMoeenId, new SanadHesabdariItemVO(sanadHesabdariItemEntity));
+				tarazMoeenAzmayeshiMap.put(hesabMoeenId, new SanadHesabdariItemVO(sanadHesabdariItemEntity, numberOfDecimals));
 			}
 			else{
 				itemEntity.setBestankar(itemEntity.getBestankar()+sanadHesabdariItemEntity.getBestankar());
@@ -315,25 +315,25 @@ public class SanadHesabdariItemService extends
 	}
 	
 	@Transactional(readOnly=true)
-	private void applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMap, SaalMaaliEntity saalMaaliEntity) {
+	private void applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, int numberOfDecimals) {
 		List<SanadHesabdariEntity> sanadEftetahiehha = getSanadHesabdariService().getSanadEftetahiehha(saalMaaliEntity);
 		for (SanadHesabdariEntity sanadEftetahieh : sanadEftetahiehha) {
-			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, sanadEftetahieh);
+			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
 		}
 	}
 	
 	@Transactional(readOnly=true)
-	private void applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
+	private void applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity, int numberOfDecimals) {
 		SanadHesabdariEntity sanadEftetahieh = getSanadHesabdariService().getSanadEftetahieh(saalMaaliEntity,organEntity);
 		if(sanadEftetahieh == null || sanadEftetahieh.getSanadHesabdariItem() == null)
 			return;
-		applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, sanadEftetahieh);
+		applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
 	}
 
 	@Transactional(readOnly=true)
 	private void applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(
 			Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMap,
-			SanadHesabdariEntity sanadEftetahieh) {
+			SanadHesabdariEntity sanadEftetahieh, int numberOfDecimals) {
 		List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadEftetahieh.getSanadHesabdariItem();
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
 			HesabTafsiliEntity hesabTafsiliEntity = sanadHesabdariItemEntity.getHesabTafsili();
@@ -345,7 +345,7 @@ public class SanadHesabdariItemService extends
 //				sanadHesabdariItemEntity.setMandehBedehkar(0d);
 //				sanadHesabdariItemEntity.setMandehBestankar(0d);
 
-				tarazTafsiliAzmayeshiMap.put(hesabTafsiliId, new SanadHesabdariItemVO(sanadHesabdariItemEntity));
+				tarazTafsiliAzmayeshiMap.put(hesabTafsiliId, new SanadHesabdariItemVO(sanadHesabdariItemEntity, numberOfDecimals));
 			}
 			else{
 				itemEntity.setBestankar(itemEntity.getBestankar()+sanadHesabdariItemEntity.getBestankar());
@@ -356,25 +356,25 @@ public class SanadHesabdariItemService extends
 	}
 	
 	@Transactional(readOnly=true)
-	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMarkazAzmayeshiMap, SaalMaaliEntity saalMaaliEntity) {
+	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMarkazAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, int numberOfDecimals) {
 		List<SanadHesabdariEntity> sanadEftetahiehha = getSanadHesabdariService().getSanadEftetahiehha(saalMaaliEntity);
 		for (SanadHesabdariEntity sanadEftetahieh : sanadEftetahiehha) {
-			applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazMarkazAzmayeshiMap, sanadEftetahieh);
+			applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazMarkazAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
 		}
 	}
 	
 	@Transactional(readOnly=true)
-	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMarkazAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity) {
+	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMarkazAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, OrganEntity organEntity, int numberOfDecimals) {
 		SanadHesabdariEntity sanadEftetahieh = getSanadHesabdariService().getSanadEftetahieh(saalMaaliEntity,organEntity);
 		if(sanadEftetahieh == null || sanadEftetahieh.getSanadHesabdariItem() == null)
 			return;
-		applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazMarkazAzmayeshiMap, sanadEftetahieh);
+		applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazMarkazAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
 	}
 
 	@Transactional(readOnly=true)
 	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(
 			Map<Long, SanadHesabdariItemVO> tarazMarkazAzmayeshiMap,
-			SanadHesabdariEntity sanadEftetahieh) {
+			SanadHesabdariEntity sanadEftetahieh, int numberOfDecimals) {
 		List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadEftetahieh.getSanadHesabdariItem();
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
 			AccountingMarkazEntity accountingMarkazEntity = sanadHesabdariItemEntity.getAccountingMarkaz();
@@ -385,7 +385,7 @@ public class SanadHesabdariItemService extends
 			Long accountingMarkazId = accountingMarkazEntity.getId();
 			SanadHesabdariItemVO itemEntity = tarazMarkazAzmayeshiMap.get(accountingMarkazId);
 			if(itemEntity == null)
-				tarazMarkazAzmayeshiMap.put(accountingMarkazId, new SanadHesabdariItemVO(sanadHesabdariItemEntity));
+				tarazMarkazAzmayeshiMap.put(accountingMarkazId, new SanadHesabdariItemVO(sanadHesabdariItemEntity, numberOfDecimals));
 			else{
 				itemEntity.setBestankar(itemEntity.getBestankar()+sanadHesabdariItemEntity.getBestankar());
 				itemEntity.setBedehkar(itemEntity.getBedehkar()+sanadHesabdariItemEntity.getBedehkar());
@@ -395,7 +395,7 @@ public class SanadHesabdariItemService extends
 	}
 
 	@Transactional(readOnly=true)
-	private Map<Long, SanadHesabdariItemVO> getTarazMoeenAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, boolean beforeClosingAccounts) {
+	private Map<Long, SanadHesabdariItemVO> getTarazMoeenAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, boolean beforeClosingAccounts, int numberOfDecimals) {
 		Map<Long, SanadHesabdariItemVO> tarazMoeenAzmayeshiMap = new HashMap<Long, SanadHesabdariItemVO>();
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter = populateMandehTarazFilter(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
@@ -425,16 +425,16 @@ public class SanadHesabdariItemService extends
 		}
 		
 		if(organEntity == null)
-			applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(tarazMoeenAzmayeshiMap, saalMaaliEntity);
+			applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(tarazMoeenAzmayeshiMap, saalMaaliEntity, numberOfDecimals);
 		else
-			applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(tarazMoeenAzmayeshiMap, saalMaaliEntity, organEntity);
+			applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(tarazMoeenAzmayeshiMap, saalMaaliEntity, organEntity, numberOfDecimals);
 		
 		return tarazMoeenAzmayeshiMap;
 	}
 	
 	
 	@Transactional(readOnly=true)
-	private Map<Long, SanadHesabdariItemVO> getTarazTafsiliAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, boolean beforeClosingAccounts) {
+	private Map<Long, SanadHesabdariItemVO> getTarazTafsiliAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, boolean beforeClosingAccounts, int numberOfDecimals) {
 		Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMap = new HashMap<Long, SanadHesabdariItemVO>();
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter = populateMandehTarazFilter(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
@@ -473,14 +473,14 @@ public class SanadHesabdariItemService extends
 		}
 		
 		if(organEntity == null)
-			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity);
+			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity, numberOfDecimals);
 		else
-			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity, organEntity);
+			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity, organEntity, numberOfDecimals);
 		
 		return tarazTafsiliAzmayeshiMap;
 	}
 	@Transactional(readOnly=true)
-	private Map<Long, SanadHesabdariItemVO> getTarazTafsiliAzmayeshiTwoMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, boolean beforeClosingAccounts) {
+	private Map<Long, SanadHesabdariItemVO> getTarazTafsiliAzmayeshiTwoMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, boolean beforeClosingAccounts, int numberOfDecimals) {
 		Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMap = new HashMap<Long, SanadHesabdariItemVO>();
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter = populateMandehTarazFilter(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
@@ -519,15 +519,15 @@ public class SanadHesabdariItemService extends
 		}
 		
 		if(organEntity == null)
-			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity);
+			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity, numberOfDecimals);
 		else
-			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity, organEntity);
+			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity, organEntity, numberOfDecimals);
 		
 		return tarazTafsiliAzmayeshiMap;
 	}
 	
 	@Transactional(readOnly=true)
-	private Map<Long, SanadHesabdariItemVO> getTarazTafsiliShenavarAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Integer level, boolean beforeClosingAccounts) {
+	private Map<Long, SanadHesabdariItemVO> getTarazTafsiliShenavarAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Integer level, boolean beforeClosingAccounts, int numberOfDecimals) {
 		Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMap = new HashMap<Long, SanadHesabdariItemVO>();
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter = populateMandehTarazFilter(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
@@ -566,15 +566,15 @@ public class SanadHesabdariItemService extends
 		}
 		
 		if(organEntity == null)
-			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity);
+			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity, numberOfDecimals);
 		else
-			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity, organEntity);
+			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, saalMaaliEntity, organEntity, numberOfDecimals);
 		
 		return tarazTafsiliAzmayeshiMap;
 	}
 
 	@Transactional(readOnly=true)
-	private Map<Long, SanadHesabdariItemVO> getTarazAccountingMarkazAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, boolean beforeClosingAccounts) {
+	private Map<Long, SanadHesabdariItemVO> getTarazAccountingMarkazAzmayeshiMandeh(SaalMaaliEntity saalMaaliEntity, Date fromDate, List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, boolean beforeClosingAccounts, int numberOfDecimals) {
 		Map<Long, SanadHesabdariItemVO> tarazAccountingMarkazAzmayeshiMap = new HashMap<Long, SanadHesabdariItemVO>();
 		Map<String, Object> localFilter =  new HashMap<String, Object>();
 		localFilter = populateMandehTarazFilter(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
@@ -613,26 +613,26 @@ public class SanadHesabdariItemService extends
 		}
 		
 		if(organEntity == null)
-			applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazAccountingMarkazAzmayeshiMap, saalMaaliEntity);
+			applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazAccountingMarkazAzmayeshiMap, saalMaaliEntity, numberOfDecimals);
 		else
-			applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazAccountingMarkazAzmayeshiMap, saalMaaliEntity, organEntity);
+			applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazAccountingMarkazAzmayeshiMap, saalMaaliEntity, organEntity, numberOfDecimals);
 		
 		return tarazAccountingMarkazAzmayeshiMap;
 	}
 	
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemVO> getTarazMoeenAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean beforeClosingAccounts) {
-		return getTarazMoeenAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true, beforeClosingAccounts);
+	public List<SanadHesabdariItemVO> getTarazMoeenAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean beforeClosingAccounts, int numberOfDecimals) {
+		return getTarazMoeenAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true, beforeClosingAccounts, numberOfDecimals);
 	}
 	
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemVO> getTarazMoeenAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts) {
+	public List<SanadHesabdariItemVO> getTarazMoeenAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate, List<Long> hesabKolIds, List<Long> moeenIds,List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts, int numberOfDecimals) {
 		Map<String, Object> localFilter =  new HashMap<String, Object>();
 		localFilter = populateTarazFilter(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, beforeClosingAccounts);
 		List<SanadHesabdariItemVO> tarazMoeenAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
 		
 		List<Object[]> rawList = getMyDAO().getTarazMoeenAzmayeshi(localFilter);
-		Map<Long, SanadHesabdariItemVO> tarazMoeenAzmayeshiMandeh = getTarazMoeenAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
+		Map<Long, SanadHesabdariItemVO> tarazMoeenAzmayeshiMandeh = getTarazMoeenAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts, numberOfDecimals);
 		for (Object object : rawList) {
 			SanadHesabdariItemVO entity = new SanadHesabdariItemVO();
 			Object[] a = (Object[])object;
@@ -702,15 +702,15 @@ public class SanadHesabdariItemService extends
 	}
 	
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemVO> getTarazTafsiliAzmayeshiTwo(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean beforeClosingAccounts) {
-		return getTarazTafsiliTwoAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true, beforeClosingAccounts);
+	public List<SanadHesabdariItemVO> getTarazTafsiliAzmayeshiTwo(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean beforeClosingAccounts, int numberOfDecimals) {
+		return getTarazTafsiliTwoAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true, beforeClosingAccounts, numberOfDecimals);
 	}
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemVO> getTarazTafsiliAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean beforeClosingAccounts) {
-		return getTarazTafsiliAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true, beforeClosingAccounts);
+	public List<SanadHesabdariItemVO> getTarazTafsiliAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean beforeClosingAccounts, int numberOfDecimals) {
+		return getTarazTafsiliAzmayeshi(saalMaaliEntity, fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, fromSerial, toSerial, sanadhesabdariItemFilter, true, beforeClosingAccounts, numberOfDecimals);
 	}
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemVO> getTarazTafsiliAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts) {
+	public List<SanadHesabdariItemVO> getTarazTafsiliAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts, int numberOfDecimals) {
 		List<SanadHesabdariItemVO> tarazTafsiliAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
@@ -719,7 +719,7 @@ public class SanadHesabdariItemService extends
 
 		
 		List<Object[]> rawList = getMyDAO().getTarazTafsiliAzmayeshi(filter);
-		Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMandeh = getTarazTafsiliAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
+		Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMandeh = getTarazTafsiliAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts, numberOfDecimals);
 		
 		for (Object[] object : rawList) {
 			SanadHesabdariItemVO entity = new SanadHesabdariItemVO();
@@ -781,7 +781,7 @@ public class SanadHesabdariItemService extends
 	}
 
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemVO> getTarazTafsiliTwoAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts) {
+	public List<SanadHesabdariItemVO> getTarazTafsiliTwoAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts, int numberOfDecimals) {
 		List<SanadHesabdariItemVO> tarazTafsiliAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
@@ -790,7 +790,7 @@ public class SanadHesabdariItemService extends
 
 		
 		List<Object[]> rawList = getMyDAO().getTarazTafsiliAzmayeshiTwo(filter);
-		Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiTwoMandeh = getTarazTafsiliAzmayeshiTwoMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
+		Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiTwoMandeh = getTarazTafsiliAzmayeshiTwoMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts, numberOfDecimals);
 		
 		for (Object[] object : rawList) {
 			SanadHesabdariItemVO entity = new SanadHesabdariItemVO();
@@ -852,7 +852,7 @@ public class SanadHesabdariItemService extends
 	}
 	
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemVO> getTarazTafsiliShenavarAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, Integer level, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts) {
+	public List<SanadHesabdariItemVO> getTarazTafsiliShenavarAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, Integer level, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts, int numberOfDecimals) {
 		List<SanadHesabdariItemVO> tarazTafsiliAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
@@ -861,7 +861,7 @@ public class SanadHesabdariItemService extends
 		filter.put("articleTafsili.level@eq", level);
 		
 		List<Object[]> rawList = getMyDAO().getTarazShenavarAzmayeshi(filter);
-		Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMandeh = getTarazTafsiliShenavarAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, level, beforeClosingAccounts);
+		Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMandeh = getTarazTafsiliShenavarAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, level, beforeClosingAccounts, numberOfDecimals);
 		
 		for (Object[] object : rawList) {
 			SanadHesabdariItemVO entity = new SanadHesabdariItemVO();
@@ -912,7 +912,7 @@ public class SanadHesabdariItemService extends
 	}
 	
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemVO> getTarazAccountingMarkazAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts) {
+	public List<SanadHesabdariItemVO> getTarazAccountingMarkazAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts, int numberOfDecimals) {
 		List<SanadHesabdariItemVO> tarazAccountingMarkazAzmayeshiList = new ArrayList<SanadHesabdariItemVO>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
@@ -920,7 +920,7 @@ public class SanadHesabdariItemService extends
 		
 		
 		List<Object[]> rawList = getMyDAO().getTarazAccountingMarkazAzmayeshi(filter);
-		Map<Long, SanadHesabdariItemVO> tarazAccountingMarkazAzmayeshiMandeh = getTarazAccountingMarkazAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
+		Map<Long, SanadHesabdariItemVO> tarazAccountingMarkazAzmayeshiMandeh = getTarazAccountingMarkazAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts, numberOfDecimals);
 		
 		for (Object[] object : rawList) {
 			SanadHesabdariItemVO entity = new SanadHesabdariItemVO();
@@ -971,7 +971,7 @@ public class SanadHesabdariItemService extends
 	}
 	
 	@Transactional(readOnly=true)
-	public List<SanadHesabdariItemEntity> getTarazAccountingMarkazShenavarAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts) {
+	public List<SanadHesabdariItemEntity> getTarazAccountingMarkazShenavarAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,List<Long> hesabKolIds, List<Long> moeenIds, List<Long> tafsiliIds, List<Long> articleTafsiliIds, List<Long> accountingMarkazIds, HesabTypeEnum hesabType, OrganEntity organEntity, Long fromSerial, Long toSerial, Map<String, Object> sanadhesabdariItemFilter, boolean displayZeroMandehInTaraz, boolean beforeClosingAccounts, int numberOfDecimals) {
 		List<SanadHesabdariItemEntity> tarazAccountingMarkazAzmayeshiList = new ArrayList<SanadHesabdariItemEntity>();
 		Map<String, Object> filter = populateTarazFilter(saalMaaliEntity,
 				fromDate, toDate, hesabKolIds, moeenIds, tafsiliIds,
@@ -979,7 +979,7 @@ public class SanadHesabdariItemService extends
 		
 		filter.put("articleTafsili.level@eq", 2);
 		List<Object[]> rawList = getMyDAO().getTarazAccountingMarkazShenavarAzmayeshi(filter);
-		Map<Long, SanadHesabdariItemVO> tarazAccountingMarkazAzmayeshiMandeh = getTarazAccountingMarkazAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts);
+		Map<Long, SanadHesabdariItemVO> tarazAccountingMarkazAzmayeshiMandeh = getTarazAccountingMarkazAzmayeshiMandeh(saalMaaliEntity, fromDate, hesabKolIds, moeenIds, tafsiliIds, articleTafsiliIds, accountingMarkazIds, hesabType, organEntity, beforeClosingAccounts, numberOfDecimals);
 		
 		for (Object[] object : rawList) {
 			SanadHesabdariItemEntity entity = new SanadHesabdariItemEntity();

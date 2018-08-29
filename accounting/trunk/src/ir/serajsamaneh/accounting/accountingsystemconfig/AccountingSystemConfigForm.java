@@ -72,6 +72,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	YesNoEnum validateHesabMoeenHasMarkaz;
 	Integer maxSanadHesabdariTafsilLevel;
 	Integer hesabTafsiliCodeCharactersNumber;
+	Integer numberOfDecimalsConfig;
 	HesabTafsiliCodingTypeEnum hesabTafsiliCodingType;
 	
 	Integer hesabMoeenCodeCharactersNumber;
@@ -150,6 +151,19 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 
 	public void setHesabTafsiliCodeCharactersNumber(Integer hesabTafsiliCodeCharactersNumber) {
 		this.hesabTafsiliCodeCharactersNumber = hesabTafsiliCodeCharactersNumber;
+	}
+
+	public Integer getNumberOfDecimalsConfig() {
+		if(numberOfDecimalsConfig==null)
+			if(getSystemConfigService().getValue(getCurrentOrgan(), null, "numberOfDecimals")!=null){
+				numberOfDecimalsConfig= new Integer(getSystemConfigService().getValue(getCurrentOrgan(), null, "numberOfDecimals"));
+			}else	
+				numberOfDecimalsConfig = 0;		
+		return numberOfDecimalsConfig;
+	}
+
+	public void setNumberOfDecimalsConfig(Integer numberOfDecimalsConfig) {
+		this.numberOfDecimalsConfig = numberOfDecimalsConfig;
 	}
 
 	public Integer getMaxSanadHesabdariTafsilLevel() {
@@ -325,6 +339,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 //		
 		getSystemConfigService().insertKeyValue("validateHesabMoeenHasMarkaz",	getValidateHesabMoeenHasMarkaz().value().toString(), null, getCurrentOrgan());
 		getSystemConfigService().insertKeyValue("maxSanadHesabdariTafsilLevel",	getMaxSanadHesabdariTafsilLevel().toString(), null, getCurrentOrgan());
+		getSystemConfigService().insertKeyValue("numberOfDecimals",	getNumberOfDecimalsConfig().toString(), null, getCurrentOrgan());
 //		 YesNoEnum oldvalidateHesabMoeenHasMarkazValue = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasMarkaz)); 
 //		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasMarkazValue.nameWithClass()));
 		

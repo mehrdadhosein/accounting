@@ -22,30 +22,6 @@
 		}
 
 
-		
-		function sumColumnOfGrid(gridID,column){
-			
-			var allRowsInGrid = $$("#"+gridID).jqGrid('getRowData');
-			var sumOfColumn=0;
-			if (allRowsInGrid.length!=0){
-				for (row in  allRowsInGrid){
-					var rowColumn=allRowsInGrid[row][column];
-					if(rowColumn != undefined){
-						rowColumn = rowColumn.replace(/\,/g,'');
-					 	if(isNumeric(rowColumn)){
-					 		sumOfColumn+=parseFloat(rowColumn);
-						}
-					}
-					 
-				}
-											
-			}
-			return sumOfColumn;
-			
-			
-			
-		}
-
 
 	function addSanadHesabdariActionButtons(gridId,rowId){
 		del = "<input style='' type='image' src='"+contextPath+"/images/remove.png'  value='Delete' onclick=\"deleteRowData  ('"+gridId+"','"+rowId+"');updateFooter();\" />";

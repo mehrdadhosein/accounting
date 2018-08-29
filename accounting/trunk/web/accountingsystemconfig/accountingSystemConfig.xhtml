@@ -154,6 +154,16 @@
 						value="#{owner.hesabMoeenCodeCharactersNumber}" type="number" min="6" max="20" style="width:220px;display:none" >
 						 <f:validateLongRange minimum="6" maximum="20" />
 					</p:inputText>
+											 
+					<h:panelGroup>
+						<h:outputText styleClass="required" value="  " />
+						<h:outputLabel for="numberOfDecimalsConfig"
+							value="#{messages['common_numberOfDecimals']}" /> : 
+					</h:panelGroup>
+					<p:inputText id="numberOfDecimalsConfig" label="#{messages['common_numberOfDecimals']}"  
+						value="#{owner.numberOfDecimalsConfig}" type="number" min="0" max="3" style="width:220px" >
+						 <f:validateLongRange minimum="0" maximum="3" />
+					</p:inputText>
 													
 				</p:panelGrid>
 
