@@ -1,5 +1,6 @@
 package ir.serajsamaneh.accounting.sanadhesabdariitem;
 
+import ir.serajsamaneh.core.util.NumberUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 
@@ -23,8 +24,8 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 
 	public String toString() {
 		return getBedehkar()>0 ? 
-				(getHesabKol()+"-"+getHesabMoeen()+"["+ SerajMessageUtil.getMessage("SanadHesabdariItem_bedehkar") +"("+ getBigDecimalFormatted(getBedehkar(),0)+")]") 
-				: (getHesabKol()+"-"+getHesabMoeen()+"["+ SerajMessageUtil.getMessage("SanadHesabdariItem_bestankar") +"("+ getBigDecimalFormatted(getBestankar(),0)+")]");
+				(getHesabKol()+"-"+getHesabMoeen()+"["+ SerajMessageUtil.getMessage("SanadHesabdariItem_bedehkar") +"("+ NumberUtil.getBigDecimalFormatted(getBedehkar(),0)+")]") 
+				: (getHesabKol()+"-"+getHesabMoeen()+"["+ SerajMessageUtil.getMessage("SanadHesabdariItem_bestankar") +"("+ NumberUtil.getBigDecimalFormatted(getBestankar(),0)+")]");
 	}
 	
 	String entityId;

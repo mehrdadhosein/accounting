@@ -2,6 +2,7 @@ package ir.serajsamaneh.accounting.sanadhesabdariitem;
 
 import ir.serajsamaneh.accounting.enumeration.MahyatKolEnum;
 import ir.serajsamaneh.core.base.BaseValueObject;
+import ir.serajsamaneh.core.util.NumberUtil;
 
 public class SanadHesabdariItemVO extends BaseValueObject {
 
@@ -98,22 +99,21 @@ public class SanadHesabdariItemVO extends BaseValueObject {
 	Double mandehByMahiyatHesabDbl = 0d;
 	MahyatKolEnum hesabKolMahyat;
 	
-	public SanadHesabdariItemVO(
-			SanadHesabdariItemEntity sanadHesabdariItemEntity) {
+	public SanadHesabdariItemVO(SanadHesabdariItemEntity sanadHesabdariItemEntity, int numberOfDecimals) {
 		setId(sanadHesabdariItemEntity.getId().toString());
 		setDescription(convertNullToString(sanadHesabdariItemEntity.getDescription()));
 		
 		setMandehBedehkar(0d);
 		setMandehBestankar(0d);
 		
-		setBedehkar(sanadHesabdariItemEntity.getBedehkar());
-		setBestankar(sanadHesabdariItemEntity.getBestankar());
+		setBedehkar(NumberUtil.round(sanadHesabdariItemEntity.getBedehkar(), numberOfDecimals));
+		setBestankar(NumberUtil.round(sanadHesabdariItemEntity.getBestankar(), numberOfDecimals));
 		
 		setHesabKolMahyat(sanadHesabdariItemEntity.getHesabKol().getMahyatKol());
-		String bedehkarFormatted = getBigDecimalFormatted(sanadHesabdariItemEntity.getBedehkar(),0);
+		String bedehkarFormatted = NumberUtil.getBigDecimalFormatted(sanadHesabdariItemEntity.getBedehkar(), numberOfDecimals);
 		setBedehkarFormatted(bedehkarFormatted.equals("0") ? "" : bedehkarFormatted);
 		
-		String bestankarFormatted = getBigDecimalFormatted(sanadHesabdariItemEntity.getBestankar(),0);
+		String bestankarFormatted = NumberUtil.getBigDecimalFormatted(sanadHesabdariItemEntity.getBestankar(), numberOfDecimals);
 		setBestankarFormatted(bestankarFormatted.equals("0") ? "" : bestankarFormatted);
 		
 		if(sanadHesabdariItemEntity.getHesabTafsili()!=null){

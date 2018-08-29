@@ -54,6 +54,7 @@ import ir.serajsamaneh.core.security.SecurityUtil;
 import ir.serajsamaneh.core.tempuploadedfile.TempUploadedFileEntity;
 import ir.serajsamaneh.core.tempuploadedfile.TempUploadedFileService;
 import ir.serajsamaneh.core.util.JQueryUtil;
+import ir.serajsamaneh.core.util.NumberUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.enumeration.YesNoEnum;
@@ -921,8 +922,7 @@ public class SanadHesabdariForm extends
 			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariEntity.getSanadHesabdariItem()) {
 				sanadItemsXML += "<row id='" + index + "'>";
 
-				SanadHesabdariItemVO sanadHesabdariItemVO = new SanadHesabdariItemVO(
-						sanadHesabdariItemEntity);
+				SanadHesabdariItemVO sanadHesabdariItemVO = new SanadHesabdariItemVO(sanadHesabdariItemEntity, getNumberOfDecimals());
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getId() + "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabKolID()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getHesabKolName()+ "</cell>";
@@ -949,8 +949,8 @@ public class SanadHesabdariForm extends
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getProjectID()+ "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getProjectName()+ "</cell>";
 						
-				sanadItemsXML += "<cell>" +getBigDecimalFormatted(sanadHesabdariItemVO.getBedehkar(), 0)  + "</cell>";
-				sanadItemsXML += "<cell>" +getBigDecimalFormatted(sanadHesabdariItemVO.getBestankar(), 0) + "</cell>";
+				sanadItemsXML += "<cell>" +NumberUtil.getBigDecimalFormatted(sanadHesabdariItemVO.getBedehkar(), getNumberOfDecimals())  + "</cell>";
+				sanadItemsXML += "<cell>" +NumberUtil.getBigDecimalFormatted(sanadHesabdariItemVO.getBestankar(), getNumberOfDecimals()) + "</cell>";
 				sanadItemsXML += "<cell>" + sanadHesabdariItemVO.getDescription() + "</cell>";
 
 				String deleteFunction = "deleteRowData(getSanadHesabdariGridId(),"
@@ -987,8 +987,7 @@ public class SanadHesabdariForm extends
 			Integer index = 0;
 			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariEntity
 					.getSanadHesabdariItem()) {
-				SanadHesabdariItemVO itemVO = new SanadHesabdariItemVO(
-						sanadHesabdariItemEntity);
+				SanadHesabdariItemVO itemVO = new SanadHesabdariItemVO(sanadHesabdariItemEntity, getNumberOfDecimals());
 				++index;
 				SanadHesabdariItemList.add(itemVO);
 			}

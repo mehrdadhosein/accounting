@@ -10,34 +10,9 @@
 			//alert('bedehkarTotal : ' +bedehkarTotal);
 			$$('#sanadHesabdariGrid').jqGrid('footerData', 'set', { bedehkar: numberWithCommas(bedehkarTotal)});
 			
-			$$('#sanadHesabdariGrid').jqGrid('footerData', 'set', { description: bedehkarTotal-bestankarTotal});
+			$$('#sanadHesabdariGrid').jqGrid('footerData', 'set', { description: round(bedehkarTotal-bestankarTotal)});
 		}
 
-
-		
-		function sumColumnOfGrid(gridID,column){
-			var allRowsInGrid = $$("#"+gridID).jqGrid('getGridParam','data');
-			//var allRowsInGrid = $$("#"+gridID).jqGrid('getRowData');
-			var sumOfColumn=0;
-			if (allRowsInGrid.length!=0){
-				for (row in  allRowsInGrid){
-					var rowColumn=allRowsInGrid[row][column];
-					if(rowColumn != undefined){
-						rowColumn=rowColumn+'';
-						rowColumn = rowColumn.replace(/\,/g,'');
-					 	if(rowColumn != '' && isNumeric(rowColumn)){
-					 		sumOfColumn+=parseFloat(rowColumn);
-						}
-					}
-					 
-				}
-											
-			}
-			return sumOfColumn;
-			
-			
-			
-		}
 
 
 	function addSanadHesabdariActionButtons(gridId,rowId){

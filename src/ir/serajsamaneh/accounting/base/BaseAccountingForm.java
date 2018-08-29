@@ -12,7 +12,6 @@ import javax.xml.transform.TransformerException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabkol.HesabVO;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
@@ -23,8 +22,8 @@ import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.base.BaseEntityForm;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
 import ir.serajsamaneh.core.exception.SerajException;
+import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.core.util.XMLUtil;
-import serajcomponent.DateConverter;
 
 public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Serializable>
 		extends BaseEntityForm<T, U> {
@@ -162,10 +161,6 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 		codeElem.setTextContent(hesabVO.getCode());
 		treeItem.appendChild(codeElem);
 	}
-	
-//	protected SaalMaaliEntity getActiveSaalMaali() {
-//		return getSaalMaaliService().getActiveSaalmaali(getCurrentOrgan());
-//	}
 
 	public SaalMaaliEntity getCurrentUserActiveSaalMaali() {
 		if(getCurrentOrgan().getId() == null)
@@ -179,7 +174,7 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 		if(getCurrentOrgan().getId() == null)
 			return false;
 		try {
-			SaalMaaliEntity currentUserSaalMaaliEntity = getSaalMaaliService().getUserActiveSaalMaali(getCurrentOrgan(), /*getTopOrgan(),*/ getCurrentUser());
+			getSaalMaaliService().getUserActiveSaalMaali(getCurrentOrgan(), /*getTopOrgan(),*/ getCurrentUser());
 		}catch(SerajException e) { 
 			System.out.println(e.getDesc());
 			return false;
@@ -187,29 +182,12 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 		
 		return true;
 	}
-	
 
-//	public  List<Integer> getLevels(){
-//		return SanadHesabdariUtil.getLevels(getCurrentOrgan());
-//	}
-	
-//	public  Integer getLevelsSize(){
-//		return getLevels().size();
-//	}
 	
 	protected void populateTopOrgansIdListFilter() {
 		List<Long> topOrganList = getTopOrgansIdList(getOrganService().load(getCurrentOrgan().getId()));
 		getFilter().put("organ.id@in", topOrganList);
 	}
 
-//	public Boolean getHasCurrentDateSaalMaali(){
-//		try{
-//			getSaalMaaliService().getSaalmaaliByDate(DateConverter.getCurrentDate(), getCurrentOrgan());
-//		}catch(NoSaalMaaliFoundException e){
-//			return false;
-//		}catch(NoOrganFoundException e){
-//			return false;
-//		}
-//		return true;
-//	}
+
 }
