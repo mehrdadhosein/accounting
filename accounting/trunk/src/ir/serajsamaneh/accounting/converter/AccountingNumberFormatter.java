@@ -9,6 +9,8 @@ import javax.faces.convert.ConverterException;
 
 import org.springframework.util.StringUtils;
 
+import ir.serajsamaneh.core.util.NumberUtil;
+
 public class AccountingNumberFormatter implements Converter {
 
 
@@ -23,11 +25,13 @@ public class AccountingNumberFormatter implements Converter {
 	public String getAsString(FacesContext context, UIComponent comp, Object object) throws ConverterException {
  
 		if (object!=null){
-			if(object.toString().equals("0") || object.toString().equals("0.0"))
-				return "";
-			DecimalFormat df = new DecimalFormat("###,###");
-		    String Formated = df.format(object);
-			return  Formated;
+//			if(object.toString().equals("0") || object.toString().equals("0.0"))
+//				return "";
+//			DecimalFormat df = new DecimalFormat("###,###");
+//		    String Formated = df.format(object);
+//			return  Formated;
+			
+			return NumberUtil.getBigDecimalFormatted((Double)object);
 			 
 		}
 		return null;

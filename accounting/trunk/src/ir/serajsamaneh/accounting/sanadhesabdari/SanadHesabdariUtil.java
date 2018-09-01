@@ -119,27 +119,27 @@ public class SanadHesabdariUtil {
 	}
 	
 	public static SanadHesabdariEntity createMergedSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaali, YesNoEnum deletable) {
-		return createMergedSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, concatDescriptions, sanadStateEnum, true, saalMaali, deletable);
+			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaali, YesNoEnum deletable, int numberOfDecimals) {
+		return createMergedSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, concatDescriptions, sanadStateEnum, true, saalMaali, deletable, numberOfDecimals);
 	}
 	
 	public static SanadHesabdariEntity createMergedEkhtetamiehSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, SaalMaaliEntity currentUserActiveSaalMaali, YesNoEnum deletable) {
+			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, SaalMaaliEntity currentUserActiveSaalMaali, YesNoEnum deletable, int numberOfDecimals) {
 		
 		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organEntity);
 //		SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().getSaalmaaliByDate(sanadHesabdariDate, organEntity);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : mergedArticles) {
 			sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEkhtetamieh", currentUserActiveSaalMaali.getDesc()));
 		}
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null, currentUserActiveSaalMaali, deletable);
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null, currentUserActiveSaalMaali, deletable, numberOfDecimals);
 	}
 	
 	public static SanadHesabdariEntity createMergedSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, SaalMaaliEntity saalMaali, YesNoEnum deletable) {
+			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, SaalMaaliEntity saalMaali, YesNoEnum deletable, int numberOfDecimals) {
 		
 		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organEntity);
 		
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null, saalMaali, deletable);
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null, saalMaali, deletable, numberOfDecimals);
 	}
 
 	public static List<SanadHesabdariItemEntity> createMergedArticles(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
@@ -175,8 +175,8 @@ public class SanadHesabdariUtil {
 	
 	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
 			Date sanadHesabdariDate,
-			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaaliEntity, YesNoEnum deletable) {
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, true, null, saalMaaliEntity, deletable);
+			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaaliEntity, YesNoEnum deletable, int numberOfDecimals) {
+		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, true, null, saalMaaliEntity, deletable, numberOfDecimals);
 	}
 	
 //	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
@@ -188,7 +188,7 @@ public class SanadHesabdariUtil {
 	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity, Date sanadHesabdariDate,
 			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType,
 			SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, String sanadRole,
-			SaalMaaliEntity saalMaaliEntity, YesNoEnum deletable) {
+			SaalMaaliEntity saalMaaliEntity, YesNoEnum deletable, int numberOfDecimals) {
 		SanadHesabdariEntity totalSanadHesabdariEntity = new SanadHesabdariEntity();
 		totalSanadHesabdariEntity.setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
 		totalSanadHesabdariEntity.setTarikhSanad(sanadHesabdariDate);
@@ -212,7 +212,7 @@ public class SanadHesabdariUtil {
 		else if(sanadStateEnum.equals(SanadStateEnum.MOVAGHAT))
 			getSanadHesabdariService().saveMovaghat(totalSanadHesabdariEntity, null, organEntity, saalMaaliEntity, validateSaalMaaliInProgress);
 		else if(sanadStateEnum.equals(SanadStateEnum.BARRESI_SHODE))
-			getSanadHesabdariService().saveBarrasiShode(totalSanadHesabdariEntity, organEntity, true, validateSaalMaaliInProgress);
+			getSanadHesabdariService().saveBarrasiShode(totalSanadHesabdariEntity, organEntity, true, validateSaalMaaliInProgress, numberOfDecimals);
 		return totalSanadHesabdariEntity;
 	}
 	

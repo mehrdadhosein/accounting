@@ -53,6 +53,12 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 		return getHesabTafsili().getCode().toString();
 	}
 	
+	public String getHesabTafsiliTwoCode() {
+		if(getHesabTafsiliTwo() == null)
+			return "";
+		return getHesabTafsiliTwo().getCode().toString();
+	}
+	
 	public String getAccountingMarkazCode() {
 		if(getAccountingMarkaz() == null)
 			return "";
@@ -186,7 +192,7 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 	}
 	
 	public String getHesabTafsiliTwoName() {
-		return getHesabTafsili().getName();
+		return getHesabTafsiliTwo().getName();
 	}
 	
 	public String getHesabTafsiliTwoDesc() {

@@ -50,6 +50,7 @@ import ir.serajsamaneh.core.file.FileEntity;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.security.ActionLogUtil;
 import ir.serajsamaneh.core.tempuploadedfile.TempUploadedFileEntity;
+import ir.serajsamaneh.core.util.NumberUtil;
 import ir.serajsamaneh.core.util.SerajLogger;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.enumeration.ActionTypeEnum;
@@ -665,7 +666,7 @@ public class SanadHesabdariService extends
 
 	//converts from movaghat to barrasi shode
 	@Transactional
-	public void saveBarrasiShode(SanadHesabdariEntity entity,OrganEntity organEntity, boolean isInMultipleLevelMode, boolean validateSaalMaaliInProgress) {
+	public void saveBarrasiShode(SanadHesabdariEntity entity,OrganEntity organEntity, boolean isInMultipleLevelMode, boolean validateSaalMaaliInProgress, int numberOfDecimals) {
 
 		Boolean isNew=false;
 		if (entity.getID() == null)
@@ -673,7 +674,7 @@ public class SanadHesabdariService extends
 		
 		
 		entity.setTaiedKonnadeSanad(getCurrentUser());
-		checkSanadIsBalanced(entity);
+		checkSanadIsBalanced(entity, numberOfDecimals);
 		
 
 		List<SanadHesabdariItemEntity> sanadHesabdariItems = entity.getSanadHesabdariItem();
@@ -817,7 +818,7 @@ public class SanadHesabdariService extends
 
 
 
-	private void checkSanadIsBalanced(SanadHesabdariEntity entity) {
+	private void checkSanadIsBalanced(SanadHesabdariEntity entity, int numberOfDecimals) {
 		Double bedehkarSum = 0d;
 		Double bestankarSum = 0d;
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : entity
@@ -826,6 +827,9 @@ public class SanadHesabdariService extends
 			bestankarSum += sanadHesabdariItemEntity.getBestankar();
 		}
 
+		bedehkarSum = NumberUtil.round(bedehkarSum, numberOfDecimals);
+		bestankarSum = NumberUtil.round(bestankarSum, numberOfDecimals);
+		
 		if (bedehkarSum.doubleValue() != bestankarSum.doubleValue())
 			throw new SanadIsNotBalancedException(entity);
 	}
@@ -1034,7 +1038,7 @@ public class SanadHesabdariService extends
 	}
 	
 	@Transactional(readOnly=false)
-	public SanadHesabdariEntity closeTemporalAccounts(OrganEntity organEntity, Date tarikhSanad, boolean isInMultipleLevelMode, SaalMaaliEntity saalMaaliEntity){
+	public SanadHesabdariEntity closeTemporalAccounts(OrganEntity organEntity, Date tarikhSanad, boolean isInMultipleLevelMode, SaalMaaliEntity saalMaaliEntity, int numberOfDecimals){
 		
 //		SaalMaaliEntity saalMaaliEntity = getSaalmaaliByDate(tarikhSanad, organEntity);
 		checkIfSanadTempExists(saalMaaliEntity, organEntity);
@@ -1091,7 +1095,7 @@ public class SanadHesabdariService extends
 		
 		/********************************************/
 		return saveTemporalSanadEntity(saalMaaliEntity, organEntity, isInMultipleLevelMode,
-				sanadHesabdariCloseTemporalAccountsEntity);
+				sanadHesabdariCloseTemporalAccountsEntity, numberOfDecimals);
 	}
 	
 	public HesabMoeenEntity getHesabSoodVaZyanAnbashtehMoeen(SaalMaaliEntity saalMaaliEntity){
@@ -1230,7 +1234,7 @@ public class SanadHesabdariService extends
 	@Transactional(readOnly=false)
 	private SanadHesabdariEntity saveTemporalSanadEntity(SaalMaaliEntity saalMaaliEntity,
 			OrganEntity organEntity, boolean isInMultipleLevelMode,
-			SanadHesabdariEntity sanadHesabdariCloseTemporalAccountsEntity) {
+			SanadHesabdariEntity sanadHesabdariCloseTemporalAccountsEntity, int numberOfDecimals) {
 		
 		duplicateEntity(sanadHesabdariCloseTemporalAccountsEntity.getOldEntity(), sanadHesabdariCloseTemporalAccountsEntity);
 		
@@ -1239,7 +1243,7 @@ public class SanadHesabdariService extends
 		
 
 		
-		saveBarrasiShode(sanadHesabdariCloseTemporalAccountsEntity, organEntity, isInMultipleLevelMode, true);
+		saveBarrasiShode(sanadHesabdariCloseTemporalAccountsEntity, organEntity, isInMultipleLevelMode, true, numberOfDecimals);
 		duplicateEntity(sanadHesabdariCloseTemporalAccountsEntity.getOldEntity(), sanadHesabdariCloseTemporalAccountsEntity);
 		
 		tabdilBeDaemi(sanadHesabdariCloseTemporalAccountsEntity, saalMaaliEntity, organEntity);
@@ -1298,7 +1302,7 @@ public class SanadHesabdariService extends
 	}
 	
 	@Transactional(readOnly=false)
-	public SanadHesabdariEntity createSanadEkhtetamieh(OrganEntity organEntity, Date tarikhSanad, Boolean isInMultipleLevelMode, SaalMaaliEntity saalMaaliEntity){
+	public SanadHesabdariEntity createSanadEkhtetamieh(OrganEntity organEntity, Date tarikhSanad, Boolean isInMultipleLevelMode, SaalMaaliEntity saalMaaliEntity, int numberOfDecimals){
 //		SaalMaaliEntity saalMaaliEntity = getSaalmaaliByDate(tarikhSanad, organEntity);
 		checkIfSanadTempExists(saalMaaliEntity, organEntity);
 		checkIfSanadDaemiNashodeExists(saalMaaliEntity, organEntity);
@@ -1347,7 +1351,7 @@ public class SanadHesabdariService extends
 			}
 			
 			
-			SanadHesabdariEntity sanadHesabdariEkhtetamiehEntity = SanadHesabdariUtil.createMergedEkhtetamiehSanadHesabdari(organEntity, tarikhSanad, articles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEkhtetamieh"),null, false, SanadStateEnum.MOVAGHAT, false, saalMaaliEntity, YesNoEnum.NO);
+			SanadHesabdariEntity sanadHesabdariEkhtetamiehEntity = SanadHesabdariUtil.createMergedEkhtetamiehSanadHesabdari(organEntity, tarikhSanad, articles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEkhtetamieh"),null, false, SanadStateEnum.MOVAGHAT, false, saalMaaliEntity, YesNoEnum.NO, numberOfDecimals);
 			sanadHesabdariEkhtetamiehEntity.setSanadFunction(SanadFunctionEnum.EKHTETAMIE);
 			
 			duplicateEntity(sanadHesabdariEkhtetamiehEntity.getOldEntity(), sanadHesabdariEkhtetamiehEntity);
@@ -1460,7 +1464,7 @@ public class SanadHesabdariService extends
 
 
 	@Transactional(readOnly=false)
-	public void createSanadEftetahieh(OrganEntity currentOrgan, Date tarikhSanadEftetahieh, Boolean isInMultipleLevelMode, SaalMaaliEntity activeSaalmaali) {
+	public void createSanadEftetahieh(OrganEntity currentOrgan, Date tarikhSanadEftetahieh, Boolean isInMultipleLevelMode, SaalMaaliEntity activeSaalmaali, int numberOfDecimals) {
 		
 //		SaalMaaliEntity activeSaalmaali = getSaalmaaliByDate(tarikhSanadEftetahieh, currentOrgan);
 		List<SanadHesabdariItemEntity> sanadEftetahiehArticles = new ArrayList<SanadHesabdariItemEntity>();
@@ -1523,7 +1527,7 @@ public class SanadHesabdariService extends
 			sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEftetahieh", activeSaalmaali.getDesc()));
 		}
 		
-		SanadHesabdariEntity sanadHesabdariEftetahiehEntity = SanadHesabdariUtil.createSanadHesabdari(currentOrgan, tarikhSanadEftetahieh, mergedArticles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEftetahieh"), null, SanadStateEnum.MOVAGHAT, false, null, activeSaalmaali, YesNoEnum.NO);
+		SanadHesabdariEntity sanadHesabdariEftetahiehEntity = SanadHesabdariUtil.createSanadHesabdari(currentOrgan, tarikhSanadEftetahieh, mergedArticles, SerajMessageUtil.getMessage("SanadHesabdari_sanadEftetahieh"), null, SanadStateEnum.MOVAGHAT, false, null, activeSaalmaali, YesNoEnum.NO, numberOfDecimals);
 
 		sanadHesabdariEftetahiehEntity.setSanadFunction(SanadFunctionEnum.EFTETAHIE);
 
@@ -1619,7 +1623,7 @@ public class SanadHesabdariService extends
 	}
 	
 	@Transactional
-	public SanadHesabdariEntity mergeTempSanadHesabdaris(OrganEntity organ,Date sanadHesabdariDate, SanadTypeEntity sanadTypeEntity, String description, SaalMaaliEntity saalMaali){
+	public SanadHesabdariEntity mergeTempSanadHesabdaris(OrganEntity organ,Date sanadHesabdariDate, SanadTypeEntity sanadTypeEntity, String description, SaalMaaliEntity saalMaali, int numberOfDecimals){
 		Date startOfToday = DateConverter.getStartOfToday(sanadHesabdariDate).getTime();
 		Date startOfTommorow = DateConverter.getStartOfTommorow(sanadHesabdariDate).getTime();
 		List<SanadHesabdariEntity> tempSanadHesabdariList = getSanadHesabdariBySanadType(organ, startOfToday, startOfTommorow, sanadTypeEntity);
@@ -1644,7 +1648,7 @@ public class SanadHesabdariService extends
 		}
 		
 		if(mergedArticles.size()>0){
-			SanadHesabdariEntity sanadHesabdariEntity = AutomaticSanadUtil.createSanadHesabdari(organ, sanadHesabdariDate, mergedArticles, description, sanadTypeEntity, SanadStateEnum.MOVAGHAT, saalMaali, YesNoEnum.NO);
+			SanadHesabdariEntity sanadHesabdariEntity = AutomaticSanadUtil.createSanadHesabdari(organ, sanadHesabdariDate, mergedArticles, description, sanadTypeEntity, SanadStateEnum.MOVAGHAT, saalMaali, YesNoEnum.NO, numberOfDecimals);
 			sanadHesabdariEntity.setDeletable(YesNoEnum.NO);
 			return sanadHesabdariEntity;
 		}
