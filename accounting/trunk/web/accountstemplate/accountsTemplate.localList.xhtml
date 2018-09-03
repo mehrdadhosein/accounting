@@ -183,7 +183,7 @@
 			action="#{owner.createAutomaticSanadTemplates}" value="import" />
 
 		<h:commandButton action="#{owner.localEdit}" styleClass=" gwt-Button"
-			rendered="#{accountsTemplate.editable or true}"
+			rendered="#{accountsTemplate.editable or false}"
 			value="#{messages['common_new']}" immediate="true"
 			image="/images/buttons/btn_add.png">
 			<f:setPropertyActionListener
