@@ -14,6 +14,7 @@ import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.user.UserEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
+import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.enumeration.YesNoEnum;
 
 import java.io.Serializable;
@@ -113,5 +114,5 @@ public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends 
 		
 		return currentUserSaalMaaliEntity;
 	}
-	
+
 }
