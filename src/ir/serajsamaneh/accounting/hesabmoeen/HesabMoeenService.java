@@ -17,6 +17,7 @@ import ir.serajsamaneh.accounting.hesabkol.BaseHesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
+import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateService;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
@@ -44,6 +45,7 @@ public class HesabMoeenService extends
 
 	HesabMoeenDAO hesabMoeenDAO;
 	HesabMoeenTemplateService hesabMoeenTemplateService;
+	HesabKolTemplateService hesabKolTemplateService;
 	HesabKolService hesabKolService;
 	SaalMaaliService saalMaaliService;
 	HesabTafsiliService hesabTafsiliService;
@@ -97,6 +99,14 @@ public class HesabMoeenService extends
 
 	public void setHesabKolService(HesabKolService hesabKolService) {
 		this.hesabKolService = hesabKolService;
+	}
+
+	public HesabKolTemplateService getHesabKolTemplateService() {
+		return hesabKolTemplateService;
+	}
+
+	public void setHesabKolTemplateService(HesabKolTemplateService hesabKolTemplateService) {
+		this.hesabKolTemplateService = hesabKolTemplateService;
 	}
 
 	public HesabMoeenTemplateService getHesabMoeenTemplateService() {
@@ -224,6 +234,8 @@ public class HesabMoeenService extends
 			HesabMoeenTemplateEntity hesabMoeenTemplateEntityByName = getHesabMoeenTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity);
 			if(hesabMoeenTemplateEntityByName!=null && !hesabMoeenTemplateEntityByName.getId().equals(hesabMoeenTemplateEntity.getId()))
 				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeenTemplate_cantCreateHesabMoeenTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
+			HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateService().loadByCodeInCurrentOrgan(entity.getHesabKol().getCode(), organEntity);
+			hesabMoeenTemplateEntity.setHesabKolTemplate(hesabKolTemplateEntity);
 			hesabMoeenTemplateEntity.setCode(entity.getCode().toString());
 			hesabMoeenTemplateEntity.setName(entity.getName());
 			hesabMoeenTemplateEntity.setDescription(entity.getDescription());
