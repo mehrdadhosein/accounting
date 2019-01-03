@@ -82,6 +82,10 @@ public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends 
 		return getSaalMaaliService().getSaalmaaliByDate(date, organEntity);
 	}
 	
+	public SaalMaaliEntity getActiveSaalmaali(OrganEntity organEntity) {
+		return getSaalMaaliService().getActiveSaalmaali(organEntity);
+	}
+	
 	public boolean checkIfMustValidateTafsiliOneAndTwoAreRelated(OrganEntity organEntity) {
 		return false;
 	}
