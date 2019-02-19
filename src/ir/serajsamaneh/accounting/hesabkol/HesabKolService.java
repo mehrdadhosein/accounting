@@ -1,13 +1,24 @@
 package ir.serajsamaneh.accounting.hesabkol;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazService;
@@ -32,6 +43,7 @@ import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.exception.NoRecordFoundException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
+import ir.serajsamaneh.core.util.XMLUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabEntity;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import ir.serajsamaneh.erpcore.util.HesabTreeUtil;
@@ -249,6 +261,8 @@ public class HesabKolService extends
 				}else
 					throw new FatalException(SerajMessageUtil.getMessage("HesabKolTemplate_cantCreateHesabKolTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
 			}else{
+				if(entity.getHesabGroup() == null || entity.getHesabGroup().getID() == null)
+					throw new FatalException(SerajMessageUtil.getMessage("HesabKol_hesabGroupNotDefined",entity.getName()+"_"+entity.getCode()));
 				HesabGroupEntity hesabGroupEntity = getHesabGroupService().load(entity.getHesabGroup().getID());
 				hesabKolTemplateEntity = getHesabKolTemplateService().createHesabKolTemplate(entity.getCode(), entity.getName(), hesabGroupEntity.getCode(), entity.getMahyatKol().name(), organEntity);
 			}
@@ -681,6 +695,62 @@ public class HesabKolService extends
 //			rootHesabsList.add(hesabTafsiliMap);
 //		}
 		return rootHesabsList;
+	}
+
+	public void createDefaultAccounts(OrganEntity organEntity) throws NumberFormatException {
+		InputStream fileInputStream;
+		URL resource = getClass().getResource("/config/accounts");
+		if (resource == null)
+			return;
+		File dir = new File(resource.getFile());
+
+		FilenameFilter filter = new WildcardFileFilter("general-accounts.xml");
+		String[] list = dir.list(filter);
+
+		for (String fileName : list) {
+			String localFilePath = dir.getAbsolutePath() + "/" + fileName;
+			try {
+				fileInputStream = new FileInputStream(localFilePath);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				throw new IllegalStateException();
+			}
+			// parse XML file -> XML document will be build
+			Document doc = XMLUtil.parseFile(fileInputStream);
+			NodeList rootNodes = doc.getElementsByTagName("accounts");
+			Node item = rootNodes.item(0);
+			Element accounts = (Element) item;
+
+			NodeList childNodes = accounts.getChildNodes();
+			createDefaultAccounts(childNodes, organEntity);
+		}
+
+	}
+	
+	public void createDefaultAccounts(NodeList childNodes, OrganEntity organEntity) {
+		for (int s = 0; s < childNodes.getLength(); s++) {
+			try{
+				Node accountNode = childNodes.item(s);
+				if (accountNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element nodeElem = (Element) accountNode;
+					if (nodeElem.getTagName().equals("HesabGroup")) {
+						getHesabKolTemplateService().createHesabGroup(nodeElem, organEntity);
+					}
+					else if (nodeElem.getTagName().equals("HesabKol")) {
+						getHesabKolTemplateService().createHesabKolTemplate(nodeElem, organEntity);
+					}
+					else if (nodeElem.getTagName().equals("HesabMoeen")) {
+						getHesabKolTemplateService().createHesabMoeenTemplate(nodeElem, organEntity);
+					}
+					else if (nodeElem.getTagName().equals("HesabTafsili")) {
+						getHesabKolTemplateService().createHesabTafsiliTemplate(nodeElem, organEntity);
+					}
+	
+				}
+			}catch(DuplicateException e){
+				System.out.println(e.getDesc());
+			}
+		}
 	}
 
 }

@@ -190,7 +190,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	}
 
 	public String importFromHesabKolTemplateList(){
-		createDefaultAccounts(getCurrentUserActiveSaalMaali().getOrgan());
+		getMyService().createDefaultAccounts(getCurrentUserActiveSaalMaali().getOrgan());
 		getHesabGroupService().importFromHesabGroupTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		getMyService().importFromHesabKolTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		getHesabMoeenService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
@@ -202,61 +202,61 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		return null;
 	}
 	
-	public void createDefaultAccounts(OrganEntity organEntity) throws NumberFormatException {
-		InputStream fileInputStream;
-		URL resource = getClass().getResource("/config/accounts");
-		if (resource == null)
-			return;
-		File dir = new File(resource.getFile());
-
-		FilenameFilter filter = new WildcardFileFilter("general-accounts.xml");
-		String[] list = dir.list(filter);
-
-		for (String fileName : list) {
-			String localFilePath = dir.getAbsolutePath() + "/" + fileName;
-			try {
-				fileInputStream = new FileInputStream(localFilePath);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				throw new IllegalStateException();
-			}
-			// parse XML file -> XML document will be build
-			Document doc = XMLUtil.parseFile(fileInputStream);
-			NodeList rootNodes = doc.getElementsByTagName("accounts");
-			Node item = rootNodes.item(0);
-			Element accounts = (Element) item;
-
-			NodeList childNodes = accounts.getChildNodes();
-			createDefaultAccounts(childNodes, organEntity);
-		}
-
-	}
+//	public void createDefaultAccounts(OrganEntity organEntity) throws NumberFormatException {
+//		InputStream fileInputStream;
+//		URL resource = getClass().getResource("/config/accounts");
+//		if (resource == null)
+//			return;
+//		File dir = new File(resource.getFile());
+//
+//		FilenameFilter filter = new WildcardFileFilter("general-accounts.xml");
+//		String[] list = dir.list(filter);
+//
+//		for (String fileName : list) {
+//			String localFilePath = dir.getAbsolutePath() + "/" + fileName;
+//			try {
+//				fileInputStream = new FileInputStream(localFilePath);
+//			} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//				throw new IllegalStateException();
+//			}
+//			// parse XML file -> XML document will be build
+//			Document doc = XMLUtil.parseFile(fileInputStream);
+//			NodeList rootNodes = doc.getElementsByTagName("accounts");
+//			Node item = rootNodes.item(0);
+//			Element accounts = (Element) item;
+//
+//			NodeList childNodes = accounts.getChildNodes();
+//			createDefaultAccounts(childNodes, organEntity);
+//		}
+//
+//	}
 	
-	public void createDefaultAccounts(NodeList childNodes, OrganEntity organEntity) {
-		for (int s = 0; s < childNodes.getLength(); s++) {
-			try{
-				Node accountNode = childNodes.item(s);
-				if (accountNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element nodeElem = (Element) accountNode;
-					if (nodeElem.getTagName().equals("HesabGroup")) {
-						getHesabKolTemplateService().createHesabGroup(nodeElem, organEntity);
-					}
-					else if (nodeElem.getTagName().equals("HesabKol")) {
-						getHesabKolTemplateService().createHesabKolTemplate(nodeElem, organEntity);
-					}
-					else if (nodeElem.getTagName().equals("HesabMoeen")) {
-						getHesabKolTemplateService().createHesabMoeenTemplate(nodeElem, organEntity);
-					}
-					else if (nodeElem.getTagName().equals("HesabTafsili")) {
-						getHesabKolTemplateService().createHesabTafsiliTemplate(nodeElem, organEntity);
-					}
-	
-				}
-			}catch(DuplicateException e){
-				System.out.println(e.getDesc());
-			}
-		}
-	}
+//	public void createDefaultAccounts(NodeList childNodes, OrganEntity organEntity) {
+//		for (int s = 0; s < childNodes.getLength(); s++) {
+//			try{
+//				Node accountNode = childNodes.item(s);
+//				if (accountNode.getNodeType() == Node.ELEMENT_NODE) {
+//					Element nodeElem = (Element) accountNode;
+//					if (nodeElem.getTagName().equals("HesabGroup")) {
+//						getHesabKolTemplateService().createHesabGroup(nodeElem, organEntity);
+//					}
+//					else if (nodeElem.getTagName().equals("HesabKol")) {
+//						getHesabKolTemplateService().createHesabKolTemplate(nodeElem, organEntity);
+//					}
+//					else if (nodeElem.getTagName().equals("HesabMoeen")) {
+//						getHesabKolTemplateService().createHesabMoeenTemplate(nodeElem, organEntity);
+//					}
+//					else if (nodeElem.getTagName().equals("HesabTafsili")) {
+//						getHesabKolTemplateService().createHesabTafsiliTemplate(nodeElem, organEntity);
+//					}
+//	
+//				}
+//			}catch(DuplicateException e){
+//				System.out.println(e.getDesc());
+//			}
+//		}
+//	}
 	
 
 	static HashMap<Long, String> organHesabHierarchy = new HashMap<Long, String>();

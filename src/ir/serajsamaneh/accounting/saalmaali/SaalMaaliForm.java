@@ -8,9 +8,13 @@ import java.util.Map;
 import javax.faces.model.DataModel;
 import javax.faces.model.SelectItem;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.exception.NoActiveSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
+import ir.serajsamaneh.accounting.hesabgroup.HesabGroupService;
+import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
@@ -26,6 +30,12 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 	}
 
 	SaalMaaliService saalMaaliService;
+	
+	@Autowired
+	HesabGroupService hesabGroupService;
+	
+	@Autowired
+	HesabKolService hesabKolService;
 
 	public void setSaalMaaliService(SaalMaaliService saalMaaliService) {
 		this.saalMaaliService = saalMaaliService;
@@ -197,5 +207,18 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 	public DataModel<SaalMaaliEntity> getLocalDataModel() {
 		setSearchAction(true);
 		return super.getLocalDataModel();
+	}
+
+	public String importFromHesabKolTemplateList(){
+		hesabKolService.createDefaultAccounts(getEntity().getOrgan());
+		hesabGroupService.importFromHesabGroupTemplateList(getEntity(), getCurrentOrgan());
+		hesabKolService.importFromHesabKolTemplateList(getEntity(), getCurrentOrgan());
+		getHesabMoeenService().importFromHesabMoeenTemplateList(getEntity(), getCurrentOrgan());
+		getHesabTafsiliService().importFromHesabTafsiliTemplateList(getEntity(), getCurrentOrgan());
+		
+
+		setDataModel(null); 
+		addInfoMessage("SUCCESSFUL_ACTION");
+		return null;
 	}
 }

@@ -68,7 +68,7 @@
 		</p:panel>
 		<p:panel rendered="#{owner.ID != null}">
 	
-			<h:commandButton action="#{hesabKol.importFromHesabKolTemplateList}" 
+			<h:commandButton action="#{owner.importFromHesabKolTemplateList}" 
 				styleClass=" gwt-Button" onclick="showLoading()"
 				rendered="#{permissionProvider.importFromHesabKolTemplate}"
 				value="importFromHesabKolTemplateList" immediate="true"
