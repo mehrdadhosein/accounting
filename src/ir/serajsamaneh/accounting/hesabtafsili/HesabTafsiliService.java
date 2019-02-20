@@ -517,7 +517,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		Set<MoeenTafsiliEntity> moeenTafsili = entity.getMoeenTafsili();
 		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsili) {
 			MoeenTafsiliTemplateEntity moeenTafsiliTemplateEntity = new MoeenTafsiliTemplateEntity();
-			moeenTafsiliTemplateEntity.setHesabMoeenTemplate(getHesabMoeenTemplateService().loadByCode(moeenTafsiliEntity.getHesabMoeen().getCode(), organEntity));
+			moeenTafsiliTemplateEntity.setHesabMoeenTemplate(getHesabMoeenTemplateService().loadByCodeInCurrentOrgan(moeenTafsiliEntity.getHesabMoeen().getCode(), organEntity));
 			moeenTafsiliTemplateEntity.setHesabTafsiliTemplate(hesabTafsiliTemplateEntity);
 			moeenTafsiliTemplateEntity.setLevel(moeenTafsiliEntity.getLevel());
 			if(moeenTafsiliTemplateEntity.getHesabMoeenTemplate() == null)
