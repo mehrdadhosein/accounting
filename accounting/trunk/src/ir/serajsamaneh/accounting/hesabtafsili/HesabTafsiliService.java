@@ -517,7 +517,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		Set<MoeenTafsiliEntity> moeenTafsili = entity.getMoeenTafsili();
 		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsili) {
 			MoeenTafsiliTemplateEntity moeenTafsiliTemplateEntity = new MoeenTafsiliTemplateEntity();
-			moeenTafsiliTemplateEntity.setHesabMoeenTemplate(getHesabMoeenTemplateService().loadByCodeInCurrentOrgan(moeenTafsiliEntity.getHesabMoeen().getCode(), organEntity));
+			moeenTafsiliTemplateEntity.setHesabMoeenTemplate(getHesabMoeenTemplateService().loadByCodeInCurrentOrgan(moeenTafsiliEntity.getHesabMoeen().getCode(), moeenTafsiliEntity.getHesabMoeen().getOrgan()));
 			moeenTafsiliTemplateEntity.setHesabTafsiliTemplate(hesabTafsiliTemplateEntity);
 			moeenTafsiliTemplateEntity.setLevel(moeenTafsiliEntity.getLevel());
 			if(moeenTafsiliTemplateEntity.getHesabMoeenTemplate() == null)
@@ -793,9 +793,9 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	
 	@Transactional
 	public HesabTafsiliEntity createHesabTafsili(SaalMaaliEntity destSaalMaaliEntity,	HesabTafsiliEntity srcHesabTafsiliEntity, OrganEntity organ) {
-		HesabTafsiliEntity hesabTafsiliEntity = loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaaliEntity, FlushMode.MANUAL, organ);
+		HesabTafsiliEntity hesabTafsiliEntity = loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaaliEntity, FlushMode.MANUAL);
 		if(hesabTafsiliEntity == null)
-			hesabTafsiliEntity = loadHesabTafsiliByName(srcHesabTafsiliEntity.getName(), destSaalMaaliEntity, FlushMode.MANUAL, organ);
+			hesabTafsiliEntity = loadHesabTafsiliByName(srcHesabTafsiliEntity.getName(), destSaalMaaliEntity, FlushMode.MANUAL);
 		
 		if(hesabTafsiliEntity == null){
 			hesabTafsiliEntity = populateHesabTafsili(destSaalMaaliEntity, srcHesabTafsiliEntity, organ);
