@@ -473,9 +473,9 @@ public class HesabMoeenService extends
 	
 	@Transactional
 	public HesabMoeenEntity createHesabMoeen(SaalMaaliEntity destSaalMaali,	HesabMoeenEntity srcHesabMoeenEntity, OrganEntity organ) {
-		HesabMoeenEntity hesabMoeenEntity = loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(), destSaalMaali, FlushMode.MANUAL, organ);
+		HesabMoeenEntity hesabMoeenEntity = loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(), destSaalMaali, FlushMode.MANUAL);
 		if(hesabMoeenEntity == null)
-			hesabMoeenEntity = loadHesabMoeenByName(srcHesabMoeenEntity.getName(),destSaalMaali, FlushMode.MANUAL, organ);
+			hesabMoeenEntity = loadHesabMoeenByName(srcHesabMoeenEntity.getName(),destSaalMaali, FlushMode.MANUAL);
 		if(hesabMoeenEntity == null){
 			hesabMoeenEntity = populateHesabMoeen(destSaalMaali,srcHesabMoeenEntity, organ);
 			save(hesabMoeenEntity, destSaalMaali, organ);

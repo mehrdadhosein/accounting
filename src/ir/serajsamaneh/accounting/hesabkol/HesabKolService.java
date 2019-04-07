@@ -577,7 +577,7 @@ public class HesabKolService extends
 	public void copyHesabTafsiliRelatedEntities(SaalMaaliEntity srcSaalMaali, SaalMaaliEntity destSaalMaali) {
 		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali);
 		for (HesabTafsiliEntity srcHesabTafsiliEntity : srcActiveTafsilis) {
-			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali, FlushMode.MANUAL, srcHesabTafsiliEntity.getOrgan());
+			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali, FlushMode.MANUAL);
 			getHesabTafsiliService().copyHesabTafsiliRelatedEntities(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 			
 		}
@@ -588,12 +588,15 @@ public class HesabKolService extends
 		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali);
 		for (HesabTafsiliEntity srcHesabTafsiliEntity : srcActiveTafsilis) {
 
-			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali,FlushMode.ALWAYS, srcHesabTafsiliEntity.getOrgan());
+			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali,FlushMode.ALWAYS);
 			
 			if(destHesabTafsiliEntity == null){
-				destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByName(srcHesabTafsiliEntity.getName(), destSaalMaali,FlushMode.ALWAYS, srcHesabTafsiliEntity.getOrgan());
-				if(destHesabTafsiliEntity!=null)
-					throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_cantImportHesabWithDuplicateNameAndnewCode", srcHesabTafsiliEntity.getCode(),destHesabTafsiliEntity.getDesc(), srcHesabTafsiliEntity.getOrgan()));				
+				destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByName(srcHesabTafsiliEntity.getName(), destSaalMaali,FlushMode.ALWAYS);
+				if(destHesabTafsiliEntity!=null) {
+					//throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_cantImportHesabWithDuplicateNameAndnewCode", srcHesabTafsiliEntity.getCode(),destHesabTafsiliEntity.getDesc(), srcHesabTafsiliEntity.getOrgan()));
+					new FatalException(SerajMessageUtil.getMessage("HesabTafsili_cantImportHesabWithDuplicateNameAndnewCode", srcHesabTafsiliEntity.getCode(),destHesabTafsiliEntity.getDesc(), srcHesabTafsiliEntity.getOrgan())).printStackTrace();
+					continue;
+				}
 
 			}
 			
