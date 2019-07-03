@@ -321,7 +321,8 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			entity.setBestankr(0d);
 		}
 		
-		if (entity.getCode() == null && !getSystemConfigService().getValue(currentOrgan, null, "HesabTafsiliCodingType").equals("MANUAL")) {
+		String hesabTafsiliCodingType = getSystemConfigService().getValue(currentOrgan, null, "HesabTafsiliCodingType");
+		if (entity.getCode() == null && hesabTafsiliCodingType!=null && !hesabTafsiliCodingType.equals("MANUAL")) {
 			entity.setCode(generateHesabTafsiliCode(entity, currentOrgan, activeSaalMaaliEntity));
 		}
 		

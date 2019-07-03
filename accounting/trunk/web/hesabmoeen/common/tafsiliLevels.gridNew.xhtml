@@ -61,20 +61,18 @@
 						colNames : [
 									'id', 
 									'#{messages['MoeenTafsili_level']}', 
-									'#{messages['MoeenTafsili_list']}', 
-									'#{messages['hesabTafsiliIds']}', 
-									'#{messages['common_edit']}' 
+									'#{messages['HesabTafsili_name']}', 
+									'#{messages['hesabTafsiliIds']}'
 									],
 						colModel : [ 
-							{name :'id', index :'id', width :20, sorttype :'int'}, 
+							{name :'id', index :'id', width :1, sorttype :'int'}, 
 							{name :'level', index :'level', width :80, sorttype :'int'}, 
-							{name :'hesabTafsiliListStr', index :'hesabTafsiliListStr', width :600, sorttype :'string'}, 
-							{name :'hesabTafsiliIds', index :'hesabTafsiliIds', width :50, sorttype :'string'}, 
-							{name :'editAct', index :'editAct', width :45, sortable :false}
+							{name :'hesabTafsiliListStr', index :'hesabTafsiliListStr', width :300, sorttype :'string'}, 
+							{name :'hesabTafsiliIds', index :'hesabTafsiliIds', width :1, sorttype :'string'}
 						],
 						multiselect :false,
 						viewrecords: true, 
-						autowidth: true, 
+						//autowidth: true, 
 						pager: '#pcustbut',
 						rowNum:50, 
 						rownumbers: true,
