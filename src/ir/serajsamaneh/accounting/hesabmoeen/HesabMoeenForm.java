@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.faces.model.DataModel;
@@ -148,7 +150,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		if(getEntity().getOrgan() == null || getEntity().getOrgan().getId() == null)
 			getEntity().setOrgan(getCurrentOrgan()); 
 		
-		initMoeenTafsiliItems(getEntity(), getTafsiliLevelsXML());
+//		initMoeenTafsiliItems(getEntity(), getTafsiliLevelsXML());
 
 		getEntity().setHesabKol(getHesabKolService().load(getEntity().getHesabKol().getId()));
 		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getOldEntity().getHesabKol());
@@ -284,29 +286,27 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 			return "<?xml version='1.0' encoding='UTF-8'?><rows>\n<page>1</page>\n<total>1</total>\n<records>0</records>\n</rows>\n";
 
 		String xmlString = "<?xml version='1.0' encoding='UTF-8'?>\n";
-//		HesabMoeenEntity hesabMoeenEntity = getMyService().load(hesabMoeenId);
+		HesabMoeenEntity hesabMoeenEntity = getMyService().load(hesabMoeenId);
 		xmlString += "<rows>\n";
 		xmlString += "<page>1</page>\n";
 		xmlString += "<total>1</total>\n";
 		xmlString += "<records>0</records>\n";
-//		Integer index = 1;
-//		for (TafsiliLevelVo tafsiliLevelVo : getTafsiliLevelsList(hesabMoeenId)) {
-//			xmlString += "<row id='" + index + "'>";
-//
-//			xmlString += "<cell>" + index + "</cell>";
-//			xmlString += "<cell>" + tafsiliLevelVo.getLevel() + "</cell>";
-//			xmlString += "<cell>" + tafsiliLevelVo.getHesabTafsiliListStr() + "</cell>";
-//			xmlString += "<cell>" + tafsiliLevelVo.getHesabTafsiliListIds() + "</cell>";
-//			String editFunction = "editTafsiliLevelsRowData(getGridId(),"
-//					+ index + ",getEditDialogTitle());";
-//			String edit = "<input style=\'\' type=\'image\' src=\'"
-//					+ getServletContext().getContextPath()
-//					+ "/images/edit.png\'  value=\'Edit\' onclick=\'return "
-//					+ editFunction + "\' />";
-//			xmlString += "<cell><![CDATA[ " + edit + "]]></cell>";
-//			xmlString += "</row>";
-//			++index;
-//		}
+		Integer index = 1;
+		Set<MoeenTafsiliEntity> moeenTafsiliSet = hesabMoeenEntity.getMoeenTafsili();
+		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsiliSet) {
+			
+			xmlString += "<row id='" + index + "'>";
+
+			xmlString += "<cell>" + index + "</cell>";
+			xmlString += "<cell>" + moeenTafsiliEntity.getHesabTafsili().getLevel() + "</cell>";
+			xmlString += "<cell>" + moeenTafsiliEntity.getHesabTafsili().getName() + "</cell>";
+			xmlString += "<cell></cell>";
+			String editFunction = "";
+			String edit = "";
+			xmlString += "<cell><![CDATA[ " + edit + "]]></cell>";
+			xmlString += "</row>";
+			++index;
+		}
 		xmlString += "</rows>\n";
 		return xmlString;
 	}
