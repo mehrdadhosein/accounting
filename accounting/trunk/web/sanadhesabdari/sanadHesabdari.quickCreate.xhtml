@@ -47,13 +47,13 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="number" value="#{messages['SanadHesabdari_number']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="number" label="number" value="#{sanadHesabdari.entity.number}"  size="50"/>
+				<p:inputText  required="true" id="number" label="number" value="#{sanadHesabdari.entity.number}"  style="width: 250px"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="description" value="#{messages['SanadHesabdari_description']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="description" label="description" value="#{sanadHesabdari.entity.description}"  size="50"/>
+				<p:inputText  required="true" id="description" label="description" value="#{sanadHesabdari.entity.description}"  style="width: 250px"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
@@ -65,7 +65,7 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="state" value="#{messages['SanadHesabdari_state']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="state" label="state" value="#{sanadHesabdari.entity.state}"  size="50"/>
+				<p:inputText  required="true" id="state" label="state" value="#{sanadHesabdari.entity.state}"  style="width: 250px"/>
 	
 		</p:panelGrid>
 	<h:commandButton action="#{sanadHesabdari.qSave}"

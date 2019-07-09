@@ -23,7 +23,7 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="name" value="#{messages['SanadType_name']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="name" label="name" value="#{sanadType.entity.name}"  size="50"/>
+				<p:inputText  required="true" id="name" label="name" value="#{sanadType.entity.name}"  style="width: 250px"/>
 	
 		</p:panelGrid>
 	<h:commandButton action="#{sanadType.qSave}"
