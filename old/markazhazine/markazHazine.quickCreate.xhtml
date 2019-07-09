@@ -35,13 +35,13 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="markaztype" value="#{messages['MarkazHazine_markaztype']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="markaztype" label="markaztype" value="#{markazHazine.entity.markaztype}"  size="50"/>
+				<p:inputText  required="true" id="markaztype" label="markaztype" value="#{markazHazine.entity.markaztype}"  style="width: 250px"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="onvan" value="#{messages['MarkazHazine_onvan']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="onvan" label="onvan" value="#{markazHazine.entity.onvan}"  size="50"/>
+				<p:inputText  required="true" id="onvan" label="onvan" value="#{markazHazine.entity.onvan}"  style="width: 250px"/>
 	
 		</p:panelGrid>
 	<h:commandButton action="#{markazHazine.qSave}"

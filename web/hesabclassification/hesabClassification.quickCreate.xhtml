@@ -59,13 +59,13 @@
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="name" value="#{messages['HesabClassification_name']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="name" label="name" value="#{hesabClassification.entity.name}"  size="50"/>
+				<p:inputText  required="true" id="name" label="name" value="#{hesabClassification.entity.name}"  style="width: 250px"/>
 	
 						<h:panelGroup>
 					<h:outputText styleClass="required"	value="* " />
 	 				<h:outputLabel for="description" value="#{messages['HesabClassification_description']}" /> : 
 				</h:panelGroup>
-				<p:inputText  required="true" id="description" label="description" value="#{hesabClassification.entity.description}"  size="50"/>
+				<p:inputText  required="true" id="description" label="description" value="#{hesabClassification.entity.description}"  style="width: 250px"/>
 	
 		</p:panelGrid>
 	<h:commandButton action="#{hesabClassification.qSave}"

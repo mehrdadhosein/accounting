@@ -121,7 +121,7 @@
 					</h:panelGroup>
 					<h:selectOneMenu required="true" value="#{owner.hesabTafsiliCodingType}" onchange="showHesabTafsiliCodeCharactersNumber();"
 						converter="seraj.converter.Enum" label="hesabTafsiliCodingType" id="hesabTafsiliCodingType">
-						<f:selectItems value="#{requiredEnums.HesabTafsiliCodingTypeEnum}" size="50" />
+						<f:selectItems value="#{requiredEnums.HesabTafsiliCodingTypeEnum}" style="width: 250px" />
 					</h:selectOneMenu>
 	
 					<h:panelGroup id="hesabTafsiliCodeCharactersNumberPanel" style="display:none">
@@ -142,7 +142,7 @@
 					</h:panelGroup>
 					<h:selectOneMenu required="true" value="#{owner.hesabMoeenCodingType}" onchange="showHesabMoeenCodeCharactersNumber();"
 						converter="seraj.converter.Enum" label="hesabMoeenCodingType" id="hesabMoeenCodingType">
-						<f:selectItems value="#{requiredEnums.HesabMoeenCodingTypeEnum}" size="50" />
+						<f:selectItems value="#{requiredEnums.HesabMoeenCodingTypeEnum}" style="width: 250px" />
 					</h:selectOneMenu>
 											 
 					<h:panelGroup id="hesabMoeenCodeCharactersNumberPanel" style="display:none">
