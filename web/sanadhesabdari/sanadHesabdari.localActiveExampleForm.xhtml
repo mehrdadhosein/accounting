@@ -12,11 +12,10 @@
 
 
 <h:panelGroup id="searchProcessPanel">
-<p:panel>
 		<p:panelGrid layout="grid" columns="1" style="width:100%"
 			styleClass="inputForm  ui-panelgrid-blank">
-			<p:panelGrid layout="grid" columns="2" width="90%"
-				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9" styleClass="inputForm  ui-panelgrid-blank">
+			<p:panelGrid layout="grid" columns="4" width="90%"
+				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9,viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9" styleClass="inputForm  ui-panelgrid-blank">
 
 				<h:panelGroup>
 					<h:outputLabel for="tempSerial"
@@ -33,14 +32,6 @@
 					value="#{owner.filter['serial@eq']}" />
 
 
-				<h:panelGroup>
-					<h:outputLabel for="sanadTypeSearch"
-						value="#{messages['SanadHesabdari_sanadType']}" /> : 
-				</h:panelGroup>
-				<t:selectManyListbox id="sanadTypeSearch" 
-					value="#{owner.sanadTypeIds}" converter="javax.faces.Long" label="#{messages['SanadHesabdari_sanadType']}">
-					<f:selectItems value="#{owner.hierarchicalSanadTypes}"  />
-				</t:selectManyListbox>
 
 				<h:panelGroup>
 					<h:outputLabel for="atfNumber"
@@ -164,7 +155,17 @@
 				</h:panelGroup>
 
 
+				<h:panelGroup>
+					<h:outputLabel for="sanadTypeSearch"
+						value="#{messages['SanadHesabdari_sanadType']}" /> : 
+				</h:panelGroup>
+				<t:selectManyListbox id="sanadTypeSearch" 
+					value="#{owner.sanadTypeIds}" converter="javax.faces.Long" label="#{messages['SanadHesabdari_sanadType']}">
+					<f:selectItems value="#{owner.hierarchicalSanadTypes}"  />
+				</t:selectManyListbox>
 
+				<h:panelGroup/>
+				<h:panelGroup/>
 			</p:panelGrid>
 			<t:div>
 				<p:commandButton icon="fa fa-fw fa-search" process="searchProcessPanel"
@@ -179,6 +180,5 @@
 					styleClass=" gwt-Button" image="/images/buttons/btn_return.png" />
 			</t:div>
 		</p:panelGrid>
-	</p:panel>
 </h:panelGroup>
 </html>
