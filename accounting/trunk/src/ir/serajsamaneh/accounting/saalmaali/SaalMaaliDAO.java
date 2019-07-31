@@ -33,8 +33,7 @@ public class SaalMaaliDAO extends BaseHibernateDAO<SaalMaaliEntity,Long> {
 		
 		addFilterCriteria(filter, criteria);
 		
-		criteria.setProjection(Projections.projectionList().add(
-				Projections.max(SaalMaaliEntity.PROP_ID)));
+		criteria.setProjection(Projections.projectionList().add(Projections.max(SaalMaaliEntity.PROP_ID)));
 		
 		Long saalMaaliID = (Long) criteria.setFlushMode(FlushMode.MANUAL)
 		.uniqueResult();
