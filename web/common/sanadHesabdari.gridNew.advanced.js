@@ -186,6 +186,9 @@
 		return true;
 	}
 	
+	function getEditDialogTitle(){
+		return 'آرتیکل';
+	}
 	
 	function populateRecordsXML(recordsInputId,gridId){
 		if(!gridId)

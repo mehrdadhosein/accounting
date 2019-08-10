@@ -1,5 +1,6 @@
 package ir.serajsamaneh.rest;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -33,6 +34,7 @@ import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
+import net.sf.jasperreports.engine.JRException;
 
 @Component
 @Path("accountingRestFace")
@@ -160,29 +162,42 @@ public class AccountingRestFace {
 	@Produces({"application/pdf"})
 	public Response printSanadHesabdari(@QueryParam("sanadHesabdariId")Long sanadHesabdariId)
 	{
-		StreamingOutput fileStream =  new StreamingOutput() 
-		{
-			@Override
-			public void write(java.io.OutputStream output) throws IOException, WebApplicationException 
-			{
-				try 
-				{
-					SanadHesabdariEntity sanadHesabdariEntity = getSanadHesabdariService().load(sanadHesabdariId);
-					byte[] tempPDF=SanadHesabdariUtil.printSanad(sanadHesabdariEntity);
+		try {
+			ByteArrayOutputStream  byteArrayOutputStream = new ByteArrayOutputStream();
+			SanadHesabdariEntity sanadHesabdariEntity = getSanadHesabdariService().load(sanadHesabdariId);
+			byte[] tempPDF;
+			tempPDF = SanadHesabdariUtil.printSanad(sanadHesabdariEntity);
+			byteArrayOutputStream.write(tempPDF);
+			return Response
+		            .ok(tempPDF, MediaType.APPLICATION_OCTET_STREAM)
+		            .header("Content-Disposition", "inline; filename=sanadHesabdari.pdf").type("application/pdf")
+		            .build();			
+		} catch (JRException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+//		StreamingOutput fileStream =  new StreamingOutput() 
+//		{
+//			@Override
+//			public void write(java.io.OutputStream output) throws IOException, WebApplicationException 
+//			{
+//				try 
+//				{
+//					SanadHesabdariEntity sanadHesabdariEntity = getSanadHesabdariService().load(sanadHesabdariId);
+//					byte[] tempPDF=SanadHesabdariUtil.printSanad(sanadHesabdariEntity);
+//
+//					output.write(tempPDF);
+//					output.flush();
+//				} 
+//				catch (Exception e) 
+//				{
+//					e.printStackTrace();
+//					throw new WebApplicationException("error !!");
+//				}
+//			}
+//		};
 
-					output.write(tempPDF);
-					output.flush();
-				} 
-				catch (Exception e) 
-				{
-					throw new WebApplicationException("error !!");
-				}
-			}
-		};
-		return Response
-	            .ok(fileStream, MediaType.APPLICATION_OCTET_STREAM)
-	            .header("Content-Disposition", "inline; filename=sanadHesabdari.pdf").type("application/pdf")
-	            .build();
 	}
 
 	public UserEntity getCurrentUser() {

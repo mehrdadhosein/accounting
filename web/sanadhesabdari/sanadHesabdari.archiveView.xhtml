@@ -15,6 +15,12 @@
 
 	<ui:param name="title" value="SanadHesabdari_view" />
 	<ui:param name="owner" value="#{sanadHesabdari}" />
+	<ui:define name="dwrScriptSection">
+			<script  type="text/javascript"		src="${request.contextPath}/dwr/engine.js?p=23"> </script>
+			<script type="text/javascript"			src="${request.contextPath}/dwr/util.js?p=23"> </script>
+			<script type="text/javascript"			src="${request.contextPath}/template/serajdwr.js?p=23"> </script>
+			<script type='text/javascript'	src='${request.contextPath}/dwr/interface/sanadHesabdari.js?p=23'> </script>	
+	</ui:define>	
 	<ui:define name="fixsection">
 	</ui:define>
 
@@ -22,8 +28,8 @@
 	<t:saveState value="#{owner.sanadTypeIds}" />
 	<t:saveState value="#{owner.sanadRoles}" />
 		<p:panel styleClass="emptyDiv" bodyClass="emptyDiv">
-			<p:panelGrid layout="grid"  columns="2" width="90%"
-				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
+			<p:panelGrid layout="grid"  columns="4" width="90%"
+				columnClasses="viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9,viewLableColResponsive ui-grid-col-3,inputCol ui-grid-col-9"
 				styleClass="inputForm  ">
 
 
