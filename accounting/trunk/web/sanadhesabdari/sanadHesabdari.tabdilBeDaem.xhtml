@@ -15,7 +15,12 @@
 
 	<ui:param name="title" value="SanadHesabdari_tabdilBeDaem" />
 	<ui:param name="owner" value="#{sanadHesabdari}" />
-	<ui:param name="dwrFormName" value="sanadHesabdari" />
+	<ui:define name="dwrScriptSection">
+			<script  type="text/javascript"		src="${request.contextPath}/dwr/engine.js?p=23"> </script>
+			<script type="text/javascript"			src="${request.contextPath}/dwr/util.js?p=23"> </script>
+			<script type="text/javascript"			src="${request.contextPath}/template/serajdwr.js?p=23"> </script>
+			<script type='text/javascript'	src='${request.contextPath}/dwr/interface/sanadHesabdari.js?p=23'> </script>	
+	</ui:define>
 	<ui:define name="fixsection">
 	</ui:define>
 

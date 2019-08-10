@@ -650,65 +650,6 @@ $$(document).ready(function() {
 		for ( var j = 0; j < localItems.length; j++){
 			var fieldId = localItems[j];
 			
-/*			if(fieldId == 'hesabTafsiliLevels'){
-				var hesabTafsiliLevels='';
-				var tafsiliTwoId = $$('#hesabTafsiliTwo_id').val();
-				hesabTafsiliLevels = hesabTafsiliLevels +",hesabTafsili1="+ tafsiliTwoId;
-				
-				datarow['hesabTafsiliLevels']=hesabTafsiliLevels;
-				continue;
-			}
-			if(fieldId == 'hesabTafsiliDescs'){
-				var hesabTafsiliDescs='';
-				var tafsiliTwoDesc = $$('#hesabTafsiliTwo_desc').val();
-				hesabTafsiliDescs = hesabTafsiliDescs +",hesabTafsili1="+ tafsiliTwoDesc;
-				
-
-				datarow['hesabTafsiliDescs']=hesabTafsiliDescs;
-				continue;
-			}
-			if(fieldId == 'hesabTafsiliLevelNames'){
-				var hesabTafsiliLevelNames='';
-				var tafsiliTwoDesc = $$('#hesabTafsiliTwo_desc').val();
-				hesabTafsiliLevelNames = hesabTafsiliLevelNames +","+ tafsiliTwoDesc;
-				datarow['hesabTafsiliLevelNames']=hesabTafsiliLevelNames;
-				continue;
-			}
-*/
-			
-			/*if(fieldId == 'accountingMarkazLevels'){
-				var accountingMarkazLevels='';
-				$$('input.accountingMarkazInput').each(function( i ) {
-					var id_desc = $( this ).prop('id');
-					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
-					var accountingMarkazValue = $$('#'+id+"_id").val();
-					accountingMarkazLevels = accountingMarkazLevels +","+id+'='+ accountingMarkazValue;
-				});
-				datarow['accountingMarkazLevels']=accountingMarkazLevels;
-				continue;
-			}
-			if(fieldId == 'accountingMarkazDescs'){
-				var accountingMarkazDescs='';
-				$$('input.accountingMarkazInput').each(function( i ) {
-					var id_desc = $( this ).prop('id');
-					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
-					var desc = $( this ).val();
-					accountingMarkazDescs = accountingMarkazDescs +","+id+'='+ desc;
-				});
-				datarow['accountingMarkazDescs']=accountingMarkazDescs;
-				continue;
-			}
-			if(fieldId == 'accountingMarkazLevelNames'){
-				var accountingMarkazLevelNames='';
-				$$('input.accountingMarkazInput').each(function( i ) {
-					var id_desc = $( this ).prop('id');
-					var id = id_desc.substring(0,id_desc.lastIndexOf("_desc"));
-					var desc = $( this ).val();
-					accountingMarkazLevelNames = accountingMarkazLevelNames +","+ desc;
-				});
-				datarow['accountingMarkazLevelNames']=accountingMarkazLevelNames;
-				continue;
-			}*/
 			
 			var convertedFieldId = getBindedSanadHesabdariFieldId(fieldId);
 			var val = $$('#'+convertedFieldId).val();
