@@ -14,20 +14,8 @@
 
 
 <script type='text/javascript'
-	src='${request.contextPath}/dwr/interface/#{dwrFormName}.js?p=23'> </script>
-<script type='text/javascript'
 	src='${request.contextPath}/common/sanadHesabdari.gridNew.js?p=23'> </script>
-<style>
-.dialogViewLableCol {
-	text-align: left;
-	width: 33%;
-	vertical-align: middle;
-	font-family: tahoma;
-	color: gray;
-	font-size: 12px;
-	padding-left: 10px;
-}
-</style>
+
 
 <table id="sanadHesabdariGrid">
 	<tr>
@@ -124,7 +112,7 @@
 	updateFooter();
 		}
 
-	#{dwrFormName}.getSanadHesabdariItemList('#{owner.entity.id}',function(sanadHesabdariList){
+		sanadHesabdari.getSanadHesabdariItemList('#{owner.entity.id}',function(sanadHesabdariList){
 		var gridItems=new Array('id','hesabKolID','hesabKolName','hesabMoeenID','hesabMoeenName','hesabTafsiliID','hesabTafsiliName','markazHazineID','markazHazineName','projectID','projectName','bedehkar','bestankar','description');
 		var globalRowId = sanadHesabdariList.length;
 		setGridGlobalRowId('sanadHesabdariGrid',globalRowId);
