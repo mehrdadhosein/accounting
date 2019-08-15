@@ -783,8 +783,7 @@ public class SanadHesabdariForm extends
 		}else
 			return getEmptyDataModel();		
 		getFilter().put("state@eq", SanadStateEnum.MERGED);
-		getFilter().put("saalMaali.id@eq",
-				getCurrentUserActiveSaalMaali().getId());
+		getFilter().put("saalMaali.id@eq",	getCurrentUserActiveSaalMaali().getId());
 		return getLocalDataModel();
 	}
 
