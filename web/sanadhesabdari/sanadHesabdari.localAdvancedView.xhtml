@@ -25,7 +25,7 @@
 	</ui:define>
 
 	<ui:define name="viewsection">
-	
+	<t:saveState value="#{owner.sanadRoles}" />
 	<t:saveState value="#{owner.sanadTypeIds}" />
 	
 			<p:panelGrid layout="grid"  columns="2" width="90%"
@@ -39,8 +39,7 @@
 						value="#{messages['SanadHesabdari_tempSerial']}" /> : 
 				</h:panelGroup>
 				<t:outputText id="tempSerial" label="tempSerial"
-					style="width:250px" value="#{sanadHesabdari.entity.tempSerial}"
-					style="width: 250px" />
+					style="width:250px" value="#{sanadHesabdari.entity.tempSerial}"/>
 					
 				<h:outputLabel for="saalMaali"
 					value="#{messages['SanadHesabdari_saalMaali']} : " />
