@@ -160,7 +160,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	}
 
 	private void resetHesabRelations() {
-		List<Long> subsetOrganIds = getSubsetOrganIds(getCurrentOrgan());
+		List<Long> subsetOrganIds = getRelatedOrganIds();
 		for (Long organId : subsetOrganIds) {
 			OrganEntity organEntity = getOrganService().load(organId);
 			HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), organEntity);

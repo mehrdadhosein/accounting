@@ -230,7 +230,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	}
 	
 	private void resetHesabRelations() {
-		List<Long> subsetOrganIds = getSubsetOrganIds(getCurrentOrgan());
+		List<Long> subsetOrganIds = getRelatedOrganIds();
 		for (Long organId : subsetOrganIds) {
 			OrganEntity organEntity = getOrganService().load(organId);
 			HesabRelationsUtil.resetTafsiliMoeenMap(getCurrentUserActiveSaalMaali(), organEntity);
