@@ -58,7 +58,7 @@
 			<staticText>
 				<reportElement x="213" y="30" width="156" height="22" uuid="3819292b-7250-41a9-9436-2b8560736967"/>
 				<textElement>
-					<font fontName="B Titr" size="20" pdfFontName="BTitrBd.ttf"/>
+					<font fontName="B Titr" size="16" pdfFontName="BTitrBd.ttf"/>
 				</textElement>
 				<text><![CDATA[سند حسابداری]]></text>
 			</staticText>

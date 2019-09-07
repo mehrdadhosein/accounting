@@ -231,7 +231,6 @@ function createAutocomplete(id,src, minLength){
 				return;
 			clearAutocomplete(accountingMarkaz);
 			accountingMarkazMap = moeenAccountingMarkazMap[moeenId];
-			//alert("unitMap : "+unitMap.length);
 			var filtered = accountingMarkazMap;
 			//alert(inspect(filtered,10,10));
 			 $$('#'+accountingMarkaz+'_desc').autocomplete('option','source',filtered);
@@ -247,7 +246,6 @@ function createAutocomplete(id,src, minLength){
 				return;
 			clearAutocomplete(tafsiliDest);
 			tafsiliMap = tafsiliChildMap[tafsiliSrcId];
-			//alert("unitMap : "+unitMap.length);
 			var filtered = tafsiliMap;
 			//alert(inspect(filtered,10,10));
 			 $$('#'+tafsiliDest+'_desc').autocomplete('option','source',filtered);
@@ -262,7 +260,6 @@ function createAutocomplete(id,src, minLength){
 				return;
 			clearAutocomplete(accountingMarkazDest);
 			accountingMarkazMap = accountingMarkazChildMap[accountingMarkazSrcId];
-			//alert("unitMap : "+unitMap.length);
 			var filtered = accountingMarkazMap;
 			//alert(inspect(filtered,10,10));
 			 $$('#'+accountingMarkazDest+'_desc').autocomplete('option','source',filtered);
@@ -277,7 +274,6 @@ function createAutocomplete(id,src, minLength){
 				return;
 			clearAutocomplete(accountingMarkazDest);
 			accountingMarkazMap = tafsiliAccountingMarkazChildMap[tafsiliSrcId];
-			//alert("unitMap : "+unitMap.length);
 			var filtered = accountingMarkazMap;
 			//alert(inspect(filtered,10,10));
 			 $$('#'+accountingMarkazDest+'_desc').autocomplete('option','source',filtered);

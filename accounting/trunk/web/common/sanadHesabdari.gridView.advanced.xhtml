@@ -14,20 +14,8 @@
 
 
 <script type='text/javascript'
-	src='${request.contextPath}/dwr/interface/sanadHesabdari.js?p=24'> </script>
-<script type='text/javascript'
 	src='${request.contextPath}/common/sanadHesabdari.gridNew.js?p=24'> </script>
-<style>
-.dialogViewLableCol {
-	text-align: left;
-	width: 33%;
-	vertical-align: middle;
-	font-family: tahoma;
-	color: gray;
-	font-size: 12px;
-	padding-left: 10px;
-}
-</style>
+
 
 <table id="sanadHesabdariGrid">
 	<tr>
@@ -143,9 +131,9 @@
 		var globalRowId = sanadHesabdariList.length;
 		setGridGlobalRowId('sanadHesabdariGrid',globalRowId);
 		
-		var result = SetupSanadHesabdariJQgridJson(sanadHesabdariList,'#sanadHesabdariGrid',gridItems);
+		//var result = SetupSanadHesabdariJQgridJson(sanadHesabdariList,'#sanadHesabdariGrid',gridItems);
 		
-		createSanadHesabdariGrid(result);
+		createSanadHesabdariGrid(sanadHesabdariList);
 	});
 
 	function getSanadHesabdariGridId(){
