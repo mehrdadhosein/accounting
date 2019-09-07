@@ -339,7 +339,7 @@
 			tafsiliMap = moeenTafsiliOneMap[moeenId];
 			//alert(inspect(tafsiliMap,10,10));
 			kolMap = moeenKolMap[moeenId];
-			//alert("unitMap : "+unitMap.length);
+			
 			//var filtered = tafsiliMap;
 			//alert(inspect(filtered,10,10));
 			$$('#'+tafsili+'_desc').autocomplete('option','source',tafsiliMap);
@@ -363,7 +363,7 @@
 			tafsiliMap = moeenTafsiliTwoMap[moeenId];
 			//alert(inspect(tafsiliMap,10,10));
 			kolMap = moeenKolMap[moeenId];
-			//alert("unitMap : "+unitMap.length);
+			
 			//var filtered = tafsiliMap;
 			//alert(inspect(filtered,10,10));
 			$$('#'+tafsili+'_desc').autocomplete('option','source',tafsiliMap);
@@ -381,7 +381,7 @@
 				return;
 			clearAutocomplete(accountingMarkaz);
 			accountingMarkazMap = moeenAccountingMarkazMap[moeenId];
-			//alert("unitMap : "+unitMap.length);
+			
 			var filtered = accountingMarkazMap;
 			//alert(inspect(filtered,10,10));
 			 $$('#'+accountingMarkaz+'_desc').autocomplete('option','source',filtered);
