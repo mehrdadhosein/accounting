@@ -26,7 +26,6 @@ import ir.serajsamaneh.core.contact.contact.ContactService;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
-import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
@@ -43,6 +42,9 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		return hesabTafsiliService;
 	}
 	
+	HesabMoeenService hesabMoeenService;
+
+	HesabTafsiliService hesabTafsiliService;
 	SaalMaaliService saalMaaliService;
 	ContactService contactService;
 	ContactHesabService contactHesabService;
@@ -127,12 +129,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		return super.getHierarchicalDataModelCount();
 	}
 
-	HesabMoeenService hesabMoeenService;
-	
-	public HesabMoeenService getHesabMoeenService() {
-		return 	SpringUtils.getBean("hesabMoeenService");      
-	}
-	HesabTafsiliService hesabTafsiliService;
+
 	
 	public void setHesabTafsiliService(HesabTafsiliService hesabTafsiliService) {
 		this.hesabTafsiliService = hesabTafsiliService;

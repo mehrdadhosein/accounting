@@ -1,11 +1,5 @@
 package ir.serajsamaneh.accounting.hesabkol;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +10,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity;
@@ -35,12 +25,9 @@ import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntit
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
-import ir.serajsamaneh.core.util.SpringUtils;
-import ir.serajsamaneh.core.util.XMLUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabEntity;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
@@ -50,13 +37,17 @@ import ir.serajsamaneh.erpcore.util.HesabTreeUtil;
 public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 
 
-
-
+	@Autowired
+	HesabKolService hesabKolService;
+	
 	@Override
 	protected HesabKolService getMyService() {
 		return hesabKolService;
 	}
-	HesabGroupService HesabGroupService;
+	
+	@Autowired
+	HesabGroupService hesabGroupService;
+	
 	SaalMaaliService saalMaaliService;
 	HesabMoeenService hesabMoeenService;
 	ContactHesabService contactHesabService;
@@ -141,7 +132,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	public List<SelectItem> getHesabGroup(){
 		Map<String, Object> filter=new HashMap<String, Object>();
 		//filter.put("organ.id@eq",getCurrentOrgan().getId());
-		List<HesabGroupEntity> list =getHesabGroupService().getDataList(null, filter);
+		List<HesabGroupEntity> list = hesabGroupService.getDataList(null, filter);
 		
 		List<SelectItem> selectItemList = new ArrayList<SelectItem>();
 		selectItemList.add(new SelectItem("", "------------"));
@@ -171,27 +162,12 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	}
 
 	
-	HesabKolService hesabKolService;
 	
-	public void setHesabKolService(HesabKolService hesabKolService) {
-		this.hesabKolService = hesabKolService;
-	}
-	
-	public HesabKolService getHesabKolService() {
-		return hesabKolService;
-	}
 
-	public HesabGroupService getHesabGroupService() {
-		return SpringUtils.getBean("hesabGroupService");
-	}
-
-	public void setHesabGroupService(HesabGroupService hesabGroupService) {
-		HesabGroupService = hesabGroupService;
-	}
 
 	public String importFromHesabKolTemplateList(){
 		getMyService().createDefaultAccounts(getCurrentUserActiveSaalMaali().getOrgan());
-		getHesabGroupService().importFromHesabGroupTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		hesabGroupService.importFromHesabGroupTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		getMyService().importFromHesabKolTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		getHesabMoeenService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 		getHesabTafsiliService().importFromHesabTafsiliTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
