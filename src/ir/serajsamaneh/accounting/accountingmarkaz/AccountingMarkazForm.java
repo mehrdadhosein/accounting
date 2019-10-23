@@ -54,10 +54,7 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	}
 
 	HesabMoeenService hesabMoeenService;
-	
-	public HesabMoeenService getHesabMoeenService() {
-		return 	SpringUtils.getBean("hesabMoeenService");      
-	}
+
 	AccountingMarkazService accountingMarkazService;
 	
 	public void setAccountingMarkazService(AccountingMarkazService accountingMarkazService) {

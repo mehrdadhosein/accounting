@@ -39,8 +39,6 @@ public class AccountingMarkazTemplateDAO extends BaseHibernateDAO<AccountingMark
 			}
 
 		}
-		if (maxCode == null)
-			return getLocationStart() + 0l;
 		return maxCode;
 
 	}

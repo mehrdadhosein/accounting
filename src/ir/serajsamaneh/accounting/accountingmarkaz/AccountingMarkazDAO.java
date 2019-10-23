@@ -38,8 +38,6 @@ public class AccountingMarkazDAO extends BaseHibernateDAO<AccountingMarkazEntity
 			}
 
 		}
-		if (maxCode == null)
-			return getLocationStart() + 0l;
 		return maxCode;
 
 	}

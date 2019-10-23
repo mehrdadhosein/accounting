@@ -2,6 +2,8 @@ package ir.serajsamaneh.accounting.accountingsystemconfig;
 
 import javax.faces.context.FacesContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import ir.serajsamaneh.accounting.enumeration.HesabMoeenCodingTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.HesabTafsiliCodingTypeEnum;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
@@ -24,43 +26,20 @@ import ir.serajsamaneh.enumeration.YesNoEnum;
 public class AccountingSystemConfigForm extends SystemConfigForm{
 	
 
-
+	@Autowired
 	SystemConfigService  systemConfigService;
+	
+	@Autowired
 	HesabMoeenTemplateService hesabMoeenTemplateService;
+	
+	@Autowired
 	SanadTypeService sanadTypeService;
 	
+	@Autowired
 	SaalMaaliService saalMaaliService;
 	
-	public SanadTypeService getSanadTypeService() {
-		return (SanadTypeService) SpringUtils.getBean("sanadTypeService");
-	}
-
-	public SaalMaaliService getSaalMaaliService() {
-		return (SaalMaaliService) SpringUtils.getBean("saalMaaliService");
-	}
-
-	public void setSaalMaaliService(SaalMaaliService saalMaaliService) {
-		this.saalMaaliService = saalMaaliService;
-	}
-
-	public HesabKolService getHesabKolService() {
-		return (HesabKolService) SpringUtils.getBean("hesabKolService");
-	}
-	
-	public HesabTafsiliTemplateService getHesabTafsiliTemplateService() {
-		return (HesabTafsiliTemplateService) SpringUtils.getBean("hesabTafsiliTemplateService");
-	}
-
-	public HesabMoeenTemplateService getHesabMoeenTemplateService() {
-		return (HesabMoeenTemplateService) SpringUtils.getBean("hesabMoeenTemplateService");
-	}
-	
-
-	
-	public SystemConfigService getSystemConfigService() {
-		return (SystemConfigService) SpringUtils.getBean("systemConfigService");
-	}
-
+	@Autowired
+	HesabTafsiliTemplateService hesabTafsiliTemplateService;
 	
 	Long defaultSanadTypeId;
 	Long hesabSoodVaZyanAnbashtehMoeenId;
@@ -219,7 +198,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public Long getHesabSoodVaZyanAnbashtehMoeenId() {
 		if(hesabSoodVaZyanAnbashtehMoeenId==null && FacesContext.getCurrentInstance().getRenderResponse()){
 			if(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehMoeenId")!=null) {
-				HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateService().load(new Long(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehMoeenId")));
+				HesabMoeenTemplateEntity hesabMoeenTemplateEntity = hesabMoeenTemplateService.load(new Long(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehMoeenId")));
 				hesabSoodVaZyanAnbashtehMoeenId = hesabMoeenTemplateEntity.getId();
 			}
 		}
@@ -229,7 +208,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public String getHesabSoodVaZyanAnbashtehMoeenDesc() {
 		if (hesabSoodVaZyanAnbashtehMoeenDesc==null)
 			if(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehMoeenId")!=null) {
-				HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateService().load(new Long(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehMoeenId")));
+				HesabMoeenTemplateEntity hesabMoeenTemplateEntity = hesabMoeenTemplateService.load(new Long(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehMoeenId")));
 				hesabSoodVaZyanAnbashtehMoeenDesc = hesabMoeenTemplateEntity.getDesc();
 			}
 		
@@ -248,7 +227,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public Long getHesabSoodVaZyanAnbashtehTafsiliId() {
 		if(hesabSoodVaZyanAnbashtehTafsiliId==null  && FacesContext.getCurrentInstance().getRenderResponse()){
 			if(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehTafsiliId")!=null){
-				HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().load(new Long(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehTafsiliId")));
+				HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = hesabTafsiliTemplateService.load(new Long(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehTafsiliId")));
 				hesabSoodVaZyanAnbashtehTafsiliId = hesabTafsiliTemplateEntity.getId();
 			}
 		}
@@ -258,7 +237,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public String getHesabSoodVaZyanAnbashtehTafsiliDesc() {
 		if(hesabSoodVaZyanAnbashtehTafsiliDesc==null){
 			if(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehTafsiliId")!=null){
-				HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().load(new Long(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehTafsiliId")));
+				HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = hesabTafsiliTemplateService.load(new Long(getSystemConfigService().getValue(getCurrentOrgan(), null, "hesabSoodVaZyanAnbashtehTafsiliId")));
 				hesabSoodVaZyanAnbashtehTafsiliDesc = hesabTafsiliTemplateEntity.getDesc();
 			}
 		}
@@ -304,19 +283,19 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		String oldmaxSanadHesabdariTafsilLevel=getSystemConfigService().getValue(getCurrentOrgan(), null, "maxSanadHesabdariTafsilLevel");
 		//Insert New Value
 		getSystemConfigService().insertKeyValue("defaultSanadTypeId",getDefaultSanadTypeId().toString(), null, getCurrentOrgan());
-		SanadTypeEntity defaultSanadTypeIdValue = getSanadTypeService().load(getDefaultSanadTypeId());
+		SanadTypeEntity defaultSanadTypeIdValue = sanadTypeService.load(getDefaultSanadTypeId());
 		itemdesc(defaultSanadTypeIdValue.toString());
 		
 		getSystemConfigService().insertKeyValue("hesabSoodVaZyanAnbashtehMoeenId",  getHesabSoodVaZyanAnbashtehMoeenId()!=null ? getHesabSoodVaZyanAnbashtehMoeenId().toString() : null, null, getCurrentOrgan());
  
 		if(getHesabSoodVaZyanAnbashtehMoeenId()!=null){
-			HesabMoeenTemplateEntity hesabSoodVaZyanAnbashtehMoeenIdValue = getHesabMoeenTemplateService().load(getHesabSoodVaZyanAnbashtehMoeenId());
+			HesabMoeenTemplateEntity hesabSoodVaZyanAnbashtehMoeenIdValue = hesabMoeenTemplateService.load(getHesabSoodVaZyanAnbashtehMoeenId());
 			itemdesc(hesabSoodVaZyanAnbashtehMoeenIdValue.toString());
 		}
 		
 		getSystemConfigService().insertKeyValue("hesabSoodVaZyanAnbashtehTafsiliId",getHesabSoodVaZyanAnbashtehTafsiliId()!=null ? getHesabSoodVaZyanAnbashtehTafsiliId().toString(): null , null, getCurrentOrgan());
 		if(getHesabSoodVaZyanAnbashtehTafsiliId()!=null){
-			HesabTafsiliTemplateEntity hesabSoodVaZyanAnbashtehTafsiliIdValue = getHesabTafsiliTemplateService().load(getHesabSoodVaZyanAnbashtehTafsiliId());
+			HesabTafsiliTemplateEntity hesabSoodVaZyanAnbashtehTafsiliIdValue = hesabTafsiliTemplateService.load(getHesabSoodVaZyanAnbashtehTafsiliId());
 			itemdesc(hesabSoodVaZyanAnbashtehTafsiliIdValue.toString());
 		}
 		
@@ -344,20 +323,20 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 //		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasMarkazValue.nameWithClass()));
 		
 		if(olddefaultSanadTypeId!=null&&!olddefaultSanadTypeId.equals(getDefaultSanadTypeId().toString())){
-			SanadTypeEntity oldEntity = getSanadTypeService().load(new Long(olddefaultSanadTypeId));
-			SanadTypeEntity newEntity = getSanadTypeService().load(getDefaultSanadTypeId());
+			SanadTypeEntity oldEntity = sanadTypeService.load(new Long(olddefaultSanadTypeId));
+			SanadTypeEntity newEntity = sanadTypeService.load(getDefaultSanadTypeId());
 			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_defaultSanadType")+" : "+oldEntity.getDesc()+"-->"+newEntity.getDesc()+"]";
 		}
 		
 		if(oldhesabSoodVaZyanAnbashtehMoeenId!=null&&!oldhesabSoodVaZyanAnbashtehMoeenId.equals(getHesabSoodVaZyanAnbashtehMoeenId().toString())){
-			HesabMoeenTemplateEntity oldEntity = getHesabMoeenTemplateService().load(new Long(oldhesabSoodVaZyanAnbashtehMoeenId));
-			HesabMoeenTemplateEntity newEntity = getHesabMoeenTemplateService().load(getHesabSoodVaZyanAnbashtehMoeenId());
+			HesabMoeenTemplateEntity oldEntity = hesabMoeenTemplateService.load(new Long(oldhesabSoodVaZyanAnbashtehMoeenId));
+			HesabMoeenTemplateEntity newEntity = hesabMoeenTemplateService.load(getHesabSoodVaZyanAnbashtehMoeenId());
 			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_hesabSoodVaZyanAnbashtehMoeen")+" : "+oldEntity.getDesc()+"-->"+newEntity.getDesc()+"]";
 		}
 		
 		if(oldhesabSoodVaZyanAnbashtehTafsiliId!=null&&!oldhesabSoodVaZyanAnbashtehTafsiliId.equals(getHesabSoodVaZyanAnbashtehTafsiliId().toString())){
-			HesabTafsiliTemplateEntity oldEntity = getHesabTafsiliTemplateService().load(new Long(oldhesabSoodVaZyanAnbashtehTafsiliId));
-			HesabTafsiliTemplateEntity newEntity = getHesabTafsiliTemplateService().load(getHesabSoodVaZyanAnbashtehTafsiliId());
+			HesabTafsiliTemplateEntity oldEntity = hesabTafsiliTemplateService.load(new Long(oldhesabSoodVaZyanAnbashtehTafsiliId));
+			HesabTafsiliTemplateEntity newEntity = hesabTafsiliTemplateService.load(getHesabSoodVaZyanAnbashtehTafsiliId());
 			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_hesabSoodVaZyanAnbashtehTafsili")+" : "+oldEntity.getDesc()+"-->"+newEntity.getDesc()+"]";
 		}
 		if(oldvalidateHesabMoeenHasChild!=null&&!oldvalidateHesabMoeenHasChild.equals(getValidateHesabMoeenHasChild().value().toString())){
@@ -418,10 +397,10 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public String userConfigSave(){
 		SaalMaaliEntity saalMaaliEntity = null;
 		if(getSaalMaaliId()!=null)
-			saalMaaliEntity = getSaalMaaliService().get(getSaalMaaliId());
+			saalMaaliEntity = saalMaaliService.get(getSaalMaaliId());
 		
 		getSystemConfigService().insertKeyValue("saalMaaliId", getSaalMaaliId()!=null ? getSaalMaaliId().toString() : null , getCurrentUser(), getCurrentOrgan());
-		String entityName = SerajMessageUtil.getMessage(getSaalMaaliService().getEntityName() + "_title");
+		String entityName = SerajMessageUtil.getMessage(saalMaaliService.getEntityName() + "_title");
 		ActionLogUtil.logAction(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass()), entityName, 
 				saalMaaliEntity!=null ? saalMaaliEntity.getSaal().toString() : "" , "", saalMaaliEntity!=null ? saalMaaliEntity.getLog() : "", getCurrentUser());
 		addInfoMessage("SUCCESSFUL_ACTION");
