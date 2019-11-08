@@ -1,0 +1,88 @@
+package ir.serajsamaneh.accounting.hesabkoltemplate;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.FlushMode;
+import org.springframework.transaction.annotation.Transactional;
+
+import ir.serajsamaneh.accounting.hesabgroup.HesabGroupDAO;
+import ir.serajsamaneh.core.base.BaseHibernateDAO;
+import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
+
+public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntity,Long> {
+
+	HesabGroupDAO hesabGroupDAO;
+
+	public HesabGroupDAO getHesabGroupDAO() {
+		return hesabGroupDAO;
+	}
+
+	public void setHesabGroupDAO(HesabGroupDAO hesabGroupDAO) {
+		this.hesabGroupDAO = hesabGroupDAO;
+	}
+
+
+
+	
+	@Transactional
+	public HesabKolTemplateEntity getHesabKolTemplateByCode(String hesabCode, Long organId) {
+
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("code@eq", hesabCode);
+		localFilter.put("organ.id@eq", organId);
+		List<HesabKolTemplateEntity> dataList = getDataList(null, localFilter,null, null, FlushMode.MANUAL,false);
+		if (dataList.size() == 1)
+			return dataList.get(0);
+		else if (dataList.size() == 0)
+			return null;
+		else
+			throw new IllegalStateException();
+	}
+	
+	public HesabKolTemplateEntity getHesabKolTemplateByName(String hesabKolName, Long organId) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("name@eq", hesabKolName);
+		localFilter.put("organ.id@eq", organId);
+		HesabKolTemplateEntity hesabKolTemplateEntity = load(null, localFilter, FlushMode.MANUAL, false);
+		return hesabKolTemplateEntity;
+
+	}
+	
+	@Override
+	public void saveOrUpdate(HesabKolTemplateEntity entity) {
+		if(entity.getHidden() == null)
+			entity.setHidden(false);
+
+		if(entity.getOrgan()!=null && entity.getOrgan().getId()!=null)
+			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrgan().getId());
+
+		checkHesabTemplateUniqueNess(entity);
+		
+		super.saveOrUpdate(entity);
+	}
+
+	private void checkHesabTemplateUniqueNess(HesabKolTemplateEntity entity) {
+		Map<String, Object> localFilter = new HashMap<String, Object>();
+		localFilter.put("organ.id@eq", entity.getOrgan().getId());
+		checkUniqueNess(entity, HesabKolTemplateEntity.PROP_CODE, entity.getCode(), localFilter, false);
+		checkUniqueNess(entity, HesabKolTemplateEntity.PROP_NAME, entity.getName(), localFilter, false);
+	}
+
+	@Override
+	public void save(HesabKolTemplateEntity entity) {
+		if(entity.getHidden() == null)
+			entity.setHidden(false);
+
+		if(entity.getOrgan()!=null && entity.getOrgan().getId()!=null)
+			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrgan().getId());
+
+		checkHesabTemplateUniqueNess(entity);
+		
+		super.save(entity);
+	}
+
+
+
+}
