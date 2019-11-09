@@ -23,6 +23,7 @@ import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.organ.OrganService;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
+import ir.serajsamaneh.core.user.UserService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabEntity;
@@ -38,6 +39,10 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	static SanadTypeService sanadTypeService;
 
 	static OrganService organService;
+	
+	public static UserService getUserService() {
+		return SpringUtils.getBean("userService");
+	}
 
 	public static OrganService getOrganService() {
 		if(organService == null)
