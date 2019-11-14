@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import ir.serajsamaneh.accounting.exception.NoActiveSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
-import ir.serajsamaneh.core.common.OrganVO;
-import ir.serajsamaneh.core.common.UserVO;
 import ir.serajsamaneh.core.security.SecurityUtil;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.util.SpringUtils;
@@ -45,11 +43,11 @@ public class SaalMaaliFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain filterChain) throws IOException, ServletException {
-		if(SecurityUtil.isLogin() && !SecurityUtil.getCurrentUser().equals("system")){
+		if(SecurityUtil.isLogin() && !SecurityUtil.getUsername().equals("system")){
 			HttpServletRequest hrequest = (HttpServletRequest) request;
 			try{
 				if(hrequest.getRequestURI().indexOf("hesabKol.hierarchicalList") != -1
-						|| hrequest.getRequestURI().indexOf("hesabMoeen.hierarchicalList") != -1){ 
+						|| hrequest.getRequestURI().indexOf("hesabMoeen.hierarchicalList") != -1){
 //						hrequest.getRequestURI().indexOf("/login.jsf") == -1 
 //						&& hrequest.getRequestURI().indexOf("/rfRes/") == -1
 //						&& hrequest.getRequestURI().indexOf("/javax.faces.resource/") == -1
@@ -59,11 +57,11 @@ public class SaalMaaliFilter implements Filter {
 //					&& hrequest.getRequestURI().indexOf("saalmaali") == -1){
 ////					getSaalMaaliService().getCurrentSaalmaali();
 //					//to check if there is any saalMaali
-					OrganVO currentOrgan = SecurityUtil.getUserDetails().getOrganEntity();
-					UserVO userEntity = SecurityUtil.getUserDetails().getUserEntity();
+//					OrganVO currentOrgan = SecurityUtil.getUserDetails().getOrganEntity();
+//					UserVO userEntity = SecurityUtil.getUserDetails().getUserEntity();
 ////					String isAccountingEnabled = getSystemConfigService().getValue(currentOrgan.getId(), null, "isAccountingEnabled");
 ////					if(StringUtil.hasText(isAccountingEnabled) && isAccountingEnabled.equals("YES")){
-						getSaalMaaliService().getUserActiveSaalMaali(currentOrgan,/*null,*/userEntity.getId());
+//						getSaalMaaliService().getUserActiveSaalMaali(currentOrgan,/*null,*/userEntity.getId());
 ////					}
 				}
 			}catch (NoSaalMaaliFoundException e) {

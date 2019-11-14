@@ -1,7 +1,5 @@
 package ir.serajsamaneh.accounting.converter;
 
-import java.text.DecimalFormat;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;

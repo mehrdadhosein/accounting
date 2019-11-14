@@ -206,7 +206,7 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 	
 	public UserEntity getCurrentUser() {
 		if(currentUser == null || currentUser.getId() == null)
-			currentUser = userService.load(SecurityUtil.getUserDetails().getUserEntity().getId());
+			currentUser = userService.loadUserByUsername(SecurityUtil.getUsername());
 		return currentUser;
 	}
 	
