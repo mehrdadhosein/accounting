@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Contexts>
+	<Context prefix="/accounting/" method="dosubmit">
+		<MenuItem value="اطلاعات پایه حسابداری"   separator="true">
+			<MenuItem value="سال مالی" valueClick="saalmaali/saalMaali.list.jsf"
+				permission="saalMaali.list" />
+			<MenuItem value="نوع سند" valueClick="sanadtype/sanadType.list.jsf"
+				permission="sanadType.list" />
+			<MenuItem value="گروه حساب" valueClick="hesabgroup/hesabGroup.list.jsf"
+				permission="hesabGroup.list" />
+			<MenuItem value="حساب کل" valueClick="hesabkol/hesabKol.list.jsf"
+				permission="hesabKol.list" />
+			<MenuItem value="حساب معین" valueClick="hesabmoeen/hesabMoeen.list.jsf"
+				permission="hesabMoeen.list" />
+			<MenuItem value="حساب تفصیلی" valueClick="hesabtafsili/hesabTafsili.list.jsf"
+				permission="hesabTafsili.list" />
+		</MenuItem>
+		<MenuItem value="اسناد حسابداری">
+			<MenuItem value="اسناد قطعی نشده" valueClick="sanadhesabdari/sanadHesabdari.localList.jsf"
+				permission="sanadHesabdari.localList" />
+			<MenuItem value="بایگانی اسناد" valueClick="sanadhesabdari/sanadHesabdari.localArchiveList.jsf"
+				permission="sanadHesabdari.localList"/>
+			<MenuItem value="جستجوس سراسری" valueClick="sanadhesabdari/sanadHesabdari.list.jsf"
+				permission="sanadHesabdari.list"  separator="true"/>
+		</MenuItem>
+		<MenuItem value="گزارشات حسابداری">
+			<MenuItem value="دفتر روزنامه" valueClick="sanadhesabdariitem/sanadHesabdariItem.rooznamehLocalList.jsf"
+				permission="sanadHesabdariItem.localList" />
+			<MenuItem value="دفتر کل" valueClick="sanadhesabdariitem/sanadHesabdariItem.kolLocalList.jsf"			permission="" />
+			<MenuItem value="دفتر معین" valueClick="sanadhesabdariitem/sanadHesabdariItem.moeenLocalList.jsf"		permission="" />
+			<MenuItem value="تراز کل آزمایشی" valueClick="sanadhesabdariitem/sanadHesabdariItem.tarazKolAzmayeshiLocalList.jsf" 	permission="" />
+			<MenuItem value="تراز معین آزمایشی" valueClick="sanadhesabdariitem/sanadHesabdariItem.tarazMoeenAzmayeshiLocalList.jsf" 	permission="" />
+			<MenuItem value="تراز تفصیلی آزمایشی" valueClick="sanadhesabdariitem/sanadHesabdariItem.tarazTafsiliAzmayeshiLocalList.jsf" 	permission="" />
+			<MenuItem value="تراز کل" valueClick="sanadhesabdariitem/sanadHesabdariItem.tarazKolLocalView.jsf"
+				permission="" />
+			<MenuItem value="صورت سود و زیان" valueClick="sanadhesabdariitem/sanadHesabdariItem.soodVaZiyan.localList.jsf"
+				permission="" />
+		</MenuItem>
+         <MenuItem value="راهنمای سیستم حسابداری" valueClick="doc/help_accounting.pdf" target="_blank" icon="images/menu/help-icon.png"/>
+	</Context>
+</Contexts>
