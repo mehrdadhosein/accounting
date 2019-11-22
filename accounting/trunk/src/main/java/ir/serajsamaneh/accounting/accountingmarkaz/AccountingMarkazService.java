@@ -25,7 +25,6 @@ import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.exception.MoreThanOneRecordFoundException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 public class AccountingMarkazService extends
@@ -180,7 +179,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		save(entity);
 		boolean isNew=(entity.getId()!=null?false:true);
 		logAction(isNew, entity);
-		createAccountingMarkazTemplateFromAccountingMarkaz(entity, activeSaalMaaliEntity.getOrgan());
+		createAccountingMarkazTemplateFromAccountingMarkaz(entity, activeSaalMaaliEntity.getOrganId());
 		
 		if(applyMoeenOnSubMarkaz){
 			applyMoeenOnSubMarkaz(entity, moeenIds);
@@ -235,10 +234,10 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	}
 
 	@Transactional
-	private void createAccountingMarkazTemplateFromAccountingMarkaz(AccountingMarkazEntity entity, OrganEntity organEntity) {
-		AccountingMarkazTemplateEntity hesabKolTemplateEntity = getAccountingMarkazTemplateService().load(entity.getCode(), organEntity);
+	private void createAccountingMarkazTemplateFromAccountingMarkaz(AccountingMarkazEntity entity, Long organId) {
+		AccountingMarkazTemplateEntity hesabKolTemplateEntity = getAccountingMarkazTemplateService().load(entity.getCode(), organId);
 		if(hesabKolTemplateEntity == null){
-			getAccountingMarkazTemplateService().createAccountingMarkazTemplate(entity.getCode(), entity.getName(), organEntity);
+			getAccountingMarkazTemplateService().createAccountingMarkazTemplate(entity.getCode(), entity.getName(), organId);
 		}
 	}
 	
@@ -285,21 +284,21 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 			entity.setCode(generateAccountingMarkazCode(activeSaalMaaliEntity));
 		}
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", activeSaalMaaliEntity.getOrgan().getId());
+		localFilter.put("organId@eq", activeSaalMaaliEntity.getOrganId());
 		localFilter.put("saalMaali.id@eq",activeSaalMaaliEntity.getId());
 		
 		checkUniqueNess(entity, AccountingMarkazEntity.PROP_CODE, entity.getCode(),	localFilter, false);
 		
 
 		
-		createOrUpdateRelatedAccountingMarkazTemplate(entity, activeSaalMaaliEntity.getOrgan(), topOrganCode);
+		createOrUpdateRelatedAccountingMarkazTemplate(entity, activeSaalMaaliEntity.getOrganId(), topOrganCode);
 	}
 
 	@Transactional
-	private void createOrUpdateRelatedAccountingMarkazTemplate(AccountingMarkazEntity entity, OrganEntity organEntity, String topOrganCode) {
-		AccountingMarkazTemplateEntity accountingMarkazTemplateEntity = getAccountingMarkazTemplateService().load(entity.getCode(), organEntity);
+	private void createOrUpdateRelatedAccountingMarkazTemplate(AccountingMarkazEntity entity, Long organId, String topOrganCode) {
+		AccountingMarkazTemplateEntity accountingMarkazTemplateEntity = getAccountingMarkazTemplateService().load(entity.getCode(), organId);
 		if(accountingMarkazTemplateEntity == null)
-			accountingMarkazTemplateEntity = getAccountingMarkazTemplateService().createAccountingMarkazTemplate(entity.getCode(), entity.getName(), organEntity);
+			accountingMarkazTemplateEntity = getAccountingMarkazTemplateService().createAccountingMarkazTemplate(entity.getCode(), entity.getName(), organId);
 		
 		if(accountingMarkazTemplateEntity.getMoeenAccountingMarkazTemplate() == null)
 			accountingMarkazTemplateEntity.setMoeenAccountingMarkazTemplate(new HashSet<MoeenAccountingMarkazTemplateEntity>());
@@ -324,7 +323,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		Set<AccountingMarkazEntity> childs = entity.getChilds();
 		if(childs!=null)
 			for (AccountingMarkazEntity accountingMarkazEntity : childs) {
-				accountingMarkazTemplateEntity.getChilds().add(getAccountingMarkazTemplateService().load(accountingMarkazEntity.getCode(), organEntity));			
+				accountingMarkazTemplateEntity.getChilds().add(getAccountingMarkazTemplateService().load(accountingMarkazEntity.getCode(), organId));			
 			}
 		
 		getAccountingMarkazTemplateService().save(accountingMarkazTemplateEntity);
@@ -342,7 +341,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		
 //		List<Long> topOrganList = curentOrgan.getTopOrgansIdList();
-		localFilter.put("organ.id@in", topOrganList);
+		localFilter.put("organId@in", topOrganList);
 		
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
@@ -378,7 +377,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		accountingMarkazEntity.setCode(srcAccountingMarkazEntity.getCode());
 		accountingMarkazEntity.setDescription(srcAccountingMarkazEntity.getDescription());
 		accountingMarkazEntity.setHidden(srcAccountingMarkazEntity.getHidden());
-		accountingMarkazEntity.setOrgan(activeSaalMaaliEntity.getOrgan());
+		accountingMarkazEntity.setOrganId(activeSaalMaaliEntity.getOrganId());
 		accountingMarkazEntity.setSaalMaali(activeSaalMaaliEntity);
 		accountingMarkazEntity.setName(srcAccountingMarkazEntity.getName());
 		accountingMarkazEntity.setScope(srcAccountingMarkazEntity.getScope());
@@ -392,7 +391,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	public AccountingMarkazEntity loadAccountingMarkazByCode(String code,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq",code);
-//		localFilter.put("organ.id@eq",saalMaaliEntity.getOrgan().getId());
+//		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
 		List<AccountingMarkazEntity> dataList = getDataList(null, localFilter, flushMode);
 		if(dataList.size() == 1)
@@ -453,7 +452,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		}
 		
 		update(destAccountingMarkazEntity);
-		createOrUpdateRelatedAccountingMarkazTemplate(destAccountingMarkazEntity, destSaalMaali.getOrgan(), topOrganCode);
+		createOrUpdateRelatedAccountingMarkazTemplate(destAccountingMarkazEntity, destSaalMaali.getOrganId(), topOrganCode);
 	}	
 
 	public AccountingMarkazEntity getAccountingMarkazByCodeAndSaalMaali(String hesabCode, SaalMaaliEntity saalMaaliEntity) {

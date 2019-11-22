@@ -65,7 +65,7 @@ public class HesabMoeenTemplateForm extends
 	
 	public Map<Long, ListOrderedMap<String, Object>> getMoeenKolTemplateMap() {
 		try{
-			return HesabTemplateRelationsUtil.getMoeenKolTemplateMap(getCurrentUserActiveSaalMaali().getOrgan().getId(), getCurrentOrganVO().getTopOrgansIdList());
+			return HesabTemplateRelationsUtil.getMoeenKolTemplateMap(getCurrentUserActiveSaalMaali().getOrganId(), getCurrentOrganVO().getTopOrgansIdList());
 		}catch(NoSaalMaaliFoundException e){
 			return new HashMap<>();
 		}
@@ -73,7 +73,7 @@ public class HesabMoeenTemplateForm extends
 	
 	public Map<Long, List<ListOrderedMap<String, Object>>> getMoeenTafsiliTemplateMap() {
 		try{
-			return HesabTemplateRelationsUtil.getMoeenTafsiliTemplateMap(getCurrentUserActiveSaalMaali().getOrgan().getId(), getCurrentOrganVO().getTopOrgansIdList()); 
+			return HesabTemplateRelationsUtil.getMoeenTafsiliTemplateMap(getCurrentUserActiveSaalMaali().getOrganId(), getCurrentOrganVO().getTopOrgansIdList()); 
 		}catch(NoSaalMaaliFoundException e){
 			return new HashMap<>();
 		}
@@ -81,7 +81,7 @@ public class HesabMoeenTemplateForm extends
 
 	public Map<Long, List<ListOrderedMap<String, Object>>> getAccountingMarkazTemplateMap() {
 		try{
-			return HesabTemplateRelationsUtil.getAccountingMarkazTemplateMap(getCurrentUserActiveSaalMaali().getOrgan());
+			return HesabTemplateRelationsUtil.getAccountingMarkazTemplateMap(getCurrentUserActiveSaalMaali().getOrganId());
 		}catch(NoSaalMaaliFoundException e){
 			return new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 		}		
@@ -96,12 +96,11 @@ public class HesabMoeenTemplateForm extends
 			String isHierarchical = params.get("isHierarchical");
 			
 			params.put("isLocal","false");
-			//getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(), "ding"));
 	
 			if (isHierarchical !=null && isHierarchical.equals("true")){
 				
 				List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-				getFilter().put("organ.id@in", topOrganList);
+				getFilter().put("organId@in", topOrganList);
 				
 //				getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 	//			getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
@@ -124,6 +123,6 @@ public class HesabMoeenTemplateForm extends
 	public boolean getIsForMyOrgan() {
 		if(getEntity() == null || getEntity().getId() == null)
 			return true;
-		return getEntity().getOrgan().getId().equals(getCurrentOrganVO().getId());
+		return getEntity().getOrganId().equals(getCurrentOrganVO().getId());
 	}
 }

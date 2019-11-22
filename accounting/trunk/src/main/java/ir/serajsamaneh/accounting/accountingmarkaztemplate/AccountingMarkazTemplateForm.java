@@ -19,6 +19,7 @@ import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateService;
 import ir.serajsamaneh.accounting.moeenaccountingmarkaztemplate.MoeenAccountingMarkazTemplateEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntity;
+import ir.serajsamaneh.core.common.OrganVO;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
@@ -110,8 +111,9 @@ public class AccountingMarkazTemplateForm extends BaseAccountingForm<AccountingM
 	}
 	@Override
 	public String save() {
-		getEntity().setOrgan(getCurrentOrgan()); 
-		getMyService().save(getEntity(), getMoeenIds(), getChildAccountingMarkazIds(),getCurrentOrgan());
+		getEntity().setOrganId(getCurrentOrganVO().getId()); 
+		getEntity().setOrganName(getCurrentOrganVO().getName());
+		getMyService().save(getEntity(), getMoeenIds(), getChildAccountingMarkazIds(),getCurrentOrganVO().getId());
 		HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
 		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
 		HesabRelationsUtil.resetAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
@@ -120,7 +122,8 @@ public class AccountingMarkazTemplateForm extends BaseAccountingForm<AccountingM
 	
 	
 	public String localSave() {
-		getEntity().setOrgan(getCurrentOrgan());
+		getEntity().setOrganId(getCurrentOrganVO().getId());
+		getEntity().setOrganName(getCurrentOrganVO().getName());
 		save();
 		return getLocalViewUrl();
 	}
@@ -150,7 +153,8 @@ public class AccountingMarkazTemplateForm extends BaseAccountingForm<AccountingM
 			String isHierarchical = params.get("isHierarchical");
 			
 			if (isHierarchical !=null && isHierarchical.equals("true")){
-				this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+				OrganVO organVO = organService.getOrganVO(getCurrentUserActiveSaalMaali().getOrganId());
+				this.getFilter().put("organId@in", organVO.getTopOrgansIdList());
 				params.put("isLocal","false");
 			}
 			

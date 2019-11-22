@@ -1,10 +1,5 @@
 package ir.serajsamaneh.accounting.saalmaali;
 
-import ir.serajsamaneh.core.base.BaseHibernateDAO;
-import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.core.util.SerajMessageUtil;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +7,10 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.FlushMode;
 import org.hibernate.criterion.Projections;
+
+import ir.serajsamaneh.core.base.BaseHibernateDAO;
+import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 public class SaalMaaliDAO extends BaseHibernateDAO<SaalMaaliEntity,Long> {
 
@@ -25,9 +24,9 @@ public class SaalMaaliDAO extends BaseHibernateDAO<SaalMaaliEntity,Long> {
 
 	}
 	
-	public SaalMaaliEntity getLastSaalMaali(OrganEntity currentOrgan){
+	public SaalMaaliEntity getLastSaalMaali(Long currentOrganId){
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", currentOrgan.getId());
+		filter.put("organId@eq", currentOrganId);
 		
 		Criteria criteria = getEmptyCriteria();
 		

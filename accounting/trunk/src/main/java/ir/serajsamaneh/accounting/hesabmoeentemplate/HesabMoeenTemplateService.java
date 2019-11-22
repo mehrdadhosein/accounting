@@ -16,7 +16,6 @@ import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateService;
 import ir.serajsamaneh.core.base.BaseEntityService;
-import ir.serajsamaneh.core.organ.OrganEntity;
 
 public class HesabMoeenTemplateService extends
 		BaseEntityService<HesabMoeenTemplateEntity, Long> {
@@ -85,9 +84,9 @@ public class HesabMoeenTemplateService extends
 		logAction(isNew, entity);
 	}
 	
-	private void checkHesabUniqueNess(HesabMoeenTemplateEntity entity,	OrganEntity organ) {
+	private void checkHesabUniqueNess(HesabMoeenTemplateEntity entity,	Long organId) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", organ.getId());
+		localFilter.put("organId@eq", organId);
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_NAME, entity.getName(),	localFilter, false);
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_CODE, entity.getCode(),	localFilter, false);
 	}
@@ -96,15 +95,16 @@ public class HesabMoeenTemplateService extends
 //	}
 
 	@Transactional(readOnly = false)
-	public HesabMoeenTemplateEntity createHesabMoeenTemplate(String hesabMoeenCode, String hesabMoeenName, String hesabKolCode, OrganEntity organEntity, Boolean hidden) {
+	public HesabMoeenTemplateEntity createHesabMoeenTemplate(String hesabMoeenCode, String hesabMoeenName, String hesabKolCode, Long organId, Boolean hidden, String organName) {
 		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = new HesabMoeenTemplateEntity();
 		hesabMoeenTemplateEntity.setScope(HesabScopeEnum.LCAOL);
 		hesabMoeenTemplateEntity.setName(hesabMoeenName);
 		hesabMoeenTemplateEntity.setCode(hesabMoeenCode);
-		hesabMoeenTemplateEntity.setOrgan(organEntity);
+		hesabMoeenTemplateEntity.setOrganId(organId);
+		hesabMoeenTemplateEntity.setOrganName(organName);
 		hesabMoeenTemplateEntity.setHidden(hidden);
-		hesabMoeenTemplateEntity.setHesabKolTemplate(getHesabKolTemplateService().getHesabKolTemplateByCode(hesabKolCode, organEntity.getId()));
-		checkHesabUniqueNess(hesabMoeenTemplateEntity, organEntity);
+		hesabMoeenTemplateEntity.setHesabKolTemplate(getHesabKolTemplateService().getHesabKolTemplateByCode(hesabKolCode, organId));
+		checkHesabUniqueNess(hesabMoeenTemplateEntity, organId);
 		getHesabMoeenTemplateDAO().saveOrUpdate(hesabMoeenTemplateEntity);
 		getLogger().info("hesabMoeen created : "+hesabMoeenCode);
 		return hesabMoeenTemplateEntity;
@@ -114,7 +114,6 @@ public class HesabMoeenTemplateService extends
 	public HesabMoeenTemplateEntity loadByCode(String organCode, String topOrganCode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", organCode);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
 		localFilter.put("organ.code@startlk", topOrganCode);
 		return load(null, localFilter);
 	}
@@ -122,32 +121,29 @@ public class HesabMoeenTemplateService extends
 	public HesabMoeenTemplateEntity loadByName(String name, String topOrganCode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
 		localFilter.put("organ.code@startlk", topOrganCode);
 		return load(null, localFilter);
 	}
 	
 
-	public HesabMoeenTemplateEntity loadByCodeInCurrentOrgan(String code, OrganEntity organEntity) {
+	public HesabMoeenTemplateEntity loadByCodeInCurrentOrgan(String code, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
-		localFilter.put("organ.id@eq", organEntity.getId());
+		localFilter.put("organId@eq", organId);
 		return load(null, localFilter);
 	}
 	
-	public HesabMoeenTemplateEntity loadByNameInCurrentOrgan(String name, OrganEntity organEntity) {
+	public HesabMoeenTemplateEntity loadByNameInCurrentOrgan(String name, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
-		localFilter.put("organ.id@eq", organEntity.getId());
+		localFilter.put("organId@eq", organId);
 		return load(null, localFilter);
 	}
 	public List<HesabMoeenTemplateEntity> getActiveMoeens(List<Long> topOrganList) {
 //		List<Long> topOrganList = getTopOrgansIdList(organId);
 		
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@in", topOrganList);
+		localFilter.put("organId@in", topOrganList);
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		return getDataList(null, localFilter);
 	}
@@ -156,7 +152,7 @@ public class HesabMoeenTemplateService extends
 //		List<Long> topOrganList = getTopOrgansIdList(organEntity);
 		
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@in", topOrganList);
+		localFilter.put("organId@in", topOrganList);
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("hesabKolTemplate.id@eq", hesabKolTemplateId);
 		return getDataList(null, localFilter);
@@ -171,7 +167,7 @@ public class HesabMoeenTemplateService extends
 		List<HesabMoeenTemplateEntity> hesabMoeenList = getActiveMoeens(topOrganList);
 		
 		Map<String, Object> moeenTafsiliFilter = new HashMap<String, Object>();
-		moeenTafsiliFilter.put("hesabMoeenTemplate.organ.id@eq", organId);
+		moeenTafsiliFilter.put("hesabMoeenTemplate.organId@eq", organId);
 		List<MoeenTafsiliTemplateEntity> moeenTafsiliList = getMoeenTafsiliTemplateService().getDataList(null, moeenTafsiliFilter);
 		
 		for (MoeenTafsiliTemplateEntity moeenTafsiliEntity : moeenTafsiliList) {

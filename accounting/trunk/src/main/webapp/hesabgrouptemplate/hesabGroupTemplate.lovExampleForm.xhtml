@@ -31,8 +31,8 @@
 							<h:outputLabel for="organSearch" value="#{messages['HesabGroupTemplate_organ']}" />
 				<h:panelGroup>
 				<custom:lov id="organSearch" 
-						identity="#{hesabGroupTemplate.filter['organ.id@eq']}"
-						desc="#{hesabGroupTemplate.example.organ.desc}"
+						identity="#{hesabGroupTemplate.filter['organId@eq']}"
+						desc="#{owner.descMap['organId@eq']}"
 				  		url="${request.contextPath}/organ/organ.lov.jsf?pId=organSearch" />
 					
 				</h:panelGroup>

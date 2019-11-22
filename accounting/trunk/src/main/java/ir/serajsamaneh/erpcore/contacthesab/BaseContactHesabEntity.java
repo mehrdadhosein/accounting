@@ -44,17 +44,6 @@ public abstract class BaseContactHesabEntity  extends BaseEntity<Long>   impleme
 		initialize();
 	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public BaseContactHesabEntity (
-		java.lang.Long id,
-		ir.serajsamaneh.core.contact.contact.ContactEntity contact) {
-
-		this.setId(id);
-		this.setContact(contact);
-		initialize();
-	}
 
 	protected void initialize () {}
 

@@ -41,7 +41,6 @@ import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.exception.NoRecordFoundException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.XMLUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabEntity;
@@ -203,22 +202,22 @@ public class HesabKolService extends
 
 	//@Override
 	@Transactional
-	public void save(HesabKolEntity entity,SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan, List<Long> topOrganList) {
-		commonSave(entity, activeSaalMaaliEntity, currentOrgan, topOrganList);
+	public void save(HesabKolEntity entity,SaalMaaliEntity activeSaalMaaliEntity, Long currentOrganId, List<Long> topOrganList, String currentOrganName) {
+		commonSave(entity, activeSaalMaaliEntity, currentOrganId, topOrganList, currentOrganName);
 
 		save(entity);
 		boolean isNew=(entity.getID()!=null?false:true);
 		logAction(isNew, entity);
 	}
 	@Transactional
-	public void saveStateLess(HesabKolEntity entity,SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan, List<Long> topOrganList) {
-		commonSave(entity, activeSaalMaaliEntity, currentOrgan, topOrganList);
+	public void saveStateLess(HesabKolEntity entity,SaalMaaliEntity activeSaalMaaliEntity, Long currentOrganId, List<Long> topOrganList, String currentOrganName) {
+		commonSave(entity, activeSaalMaaliEntity, currentOrganId, topOrganList, currentOrganName);
 		
 		super.saveStateLess(entity);
 	}
  
 	private void commonSave(HesabKolEntity entity,
-			SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan, List<Long> topOrganList) {
+			SaalMaaliEntity activeSaalMaaliEntity, Long currentOrganId, List<Long> topOrganList, String currentOrganName) {
 		
 		if(!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabKol_code"));
@@ -236,12 +235,12 @@ public class HesabKolService extends
 			entity.setHidden(Boolean.FALSE);
 		checkHesabUniqueNess(entity, activeSaalMaaliEntity, topOrganList);
 		
-		createHesabKolTemplateFromHesabKol(entity, currentOrgan);
+		createHesabKolTemplateFromHesabKol(entity, currentOrganId, currentOrganName);
 		
 	}
 
-	private void createHesabKolTemplateFromHesabKol(HesabKolEntity entity, OrganEntity organEntity) {
-		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateService().loadByCodeInCurrentOrgan(entity.getCode(), organEntity.getId());
+	private void createHesabKolTemplateFromHesabKol(HesabKolEntity entity, Long organId, String organName) {
+		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateService().loadByCodeInCurrentOrgan(entity.getCode(), organId);
 //		if(hesabKolTemplateEntity == null){
 //			HesabGroupEntity hesabGroupEntity = getHesabGroupService().load(entity.getHesabGroup().getID());
 //			hesabKolTemplateEntity = getHesabKolTemplateService().createHesabKolTemplate(entity.getCode(), entity.getName(), hesabGroupEntity.getCode(), entity.getMahyatKol().name(), organEntity);
@@ -249,7 +248,7 @@ public class HesabKolService extends
 //			hesabKolTemplateEntity.setName(entity.getName());
 
 		if(hesabKolTemplateEntity == null){
-			hesabKolTemplateEntity = getHesabKolTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity.getId());
+			hesabKolTemplateEntity = getHesabKolTemplateService().loadByNameInCurrentOrgan(entity.getName(), organId);
 			if(hesabKolTemplateEntity!=null){
 				HesabKolTemplateEntity currentEntityHesabKolTemplate = entity.getHesabKolTemplate();
 				
@@ -264,12 +263,12 @@ public class HesabKolService extends
 				if(entity.getHesabGroup() == null || entity.getHesabGroup().getID() == null)
 					throw new FatalException(SerajMessageUtil.getMessage("HesabKol_hesabGroupNotDefined",entity.getName()+"_"+entity.getCode()));
 				HesabGroupEntity hesabGroupEntity = getHesabGroupService().load(entity.getHesabGroup().getID());
-				hesabKolTemplateEntity = getHesabKolTemplateService().createHesabKolTemplate(entity.getCode(), entity.getName(), hesabGroupEntity.getCode(), entity.getMahyatKol().name(), organEntity);
+				hesabKolTemplateEntity = getHesabKolTemplateService().createHesabKolTemplate(entity.getCode(), entity.getName(), hesabGroupEntity.getCode(), entity.getMahyatKol().name(), organId, organName);
 			}
 
 		}
 		else{
-			HesabKolTemplateEntity hesabKolTemplateEntityByName = getHesabKolTemplateService().loadByNameInCurrentOrgan(entity.getName(), organEntity.getId());
+			HesabKolTemplateEntity hesabKolTemplateEntityByName = getHesabKolTemplateService().loadByNameInCurrentOrgan(entity.getName(), organId);
 			if(hesabKolTemplateEntityByName!=null && !hesabKolTemplateEntityByName.getId().equals(hesabKolTemplateEntity.getId()))
 				throw new FatalException(SerajMessageUtil.getMessage("HesabKolTemplate_cantCreateHesabKolTemplateWithDuplicateNameAndnewCode", entity.getCode(),entity.getName()));
 
@@ -286,10 +285,10 @@ public class HesabKolService extends
 	private void checkHesabUniqueNess(HesabKolEntity entity,
 			SaalMaaliEntity activeSaalMaaliEntity, List<Long> topOrganList) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
-//		localFilter.put("organ.id@eq", activeSaalMaaliEntity.getOrgan().getId());
+//		localFilter.put("organId@eq", activeSaalMaaliEntity.getOrgan().getId());
 		
 //		List<Long> topOrganList = getTopOrgansIdList(currentOrgan);
-		localFilter.put("organ.id@in", topOrganList);
+		localFilter.put("organId@in", topOrganList);
 		
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
 		checkUniqueNess(entity, HesabKolEntity.PROP_NAME, entity.getName(),
@@ -313,7 +312,7 @@ public class HesabKolService extends
 //
 //		Map<String, Object> localFilter = new HashMap<String, Object>();
 //		localFilter.put("code@eq", hesabCode);
-//		localFilter.put("organ.id@eq", organEntity.getId());
+//		localFilter.put("organId@eq", organEntity.getId());
 //		List<HesabKolEntity> dataList = getDataList(null, localFilter,
 //				FlushMode.MANUAL);
 //		if (dataList.size() == 1)
@@ -341,19 +340,19 @@ public class HesabKolService extends
 	}
 	
 	@Transactional(readOnly=false)
-	public void importFromHesabKolTemplateList(SaalMaaliEntity activeSaalMaaliEntity, OrganEntity currentOrgan, List<Long> topOrganList) {
+	public void importFromHesabKolTemplateList(SaalMaaliEntity activeSaalMaaliEntity, Long currentOrganId, List<Long> topOrganList, String currentOrganName) {
 		
 //		getHesabKolTemplateService().createDefaultAccounts(activeSaalMaaliEntity.getOrgan());
 		
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq",activeSaalMaaliEntity.getOrgan().getId());
+		localFilter.put("organId@eq",activeSaalMaaliEntity.getOrganId());
 		List<HesabKolTemplateEntity> dataList = getHesabKolTemplateService().getDataList(null, localFilter);
 		
 		for (HesabKolTemplateEntity hesabKolTemplateEntity : dataList) {
 			HesabKolEntity loadHesabKol = loadHesabKolByTemplate(hesabKolTemplateEntity, activeSaalMaaliEntity);
 			if(loadHesabKol == null){
 				try{
-					createHesabKol(activeSaalMaaliEntity, hesabKolTemplateEntity, currentOrgan, topOrganList);
+					createHesabKol(activeSaalMaaliEntity, hesabKolTemplateEntity, currentOrganId, topOrganList, currentOrganName);
 				}catch(DuplicateException e){
 					e.printStackTrace();
 				}
@@ -367,11 +366,11 @@ public class HesabKolService extends
 	}
 
 	public HesabKolEntity createHesabKol(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabKolTemplateEntity hesabKolTemplateEntity, OrganEntity currentOrgan, List<Long> topOrganList) {
+			HesabKolTemplateEntity hesabKolTemplateEntity, Long currentOrganId, List<Long> topOrganList, String currentOrganName) {
 		HesabKolEntity hesabKolEntity = loadHesabKolByTemplate(hesabKolTemplateEntity, activeSaalMaaliEntity);
 		if(hesabKolEntity == null){
 			hesabKolEntity = populateHesabKolEntity(activeSaalMaaliEntity, hesabKolTemplateEntity);
-			save(hesabKolEntity, activeSaalMaaliEntity, currentOrgan, topOrganList);
+			save(hesabKolEntity, activeSaalMaaliEntity, currentOrganId, topOrganList, currentOrganName);
 		}
 		return hesabKolEntity;
 	}
@@ -381,18 +380,18 @@ public class HesabKolService extends
 		if(hesabKolEntity == null)
 			hesabKolEntity = loadHesabKolByName(srcHesabKolEntity.getName(), destSaalMaaliEntity, FlushMode.MANUAL);
 		if(hesabKolEntity == null){
-			hesabKolEntity = populateHesabKolEntity(destSaalMaaliEntity, srcHesabKolEntity, srcHesabKolEntity.getOrgan());
-			save(hesabKolEntity, destSaalMaaliEntity, srcHesabKolEntity.getOrgan(), topOrganList);
+			hesabKolEntity = populateHesabKolEntity(destSaalMaaliEntity, srcHesabKolEntity, srcHesabKolEntity.getOrganId());
+			save(hesabKolEntity, destSaalMaaliEntity, srcHesabKolEntity.getOrganId(), topOrganList, srcHesabKolEntity.getOrganName());
 		}
 		return hesabKolEntity;
 	}
 	
 	public HesabKolEntity createHesabKolStateLess(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabKolTemplateEntity hesabKolTemplateEntity, OrganEntity currentOrgan, List<Long> topOrganList) {
+			HesabKolTemplateEntity hesabKolTemplateEntity, Long currentOrganId, List<Long> topOrganList, String currentOrganName) {
 		HesabKolEntity hesabKolEntity = loadHesabKolByTemplate(hesabKolTemplateEntity, activeSaalMaaliEntity);
 		if(hesabKolEntity == null){
 			hesabKolEntity = populateHesabKolEntity(activeSaalMaaliEntity, hesabKolTemplateEntity);
-			saveStateLess(hesabKolEntity, activeSaalMaaliEntity,currentOrgan, topOrganList);
+			saveStateLess(hesabKolEntity, activeSaalMaaliEntity,currentOrganId, topOrganList, currentOrganName);
 		}
 		return hesabKolEntity;
 	}
@@ -403,14 +402,14 @@ public class HesabKolService extends
 			hesabKolEntity = loadHesabKolByName(srcHesabKolEntity.getName(), destSaalMaaliEntity, FlushMode.MANUAL);
 
 		if(hesabKolEntity == null){
-			hesabKolEntity = populateHesabKolEntity(destSaalMaaliEntity, srcHesabKolEntity, srcHesabKolEntity.getOrgan());
-			saveStateLess(hesabKolEntity, destSaalMaaliEntity, srcHesabKolEntity.getOrgan(), topOrganList);
+			hesabKolEntity = populateHesabKolEntity(destSaalMaaliEntity, srcHesabKolEntity, srcHesabKolEntity.getOrganId());
+			saveStateLess(hesabKolEntity, destSaalMaaliEntity, srcHesabKolEntity.getOrganId(), topOrganList, srcHesabKolEntity.getOrganName());
 		}
 		return hesabKolEntity;
 	}
 
 	private HesabKolEntity populateHesabKolEntity(SaalMaaliEntity destSaalMaaliEntity,
-			HesabKolEntity srcHesabKolEntity, OrganEntity organ) {
+			HesabKolEntity srcHesabKolEntity, Long organId) {
 		HesabKolEntity hesabKolEntity;
 		hesabKolEntity = new HesabKolEntity();
 		hesabKolEntity.setHesabGroup(srcHesabKolEntity.getHesabGroup());
@@ -419,7 +418,7 @@ public class HesabKolService extends
 		hesabKolEntity.setHidden(srcHesabKolEntity.getHidden());
 		hesabKolEntity.setMahyatKol(srcHesabKolEntity.getMahyatKol());
 		hesabKolEntity.setName(srcHesabKolEntity.getName());
-		hesabKolEntity.setOrgan(organ);
+		hesabKolEntity.setOrganId(organId);
 		hesabKolEntity.setSaalMaali(destSaalMaaliEntity);
 		hesabKolEntity.setBedehkar(0d);
 		hesabKolEntity.setBestankr(0d);
@@ -439,7 +438,7 @@ public class HesabKolService extends
 		hesabKolEntity.setHidden(hesabKolTemplateEntity.getHidden());
 		hesabKolEntity.setMahyatKol(hesabKolTemplateEntity.getMahyatKol());
 		hesabKolEntity.setName(hesabKolTemplateEntity.getName());
-		hesabKolEntity.setOrgan(new OrganEntity(activeSaalMaaliEntity.getOrgan().getId()));
+		hesabKolEntity.setOrganId(activeSaalMaaliEntity.getOrganId());
 		hesabKolEntity.setSaalMaali(activeSaalMaaliEntity);
 		hesabKolEntity.setBedehkar(0d);
 		hesabKolEntity.setBestankr(0d);
@@ -450,7 +449,7 @@ public class HesabKolService extends
 	public HesabKolEntity loadHesabKolByTemplate(HesabKolTemplateEntity hesabKolTemplateEntity, SaalMaaliEntity activeSaalMaaliEntity){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("hesabKolTemplate.id@eq",hesabKolTemplateEntity.getId());
-//		localFilter.put("organ.id@eq",activeSaalMaaliEntity.getOrgan().getId());
+//		localFilter.put("organId@eq",activeSaalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",activeSaalMaaliEntity.getId());
 		HesabKolEntity hesabKolEntity = load(null, localFilter );
 		return hesabKolEntity;
@@ -462,7 +461,7 @@ public class HesabKolService extends
 	public HesabKolEntity loadHesabKolByCode(String code, SaalMaaliEntity saalMaaliEntity, FlushMode flushMode){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq",code);
-//		localFilter.put("organ.id@eq",saalMaaliEntity.getOrgan().getId());
+//		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
 		return load(null, localFilter, flushMode);
 //		List<HesabKolEntity> dataList = getDataList(null, localFilter, flushMode);
@@ -476,7 +475,7 @@ public class HesabKolService extends
 	public HesabKolEntity loadHesabKolByName(String name, SaalMaaliEntity saalMaaliEntity, FlushMode flushMode){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq",name);
-//		localFilter.put("organ.id@eq",saalMaaliEntity.getOrgan().getId());
+//		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
 		return load(null, localFilter, flushMode);
 //		List<HesabKolEntity> dataList = getDataList(null, localFilter, flushMode);
@@ -504,7 +503,7 @@ public class HesabKolService extends
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		
 //		List<Long> topOrganList = getTopOrgansIdList(curentOrgan);
-		localFilter.put("organ.id@in", topOrganList);
+		localFilter.put("organId@in", topOrganList);
 		
 		localFilter.put("hidden@eq",Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
@@ -540,9 +539,9 @@ public class HesabKolService extends
 				destAccountingMarkazEntity = getAccountingMarkazService().createAccountingMarkaz(destSaalMaali, srcAccountingMarkazEntity, topOrganCode);
 			}
 
-			AccountingMarkazTemplateEntity accountingMarkazTemplateEntity = getAccountingMarkazTemplateService().load(destAccountingMarkazEntity.getCode(), destSaalMaali.getOrgan());
+			AccountingMarkazTemplateEntity accountingMarkazTemplateEntity = getAccountingMarkazTemplateService().load(destAccountingMarkazEntity.getCode(), destSaalMaali.getOrganId());
 			if(accountingMarkazTemplateEntity == null)
-				accountingMarkazTemplateEntity = getAccountingMarkazTemplateService().createAccountingMarkazTemplate(destAccountingMarkazEntity.getCode(), destAccountingMarkazEntity.getName(), destSaalMaali.getOrgan());
+				accountingMarkazTemplateEntity = getAccountingMarkazTemplateService().createAccountingMarkazTemplate(destAccountingMarkazEntity.getCode(), destAccountingMarkazEntity.getName(), destSaalMaali.getOrganId());
 		}
 		
 		for (AccountingMarkazEntity srcAccountingMarkazEntity : srcActiveAccountingMarkaz) {
@@ -594,7 +593,7 @@ public class HesabKolService extends
 				destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByName(srcHesabTafsiliEntity.getName(), destSaalMaali,FlushMode.ALWAYS);
 				if(destHesabTafsiliEntity!=null) {
 					//throw new FatalException(SerajMessageUtil.getMessage("HesabTafsili_cantImportHesabWithDuplicateNameAndnewCode", srcHesabTafsiliEntity.getCode(),destHesabTafsiliEntity.getDesc(), srcHesabTafsiliEntity.getOrgan()));
-					new FatalException(SerajMessageUtil.getMessage("HesabTafsili_cantImportHesabWithDuplicateNameAndnewCode", srcHesabTafsiliEntity.getCode(),destHesabTafsiliEntity.getDesc(), srcHesabTafsiliEntity.getOrgan())).printStackTrace();
+					new FatalException(SerajMessageUtil.getMessage("HesabTafsili_cantImportHesabWithDuplicateNameAndnewCode", srcHesabTafsiliEntity.getCode(),destHesabTafsiliEntity.getDesc(), srcHesabTafsiliEntity.getOrganId())).printStackTrace();
 					continue;
 				}
 
@@ -602,13 +601,13 @@ public class HesabKolService extends
 			
 			if(destHesabTafsiliEntity == null || destHesabTafsiliEntity.getId() == null){
 //				try{ 
-					destHesabTafsiliEntity = getHesabTafsiliService().createHesabTafsili(destSaalMaali, srcHesabTafsiliEntity, srcHesabTafsiliEntity.getOrgan(), topOrganList, topOrganCode);
+					destHesabTafsiliEntity = getHesabTafsiliService().createHesabTafsili(destSaalMaali, srcHesabTafsiliEntity, srcHesabTafsiliEntity.getOrganId(), topOrganList, topOrganCode, srcHesabTafsiliEntity.getOrganName());
 //				}catch(DuplicateException e){
 //					System.out.println(e.getDesc());
 //					continue;//not important exception
 //				}
 			}else
-				getHesabTafsiliService().createOrUpdateRelatedHesabTafsiliTemplate(srcHesabTafsiliEntity, srcHesabTafsiliEntity.getOrgan(), topOrganCode);
+				getHesabTafsiliService().createOrUpdateRelatedHesabTafsiliTemplate(srcHesabTafsiliEntity, srcHesabTafsiliEntity.getOrganId(), topOrganCode, srcHesabTafsiliEntity.getOrganName());
 			
 		}
 	}
@@ -638,7 +637,7 @@ public class HesabKolService extends
 				}
 			}	
 			
-			createHesabKolTemplateFromHesabKol(srcHesabKolEntity, srcSaalMaali.getOrgan());
+			createHesabKolTemplateFromHesabKol(srcHesabKolEntity, srcSaalMaali.getOrganId(), srcSaalMaali.getOrganName());
 		}
 	}
 
@@ -651,22 +650,22 @@ public class HesabKolService extends
 				throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_hesabKolNotDefined",srcHesabMoeenEntity,srcSaalMaali));
 			}
 			
-			HesabMoeenEntity destHesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(),destSaalMaali, FlushMode.MANUAL, srcHesabMoeenEntity.getOrgan());
+			HesabMoeenEntity destHesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(),destSaalMaali, FlushMode.MANUAL, srcHesabMoeenEntity.getOrganId());
 			if(destHesabMoeenEntity == null){
-				destHesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByName(srcHesabMoeenEntity.getName(),destSaalMaali, FlushMode.MANUAL, srcHesabMoeenEntity.getOrgan());
+				destHesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByName(srcHesabMoeenEntity.getName(),destSaalMaali, FlushMode.MANUAL, srcHesabMoeenEntity.getOrganId());
 				if(destHesabMoeenEntity!=null)
 					throw new FatalException(SerajMessageUtil.getMessage("HesabMoeen_cantImportHesabWithDuplicateNameAndnewCode", srcHesabMoeenEntity.getCode(),destHesabMoeenEntity.getName()));				
 			}
 			
 			if(destHesabMoeenEntity == null || destHesabMoeenEntity.getId() == null){
 //				try{
-					destHesabMoeenEntity = getHesabMoeenService().createHesabMoeen(destSaalMaali, srcHesabMoeenEntity, srcHesabMoeenEntity.getOrgan(), topOrganList);
+					destHesabMoeenEntity = getHesabMoeenService().createHesabMoeen(destSaalMaali, srcHesabMoeenEntity, srcHesabMoeenEntity.getOrganId(), topOrganList, srcHesabMoeenEntity.getOrganName());
 //				}catch(DuplicateException e){
 //					System.out.println(e.getDesc());
 //					continue;
 //				}
 			}
-			getHesabMoeenService().createOrUpdateRelatedHesabMoeenTemplate(srcHesabMoeenEntity, srcHesabMoeenEntity.getOrgan());
+			getHesabMoeenService().createOrUpdateRelatedHesabMoeenTemplate(srcHesabMoeenEntity, srcHesabMoeenEntity.getOrganId(), srcHesabMoeenEntity.getOrganName());
 		}
 	}
 
@@ -700,7 +699,7 @@ public class HesabKolService extends
 		return rootHesabsList;
 	}
 
-	public void createDefaultAccounts(OrganEntity organEntity) throws NumberFormatException {
+	public void createDefaultAccounts(Long organId, String organName) throws NumberFormatException {
 		InputStream fileInputStream;
 		URL resource = getClass().getResource("/config/accounts");
 		if (resource == null)
@@ -725,28 +724,28 @@ public class HesabKolService extends
 			Element accounts = (Element) item;
 
 			NodeList childNodes = accounts.getChildNodes();
-			createDefaultAccounts(childNodes, organEntity);
+			createDefaultAccounts(childNodes, organId, organName);
 		}
 
 	}
 	
-	public void createDefaultAccounts(NodeList childNodes, OrganEntity organEntity) {
+	public void createDefaultAccounts(NodeList childNodes, Long organId, String organName) {
 		for (int s = 0; s < childNodes.getLength(); s++) {
 			try{
 				Node accountNode = childNodes.item(s);
 				if (accountNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element nodeElem = (Element) accountNode;
 					if (nodeElem.getTagName().equals("HesabGroup")) {
-						getHesabKolTemplateService().createHesabGroup(nodeElem, organEntity);
+						getHesabKolTemplateService().createHesabGroup(nodeElem, organId, organName);
 					}
 					else if (nodeElem.getTagName().equals("HesabKol")) {
-						getHesabKolTemplateService().createHesabKolTemplate(nodeElem, organEntity);
+						getHesabKolTemplateService().createHesabKolTemplate(nodeElem, organId, organName);
 					}
 					else if (nodeElem.getTagName().equals("HesabMoeen")) {
-						getHesabKolTemplateService().createHesabMoeenTemplate(nodeElem, organEntity);
+						getHesabKolTemplateService().createHesabMoeenTemplate(nodeElem, organId, organName);
 					}
 					else if (nodeElem.getTagName().equals("HesabTafsili")) {
-						getHesabKolTemplateService().createHesabTafsiliTemplate(nodeElem, organEntity);
+						getHesabKolTemplateService().createHesabTafsiliTemplate(nodeElem, organId, organName);
 					}
 	
 				}

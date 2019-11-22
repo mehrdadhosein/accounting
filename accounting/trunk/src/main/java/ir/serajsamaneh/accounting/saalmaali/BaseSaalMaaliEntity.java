@@ -1,11 +1,10 @@
 package ir.serajsamaneh.accounting.saalmaali;
 
 import java.io.Serializable;
+
 import ir.serajsamaneh.core.base.BaseEntity;
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
-
-import java.util.HashSet;
 
 
 
@@ -20,6 +19,10 @@ import java.util.HashSet;
 
 public abstract class BaseSaalMaaliEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1399471802795271504L;
 	public static String REF = "SaalMaaliEntity";
 	public static String PROP_END_DATE = "endDate";
 	public static String PROP_ORGAN = "organ";
@@ -43,17 +46,6 @@ public abstract class BaseSaalMaaliEntity  extends BaseEntity<Long>   implements
 		initialize();
 	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public BaseSaalMaaliEntity (
-		java.lang.Long id,
-		ir.serajsamaneh.core.organ.OrganEntity organ) {
-
-		this.setId(id);
-		this.setOrgan(organ);
-		initialize();
-	}
 
 
 	protected void initialize () {}
@@ -69,9 +61,10 @@ public abstract class BaseSaalMaaliEntity  extends BaseEntity<Long>   implements
 	private java.lang.Integer saal;
 	private java.util.Date startDate;
 	private java.util.Date endDate;
-
+	Long organId;
+	String organName;
 	// many to one
-	private ir.serajsamaneh.core.organ.OrganEntity organ;
+//	private ir.serajsamaneh.core.organ.OrganEntity organ;
 
 
 
@@ -163,23 +156,39 @@ public abstract class BaseSaalMaaliEntity  extends BaseEntity<Long>   implements
 			return DateConverter.toShamsiDate(endDate,SerajDateTimePickerType.DateHorMin );
 	}
 
-	/**
-	 * Return the value associated with the column: organ_id
-	 */
-	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
-		return organ;
+//	/**
+//	 * Return the value associated with the column: organ_id
+//	 */
+//	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
+//		return organ;
+//	}
+//
+//	/**
+//	 * Set the value related to the column: organ_id
+//	 * @param organ the organ_id value
+//	 */
+//	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
+//		this.organ = organ;
+//	}
+
+
+
+
+	public Long getOrganId() {
+		return organId;
 	}
 
-	/**
-	 * Set the value related to the column: organ_id
-	 * @param organ the organ_id value
-	 */
-	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
 	}
 
+	public String getOrganName() {
+		return organName;
+	}
 
-
+	public void setOrganName(String organName) {
+		this.organName = organName;
+	}
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;

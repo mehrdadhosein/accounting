@@ -23,11 +23,13 @@
 	         <column name='hesab_group_template_id'/>
       </many-to-one>
 
-		<many-to-one embed-xml='false' name='organ'
+		<property name='organId' type='java.lang.Long' column='organ_id'/>
+		<property name='organName' type='java.lang.String' column='organ_name'/>
+<!-- 		<many-to-one embed-xml='false' name='organ'
 			class='ir.serajsamaneh.core.organ.OrganEntity' 
 			cascade='none' foreign-key='fk_kol_template_organ_id'>
 			<column name='organ_id' />
-		</many-to-one>
+		</many-to-one> -->
       
    </class>
 

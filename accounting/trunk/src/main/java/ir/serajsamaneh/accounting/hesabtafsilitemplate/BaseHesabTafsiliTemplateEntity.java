@@ -3,11 +3,6 @@ package ir.serajsamaneh.accounting.hesabtafsilitemplate;
 import java.io.Serializable;
 
 import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.organ.OrganEntity;
-import serajcomponent.DateConverter;
-import serajcomponent.SerajDateTimePickerType;
-
-import java.util.HashSet;
 
 
 
@@ -22,6 +17,10 @@ import java.util.HashSet;
 
 public abstract class BaseHesabTafsiliTemplateEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1647470082700118571L;
 	public static String REF = "HesabTafsiliTemplateEntity";
 	public static String PROP_NAME = "name";
 	public static String PROP_DESCRIPTION = "description";
@@ -59,7 +58,9 @@ public abstract class BaseHesabTafsiliTemplateEntity  extends BaseEntity<Long>  
 	private java.lang.String name;
 	private java.lang.String description;
 	private java.lang.Integer level;
-	OrganEntity organ;
+	Long organId;
+	String organName;
+//	OrganEntity organ;
 	
 	// collections
 	private java.util.Set<ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity> moeenTafsiliTemplate;
@@ -91,12 +92,28 @@ public abstract class BaseHesabTafsiliTemplateEntity  extends BaseEntity<Long>  
 
 
  
-	public OrganEntity getOrgan() {
-		return organ;
+	public Long getOrganId() {
+		return organId;
 	}
 
-	public void setOrgan(OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
+	}
+
+//	public OrganEntity getOrgan() {
+//		return organ;
+//	}
+//
+//	public void setOrgan(OrganEntity organ) {
+//		this.organ = organ;
+//	}
+
+	public String getOrganName() {
+		return organName;
+	}
+
+	public void setOrganName(String organName) {
+		this.organName = organName;
 	}
 
 	/**

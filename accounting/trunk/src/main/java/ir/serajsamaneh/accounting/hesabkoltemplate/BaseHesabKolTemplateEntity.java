@@ -1,9 +1,8 @@
 package ir.serajsamaneh.accounting.hesabkoltemplate;
 
-import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.organ.OrganEntity;
-
 import java.io.Serializable;
+
+import ir.serajsamaneh.core.base.BaseEntity;
 
 
 
@@ -18,6 +17,10 @@ import java.io.Serializable;
 
 public abstract class BaseHesabKolTemplateEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 444256700175722350L;
 	public static String REF = "HesabKolTemplateEntity";
 	public static String PROP_NAME = "name";
 	public static String PROP_DESCRIPTION = "description";
@@ -56,10 +59,12 @@ public abstract class BaseHesabKolTemplateEntity  extends BaseEntity<Long>   imp
 	private java.lang.String code;
 	private java.lang.String name;
 	private java.lang.String description;
+	Long organId;
+	String organName;
 
 	// many to one
 	private ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateEntity hesabGroupTemplate;
-	OrganEntity organ;
+//	OrganEntity organ;
 
 
 
@@ -95,12 +100,28 @@ public abstract class BaseHesabKolTemplateEntity  extends BaseEntity<Long>   imp
 		this.hesabGroupTemplate = hesabGroupTemplate;
 	}
 
-	public OrganEntity getOrgan() {
-		return organ;
+	public Long getOrganId() {
+		return organId;
 	}
 
-	public void setOrgan(OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
+	}
+
+//	public OrganEntity getOrgan() {
+//		return organ;
+//	}
+//
+//	public void setOrgan(OrganEntity organ) {
+//		this.organ = organ;
+//	}
+
+	public String getOrganName() {
+		return organName;
+	}
+
+	public void setOrganName(String organName) {
+		this.organName = organName;
 	}
 
 	/**

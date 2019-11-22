@@ -18,7 +18,6 @@ import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateServi
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.common.OrganVO;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SpringUtils;
 
 public class HesabTemplateRelationsUtil {
@@ -195,7 +194,7 @@ public class HesabTemplateRelationsUtil {
 		organizationalMoeenAccountingMarkazTemplateMap.put(organId, null);
 	}
 	
-	public static Map<Long, List<ListOrderedMap<String, Object>>> getAccountingMarkazTemplateMap(OrganEntity organEntity) {
+	public static Map<Long, List<ListOrderedMap<String, Object>>> getAccountingMarkazTemplateMap(Long organId) {
 		return new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 //		Map<Long, List<ListOrderedMap>> moeenAccountingMarkazTemplateMap = organizationalMoeenAccountingMarkazTemplateMap.get(organId);
 //		

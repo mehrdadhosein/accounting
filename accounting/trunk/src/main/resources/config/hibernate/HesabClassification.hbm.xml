@@ -16,10 +16,13 @@
 		</property>
 		<property name='description' type='string' column='description'>
 		</property>
-		<many-to-one name='organ' class='ir.serajsamaneh.core.organ.OrganEntity'
+		
+		<property name='organId' type='java.lang.Long' column='organ_id'/>
+		<property name='organName' type='java.lang.String' column='organ_name'/>
+<!-- 		<many-to-one name='organ' class='ir.serajsamaneh.core.organ.OrganEntity'
 			not-null='true' cascade='none' foreign-key='fk_hesab_classification_organ'>
 			<column name='organ_id' />
-		</many-to-one>
+		</many-to-one> -->
 		<set name='hesabMoeenTemplate' table='tb_classification_moeen_tmpl'>
 			<key column='hesab_classification_id' foreign-key='fk_hesab_classification_moeen' />
 			<many-to-many

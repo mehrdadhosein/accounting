@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="accounting" default="antForm">
+	<import file="../core/build.xml" />
+	<property environment="env">
+	</property>
+	<property name="erpbasedir" value="../base" />
+	<property name="webapp.name" value="ROOT" />
+	<property name="main-project" value="accounting" />
+	<property name="catalina.home" value="E:\tomcat\apache-tomcat-9.0.6" />
+	<property name="projects" value="base,core,accounting" />
+	<property name="deploydir" value="${catalina.home}/webapps/${webapp.name}" />
+	
+	<taskdef  name="antForm"  classname="com.sardak.antform.AntForm" classpath="../base/lib/ant-extra/antform.jar"/>
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpath="../base/lib/ant-extra/ant-contrib-1.0b3.jar" />
+
+	<target name="antForm">
+		<echo>${deploydir}</echo>
+		<antcall target="Copy erp All" />
+		<copy todir="${deploydir}/images" verbose="true" file="../${main-project}/integrated/logo/serajText.png" overwrite="true" failonerror="false"/>
+		<copy todir="${deploydir}" verbose="true"  overwrite="true" failonerror="false">
+			<fileset dir="../${main-project}/integrated/special/web" ></fileset>
+		</copy>
+	</target>
+
+
+	<target name="antFormWeb">
+		<antcall target="Copy project Web" />
+	</target>
+
+
+	<target name="Merge config Properties">
+		<echo>salam</echo>
+		<foreach delimiter="," list="${projects}" param="project" target="appendconfigProperties" /> 
+		<concat  append="true"  destfile="${deploydir}/WEB-INF/classes/config.properties"><![CDATA[mainPageTitle=${mainPageTitle}]]></concat>
+	</target>
+	<target name="appendconfigProperties">
+		<echo>${project}</echo>
+		<concat append="true" destfile="${deploydir}/WEB-INF/classes/config.properties">
+			<fileset dir="../${project}/integrated">
+				<include name="config.partial.properties" />
+			</fileset>
+		</concat>
+	</target>
+
+	<target name="Merge erp Properties">
+		<echo>salam</echo>
+		<foreach delimiter="," list="${projects}" param="project" target="appendProperties" />
+	</target>
+	<target name="appendProperties">
+		<echo>${project}</echo>
+		<concat append="true" destfile="${deploydir}/WEB-INF/classes/ApplicationResources_fa.properties">
+			<fileset dir="../${project}/src/main/java">
+				<include name="**/*-messages.properties" />
+			</fileset>
+		</concat>
+		<concat append="true" destfile="${deploydir}/WEB-INF/classes/ApplicationResources_en.properties">
+			<fileset dir="../${project}/src/main/java">
+				<include name="**/*-messages_en.properties" />
+			</fileset>
+		</concat>
+	</target>
+
+	<target name="Merge UserNoteink Properties">
+		<echo>UserNoteink</echo>
+		<foreach delimiter="," list="${projects}" param="project" target="appendUserNoteProperties" />
+	</target>
+	<target name="appendUserNoteProperties">
+		<echo>${project}</echo>
+		<concat append="true" destfile="${deploydir}/WEB-INF/classes/userNote-link-config.properties">
+			<fileset dir="../${project}/src/main/resources">
+				<include name="userNote-link-config.properties" />
+			</fileset>
+		</concat>
+	</target>
+
+	<target name="Merge erp Access Controls">
+		<echo>salam</echo>
+		<foreach delimiter="," list="${projects}" param="project" target="appendAccessControls" />
+	</target>
+	<target name="appendAccessControls">
+		<echo>${project}</echo>
+		<concat append="true" destfile="${deploydir}/WEB-INF/classes/access-control.properties">
+			<fileset dir="../${project}/src/main/webapp">
+				<include name="**/access-control-*.properties" />
+			</fileset>
+		</concat>
+	</target>
+
+	<target name="Merge erp Excel Properties">
+		<echo>salam</echo>
+		<foreach delimiter="," list="${projects}" param="project" target="appendExcelProperties" />
+	</target>
+
+	<target name="appendExcelProperties">
+		<echo>${project}</echo>
+		<concat append="true" destfile="${deploydir}/WEB-INF/classes/excelExportColumns.properties">
+			<fileset dir="../${project}/src/main/resources">
+				<include name="**/*-excelColumns.properties" />
+			</fileset>
+		</concat>
+	</target>
+
+	<target name="Merge erp PDF Properties">
+		<echo>salam</echo>
+		<foreach delimiter="," list="${projects}" param="project" target="appendPDFProperties" />
+	</target>
+
+	<target name="appendPDFProperties">
+		<echo>${project}</echo>
+		<concat append="true" destfile="${deploydir}/WEB-INF/classes/pdfExportColumns.properties">
+			<fileset dir="../${project}/src/main/resources">
+				<include name="**/*-pdfColumns.properties" />
+			</fileset>
+		</concat>
+	</target>
+	
+	<target name="Copy erp All" depends="CopyFilesCore,Merge config Properties,Merge erp Access Controls,Merge erp Properties, Merge UserNoteink Properties,Merge erp ehcache,Merge erp faces-config,
+		 Copy related projects,Merge erp Excel Properties,Merge erp PDF Properties,Merge erp webxml">
+		
+	</target>
+
+
+	<target name="Merge erp webxml">
+		<copy file="${erpbasedir}/integrated/web.templateBegin.xml" tofile="./src/main/webapp/WEB-INF/web.xml" overwrite="true" />
+		<foreach delimiter="," list="${projects}" param="project" target="appendProjectsPartialWEBXML" />
+		<concat destfile="./src/main/webapp/WEB-INF/web.xml" append="true"><![CDATA[</web-app>]]></concat>
+	</target>
+
+	<target name="appendProjectsPartialWEBXML">
+		<echo>${project}</echo>
+		<concat append="true" destfile="./src/main/webapp/WEB-INF/web.xml">
+			<fileset file="../${project}/integrated/web.partial.xml"/>
+		</concat>
+	</target>
+
+	<target name="Merge erp ehcache">
+		<copy file="${erpbasedir}/integrated/ehcache.templateBegin.xml" tofile="./src/main/webapp/WEB-INF/ehcache.xml" overwrite="true" />
+		<foreach delimiter="," list="${projects}" param="project" target="appendProjectsPartialEhcache" />
+		<concat destfile="./src/main/webapp/WEB-INF/ehcache.xml" append="true" ><![CDATA[</ehcache>]]></concat>
+	</target>
+
+	<target name="appendProjectsPartialEhcache">
+		<echo>${project}</echo>
+		<concat append="true" destfile="./src/main/webapp/WEB-INF/ehcache.xml">
+			<fileset file="../${project}/integrated/ehcache.partial.xml"/>
+		</concat>
+	</target>
+
+	<target name="Merge erp faces-config">
+		<copy file="${erpbasedir}/integrated/faces-config.templateBegin.xml" tofile="./src/main/webapp/WEB-INF/faces-config.xml" overwrite="true" />
+		<foreach delimiter="," list="${projects}" param="project" target="appendProjectsPartialFacesConfig" />
+		<concat destfile="./src/main/webapp/WEB-INF/faces-config.xml" append="true" ><![CDATA[</faces-config>]]></concat>
+	</target>
+
+	<target name="appendProjectsPartialFacesConfig">
+		<echo>${project}</echo>
+		<concat append="true" destfile="./src/main/webapp/WEB-INF/faces-config.xml">
+			<fileset file="../${project}/integrated/faces-config.partial.xml"/>
+		</concat>
+	</target>
+
+				
+	<target name="Copy related projects">
+		<echo>${deploydir}</echo>
+		<foreach delimiter="," list="${projects}" param="project" target="CopyRelatedProject" />
+	</target>
+
+	
+	<target name="CopyRelatedProject">
+		<echo>${project}</echo>
+		<copy todir="${deploydir}" verbose="false">
+			<fileset dir="../${project}/src/main/webapp">
+				<exclude name="**/*-*Columns.properties" />
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<copy todir="${deploydir}/WEB-INF/classes/config/spring/" flatten="true" verbose="false">
+			<fileset dir="../${project}/src/main/java">
+				<include name="**/applicationContext-*.xml" />
+				<include name="**/SpringConfig-*.xml" />
+			</fileset>
+		</copy>
+		<!-- copy todir="${deploydir}/WEB-INF/lib" flatten="true" verbose="true" failonerror="false">
+			<fileset dir="../${project}/lib">
+			</fileset>
+		</copy-->
+	</target>
+		
+	<target name="Copy project Web">
+		<foreach delimiter="," list="${projects}" param="project" target="CopyprojectWeb" />
+	</target>
+
+	<target name="CopyprojectWeb">
+		<echo>${project}</echo>
+			<copy todir="${deploydir}" verbose="false">
+				<fileset dir="../${project}/src/main/webapp">
+					<include name="**/*.jsp" />
+					<include name="**/*.js" />
+					<include name="**/*.css" />
+					<include name="**/*.xhtml" />
+					<include name="**/*.html" />
+					<exclude name="web.xml"/>
+				</fileset>
+			</copy>
+	</target>
+
+	<target name="Clean Tomcat">
+		<delete dir="${deploydir}" />
+	</target>
+</project>
+
+

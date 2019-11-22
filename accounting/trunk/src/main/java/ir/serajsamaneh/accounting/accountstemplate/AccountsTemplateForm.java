@@ -91,7 +91,8 @@ public class AccountsTemplateForm extends
 
 
 	public String localSave() {
-		getEntity().setOrgan(getCurrentOrgan());
+		getEntity().setOrganId(getCurrentOrganVO().getId());
+		getEntity().setOrganName(getCurrentOrganVO().getName());
 		List<SanadHesabdariItemTemplateEntity> sanadHesabdariItemList = getSanadHesabdariItemList(getSanadItemsXML(), true);
 		getMyService().updateTemplate(getEntity(), sanadHesabdariItemList);
 		
@@ -120,7 +121,7 @@ public class AccountsTemplateForm extends
 	/*
 	 * public List<SelectItem> getSanadType(){ Map<String, Object> filter=new
 	 * HashMap<String, Object>();
-	 * filter.put("organ.id@eq",getCurrentOrgan().getId());
+	 * filter.put("organId@eq",getCurrentOrgan().getId());
 	 * List<AccountsTemplateEntity> list
 	 * =getSanadTypeService().getDataList(null, filter);
 	 * 
@@ -375,7 +376,7 @@ public class AccountsTemplateForm extends
 	
 	public void createAutomaticSanadTemplates() {
 		getLogger().info("initializing accounts tempaltes");
-		getMyService().createAutomaticSanadTemplates(getCurrentOrgan());
+		getMyService().createAutomaticSanadTemplates(getCurrentOrganVO().getId());
 		((SerajDataModel)getLocalDataModel()).clearPage();
 		addInfoMessage("SUCCESSFUL_ACTION");
 	}

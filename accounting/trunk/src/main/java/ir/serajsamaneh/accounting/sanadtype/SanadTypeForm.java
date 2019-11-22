@@ -18,14 +18,15 @@ public class SanadTypeForm extends BaseAccountingForm<SanadTypeEntity, Long> {
 	}
 
 	public String localSave() {
-		getEntity().setOrgan(getCurrentOrgan());
-		getMyService().save(entity);
+		getEntity().setOrganId(getCurrentOrganVO().getId());
+		getEntity().setOrganName(getCurrentOrganVO().getName());
+		getMyService().save(getEntity());
 		return getLocalViewUrl();
 	}
 
 	public List<SelectItem> getSanadType() {
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", getCurrentOrganVO().getId());
+		filter.put("organId@eq", getCurrentOrganVO().getId());
 		List<SanadTypeEntity> list = getSanadTypeService().getDataList(null, filter);
 
 		List<SelectItem> selectItemList = new ArrayList<SelectItem>();
@@ -52,7 +53,7 @@ public class SanadTypeForm extends BaseAccountingForm<SanadTypeEntity, Long> {
 		String isHierarchical = params.get("isHierarchical");
 		if (isHierarchical !=null && isHierarchical.equals("true")){
 			List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-			getFilter().put("organ.id@in", topOrganList);
+			getFilter().put("organId@in", topOrganList);
 			
 //			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 			params.put("isLocal","false");

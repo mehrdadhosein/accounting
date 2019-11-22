@@ -1045,7 +1045,7 @@ public class SanadHesabdariItemService extends
 
 		
 		if(organId!=null)
-			localFilter.put("sanadHesabdari.organ.id@eq", organId);
+			localFilter.put("sanadHesabdari.organId@eq", organId);
 		
 		localFilter.put("hesabKol.hesabGroup.type@eq", hesabType);
 		localFilter.put("hesabMoeen.id@in", moeenIds);
@@ -1089,7 +1089,7 @@ public class SanadHesabdariItemService extends
 		localFilter.put("sanadHesabdari.sanadFunction@neq@sanadHesabdari.sanadFunction@neq",Arrays.asList(SanadFunctionEnum.EFTETAHIE,SanadFunctionEnum.EKHTETAMIE));
 
 		if(organId!=null)
-			localFilter.put("sanadHesabdari.organ.id@eq", organId);
+			localFilter.put("sanadHesabdari.organId@eq", organId);
 		
 		localFilter.put("hesabKol.hesabGroup.type@eq", hesabType);
 		localFilter.put("hesabMoeen.id@in", moeenIds);

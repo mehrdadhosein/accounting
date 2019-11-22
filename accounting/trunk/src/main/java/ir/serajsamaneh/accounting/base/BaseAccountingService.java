@@ -26,13 +26,12 @@ import ir.serajsamaneh.enumeration.YesNoEnum;
 public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends Serializable> extends BaseEntityService<T, U>{
 	
 	@Autowired
-	UserService userService;
+	protected UserService userService;
 	@Autowired
-	OrganService organService;
+	protected OrganService organService;
 	
 	SaalMaaliService saalMaaliService;
 	SanadTypeService sanadTypeService;
-	SystemConfigService systemConfigService;
 	HesabKolService hesabKolService;
 	HesabMoeenService hesabMoeenService;
 	HesabTafsiliService hesabTafsiliService;
@@ -61,13 +60,6 @@ public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends 
 		this.hesabTafsiliService = hesabTafsiliService;
 	}
 
-	public SystemConfigService getSystemConfigService() {
-		return systemConfigService;
-	}
-
-	public void setSystemConfigService(SystemConfigService systemConfigService) {
-		this.systemConfigService = systemConfigService;
-	}
 
 	public SanadTypeService getSanadTypeService() {
 		return sanadTypeService;
@@ -94,26 +86,26 @@ public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends 
 		return getSaalMaaliService().getActiveSaalmaali(organEntity);
 	}
 	
-	public boolean checkIfMustValidateTafsiliOneAndTwoAreRelated(OrganEntity organEntity) {
+	public boolean checkIfMustValidateTafsiliOneAndTwoAreRelated(Long organId) {
 		return false;
 	}
 	
-	public Boolean checkIfMustValidateHesabTafsiliHasChild(OrganEntity organ){
-		String validateHesabTafsiliHasChild = getSystemConfigService().getValue(organ.getId(), null, "validateHesabTafsiliHasChild");
+	public Boolean checkIfMustValidateHesabTafsiliHasChild(OrganVO organ){
+		String validateHesabTafsiliHasChild = systemConfigService.getValue(organ.getId(), null, "validateHesabTafsiliHasChild");
 		if(validateHesabTafsiliHasChild == null)
-			throw new FatalException(SerajMessageUtil.getMessage("Accounting_system_config_is_not_compelete", organ));
+			throw new FatalException(SerajMessageUtil.getMessage("Accounting_system_config_is_not_compelete", organ.getDesc()));
 		return YesNoEnum.getName(new Integer(validateHesabTafsiliHasChild)).equals(YesNoEnum.YES);
 	}
 	
-	public Boolean checkIfMustValidateHesabMoeenHasChild(OrganEntity organ){
-		String validateHesabMoeenHasChild = getSystemConfigService().getValue(organ.getId(), null, "validateHesabMoeenHasChild");
+	public Boolean checkIfMustValidateHesabMoeenHasChild(OrganVO organ){
+		String validateHesabMoeenHasChild = systemConfigService.getValue(organ.getId(), null, "validateHesabMoeenHasChild");
 		if(validateHesabMoeenHasChild == null)
 			throw new FatalException(SerajMessageUtil.getMessage("Accounting_system_config_is_not_compelete", organ));
 		return YesNoEnum.getName(new Integer(validateHesabMoeenHasChild)).equals(YesNoEnum.YES);
 	}
 	
-	public Boolean checkIfMustValidateHesabMoeenHasMarkaz(OrganEntity organ){
-		String validateHesabMoeenHasMarkaz = getSystemConfigService().getValue(organ.getId(), null, "validateHesabMoeenHasMarkaz");
+	public Boolean checkIfMustValidateHesabMoeenHasMarkaz(OrganVO organ){
+		String validateHesabMoeenHasMarkaz = systemConfigService.getValue(organ.getId(), null, "validateHesabMoeenHasMarkaz");
 		if(validateHesabMoeenHasMarkaz == null)
 			throw new FatalException("validateHesabMoeenHasMarkaz is null");
 		return YesNoEnum.getName(new Integer(validateHesabMoeenHasMarkaz)).equals(YesNoEnum.YES);

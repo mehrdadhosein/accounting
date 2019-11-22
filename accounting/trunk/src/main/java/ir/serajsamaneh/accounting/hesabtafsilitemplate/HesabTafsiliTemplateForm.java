@@ -120,7 +120,7 @@ public class HesabTafsiliTemplateForm extends
 
 	@Override
 	public String save() {
-		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getCurrentOrgan());
+		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getCurrentOrganVO().getId());
 		return getViewUrl();
 	}
 
@@ -148,9 +148,6 @@ public class HesabTafsiliTemplateForm extends
 			String tafsiliLevel = params.get("tafsiliLevel");
 			String showAll = params.get("showAll");
 			
-			// params.put("isLocal","false");
-			// getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(),
-			// "ding"));
 			if(!(StringUtil.hasText(showAll) && showAll.equals("true"))) {
 				if (StringUtil.hasText(tafsiliLevel)){
 					getFilter().put("level@eq",new Integer(tafsiliLevel));
@@ -161,7 +158,7 @@ public class HesabTafsiliTemplateForm extends
 
 			if (isHierarchical != null && isHierarchical.equals("true")) {
 				List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-				getFilter().put("organ.id@in", topOrganList);
+				getFilter().put("organId@in", topOrganList);
 				
 //				this.getFilter().put("organ.code@startlk",
 //						getCurrentUserActiveSaalMaali().getOrgan().getCode());
@@ -187,6 +184,6 @@ public class HesabTafsiliTemplateForm extends
 	public boolean getIsForMyOrgan() {
 		if (getEntity() == null || getEntity().getId() == null)
 			return true;
-		return getEntity().getOrgan().getId().equals(getCurrentOrganVO().getId());
+		return getEntity().getOrganId().equals(getCurrentOrganVO().getId());
 	}
 }

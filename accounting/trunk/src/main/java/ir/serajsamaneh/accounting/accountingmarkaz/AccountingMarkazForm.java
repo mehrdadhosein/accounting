@@ -20,7 +20,6 @@ import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
-import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
@@ -48,7 +47,7 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 
 	public DataModel<AccountingMarkazEntity> getLocalDataModel() {
 		setSearchAction(true);
-		this.getFilter().put("organ.id@eq",getCurrentOrganVO().getId());
+		this.getFilter().put("organId@eq",getCurrentOrganVO().getId());
 		this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
 		return getDataModel();
 	}
@@ -105,7 +104,8 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	}
 	@Override
 	public String save() {
-		getEntity().setOrgan(getCurrentOrgan()); 
+		getEntity().setOrganId(getCurrentOrganVO().getId()); 
+		getEntity().setOrganName(getCurrentOrganVO().getName());
 		getMyService().save(getEntity(), getMoeenIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali(), getApplyMoeenOnSubMarkaz());
 		HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
 		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
@@ -124,7 +124,8 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	}
 
 	public String localSave() {
-		getEntity().setOrgan(getCurrentOrgan());
+		getEntity().setOrganId(getCurrentOrganVO().getId());
+		getEntity().setOrganName(getCurrentOrganVO().getName());
 		save();
 		return getLocalViewUrl();
 	}
@@ -155,9 +156,8 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 			
 			if (isHierarchical !=null && isHierarchical.equals("true")){
 				List<Long> topOrganList =  getCurrentOrganVO().getTopOrgansIdList();// getTopOrgansIdList(getCurrentOrgan());
-				getFilter().put("organ.id@in", topOrganList);
+				getFilter().put("organId@in", topOrganList);
 				
-//				this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 				params.put("isLocal","false");
 			}
 			
@@ -216,7 +216,7 @@ public class AccountingMarkazForm extends BaseAccountingForm<AccountingMarkazEnt
 	public boolean getIsForMyOrgan() {
 		if(getEntity() == null || getEntity().getId() == null)
 			return true;
-		return getEntity().getOrgan().getId().equals(getCurrentOrganVO().getId());
+		return getEntity().getOrganId().equals(getCurrentOrganVO().getId());
 	}
 
 }

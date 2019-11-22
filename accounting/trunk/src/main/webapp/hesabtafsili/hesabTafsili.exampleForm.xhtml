@@ -36,8 +36,8 @@
 				</h:panelGroup>
 				<h:panelGroup>
 					<custom:lov id="organ"
-						identity="#{hesabTafsili.filter['organ.id@eq']}"
-						desc="#{hesabTafsili.example.organ.desc}"
+						identity="#{hesabTafsili.filter['organId@eq']}"
+						desc="#{owner.descMap['organId@eq']}"
 						url="${request.contextPath}/organ/organ.lov.jsf?pId=organ" />
 
 				</h:panelGroup> 

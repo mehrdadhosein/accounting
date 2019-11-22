@@ -18,11 +18,14 @@
 		</property>
 		<property name='hidden' type='java.lang.Boolean' column='hidden'>
 		</property>
-		<many-to-one embed-xml='false' name='organ'
+		
+		<property name='organId' type='java.lang.Long' column='organ_id'/>
+		<property name='organName' type='java.lang.String' column='organ_name'/>
+<!-- 		<many-to-one embed-xml='false' name='organ'
 			class='ir.serajsamaneh.core.organ.OrganEntity' not-null='true'
 			cascade='none' foreign-key='accounting_markaz_tmpl_organ'>
 			<column name='organ_id' />
-		</many-to-one>
+		</many-to-one> -->
 		<set name='childs' table='tb_mrkz_tmpl_mrkz_tmpl'>
 			<key column='parents_id' foreign-key='fk_accntng_markaz_tmpl_parent' />
 			<many-to-many

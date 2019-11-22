@@ -50,7 +50,7 @@ public class HesabKolTemplateForm extends
 
 	public Map<Long, List<ListOrderedMap<String, Object>>> getKolMoeenTemplateMap() {
 		try{
-			return HesabTemplateRelationsUtil.getKolMoeenTemplateMap(getCurrentUserActiveSaalMaali().getOrgan().getId(), getCurrentOrganVO().getTopParentCode(), getCurrentOrganVO().getTopOrgansIdList());
+			return HesabTemplateRelationsUtil.getKolMoeenTemplateMap(getCurrentUserActiveSaalMaali().getOrganId(), getCurrentOrganVO().getTopParentCode(), getCurrentOrganVO().getTopOrgansIdList());
 		}catch(NoSaalMaaliFoundException e){
 			return new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 		}
@@ -63,11 +63,10 @@ public class HesabKolTemplateForm extends
 		String isHierarchical = params.get("isHierarchical");
 		
 		params.put("isLocal","false");
-		//getFilter().put("organ.id@eqORorgan.id@isNull",Arrays.asList(getCurrentOrgan().getId(), "ding"));
 
 		if (isHierarchical !=null && isHierarchical.equals("true")){
 			List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-			getFilter().put("organ.id@in", topOrganList);
+			getFilter().put("organId@in", topOrganList);
 			
 //			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 //			this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
@@ -87,6 +86,6 @@ public class HesabKolTemplateForm extends
 	public boolean getIsForMyOrgan() {
 		if(getEntity() == null || getEntity().getId() == null)
 			return true;
-		return getEntity().getOrgan().getId().equals(getCurrentOrganVO().getId());
+		return getEntity().getOrganId().equals(getCurrentOrganVO().getId());
 	}
 }

@@ -17,6 +17,10 @@ import java.io.Serializable;
 
 public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8088115788752897683L;
 	public static String REF = "HesabClassificationEntity";
 	public static String PROP_NAME = "name";
 	public static String PROP_DESCRIPTION = "description";
@@ -37,17 +41,6 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 		initialize();
 	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public BaseHesabClassificationEntity (
-		java.lang.Long id,
-		ir.serajsamaneh.core.organ.OrganEntity organ) {
-
-		this.setId(id);
-		this.setOrgan(organ);
-		initialize();
-	}
 
 	protected void initialize () {}
 
@@ -63,9 +56,10 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 	private java.lang.String description;
 	private java.lang.Integer level;
 	Long code;
-
+	Long organId;
+	String organName;
 	// many to one
-	private ir.serajsamaneh.core.organ.OrganEntity organ;
+//	private ir.serajsamaneh.core.organ.OrganEntity organ;
 
 	// collections
 	private java.util.Set<ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity> hesabTafsiliTemplate;
@@ -148,22 +142,38 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 
 
 
-	/**
-	 * Return the value associated with the column: organ_id
-	 */
-	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
-		return organ;
+	public Long getOrganId() {
+		return organId;
 	}
 
-	/**
-	 * Set the value related to the column: organ_id
-	 * @param organ the organ_id value
-	 */
-	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
 	}
 
+//	/**
+//	 * Return the value associated with the column: organ_id
+//	 */
+//	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
+//		return organ;
+//	}
+//
+//	/**
+//	 * Set the value related to the column: organ_id
+//	 * @param organ the organ_id value
+//	 */
+//	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
+//		this.organ = organ;
+//	}
 
+
+
+	public String getOrganName() {
+		return organName;
+	}
+
+	public void setOrganName(String organName) {
+		this.organName = organName;
+	}
 
 	public java.util.Set<ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity> getHesabTafsiliTemplate() {
 		return hesabTafsiliTemplate;

@@ -1,9 +1,8 @@
 package ir.serajsamaneh.accounting.hesabmoeentemplate;
 
-import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.organ.OrganEntity;
-
 import java.io.Serializable;
+
+import ir.serajsamaneh.core.base.BaseEntity;
 
 
 
@@ -71,17 +70,39 @@ public abstract class BaseHesabMoeenTemplateEntity  extends BaseEntity<Long>   i
 	private java.lang.String code;
 	private java.lang.String name;
 	private java.lang.String description;
+	Long organId;
+	String organName;
 //	private java.lang.Integer mahyatMoeen;
 	// many to one
 	private ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity hesabKolTemplate;
-	OrganEntity organ;
-	
-	public OrganEntity getOrgan() {
-		return organ;
+//	OrganEntity organ;
+//	
+//	public OrganEntity getOrgan() {
+//		return organ;
+//	}
+//
+//	public void setOrgan(OrganEntity organ) {
+//		this.organ = organ;
+//	}
+
+
+
+	public Long getOrganId() {
+		return organId;
 	}
 
-	public void setOrgan(OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
+	}
+
+
+
+	public String getOrganName() {
+		return organName;
+	}
+
+	public void setOrganName(String organName) {
+		this.organName = organName;
 	}
 
 

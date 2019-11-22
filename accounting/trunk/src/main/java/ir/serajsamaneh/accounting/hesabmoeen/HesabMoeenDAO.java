@@ -12,7 +12,6 @@ import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
 import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.StringUtil;
 
 public class HesabMoeenDAO extends BaseHibernateDAO<HesabMoeenEntity,Long> {
@@ -27,56 +26,13 @@ public class HesabMoeenDAO extends BaseHibernateDAO<HesabMoeenEntity,Long> {
 		this.hesabKolDAO = hesabKolDAO;
 	}
 
-//	public synchronized String getMaxHesabMoeenCode(HesabKolEntity hesabKolEntity, OrganEntity currentOrgan, SaalMaaliEntity currentUserSaalMaaliEntity) {
-//		hesabKolEntity = getHesabKolDAO().load(hesabKolEntity.getID());
-//		Map<String, Object> filter = new HashMap<String, Object>();
-//		filter.put("hesabKol.id@eq", hesabKolEntity.getId());
-//		filter.put("saalMaali.id@eq", currentUserSaalMaaliEntity.getId());
-//		filter.put("code@isNotNull", "ding");
-//		
-////		List params = new ArrayList();
-////		params.add(currentOrgan.getId());
-////		params.add("ding");
-////		filter.put("organ.id@eqORorgan.id@isNull", params);
-//
-//		addLocationFilter(filter);
-//
-//		Criteria criteria = getEmptyCriteria();
-//		addFilterCriteria(filter, criteria);
-//
-//		List<HesabMoeenEntity> list = criteria.setFlushMode(FlushMode.MANUAL).list();
-//
-//		Long maxCode = 0l;
-//		for (HesabMoeenEntity hesabMoeenEntity : list) {
-//			String codeStr = hesabMoeenEntity.getCode().replaceFirst(hesabKolEntity.getCode(), "");
-//			if(StringUtils.hasText(codeStr)){
-//				Long codeLong = new Long(codeStr);
-//				maxCode = Math.max(maxCode.longValue(), codeLong.longValue());
-//			}
-//
-//		}
-//		maxCode++;
-//		String maxCodeStr = createCode(hesabKolEntity, maxCode);
-//
-//		return maxCodeStr;
-//	}
-//
-//
-//	public String createCode(HesabKolEntity hesabKolEntity , Long maxCode) {
-//		String maxCodeStr="";
-//		String parentCode = hesabKolEntity.getCode();
-//		if (maxCode < 10)
-//			maxCodeStr = parentCode + "0" + maxCode;
-//		else
-//			maxCodeStr = parentCode + maxCode;
-//		return maxCodeStr;
-//	}
+
 	
 	private void addLocationFilter(Map<String, Object> filter) {
 
 	}
 	
-	public String getMaxHesabMoeenCode(HesabKolEntity hesabKol, Integer codeCharactersNumber, OrganEntity organEntity, SaalMaaliEntity saalMaaliEntity) {
+	public String getMaxHesabMoeenCode(HesabKolEntity hesabKol, Integer codeCharactersNumber, Long organId, SaalMaaliEntity saalMaaliEntity) {
 //		groupKala = getGroupKalaDAO().load(groupKala.getId());
 		Map<String, Object> filter = new HashMap<String, Object>();
 		
@@ -84,7 +40,7 @@ public class HesabMoeenDAO extends BaseHibernateDAO<HesabMoeenEntity,Long> {
 			filter.put("hesabKol.id@eq", hesabKol.getId());
 		else
 			filter.put("hesabKol@isNotNull", "ding");
-		filter.put("organ.id@eq", organEntity.getId());
+		filter.put("organId@eq", organId);
 		filter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		filter.put("code@isNotNull", "ding");
 

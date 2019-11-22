@@ -9,6 +9,7 @@ import java.util.Map;
 import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
 
+import ir.serajsamaneh.accounting.base.BaseAccountingService;
 import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
 import ir.serajsamaneh.accounting.exception.MoreThanOneActiveSaalMaaliFoundException;
 import ir.serajsamaneh.accounting.exception.MoreThanOneSaalMaaliFoundException;
@@ -20,19 +21,16 @@ import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.month.MonthService;
 import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity;
 import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
-import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.common.OrganVO;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.systemconfig.SystemConfigEntity;
-import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.util.ActionLogUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.enumeration.ActionTypeEnum;
 import ir.serajsamaneh.enumeration.SaalMaaliStatusEnum;
 
-public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
+public class SaalMaaliService extends BaseAccountingService<SaalMaaliEntity, Long> {
 
 	@Override
 	protected SaalMaaliDAO getMyDAO() {
@@ -40,7 +38,6 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 	}
 
 	SaalMaaliDAO saalMaaliDAO;
-	SystemConfigService systemConfigService;
 	MonthService monthService;
 
 	public MonthService getMonthService() {
@@ -49,14 +46,6 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 
 	public void setMonthService(MonthService monthService) {
 		this.monthService = monthService;
-	}
-
-	public SystemConfigService getSystemConfigService() {
-		return systemConfigService;
-	}
-
-	public void setSystemConfigService(SystemConfigService systemConfigService) {
-		this.systemConfigService = systemConfigService;
 	}
 
 	public void setSaalMaaliDAO(SaalMaaliDAO saalMaaliDAO) {
@@ -117,7 +106,7 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 		List<OrganVO> parentOrganList = mainOrgan.getParentOrganList();
 		for (OrganVO organVO : parentOrganList) {
 			Map<String, Object> localFilter = new HashMap<String, Object>();
-			localFilter.put("organ.id@eq",organVO.getId());
+			localFilter.put("organId@eq",organVO.getId());
 			localFilter.put("startDate@le",date);
 			localFilter.put("endDate@ge",date);
 			List<SaalMaaliEntity> dataList = getDataList(null, localFilter,FlushMode.MANUAL, true);
@@ -134,7 +123,7 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 //		if(organEntity == null || organEntity.getId() == null)
 //			throw new FatalException("Organ id is null");
 //		Map<String, Object> localFilter = new HashMap<String, Object>();
-//		localFilter.put("organ.id@eq",organEntity.getId());
+//		localFilter.put("organId@eq",organEntity.getId());
 //		localFilter.put("startDate@le",date);
 //		localFilter.put("endDate@ge",date);
 //		List<SaalMaaliEntity> dataList = getDataList(null, localFilter,FlushMode.MANUAL, true);
@@ -157,7 +146,7 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 		for (OrganVO organVO : parentOrganList) {
 			
 			Map<String, Object> localFilter = new HashMap<String, Object>();
-			localFilter.put("organ.id@eq",organVO.getId());
+			localFilter.put("organId@eq",organVO.getId());
 			localFilter.put("isActive@eq", Boolean.TRUE);
 			List<SaalMaaliEntity> dataList = getDataList(null, localFilter, "", null,FlushMode.MANUAL,true);
 			if(dataList.size() > 1)
@@ -172,7 +161,7 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 //		if(organId == null)
 //			throw new NoOrganFoundException("");
 //		Map<String, Object> localFilter = new HashMap<String, Object>();
-//		localFilter.put("organ.id@eq",organId);
+//		localFilter.put("organId@eq",organId);
 //		localFilter.put("isActive@eq", Boolean.TRUE);
 //		List<SaalMaaliEntity> dataList = getDataList(null, localFilter, "", null,FlushMode.MANUAL,true);
 //		if(dataList.size() == 0){
@@ -189,7 +178,7 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 		
 		
 		SaalMaaliEntity currentUserSaalMaaliEntity = null;
-		String saalMaaliIdStr = getSystemConfigService().getValue(mainOrgan.getId(), userId, "saalMaaliId");
+		String saalMaaliIdStr = systemConfigService.getValue(mainOrgan.getId(), userId, "saalMaaliId");
 		if(saalMaaliIdStr!=null)
 			currentUserSaalMaaliEntity = load(new Long(saalMaaliIdStr));
 		
@@ -211,7 +200,7 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 	
 //	public SaalMaaliEntity getCurrentSaalmaali() {
 //		Map<String, Object> localFilter = new HashMap<String, Object>();
-//		localFilter.put("organ.id@eq",getCurrentOrgan().getId());
+//		localFilter.put("organId@eq",getCurrentOrgan().getId());
 //		localFilter.put("startDate@le",DateConverter.getCurrentDate());
 //		localFilter.put("endDate@ge",DateConverter.getCurrentDate());
 //		List<SaalMaaliEntity> dataList = getDataList(null, localFilter,FlushMode.MANUAL, true);
@@ -222,11 +211,11 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 //		return dataList.get(0);
 //	}
 	
-	public SaalMaaliEntity getSaalMaaliByYear(int year, OrganEntity organEntity)
+	public SaalMaaliEntity getSaalMaaliByYear(int year, Long organId)
 	{ 
 		Map<String, Object> filterSaal = new HashMap<String, Object>();
 		filterSaal.put("saal@eq", year);
-		filterSaal.put("organ.id@eq", organEntity.getId());
+		filterSaal.put("organId@eq", organId);
 		
 		List<SaalMaaliEntity> list = getDataList(null,
 					filterSaal);
@@ -266,20 +255,28 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 	}
 	
 	@Transactional
-	public void save(SaalMaaliEntity entity, OrganEntity currentOrgan) {
-		checkCycleInSaalMaali(entity, currentOrgan);
+	public void save(SaalMaaliEntity entity, OrganVO organVO) {
+		if(entity.getOrganId() == null) {
+			entity.setOrganId(organVO.getId());
+			entity.setOrganName(organVO.getName());
+		}
+		entity.setOrganName(organVO.getName());
+		
+		checkCycleInSaalMaali(entity, organVO.getId());
 //		checkSaalMaaliStartDate(entity, currentOrgan);
 		if(entity.getId() == null)
 			entity.setStatus(SaalMaaliStatusEnum.InProgress);
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", currentOrgan.getId());
+		filter.put("organId@eq", organVO.getId());
 		checkUniqueNess(entity, "saal", entity.getSaal(),filter,false);
 		if(entity.getStartDate().after(entity.getEndDate()))
 			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_startDate_after_endDate"));
-		manageActiveSatatusOfOtherSaalMaaliEntities(entity, currentOrgan);
+		manageActiveSatatusOfOtherSaalMaaliEntities(entity, organVO.getId());
 		
 		super.save(entity);
-		getMonthService().createDefaultMonthForCurrentSaalMaali(entity, currentOrgan);
+		
+//		OrganEntity organEntity = organService.load(organId);
+		getMonthService().createDefaultMonthForCurrentSaalMaali(entity, organVO.getId());
 		String action = (entity.getId()!=null?(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass())):(SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.nameWithClass())));
 		ActionLogUtil.logAction(action, 
 				SerajMessageUtil.getMessage("SaalMaali_title"),
@@ -288,9 +285,9 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 				entity.getLog());
 	}
 
-	private void checkCycleInSaalMaali(SaalMaaliEntity entity, OrganEntity currentOrgan) {
+	private void checkCycleInSaalMaali(SaalMaaliEntity entity, Long organId) {
 		Map<String, Object> filter = new HashMap<>();
-		filter.put("organ.id@eq", currentOrgan.getId());
+		filter.put("organId@eq", organId);
 		List<SaalMaaliEntity> dataList = getDataList(filter);
 		for (SaalMaaliEntity saalMaaliEntity : dataList) {
 			if(entity.getId()!=null &&  saalMaaliEntity.getId().equals(entity.getId()))
@@ -310,11 +307,11 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 		if(entity.getId() == null)
 			entity.setStatus(SaalMaaliStatusEnum.InProgress);
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", entity.getOrgan().getId());
+		filter.put("organId@eq", entity.getOrganId());
 		checkUniqueNess(entity, "saal", entity.getSaal(),filter,false);
 		if(entity.getStartDate().after(entity.getEndDate()))
 			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_startDate_after_endDate"));
-		manageActiveSatatusOfOtherSaalMaaliEntities(entity, entity.getOrgan());
+		manageActiveSatatusOfOtherSaalMaaliEntities(entity, entity.getOrganId());
 		
 		super.save(entity);
 		String action = (entity.getId()!=null?(SerajMessageUtil.getMessage(ActionTypeEnum.EDIT.nameWithClass())):(SerajMessageUtil.getMessage(ActionTypeEnum.CREATE.nameWithClass())));
@@ -325,10 +322,10 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 				entity.getLog());
 	}
 	
-	private void manageActiveSatatusOfOtherSaalMaaliEntities(SaalMaaliEntity entity, OrganEntity currentOrgan) {
+	private void manageActiveSatatusOfOtherSaalMaaliEntities(SaalMaaliEntity entity, Long organId) {
 		if (entity.getIsActive() != null	&& entity.getIsActive().equals(true)) {
 			Map<String, Object> filter = new HashMap<String, Object>();
-			filter.put("organ.id@eq", currentOrgan.getId());
+			filter.put("organId@eq", organId);
 			filter.put("isActive@eq", Boolean.TRUE);
 			List<SaalMaaliEntity> dataList = getDataList(null, filter);
 			for (SaalMaaliEntity saalMaali : dataList) {
@@ -409,9 +406,9 @@ public class SaalMaaliService extends BaseEntityService<SaalMaaliEntity, Long> {
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("key@eq", "saalMaaliId"); 
 		filter.put("value@eq", saalMaaliEntity.getId().toString());
-		List<SystemConfigEntity> dataList = getSystemConfigService().getDataList(null, filter);
+		List<SystemConfigEntity> dataList = systemConfigService.getDataList(null, filter);
 		for (SystemConfigEntity systemConfigEntity : dataList) {
-			getSystemConfigService().delete(systemConfigEntity.getId());
+			systemConfigService.delete(systemConfigEntity.getId());
 		}
 		super.delete(id);
 	}

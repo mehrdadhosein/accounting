@@ -18,6 +18,10 @@ import ir.serajsamaneh.core.base.BaseEntity;
 
 public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1538087769884957634L;
 	public static String REF = "HesabTafsiliEntity";
 	public static String PROP_HESAB_TAFSILI_TEMPLATE = "hesabTafsiliTemplate";
 	public static String PROP_NAME = "name";
@@ -46,18 +50,7 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 		initialize();
 	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public BaseAccountingMarkazTemplateEntity (
-		java.lang.Long id,
-		ir.serajsamaneh.core.organ.OrganEntity organ,
-		ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity saalMaali) {
 
-		this.setId(id);
-		this.setOrgan(organ);
-		initialize();
-	}
 
 	protected void initialize () {}
 
@@ -73,8 +66,10 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 	private java.lang.String name;
 	private java.lang.String description;
 	private java.lang.Integer level;
+	Long organId;
+	String organName;
 	// many to one
-	private ir.serajsamaneh.core.organ.OrganEntity organ;
+//	private ir.serajsamaneh.core.organ.OrganEntity organ;
 	private ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity hesabTafsiliTemplate;
 
 	// collections
@@ -167,22 +162,38 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 
 
 
-	/**
-	 * Return the value associated with the column: organ_id
-	 */
-	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
-		return organ;
+	public Long getOrganId() {
+		return organId;
 	}
 
-	/**
-	 * Set the value related to the column: organ_id
-	 * @param organ the organ_id value
-	 */
-	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
 	}
 
+//	/**
+//	 * Return the value associated with the column: organ_id
+//	 */
+//	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
+//		return organ;
+//	}
+//
+//	/**
+//	 * Set the value related to the column: organ_id
+//	 * @param organ the organ_id value
+//	 */
+//	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
+//		this.organ = organ;
+//	}
 
+
+
+	public String getOrganName() {
+		return organName;
+	}
+
+	public void setOrganName(String organName) {
+		this.organName = organName;
+	}
 
 	/**
 	 * Return the value associated with the column: hesab_tafsili_template_id

@@ -14,16 +14,18 @@ public class HesabGroupForm extends BaseAccountingForm<HesabGroupEntity, Long> {
 	@Override
 	public String save() {
 
-		getEntity().setOrgan(getCurrentOrgan());
-		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali());
+		getEntity().setOrganId(getCurrentOrganVO().getId());
+		getEntity().setOrganName(getCurrentOrganVO().getName());
+		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrganVO());
 		return getViewUrl();
 
 	}
 
 	public String localSave() {
 
-		getEntity().setOrgan(getCurrentOrgan());
-		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali());
+		getEntity().setOrganId(getCurrentOrganVO().getId());
+		getEntity().setOrganName(getCurrentOrganVO().getName());
+		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrganVO());
 		return getLocalViewUrl();
 
 	}

@@ -20,10 +20,7 @@ import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemT
 import ir.serajsamaneh.accounting.sanadtype.SanadTypeService;
 import ir.serajsamaneh.core.contact.contact.ContactService;
 import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.core.organ.OrganService;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
-import ir.serajsamaneh.core.user.UserService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabEntity;
@@ -38,17 +35,17 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	static ContactHesabService contactHesabService;
 	static SanadTypeService sanadTypeService;
 
-	static OrganService organService;
+//	static OrganService organService;
 	
-	public static UserService getUserService() {
-		return SpringUtils.getBean("userService");
-	}
+//	public static UserService getUserService() {
+//		return SpringUtils.getBean("userService");
+//	}
 
-	public static OrganService getOrganService() {
-		if(organService == null)
-			organService = SpringUtils.getBean("organService");
-		return organService;
-	}
+//	public static OrganService getOrganService() {
+//		if(organService == null)
+//			organService = SpringUtils.getBean("organService");
+//		return organService;
+//	}
 	public static SanadTypeService getSanadTypeService() {
 		if(sanadTypeService == null)
 			sanadTypeService = SpringUtils.getBean("sanadTypeService");			
@@ -66,12 +63,12 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			systemConfigService = SpringUtils.getBean("systemConfigService");	
 		return systemConfigService;
 	}
-
-	public static ContactService getContactService() {
-		if(contactService == null)
-			contactService = SpringUtils.getBean("contactService");	
-		return contactService;
-	}
+//
+//	public static ContactService getContactService() {
+//		if(contactService == null)
+//			contactService = SpringUtils.getBean("contactService");	
+//		return contactService;
+//	}
 
 	public static AccountsTemplateService getAccountsTemplateService() {
 		if(accountsTemplateService == null)
@@ -86,7 +83,6 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			HesabTafsiliTemplateEntity hesabTafsiliTemplateTwo,
 			AccountingMarkazEntity accountingMarkazEntity,
 			String description,
-			OrganEntity organEntity,
 			SaalMaaliEntity saalMaaliEntity) {
 		
 		HesabTafsiliEntity hesabTafsili = getHesabTafsiliByTemplate(hesabTafsiliTemplate, saalMaaliEntity);
@@ -274,7 +270,6 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			HesabTafsiliTemplateEntity hesabShenavarTemlate,
 			AccountingMarkazEntity accountingMarkazEntity,
 			String description,
-			OrganEntity organEntity,
 			SaalMaaliEntity saalMaaliEntity) {
 		
 		HesabTafsiliEntity hesabTafsiliTWO = getHesabTafsiliByTemplate(hesabTafsiliTemplateTWO, saalMaaliEntity);
@@ -548,7 +543,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	}
 
 /*	public static Boolean getIsAutomaticSanadActive(OrganEntity organEntity){
-		String automaticSanadActive = getSystemConfigService().getValue(organEntity.getId(), null, "automaticSanadActive");
+		String automaticSanadActive = systemConfigService.getValue(organEntity.getId(), null, "automaticSanadActive");
 		return automaticSanadActive!=null ? new Boolean(automaticSanadActive) : false;
 		//return false;
 	}

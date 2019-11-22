@@ -11,7 +11,6 @@ import ir.serajsamaneh.accounting.hesabclassification.HesabClassificationEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
 import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 public class HesabTafsiliDAO extends BaseHibernateDAO<HesabTafsiliEntity,Long> {
@@ -21,7 +20,7 @@ public class HesabTafsiliDAO extends BaseHibernateDAO<HesabTafsiliEntity,Long> {
 /*	public Long getMaxHesabTafsiliCode(OrganEntity currentOrgan, SaalMaaliEntity activeSaalMaaliEntity) {
 		Map<String, Object> filter = new HashMap<String, Object>();
 //		filter.put("saalMaali.id@eq", currentUserSaalMaaliEntity.getId());
-		filter.put("organ.id@eq", currentOrgan.getId());
+		filter.put("organId@eq", currentOrgan.getId());
 		filter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
 		addLocationFilter(filter);
 
@@ -60,15 +59,15 @@ public class HesabTafsiliDAO extends BaseHibernateDAO<HesabTafsiliEntity,Long> {
 
 	}
 
-	public Long getMaxHesabTafsiliCode(HesabClassificationEntity hesabClassification, Integer kalaCodeCharactersNumber, OrganEntity organEntity, SaalMaaliEntity saalMaaliEntity) {
+	public Long getMaxHesabTafsiliCode(HesabClassificationEntity hesabClassification, Integer kalaCodeCharactersNumber, Long organId, SaalMaaliEntity saalMaaliEntity) {
 //		groupKala = getGroupKalaDAO().load(groupKala.getId());
 		Map<String, Object> filter = new HashMap<String, Object>();
 		
 		if(hesabClassification!=null && hesabClassification.getId()!=null)
 			filter.put("hesabClassification.id@eq", hesabClassification.getId());
-		else
-			filter.put("hesabClassification@isNull", "ding");
-		filter.put("organ.id@eq", organEntity.getId());
+//		else
+//			filter.put("hesabClassification@isNull", "ding");
+		filter.put("organId@eq", organId);
 		filter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		filter.put("code@isNotNull", "ding");
 

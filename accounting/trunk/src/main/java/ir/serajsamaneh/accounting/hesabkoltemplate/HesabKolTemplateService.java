@@ -25,7 +25,6 @@ import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntit
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntityService;
-import ir.serajsamaneh.core.organ.OrganEntity;
 
 public class HesabKolTemplateService extends
 		BaseEntityService<HesabKolTemplateEntity, Long> {
@@ -122,61 +121,63 @@ public class HesabKolTemplateService extends
 	}
 	
 	@Transactional(readOnly = false)
-	public void createHesabGroup(Element hesbaGroupElem, OrganEntity organ) {
+	public void createHesabGroup(Element hesbaGroupElem, Long organId, String organName) {
 		String typeEnum = hesbaGroupElem.getAttribute("type");
 		Long code = new Long(hesbaGroupElem.getAttribute("code"));
 		String mahyatEnum = hesbaGroupElem.getAttribute("mahyat");
 		String hesabGroupName = hesbaGroupElem.getAttribute("name");
-		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(code, organ.getId());
+		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(code, organId);
 		if (hesabGroupTemplateEntity == null)
 			hesabGroupTemplateEntity = new HesabGroupTemplateEntity();
 		hesabGroupTemplateEntity.setName(hesabGroupName);
 		hesabGroupTemplateEntity.setMahyatGroup(MahyatGroupEnum.valueOf(mahyatEnum));
 		hesabGroupTemplateEntity.setType(HesabTypeEnum.valueOf(typeEnum));
 		hesabGroupTemplateEntity.setCode(code);
-		hesabGroupTemplateEntity.setOrgan(organ);
+		hesabGroupTemplateEntity.setOrganId(organId);
+		hesabGroupTemplateEntity.setOrganName(organName);
 		getHesabGroupTemplateDAO().saveOrUpdate(hesabGroupTemplateEntity);
 		getLogger().info("hesabGroupTempate created : "+hesabGroupName);
 	}
 
 	@Transactional(readOnly = false)
-	public void createHesabKolTemplate(Element hesbaKolElem, OrganEntity organEntity) {
+	public void createHesabKolTemplate(Element hesbaKolElem, Long organId, String organName) {
 		String hesabKolCode = hesbaKolElem.getAttribute("code");
 		String hesabKolName = hesbaKolElem.getAttribute("name");
 		Long hesabGroupCode = new Long(hesbaKolElem.getAttribute("HesabGroup"));
 		String mahyatKol = hesbaKolElem.getAttribute("mahyat");
 		
-		createHesabKolTemplate(hesabKolCode, hesabKolName, hesabGroupCode, mahyatKol, organEntity);
+		createHesabKolTemplate(hesabKolCode, hesabKolName, hesabGroupCode, mahyatKol, organId, organName);
 	}
 
 	@Transactional(readOnly = false)
-	public void createHesabTafsiliTemplate(Element hesabTafsiliElem, OrganEntity organEntity) {
+	public void createHesabTafsiliTemplate(Element hesabTafsiliElem, Long organId, String organName) {
 		String hesabMoeenCode = hesabTafsiliElem.getAttribute("hesabMoeen");
 		String hesabTafsiliCode = hesabTafsiliElem.getAttribute("code");
 		String hesabTafsiliName = hesabTafsiliElem.getAttribute("name");
-		getHesabTafsiliTemplateDAO().save(new Long(hesabTafsiliCode), hesabTafsiliName, hesabMoeenCode, organEntity, 1);
+		getHesabTafsiliTemplateDAO().save(new Long(hesabTafsiliCode), hesabTafsiliName, hesabMoeenCode, organId, 1, organName);
 		getLogger().info("hesabTafsili created : "+hesabTafsiliCode);
 		
 	}
 
 	@Transactional(readOnly = false)
-	public void createHesabMoeenTemplate(Element hesabMoeenElem, OrganEntity organ) {
+	public void createHesabMoeenTemplate(Element hesabMoeenElem, Long organId, String organName) {
 		String hesabKolCode = hesabMoeenElem.getAttribute("hesabKol");
 		String hesabMoeenCode = hesabMoeenElem.getAttribute("code");
 		String hesabMoeenName = hesabMoeenElem.getAttribute("name");
 		
-		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateDAO().getHesabMoeenTemplateByCode(hesabMoeenCode, organ.getId());
+		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateDAO().getHesabMoeenTemplateByCode(hesabMoeenCode, organId);
 		if (hesabMoeenTemplateEntity == null)
 			hesabMoeenTemplateEntity = new HesabMoeenTemplateEntity();
 		hesabMoeenTemplateEntity.setScope(HesabScopeEnum.GLOBAL);
 		hesabMoeenTemplateEntity.setName(hesabMoeenName);
 		hesabMoeenTemplateEntity.setCode(hesabMoeenCode);
 		hesabMoeenTemplateEntity.setHidden(false);
-		hesabMoeenTemplateEntity.setHesabKolTemplate(getHesabKolTemplateByCode(hesabKolCode, organ.getId()));
+		hesabMoeenTemplateEntity.setHesabKolTemplate(getHesabKolTemplateByCode(hesabKolCode, organId));
 		if(hesabMoeenTemplateEntity.getHesabKolTemplate() == null)
 			System.out.println(hesabMoeenTemplateEntity.getHesabKolTemplate());
 		
-		hesabMoeenTemplateEntity.setOrgan(organ);
+		hesabMoeenTemplateEntity.setOrganId(organId);
+		hesabMoeenTemplateEntity.setOrganName(organName);
 		
 		getHesabMoeenTemplateDAO().saveOrUpdate(hesabMoeenTemplateEntity);
 		getLogger().info("hesabMoeen created : "+hesabMoeenCode);
@@ -191,11 +192,11 @@ public class HesabKolTemplateService extends
 
 	@Transactional(readOnly = false)
 	public HesabKolTemplateEntity createHesabKolTemplate(String hesabKolCode, String hesabKolName,
-			Long hesabGroupCode, String mahyatKol, OrganEntity organEntity) {
-		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(hesabGroupCode, organEntity.getId());
-		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateByCode(hesabKolCode, organEntity.getId());
+			Long hesabGroupCode, String mahyatKol, Long organId, String organName) {
+		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateDAO().getHesabGroupByCode(hesabGroupCode, organId);
+		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateByCode(hesabKolCode, organId);
 		if (hesabKolTemplateEntity == null){
-			hesabKolTemplateEntity = getHesabKolTemplateByName(hesabKolName, organEntity.getId());
+			hesabKolTemplateEntity = getHesabKolTemplateByName(hesabKolName, organId);
 			if(hesabKolTemplateEntity == null) {
 				hesabKolTemplateEntity = new HesabKolTemplateEntity();
 				hesabKolTemplateEntity.setHidden(false);
@@ -205,7 +206,8 @@ public class HesabKolTemplateService extends
 		hesabKolTemplateEntity.setCode(hesabKolCode);
 		hesabKolTemplateEntity.setHesabGroupTemplate(hesabGroupTemplateEntity);
 		hesabKolTemplateEntity.setMahyatKol(MahyatKolEnum.valueOf(mahyatKol));
-		hesabKolTemplateEntity.setOrgan(organEntity);
+		hesabKolTemplateEntity.setOrganId(organId);
+		hesabKolTemplateEntity.setOrganName(organName);
 		saveOrUpdate(hesabKolTemplateEntity);
 		getLogger().info("hesabKol created : "+hesabKolCode);
 		return hesabKolTemplateEntity;
@@ -235,7 +237,6 @@ public class HesabKolTemplateService extends
 	public HesabKolTemplateEntity loadHierarchical(String code, String topOrganCode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
 		localFilter.put("organ.code@startlk", topOrganCode);
 		return load(null, localFilter);
 	}
@@ -243,15 +244,14 @@ public class HesabKolTemplateService extends
 	public HesabKolTemplateEntity loadLocal(String code, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		return load(null, localFilter);
 	}
 	
 
 	public List<HesabKolTemplateEntity> getCurrentHesabKolTemplateList(String topOrganCode) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
-		//localFilter.put("organ.id@eq",organEntity.getId());
+		//localFilter.put("organId@eq",organId);
 		localFilter.put("organ.code@startlk", topOrganCode);
 		localFilter.put("hidden@eq",Boolean.FALSE);
 		List<HesabKolTemplateEntity> hesabKolList = getDataList(null, localFilter, HesabKolEntity.PROP_CODE, true,false);
@@ -267,16 +267,14 @@ public class HesabKolTemplateService extends
 	public HesabKolTemplateEntity loadByCodeInCurrentOrgan(String code, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		return load(null, localFilter);
 	}
 	
 	public HesabKolTemplateEntity loadByNameInCurrentOrgan(String name, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		return load(null, localFilter);
 	}
 

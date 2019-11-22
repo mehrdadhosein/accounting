@@ -7,7 +7,6 @@ import org.hibernate.FlushMode;
 import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
-import ir.serajsamaneh.core.organ.OrganEntity;
 
 public class HesabGroupTemplateDAO  extends BaseHibernateDAO<HesabGroupTemplateEntity,Long> {
 
@@ -16,7 +15,7 @@ public class HesabGroupTemplateDAO  extends BaseHibernateDAO<HesabGroupTemplateE
 	public HesabGroupTemplateEntity getHesabGroupByCode(Long hesabGroupCode, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabGroupCode);
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(null, localFilter, FlushMode.MANUAL, false);
 		return hesabGroupTemplateEntity;
 	}
@@ -25,7 +24,7 @@ public class HesabGroupTemplateDAO  extends BaseHibernateDAO<HesabGroupTemplateE
 	public HesabGroupTemplateEntity getHesabGroupByCode(String hesabGroupCode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabGroupCode);
-		localFilter.put("organ.id@isNull", "ding");
+		localFilter.put("organId@isNull", "ding");
 		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(null, localFilter, FlushMode.MANUAL, false);
 		return hesabGroupTemplateEntity;
 	}
@@ -33,7 +32,7 @@ public class HesabGroupTemplateDAO  extends BaseHibernateDAO<HesabGroupTemplateE
 
 	private void checkHesabTemplateUniqueNess(HesabGroupTemplateEntity entity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", entity.getOrgan().getId());
+		localFilter.put("organId@eq", entity.getOrganId());
 		checkUniqueNess(entity, HesabGroupTemplateEntity.PROP_CODE, entity.getCode(), localFilter, false);
 		checkUniqueNess(entity, HesabGroupTemplateEntity.PROP_NAME, entity.getName(), localFilter, false);
 	}

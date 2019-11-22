@@ -50,7 +50,7 @@ public class HesabClassificationForm extends BaseAccountingForm<HesabClassificat
 		List<SelectItem> localHesabClassificationList = new ArrayList<SelectItem>();
 
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", getCurrentUserVO().getOrgan().getId());
+		localFilter.put("organId@eq", getCurrentUserVO().getOrgan().getId());
 		List<HesabClassificationEntity> dataList = getMyService().getDataList(null, localFilter);
 		SelectItem item = new SelectItem(null, "---------");
 		localHesabClassificationList.add(item);
@@ -62,7 +62,8 @@ public class HesabClassificationForm extends BaseAccountingForm<HesabClassificat
 	}
 
 	public String localSave() {
-		getEntity().setOrgan(getCurrentOrgan());
+		getEntity().setOrganId(getCurrentOrganVO().getId());
+		getEntity().setOrganName(getCurrentOrganVO().getName());
 		save();
 		return getLocalViewUrl();
 	}

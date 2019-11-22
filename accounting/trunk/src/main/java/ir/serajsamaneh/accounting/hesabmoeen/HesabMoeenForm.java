@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -24,9 +23,9 @@ import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
 import ir.serajsamaneh.accounting.moeentafsili.MoeenTafsiliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntity;
+import ir.serajsamaneh.core.common.OrganVO;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.InCorrectInputException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.JQueryUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
@@ -49,7 +48,9 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	public List<SelectItem> getLocalHesabMoeenSelectItems(){
 		try{
 			Map<String, Object> filter = new HashMap<String, Object>();
-			filter.put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
+			
+			OrganVO organVO = organService.getOrganVO(getCurrentUserActiveSaalMaali().getOrganId());
+			filter.put("organ.code@startlk", organVO.getCode());
 			List<HesabMoeenEntity>  list = getMyService().getDataList(null,filter);
 			List<SelectItem> resultList = new ArrayList<SelectItem>();
 			for (HesabMoeenEntity entity: list){
@@ -147,13 +148,15 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	
 	@Override
 	public String save() {
-		if(getEntity().getOrgan() == null || getEntity().getOrgan().getId() == null)
-			getEntity().setOrgan(getCurrentOrgan()); 
+		if(getEntity().getOrganId() == null) {
+			getEntity().setOrganId(getCurrentOrganVO().getId());
+			getEntity().setOrganName(getCurrentOrganVO().getName());
+		}
 		
 //		initMoeenTafsiliItems(getEntity(), getTafsiliLevelsXML());
 
 		getEntity().setHesabKol(getHesabKolService().load(getEntity().getHesabKol().getId()));
-		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getOldEntity().getHesabKol(), getCurrentOrganVO().getTopOrgansIdList());
+		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getOldEntity().getHesabKol(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
 		resetHesabRelations();
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
@@ -162,13 +165,13 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	private void resetHesabRelations() {
 		List<Long> subsetOrganIds = getRelatedOrganIds();
 		for (Long organId : subsetOrganIds) {
-			OrganEntity organEntity = organService.load(organId);
-			HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
-			HesabRelationsUtil.resetMoeenKolMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
-			HesabRelationsUtil.resetmoeenTafsiliOneMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
-			HesabRelationsUtil.resetmoeenTafsiliTwoMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
-			HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
-			HesabRelationsUtil.resetRootHesabsMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
+//			OrganEntity organEntity = organService.load(organId);
+			HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), organId);
+			HesabRelationsUtil.resetMoeenKolMap(getCurrentUserActiveSaalMaali(), organId);
+			HesabRelationsUtil.resetmoeenTafsiliOneMap(getCurrentUserActiveSaalMaali(), organId);
+			HesabRelationsUtil.resetmoeenTafsiliTwoMap(getCurrentUserActiveSaalMaali(), organId);
+			HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali(), organId);
+			HesabRelationsUtil.resetRootHesabsMap(getCurrentUserActiveSaalMaali(), organId);
 			
 		}
 	}
@@ -208,7 +211,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 				if (isHierarchical !=null && isHierarchical.equals("true")){
 					
 					List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-					getFilter().put("organ.id@in", topOrganList);
+					getFilter().put("organId@in", topOrganList);
 					
 	//				this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 					params.put("isLocal","false");
@@ -362,7 +365,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	
 	
 	public String importFromHesabMoeenTemplateList(){
-		getMyService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getCurrentOrganVO().getTopOrgansIdList());
+		getMyService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
 		setDataModel(null);
 		return null;
 	}
@@ -377,7 +380,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	public boolean getIsForMyOrgan() {
 		if(getEntity() == null || getEntity().getId() == null)
 			return true;
-		return getEntity().getOrgan().getId().equals(getCurrentOrganVO().getId());
+		return getEntity().getOrganId().equals(getCurrentOrganVO().getId());
 	}
 
 }

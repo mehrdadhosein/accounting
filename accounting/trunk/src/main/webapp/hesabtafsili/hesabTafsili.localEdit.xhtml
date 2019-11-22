@@ -51,11 +51,11 @@
 				</p:selectOneMenu>				
 
 
-				<h:panelGroup>
+				<h:panelGroup rendered="false">
 					<h:outputLabel for="tafsilType"
 						value="#{messages['HesabTafsili_tafsilType']}" /> : 
 				</h:panelGroup>
-				<h:selectOneMenu value="#{hesabTafsili.entity.tafsilType}"  converter="seraj.converter.Enum"
+				<h:selectOneMenu value="#{hesabTafsili.entity.tafsilType}"  converter="seraj.converter.Enum"  rendered="false"
 					label="#{messages['HesabTafsili_type']}" id="tafsilType">
 					<f:selectItems value="#{enums.TafsilTypeEnum}" />
 				</h:selectOneMenu>

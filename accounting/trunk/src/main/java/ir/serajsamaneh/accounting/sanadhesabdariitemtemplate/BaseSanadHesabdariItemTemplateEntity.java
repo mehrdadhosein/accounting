@@ -7,7 +7,6 @@ import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
 
@@ -85,7 +84,8 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 	private java.lang.Double bedehkar;
 	private java.util.Date tarikhArticle;
 	private java.lang.String templateType;  //bedehkar OR bestankar
-
+	Long organId;
+	String organName;
 	// many to one
 	private AccountingMarkazTemplateEntity accountingMarkazTemplate; 
 //	private ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity sanadHesabdari;
@@ -97,7 +97,7 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 
 //	private java.util.Set<ArticleTafsiliTemplateEntity> articleTafsiliTemplate;
 	
-	OrganEntity organ;
+//	OrganEntity organ;
 	// collections
 //	private java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> articleTafsili;
 
@@ -134,12 +134,28 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 
 
  
-	public OrganEntity getOrgan() {
-		return organ;
+	public Long getOrganId() {
+		return organId;
 	}
 
-	public void setOrgan(OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
+	}
+
+//	public OrganEntity getOrgan() {
+//		return organ;
+//	}
+//
+//	public void setOrgan(OrganEntity organ) {
+//		this.organ = organ;
+//	}
+
+	public String getOrganName() {
+		return organName;
+	}
+
+	public void setOrganName(String organName) {
+		this.organName = organName;
 	}
 
 	public AccountingMarkazTemplateEntity getAccountingMarkazTemplate() {

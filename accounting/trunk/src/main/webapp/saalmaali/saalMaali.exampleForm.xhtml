@@ -23,12 +23,13 @@
 					<h:outputLabel for="saal" value="#{messages['SaalMaali_saal']}" /> : 
 				</h:panelGroup>					
 				<p:inputText id="saal" value="#{saalMaali.filter['saal@eq']}" converter="javax.faces.Integer"/>
-						<h:panelGroup>
+				
+				<h:panelGroup>
 					<h:outputLabel for="start" value="#{messages['SaalMaali_start']}" /> : 
 				</h:panelGroup>				
 				<custom:DateTimePicker id="start" value="#{saalMaali.filter['start@eq']}" type="Date" lang="Shamsi"></custom:DateTimePicker>
 	
-						<h:panelGroup>
+				<h:panelGroup>
 					<h:outputLabel for="end" value="#{messages['SaalMaali_end']}" /> : 
 				</h:panelGroup>				
 				<custom:DateTimePicker id="end" value="#{saalMaali.filter['end@eq']}" type="Date" lang="Shamsi"></custom:DateTimePicker>

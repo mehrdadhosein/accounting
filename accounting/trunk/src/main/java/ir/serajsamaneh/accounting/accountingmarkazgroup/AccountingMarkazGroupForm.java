@@ -56,7 +56,8 @@ public class AccountingMarkazGroupForm extends BaseAccountingForm<AccountingMark
 	}
 
 	public String localSave() {
-		getEntity().setOrgan(getCurrentOrgan());
+		getEntity().setOrganId(getCurrentOrganVO().getId());
+		getEntity().setOrganName(getCurrentOrganVO().getName());
 		save();
 		return getLocalViewUrl();
 	}
@@ -68,7 +69,7 @@ public class AccountingMarkazGroupForm extends BaseAccountingForm<AccountingMark
 		String isHierarchical = params.get("isHierarchical");
 		if (isHierarchical !=null && isHierarchical.equals("true")){
 			List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-			getFilter().put("organ.id@in", topOrganList);
+			getFilter().put("organId@in", topOrganList);
 			
 			params.put("isLocal","false");
 		}

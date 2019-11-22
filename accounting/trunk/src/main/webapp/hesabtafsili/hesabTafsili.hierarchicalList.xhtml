@@ -36,7 +36,7 @@
 						<h:outputText styleClass="headerCellClass"
 							value="#{messages['Organ_title']}" />
 					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.organ}" />
+					<h:outputText styleClass="CellClass" value="#{item.organName}" />
 				</p:column>
 
 				<p:column priority="2">
@@ -148,14 +148,6 @@
 						converter="seraj.converter.accountingNumberFormatter" />
 				</p:column>
 
-
-				<p:column>
-					<f:facet name="header">
-						<h:outputText styleClass="headerCellClass"
-							value="#{messages['SaalMaali_title']}" />
-					</f:facet>
-					<h:outputText styleClass="CellClass" value="#{item.saalMaali}" />
-				</p:column>
 
 				<p:column priority="3">
 					<f:facet name="header">

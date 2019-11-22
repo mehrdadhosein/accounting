@@ -1,11 +1,8 @@
 package ir.serajsamaneh.accounting.moeentafsili;
 
 import java.io.Serializable;
-import ir.serajsamaneh.core.base.BaseEntity;
-import serajcomponent.DateConverter;
-import serajcomponent.SerajDateTimePickerType;
 
-import java.util.HashSet;
+import ir.serajsamaneh.core.base.BaseEntity;
 
 
 
@@ -20,6 +17,10 @@ import java.util.HashSet;
 
 public abstract class BaseMoeenTafsiliEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -365598744027731840L;
 	public static String REF = "MoeenTafsiliEntity";
 	public static String PROP_HESAB_MOEEN = "hesabMoeen";
 	public static String PROP_HESAB_TAFSILI = "hesabTafsili";

@@ -59,7 +59,7 @@ public class SaalMaaliFilter implements Filter {
 //					//to check if there is any saalMaali
 //					OrganVO currentOrgan = SecurityUtil.getUserDetails().getOrganEntity();
 //					UserVO userEntity = SecurityUtil.getUserDetails().getUserEntity();
-////					String isAccountingEnabled = getSystemConfigService().getValue(currentOrgan.getId(), null, "isAccountingEnabled");
+////					String isAccountingEnabled = systemConfigService.getValue(currentOrgan.getId(), null, "isAccountingEnabled");
 ////					if(StringUtil.hasText(isAccountingEnabled) && isAccountingEnabled.equals("YES")){
 //						getSaalMaaliService().getUserActiveSaalMaali(currentOrgan,/*null,*/userEntity.getId());
 ////					}
