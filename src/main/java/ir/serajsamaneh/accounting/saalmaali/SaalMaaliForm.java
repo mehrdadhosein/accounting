@@ -78,7 +78,7 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("isActive@eq", Boolean.TRUE);
 		filter.put("organ.code@startlk", getCurrentOrganVO().getTopParentCode());
-		filter.put("organ.id@isNotNull", "ding");
+		filter.put("organId@isNotNull", "ding");
 		List<SaalMaaliEntity> dataList = getMyService().getDataList(null,filter);
 		
 		return getSaalmaaliSelectedItems(dataList);
@@ -88,8 +88,8 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 		if(getCurrentOrganVO().getTopParentCode() == null)
 			throw new FatalException("organ code not defined");
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.code@startlk", getCurrentOrganVO().getTopParentCode());
-		filter.put("organ.id@isNotNull", "ding");
+		filter.put("organId@in", getCurrentOrganVO().getTopOrgansIdList());
+		filter.put("organId@isNotNull", "ding");
 		List<SaalMaaliEntity> dataList = getMyService().getDataList(null, filter);
 
 		return getSaalmaaliSelectedItems(dataList);
@@ -131,14 +131,12 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 	@Override
 	public String save() {
 		
-//		if(getEntity().getId() == null)
-//		getMyService().checkSaalMaaliStartDate(getEntity(), getCurrentOrgan());
-		//boolean checkEndDay=getMyService().checkSaalMaaliEndDate(getEntity());
-		if(getEntity().getOrgan() == null || getEntity().getOrgan().getId() == null)
-			getEntity().setOrgan(getCurrentOrgan());
+
+//		if(getEntity().getOrganId() == null)
+//			getEntity().setOrganId(getCurrentOrganVO().getId());
 		
 
-		getMyService().save(getEntity(), getCurrentOrgan());
+		getMyService().save(getEntity(), getCurrentOrganVO());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
@@ -210,11 +208,11 @@ public class SaalMaaliForm extends BaseAccountingForm<SaalMaaliEntity, Long> {
 	}
 
 	public String importFromHesabKolTemplateList(){
-		hesabKolService.createDefaultAccounts(getEntity().getOrgan());
-		hesabGroupService.importFromHesabGroupTemplateList(getEntity(), getCurrentOrgan());
-		hesabKolService.importFromHesabKolTemplateList(getEntity(), getCurrentOrgan(), getCurrentOrganVO().getTopOrgansIdList());
-		getHesabMoeenService().importFromHesabMoeenTemplateList(getEntity(), getCurrentOrgan(), getCurrentOrganVO().getTopOrgansIdList());
-		getHesabTafsiliService().importFromHesabTafsiliTemplateList(getEntity(), getCurrentOrgan(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode());
+		hesabKolService.createDefaultAccounts(getEntity().getOrganId(), getEntity().getOrganName());
+		hesabGroupService.importFromHesabGroupTemplateList(getEntity(), getCurrentOrganVO());
+		hesabKolService.importFromHesabKolTemplateList(getEntity(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
+		getHesabMoeenService().importFromHesabMoeenTemplateList(getEntity(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
+		getHesabTafsiliService().importFromHesabTafsiliTemplateList(getEntity(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode(), getCurrentOrganVO().getName());
 		
 
 		setDataModel(null); 

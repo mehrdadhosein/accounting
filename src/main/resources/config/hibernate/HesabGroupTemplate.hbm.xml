@@ -20,11 +20,13 @@
 
 		<property name='type' type='HesabTypeEnum' column='type'>
 		</property>
-				
-		<many-to-one name='organ' class='ir.serajsamaneh.core.organ.OrganEntity'
+		
+		<property name='organId' type='java.lang.Long' column='organ_id'/>
+		<property name='organName' type='java.lang.String' column='organ_name'/>
+<!-- 		<many-to-one name='organ' class='ir.serajsamaneh.core.organ.OrganEntity'
 			foreign-key='fk_hesab_group_tmplt_organ_id'>
 			<column name='organ_id' />
-		</many-to-one>
+		</many-to-one> -->
 	</class>
 
 </hibernate-mapping>

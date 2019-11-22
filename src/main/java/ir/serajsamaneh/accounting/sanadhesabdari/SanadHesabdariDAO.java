@@ -1,10 +1,5 @@
 package ir.serajsamaneh.accounting.sanadhesabdari;
 
-import ir.serajsamaneh.accounting.base.BaseAccountingDAO;
-import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
-import ir.serajsamaneh.core.organ.OrganEntity;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +7,10 @@ import java.util.Map;
 import org.hibernate.Criteria;
 import org.hibernate.FlushMode;
 import org.hibernate.criterion.Projections;
+
+import ir.serajsamaneh.accounting.base.BaseAccountingDAO;
+import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
+import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 
 public class SanadHesabdariDAO extends BaseAccountingDAO<SanadHesabdariEntity,Long> {
 
@@ -22,7 +21,7 @@ public class SanadHesabdariDAO extends BaseAccountingDAO<SanadHesabdariEntity,Lo
 	public Long getMaxSanadSerial(SaalMaaliEntity saalMaaliEntity, Long organId) {
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		filter.put("organ.id@eq", organId);
+		filter.put("organId@eq", organId);
 		
 		addLocationFilter(filter);
 
@@ -64,7 +63,7 @@ public class SanadHesabdariDAO extends BaseAccountingDAO<SanadHesabdariEntity,Lo
 	
 	public Long getMaxDaemSanadSerial(Long organId, SaalMaaliEntity saalMaaliEntity) {
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", organId);
+		filter.put("organId@eq", organId);
 		filter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		filter.put("state@eq", SanadStateEnum.DAEM);
 		
@@ -86,7 +85,7 @@ public class SanadHesabdariDAO extends BaseAccountingDAO<SanadHesabdariEntity,Lo
 
 	public Date getMaxDaemSanadTarikh(Long organId, SaalMaaliEntity saalMaaliEntity) {
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", organId);
+		filter.put("organId@eq", organId);
 		filter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		filter.put("state@eq", SanadStateEnum.DAEM);
 		
@@ -110,10 +109,10 @@ public class SanadHesabdariDAO extends BaseAccountingDAO<SanadHesabdariEntity,Lo
 		
 	}
 
-	public SanadHesabdariEntity loadLastSanadEntity(OrganEntity currentOrgan,
+	public SanadHesabdariEntity loadLastSanadEntity(Long organId,
 			SaalMaaliEntity activeSaalmaali) {
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", currentOrgan.getId());
+		filter.put("organId@eq", organId);
 		filter.put("saalMaali.id@eq", activeSaalmaali.getId());
 		
 		addLocationFilter(filter);
@@ -135,7 +134,7 @@ public class SanadHesabdariDAO extends BaseAccountingDAO<SanadHesabdariEntity,Lo
 	public Long getLastSanadEntityID(Long organId,
 			SaalMaaliEntity activeSaalmaali) {
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", organId);
+		filter.put("organId@eq", organId);
 		filter.put("saalMaali.id@eq", activeSaalmaali.getId());
 		
 		addLocationFilter(filter);

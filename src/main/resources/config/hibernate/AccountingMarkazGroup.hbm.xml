@@ -13,9 +13,13 @@
 	      </property>
       <property  name='description' type='string' column='description'>
 	      </property>
-	  <many-to-one  name='organ' class='ir.serajsamaneh.core.organ.OrganEntity' not-null='true' cascade='none' foreign-key='fk_accounting_markaz_grp_org'>
+	      
+      <property name='organId' type='java.lang.Long' column='organ_id'/>
+      <property name='organName' type='java.lang.String' column='organ_name'/>
+<!-- 	  <many-to-one  name='organ' class='ir.serajsamaneh.core.organ.OrganEntity' not-null='true' cascade='none' foreign-key='fk_accounting_markaz_grp_org'>
 	         <column name='organ_id'/>
-      </many-to-one>
+      </many-to-one> -->
+      
       <many-to-one  name='parent' class='ir.serajsamaneh.accounting.accountingmarkazgroup.AccountingMarkazGroupEntity' foreign-key='accounting_markaz_grp_parent'>
 	         <column name='parent_id'/>
       </many-to-one>

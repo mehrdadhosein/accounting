@@ -20,10 +20,13 @@
 		</property>
 		<property name='type' type='HesabTypeEnum' column='type'>
 		</property>
-		<many-to-one name='organ' class='ir.serajsamaneh.core.organ.OrganEntity'
+		
+		<property name='organId' type='java.lang.Long' column='organ_id'/>
+		<property name='organName' type='java.lang.String' column='organ_name'/>
+<!-- 		<many-to-one name='organ' class='ir.serajsamaneh.core.organ.OrganEntity'
 			not-null='true' cascade='none' foreign-key='fk_hesab_group_orgn_id'>
 			<column name='organ_id' />
-		</many-to-one>
+		</many-to-one> -->
 		<many-to-one name='saalMaali'
 			class='ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity'
 			not-null='true' cascade='none' foreign-key='fk_hesab_group_saal_maali_id'>

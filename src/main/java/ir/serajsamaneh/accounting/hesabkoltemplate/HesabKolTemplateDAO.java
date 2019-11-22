@@ -31,7 +31,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		List<HesabKolTemplateEntity> dataList = getDataList(null, localFilter,null, null, FlushMode.MANUAL,false);
 		if (dataList.size() == 1)
 			return dataList.get(0);
@@ -44,7 +44,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 	public HesabKolTemplateEntity getHesabKolTemplateByName(String hesabKolName, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", hesabKolName);
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		HesabKolTemplateEntity hesabKolTemplateEntity = load(null, localFilter, FlushMode.MANUAL, false);
 		return hesabKolTemplateEntity;
 
@@ -55,8 +55,8 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
 
-		if(entity.getOrgan()!=null && entity.getOrgan().getId()!=null)
-			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrgan().getId());
+		if(entity.getOrganId()!=null)
+			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrganId());
 
 		checkHesabTemplateUniqueNess(entity);
 		
@@ -65,7 +65,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 
 	private void checkHesabTemplateUniqueNess(HesabKolTemplateEntity entity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", entity.getOrgan().getId());
+		localFilter.put("organId@eq", entity.getOrganId());
 		checkUniqueNess(entity, HesabKolTemplateEntity.PROP_CODE, entity.getCode(), localFilter, false);
 		checkUniqueNess(entity, HesabKolTemplateEntity.PROP_NAME, entity.getName(), localFilter, false);
 	}
@@ -75,8 +75,8 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 		if(entity.getHidden() == null)
 			entity.setHidden(false);
 
-		if(entity.getOrgan()!=null && entity.getOrgan().getId()!=null)
-			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrgan().getId());
+		if(entity.getOrganId()!=null)
+			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrganId());
 
 		checkHesabTemplateUniqueNess(entity);
 		

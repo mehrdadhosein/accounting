@@ -16,7 +16,6 @@ import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 
 public class HesabTafsiliTemplateService extends
 		BaseEntityService<HesabTafsiliTemplateEntity, Long> {
@@ -58,7 +57,7 @@ public class HesabTafsiliTemplateService extends
 	}
 	
 	@Transactional
-	public void save(HesabTafsiliTemplateEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, OrganEntity organEntity) {
+	public void save(HesabTafsiliTemplateEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, Long organId) {
 		if (entity.getMoeenTafsiliTemplate() == null) {
 			entity.setMoeenTafsiliTemplate(new HashSet<MoeenTafsiliTemplateEntity>());
 		}
@@ -80,7 +79,7 @@ public class HesabTafsiliTemplateService extends
 			entity.getChilds().add(load(tafsiliId));
 		}
 		
-		checkHesabUniqueNess(entity, organEntity);
+		checkHesabUniqueNess(entity, organId);
 		
 		save(entity);
 	}
@@ -88,26 +87,27 @@ public class HesabTafsiliTemplateService extends
 	@Override
 	@Transactional
 	public void save(HesabTafsiliTemplateEntity entity) {
-		checkHesabUniqueNess(entity, entity.getOrgan());
+		checkHesabUniqueNess(entity, entity.getOrganId());
 		super.save(entity);
 	}
 	
-	private void checkHesabUniqueNess(HesabTafsiliTemplateEntity entity,	OrganEntity organ) {
+	private void checkHesabUniqueNess(HesabTafsiliTemplateEntity entity,	Long organId) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", organ.getId());
+		localFilter.put("organId@eq", organId);
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_NAME, entity.getName(),	localFilter, false);
 		checkUniqueNess(entity, HesabTafsiliEntity.PROP_CODE, entity.getCode(),	localFilter, false);
 	}
 
 	
 	@Transactional
-	public HesabTafsiliTemplateEntity createHesabTafsiliTemplate(Long hesabTafsiliCode, String hesabTafsiliName, OrganEntity organ, TafsilTypeEnum tafsilType, String description, Integer level) {
+	public HesabTafsiliTemplateEntity createHesabTafsiliTemplate(Long hesabTafsiliCode, String hesabTafsiliName, Long organId, TafsilTypeEnum tafsilType, String description, Integer level, String organName) {
 		
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = new HesabTafsiliTemplateEntity();
 		hesabTafsiliTemplateEntity.setScope(HesabScopeEnum.LCAOL);
 		hesabTafsiliTemplateEntity.setName(hesabTafsiliName);
 		hesabTafsiliTemplateEntity.setCode(hesabTafsiliCode);
-		hesabTafsiliTemplateEntity.setOrgan(organ);
+		hesabTafsiliTemplateEntity.setOrganId(organId);
+		hesabTafsiliTemplateEntity.setOrganName(organName);
 		hesabTafsiliTemplateEntity.setTafsilType(tafsilType);
 		hesabTafsiliTemplateEntity.setDescription(description);
 		hesabTafsiliTemplateEntity.setHidden(false);
@@ -119,7 +119,6 @@ public class HesabTafsiliTemplateService extends
 	public HesabTafsiliTemplateEntity loadByCode(Long code, String topOrganCode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
 		localFilter.put("organ.code@startlk", topOrganCode);
 		return load(null, localFilter);
 	}
@@ -127,15 +126,13 @@ public class HesabTafsiliTemplateService extends
 	public HesabTafsiliTemplateEntity loadByCodeInCurrentOrgan(Long code, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		return load(null, localFilter);
 	}
 	
 	public HesabTafsiliTemplateEntity loadByName(String name, String topOrganCode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
 		localFilter.put("organ.code@startlk", topOrganCode);
 		return load(null, localFilter);
 	}
@@ -143,8 +140,7 @@ public class HesabTafsiliTemplateService extends
 	public HesabTafsiliTemplateEntity loadByNameInCurrentOrgan(String name, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
-		//localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		return load(null, localFilter);
 	}
 	
@@ -154,7 +150,7 @@ public class HesabTafsiliTemplateService extends
 //		List<Long> topOrganList = getTopOrgansIdList(organId);
 		
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@in", topOrganList);
+		localFilter.put("organId@in", topOrganList);
 		
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		return getDataList(null, localFilter);

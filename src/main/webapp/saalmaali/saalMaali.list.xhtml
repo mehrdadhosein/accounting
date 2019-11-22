@@ -32,21 +32,8 @@
 
 				<p:column styleClass="action">
 					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="saalMaalis"
-							onclick="showLoading();" oncomplete="hideLoading();"
-							styleClass="headerCellClass"
-							title="#{messages['SaalMaali_isActive']}">
 							<h:outputText styleClass="headerCellClass"
 								value="#{messages['SaalMaali_isActive']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="isActive"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
 					</f:facet>
 					<h:graphicImage value="/images/disabled.png" style="border:0"
 						rendered="#{!item.isActive}"
@@ -61,21 +48,8 @@
 
 				<p:column>
 					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="saalMaalis"
-							onclick="showLoading();" oncomplete="hideLoading();"
-							styleClass="headerCellClass"
-							title="#{messages['SaalMaali_saal']}">
-							<h:outputText styleClass="headerCellClass"
+						<h:outputText styleClass="headerCellClass"
 								value="#{messages['SaalMaali_saal']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="saal"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.saal}" />
 				</p:column>
@@ -97,40 +71,18 @@
 
 				<p:column>
 					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="saalMaalis"
-							onclick="showLoading();" oncomplete="hideLoading();"
-							styleClass="headerCellClass"
-							title="#{messages['SaalMaali_start']}">
 							<h:outputText styleClass="headerCellClass"
 								value="#{messages['SaalMaali_start']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="startDate"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
+
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.startDateFA}" />
 				</p:column>
 				<p:column>
 					<f:facet name="header">
-						<p:commandLink action="#{owner.sort}" update="saalMaalis"
-							onclick="showLoading();" oncomplete="hideLoading();"
-							styleClass="headerCellClass" title="#{messages['SaalMaali_end']}">
+
 							<h:outputText styleClass="headerCellClass"
 								value="#{messages['SaalMaali_end']}" />
-							<h:graphicImage value="/images/icon_ascending.gif"
-								rendered="#{owner.sortType}"
-								title="#{messages['common_descending']}" style="border:0"></h:graphicImage>
-							<h:graphicImage value="/images/icon_descending.gif"
-								rendered="#{!owner.sortType}"
-								title="#{messages['common_ascending']}" style="border:0"></h:graphicImage>
-							<f:setPropertyActionListener value="endDate"
-								target="#{owner.sortCol}" />
-						</p:commandLink>
+
 					</f:facet>
 					<h:outputText styleClass="CellClass" value="#{item.endDateFA}" />
 				</p:column>

@@ -15,7 +15,6 @@ import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
 import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
 public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTemplateEntity,Long> {
@@ -32,7 +31,7 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 	}
 
 	@Transactional
-	public void save(Long hesabTafsiliCode, String hesabTafsiliName, String hesabMoeenCode, OrganEntity organ, Integer level) {
+	public void save(Long hesabTafsiliCode, String hesabTafsiliName, String hesabMoeenCode, Long organId, Integer level, String organName) {
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getGlobalHesabTafsiliByCode(hesabTafsiliCode);
 		if (hesabTafsiliTemplateEntity == null){
 			hesabTafsiliTemplateEntity = new HesabTafsiliTemplateEntity();
@@ -41,14 +40,15 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 		hesabTafsiliTemplateEntity.setScope(HesabScopeEnum.GLOBAL);
 		hesabTafsiliTemplateEntity.setName(hesabTafsiliName);
 		hesabTafsiliTemplateEntity.setCode(hesabTafsiliCode);
-		hesabTafsiliTemplateEntity.setOrgan(organ);
+		hesabTafsiliTemplateEntity.setOrganId(organId);
+		hesabTafsiliTemplateEntity.setOrganName(organName);
 		hesabTafsiliTemplateEntity.setHidden(false);
 		hesabTafsiliTemplateEntity.setLevel(level);
 		
-		HesabMoeenTemplateEntity moeenTemplateEntity = getHesabMoeenTemplateDAO().getHesabMoeenTemplateByCode(hesabMoeenCode, organ.getId());
+		HesabMoeenTemplateEntity moeenTemplateEntity = getHesabMoeenTemplateDAO().getHesabMoeenTemplateByCode(hesabMoeenCode, organId);
 		
 		if (hesabTafsiliTemplateEntity.getMoeenTafsiliTemplate() == null) {
-			hesabTafsiliTemplateEntity.setMoeenTafsiliTemplate(new HashSet());
+			hesabTafsiliTemplateEntity.setMoeenTafsiliTemplate(new HashSet<MoeenTafsiliTemplateEntity>());
 		}
 		hesabTafsiliTemplateEntity.getMoeenTafsiliTemplate().clear();
 
@@ -83,7 +83,7 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 
 	private void checkHesabTemplateUniqueNess(HesabTafsiliTemplateEntity entity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", entity.getOrgan().getId());
+		localFilter.put("organId@eq", entity.getOrganId());
 		checkUniqueNess(entity, HesabTafsiliTemplateEntity.PROP_CODE, entity.getCode(), localFilter, false);
 		checkUniqueNess(entity, HesabTafsiliTemplateEntity.PROP_NAME, entity.getName(), localFilter, false);
 	}
@@ -101,11 +101,11 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 
 	@Override
 	public void saveOrUpdate(HesabTafsiliTemplateEntity entity) {
-		if(entity.getOrgan()!=null && entity.getOrgan().getId()!=null){
-			HesabTemplateRelationsUtil.resetTafsiliMoeenTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetTafsiliChildTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetTafsiliAccountingMarkazChildTemplateMap(entity.getOrgan().getId());
+		if(entity.getOrganId()!=null){
+			HesabTemplateRelationsUtil.resetTafsiliMoeenTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetTafsiliChildTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetTafsiliAccountingMarkazChildTemplateMap(entity.getOrganId());
 		}
 		
 		checkHesabTemplateUniqueNess(entity);
@@ -114,11 +114,11 @@ public class HesabTafsiliTemplateDAO  extends BaseHibernateDAO<HesabTafsiliTempl
 
 	@Override
 	public void save(HesabTafsiliTemplateEntity entity) {
-		if(entity.getOrgan()!=null && entity.getOrgan().getId()!=null){
-			HesabTemplateRelationsUtil.resetTafsiliMoeenTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetTafsiliChildTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetTafsiliAccountingMarkazChildTemplateMap(entity.getOrgan().getId());
+		if(entity.getOrganId()!=null){
+			HesabTemplateRelationsUtil.resetTafsiliMoeenTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetTafsiliChildTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetTafsiliAccountingMarkazChildTemplateMap(entity.getOrganId());
 		}
 		checkHesabTemplateUniqueNess(entity);
 		super.save(entity);

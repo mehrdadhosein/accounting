@@ -21,8 +21,8 @@
 																<h:outputLabel for="organ" value="#{messages['HesabGroupTemplate_organ']} : " /> 
 								<h:panelGroup>
 								<custom:lov id="organ" 
-										identity="#{hesabGroupTemplate.filter['organ.id@eq']}"
-										desc="#{hesabGroupTemplate.example.organ.desc}"
+										identity="#{hesabGroupTemplate.filter['organId@eq']}"
+										desc="#{owner.descMap['organId@eq']}"
 								  		url="${request.contextPath}/organ/organ.lov.jsf?pId=organ" />
 									
 								</h:panelGroup>
@@ -59,7 +59,7 @@
 								<f:facet name="header">
 									<h:outputText styleClass="headerCellClass" value="#{messages['HesabGroupTemplate_organ']}" />
 								</f:facet>
-								<h:outputText  styleClass="CellClass" value="#{item.organ}" />
+								<h:outputText  styleClass="CellClass" value="#{item.organName}" />
 							</p:column>
 																			<p:column>
 								<f:facet name="header">

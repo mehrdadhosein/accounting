@@ -18,7 +18,6 @@ import ir.serajsamaneh.accounting.moeenaccountingmarkaztemplate.MoeenAccountingM
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntityService;
 import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 public class AccountingMarkazTemplateService extends
@@ -130,14 +129,14 @@ BaseEntityService<AccountingMarkazTemplateEntity, Long> {
 	}
 
 	@Transactional
-	public void save(AccountingMarkazTemplateEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, OrganEntity organEntity) {
+	public void save(AccountingMarkazTemplateEntity entity, List<Long> moeenIds, List<Long> childTafsiliIds, Long organId) {
 
 		if (entity.getMoeenAccountingMarkazTemplate() == null) {
 			entity.setMoeenAccountingMarkazTemplate(new HashSet<MoeenAccountingMarkazTemplateEntity>());
 		}
 		
-		if(entity.getOrgan() == null || entity.getOrgan().getId() == null)
-			entity.setOrgan(organEntity);
+		if(entity.getOrganId() == null)
+			entity.setOrganId(organId);
 		
 		if (entity.getChilds() == null) {
 			entity.setChilds(new HashSet<AccountingMarkazTemplateEntity>());
@@ -167,32 +166,32 @@ BaseEntityService<AccountingMarkazTemplateEntity, Long> {
 		super.saveOrUpdate(entity);
 	}
 	
-	private synchronized String generateAccountingMarkazCode(OrganEntity organEntity) {
-			Long maxHesabTafsiliCode = getMyDAO().getMaxAccountingMarkazCode(organEntity);
+	private synchronized String generateAccountingMarkazCode(Long organId) {
+			Long maxHesabTafsiliCode = getMyDAO().getMaxAccountingMarkazCode(organId);
 			return new Long(++maxHesabTafsiliCode).toString();
 	}
 	
 	//@Override
 	@Transactional
-	public void save(AccountingMarkazTemplateEntity entity,OrganEntity organEntity) {
-		commonSave(entity, organEntity);
+	public void save(AccountingMarkazTemplateEntity entity,Long organId) {
+		commonSave(entity, organId);
 		super.save(entity);
 	}
-	public void saveStateLess(AccountingMarkazTemplateEntity entity, OrganEntity organEntity) {
-		commonSave(entity, organEntity);
+	public void saveStateLess(AccountingMarkazTemplateEntity entity, Long organId) {
+		commonSave(entity, organId);
 		super.saveStateLess(entity);
 	}
 
-	private void commonSave(AccountingMarkazTemplateEntity entity, OrganEntity organEntity) {
-		if(entity.getOrgan() == null || entity.getOrgan().getId() == null)
-			entity.setOrgan(organEntity);
+	private void commonSave(AccountingMarkazTemplateEntity entity, Long organId) {
+		if(entity.getOrganId() == null)
+			entity.setOrganId(organId);
 		
 		if (!StringUtils.hasText(entity.getCode())) {
 			
-			entity.setCode(generateAccountingMarkazCode(entity.getOrgan()));
+			entity.setCode(generateAccountingMarkazCode(organId));
 		}
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", organEntity.getId());
+		localFilter.put("organId@eq", organId);
 		
 		checkUniqueNess(entity, AccountingMarkazTemplateEntity.PROP_CODE, entity.getCode(),	localFilter, false);
 	}
@@ -207,21 +206,21 @@ BaseEntityService<AccountingMarkazTemplateEntity, Long> {
 	
 	public List<AccountingMarkazTemplateEntity> getActiveAccountingMarkazTemplates(Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eqORorgan.id@isNull", Arrays.asList(organId,"ding"));
+		localFilter.put("organId@eq", organId);
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		return getDataList(null, localFilter);
 	}
 
 
 
-	public AccountingMarkazTemplateEntity loadAccountingMarkazTemplateByCode(String code,	OrganEntity organEntity) {
-		return loadAccountingMarkazTemplateByCode(code, organEntity, FlushMode.MANUAL);
+	public AccountingMarkazTemplateEntity loadAccountingMarkazTemplateByCode(String code,	Long organId) {
+		return loadAccountingMarkazTemplateByCode(code, organId, FlushMode.MANUAL);
 	}
 	
-	public AccountingMarkazTemplateEntity loadAccountingMarkazTemplateByCode(String code,	OrganEntity organEntity, FlushMode flushMode) {
+	public AccountingMarkazTemplateEntity loadAccountingMarkazTemplateByCode(String code,	Long organId, FlushMode flushMode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq",code);
-		localFilter.put("organ.id@eq",organEntity.getId());
+		localFilter.put("organId@eq",organId);
 		List<AccountingMarkazTemplateEntity> dataList = getDataList(null, localFilter, flushMode);
 		if(dataList.size() == 1)
 			return dataList.get(0);
@@ -230,21 +229,21 @@ BaseEntityService<AccountingMarkazTemplateEntity, Long> {
 		throw new FatalException("More Than one AccountingMarkaz Recore Found");
 	}
 
-	public AccountingMarkazTemplateEntity load(String code, OrganEntity organ) {
+	public AccountingMarkazTemplateEntity load(String code, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
-		localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organ.getId(),"ding"));
+		localFilter.put("organId@eq", organId);
 		return load(null, localFilter);
 	}
 
 	@Transactional
 	public AccountingMarkazTemplateEntity createAccountingMarkazTemplate(
-			String code, String name, OrganEntity organ) {
+			String code, String name, Long organId) {
 		AccountingMarkazTemplateEntity accountingMarkazTemplateEntity = new AccountingMarkazTemplateEntity();
 		accountingMarkazTemplateEntity.setScope(HesabScopeEnum.LCAOL);
 		accountingMarkazTemplateEntity.setName(name);
 		accountingMarkazTemplateEntity.setCode(code);
-		accountingMarkazTemplateEntity.setOrgan(organ);
+		accountingMarkazTemplateEntity.setOrganId(organId);
 		accountingMarkazTemplateEntity.setHidden(false);
 		save(accountingMarkazTemplateEntity);
 		return accountingMarkazTemplateEntity;
@@ -368,7 +367,7 @@ BaseEntityService<AccountingMarkazTemplateEntity, Long> {
 /*	public AccountingMarkazEntity loadHesabTafsiliByTemplate(HesabTafsiliTemplateEntity tafsiliTemplateEntity, SaalMaaliEntity activeSaalMaaliEntity){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("hesabTafsiliTemplate.id@eq",tafsiliTemplateEntity.getId());
-		localFilter.put("organ.id@eq",activeSaalMaaliEntity.getOrgan().getId());
+		localFilter.put("organId@eq",activeSaalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq",activeSaalMaaliEntity.getId());
 		List<AccountingMarkazEntity> dataList = getDataList(null, localFilter );
 		if(dataList.size() == 1)
@@ -386,7 +385,7 @@ BaseEntityService<AccountingMarkazTemplateEntity, Long> {
 /*	public AccountingMarkazEntity loadHesabTafsiliByCode(String code,	OrganEntity organEntity, SaalMaaliEntity saalMaaliEntity, FlushMode flushMode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq",code);
-		localFilter.put("organ.id@eq",organEntity.getId());
+		localFilter.put("organId@eq",organEntity.getId());
 		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
 		List<AccountingMarkazEntity> dataList = getDataList(null, localFilter, flushMode);
 		if(dataList.size() == 1)

@@ -110,7 +110,7 @@ public class SanadHesabdariForm extends
 			sanadTypes = new ArrayList<SelectItem>();
 			Map<String, Object> localFilter = new HashMap<>();
 			List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-			localFilter.put("organ.id@in", topOrganList);
+			localFilter.put("organId@in", topOrganList);
 
 			List<SanadTypeEntity> sanadTypeList =  getSanadTypeService().getDataList(null, localFilter);
 //			sanadTypes.add(new SelectItem(null, "-------------"));
@@ -310,20 +310,21 @@ public class SanadHesabdariForm extends
 
 		incorectItem = "SanadHesabdariItem_bestankar";
 		if (StringUtils.hasText(map.get("bestankar")))
-			sanadHesabdariItemEntity.setBestankar(new Double(map
-					.get("bestankar").replaceAll(",","")));
+			sanadHesabdariItemEntity.setBestankar(new Double(map.get("bestankar").replaceAll(",","")));
 		else sanadHesabdariItemEntity.setBestankar(0d);
 
 		incorectItem = "SanadHesabdariItem_bedehkar";
 		if (StringUtils.hasText(map.get("bedehkar")))
-			sanadHesabdariItemEntity
-					.setBedehkar(new Double(map.get("bedehkar").replaceAll(",","")));
+			sanadHesabdariItemEntity.setBedehkar(new Double(map.get("bedehkar").replaceAll(",","")));
 		else sanadHesabdariItemEntity.setBedehkar(0d);
 
 		if(sanadHesabdariItemEntity.getBedehkar()>0 && sanadHesabdariItemEntity.getBestankar()>0){
 			incorectItem = "SanadHesabdari_BestankarBedehkarValue" ;
 			throw new FatalException();
 		}
+		
+		if(sanadHesabdariItemEntity.getBestankar() == 0 && sanadHesabdariItemEntity.getBedehkar() == 0)
+			throw new FatalException();
 		
 		incorectItem = "SanadHesabdariItem_tarikhArticle";
 		sanadHesabdariItemEntity.setTarikhArticle(DateConverter
@@ -493,14 +494,14 @@ public class SanadHesabdariForm extends
 		getEntity().getSanadHesabdariItem().addAll(sortedSanadHesabdariItem);
 		
 
-		getMyService().saveMovaghat(getEntity(), getTemporalZamimeha(),getCurrentOrgan(), getCurrentUserActiveSaalMaali(), getCurrentUser());
+		getMyService().saveMovaghat(getEntity(), getTemporalZamimeha(),getCurrentOrganVO().getId(), getCurrentUserActiveSaalMaali(), getCurrentUser(), getCurrentOrganVO().getName());
 		
 		addInfoMessage("SUCCESSFUL_SAVE", SerajMessageUtil.getMessage("SanadHesabdari_title"));
 		return back();
 	}
 	
 	//just for administrative operations
-	public String saveAdmin() {
+	public String saveAdmin(String organDesc) {
 		
 //		List<SanadHesabdariItemEntity> sanadHesabdariItemList = getSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode());
 		List<SanadHesabdariItemEntity> sanadHesabdariItemList = initSanadHesabdariItemList(getSanadItemsXML(), getIsInMultipleLevelMode(), getEntity());
@@ -513,7 +514,7 @@ public class SanadHesabdariForm extends
 		getEntity().getSanadHesabdariItem().addAll(sortedSanadHesabdariItem);
 		
 		
-		getMyService().saveMovaghat(getEntity(), getTemporalZamimeha(),getCurrentOrgan(), getCurrentUserActiveSaalMaali(), getCurrentUser());
+		getMyService().saveMovaghat(getEntity(), getTemporalZamimeha(),getCurrentOrganVO().getId(), getCurrentUserActiveSaalMaali(), getCurrentUser(), organDesc);
 		
 		addInfoMessage("SUCCESSFUL_SAVE", SerajMessageUtil.getMessage("SanadHesabdari_title"));
 		return getLocalArchiveViewUrl();
@@ -544,7 +545,7 @@ public class SanadHesabdariForm extends
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		localFilter.put("sanadFunction@neq", SanadFunctionEnum.EFTETAHIE);
-		localFilter.put("organ.id@neq", getCurrentOrganVO().getId());
+		localFilter.put("organId@neq", getCurrentOrganVO().getId());
 		if(getMyService().getDataList(null, localFilter).size() > 0){
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_allready_sanad_created",getSaalMaaliService().load(getEntity().getSaalMaali().getId())));
 		}
@@ -558,7 +559,7 @@ public class SanadHesabdariForm extends
 		try{
 			Map<String, Object> localFilter = new HashMap<String, Object>();
 			localFilter.put("saalMaali.id@eq", getEntity().getSaalMaali().getId());
-			localFilter.put("organ.id@eq", getCurrentOrganVO().getId());
+			localFilter.put("organId@eq", getCurrentOrganVO().getId());
 			checkUniqueNess(getEntity(), SanadHesabdariEntity.PROP_SANAD_FUNCTION, SanadFunctionEnum.EFTETAHIE, localFilter);
 		}catch(DuplicateException e){
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_eftetahieh_allready_created",getSaalMaaliService().load(getEntity().getSaalMaali().getId())));
@@ -570,7 +571,7 @@ public class SanadHesabdariForm extends
 		try{
 			Map<String, Object> localFilter = new HashMap<String, Object>();
 			localFilter.put("saalMaali.id@eq", getEntity().getSaalMaali().getId());
-			localFilter.put("organ.id@eq", getCurrentOrganVO().getId());
+			localFilter.put("organId@eq", getCurrentOrganVO().getId());
 			checkUniqueNess(getEntity(), SanadHesabdariEntity.PROP_SANAD_FUNCTION, SanadFunctionEnum.EKHTETAMIE);
 		}catch(DuplicateException e){
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_ekhtetamieh_allready_created",getSaalMaaliService().load(getEntity().getSaalMaali().getId())));
@@ -596,7 +597,7 @@ public class SanadHesabdariForm extends
 		if(getEntity().getSanadFunction().equals(SanadFunctionEnum.EKHTETAMIE))
 			validateSaalMaaliInProgress=false;
 			
-		getMyService().saveBarrasiShode(getEntity(),getCurrentOrgan(), getIsInMultipleLevelMode(), validateSaalMaaliInProgress, getNumberOfDecimals(), getCurrentUser());
+		getMyService().saveBarrasiShode(getEntity(),getCurrentOrganVO().getId(), getIsInMultipleLevelMode(), validateSaalMaaliInProgress, getNumberOfDecimals(), getCurrentUser(), getCurrentOrganVO().getDesc());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getLocalListUrl();
 	}
@@ -615,7 +616,7 @@ public class SanadHesabdariForm extends
 			
 			SanadHesabdariEntity e = getMyService().load(sanadHesabdariEntity.getId());
 			getMyService().duplicateEntity(e.getOldEntity(), e);
-			getMyService().saveBarrasiShode(e,getCurrentOrgan(), getIsInMultipleLevelMode(), validateSaalMaaliInProgress, getNumberOfDecimals(), getCurrentUser());
+			getMyService().saveBarrasiShode(e,getCurrentOrganVO().getId(), getIsInMultipleLevelMode(), validateSaalMaaliInProgress, getNumberOfDecimals(), getCurrentUser(), getCurrentOrganVO().getDesc());
 		}		
 		clearPage();
 		addInfoMessage("SUCCESSFUL_ACTION");
@@ -625,7 +626,7 @@ public class SanadHesabdariForm extends
 	public String saveBarresiShodeSimple() {
 
 		
-		getMyService().saveBarrasiShode(getEntity(),getCurrentOrgan(), getIsInMultipleLevelMode(), true, getNumberOfDecimals(), getCurrentUser());
+		getMyService().saveBarrasiShode(getEntity(),getCurrentOrganVO().getId(), getIsInMultipleLevelMode(), true, getNumberOfDecimals(), getCurrentUser(), getCurrentOrganVO().getDesc());
 		return getLocalListUrl();
 	}
 
@@ -889,7 +890,7 @@ public class SanadHesabdariForm extends
 			boolean all, Map<String, String> params) {
 		String isLocalUser = params.get("isCurrentOrgan");
 		if (isLocalUser != null && isLocalUser.equals("true")) {
-			getFilter().put("organ.id@eq", getCurrentOrganVO().getId());
+			getFilter().put("organId@eq", getCurrentOrganVO().getId());
 		}
 
 		return super.getJsonList(property, term, all, params);
@@ -1090,24 +1091,24 @@ public class SanadHesabdariForm extends
 	}
 	
 	public String tabdilBeMovghat() {
-		getMyService().tabdilBeMovghat(getEntity());
+		getMyService().tabdilBeMovghat(getEntity(), getCurrentOrganVO().getDesc());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return  back();
 	}
 
 	
-	public String tabdilBeMovghatBatch() {
+	public String tabdilBeMovghatBatch(String organDesc) {
 		List<SanadHesabdariEntity> selectedItems = getSelectedItems();
-		getMyService().tabdilBeMovghat(selectedItems);
+		getMyService().tabdilBeMovghat(selectedItems, organDesc);
 		clearPage();
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return  null;
 	}
 	
-	public String tabdilBeDaemiBatch() {
+	public String tabdilBeDaemiBatch(String organDesc) {
 		List<SanadHesabdariEntity> selectedItems = getSelectedItems();
 		SaalMaaliEntity activeSaalmaali = getCurrentUserActiveSaalMaali();
-		getMyService().tabdilBeDaemi(selectedItems, activeSaalmaali, getCurrentOrganVO().getId(), getCurrentUser());
+		getMyService().tabdilBeDaemi(selectedItems, activeSaalmaali, getCurrentOrganVO().getId(), getCurrentUser(), organDesc);
 		addInfoMessage("SUCCESSFUL_ACTION");
 		clearPage();
 		return  null;
@@ -1124,7 +1125,7 @@ public class SanadHesabdariForm extends
 	}
 	
 	public String tabdilBeBarrasiShode() {
-		getMyService().tabdilBeBarrasiShode(getEntity(), getCurrentOrgan());
+		getMyService().tabdilBeBarrasiShode(getEntity(), getCurrentOrganVO().getId(), getCurrentOrganVO().getDesc());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return  back();
 	}
@@ -1132,13 +1133,13 @@ public class SanadHesabdariForm extends
 	
 	public String tabdilBeDaemi() {
 		SaalMaaliEntity activeSaalmaali = getCurrentUserActiveSaalMaali();
-		getMyService().tabdilBeDaemi(getEntity(), activeSaalmaali, getCurrentOrganVO().getId(), getCurrentUser());
+		getMyService().tabdilBeDaemi(getEntity(), activeSaalmaali, getCurrentOrganVO().getId(), getCurrentUser(), getCurrentOrganVO().getDesc());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return  back();
 	}
 
 	public String resetSerialDaemi(){
-		getMyService().resetSerialDaemi(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		getMyService().resetSerialDaemi(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
 		clearPage();
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return null;
@@ -1150,13 +1151,13 @@ public class SanadHesabdariForm extends
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("tarikhSanad@le", tarikhSanadTo);
 		localFilter.put("saalMaali.id@eq", activeSaalmaali.getId());
-		localFilter.put("organ.id@eq", getCurrentOrganVO().getId());
+		localFilter.put("organId@eq", getCurrentOrganVO().getId());
 		localFilter.put("state@eq", SanadStateEnum.BARRESI_SHODE);
 		List<SanadHesabdariEntity> dataList = getMyService().getDataList(null, localFilter, SanadHesabdariEntity.PROP_TARIKH_SANAD, true, false);
 		for (SanadHesabdariEntity sanadHesabdariEntity : dataList) {
 			System.out.println(sanadHesabdariEntity.getTarikhSanadFA());
 			getMyService().duplicateEntity(sanadHesabdariEntity.getOldEntity(), sanadHesabdariEntity);
-			getMyService().tabdilBeDaemi(sanadHesabdariEntity, activeSaalmaali, getCurrentOrganVO().getId(), getCurrentUser());
+			getMyService().tabdilBeDaemi(sanadHesabdariEntity, activeSaalmaali, getCurrentOrganVO().getId(), getCurrentUser(), getCurrentOrganVO().getDesc());
 		}
 
 //		return dataList.size();
@@ -1164,9 +1165,9 @@ public class SanadHesabdariForm extends
 		return null;
 	}
 
-	public String tabdilBeDaemiBySerial() {
+	public String tabdilBeDaemiBySerial(String organDesc) {
 		SaalMaaliEntity activeSaalmaali = getCurrentUserActiveSaalMaali();
-		getMyService().tabdilBeDaemi(getSerialTo(),activeSaalmaali, getCurrentOrganVO().getId(), getCurrentUser());
+		getMyService().tabdilBeDaemi(getSerialTo(),activeSaalmaali, getCurrentOrganVO().getId(), getCurrentUser(), organDesc);
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return null;
 	}
@@ -1245,7 +1246,7 @@ public class SanadHesabdariForm extends
 		FileEntity fileEntity = getFileService().load(getZamimehID());
 		getEntity().getZamimeh().remove(fileEntity);
 		getEntity().setZamimehList(null);
-		getMyService().save(getEntity(), getCurrentOrgan());
+		getMyService().save(getEntity(), getCurrentOrganVO().getDesc());
 		return null;
 	}
 	
@@ -1315,10 +1316,10 @@ public class SanadHesabdariForm extends
 		return null;
 	}
 	
-	public void closeTemporalAccounts(){
+	public void closeTemporalAccounts(String organDesc){
 		if(getTarikhSanad() == null)
 			setTarikhSanad(getCurrentUserActiveSaalMaali().getEndDate());
-		getMyService().closeTemporalAccounts(getCurrentOrgan(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali(), getNumberOfDecimals(), getCurrentUser());
+		getMyService().closeTemporalAccounts(getCurrentOrganVO().getId(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali(), getNumberOfDecimals(), getCurrentUser(), organDesc);
 		addInfoMessage("SUCCESSFUL_ACTION");
 	}
 	
@@ -1332,8 +1333,8 @@ public class SanadHesabdariForm extends
 		this.tarikhSanad = tarikhSanad;
 	}
 
-	public void createSanadEkhtetamieh(){
-		getMyService().createSanadEkhtetamieh(getCurrentOrgan(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali(), getNumberOfDecimals(), getCurrentUser());
+	public void createSanadEkhtetamieh(String organDesc){
+		getMyService().createSanadEkhtetamieh(getCurrentOrganVO().getId(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali(), getNumberOfDecimals(), getCurrentUser(), organDesc);
 		addInfoMessage("SUCCESSFUL_SAVE", SerajMessageUtil.getMessage("SanadHesabdari_title"));
 	}
 
@@ -1359,7 +1360,7 @@ public class SanadHesabdariForm extends
 
 	
 	public void createSanadEftetahieh(){
-		getMyService().createSanadEftetahieh(getCurrentOrgan(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali(), getNumberOfDecimals(), getCurrentOrganVO(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentUser());
+		getMyService().createSanadEftetahieh(getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali(), getNumberOfDecimals(), getCurrentOrganVO(), getCurrentUser());
 		addInfoMessage("SUCCESSFUL_SAVE", SerajMessageUtil.getMessage("SanadHesabdari_title"));
 	}
 	
@@ -1490,12 +1491,12 @@ public class SanadHesabdariForm extends
 
 		for (String fileName : list) {
 			String csvFile = dir.getAbsolutePath() + "/" + fileName;
-			importSanadHesabdariFromCSVFileV2(csvFile);
+			importSanadHesabdariFromCSVFileV2(csvFile, getCurrentOrganVO().getDesc());
 		}
 		
 		clearPage();
 	}
-	public void importSanadHesabdariFromCSVFileV2(String csvFile){
+	public void importSanadHesabdariFromCSVFileV2(String csvFile, String organDesc){
 		System.out.println("importing : "+csvFile);
 //		String csvFile = getClass().getResource("/sanadImport/sanad1.csv").getFile();
 //        String csvFile = "E:\\temp\\sanad1.csv";
@@ -1550,7 +1551,7 @@ public class SanadHesabdariForm extends
             }
   
             
-        	SanadHesabdariEntity sanadHesabdariEntity = getMyService().loadBySerial(sanadHesabdariSerial, getCurrentOrgan(), getCurrentUserActiveSaalMaali());
+        	SanadHesabdariEntity sanadHesabdariEntity = getMyService().loadBySerial(sanadHesabdariSerial, getCurrentOrganVO().getId(), getCurrentUserActiveSaalMaali());
         	if(sanadHesabdariEntity == null){
         		sanadHesabdariEntity = new SanadHesabdariEntity();
         		sanadHesabdariEntity.setSaalMaali(getCurrentUserActiveSaalMaali());
@@ -1569,7 +1570,7 @@ public class SanadHesabdariForm extends
         		sanadHesabdariEntity.getSanadHesabdariItem().addAll(sortedSanadHesabdariItem);
 
         		
-        		getMyService().saveMovaghat(sanadHesabdariEntity, getTemporalZamimeha(),getCurrentOrgan(), getCurrentUserActiveSaalMaali(), getCurrentUser());
+        		getMyService().saveMovaghat(sanadHesabdariEntity, getTemporalZamimeha(),getCurrentOrganVO().getId(), getCurrentUserActiveSaalMaali(), getCurrentUser(), organDesc);
         	}
 
         } catch (IOException e) {
@@ -1579,7 +1580,7 @@ public class SanadHesabdariForm extends
 	}
 	
 	public void createMonthlySummarySanad(){
-		getMyService().createMonthlySummarySanad(getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getCurrentUser());
+		getMyService().createMonthlySummarySanad(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentUser(), getCurrentOrganVO().getDesc());
 		addInfoMessage("SUCCESSFUL_ACTION");
 	}
 	

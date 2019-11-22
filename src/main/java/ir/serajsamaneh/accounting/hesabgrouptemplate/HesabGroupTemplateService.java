@@ -1,14 +1,12 @@
 package ir.serajsamaneh.accounting.hesabgrouptemplate;
 
-import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
-import ir.serajsamaneh.core.base.BaseEntityService;
-import ir.serajsamaneh.core.organ.OrganEntity;
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
+import ir.serajsamaneh.core.base.BaseEntityService;
 
 public class HesabGroupTemplateService extends
 		BaseEntityService<HesabGroupTemplateEntity, Long> {
@@ -32,21 +30,22 @@ public class HesabGroupTemplateService extends
 	public HesabGroupTemplateEntity load(Long code, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
-		localFilter.put("organ.id@eqORorgan@isNull", Arrays.asList(organId,"ding"));
+		localFilter.put("organId@eq", organId);
 		return load(null, localFilter);
 	}
 
 	@Transactional(readOnly = false)
-	public void createHesabGroupTemplate(Long hesabGroupCode, String hesabGroupName, String mahyatGroup, OrganEntity organEntity) {
+	public void createHesabGroupTemplate(Long hesabGroupCode, String hesabGroupName, String mahyatGroup, Long organId, String organName) {
 		
-		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(hesabGroupCode, organEntity.getId());
+		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(hesabGroupCode, organId);
 		if (hesabGroupTemplateEntity == null){
 			hesabGroupTemplateEntity = new HesabGroupTemplateEntity();
 		}
 		hesabGroupTemplateEntity.setName(hesabGroupName);
 		hesabGroupTemplateEntity.setCode(hesabGroupCode);
 		hesabGroupTemplateEntity.setMahyatGroup(MahyatGroupEnum.valueOf(mahyatGroup));
-		hesabGroupTemplateEntity.setOrgan(organEntity);
+		hesabGroupTemplateEntity.setOrganId(organId);
+		hesabGroupTemplateEntity.setOrganName(organName);
 		saveOrUpdate(hesabGroupTemplateEntity);
 		getLogger().info("hesabGroup created : "+hesabGroupCode);
 	}

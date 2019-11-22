@@ -1,11 +1,10 @@
 package ir.serajsamaneh.accounting.accountstemplate;
 
+import java.io.Serializable;
+
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
 import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.organ.OrganEntity;
-
-import java.io.Serializable;
 
 
 /**
@@ -19,6 +18,10 @@ import java.io.Serializable;
 
 public abstract class BaseAccountsTemplateEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3088480207710736064L;
 	public static String REF = "AccountsTemplateEntity";
 	public static String PROP_ACTION_ID = "actionId";
 	public static String PROP_ACTION_NAME = "actionName";
@@ -51,11 +54,13 @@ public abstract class BaseAccountsTemplateEntity  extends BaseEntity<Long>   imp
 	private java.lang.String actionId;
 	private java.lang.String actionName;
 	private java.lang.String description;
+	Long organId;
+	String organName;
 	private SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBedehkar;  
 	private SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBestankar;  
 	private AccountingMarkazTemplateEntity accountingMarkazTemplate;  
 
-	private OrganEntity organ;
+//	private OrganEntity organ;
 
 
 	public AccountingMarkazTemplateEntity getAccountingMarkazTemplate() {
@@ -109,13 +114,29 @@ public abstract class BaseAccountsTemplateEntity  extends BaseEntity<Long>   imp
 	public void setActionId(java.lang.String actionId) {
 		this.actionId = actionId;
 	}
-	public OrganEntity getOrgan() {
-		return organ;
+//	public OrganEntity getOrgan() {
+//		return organ;
+//	}
+//
+//	public void setOrgan(OrganEntity organ) {
+//		this.organ = organ;
+//	}
+	public Long getOrganId() {
+		return organId;
 	}
 
-	public void setOrgan(OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
 	}
+
+	public String getOrganName() {
+		return organName;
+	}
+
+	public void setOrganName(String organName) {
+		this.organName = organName;
+	}
+
 	/**
 	 * Return the unique identifier of this class
      * @hibernate.id

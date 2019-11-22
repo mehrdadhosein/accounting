@@ -1,9 +1,5 @@
 package ir.serajsamaneh.accounting.accountingmarkaztemplate;
 
-import ir.serajsamaneh.core.base.BaseHibernateDAO;
-import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.core.security.SecurityUtil;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,13 +8,15 @@ import org.hibernate.Criteria;
 import org.hibernate.FlushMode;
 import org.springframework.util.StringUtils;
 
+import ir.serajsamaneh.core.base.BaseHibernateDAO;
+
 public class AccountingMarkazTemplateDAO extends BaseHibernateDAO<AccountingMarkazTemplateEntity,Long> {
 
 
 
-	public Long getMaxAccountingMarkazCode(OrganEntity organEntity) {
+	public Long getMaxAccountingMarkazCode(Long organId) {
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", organEntity.getId());
+		filter.put("organId@eq", organId);
 		addLocationFilter(filter);
 
 		Criteria criteria = getEmptyCriteria();

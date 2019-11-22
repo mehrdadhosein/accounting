@@ -1,9 +1,8 @@
 package ir.serajsamaneh.accounting.sanadtype;
 
-import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.organ.OrganEntity;
-
 import java.io.Serializable;
+
+import ir.serajsamaneh.core.base.BaseEntity;
 
 
 /**
@@ -46,17 +45,36 @@ public abstract class BaseSanadTypeEntity  extends BaseEntity<Long>   implements
 
 	// fields
 	private java.lang.String name;
-
-
-	private OrganEntity organ;
+	Long organId;
+	String organName;
 	
-	public OrganEntity getOrgan() {
-		return organ;
+	public Long getOrganId() {
+		return organId;
 	}
 
-	public void setOrgan(OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
 	}
+
+
+public String getOrganName() {
+		return organName;
+	}
+
+	public void setOrganName(String organName) {
+		this.organName = organName;
+	}
+
+	//
+//	private OrganEntity organ;
+//	
+//	public OrganEntity getOrgan() {
+//		return organ;
+//	}
+//
+//	public void setOrgan(OrganEntity organ) {
+//		this.organ = organ;
+//	}
 	/**
 	 * Return the unique identifier of this class
      * @hibernate.id

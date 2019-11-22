@@ -22,34 +22,27 @@ import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.contact.contact.ContactService;
 import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
-
-public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long> {
-
-
-
+public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity, Long> {
 
 	@Override
 	protected HesabTafsiliService getMyService() {
 		return hesabTafsiliService;
 	}
-	
+
 	HesabMoeenService hesabMoeenService;
 
 	HesabTafsiliService hesabTafsiliService;
 	SaalMaaliService saalMaaliService;
-	ContactService contactService;
+//	ContactService contactService;
 	ContactHesabService contactHesabService;
 	HesabClassificationService hesabClassificationService;
-
 
 	public HesabClassificationService getHesabClassificationService() {
 		return hesabClassificationService;
@@ -67,13 +60,13 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		this.contactHesabService = contactHesabService;
 	}
 
-	public ContactService getContactService() {
-		return contactService;
-	}
-
-	public void setContactService(ContactService contactService) {
-		this.contactService = contactService;
-	}
+//	public ContactService getContactService() {
+//		return contactService;
+//	}
+//
+//	public void setContactService(ContactService contactService) {
+//		this.contactService = contactService;
+//	}
 
 	public SaalMaaliService getSaalMaaliService() {
 		return saalMaaliService;
@@ -87,19 +80,19 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 //		getFilter().put("isShenavar@eq",Boolean.TRUE);
 //		return getLocalDataModel();
 //	}
-	
+
 	public DataModel<HesabTafsiliEntity> getLocalTafsiliDataModel() {
 //		getFilter().put("isShenavar@eq",Boolean.FALSE);
 		return getLocalDataModel();
 	}
-	
+
 	public DataModel<HesabTafsiliEntity> getLocalDataModel() {
 		setSearchAction(true);
-		
+
 		populateTopOrgansIdListFilter();
 
 //		getFilter().put("organ.code@startlk", getTopOrgan().getCode());
-		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		return getDataModel();
 	}
 
@@ -107,34 +100,32 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 //		getFilter().put("isShenavar@eq",Boolean.FALSE);
 		return getUpsetDataModel();
 	}
-	
+
 //	public DataModel<HesabTafsiliEntity> getUpsetShenavarDataModel() {
 //		getFilter().put("isShenavar@eq",Boolean.TRUE);
 //		return getUpsetDataModel();
 //	}
-	
+
 	@Override
 	public DataModel<HesabTafsiliEntity> getUpsetDataModel() {
 		setSearchAction(true);
 //		populateTopOrgansIdListFilter();
-		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		return super.getUpsetDataModel();
 	}
-	
+
 	@Override
 	public Integer getUpsetDataModelCount() {
-		
+
 		populateTopOrgansIdListFilter();
-		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		return super.getHierarchicalDataModelCount();
 	}
 
-
-	
 	public void setHesabTafsiliService(HesabTafsiliService hesabTafsiliService) {
 		this.hesabTafsiliService = hesabTafsiliService;
 	}
-	
+
 	public HesabTafsiliService getHesabTafsiliService() {
 		return hesabTafsiliService;
 	}
@@ -145,10 +136,10 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	List<Long> childAccountingMarkazIds;
 
 	public List<Long> getChildAccountingMarkazIds() {
-		if(childAccountingMarkazIds==null){
+		if (childAccountingMarkazIds == null) {
 			childAccountingMarkazIds = new ArrayList<Long>();
 			Set<AccountingMarkazEntity> childAccountingMarkazSet = getEntity().getChildAccountingMarkaz();
-			if(childAccountingMarkazSet!=null){
+			if (childAccountingMarkazSet != null) {
 				for (AccountingMarkazEntity accountingMarkazEntity : childAccountingMarkazSet) {
 					childAccountingMarkazIds.add(accountingMarkazEntity.getId());
 				}
@@ -162,10 +153,10 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	}
 
 	public List<Long> getChildTafsiliIds() {
-		if(childTafsiliIds==null){
+		if (childTafsiliIds == null) {
 			childTafsiliIds = new ArrayList<Long>();
 			Set<HesabTafsiliEntity> tafsilies = getEntity().getChilds();
-			if(tafsilies!=null){
+			if (tafsilies != null) {
 				for (HesabTafsiliEntity tafsiliEntity : tafsilies) {
 					childTafsiliIds.add(tafsiliEntity.getId());
 				}
@@ -174,17 +165,15 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 		return childTafsiliIds;
 	}
 
-
 	public void setChildTafsiliIds(List<Long> childTafsiliIds) {
 		this.childTafsiliIds = childTafsiliIds;
 	}
 
-
 	public List<Long> getParentTafsiliIds() {
-		if(parentTafsiliIds==null){
+		if (parentTafsiliIds == null) {
 			parentTafsiliIds = new ArrayList<Long>();
 			Set<HesabTafsiliEntity> tafsilies = getEntity().getParents();
-			if(tafsilies!=null){
+			if (tafsilies != null) {
 				for (HesabTafsiliEntity tafsiliEntity : tafsilies) {
 					parentTafsiliIds.add(tafsiliEntity.getId());
 				}
@@ -198,10 +187,10 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	}
 
 	public List<Long> getMoeenIds() {
-		if(moeenIds==null){
+		if (moeenIds == null) {
 			moeenIds = new ArrayList<Long>();
 			List<HesabMoeenEntity> moeens = getEntity().getHesabMoeenList();
-			if(moeens!=null){
+			if (moeens != null) {
 				for (HesabMoeenEntity moeen : moeens) {
 					moeenIds.add(moeen.getId());
 				}
@@ -213,145 +202,160 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	public void setMoeenIds(List<Long> moeenIds) {
 		this.moeenIds = moeenIds;
 	}
+
 	@Override
 	public String save() {
-		getEntity().setOrgan(getCurrentOrgan()); 
-		if(getEntity().getHesabClassification()!=null && getEntity().getHesabClassification().getId()!=null)
-			getEntity().setHesabClassification(getHesabClassificationService().load(getEntity().getHesabClassification().getId()));
-		
-		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getParentTafsiliIds(), getChildAccountingMarkazIds(),getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode());
+		getEntity().setOrganId(getCurrentOrganVO().getId());
+		getEntity().setOrganName(getCurrentOrganVO().getName());
+		if (getEntity().getHesabClassification() != null && getEntity().getHesabClassification().getId() != null)
+			getEntity().setHesabClassification(
+					getHesabClassificationService().load(getEntity().getHesabClassification().getId()));
+
+		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getParentTafsiliIds(),
+				getChildAccountingMarkazIds(), getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode(),
+				getCurrentOrganVO().getName());
 		resetHesabRelations();
-		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
+		HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(),
+				getCurrentOrganVO().getId());
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
 	}
-	
+
 	private void resetHesabRelations() {
 		List<Long> subsetOrganIds = getRelatedOrganIds();
 		for (Long organId : subsetOrganIds) {
-			OrganEntity organEntity = organService.load(organId);
+//			OrganEntity organEntity = organService.load(organId);
 			HesabRelationsUtil.resetTafsiliMoeenMap(getCurrentUserActiveSaalMaali(), organId);
 			HesabRelationsUtil.resetmoeenTafsiliOneMap(getCurrentUserActiveSaalMaali(), organId);
 			HesabRelationsUtil.resetmoeenTafsiliTwoMap(getCurrentUserActiveSaalMaali(), organId);
 			HesabRelationsUtil.resetTafsiliChildMap(getCurrentUserActiveSaalMaali(), organId);
 			HesabRelationsUtil.resetTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), organId);
 			HesabRelationsUtil.resetRootHesabsMap(getCurrentUserActiveSaalMaali(), organId);
-			
+
 			HesabTemplateRelationsUtil.resetMoeenKolTemplateMap(organId);
 			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(organId);
 			HesabTemplateRelationsUtil.resetAccountingMarkazTemplateMap(organId);
 
 		}
 	}
-	
+
 	public String localTafsilSave() {
-		getEntity().setOrgan(getCurrentOrgan());
+		getEntity().setOrganId(getCurrentOrganVO().getId());
+		getEntity().setOrganName(getCurrentOrganVO().getName());
 //		getEntity().setIsShenavar(Boolean.FALSE);
 		save();
 		return getLocalViewUrl();
 	}
-	
+
 //	public String localShenavarSave() {
 //		getEntity().setOrgan(getCurrentOrgan());
 //		getEntity().setIsShenavar(Boolean.TRUE);
 //		save();
 //		return getLocalViewUrl();
 //	}
-	
+
 	public DataModel<HesabTafsiliEntity> getActiveDataModel() {
-		getFilter().put("hidden@eq", Boolean.FALSE); 
+		getFilter().put("hidden@eq", Boolean.FALSE);
 		getFilter().put("hesabMoeen.hidden@eq", Boolean.FALSE);
 		return super.getDataModel();
 	}
-	
-	public List<SelectItem> getHesabMoeenSelectItems(){
+
+	public List<SelectItem> getHesabMoeenSelectItems() {
 		List<HesabMoeenEntity> moeenList = getHesabMoeenService().getDataList();
 		List<SelectItem> resultList = new ArrayList<SelectItem>();
-				
-		for (HesabMoeenEntity hesabMoeenEntity: moeenList){
+
+		for (HesabMoeenEntity hesabMoeenEntity : moeenList) {
 			resultList.add(new SelectItem(hesabMoeenEntity.getId(), hesabMoeenEntity.getName()));
 		}
-		
+
 		return resultList;
 	}
-	public List<SelectItem> getLocalHesabTafsiliSelectItems(){
+
+	public List<SelectItem> getLocalHesabTafsiliSelectItems() {
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("organ.id@eq", getCurrentOrganVO().getId());
-		List<HesabTafsiliEntity>  list = getMyService().getDataList(null,filter);
+		filter.put("organId@eq", getCurrentOrganVO().getId());
+		List<HesabTafsiliEntity> list = getMyService().getDataList(null, filter);
 		List<SelectItem> resultList = new ArrayList<SelectItem>();
-		for (HesabTafsiliEntity entity: list){
+		for (HesabTafsiliEntity entity : list) {
 			resultList.add(new SelectItem(entity.getId(), entity.getName()));
 		}
-		
+
 		return resultList;
 	}
+
 	@Override
-	public List<? extends BaseEntity> getJsonList(String property, String term,
-			boolean all, Map<String, String> params) {
-		try{
+	public List<? extends BaseEntity> getJsonList(String property, String term, boolean all,
+			Map<String, String> params) {
+		try {
 			String isLocalUser = params.get("isCurrentOrgan");
 //			String isShenavar = params.get("isShenavar");
 			String tafsiliLevel = params.get("tafsiliLevel");
-			
-			this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
-			
-			if (isLocalUser !=null && isLocalUser.equals("true")){
-				getFilter().put("organ.id@eq",getCurrentOrganVO().getId());
+
+			this.getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
+
+			if (isLocalUser != null && isLocalUser.equals("true")) {
+				getFilter().put("organId@eq", getCurrentOrganVO().getId());
 			}
-	
+
 //			if (isShenavar !=null && isShenavar.equals("true")){
 //				getFilter().put("isShenavar@eq",Boolean.TRUE);
 //			}else if (isShenavar !=null && isShenavar.equals("false")){
 //				getFilter().put("isShenavar@eq",Boolean.FALSE);
 //			}
-			
-			if (StringUtil.hasText(tafsiliLevel)){
-				getFilter().put("level@eq",new Integer(tafsiliLevel));
-			}else{
-				//throw new FatalException("tafsili level is null");
+
+			if (StringUtil.hasText(tafsiliLevel)) {
+				getFilter().put("level@eq", new Integer(tafsiliLevel));
+			} else {
+				// throw new FatalException("tafsili level is null");
 				return new ArrayList<>();
 			}
-			
+
 			String isHierarchical = params.get("isHierarchical");
 			String hidden = params.get("hidden");
-			
-			if(StringUtils.hasText(hidden) && hidden.equals("false")){
-				this.getFilter().put("hidden@eq",false);
+
+			if (StringUtils.hasText(hidden) && hidden.equals("false")) {
+				this.getFilter().put("hidden@eq", false);
 			}
-			
-			if (isHierarchical !=null && isHierarchical.equals("true")){
+
+			if (isHierarchical != null && isHierarchical.equals("true")) {
 				List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-				getFilter().put("organ.id@in", topOrganList);
-				
-				params.put("isLocal","false");
+				getFilter().put("organId@in", topOrganList);
+
+				params.put("isLocal", "false");
 			}
-			
+
 			return super.getJsonList(property, term, all, params);
-		}catch(NoSaalMaaliFoundException e){
-			//e.printStackTrace();
+		} catch (NoSaalMaaliFoundException e) {
+			// e.printStackTrace();
 			System.out.println(e.getMessage());
 			return new ArrayList<>();
 		}
 	}
-	
+
 	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliMoeenMap() {
-		return HesabRelationsUtil.getTafsiliMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
-	}
-	
-	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliChildMap() {
-		return HesabRelationsUtil.getTafsiliChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
-	}
-	
-	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliAccountingMarkazChildMap() {
-		return HesabRelationsUtil.getTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
+		return HesabRelationsUtil.getTafsiliMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList());
 	}
 
-	public String importFromHesabTafsiliTemplateList(){
-		try{
-		getMyService().importFromHesabTafsiliTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode());
-		setDataModel(null);
-		return null;
-		}catch (Exception e) {
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliChildMap() {
+		return HesabRelationsUtil.getTafsiliChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList());
+	}
+
+	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliAccountingMarkazChildMap() {
+		return HesabRelationsUtil.getTafsiliAccountingMarkazChildMap(getCurrentUserActiveSaalMaali(),
+				getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
+	}
+
+	public String importFromHesabTafsiliTemplateList() {
+		try {
+			getMyService().importFromHesabTafsiliTemplateList(getCurrentUserActiveSaalMaali(),
+					getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(),
+					getCurrentOrganVO().getTopParentCode(), getCurrentOrganVO().getName());
+			setDataModel(null);
+			return null;
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -359,15 +363,15 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 
 	@Override
 	public String delete() {
-		if(!getIsForMyOrgan())
+		if (!getIsForMyOrgan())
 			throw new FatalException(SerajMessageUtil.getMessage("common_deleteNotAllowed"));
 		return super.delete();
 	}
 
 	public boolean getIsForMyOrgan() {
-		if(getEntity() == null || getEntity().getId() == null)
+		if (getEntity() == null || getEntity().getId() == null)
 			return true;
-		return getEntity().getOrgan().getId().equals(getCurrentOrganVO().getId());
+		return getEntity().getOrganId().equals(getCurrentOrganVO().getId());
 	}
 
 //	public String localShenavarEdit() {
@@ -377,13 +381,13 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 	List<HesabClassificationEntity> hesabClassifications;
 
 	public List<HesabClassificationEntity> getHesabClassifications() {
-		if(hesabClassifications == null) {
-			if(getEntity().getLevel()!=null) {
+		if (hesabClassifications == null) {
+			if (getEntity().getLevel() != null) {
 				Map<String, Object> localFilter = new HashMap<>();
 				localFilter.put("level@eq", getEntity().getLevel());
-				localFilter.put("organ.id@eq", getCurrentOrganVO().getId());
+				localFilter.put("organId@eq", getCurrentOrganVO().getId());
 				hesabClassifications = getHesabClassificationService().getDataList(localFilter);
-			}else
+			} else
 				hesabClassifications = new ArrayList<>();
 		}
 		return hesabClassifications;
@@ -397,7 +401,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity,Long
 //		Integer level= (Integer) ((UIOutput) vce.getSource()).getValue();
 //		if(level == null)
 //			getEntity().setLevel(null);
-		//System.out.println(getEntity().getLevel());
+		// System.out.println(getEntity().getLevel());
 		setHesabClassifications(null);
 	}
 }

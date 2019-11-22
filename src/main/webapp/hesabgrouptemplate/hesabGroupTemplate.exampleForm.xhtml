@@ -25,8 +25,8 @@
 				</h:panelGroup>
 				<h:panelGroup>
 				<custom:lov id="organ" 
-						identity="#{hesabGroupTemplate.filter['organ.id@eq']}"
-						desc="#{hesabGroupTemplate.example.organ.desc}"
+						identity="#{owner.filter['organId@eq']}"
+						desc="#{owner.descMap['organId@eq']}"
 				  		url="${request.contextPath}/organ/organ.lov.jsf?pId=organ" />
 					
 				</h:panelGroup>
@@ -35,7 +35,7 @@
 					<h:panelGroup>
 					<h:outputLabel for="name" value="#{messages['HesabGroupTemplate_name']}" /> : 
 				</h:panelGroup>				
-				<p:inputText id="name" value="#{hesabGroupTemplate.filter['name@lk']}" />
+				<p:inputText id="name" value="#{owner.filter['name@lk']}" />
 						<h:panelGroup>
 					<h:outputLabel for="mahyatGroup" value="#{messages['HesabGroupTemplate_mahyatGroup']}" /> : 
 				</h:panelGroup>					

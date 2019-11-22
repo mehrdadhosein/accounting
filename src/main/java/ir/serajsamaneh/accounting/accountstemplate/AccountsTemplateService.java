@@ -1,16 +1,5 @@
 package ir.serajsamaneh.accounting.accountstemplate;
 
-import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
-import ir.serajsamaneh.accounting.base.BaseAccountingService;
-import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemTemplateEntity;
-import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemTemplateService;
-import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
-import ir.serajsamaneh.core.util.ActionLogUtil;
-import ir.serajsamaneh.core.util.SerajMessageUtil;
-import ir.serajsamaneh.core.util.XMLUtil;
-import ir.serajsamaneh.enumeration.ActionTypeEnum;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,6 +19,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
+import ir.serajsamaneh.accounting.base.BaseAccountingService;
+import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemTemplateEntity;
+import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemTemplateService;
+import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.util.ActionLogUtil;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
+import ir.serajsamaneh.core.util.XMLUtil;
+import ir.serajsamaneh.enumeration.ActionTypeEnum;
 
 public class AccountsTemplateService extends
 		BaseAccountingService<AccountsTemplateEntity, Long> {
@@ -108,7 +107,7 @@ public class AccountsTemplateService extends
 			String actionId, AccountingMarkazEntity accountingMarkaz, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("actionId@eq", actionId);
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		localFilter.put("accountingMarkaz.id@eq", accountingMarkaz.getId());
 		List<AccountsTemplateEntity> dataList = getDataList(null, localFilter, FlushMode.MANUAL, true);
 		if(dataList.size() == 1)
@@ -122,7 +121,7 @@ public class AccountsTemplateService extends
 	public AccountsTemplateEntity loadTemplateByActionId(String actionId, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("actionId@eq", actionId);
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		List<AccountsTemplateEntity> dataList = getDataList(null, localFilter, FlushMode.MANUAL, true);
 		if(dataList.size() == 1)
 			return dataList.get(0);
@@ -133,17 +132,17 @@ public class AccountsTemplateService extends
 	}
 
 	@Transactional
-	public void createAutomaticSanadTemplates(OrganEntity organEntity) {
+	public void createAutomaticSanadTemplates(Long organId) {
 		getLogger().info("initializing accounts tempaltes");
 		try {
-			createDefaultAutomaticSanadTemplates(organEntity);
+			createDefaultAutomaticSanadTemplates(organId);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	@Transactional
-	private void createDefaultAutomaticSanadTemplates(OrganEntity organEntity) throws IOException{
+	private void createDefaultAutomaticSanadTemplates(Long organId) throws IOException{
 		URL resource = getClass().getResource("/config/automaticSanadTemplates");
 		if (resource == null)
 			return;
@@ -164,7 +163,7 @@ public class AccountsTemplateService extends
 				Element accounts = (Element) item;
 	
 				NodeList childNodes = accounts.getChildNodes();
-				createDefaultAutomaticSanadTemplates(childNodes, organEntity);
+				createDefaultAutomaticSanadTemplates(childNodes, organId);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 //				throw new IllegalStateException();
@@ -177,31 +176,31 @@ public class AccountsTemplateService extends
 	}
 	
 	@Transactional
-	public void createDefaultAutomaticSanadTemplates(NodeList childNodes, OrganEntity organEntity) {
+	public void createDefaultAutomaticSanadTemplates(NodeList childNodes, Long organId) {
 		for (int s = 0; s < childNodes.getLength(); s++) {
 			Node accountNode = childNodes.item(s);
 			if (accountNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element nodeElem = (Element) accountNode;
-				createAutomaticSanadTemplate(nodeElem, organEntity);
+				createAutomaticSanadTemplate(nodeElem, organId);
 			}
 		}
 	}
 	
 	@Transactional
-	private void createAutomaticSanadTemplate(Element automaticSanadTemplateElem, OrganEntity organEntity) {
+	private void createAutomaticSanadTemplate(Element automaticSanadTemplateElem, Long organId) {
 		String automaticSanadTemplateName = automaticSanadTemplateElem.getAttribute("actionName");
 		String automaticSanadTemplateActionId = automaticSanadTemplateElem.getAttribute("actionId");
 		String automaticSanadTemplateDescription = automaticSanadTemplateElem.getAttribute("description");
 		Boolean createBedehkar = new Boolean(automaticSanadTemplateElem.getAttribute("createBedehkar"));
 		Boolean createBestankar = new Boolean(automaticSanadTemplateElem.getAttribute("createBestankar"));
 		
-		AccountsTemplateEntity accountsTemplateEntity = getAccountsTemplateByActionId(automaticSanadTemplateActionId, organEntity.getId());
+		AccountsTemplateEntity accountsTemplateEntity = getAccountsTemplateByActionId(automaticSanadTemplateActionId, organId);
 		if (accountsTemplateEntity == null)
 			accountsTemplateEntity = new AccountsTemplateEntity();
 		accountsTemplateEntity.setActionName(automaticSanadTemplateName);
 		accountsTemplateEntity.setActionId(automaticSanadTemplateActionId);
 		accountsTemplateEntity.setDescription(automaticSanadTemplateDescription);
-		accountsTemplateEntity.setOrgan(organEntity);
+		accountsTemplateEntity.setOrganId(organId);
 		
 		List<SanadHesabdariItemTemplateEntity> sanadHesabdariItemList = new ArrayList<SanadHesabdariItemTemplateEntity>();
 		if(createBedehkar){
@@ -228,7 +227,7 @@ public class AccountsTemplateService extends
 	private AccountsTemplateEntity getAccountsTemplateByActionId(String automaticSanadTemplateActionId, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("actionId@eq", automaticSanadTemplateActionId);
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		List<AccountsTemplateEntity> dataList = getDataList(null, localFilter,"", null, FlushMode.MANUAL,false);
 		return (ir.serajsamaneh.accounting.accountstemplate.AccountsTemplateEntity) getUniqueResult(dataList);
 	}

@@ -1,11 +1,9 @@
 package ir.serajsamaneh.accounting.accountingmarkazgroup;
 
-import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
-import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
-import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
-import ir.serajsamaneh.core.base.BaseEntity;
-
 import java.io.Serializable;
+
+import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
+import ir.serajsamaneh.core.base.BaseEntity;
 
 
 /**
@@ -19,6 +17,10 @@ import java.io.Serializable;
 
 public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6795127267416273789L;
 	public static String REF = "GroupKalaEntity";
 	public static String PROP_NAME = "name";
 	public static String PROP_PARENT = "parent";
@@ -40,15 +42,6 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 		initialize();
 	}
 	
-	/**
-	 * Constructor for required key
-	 */
-	public BaseAccountingMarkazGroupEntity (java.lang.Long id, 
-			ir.serajsamaneh.core.organ.OrganEntity organ) {
-		this.setId(id);
-		this.setOrgan(organ);
-		initialize();
-	}
 
 	protected void initialize () {}
 
@@ -64,9 +57,11 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 	private java.lang.String code;
 	private java.lang.String description;
 	private java.lang.Integer level;
+	Long organId;
+	String organName;
 	
 	// many to one
-	private ir.serajsamaneh.core.organ.OrganEntity organ;
+//	private ir.serajsamaneh.core.organ.OrganEntity organ;
 	private AccountingMarkazGroupEntity parent;
 	private java.util.Set<AccountingMarkazTemplateEntity> accountingMarkazTemplates;
 
@@ -143,22 +138,38 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 	}
 	
 	
-	/**
-	 * Return the value associated with the column: organ_id
-	 */
-	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
-		return organ;
+//	/**
+//	 * Return the value associated with the column: organ_id
+//	 */
+//	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
+//		return organ;
+//	}
+//
+//	/**
+//	 * Set the value related to the column: organ_id
+//	 * @param organ the organ_id value
+//	 */
+//	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
+//		this.organ = organ;
+//	}
+
+
+
+	public Long getOrganId() {
+		return organId;
 	}
 
-	/**
-	 * Set the value related to the column: organ_id
-	 * @param organ the organ_id value
-	 */
-	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
-		this.organ = organ;
+	public String getOrganName() {
+		return organName;
 	}
 
+	public void setOrganName(String organName) {
+		this.organName = organName;
+	}
 
+	public void setOrganId(Long organId) {
+		this.organId = organId;
+	}
 
 	/**
 	 * Return the value associated with the column: parent_id

@@ -1,11 +1,8 @@
 package ir.serajsamaneh.accounting.hesabgrouptemplate;
 
 import java.io.Serializable;
-import ir.serajsamaneh.core.base.BaseEntity;
-import serajcomponent.DateConverter;
-import serajcomponent.SerajDateTimePickerType;
 
-import java.util.HashSet;
+import ir.serajsamaneh.core.base.BaseEntity;
 
 
 
@@ -20,6 +17,10 @@ import java.util.HashSet;
 
 public abstract class BaseHesabGroupTemplateEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7881356358105432517L;
 	public static String REF = "HesabGroupTemplateEntity";
 	public static String PROP_NAME = "name";
 	public static String PROP_ORGAN = "organ";
@@ -53,9 +54,11 @@ public abstract class BaseHesabGroupTemplateEntity  extends BaseEntity<Long>   i
 	// fields
 	private java.lang.String name;
 	private java.lang.Long code;
+	Long organId;
+	String organName;
 
 	// many to one
-	private ir.serajsamaneh.core.organ.OrganEntity organ;
+//	private ir.serajsamaneh.core.organ.OrganEntity organ;
 
 
 
@@ -116,23 +119,39 @@ public abstract class BaseHesabGroupTemplateEntity  extends BaseEntity<Long>   i
 
 
 
-	/**
-	 * Return the value associated with the column: organ_id
-	 */
-	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
-		return organ;
+//	/**
+//	 * Return the value associated with the column: organ_id
+//	 */
+//	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
+//		return organ;
+//	}
+//
+//	/**
+//	 * Set the value related to the column: organ_id
+//	 * @param organ the organ_id value
+//	 */
+//	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
+//		this.organ = organ;
+//	}
+
+
+
+
+	public Long getOrganId() {
+		return organId;
 	}
 
-	/**
-	 * Set the value related to the column: organ_id
-	 * @param organ the organ_id value
-	 */
-	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
 	}
 
+	public String getOrganName() {
+		return organName;
+	}
 
-
+	public void setOrganName(String organName) {
+		this.organName = organName;
+	}
 
 	public boolean equals (Object obj) {
 		if (null == obj) return false;

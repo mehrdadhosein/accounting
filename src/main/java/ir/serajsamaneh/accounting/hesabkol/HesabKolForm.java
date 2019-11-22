@@ -26,7 +26,6 @@ import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateServi
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabEntity;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
@@ -131,7 +130,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	
 	public List<SelectItem> getHesabGroup(){
 		Map<String, Object> filter=new HashMap<String, Object>();
-		//filter.put("organ.id@eq",getCurrentOrgan().getId());
+		//filter.put("organId@eq",getCurrentOrgan().getId());
 		List<HesabGroupEntity> list = hesabGroupService.getDataList(null, filter);
 		
 		List<SelectItem> selectItemList = new ArrayList<SelectItem>();
@@ -146,8 +145,9 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	
 	@Override
 	public String save() {
-		getEntity().setOrgan(getCurrentOrgan()); 
-		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getCurrentOrganVO().getTopOrgansIdList());
+		getEntity().setOrganId(getCurrentOrganVO().getId()); 
+		getEntity().setOrganName(getCurrentOrganVO().getName());
+		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
 		resetHesabRelations();
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
@@ -157,7 +157,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		List<Long> subsetOrganIds = getRelatedOrganIds();
 		for (Long organId : subsetOrganIds) {
 //			OrganEntity organEntity = organService.load(organId);
-			HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
+			HesabRelationsUtil.resetKolMoeenMap(getCurrentUserActiveSaalMaali(), organId);
 		}
 	}
 
@@ -166,11 +166,11 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 
 
 	public String importFromHesabKolTemplateList(){
-		getMyService().createDefaultAccounts(getCurrentUserActiveSaalMaali().getOrgan());
-		hesabGroupService.importFromHesabGroupTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
-		getMyService().importFromHesabKolTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getCurrentOrganVO().getTopOrgansIdList());
-		getHesabMoeenService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getCurrentOrganVO().getTopOrgansIdList());
-		getHesabTafsiliService().importFromHesabTafsiliTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrgan(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode());
+		getMyService().createDefaultAccounts(getCurrentUserActiveSaalMaali().getOrganId(), getCurrentUserActiveSaalMaali().getOrganName());
+		hesabGroupService.importFromHesabGroupTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrganVO());
+		getMyService().importFromHesabKolTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
+		getHesabMoeenService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
+		getHesabTafsiliService().importFromHesabTafsiliTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode(), getCurrentOrganVO().getName());
 		
 
 		setDataModel(null); 
@@ -275,7 +275,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		if (isHierarchical !=null && isHierarchical.equals("true")){
 			
 			List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-			getFilter().put("organ.id@in", topOrganList);
+			getFilter().put("organId@in", topOrganList);
 			
 //			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 			params.put("isLocal","false");
@@ -392,46 +392,43 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		return treeXml;
 	}
 	
-	public String getRelatedHesabTreeByOrgan(Long organId){
-		
-		List<HesabVO> hesabVOs = new ArrayList<HesabVO>();
-		
-		try{
-			ContactHesabEntity contactHesabEntity = getContactHesabService().getContactHesabByContactId(organService.load(organId).getContact().getId(), getCurrentUserActiveSaalMaali());
-			
-			HesabTafsiliEntity hesabTafsiliEntity = contactHesabEntity.getHesabTafsiliOne();
-			HesabMoeenEntity hesabMoeenEntity = contactHesabEntity.getHesabMoeen();
-			
-			if(hesabTafsiliEntity!=null){
-				HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, hesabTafsiliEntity);
-				
-				Set<HesabTafsiliEntity> parents = hesabTafsiliEntity.getParents();
-				for (HesabTafsiliEntity tafsiliEntity : parents) {
-					HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, tafsiliEntity);
-				}
-			}else if(hesabMoeenEntity!=null){
-				HesabKolEntity hesabKolEntity = hesabMoeenEntity.getHesabKol();
-				
-				HesabVO hesabKolVO = HesabTreeUtil.addHesabKolToHesabVOs(hesabKolEntity, hesabVOs);
-				HesabVO hesabMoeenVO = new HesabVO(hesabMoeenEntity, HesabMoeenEntity.class.getSimpleName(), "folder-vectors-icon.png");
-				hesabMoeenVO.setParent(hesabKolVO);
-				hesabKolVO.getChilds().add(hesabMoeenVO);
-				
-				HesabTreeUtil.addHesabMoeenToHesabKol(hesabKolVO, hesabMoeenEntity, hesabVOs);				
-			}
-			
-		}catch(FatalException e){
-			System.out.println(e.getMessage());
-//			throw new FatalException();
-		}catch (Exception e) {
-			e.printStackTrace();
-//			throw new FatalException();
-		}
-		
-		
-		String treeXml = createDHTMLXTreeXML(hesabVOs);
-		return treeXml;
-	}
+//	public String getRelatedHesabTreeByOrgan(Long organId){
+//		
+//		List<HesabVO> hesabVOs = new ArrayList<HesabVO>();
+//		
+//		try{
+//			ContactHesabEntity contactHesabEntity = getContactHesabService().getContactHesabByContactId(organService.load(organId).getContact().getId(), getCurrentUserActiveSaalMaali());
+//			
+//			HesabTafsiliEntity hesabTafsiliEntity = contactHesabEntity.getHesabTafsiliOne();
+//			HesabMoeenEntity hesabMoeenEntity = contactHesabEntity.getHesabMoeen();
+//			
+//			if(hesabTafsiliEntity!=null){
+//				HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, hesabTafsiliEntity);
+//				
+//				Set<HesabTafsiliEntity> parents = hesabTafsiliEntity.getParents();
+//				for (HesabTafsiliEntity tafsiliEntity : parents) {
+//					HesabTreeUtil.addHesabTafsilisToHesabMoeen(hesabVOs, tafsiliEntity);
+//				}
+//			}else if(hesabMoeenEntity!=null){
+//				HesabKolEntity hesabKolEntity = hesabMoeenEntity.getHesabKol();
+//				
+//				HesabVO hesabKolVO = HesabTreeUtil.addHesabKolToHesabVOs(hesabKolEntity, hesabVOs);
+//				HesabVO hesabMoeenVO = new HesabVO(hesabMoeenEntity, HesabMoeenEntity.class.getSimpleName(), "folder-vectors-icon.png");
+//				hesabMoeenVO.setParent(hesabKolVO);
+//				hesabKolVO.getChilds().add(hesabMoeenVO);
+//				
+//				HesabTreeUtil.addHesabMoeenToHesabKol(hesabKolVO, hesabMoeenEntity, hesabVOs);				
+//			}
+//			
+//		}catch(FatalException e){
+//			System.out.println(e.getMessage());
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		String treeXml = createDHTMLXTreeXML(hesabVOs);
+//		return treeXml;
+//	}
 
 	@Override
 	public String delete() {
@@ -443,7 +440,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 	public boolean getIsForMyOrgan() {
 		if(getEntity() == null || getEntity().getId() == null)
 			return true;
-		return getEntity().getOrgan().getId().equals(getCurrentOrganVO().getId());
+		return getEntity().getOrganId().equals(getCurrentOrganVO().getId());
 	}
 
 }

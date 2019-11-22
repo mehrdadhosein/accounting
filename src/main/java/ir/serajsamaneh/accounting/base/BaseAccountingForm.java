@@ -82,18 +82,78 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 		this.saalMaaliService = saalMaaliService;
 	}
 	
+	@Override
 	public DataModel<T> getLocalDataModel() {
 		if(getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			return getEmptyDataModel();
-		getFilter().put("organ.id@eq",	getCurrentOrganVO().getId());
+		getFilter().put("organId@eq",	getCurrentOrganVO().getId());
 		return getDataModel();
 	}
 	
+	@Override
 	public Integer getLocalDataModelCount() {
 		if(getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			return -1;
-		getFilter().put("organ.id@eq",	getCurrentOrganVO().getId());
+		getFilter().put("organId@eq",	getCurrentOrganVO().getId());
 		return getMyService().getRowCount(null, getFilter());
+	}
+	
+	@Override
+	public DataModel<T> getUpsetDataModel() {
+		
+		if (getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
+			return getEmptyDataModel();
+
+		if(getSelectedOrganId()!=null)
+			getFilter().put("organId@eq", getSelectedOrganId());		
+		else
+			getFilter().put("organId@eq", null);
+		
+		List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
+		
+		getFilter().put("organId@in", topOrganList);
+		return getDataModel();
+	}
+	
+	@Override
+	public Integer getUpsetDataModelCount() {
+		
+		if (getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
+			return -1;
+		
+		if(getSelectedOrganId()!=null)
+			getFilter().put("organId@eq", getSelectedOrganId());		
+		else
+			getFilter().put("organId@eq", null);
+		
+		List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
+		
+		getFilter().put("organId@in", topOrganList);
+		return getDataModelCount();
+	}
+	
+	@Override
+	public DataModel<T> getHierarchicalDataModel() {
+		if(getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
+			return getEmptyDataModel();
+		if(getSelectedOrganId()!=null)
+			getFilter().put("organId@eq", getSelectedOrganId());		
+		else
+			getFilter().put("organId@eq", null);
+		getFilter().put("organId@in",	getCurrentOrganVO().getTopOrgansIdList());
+		return getDataModel();
+	}
+	
+	@Override
+	public Integer getHierarchicalDataModelCount() {
+		if(getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
+			return -1;
+		if(getSelectedOrganId()!=null)
+			getFilter().put("organId@eq", getSelectedOrganId());		
+		else
+			getFilter().put("organId@eq", null);		
+		getFilter().put("organId@in",	getCurrentOrganVO().getTopOrgansIdList());
+		return getDataModelCount();
 	}
 	
 	protected String createDHTMLXTreeXML(List<HesabVO> list) {
@@ -198,7 +258,7 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 	
 	protected void populateTopOrgansIdListFilter() {
 		List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-		getFilter().put("organ.id@in", topOrganList);
+		getFilter().put("organId@in", topOrganList);
 	}
 
 	private UserEntity currentUser;

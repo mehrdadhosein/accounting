@@ -17,7 +17,7 @@ public class HesabMoeenTemplateDAO  extends BaseHibernateDAO<HesabMoeenTemplateE
 		
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
-		localFilter.put("organ.id@eq", organId);
+		localFilter.put("organId@eq", organId);
 		List<HesabMoeenTemplateEntity> dataList = getDataList(null, localFilter,null, null, FlushMode.MANUAL,false);
 		if (dataList.size() == 1)
 			return dataList.get(0);
@@ -29,7 +29,7 @@ public class HesabMoeenTemplateDAO  extends BaseHibernateDAO<HesabMoeenTemplateE
 
 	private void checkHesabTemplateUniqueNess(HesabMoeenTemplateEntity entity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organ.id@eq", entity.getOrgan().getId());
+		localFilter.put("organId@eq", entity.getOrganId());
 		checkUniqueNess(entity, HesabMoeenTemplateEntity.PROP_CODE, entity.getCode(), localFilter, false);
 		checkUniqueNess(entity, HesabMoeenTemplateEntity.PROP_NAME, entity.getName(), localFilter, false);
 	}
@@ -37,11 +37,11 @@ public class HesabMoeenTemplateDAO  extends BaseHibernateDAO<HesabMoeenTemplateE
 	@Override
 	public void saveOrUpdate(HesabMoeenTemplateEntity entity) {
 		
-		if(entity.getOrgan()!=null && entity.getOrgan().getId()!=null){
-			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetMoeenKolTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetAccountingMarkazTemplateMap(entity.getOrgan().getId());
+		if(entity.getOrganId()!=null){
+			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetMoeenKolTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetAccountingMarkazTemplateMap(entity.getOrganId());
 		}
 
 		checkHesabTemplateUniqueNess(entity);
@@ -51,11 +51,11 @@ public class HesabMoeenTemplateDAO  extends BaseHibernateDAO<HesabMoeenTemplateE
 	@Override
 	public void save(HesabMoeenTemplateEntity entity) {
 
-		if(entity.getOrgan()!=null && entity.getOrgan().getId()!=null){
-			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetMoeenKolTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(entity.getOrgan().getId());
-			HesabTemplateRelationsUtil.resetAccountingMarkazTemplateMap(entity.getOrgan().getId());
+		if(entity.getOrganId()!=null){
+			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetMoeenKolTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetmoeenTafsiliTemplateMap(entity.getOrganId());
+			HesabTemplateRelationsUtil.resetAccountingMarkazTemplateMap(entity.getOrganId());
 		}
 		checkHesabTemplateUniqueNess(entity);
 		super.save(entity);

@@ -22,17 +22,6 @@ public class ContactHesabEntity extends BaseContactHesabEntity {
 		super(id);
 	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public ContactHesabEntity (
-		java.lang.Long id,
-		ir.serajsamaneh.core.contact.contact.ContactEntity contact) {
-
-		super (
-			id,
-			contact);
-	}
 
 /*[CONSTRUCTOR MARKER END]*/
 

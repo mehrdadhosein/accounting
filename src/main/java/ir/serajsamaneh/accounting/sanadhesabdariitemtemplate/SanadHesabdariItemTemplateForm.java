@@ -54,20 +54,20 @@ public class SanadHesabdariItemTemplateForm extends BaseEntityForm<SanadHesabdar
 	}
 
 	public String localSave(OrganEntity currentOrgan) {
-		if (getEntity().getOrgan() == null || getEntity().getOrgan().getId() == null)
-			getEntity().setOrgan(currentOrgan);
+		if (getEntity().getOrganId() == null)
+			getEntity().setOrganId(currentOrgan.getId());
 
 		save();
 		return getLocalViewUrl();
 	}
 
 	public DataModel<SanadHesabdariItemTemplateEntity> getLocalDataModel() {
-		getFilter().put("organ.id@eq", getCurrentOrganVO().getId());
+		getFilter().put("organId@eq", getCurrentOrganVO().getId());
 		return getDataModel();
 	}
 
 	public DataModel<SanadHesabdariItemTemplateEntity> getLocalArchiveDataModel() {
-		getFilter().put("organ.id@eq", getCurrentOrganVO().getId());
+		getFilter().put("organId@eq", getCurrentOrganVO().getId());
 		return getLocalDataModel();
 	}
 

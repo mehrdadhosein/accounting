@@ -23,31 +23,32 @@ public class MonthForm   extends BaseAccountingForm<MonthEntity,Long>  {
 
 	public String localSave() {
 		if(getEntity().getId() == null){
-			getEntity().setOrgan(getCurrentOrgan());
+			getEntity().setOrganId(getCurrentOrganVO().getId());
+			getEntity().setOrganName(getCurrentOrganVO().getName());
 			getEntity().setSaalMaali(getCurrentUserActiveSaalMaali());
 		}
 		
-		getMyService().save(getEntity(),getCurrentOrgan());
+		getMyService().save(getEntity(),getCurrentOrganVO().getId());
 		return getLocalViewUrl();
 	}
 	
 	public void createDefaultMonthForCurrentSaalMaali(){
-		getMyService().createDefaultMonthForCurrentSaalMaali(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
+		getMyService().createDefaultMonthForCurrentSaalMaali(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId());
 	}
 	
-	public DataModel getLocalDataModel() {
+	public DataModel<MonthEntity> getLocalDataModel() {
 //		setRowsPerPage(-1);
-		getFilter().put("organ.id@eq", getCurrentOrganVO().getId());
+		getFilter().put("organId@eq", getCurrentOrganVO().getId());
 		return getDataModel();
 	}
 	
-	public DataModel getSaalMaaliDataModel() {
+	public DataModel<MonthEntity> getSaalMaaliDataModel() {
 //		setRowsPerPage(-1);
 		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		return getDataModel();
 	}
 	
-	public DataModel getLocalArchiveDataModel() {
+	public DataModel<MonthEntity> getLocalArchiveDataModel() {
 		return getDataModel();
 	}	
 	

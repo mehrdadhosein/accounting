@@ -1,11 +1,8 @@
 package ir.serajsamaneh.accounting.accountingmarkaz;
 
 import java.io.Serializable;
-import ir.serajsamaneh.core.base.BaseEntity;
-import serajcomponent.DateConverter;
-import serajcomponent.SerajDateTimePickerType;
 
-import java.util.HashSet;
+import ir.serajsamaneh.core.base.BaseEntity;
 
 
 
@@ -20,6 +17,10 @@ import java.util.HashSet;
 
 public abstract class BaseAccountingMarkazEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8559808252388786326L;
 	public static String REF = "HesabTafsiliEntity";
 	public static String PROP_HESAB_TAFSILI_TEMPLATE = "hesabTafsiliTemplate";
 	public static String PROP_NAME = "name";
@@ -48,19 +49,7 @@ public abstract class BaseAccountingMarkazEntity  extends BaseEntity<Long>   imp
 		initialize();
 	}
 
-	/**
-	 * Constructor for required fields
-	 */
-	public BaseAccountingMarkazEntity (
-		java.lang.Long id,
-		ir.serajsamaneh.core.organ.OrganEntity organ,
-		ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity saalMaali) {
 
-		this.setId(id);
-		this.setOrgan(organ);
-		this.setSaalMaali(saalMaali);
-		initialize();
-	}
 
 	protected void initialize () {}
 
@@ -78,8 +67,10 @@ public abstract class BaseAccountingMarkazEntity  extends BaseEntity<Long>   imp
 	private java.lang.Double bedehkar;
 	private java.lang.Double bestankr;
 	private java.lang.Integer level;
+	Long organId;
+	String organName;
 	// many to one
-	private ir.serajsamaneh.core.organ.OrganEntity organ;
+//	private ir.serajsamaneh.core.organ.OrganEntity organ;
 	private ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity saalMaali;
 	private ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity hesabTafsiliTemplate;
 
@@ -206,22 +197,38 @@ public abstract class BaseAccountingMarkazEntity  extends BaseEntity<Long>   imp
 
 
 
-	/**
-	 * Return the value associated with the column: organ_id
-	 */
-	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
-		return organ;
+	public Long getOrganId() {
+		return organId;
 	}
 
-	/**
-	 * Set the value related to the column: organ_id
-	 * @param organ the organ_id value
-	 */
-	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
-		this.organ = organ;
+	public void setOrganId(Long organId) {
+		this.organId = organId;
 	}
 
+//	/**
+//	 * Return the value associated with the column: organ_id
+//	 */
+//	public ir.serajsamaneh.core.organ.OrganEntity getOrgan () {
+//		return organ;
+//	}
+//
+//	/**
+//	 * Set the value related to the column: organ_id
+//	 * @param organ the organ_id value
+//	 */
+//	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
+//		this.organ = organ;
+//	}
 
+
+
+	public String getOrganName() {
+		return organName;
+	}
+
+	public void setOrganName(String organName) {
+		this.organName = organName;
+	}
 
 	/**
 	 * Return the value associated with the column: saal_maali_id

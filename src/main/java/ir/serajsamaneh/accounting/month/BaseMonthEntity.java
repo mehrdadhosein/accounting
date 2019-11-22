@@ -3,11 +3,8 @@ package ir.serajsamaneh.accounting.month;
 import java.io.Serializable;
 
 import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
-
-import java.util.HashSet;
 
 
 
@@ -22,6 +19,10 @@ import java.util.HashSet;
 
 public abstract class BaseMonthEntity  extends BaseEntity<Long>   implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4073405807613032501L;
 	public static String REF = "MonthEntity";
 	public static String PROP_NAME = "name";
 	public static String PROP_DESCRIPTION = "description";
@@ -72,23 +73,24 @@ public abstract class BaseMonthEntity  extends BaseEntity<Long>   implements Ser
 	private java.util.Date startDate;
 	private java.util.Date endDate;
 	private Integer radif;
-
+	Long organId;
+	String organName;
 
 
 
 	// many to one
 	private ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity saalMaali;
-	private OrganEntity organ;
-
-
-
-	public OrganEntity getOrgan() {
-		return organ;
-	}
-
-	public void setOrgan(OrganEntity organ) {
-		this.organ = organ;
-	}
+//	private OrganEntity organ;
+//
+//
+//
+//	public OrganEntity getOrgan() {
+//		return organ;
+//	}
+//
+//	public void setOrgan(OrganEntity organ) {
+//		this.organ = organ;
+//	}
 
 	/**
 	 * Return the unique identifier of this class
@@ -108,6 +110,23 @@ public abstract class BaseMonthEntity  extends BaseEntity<Long>   implements Ser
 		this.id = id;
 		setID(id);
 		this.hashCode = Integer.MIN_VALUE;
+	}
+
+
+	public Long getOrganId() {
+		return organId;
+	}
+
+	public void setOrganId(Long organId) {
+		this.organId = organId;
+	}
+
+	public String getOrganName() {
+		return organName;
+	}
+
+	public void setOrganName(String organName) {
+		this.organName = organName;
 	}
 
 

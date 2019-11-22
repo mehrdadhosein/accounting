@@ -34,10 +34,13 @@
 			<one-to-many
 				class='ir.serajsamaneh.accounting.moeenaccountingmarkaz.MoeenAccountingMarkazEntity' />
 		</set>
-		<many-to-one name='organ' class='ir.serajsamaneh.core.organ.OrganEntity'
+		
+		<property name='organId' type='java.lang.Long' column='organ_id'/>
+		<property name='organName' type='java.lang.String' column='organ_name'/>
+<!-- 		<many-to-one name='organ' class='ir.serajsamaneh.core.organ.OrganEntity'
 			foreign-key='fk_hesab_moeen_organ_id'>
 			<column name='organ_id' />
-		</many-to-one>
+		</many-to-one> -->
 		<property name='scope' type='HesabScopeEnum' column='scope' />
 		<many-to-one name='saalMaali'
 			class='ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity'

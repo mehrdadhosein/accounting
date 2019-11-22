@@ -46,8 +46,8 @@
 				<h:outputLabel for="organSearch" value="#{messages['SanadHesabdari_organ']}" />
 				<h:panelGroup>
 				<custom:lov id="organSearch" 
-						identity="#{sanadHesabdari.filter['organ.id@eq']}"
-						desc="#{sanadHesabdari.example.organ.desc}"
+						identity="#{sanadHesabdari.filter['organId@eq']}"
+						desc="#{owner.descMap['organId@eq']}"
 				  		url="${request.contextPath}/organ/organ.lov.jsf?pId=organSearch" />
 					
 				</h:panelGroup>

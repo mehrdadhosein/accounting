@@ -133,7 +133,7 @@ public class ContactHesabService extends
 		
 		HashMap<String,Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", saalMaali.getId());
-		localFilter.put("contact.organ.id@eq", organEntity.getId());
+		localFilter.put("contact.organId@eq", organEntity.getId());
 		List<ContactHesabEntity> dataList = getDataList(null, localFilter);
 		return dataList;
 	}

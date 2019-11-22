@@ -30,7 +30,6 @@ import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
 import ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity;
 import ir.serajsamaneh.accounting.sanadtype.SanadTypeService;
 import ir.serajsamaneh.core.exception.DuplicateException;
-import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.user.UserEntity;
 import ir.serajsamaneh.core.util.ActionLogUtil;
@@ -119,41 +118,41 @@ public class SanadHesabdariUtil {
 		return sanadHesabdariService;
 	}
 	
-	public static SanadHesabdariEntity createMergedSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaali, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser) {
-		return createMergedSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, concatDescriptions, sanadStateEnum, true, saalMaali, deletable, numberOfDecimals, currentUser);
+	public static SanadHesabdariEntity createMergedSanadHesabdari(Long organId,
+			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaali, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser, String organDesc) {
+		return createMergedSanadHesabdari(organId, sanadHesabdariDate, articles, description, sanadType, concatDescriptions, sanadStateEnum, true, saalMaali, deletable, numberOfDecimals, currentUser, organDesc);
 	}
 	
-	public static SanadHesabdariEntity createMergedEkhtetamiehSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, SaalMaaliEntity currentUserActiveSaalMaali, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser) {
+	public static SanadHesabdariEntity createMergedEkhtetamiehSanadHesabdari(Long organId,
+			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, SaalMaaliEntity currentUserActiveSaalMaali, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser, String organDesc) {
 		
-		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organEntity);
+		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organId);
 //		SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().getSaalmaaliByDate(sanadHesabdariDate, organEntity);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : mergedArticles) {
 			sanadHesabdariItemEntity.setDescription(SerajMessageUtil.getMessage("SanadHesabdari_createSanadEkhtetamieh", currentUserActiveSaalMaali.getDesc()));
 		}
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null, currentUserActiveSaalMaali, deletable, numberOfDecimals, currentUser);
+		return createSanadHesabdari(organId, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null, currentUserActiveSaalMaali, deletable, numberOfDecimals, currentUser, organDesc);
 	}
 	
-	public static SanadHesabdariEntity createMergedSanadHesabdari(OrganEntity organEntity,
-			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, SaalMaaliEntity saalMaali, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser) {
+	public static SanadHesabdariEntity createMergedSanadHesabdari(Long organId,
+			Date sanadHesabdariDate, List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, boolean concatDescriptions, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, SaalMaaliEntity saalMaali, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser, String organDesc) {
 		
-		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organEntity);
+		List<SanadHesabdariItemEntity> mergedArticles = createMergedArticles(articles,	concatDescriptions, organId);
 		
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null, saalMaali, deletable, numberOfDecimals, currentUser);
+		return createSanadHesabdari(organId, sanadHesabdariDate, mergedArticles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null, saalMaali, deletable, numberOfDecimals, currentUser, organDesc);
 	}
 
-	public static List<SanadHesabdariItemEntity> createMergedArticles(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
+	public static List<SanadHesabdariItemEntity> createMergedArticles(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, Long organId) {
 		
-		Map<String, SanadHesabdariItemEntity> articlesMap = mergeArtcilesToArticleMap(articles, concatDescriptions, currentOrgan);
+		Map<String, SanadHesabdariItemEntity> articlesMap = mergeArtcilesToArticleMap(articles, concatDescriptions, organId);
 		
 		List<SanadHesabdariItemEntity> mergedArticles = extractSanadArticles(articlesMap);
 		return mergedArticles;
 	}
 	
-	public static List<SanadHesabdariItemEntity> createMergedArticlesKeepingBedehkarBestankar(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
+	public static List<SanadHesabdariItemEntity> createMergedArticlesKeepingBedehkarBestankar(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, Long organId) {
 		
-		Map<String, SanadHesabdariItemEntity> articlesMap = mergeArtcilesKeepingBedehkarBestankarToArticleMap(articles, concatDescriptions, currentOrgan);
+		Map<String, SanadHesabdariItemEntity> articlesMap = mergeArtcilesKeepingBedehkarBestankarToArticleMap(articles, concatDescriptions, organId);
 		
 		List<SanadHesabdariItemEntity> mergedArticles = extractSanadArticles(articlesMap);
 		return mergedArticles;
@@ -174,10 +173,10 @@ public class SanadHesabdariUtil {
 	
 
 	
-	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
+	public static SanadHesabdariEntity createSanadHesabdari(Long organId,
 			Date sanadHesabdariDate,
-			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaaliEntity, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser) {
-		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, true, null, saalMaaliEntity, deletable, numberOfDecimals, currentUser);
+			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaaliEntity, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser, String organDesc) {
+		return createSanadHesabdari(organId, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, true, null, saalMaaliEntity, deletable, numberOfDecimals, currentUser, organDesc);
 	}
 	
 //	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
@@ -186,10 +185,10 @@ public class SanadHesabdariUtil {
 //		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null);
 //	}
 
-	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity, Date sanadHesabdariDate,
+	public static SanadHesabdariEntity createSanadHesabdari(Long organId, Date sanadHesabdariDate,
 			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType,
 			SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, String sanadRole,
-			SaalMaaliEntity saalMaaliEntity, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser) {
+			SaalMaaliEntity saalMaaliEntity, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser, String organDesc) {
 		SanadHesabdariEntity totalSanadHesabdariEntity = new SanadHesabdariEntity();
 		totalSanadHesabdariEntity.setSanadHesabdariItem(new ArrayList<SanadHesabdariItemEntity>());
 		totalSanadHesabdariEntity.setTarikhSanad(sanadHesabdariDate);
@@ -207,13 +206,13 @@ public class SanadHesabdariUtil {
 		
 		
 		if(sanadStateEnum == null)
-			getSanadHesabdariService().saveMovaghat(totalSanadHesabdariEntity, null, organEntity, saalMaaliEntity, validateSaalMaaliInProgress, currentUser);
+			getSanadHesabdariService().saveMovaghat(totalSanadHesabdariEntity, null, organId, saalMaaliEntity, validateSaalMaaliInProgress, currentUser, organDesc);
 		else if(sanadStateEnum.equals(SanadStateEnum.TEMP))
-			getSanadHesabdariService().saveTemp(totalSanadHesabdariEntity, null, organEntity, saalMaaliEntity, validateSaalMaaliInProgress, currentUser);
+			getSanadHesabdariService().saveTemp(totalSanadHesabdariEntity, null, organId, saalMaaliEntity, validateSaalMaaliInProgress, currentUser, organDesc);
 		else if(sanadStateEnum.equals(SanadStateEnum.MOVAGHAT))
-			getSanadHesabdariService().saveMovaghat(totalSanadHesabdariEntity, null, organEntity, saalMaaliEntity, validateSaalMaaliInProgress, currentUser);
+			getSanadHesabdariService().saveMovaghat(totalSanadHesabdariEntity, null, organId, saalMaaliEntity, validateSaalMaaliInProgress, currentUser, organDesc);
 		else if(sanadStateEnum.equals(SanadStateEnum.BARRESI_SHODE))
-			getSanadHesabdariService().saveBarrasiShode(totalSanadHesabdariEntity, organEntity, true, validateSaalMaaliInProgress, numberOfDecimals, currentUser);
+			getSanadHesabdariService().saveBarrasiShode(totalSanadHesabdariEntity, organId, true, validateSaalMaaliInProgress, numberOfDecimals, currentUser, organDesc);
 		return totalSanadHesabdariEntity;
 	}
 	
@@ -227,12 +226,12 @@ public class SanadHesabdariUtil {
 		return sanadHesabdariItemList;
 	}
 	
-	protected static Map<String, SanadHesabdariItemEntity> mergeArtcilesToArticleMap(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
+	protected static Map<String, SanadHesabdariItemEntity> mergeArtcilesToArticleMap(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, Long organId) {
 		
 		Map<String, SanadHesabdariItemEntity> articlesMap = new HashMap<String, SanadHesabdariItemEntity>();
 		
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : articles) {
-			String mapKey = createMapKey(sanadHesabdariItemEntity, currentOrgan);
+			String mapKey = createMapKey(sanadHesabdariItemEntity, organId);
 		
 			
 			mergeArtcilesToArticleMap(concatDescriptions, articlesMap, sanadHesabdariItemEntity, mapKey);
@@ -243,12 +242,12 @@ public class SanadHesabdariUtil {
 	}
 
 	
-	protected static Map<String, SanadHesabdariItemEntity> mergeArtcilesKeepingBedehkarBestankarToArticleMap(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, OrganEntity currentOrgan) {
+	protected static Map<String, SanadHesabdariItemEntity> mergeArtcilesKeepingBedehkarBestankarToArticleMap(List<SanadHesabdariItemEntity> articles, boolean concatDescriptions, Long organId) {
 		
 		Map<String, SanadHesabdariItemEntity> articlesMap = new HashMap<String, SanadHesabdariItemEntity>();
 		
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : articles) {
-			String mapKey = createMapKey(sanadHesabdariItemEntity, currentOrgan);
+			String mapKey = createMapKey(sanadHesabdariItemEntity, organId);
 			if(sanadHesabdariItemEntity.getBedehkar() > 0)
 				mapKey = mapKey + "_bed";
 			else if(sanadHesabdariItemEntity.getBestankar() > 0)
@@ -310,7 +309,7 @@ public class SanadHesabdariUtil {
 
 
 //	public static  List<Integer> getLevels(OrganEntity currentOrgan){
-//		String maxSanadHesabdariTafsilLevel = getSystemConfigService().getValue(currentOrgan.getId(), null, "maxSanadHesabdariTafsilLevel");
+//		String maxSanadHesabdariTafsilLevel = systemConfigService.getValue(currentOrgan.getId(), null, "maxSanadHesabdariTafsilLevel");
 //		ArrayList<Integer> levelList = new ArrayList<Integer>();
 //		if(maxSanadHesabdariTafsilLevel!=null){
 //			Integer maxLevels = new Integer(maxSanadHesabdariTafsilLevel);
@@ -323,7 +322,7 @@ public class SanadHesabdariUtil {
 //	}
 	
 	public static String createMapKey(
-			SanadHesabdariItemEntity sanadHesabdariItemEntity, OrganEntity currentOrgan) {
+			SanadHesabdariItemEntity sanadHesabdariItemEntity, Long organId) {
 		String mapKey ="";
 		
 		String kolCode = sanadHesabdariItemEntity.getHesabKol().getCode();
@@ -405,11 +404,11 @@ public class SanadHesabdariUtil {
 		return result;
 	}
 
-	public static void checkSanadHesabdariUniqueness(Date sanadHesabDariDate, Long sanadTypeId, OrganEntity organ) {
+	public static void checkSanadHesabdariUniqueness(Date sanadHesabDariDate, Long sanadTypeId, Long organId) {
 		if(sanadTypeId == null)
 			return;
 		
-		SanadHesabdariEntity sanadHesabdariEntity = getLocalSanadHesabdariByDateAndType(sanadHesabDariDate, sanadTypeId, organ);
+		SanadHesabdariEntity sanadHesabdariEntity = getLocalSanadHesabdariByDateAndType(sanadHesabDariDate, sanadTypeId, organId);
 		if(sanadHesabdariEntity!=null){
 			SanadTypeEntity sanadTypeEntity = getSanadTypeService().load(sanadTypeId);
 			throw new DuplicateException(SerajMessageUtil.getMessage("sanadAutomaticAlreadyCreated",sanadTypeEntity.getName(), DateConverter.toShamsiDate(sanadHesabDariDate),sanadHesabdariEntity.getTempSerial()));
@@ -417,11 +416,11 @@ public class SanadHesabdariUtil {
 	}
 
 	public static SanadHesabdariEntity getLocalSanadHesabdariByDateAndType(Date sanadHesabDariDate,
-			Long sanadTypeId, OrganEntity organ) {
+			Long sanadTypeId, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("tarikhSanad@eq", sanadHesabDariDate);
 		localFilter.put("sanadType.id@eq", sanadTypeId);
-		localFilter.put("organ.id@eq", organ.getId());
+		localFilter.put("organId@eq", organId);
 		localFilter.put("state@neq", SanadStateEnum.EBTAL);
 		SanadHesabdariEntity sanadHesabdariEntity = getSanadHesabdariService().load(null, localFilter);
 		return sanadHesabdariEntity;
@@ -470,7 +469,7 @@ public class SanadHesabdariUtil {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 //		try {
 			parameters.put("sanadHesabdari", sanadHesabdariEntity);
-			parameters.put("organ_name", sanadHesabdariEntity.getOrgan().getName());
+			parameters.put("organ_name", sanadHesabdariEntity.getOrganName());
 			parameters.put("tanzimKonandeh", sanadHesabdariEntity.getTanzimKonnadeSanad() != null ? sanadHesabdariEntity.getTanzimKonnadeSanad().getShakhsName() : "");
 			parameters.put("tayidKonandeh", sanadHesabdariEntity.getTaiedKonnadeSanad()!=null ? sanadHesabdariEntity.getTaiedKonnadeSanad().getShakhsName() : "");
 			parameters.put("sanadDesc",  sanadHesabdariEntity.getDescription());

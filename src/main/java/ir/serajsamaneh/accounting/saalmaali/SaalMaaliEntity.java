@@ -28,7 +28,13 @@ public class SaalMaaliEntity extends BaseSaalMaaliEntity {
 	@Override
 	public String toString() {
 		if(getId()!=null)
-			return getSaal().toString()+"("+getOrgan()+")";
+			return getSaal().toString()+"("+getOrganName()+")";
+		return "";
+	}
+	
+	public String getNameWithOrgan(){
+		if(getId()!=null)
+			return getSaal()+" - "+getOrganName();
 		return "";
 	}
 	
@@ -38,7 +44,7 @@ public class SaalMaaliEntity extends BaseSaalMaaliEntity {
 				+ " , " + SerajMessageUtil.getMessage("SaalMaali_saal")+ "=" + getSaal()
 				+ " , " + SerajMessageUtil.getMessage("SaalMaali_startDate")+ "=" +DateConverter.toShamsiDate(getStartDate(),SerajDateTimePickerType.DateHorMin )
 				+ " , " + SerajMessageUtil.getMessage("SaalMaali_end")+ "=" +DateConverter.toShamsiDate(getEndDate(), SerajDateTimePickerType.DateHorMin) 
-				+ " , " + SerajMessageUtil.getMessage("SaalMaali_organ")+ "=" + getOrgan()  
+				+ " , " + SerajMessageUtil.getMessage("SaalMaali_organ")+ "=" + getOrganName()  
 				+ " , " + SerajMessageUtil.getMessage("SaalMaali_isActive")+ "=" +getIsActive().toString()
 				+ " , " + SerajMessageUtil.getMessage("SaalMaali_status")+ "=" +SerajMessageUtil.getMessage(getStatus().nameWithClass())
 				+ "]";
@@ -91,10 +97,6 @@ public class SaalMaaliEntity extends BaseSaalMaaliEntity {
 		return getStatus().equals(SaalMaaliStatusEnum.SanadEkhtetamiehCreated);
 	}
 	
-	public String getNameWithOrgan(){
-		if(getId()!=null)
-			return getSaal()+" - "+getOrgan().getName();
-		return "";
-	}
+
 	
 }
