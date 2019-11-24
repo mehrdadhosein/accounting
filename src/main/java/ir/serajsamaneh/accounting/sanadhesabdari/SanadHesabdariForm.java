@@ -77,7 +77,6 @@ public class SanadHesabdariForm extends
 	HesabKolService hesabKolService;
 //	MarkazHazineService markazHazineService;
 	HesabMoeenService hesabMoeenService;
-	FileService fileService;
 	SanadHesabdariItemService sanadHesabdariItemService;
 	MonthService monthService;
 
@@ -169,14 +168,6 @@ public class SanadHesabdariForm extends
 	public void setMarkazHazineService(MarkazHazineService markazHazineService) {
 		this.markazHazineService = markazHazineService;
 	}*/
-
-	public FileService getFileService() {
-		return fileService;
-	}
-
-	public void setFileService(FileService fileService) {
-		this.fileService = fileService;
-	}
 
 	public HesabMoeenService getHesabMoeenService() {
 		return hesabMoeenService;
@@ -1243,7 +1234,7 @@ public class SanadHesabdariForm extends
 
 	public String deleteZamimeh() {
 		getMyService().cleanNullRelations(getEntity());
-		FileEntity fileEntity = getFileService().load(getZamimehID());
+		FileEntity fileEntity = fileService.load(getZamimehID());
 		getEntity().getZamimeh().remove(fileEntity);
 		getEntity().setZamimehList(null);
 		getMyService().save(getEntity(), getCurrentOrganVO().getDesc());

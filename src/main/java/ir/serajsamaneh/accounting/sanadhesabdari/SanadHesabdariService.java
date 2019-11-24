@@ -506,14 +506,14 @@ public class SanadHesabdariService extends
 		if (zamimeha == null)
 			return;
 		for (TempUploadedFileEntity tempUploadedFileEntity : zamimeha) {
-			FileEntity fileEntity = this.getFileService().createEntity();
-			this.getFileService().initializeEntity(fileEntity);
+			FileEntity fileEntity = this.fileService.createEntity();
+			this.fileService.initializeEntity(fileEntity);
 			// zamimehEntity.setNamehPedar(namehPedarEntity);
 			fileEntity.setTitle(tempUploadedFileEntity.getTitle());
 			fileEntity.setContectType(tempUploadedFileEntity.getContentType());
 			fileEntity.setFile(tempUploadedFileEntity.getContent());
 
-			this.getFileService().save(fileEntity);
+			this.fileService.save(fileEntity);
 			if (sanadHesabdariEntity.getZamimeh() == null)
 				sanadHesabdariEntity.setZamimeh(new HashSet<FileEntity>());
 			sanadHesabdariEntity.getZamimeh().add(fileEntity);
