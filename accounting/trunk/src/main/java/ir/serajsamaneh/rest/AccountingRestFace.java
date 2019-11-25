@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -27,6 +29,8 @@ import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity;
 import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariService;
 import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariUtil;
 import ir.serajsamaneh.core.base.BaseForm;
+import ir.serajsamaneh.core.common.OrganVO;
+import ir.serajsamaneh.core.common.SaalMaaliVO;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
@@ -229,6 +233,23 @@ public class AccountingRestFace extends BaseForm{
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Path("getUserActiveSaalMaali")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public SaalMaaliVO getUserActiveSaalMaali(String mainOrganJson, Long userId) {
+		Jsonb jsonb = JsonbBuilder.create();
+		OrganVO organVO = jsonb.fromJson(mainOrganJson, OrganVO.class);
+		SaalMaaliEntity userActiveSaalMaali = getSaalMaaliService().getUserActiveSaalMaali(organVO, userId);
 		
+		SaalMaaliVO saalMaaliVO = new SaalMaaliVO();
+		saalMaaliVO.setId(userActiveSaalMaali.getId());
+		saalMaaliVO.setOrganId(userActiveSaalMaali.getOrganId());
+		saalMaaliVO.setOrganName(userActiveSaalMaali.getOrganName());
+		saalMaaliVO.setSaal(userActiveSaalMaali.getSaal());
+		saalMaaliVO.setStartDate(userActiveSaalMaali.getStartDate());
+		saalMaaliVO.setEndDate(userActiveSaalMaali.getEndDate());
+		return saalMaaliVO;
 	}
 }
