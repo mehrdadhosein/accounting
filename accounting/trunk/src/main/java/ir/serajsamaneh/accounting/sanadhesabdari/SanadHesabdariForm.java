@@ -1525,15 +1525,15 @@ public class SanadHesabdariForm extends
 //                System.out.println("Country [id= " + line[0] + ", code= " + line[1] + " , name=" + line[2] + "]");
             	
             	SanadHesabdariItemEntity sanadHesabdariItemEntity = new SanadHesabdariItemEntity();
-            	HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(moeenCode, getCurrentUserActiveSaalMaali());
+            	HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(moeenCode, getCurrentUserActiveSaalMaali().getId());
             	if(hesabMoeenEntity == null)
             		throw new FatalException("moeenCode not found : "+moeenCode);
 				sanadHesabdariItemEntity.setHesabMoeen(hesabMoeenEntity);
 				sanadHesabdariItemEntity.setHesabKol(hesabMoeenEntity.getHesabKol());
             	if(tafsilCode != null)
-            		sanadHesabdariItemEntity.setHesabTafsili(getHesabTafsiliService().loadHesabTafsiliByCode(tafsilCode, getCurrentUserActiveSaalMaali()));
+            		sanadHesabdariItemEntity.setHesabTafsili(getHesabTafsiliService().loadHesabTafsiliByCode(tafsilCode, getCurrentUserActiveSaalMaali().getId()));
             	if(StringUtil.hasText(markazCode))
-            		sanadHesabdariItemEntity.setAccountingMarkaz(getAccountingMarkazService().loadAccountingMarkazByCode(markazCode, getCurrentUserActiveSaalMaali()));
+            		sanadHesabdariItemEntity.setAccountingMarkaz(getAccountingMarkazService().loadAccountingMarkazByCode(markazCode, getCurrentUserActiveSaalMaali().getId()));
             	sanadHesabdariItemEntity.setDescription(articleDescription);
             	sanadHesabdariItemEntity.setBedehkar(bedehkar);
             	sanadHesabdariItemEntity.setBestankar(bestankar);

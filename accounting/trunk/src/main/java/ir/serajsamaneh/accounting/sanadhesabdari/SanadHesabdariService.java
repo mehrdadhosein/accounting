@@ -1108,7 +1108,7 @@ public class SanadHesabdariService extends
 		if(!StringUtils.hasText(hesabSoodVaZyanAnbashtehMoeenTemplateId))
 			throw new FatalException(SerajMessageUtil.getMessage("hesabSoodVaZyanAnbashtehMoeen_notDefined"));
 		
-		HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(getHesabMoeenTemplateService().load(new Long(hesabSoodVaZyanAnbashtehMoeenTemplateId)).getCode(), saalMaaliEntity);
+		HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(getHesabMoeenTemplateService().load(new Long(hesabSoodVaZyanAnbashtehMoeenTemplateId)).getCode(), saalMaaliEntity.getId());
 		if(hesabMoeenEntity == null)
 			throw new FatalException(SerajMessageUtil.getMessage("hesabSoodVaZyanAnbashtehMoeen_notDefined"));
 		
@@ -1120,7 +1120,7 @@ public class SanadHesabdariService extends
 		if(!StringUtils.hasText(hesabSoodVaZyanAnbashtehTafsiliTemplateId))
 			return null;
 		Long code = getHesabTafsiliTemplateService().load(new Long(hesabSoodVaZyanAnbashtehTafsiliTemplateId)).getCode();
-		return getHesabTafsiliService().loadHesabTafsiliByCode(code, saalMaaliEntity) ;		
+		return getHesabTafsiliService().loadHesabTafsiliByCode(code, saalMaaliEntity.getId()) ;		
 	}
 
 
@@ -1491,19 +1491,19 @@ public class SanadHesabdariService extends
 				itemEntity.setBedehkar(sanadHesabdariItemEntity.getBestankar());
 				itemEntity.setBestankar(sanadHesabdariItemEntity.getBedehkar());
 				itemEntity.setDescription("-");
-				HesabKolEntity hesabKol = getHesabKolService().loadHesabKolByCode(sanadHesabdariItemEntity.getHesabKolCode(), activeSaalmaali, FlushMode.ALWAYS);
+				HesabKolEntity hesabKol = getHesabKolService().loadHesabKolByCode(sanadHesabdariItemEntity.getHesabKolCode(), activeSaalmaali.getId(), FlushMode.ALWAYS);
 				if(hesabKol == null)
 					hesabKol = getHesabKolService().createHesabKolStateLess(activeSaalmaali, sanadHesabdariItemEntity.getHesabKol(), currentOrganVO.getTopOrgansIdList());
 
 				itemEntity.setHesabKol(hesabKol);
 				
-				HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(sanadHesabdariItemEntity.getHesabMoeenCode(),activeSaalmaali, FlushMode.ALWAYS);
+				HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(sanadHesabdariItemEntity.getHesabMoeenCode(),activeSaalmaali.getId(), FlushMode.ALWAYS);
 				if(hesabMoeenEntity == null)
 					hesabMoeenEntity = getHesabMoeenService().createHesabMoeen(activeSaalmaali, sanadHesabdariItemEntity.getHesabMoeen(), currentOrganVO.getId(), currentOrganVO.getTopOrgansIdList(), currentOrganVO.getName());
 				itemEntity.setHesabMoeen(hesabMoeenEntity);
 				
 				if(sanadHesabdariItemEntity.getHesabTafsili()!=null && sanadHesabdariItemEntity.getHesabTafsili().getId()!=null){
-					HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(sanadHesabdariItemEntity.getHesabTafsili().getCode(), activeSaalmaali,FlushMode.ALWAYS);
+					HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(sanadHesabdariItemEntity.getHesabTafsili().getCode(), activeSaalmaali.getId(),FlushMode.ALWAYS);
 					if(hesabTafsiliEntity == null){
 						hesabTafsiliEntity = getHesabTafsiliService().createHesabTafsili(activeSaalmaali, sanadHesabdariItemEntity.getHesabTafsili(), currentOrganVO.getId(), currentOrganVO.getTopOrgansIdList(), currentOrganVO.getTopParentCode(), currentOrganVO.getName());
 						getHesabTafsiliService().createHesabTafsiliRelatedEntities(sanadHesabdariItemEntity.getHesabTafsili(), hesabTafsiliEntity, activeSaalmaali, currentOrganVO.getTopParentCode());
@@ -1512,7 +1512,7 @@ public class SanadHesabdariService extends
 				}
 				
 				if(sanadHesabdariItemEntity.getHesabTafsiliTwo()!=null && sanadHesabdariItemEntity.getHesabTafsiliTwo().getId()!=null){
-					HesabTafsiliEntity hesabTafsiliTwoEntity = getHesabTafsiliService().loadHesabTafsiliByCode(sanadHesabdariItemEntity.getHesabTafsiliTwo().getCode(), activeSaalmaali,FlushMode.ALWAYS);
+					HesabTafsiliEntity hesabTafsiliTwoEntity = getHesabTafsiliService().loadHesabTafsiliByCode(sanadHesabdariItemEntity.getHesabTafsiliTwo().getCode(), activeSaalmaali.getId(),FlushMode.ALWAYS);
 					if(hesabTafsiliTwoEntity == null){
 						hesabTafsiliTwoEntity = getHesabTafsiliService().createHesabTafsili(activeSaalmaali, sanadHesabdariItemEntity.getHesabTafsiliTwo(), currentOrganVO.getId(), currentOrganVO.getTopOrgansIdList(), currentOrganVO.getTopParentCode(), currentOrganVO.getName());
 						getHesabTafsiliService().createHesabTafsiliRelatedEntities(sanadHesabdariItemEntity.getHesabTafsili(), hesabTafsiliTwoEntity, activeSaalmaali, currentOrganVO.getTopParentCode());

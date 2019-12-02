@@ -360,7 +360,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			Set<HesabMoeenTemplateEntity> hesabMoeenTemplateSet = entity.getHesabClassification().getHesabMoeenTemplate();
 			if(hesabMoeenTemplateSet!=null)
 				for (HesabMoeenTemplateEntity hesabMoeenTemplateEntity : hesabMoeenTemplateSet){
-					HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(hesabMoeenTemplateEntity.getCode(), activeSaalMaaliEntity);
+					HesabMoeenEntity hesabMoeenEntity = getHesabMoeenService().loadHesabMoeenByCode(hesabMoeenTemplateEntity.getCode(), activeSaalMaaliEntity.getId());
 					if(hesabMoeenEntity!=null)//maybe there no hesabMoeen for this template in activeSaalMaaliEntity
 						addMoeenToMoeenTafsiliSet(entity, hesabMoeenEntity.getId());
 				}
@@ -368,7 +368,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 			Set<HesabTafsiliTemplateEntity> hesabTafsiliTemplateSet = entity.getHesabClassification().getHesabTafsiliTemplate();
 			if(hesabTafsiliTemplateSet!=null)
 				for (HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity : hesabTafsiliTemplateSet) {
-					HesabTafsiliEntity hesabTafsiliByCode = loadHesabTafsiliByCode(new Long(hesabTafsiliTemplateEntity.getCode()), activeSaalMaaliEntity);
+					HesabTafsiliEntity hesabTafsiliByCode = loadHesabTafsiliByCode(new Long(hesabTafsiliTemplateEntity.getCode()), activeSaalMaaliEntity.getId());
 
 					if(hesabTafsiliByCode!=null){//maybe there no hesabTafsili for this template in activeSaalMaaliEntity
 						entity.addToparents(hesabTafsiliByCode); 
@@ -782,7 +782,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	
 	@Transactional
 	public HesabTafsiliEntity createHesabTafsili(SaalMaaliEntity destSaalMaaliEntity,	HesabTafsiliEntity srcHesabTafsiliEntity, Long organId, List<Long> topOrganList, String topOrganCode, String organName) {
-		HesabTafsiliEntity hesabTafsiliEntity = loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaaliEntity, FlushMode.MANUAL);
+		HesabTafsiliEntity hesabTafsiliEntity = loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaaliEntity.getId(), FlushMode.MANUAL);
 		if(hesabTafsiliEntity == null)
 			hesabTafsiliEntity = loadHesabTafsiliByName(srcHesabTafsiliEntity.getName(), destSaalMaaliEntity, FlushMode.MANUAL);
 		
@@ -855,33 +855,38 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 
 	public HesabTafsiliEntity loadHesabTafsiliByCode(String code,	SaalMaaliEntity saalMaaliEntity) {
-		return loadHesabTafsiliByCode(new Long(code), saalMaaliEntity, FlushMode.MANUAL);
+		return loadHesabTafsiliByCode(new Long(code), saalMaaliEntity.getId(), FlushMode.MANUAL);
 	}
 	
-	public HesabTafsiliEntity loadHesabTafsiliByCode(Long code,	SaalMaaliEntity saalMaaliEntity) {
-		return loadHesabTafsiliByCode(code, saalMaaliEntity, FlushMode.MANUAL);
+	public HesabTafsiliEntity loadHesabTafsiliByTemplateId(Long hesabTafsiliTemplateId,	Long saalMaaliId) {
+		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().load(hesabTafsiliTemplateId);
+		return loadHesabTafsiliByCode(hesabTafsiliTemplateEntity.getId(), saalMaaliId, FlushMode.MANUAL);
+	}
+	
+	public HesabTafsiliEntity loadHesabTafsiliByCode(Long code,	Long saalMaaliId) {
+		return loadHesabTafsiliByCode(code, saalMaaliId, FlushMode.MANUAL);
 	}
 	
 	public HesabTafsiliEntity loadHesabTafsiliByName(String name,	SaalMaaliEntity saalMaaliEntity) {
 		return loadHesabTafsiliByName(name, saalMaaliEntity, FlushMode.MANUAL);
 	}
-	public HesabTafsiliEntity loadHesabTafsiliByCode(Long code,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode) {
+	public HesabTafsiliEntity loadHesabTafsiliByCode(Long code,	Long saalMaaliId, FlushMode flushMode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq",code);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
-		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
+		localFilter.put("saalMaali.id@eq",saalMaaliId);
 		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
 		return hesabTafsiliEntity;
 	}
 
-	public HesabTafsiliEntity loadHesabTafsiliByCode(Long code,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode, Long organId) {
-		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("code@eq",code);
-		localFilter.put("organId@eq",organId);
-		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
-		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
-		return hesabTafsiliEntity;
-	}
+//	public HesabTafsiliEntity loadHesabTafsiliByCode(Long code,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode) {
+//		Map<String, Object> localFilter = new HashMap<String, Object>();
+//		localFilter.put("code@eq",code);
+////		localFilter.put("organId@eq",organId);
+//		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
+//		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
+//		return hesabTafsiliEntity;
+//	}
 	
 	public HesabTafsiliEntity loadHesabTafsiliByName(String name,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
@@ -892,14 +897,14 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		return hesabTafsiliEntity;
 	}
 	
-	public HesabTafsiliEntity loadHesabTafsiliByName(String name,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode, Long organId) {
-		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("name@eq",name);
-		localFilter.put("organId@eq",organId);
-		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
-		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
-		return hesabTafsiliEntity;
-	}
+//	public HesabTafsiliEntity loadHesabTafsiliByName(String name,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode, Long organId) {
+//		Map<String, Object> localFilter = new HashMap<String, Object>();
+//		localFilter.put("name@eq",name);
+//		localFilter.put("organId@eq",organId);
+//		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
+//		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
+//		return hesabTafsiliEntity;
+//	}
 	
 
 	@Transactional(readOnly=false)

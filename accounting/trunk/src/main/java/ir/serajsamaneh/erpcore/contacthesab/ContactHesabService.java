@@ -58,9 +58,9 @@ public class ContactHesabService extends
 		return contactHesabEntity.getHesabTafsiliOne();
 	}
 
-	public ContactHesabEntity getContactHesabByContactId(Long contactId, SaalMaaliEntity saalMaaliEntity) {
+	public ContactHesabEntity getContactHesabByContactId(Long contactId, Long saalMaaliId) {
 //		SaalMaaliEntity saalMaaliEntity = getActiveSaalMaali();
-		return getContactHesabByContactIdAndSaalMaali(contactId, saalMaaliEntity);
+		return getContactHesabByContactIdAndSaalMaali(contactId, saalMaaliId);
 	}
 
 //	public ContactHesabEntity getContactHesabByContactId(Long contactId) {
@@ -68,14 +68,15 @@ public class ContactHesabService extends
 //		return getContactHesabByContactIdAndSaalMaali(contactId, saalMaaliEntity);
 //	}
 	
-	public ContactHesabEntity getContactHesabByContactIdAndSaalMaali(Long contactId,	SaalMaaliEntity saalMaali) {
+	public ContactHesabEntity getContactHesabByContactIdAndSaalMaali(Long contactId,	Long saalMaaliId) {
 		HashMap<String,Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("contact.id@eq", contactId);
-		localFilter.put("saalMaali.id@eq", saalMaali.getId());
+		localFilter.put("saalMaali.id@eq", saalMaaliId);
 		ContactHesabEntity contactHesabEntity = load(null, localFilter, FlushMode.MANUAL);
-		if(contactHesabEntity == null)
-			throw new NoRecordFoundException(SerajMessageUtil.getMessage("Contact_NoHesabDefinedforSaalMaali",getContactService().load(contactId), saalMaali.getNameWithOrgan()));
-		
+		if(contactHesabEntity == null) {
+			SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().load(saalMaaliId);
+			throw new NoRecordFoundException(SerajMessageUtil.getMessage("Contact_NoHesabDefinedforSaalMaali",getContactService().load(contactId), saalMaaliEntity.getNameWithOrgan()));
+		}
 		return contactHesabEntity;
 	}
 

@@ -376,7 +376,7 @@ public class HesabKolService extends
 	}
 	
 	public HesabKolEntity createHesabKol(SaalMaaliEntity destSaalMaaliEntity,	HesabKolEntity srcHesabKolEntity, List<Long> topOrganList) {
-		HesabKolEntity hesabKolEntity = loadHesabKolByCode(srcHesabKolEntity.getCode(), destSaalMaaliEntity);
+		HesabKolEntity hesabKolEntity = loadHesabKolByCode(srcHesabKolEntity.getCode(), destSaalMaaliEntity.getId());
 		if(hesabKolEntity == null)
 			hesabKolEntity = loadHesabKolByName(srcHesabKolEntity.getName(), destSaalMaaliEntity, FlushMode.MANUAL);
 		if(hesabKolEntity == null){
@@ -397,7 +397,7 @@ public class HesabKolService extends
 	}
 	
 	public HesabKolEntity createHesabKolStateLess(SaalMaaliEntity destSaalMaaliEntity, HesabKolEntity srcHesabKolEntity, List<Long> topOrganList) {
-		HesabKolEntity hesabKolEntity = loadHesabKolByCode(srcHesabKolEntity.getCode(), destSaalMaaliEntity);
+		HesabKolEntity hesabKolEntity = loadHesabKolByCode(srcHesabKolEntity.getCode(), destSaalMaaliEntity.getId());
 		if(hesabKolEntity == null)
 			hesabKolEntity = loadHesabKolByName(srcHesabKolEntity.getName(), destSaalMaaliEntity, FlushMode.MANUAL);
 
@@ -455,14 +455,14 @@ public class HesabKolService extends
 		return hesabKolEntity;
 	}
 	
-	public HesabKolEntity loadHesabKolByCode(String code, SaalMaaliEntity saalMaaliEntity){
-		return loadHesabKolByCode(code, saalMaaliEntity, FlushMode.MANUAL);
+	public HesabKolEntity loadHesabKolByCode(String code, Long saalMaaliId){
+		return loadHesabKolByCode(code, saalMaaliId, FlushMode.MANUAL);
 	}
-	public HesabKolEntity loadHesabKolByCode(String code, SaalMaaliEntity saalMaaliEntity, FlushMode flushMode){
+	public HesabKolEntity loadHesabKolByCode(String code, Long saalMaaliId, FlushMode flushMode){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq",code);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
-		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
+		localFilter.put("saalMaali.id@eq",saalMaaliId);
 		return load(null, localFilter, flushMode);
 //		List<HesabKolEntity> dataList = getDataList(null, localFilter, flushMode);
 //		if(dataList.size() == 1)
@@ -534,7 +534,7 @@ public class HesabKolService extends
 	public void copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(SaalMaaliEntity srcSaalMaali, SaalMaaliEntity destSaalMaali, String topOrganCode){
 		List<AccountingMarkazEntity> srcActiveAccountingMarkaz = getAccountingMarkazService().getActiveAccountingMarkaz(srcSaalMaali);
 		for (AccountingMarkazEntity srcAccountingMarkazEntity : srcActiveAccountingMarkaz) {
-			AccountingMarkazEntity destAccountingMarkazEntity = getAccountingMarkazService().loadAccountingMarkazByCode(srcAccountingMarkazEntity.getCode(), destSaalMaali,FlushMode.ALWAYS);
+			AccountingMarkazEntity destAccountingMarkazEntity = getAccountingMarkazService().loadAccountingMarkazByCode(srcAccountingMarkazEntity.getCode(), destSaalMaali.getId(),FlushMode.ALWAYS);
 			if(destAccountingMarkazEntity == null || destAccountingMarkazEntity.getId() == null){
 				destAccountingMarkazEntity = getAccountingMarkazService().createAccountingMarkaz(destSaalMaali, srcAccountingMarkazEntity, topOrganCode);
 			}
@@ -545,7 +545,7 @@ public class HesabKolService extends
 		}
 		
 		for (AccountingMarkazEntity srcAccountingMarkazEntity : srcActiveAccountingMarkaz) {
-			AccountingMarkazEntity destAccountingMarkazEntity = getAccountingMarkazService().loadAccountingMarkazByCode(srcAccountingMarkazEntity.getCode(), destSaalMaali,FlushMode.ALWAYS);
+			AccountingMarkazEntity destAccountingMarkazEntity = getAccountingMarkazService().loadAccountingMarkazByCode(srcAccountingMarkazEntity.getCode(), destSaalMaali.getId(),FlushMode.ALWAYS);
 			getAccountingMarkazService().createAccountingMarkazRelatedEntities(srcAccountingMarkazEntity, destAccountingMarkazEntity, destSaalMaali, topOrganCode);
 		}
 
@@ -557,7 +557,7 @@ public class HesabKolService extends
 		List<ContactHesabEntity> contactHesabList = getContactHesabService().getListBySaalMaali(srcSaalMaali);
 		for (ContactHesabEntity contactHesabEntity : contactHesabList) {
 			try{
-				getContactHesabService().getContactHesabByContactIdAndSaalMaali(contactHesabEntity.getContact().getId(), destSaalMaali);
+				getContactHesabService().getContactHesabByContactIdAndSaalMaali(contactHesabEntity.getContact().getId(), destSaalMaali.getId());
 			}catch(NoRecordFoundException e){
 					
 					HesabMoeenEntity destHsabMoeenEntity = null;
@@ -576,7 +576,7 @@ public class HesabKolService extends
 	public void copyHesabTafsiliRelatedEntities(SaalMaaliEntity srcSaalMaali, SaalMaaliEntity destSaalMaali, String topOrganCode) {
 		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali);
 		for (HesabTafsiliEntity srcHesabTafsiliEntity : srcActiveTafsilis) {
-			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali, FlushMode.MANUAL);
+			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali.getId(), FlushMode.MANUAL);
 			getHesabTafsiliService().copyHesabTafsiliRelatedEntities(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali, topOrganCode);
 			
 		}
@@ -587,7 +587,7 @@ public class HesabKolService extends
 		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali);
 		for (HesabTafsiliEntity srcHesabTafsiliEntity : srcActiveTafsilis) {
 
-			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali,FlushMode.ALWAYS);
+			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali.getId(),FlushMode.ALWAYS);
 			
 			if(destHesabTafsiliEntity == null){
 				destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByName(srcHesabTafsiliEntity.getName(), destSaalMaali,FlushMode.ALWAYS);
@@ -619,7 +619,7 @@ public class HesabKolService extends
 		List<HesabKolEntity> hesabKolList = getHesabKolList(srcSaalMaali);
 		for (HesabKolEntity srcHesabKolEntity : hesabKolList) {
 			
-			HesabKolEntity destHesabKol = loadHesabKolByCode(srcHesabKolEntity.getCode(), destSaalMaali, FlushMode.MANUAL);
+			HesabKolEntity destHesabKol = loadHesabKolByCode(srcHesabKolEntity.getCode(), destSaalMaali.getId(), FlushMode.MANUAL);
 			if(destHesabKol == null){
 				destHesabKol = loadHesabKolByName(srcHesabKolEntity.getName(), destSaalMaali, FlushMode.MANUAL);
 				if(destHesabKol!=null)

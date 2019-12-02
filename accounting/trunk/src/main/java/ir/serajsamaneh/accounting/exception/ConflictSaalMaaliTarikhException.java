@@ -44,7 +44,7 @@ public class ConflictSaalMaaliTarikhException extends SerajException {
 
 	@Override
 	public String getDesc() {
-		return SerajMessageUtil.getMessage("Sanad_tanaghozSaalMaaliAndTarikhSanad", getSaalMaaliYear().toString(), getTarikhSanadYear().toString() );
+		return SerajMessageUtil.getMessage("Sanad_tanaghozSaalMaaliAndTarikhSanad", getSaalMaaliYear().toString(), getTarikhSanadYear().toString());
 	}
 
 }

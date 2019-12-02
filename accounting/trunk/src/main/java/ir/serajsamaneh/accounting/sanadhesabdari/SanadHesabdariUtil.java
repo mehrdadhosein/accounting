@@ -178,12 +178,7 @@ public class SanadHesabdariUtil {
 			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, SaalMaaliEntity saalMaaliEntity, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser, String organDesc) {
 		return createSanadHesabdari(organId, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, true, null, saalMaaliEntity, deletable, numberOfDecimals, currentUser, organDesc);
 	}
-	
-//	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
-//			Date sanadHesabdariDate,
-//			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) { 
-//		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, null);
-//	}
+
 
 	public static SanadHesabdariEntity createSanadHesabdari(Long organId, Date sanadHesabdariDate,
 			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType,
@@ -427,36 +422,46 @@ public class SanadHesabdariUtil {
 	}
 
 
-	public static HesabKolEntity getHesabKolByTemplate(HesabKolTemplateEntity hesabKolTemplateEntity, SaalMaaliEntity saalMaaliEntity){
-		return getHesabKolService().loadHesabKolByCode(hesabKolTemplateEntity.getCode(), saalMaaliEntity);
+	public static HesabKolEntity getHesabKolByTemplate(HesabKolTemplateEntity hesabKolTemplateEntity, Long saalMaaliId){
+		return getHesabKolService().loadHesabKolByCode(hesabKolTemplateEntity.getCode(), saalMaaliId);
 	}
 	
 	public static HesabKolEntity getHesabKolByCodeAndSaalMaali(String code, SaalMaaliEntity saalMaaliEntity){
-		return getHesabKolService().loadHesabKolByCode(code, saalMaaliEntity);
+		return getHesabKolService().loadHesabKolByCode(code, saalMaaliEntity.getId());
 	}
 	
-	public static HesabMoeenEntity getHesabMoeenByTemplate(HesabMoeenTemplateEntity hesabMoeenTemplateEntity, SaalMaaliEntity saalMaaliEntity){
-		return getHesabMoeenService().loadHesabMoeenByCode(hesabMoeenTemplateEntity.getCode(), saalMaaliEntity);
+	public static HesabMoeenEntity getHesabMoeenByTemplate(HesabMoeenTemplateEntity hesabMoeenTemplateEntity, Long saalMaaliId){
+		return getHesabMoeenService().loadHesabMoeenByCode(hesabMoeenTemplateEntity.getCode(), saalMaaliId);
+	}
+	
+	public static HesabMoeenEntity getHesabMoeenByTemplateId(Long hesabMoeenTemplateId, Long saalMaaliId){
+		return getHesabMoeenService().loadHesabMoeenByTemplateId(hesabMoeenTemplateId, saalMaaliId);
 	}
 	
 	public static HesabMoeenEntity getHesabMoeenByCodeAndSaalMaali(String code, SaalMaaliEntity saalMaaliEntity){
-		return getHesabMoeenService().loadHesabMoeenByCode(code, saalMaaliEntity);
+		return getHesabMoeenService().loadHesabMoeenByCode(code, saalMaaliEntity.getId());
 	}
 	
-	public static HesabTafsiliEntity getHesabTafsiliByTemplate(HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity, SaalMaaliEntity saalMaaliEntity){
+	public static HesabTafsiliEntity getHesabTafsiliByTemplate(HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity, Long saalMaaliId){
 		if(hesabTafsiliTemplateEntity==null)
 			return null;
-		return getHesabTafsiliService().loadHesabTafsiliByCode(new Long(hesabTafsiliTemplateEntity.getCode()), saalMaaliEntity);
+		return getHesabTafsiliService().loadHesabTafsiliByCode(new Long(hesabTafsiliTemplateEntity.getCode()), saalMaaliId);
+	}
+	
+	public static HesabTafsiliEntity getHesabTafsiliByTemplateId(Long hesabTafsiliTemplateId, Long saalMaaliId){
+		if(hesabTafsiliTemplateId==null)
+			return null;
+		return getHesabTafsiliService().loadHesabTafsiliByTemplateId(hesabTafsiliTemplateId, saalMaaliId);
 	}
 	
 	public static HesabTafsiliEntity getHesabTafsiliByCodeAndSaalMaali(Long code, SaalMaaliEntity saalMaaliEntity){
-		return getHesabTafsiliService().loadHesabTafsiliByCode(code, saalMaaliEntity);
+		return getHesabTafsiliService().loadHesabTafsiliByCode(code, saalMaaliEntity.getId());
 	}
 	
-	public static AccountingMarkazEntity getAccountingMarkazByTemplate(AccountingMarkazTemplateEntity accountingMarkazTemplateEntity , SaalMaaliEntity saalMaaliEntity){
+	public static AccountingMarkazEntity getAccountingMarkazByTemplate(AccountingMarkazTemplateEntity accountingMarkazTemplateEntity , Long saalMaaliId){
 		if(accountingMarkazTemplateEntity == null)
 			return null;
-		return getAccountingMarkazService().loadAccountingMarkazByCode(accountingMarkazTemplateEntity.getCode(), saalMaaliEntity);
+		return getAccountingMarkazService().loadAccountingMarkazByCode(accountingMarkazTemplateEntity.getCode(), saalMaaliId);
 	}
 
 	public static byte[] printSanad(SanadHesabdariEntity sanadHesabdariEntity) throws JRException {

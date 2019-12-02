@@ -360,7 +360,7 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 	@Transactional
 	public AccountingMarkazEntity createAccountingMarkaz(SaalMaaliEntity activeSaalMaaliEntity,
 			AccountingMarkazEntity srcAccountingMarkazEntity, String topOrganCode) {
-		AccountingMarkazEntity accountingMarkazEntity = loadAccountingMarkazByCode(srcAccountingMarkazEntity.getCode(), activeSaalMaaliEntity);
+		AccountingMarkazEntity accountingMarkazEntity = loadAccountingMarkazByCode(srcAccountingMarkazEntity.getCode(), activeSaalMaaliEntity.getId());
 		if(accountingMarkazEntity == null){
 			accountingMarkazEntity = populateAccountingMarkaz(activeSaalMaaliEntity, srcAccountingMarkazEntity);
 			save(accountingMarkazEntity, activeSaalMaaliEntity, topOrganCode);
@@ -385,14 +385,14 @@ BaseEntityService<AccountingMarkazEntity, Long> {
 		return accountingMarkazEntity;
 	}
 	
-	public AccountingMarkazEntity loadAccountingMarkazByCode(String code,	SaalMaaliEntity saalMaaliEntity) {
-		return loadAccountingMarkazByCode(code, saalMaaliEntity, FlushMode.MANUAL);
+	public AccountingMarkazEntity loadAccountingMarkazByCode(String code,	Long saalMaaliId) {
+		return loadAccountingMarkazByCode(code, saalMaaliId, FlushMode.MANUAL);
 	}
-	public AccountingMarkazEntity loadAccountingMarkazByCode(String code,	SaalMaaliEntity saalMaaliEntity, FlushMode flushMode) {
+	public AccountingMarkazEntity loadAccountingMarkazByCode(String code,	Long saalMaaliId, FlushMode flushMode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq",code);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
-		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
+		localFilter.put("saalMaali.id@eq",saalMaaliId);
 		List<AccountingMarkazEntity> dataList = getDataList(null, localFilter, flushMode);
 		if(dataList.size() == 1)
 			return dataList.get(0);

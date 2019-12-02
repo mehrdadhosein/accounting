@@ -294,7 +294,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		
 		String treeXml="";
 		try{
-			ContactHesabEntity contactHesabEntity = getContactHesabService().getContactHesabByContactId(contactId, getCurrentUserActiveSaalMaali());
+			ContactHesabEntity contactHesabEntity = getContactHesabService().getContactHesabByContactId(contactId, getCurrentUserActiveSaalMaali().getId());
 			
 			HesabTafsiliEntity hesabShenavar = contactHesabEntity.getHesabTafsiliTwo();
 			HesabTafsiliEntity hesabTafsiliEntity = contactHesabEntity.getHesabTafsiliOne();
@@ -334,7 +334,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity,Long> {
 		
 		if(hesabTafsiliTemplateId !=null){
 			HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().load(hesabTafsiliTemplateId);
-			HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(new Long(hesabTafsiliTemplateEntity.getCode()), getCurrentUserActiveSaalMaali());
+			HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(new Long(hesabTafsiliTemplateEntity.getCode()), getCurrentUserActiveSaalMaali().getId());
 			hesabTafsiliId = hesabTafsiliEntity.getId();
 		}
 		
