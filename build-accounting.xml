@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="accounting" default="antForm">
-	<import file="../core/build.xml" />
+	<import file="../portal/build.xml" />
 	<property environment="env">
 	</property>
 	<property name="erpbasedir" value="../base" />
-	<property name="webapp.name" value="ROOT" />
+	<property name="webapp.name" value="accounting" />
 	<property name="main-project" value="accounting" />
 	<property name="catalina.home" value="E:\tomcat\apache-tomcat-9.0.6" />
-	<property name="projects" value="base,core,accounting" />
+	<property name="projects" value="base,portal,accounting" />
 	<property name="deploydir" value="${catalina.home}/webapps/${webapp.name}" />
 	
 	<taskdef  name="antForm"  classname="com.sardak.antform.AntForm" classpath="../base/lib/ant-extra/antform.jar"/>
@@ -134,14 +134,14 @@
 	</target>
 
 	<target name="Merge erp ehcache">
-		<copy file="${erpbasedir}/integrated/ehcache.templateBegin.xml" tofile="./src/main/webapp/WEB-INF/ehcache.xml" overwrite="true" />
+		<copy file="${erpbasedir}/integrated/ehcache.templateBegin.xml" tofile="./src/main/webapp/WEB-INF/classes/ehcache.xml" overwrite="true" />
 		<foreach delimiter="," list="${projects}" param="project" target="appendProjectsPartialEhcache" />
-		<concat destfile="./src/main/webapp/WEB-INF/ehcache.xml" append="true" ><![CDATA[</ehcache>]]></concat>
+		<concat destfile="./src/main/webapp/WEB-INF/classes/ehcache.xml" append="true" ><![CDATA[</ehcache>]]></concat>
 	</target>
 
 	<target name="appendProjectsPartialEhcache">
 		<echo>${project}</echo>
-		<concat append="true" destfile="./src/main/webapp/WEB-INF/ehcache.xml">
+		<concat append="true" destfile="./src/main/webapp/WEB-INF/classes/ehcache.xml">
 			<fileset file="../${project}/integrated/ehcache.partial.xml"/>
 		</concat>
 	</target>

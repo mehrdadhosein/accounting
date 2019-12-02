@@ -287,4 +287,10 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 		}
 		return organIds;
 	}
+	
+	@Override
+	protected void localFilterPopulation() {
+		getFilter().put("organId@eq", getCurrentOrganVO().getId());
+		getFilter().put("organId@isNotNull", "ding");
+	}
 }

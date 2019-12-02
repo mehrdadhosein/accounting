@@ -462,7 +462,7 @@ public class HesabMoeenService extends
 	
 	@Transactional
 	public HesabMoeenEntity createHesabMoeen(SaalMaaliEntity destSaalMaali,	HesabMoeenEntity srcHesabMoeenEntity, Long organId, List<Long> topOrganList, String organName) {
-		HesabMoeenEntity hesabMoeenEntity = loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(), destSaalMaali, FlushMode.MANUAL);
+		HesabMoeenEntity hesabMoeenEntity = loadHesabMoeenByCode(srcHesabMoeenEntity.getCode(), destSaalMaali.getId(), FlushMode.MANUAL);
 		if(hesabMoeenEntity == null)
 			hesabMoeenEntity = loadHesabMoeenByName(srcHesabMoeenEntity.getName(),destSaalMaali, FlushMode.MANUAL);
 		if(hesabMoeenEntity == null){
@@ -494,7 +494,7 @@ public class HesabMoeenService extends
 		
 		HesabKolTemplateEntity hesabKolTemplate = hesabMoeenTemplateEntity.getHesabKolTemplate();
 		if(hesabKolTemplate!=null)
-			hesabKolEntity = getHesabKolService().loadHesabKolByCode(hesabKolTemplate.getCode(), destSaalMaaliEntity);
+			hesabKolEntity = getHesabKolService().loadHesabKolByCode(hesabKolTemplate.getCode(), destSaalMaaliEntity.getId());
 		
 		if(hesabKolEntity == null && hesabKolTemplate!=null)
 			hesabKolEntity = getHesabKolService().createHesabKol(destSaalMaaliEntity, hesabKolTemplate, organId, topOrganList, organName);
@@ -517,7 +517,7 @@ public class HesabMoeenService extends
 		hesabMoeenEntity = new HesabMoeenEntity();
 		hesabMoeenEntity.setCode(srcHesabMoeenEntity.getCode());
 		hesabMoeenEntity.setDescription(srcHesabMoeenEntity.getDescription());
-		HesabKolEntity hesabKolEntity = getHesabKolService().loadHesabKolByCode(srcHesabMoeenEntity.getHesabKol().getCode(), destSaalMaaliEntity);
+		HesabKolEntity hesabKolEntity = getHesabKolService().loadHesabKolByCode(srcHesabMoeenEntity.getHesabKol().getCode(), destSaalMaaliEntity.getId());
 		if(hesabKolEntity == null)
 			hesabKolEntity = getHesabKolService().createHesabKolStateLess(destSaalMaaliEntity, srcHesabMoeenEntity.getHesabKol(), topOrganList);
 		hesabMoeenEntity.setHesabKol(hesabKolEntity);
@@ -543,15 +543,20 @@ public class HesabMoeenService extends
 		return hesabMoeenEntity;
 	}
 	
-	public HesabMoeenEntity loadHesabMoeenByCode(String code, SaalMaaliEntity saalMaaliEntity){
-		return loadHesabMoeenByCode(code, saalMaaliEntity, FlushMode.MANUAL);
+	public HesabMoeenEntity loadHesabMoeenByTemplateId(Long moeenTemplateId, Long saalMaaliId){
+		HesabMoeenTemplateEntity hesabMoeenTemplateEntity = getHesabMoeenTemplateService().load(moeenTemplateId);
+		return loadHesabMoeenByCode(hesabMoeenTemplateEntity.getCode(), saalMaaliId, FlushMode.MANUAL);
+	}
+	
+	public HesabMoeenEntity loadHesabMoeenByCode(String code, Long saalMaaliId){
+		return loadHesabMoeenByCode(code, saalMaaliId, FlushMode.MANUAL);
 	}
 
-	public HesabMoeenEntity loadHesabMoeenByCode(String code, SaalMaaliEntity saalMaaliEntity, FlushMode flushModel){
+	public HesabMoeenEntity loadHesabMoeenByCode(String code, Long saalMaaliId, FlushMode flushModel){
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq",code);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
-		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
+		localFilter.put("saalMaali.id@eq",saalMaaliId);
 		HesabMoeenEntity hesabMoeenEntity = load(null, localFilter, flushModel);
 		return hesabMoeenEntity;
 	}

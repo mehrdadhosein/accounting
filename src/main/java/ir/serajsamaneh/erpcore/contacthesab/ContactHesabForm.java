@@ -44,7 +44,7 @@ public class ContactHesabForm extends BaseAccountingForm<ContactHesabEntity, Lon
 			if(StringUtils.hasText(contactId)){
 				ContactHesabEntity contactHesabByContactId = null;
 				try{
-					contactHesabByContactId = getContactHesabService().getContactHesabByContactId(new Long(contactId), getCurrentUserActiveSaalMaali());
+					contactHesabByContactId = getContactHesabService().getContactHesabByContactId(new Long(contactId), getCurrentUserActiveSaalMaali().getId());
 				}catch(NoRecordFoundException e){
 					System.out.println(e.getMessage());
 				}
