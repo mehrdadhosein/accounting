@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.core.base.BaseEntityService;
+import ir.serajsamaneh.core.common.SaalMaaliVO;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
 public class MonthService extends BaseEntityService<MonthEntity, Long> {
@@ -49,7 +50,7 @@ public class MonthService extends BaseEntityService<MonthEntity, Long> {
 		return monthDAO;
 	}
 
-	public List<MonthEntity> getList(SaalMaaliEntity currentUserActiveSaalMaali) {
+	public List<MonthEntity> getList(SaalMaaliVO currentUserActiveSaalMaali) {
 		Map<String, Object> filter = new HashMap<>();
 		filter.put("saalMaali.id@eq", currentUserActiveSaalMaali.getId());
 		List<MonthEntity> dataList = getDataList(null, filter);
