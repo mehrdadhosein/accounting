@@ -170,8 +170,8 @@ public class AccountingRestFace extends BaseForm{
 
 	@Path("getUserActiveSaalMaali")
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public SaalMaaliVO getUserActiveSaalMaali(@QueryParam("mainOrganJson")String mainOrganJson, @QueryParam("userId")Long userId) {
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getUserActiveSaalMaali(@QueryParam("mainOrganJson")String mainOrganJson, @QueryParam("userId")Long userId) {
 		Jsonb jsonb = JsonbBuilder.create();
 		OrganVO organVO = jsonb.fromJson(mainOrganJson, OrganVO.class);
 		SaalMaaliEntity userActiveSaalMaali = saalMaaliService.getUserActiveSaalMaali(organVO, userId);
@@ -183,7 +183,9 @@ public class AccountingRestFace extends BaseForm{
 		saalMaaliVO.setSaal(userActiveSaalMaali.getSaal());
 		saalMaaliVO.setStartDate(userActiveSaalMaali.getStartDate());
 		saalMaaliVO.setEndDate(userActiveSaalMaali.getEndDate());
-		return saalMaaliVO;
+		
+		String result = jsonb.toJson(saalMaaliVO);
+		return result;
 	}
 	
 	@Path("getSaalmaaliByDate")
