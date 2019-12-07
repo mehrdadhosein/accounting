@@ -1678,7 +1678,7 @@ public class SanadHesabdariService extends
 	
 	@Transactional
 	public void createMonthlySummarySanad(SaalMaaliEntity saalMaaliEntity, Long organId, UserEntity currentUser, String organDesc){
-		List<MonthEntity> list = getMonthService().getList(saalMaaliEntity);
+		List<MonthEntity> list = getMonthService().getList(saalMaaliEntity.getId());
 		for (MonthEntity monthEntity : list) { 
 		
 			if(monthEntity.getStartDate() == null || monthEntity.getEndDate() == null)

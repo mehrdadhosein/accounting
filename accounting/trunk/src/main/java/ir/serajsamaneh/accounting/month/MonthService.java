@@ -50,9 +50,9 @@ public class MonthService extends BaseEntityService<MonthEntity, Long> {
 		return monthDAO;
 	}
 
-	public List<MonthEntity> getList(SaalMaaliVO currentUserActiveSaalMaali) {
+	public List<MonthEntity> getList(Long currentUserActiveSaalMaaliId) {
 		Map<String, Object> filter = new HashMap<>();
-		filter.put("saalMaali.id@eq", currentUserActiveSaalMaali.getId());
+		filter.put("saalMaali.id@eq", currentUserActiveSaalMaaliId);
 		List<MonthEntity> dataList = getDataList(null, filter);
 		return dataList;
 
