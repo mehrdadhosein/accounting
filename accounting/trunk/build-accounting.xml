@@ -6,7 +6,7 @@
 	<property name="erpbasedir" value="../base" />
 	<property name="webapp.name" value="accounting" />
 	<property name="main-project" value="accounting" />
-	<property name="catalina.home" value="E:\tomcat\apache-tomcat-9.0.6" />
+	<property name="catalina.home" value="E:\apache-tomcat-9.0.16" />
 	<property name="projects" value="base,portal,accounting" />
 	<property name="deploydir" value="${catalina.home}/webapps/${webapp.name}" />
 	
