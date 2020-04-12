@@ -168,6 +168,27 @@ public class AccountingRestFace extends BaseForm{
 		}
 	}
 
+
+	@Path("getActiveSaalMaali")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getActiveSaalMaali(@QueryParam("mainOrganJson")String mainOrganJson) {
+		Jsonb jsonb = JsonbBuilder.create();
+		OrganVO organVO = jsonb.fromJson(mainOrganJson, OrganVO.class);
+		SaalMaaliEntity userActiveSaalMaali = saalMaaliService.getActiveSaalmaali(organVO);
+		
+		SaalMaaliVO saalMaaliVO = new SaalMaaliVO();
+		saalMaaliVO.setId(userActiveSaalMaali.getId());
+		saalMaaliVO.setOrganId(userActiveSaalMaali.getOrganId());
+		saalMaaliVO.setOrganName(userActiveSaalMaali.getOrganName());
+		saalMaaliVO.setSaal(userActiveSaalMaali.getSaal());
+		saalMaaliVO.setStartDate(userActiveSaalMaali.getStartDate());
+		saalMaaliVO.setEndDate(userActiveSaalMaali.getEndDate());
+		
+		String result = jsonb.toJson(saalMaaliVO);
+		return result;
+	}
+	
 	@Path("getUserActiveSaalMaali")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
