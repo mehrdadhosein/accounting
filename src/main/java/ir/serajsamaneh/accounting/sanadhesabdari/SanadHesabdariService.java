@@ -870,7 +870,7 @@ public class SanadHesabdariService extends
 			Map<String, Object> localFilter = new HashMap<String, Object>();
 			localFilter.put("serial@eq", entity.getSerial());
 			localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-			
+			localFilter.put("organId@eq", organId);
 			checkUniqueNess(entity, localFilter, false);
 
 		}
