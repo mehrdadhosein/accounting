@@ -1192,13 +1192,13 @@ public class SanadHesabdariForm extends
 
 	List<TempUploadedFileEntity> temporalZamimeha;
 	String zamimehID;
-	Long tempFileId;
+	String tempFileId;
 
-	public Long getTempFileId() {
+	public String getTempFileId() {
 		return tempFileId;
 	}
 
-	public void setTempFileId(Long tempFileId) {
+	public void setTempFileId(String tempFileId) {
 		this.tempFileId = tempFileId;
 	}
 
