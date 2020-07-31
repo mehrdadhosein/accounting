@@ -261,19 +261,12 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 		getFilter().put("organId@in", topOrganList);
 	}
 
-	private UserEntity currentUser;
-	private OrganEntity currentOrgan;
-	
 	public UserEntity getCurrentUser() {
-		if(currentUser == null || currentUser.getId() == null)
-			currentUser = userService.loadUserByUsername(SecurityUtil.getUsername());
-		return currentUser;
+		return userService.loadUserByUsername(SecurityUtil.getUsername());
 	}
 	
 	public OrganEntity getCurrentOrgan() {
-		if(currentOrgan == null || currentOrgan.getId() == null)
-			currentOrgan = organService.load(getCurrentUserVO().getOrgan().getId());
-		return currentOrgan;
+		return organService.load(getCurrentUserVO().getOrgan().getId());
 	}
 	
 	public List<Long> getRelatedOrganIds(){
