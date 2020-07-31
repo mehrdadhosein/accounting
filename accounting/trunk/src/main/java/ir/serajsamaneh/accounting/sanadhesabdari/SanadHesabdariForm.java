@@ -1307,10 +1307,10 @@ public class SanadHesabdariForm extends
 		return null;
 	}
 	
-	public void closeTemporalAccounts(String organDesc){
+	public void closeTemporalAccounts(){
 		if(getTarikhSanad() == null)
 			setTarikhSanad(getCurrentUserActiveSaalMaali().getEndDate());
-		getMyService().closeTemporalAccounts(getCurrentOrganVO().getId(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali(), getNumberOfDecimals(), getCurrentUser(), organDesc);
+		getMyService().closeTemporalAccounts(getCurrentOrganVO().getId(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali(), getNumberOfDecimals(), getCurrentUser(), getCurrentOrgan().getName());
 		addInfoMessage("SUCCESSFUL_ACTION");
 	}
 	
