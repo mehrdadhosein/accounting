@@ -517,7 +517,7 @@ public class SanadHesabdariService extends
 			if (sanadHesabdariEntity.getZamimeh() == null)
 				sanadHesabdariEntity.setZamimeh(new HashSet<FileEntity>());
 			sanadHesabdariEntity.getZamimeh().add(fileEntity);
-			getTempUploadedFileService().delete(tempUploadedFileEntity.getId());
+			tempUploadedFileService.delete(tempUploadedFileEntity.getId());
 		}
 	}
 
