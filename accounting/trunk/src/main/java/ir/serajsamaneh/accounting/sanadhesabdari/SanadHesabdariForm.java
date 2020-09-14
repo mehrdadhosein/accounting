@@ -1088,17 +1088,19 @@ public class SanadHesabdariForm extends
 	}
 
 	
-	public String tabdilBeMovghatBatch(String organDesc) {
+	public String tabdilBeMovghatBatch() {
 		List<SanadHesabdariEntity> selectedItems = getSelectedItems();
+		String organDesc = getCurrentOrganVO().getDesc();
 		getMyService().tabdilBeMovghat(selectedItems, organDesc);
 		clearPage();
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return  null;
 	}
 	
-	public String tabdilBeDaemiBatch(String organDesc) {
+	public String tabdilBeDaemiBatch() {
 		List<SanadHesabdariEntity> selectedItems = getSelectedItems();
 		SaalMaaliEntity activeSaalmaali = getCurrentUserActiveSaalMaali();
+		String organDesc = getCurrentOrganVO().getDesc();
 		getMyService().tabdilBeDaemi(selectedItems, activeSaalmaali, getCurrentOrganVO().getId(), getCurrentUser(), organDesc);
 		addInfoMessage("SUCCESSFUL_ACTION");
 		clearPage();
