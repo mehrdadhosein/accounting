@@ -294,7 +294,7 @@ public class SanadHesabdariService extends
 		}
 		
 		if(validateHesabDependencies) {
-			OrganVO organVO = organService.getOrganVO(saalMaaliEntity.getOrganId());
+			OrganVO organVO = organService.getOrganVO(organId);
 			checkHesabDependencies(entity, organVO); 
 		}
 		
