@@ -573,11 +573,11 @@ public class HesabKolService extends
 		}
 	}
 
-	public void copyHesabTafsiliRelatedEntities(SaalMaaliEntity srcSaalMaali, SaalMaaliEntity destSaalMaali, String topOrganCode) {
+	public void copyHesabTafsiliRelatedEntities(SaalMaaliEntity srcSaalMaali, SaalMaaliEntity destSaalMaali, List<Long> topOrganList) {
 		List<HesabTafsiliEntity> srcActiveTafsilis = getHesabTafsiliService().getActiveTafsilis(srcSaalMaali);
 		for (HesabTafsiliEntity srcHesabTafsiliEntity : srcActiveTafsilis) {
 			HesabTafsiliEntity destHesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(srcHesabTafsiliEntity.getCode(), destSaalMaali.getId(), FlushMode.MANUAL);
-			getHesabTafsiliService().copyHesabTafsiliRelatedEntities(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali, topOrganCode);
+			getHesabTafsiliService().copyHesabTafsiliRelatedEntities(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali, topOrganList);
 			
 		}
 	}
@@ -607,7 +607,7 @@ public class HesabKolService extends
 //					continue;//not important exception
 //				}
 			}else
-				getHesabTafsiliService().createOrUpdateRelatedHesabTafsiliTemplate(srcHesabTafsiliEntity, srcHesabTafsiliEntity.getOrganId(), topOrganCode, srcHesabTafsiliEntity.getOrganName());
+				getHesabTafsiliService().createOrUpdateRelatedHesabTafsiliTemplate(srcHesabTafsiliEntity, srcHesabTafsiliEntity.getOrganId(), topOrganList, srcHesabTafsiliEntity.getOrganName());
 			
 		}
 	}

@@ -116,10 +116,10 @@ public class HesabTafsiliTemplateService extends
 		return hesabTafsiliTemplateEntity;
 	}
 
-	public HesabTafsiliTemplateEntity loadByCode(Long code, String topOrganCode) {
+	public HesabTafsiliTemplateEntity loadByCode(Long code, List<Long> topOrganList) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
-		localFilter.put("organ.code@startlk", topOrganCode);
+		localFilter.put("organId@in", topOrganList);
 		return load(null, localFilter);
 	}
 

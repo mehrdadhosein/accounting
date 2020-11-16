@@ -388,7 +388,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		checkCycleInChildTafsiliHierarchy(entity, childTafsiliIds);
 		checkCycleInParentTafsiliHierarchy(entity, parentTafsiliIds);
 		
-		createOrUpdateRelatedHesabTafsiliTemplate(entity, currentOrganId, topOrganCode, currentOrganName);
+		createOrUpdateRelatedHesabTafsiliTemplate(entity, currentOrganId, topOrganList, currentOrganName);
 	}
 
 	
@@ -463,7 +463,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	}
 
 	@Transactional
-	public void createOrUpdateRelatedHesabTafsiliTemplate(HesabTafsiliEntity entity, Long organId, String topOrganCode, String organName) {
+	public void createOrUpdateRelatedHesabTafsiliTemplate(HesabTafsiliEntity entity, Long organId, List<Long> topOrganList, String organName) {
 		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByCodeInCurrentOrgan(entity.getCode(), organId);
 		if(hesabTafsiliTemplateEntity == null){
 			hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().loadByNameInCurrentOrgan(entity.getName(), organId);
@@ -521,7 +521,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		
 		Set<HesabTafsiliEntity> childs = entity.getChilds();
 		for (HesabTafsiliEntity hesabTafsiliEntity : childs) {
-			HesabTafsiliTemplateEntity templateByCode = getHesabTafsiliTemplateService().loadByCode(hesabTafsiliEntity.getCode(), topOrganCode);
+			HesabTafsiliTemplateEntity templateByCode = getHesabTafsiliTemplateService().loadByCode(hesabTafsiliEntity.getCode(), topOrganList);
 			if(templateByCode!=null)
 				hesabTafsiliTemplateEntity.getChilds().add(templateByCode);
 		}
@@ -696,7 +696,7 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 	
 	@Transactional(readOnly=false)
 	public void createHesabTafsiliRelatedEntities(HesabTafsiliEntity srcHesabTafsiliEntity,
-			HesabTafsiliEntity destHesabTafsiliEntity, SaalMaaliEntity destSaalMaali, String topOrganCode) {
+			HesabTafsiliEntity destHesabTafsiliEntity, SaalMaaliEntity destSaalMaali, List<Long> topOrganList) {
 		
 		createHesabTafsiliRelatedChilds(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 		
@@ -705,19 +705,19 @@ BaseEntityService<HesabTafsiliEntity, Long> {
 		createHesabTafsiliRelatedMoeenTafsilis(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 		
 		update(destHesabTafsiliEntity);
-		createOrUpdateRelatedHesabTafsiliTemplate(destHesabTafsiliEntity, destSaalMaali.getOrganId(), topOrganCode, destSaalMaali.getOrganName());
+		createOrUpdateRelatedHesabTafsiliTemplate(destHesabTafsiliEntity, destSaalMaali.getOrganId(), topOrganList, destSaalMaali.getOrganName());
 	}
 	
 	@Transactional(readOnly=false)
 	public void copyHesabTafsiliRelatedEntities(HesabTafsiliEntity srcHesabTafsiliEntity,
-			HesabTafsiliEntity destHesabTafsiliEntity, SaalMaaliEntity destSaalMaali, String topOrganCode) {
+			HesabTafsiliEntity destHesabTafsiliEntity, SaalMaaliEntity destSaalMaali, List<Long> topOrganList) {
 		
 		createHesabTafsiliRelatedChilds(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 		
 		createHesabTafsiliRelatedMoeenTafsilis(srcHesabTafsiliEntity, destHesabTafsiliEntity, destSaalMaali);
 		
 		update(destHesabTafsiliEntity);
-		createOrUpdateRelatedHesabTafsiliTemplate(destHesabTafsiliEntity, srcHesabTafsiliEntity.getOrganId(), topOrganCode, srcHesabTafsiliEntity.getOrganName());
+		createOrUpdateRelatedHesabTafsiliTemplate(destHesabTafsiliEntity, srcHesabTafsiliEntity.getOrganId(), topOrganList, srcHesabTafsiliEntity.getOrganName());
 	}
 
 	@Transactional(readOnly=false)
