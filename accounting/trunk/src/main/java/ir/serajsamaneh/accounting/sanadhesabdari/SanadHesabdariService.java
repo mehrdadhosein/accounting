@@ -1506,7 +1506,7 @@ public class SanadHesabdariService extends
 					HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().loadHesabTafsiliByCode(sanadHesabdariItemEntity.getHesabTafsili().getCode(), activeSaalmaali.getId(),FlushMode.ALWAYS);
 					if(hesabTafsiliEntity == null){
 						hesabTafsiliEntity = getHesabTafsiliService().createHesabTafsili(activeSaalmaali, sanadHesabdariItemEntity.getHesabTafsili(), currentOrganVO.getId(), currentOrganVO.getTopOrgansIdList(), currentOrganVO.getTopParentCode(), currentOrganVO.getName());
-						getHesabTafsiliService().createHesabTafsiliRelatedEntities(sanadHesabdariItemEntity.getHesabTafsili(), hesabTafsiliEntity, activeSaalmaali, currentOrganVO.getTopParentCode());
+						getHesabTafsiliService().createHesabTafsiliRelatedEntities(sanadHesabdariItemEntity.getHesabTafsili(), hesabTafsiliEntity, activeSaalmaali, currentOrganVO.getTopOrgansIdList());
 					}
 					itemEntity.setHesabTafsili(hesabTafsiliEntity);
 				}
@@ -1515,7 +1515,7 @@ public class SanadHesabdariService extends
 					HesabTafsiliEntity hesabTafsiliTwoEntity = getHesabTafsiliService().loadHesabTafsiliByCode(sanadHesabdariItemEntity.getHesabTafsiliTwo().getCode(), activeSaalmaali.getId(),FlushMode.ALWAYS);
 					if(hesabTafsiliTwoEntity == null){
 						hesabTafsiliTwoEntity = getHesabTafsiliService().createHesabTafsili(activeSaalmaali, sanadHesabdariItemEntity.getHesabTafsiliTwo(), currentOrganVO.getId(), currentOrganVO.getTopOrgansIdList(), currentOrganVO.getTopParentCode(), currentOrganVO.getName());
-						getHesabTafsiliService().createHesabTafsiliRelatedEntities(sanadHesabdariItemEntity.getHesabTafsili(), hesabTafsiliTwoEntity, activeSaalmaali, currentOrganVO.getTopParentCode());
+						getHesabTafsiliService().createHesabTafsiliRelatedEntities(sanadHesabdariItemEntity.getHesabTafsili(), hesabTafsiliTwoEntity, activeSaalmaali, currentOrganVO.getTopOrgansIdList());
 					}
 					itemEntity.setHesabTafsiliTwo(hesabTafsiliTwoEntity);
 				}

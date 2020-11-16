@@ -138,7 +138,7 @@ public class HesabTemplateRelationsUtil {
 		if (moeenKolTemplateMap == null) {
 			moeenKolTemplateMap = new HashMap<Long, ListOrderedMap<String, Object>>();
 
-			List<HesabMoeenTemplateEntity> list = getHesabMoeenTemplateService().getActiveMoeens(organId, topOrganList);
+			List<HesabMoeenTemplateEntity> list = getHesabMoeenTemplateService().getActiveMoeens(topOrganList);
 			for (HesabMoeenTemplateEntity hesabMoeenTemplateEntity : list) {
 				ListOrderedMap<String, Object> moeenItemTemplateMap = new ListOrderedMap<String, Object>();
 				if(hesabMoeenTemplateEntity.getHesabKolTemplate() == null)
@@ -167,7 +167,7 @@ public class HesabTemplateRelationsUtil {
 		Map<Long, List<ListOrderedMap<String, Object>>> moeenTafsiliTemplateMap = organizationalMoeenTafsiliTemplateMap.get(organId);
 		
 		if(moeenTafsiliTemplateMap == null){
-			List<HesabMoeenTemplateEntity> moeenList = getHesabMoeenTemplateService().getActiveMoeens(organId, topOrganList);
+			List<HesabMoeenTemplateEntity> moeenList = getHesabMoeenTemplateService().getActiveMoeens(topOrganList);
 			moeenTafsiliTemplateMap = new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 			for (HesabMoeenTemplateEntity hesabMoeenTemplateEntity : moeenList) {
 				List<ListOrderedMap<String, Object>> hesabTafsiliTemplateList = new ArrayList<ListOrderedMap<String, Object>>();
