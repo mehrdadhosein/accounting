@@ -103,7 +103,7 @@ public class HesabTemplateRelationsUtil {
 		if (kolMoeenTemplateMap == null) {
 			kolMoeenTemplateMap = new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 
-			List<HesabKolTemplateEntity> list = getHesabKolTemplateService().getCurrentHesabKolTemplateList(topOrganCode);
+			List<HesabKolTemplateEntity> list = getHesabKolTemplateService().getCurrentHesabKolTemplateList(topOrganList);
 			for (HesabKolTemplateEntity hesabKolEntity : list) {
 				List<HesabMoeenTemplateEntity> moeenList = getHesabMoeenTemplateService().getActiveMoeens(hesabKolEntity.getId(), topOrganList);
 				

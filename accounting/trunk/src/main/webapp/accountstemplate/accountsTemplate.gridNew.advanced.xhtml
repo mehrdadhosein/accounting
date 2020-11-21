@@ -96,7 +96,7 @@ function createAutocomplete(id,src, minLength){
 			<h:outputText value="#{messages['HesabKol_title']}" />
 		</h:panelGroup>
 		<h:panelGroup>
-			<input name="hesabKolName" id="hesabKolName" readonly="readonly" style="width:220px"/>
+			<input name="hesabKolName" id="hesabKolName" readonly="readonly" style="width:220px" class="form-control"/>
 		</h:panelGroup>
 
 		<h:panelGroup>
@@ -129,25 +129,12 @@ function createAutocomplete(id,src, minLength){
 		</h:panelGroup>
 
 		
-		
-
-		<h:panelGroup>
-			<h:outputText styleClass="required" value="* " />
-			<h:outputLabel for="applyAutomaticTafsili"
-				value="#{messages['SanadHesabdariItemTemplate_applyAutomaticTafsili']}" /> : 
-		</h:panelGroup>
-
-		<t:selectOneMenu id="applyAutomaticTafsili" forceId="true"
-			converter="seraj.converter.YesNo">
-			<f:selectItems value="#{requiredEnums.YesNoEnum}" />
-		</t:selectOneMenu>
-		
 		<h:panelGroup>
 			<h:outputText styleClass="required" value="  " />
 			<h:outputLabel for="description"
 				value="#{messages['SanadHesabdariItem_description']}" /> : 
 		</h:panelGroup>
-		<textarea name="description" id="description" rows="5"
+		<textarea name="description" id="description" rows="5" class="form-control"
 			style="width: 200px;" />
 
 
@@ -312,8 +299,6 @@ function createAutocomplete(id,src, minLength){
 									'#{messages['SanadHesabdariItem_hesabTafsiliOne']}', 
 									'accountingMarkazID', 
 									'#{messages['SanadHesabdariItem_accountingMarkaz']}', 
-									'#{messages['SanadHesabdariItemTemplate_applyAutomaticTafsili']}', 
-									'#{messages['SanadHesabdariItemTemplate_applyAutomaticTafsili']}', 
 									'#{messages['SanadHesabdariItem_description']}', 
 									'#{messages['common_delete']}', 
 									'#{messages['common_edit']}' 
@@ -329,8 +314,6 @@ function createAutocomplete(id,src, minLength){
 							{name :'hesabTafsiliTemplateOneName', index :'hesabTafsiliTemplateName', width :150, sorttype :'string'}, 
 							{name :'accountingMarkazTemplateID', index :'accountingMarkazTemplateID', width :20, sorttype :'string'}, 
 							{name :'accountingMarkazTemplateName', index :'accountingMarkazTemplateName', width :150, sorttype :'string'}, 
-							{name :'applyAutomaticTafsili', index :'applyAutomaticTafsili', width :150, sortable :false, editable:false}, 
-							{name :'applyAutomaticTafsiliName', index :'applyAutomaticTafsiliName', width :100, sortable :false, editable:false}, 
 							{name :'description', index :'description', width :150, sortable :false, editable:true}, 
 							{name :'act', index :'act', width :30, sortable :false, formatter:urlFormatter}, 
 							{name :'editAct', index :'editAct', width :30, sortable :false, formatter:urlFormatter}
@@ -383,7 +366,6 @@ function createAutocomplete(id,src, minLength){
 
 
 	$$('#sanadHesabdariGrid').jqGrid('hideCol','accountingMarkazTemplateID'); 
-	$$('#sanadHesabdariGrid').jqGrid('hideCol','applyAutomaticTafsili'); 
 
 	
 	
@@ -397,7 +379,7 @@ function createAutocomplete(id,src, minLength){
 
 	
 	function createSanadHesabdariTable(sanadHesabdariXML){
-		var gridItems=new Array('id','templateType','hesabKolTemplateID','hesabKolTemplateName','hesabMoeenTemplateID','hesabMoeenTemplateName','hesabTafsiliTemplateOneID','hesabTafsiliTemplateOneName','accountingMarkazTemplateID','accountingMarkazTemplateName','applyAutomaticTafsili','applyAutomaticTafsiliName','description');
+		var gridItems=new Array('id','templateType','hesabKolTemplateID','hesabKolTemplateName','hesabMoeenTemplateID','hesabMoeenTemplateName','hesabTafsiliTemplateOneID','hesabTafsiliTemplateOneName','accountingMarkazTemplateID','accountingMarkazTemplateName','description');
 		setItems('#sanadHesabdariGrid',gridItems);
 		
 		createSanadHesabdariGrid(sanadHesabdariXML);
