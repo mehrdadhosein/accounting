@@ -249,10 +249,10 @@ public class HesabKolTemplateService extends
 	}
 	
 
-	public List<HesabKolTemplateEntity> getCurrentHesabKolTemplateList(String topOrganCode) {
+	public List<HesabKolTemplateEntity> getCurrentHesabKolTemplateList(List<Long> topOrganList) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		//localFilter.put("organId@eq",organId);
-		localFilter.put("organ.code@startlk", topOrganCode);
+		localFilter.put("organId@in", topOrganList);
 		localFilter.put("hidden@eq",Boolean.FALSE);
 		List<HesabKolTemplateEntity> hesabKolList = getDataList(null, localFilter, HesabKolEntity.PROP_CODE, true,false);
 		return hesabKolList;
