@@ -48,7 +48,6 @@ import ir.serajsamaneh.core.exception.InCorrectInputException;
 import ir.serajsamaneh.core.exception.MaxExcelRecordExportException;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
 import ir.serajsamaneh.core.file.FileEntity;
-import ir.serajsamaneh.core.file.FileService;
 import ir.serajsamaneh.core.security.SecurityUtil;
 import ir.serajsamaneh.core.tempuploadedfile.TempUploadedFileEntity;
 import ir.serajsamaneh.core.tempuploadedfile.TempUploadedFileService;
@@ -838,7 +837,8 @@ public class SanadHesabdariForm extends
 	@Override
 	@PreAuthorize("asdasdhasRole('ROLEE_USER_')")
 	public DataModel<SanadHesabdariEntity> getLocalDataModel() {
-		getFilter().put("sanadType.id@in", getSanadTypeIds());
+		if(getSanadTypeIds()!=null && getSanadTypeIds().size()>0)
+			getFilter().put("sanadType.id@in", getSanadTypeIds());
 		return super.getLocalDataModel();
 	}
 	
