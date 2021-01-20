@@ -1048,8 +1048,12 @@ public class SanadHesabdariItemService extends
 			localFilter.put("sanadHesabdari.organId@eq", organId);
 		
 		localFilter.put("hesabKol.hesabGroup.type@eq", hesabType);
-		localFilter.put("hesabMoeen.id@in", moeenIds);
-		localFilter.put("hesabKol.id@in", hesabKolIds);
+		if(moeenIds!=null && !moeenIds.isEmpty())
+			localFilter.put("hesabMoeen.id@in", moeenIds);
+		
+		if(hesabKolIds!=null && !hesabKolIds.isEmpty())
+			localFilter.put("hesabKol.id@in", hesabKolIds);
+		
 		if(tafsiliIds!=null && !tafsiliIds.isEmpty())
 			localFilter.put("hesabTafsili.id@in", tafsiliIds);
 		
@@ -1092,8 +1096,12 @@ public class SanadHesabdariItemService extends
 			localFilter.put("sanadHesabdari.organId@eq", organId);
 		
 		localFilter.put("hesabKol.hesabGroup.type@eq", hesabType);
-		localFilter.put("hesabMoeen.id@in", moeenIds);
-		localFilter.put("hesabKol.id@in", hesabKolIds);
+		if(moeenIds!=null && !moeenIds.isEmpty())
+			localFilter.put("hesabMoeen.id@in", moeenIds);
+		
+		if(hesabKolIds!=null && !hesabKolIds.isEmpty())
+			localFilter.put("hesabKol.id@in", hesabKolIds);
+		
 		if(tafsiliIds!=null && !tafsiliIds.isEmpty())
 			localFilter.put("hesabTafsili.id@in", tafsiliIds);
 		
