@@ -235,7 +235,7 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 	}
 
 	public SaalMaaliEntity getCurrentUserActiveSaalMaali() {
-		if(getCurrentOrganVO().getId() == null)
+		if(getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			throw new NoOrganFoundException("");
 		SaalMaaliEntity currentUserSaalMaaliEntity = getSaalMaaliService().getUserActiveSaalMaali(getCurrentOrganVO(), getCurrentUserVO().getId());
 		
