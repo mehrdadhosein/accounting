@@ -402,7 +402,10 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			getFilter().put("sanadHesabdari.organId@eq", getSelectedOrganId());		
 		else
 			getFilter().put("sanadHesabdari.organId@eq", null);
-		getFilter().put("sanadHesabdari.organ.code@startlk",	getCurrentOrganVO().getTopParentCode());
+
+		List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
+		getFilter().put("sanadHesabdari.organId@in", topOrganList);
+		//getFilter().put("sanadHesabdari.organ.code@startlk",	getCurrentOrganVO().getTopParentCode());
 
 		List<SanadStateEnum> sanadStates = new ArrayList<SanadStateEnum>();
 		sanadStates.add(SanadStateEnum.DAEM);
@@ -2198,7 +2201,9 @@ public class SanadHesabdariItemForm   extends BaseAccountingForm<SanadHesabdariI
 			getFilter().put("sanadHesabdari.organId@eq", getSelectedOrganId());		
 		else
 			getFilter().put("sanadHesabdari.organId@eq", null);
-		getFilter().put("sanadHesabdari.organ.code@startlk",	getCurrentOrganVO().getTopParentCode());
+		List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
+		getFilter().put("sanadHesabdari.organId@in", topOrganList);
+		//getFilter().put("sanadHesabdari.organ.code@startlk",	getCurrentOrganVO().getTopParentCode());
 
 		exportToExcel();
 		return null;
