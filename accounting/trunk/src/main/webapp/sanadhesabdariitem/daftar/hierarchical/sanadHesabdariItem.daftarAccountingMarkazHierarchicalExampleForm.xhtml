@@ -57,28 +57,6 @@
 						selectedIds="#{owner.tafsiliIds}" entity="HesabTafsili"
 						property="code, name" ajax="false" extraParams="isCurrentOrgan=true"/>
 				</h:panelGroup>
-
-				<h:panelGroup>
-					<h:outputLabel for="codeTafsiliAzTa"
-						value="#{messages['SanadHesabdari_codeTafsili']}" /> : 
-				</h:panelGroup>
-
-
-				<h:panelGroup id="codeTafsiliAzTa">
-
-						<h:outputLabel for="azcodeTafsiliExample"
-							value="#{messages['from']} : " />
-						<p:inputText id="azcodeTafsiliExample"
-							value="#{owner.sanadhesabdariItemFilter['hesabTafsili.code@ge']}"
-							converter="javax.faces.Long">
-						</p:inputText>
-
-						<h:outputLabel for="tacodeTafsiliExample" value="#{messages['to']} : " />
-						<p:inputText id="tacodeTafsiliExample"
-							value="#{owner.sanadhesabdariItemFilter['hesabTafsili.code@le']}"
-							converter="javax.faces.Long">
-						</p:inputText>
-				</h:panelGroup>
 				
 
 				<h:panelGroup>
@@ -86,7 +64,7 @@
 						value="#{messages['SanadHesabdari_codeTafsili']}" /> : 
 				</h:panelGroup>
 
-
+				
 				<h:panelGroup id="codeTafsiliAzTa">
 
 						<h:outputLabel for="azcodeTafsiliExample"
