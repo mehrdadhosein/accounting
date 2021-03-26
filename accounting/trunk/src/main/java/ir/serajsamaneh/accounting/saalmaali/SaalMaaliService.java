@@ -22,6 +22,7 @@ import ir.serajsamaneh.accounting.month.MonthService;
 import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity;
 import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
 import ir.serajsamaneh.core.common.OrganVO;
+import ir.serajsamaneh.core.common.SaalMaaliVO;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
 import ir.serajsamaneh.core.systemconfig.SystemConfigEntity;
@@ -241,6 +242,13 @@ public class SaalMaaliService extends BaseAccountingService<SaalMaaliEntity, Lon
 		return endDate;
 	}
 
+	
+	public SaalMaaliEntity getPreviousSaalMaali(SaalMaaliVO saalMaaliEntity, OrganVO mainOrgan){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(saalMaaliEntity.getStartDate());
+		calendar.add(Calendar.DAY_OF_YEAR, -1);
+		return getSaalmaaliByDate(calendar.getTime(), mainOrgan);
+	}
 	
 	public SaalMaaliEntity getPreviousSaalMaali(SaalMaaliEntity saalMaaliEntity, OrganVO mainOrgan){
 		Calendar calendar = Calendar.getInstance();
