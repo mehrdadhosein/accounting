@@ -182,8 +182,8 @@ public class AccountingRestFace extends BaseForm{
 		saalMaaliVO.setOrganId(userActiveSaalMaali.getOrganId());
 		saalMaaliVO.setOrganName(userActiveSaalMaali.getOrganName());
 		saalMaaliVO.setSaal(userActiveSaalMaali.getSaal());
-		saalMaaliVO.setStartDate(userActiveSaalMaali.getStartDate());
-		saalMaaliVO.setEndDate(userActiveSaalMaali.getEndDate());
+		saalMaaliVO.setStartDateLong(userActiveSaalMaali.getStartDate().getTime());
+		saalMaaliVO.setEndDateLong(userActiveSaalMaali.getEndDate().getTime());
 		
 		String result = jsonb.toJson(saalMaaliVO);
 		return result;
@@ -202,8 +202,8 @@ public class AccountingRestFace extends BaseForm{
 		saalMaaliVO.setOrganId(userActiveSaalMaali.getOrganId());
 		saalMaaliVO.setOrganName(userActiveSaalMaali.getOrganName());
 		saalMaaliVO.setSaal(userActiveSaalMaali.getSaal());
-		saalMaaliVO.setStartDate(userActiveSaalMaali.getStartDate());
-		saalMaaliVO.setEndDate(userActiveSaalMaali.getEndDate());
+		saalMaaliVO.setStartDateLong(userActiveSaalMaali.getStartDate().getTime());
+		saalMaaliVO.setEndDateLong(userActiveSaalMaali.getEndDate().getTime());
 		
 		String result = jsonb.toJson(saalMaaliVO);
 		return result;
@@ -222,8 +222,8 @@ public class AccountingRestFace extends BaseForm{
 		saalMaaliVO.setOrganId(userActiveSaalMaali.getOrganId());
 		saalMaaliVO.setOrganName(userActiveSaalMaali.getOrganName());
 		saalMaaliVO.setSaal(userActiveSaalMaali.getSaal());
-		saalMaaliVO.setStartDate(userActiveSaalMaali.getStartDate());
-		saalMaaliVO.setEndDate(userActiveSaalMaali.getEndDate());
+		saalMaaliVO.setStartDateLong(userActiveSaalMaali.getStartDate().getTime());
+		saalMaaliVO.setEndDateLong(userActiveSaalMaali.getEndDate().getTime());
 		return saalMaaliVO;
 	}
 	
