@@ -143,13 +143,14 @@ public class SaalMaaliService extends BaseAccountingService<SaalMaaliEntity, Lon
 		if(mainOrgan == null)
 			throw new NoOrganFoundException("");
 		
-		List<OrganVO> parentOrganList = mainOrgan.getParentOrganList();
-		if(parentOrganList.isEmpty())
-			parentOrganList.add(mainOrgan);
-		for (OrganVO organVO : parentOrganList) {
+//		List<OrganVO> parentOrganList = mainOrgan.getParentOrganList();
+		List<Long> topOrgansIdList = mainOrgan.getTopOrgansIdList();
+		if(topOrgansIdList.isEmpty())
+			topOrgansIdList.add(mainOrgan.getId());
+		for (Long organId : topOrgansIdList) {
 			
 			Map<String, Object> localFilter = new HashMap<String, Object>();
-			localFilter.put("organId@eq",organVO.getId());
+			localFilter.put("organId@eq",organId);
 			localFilter.put("isActive@eq", Boolean.TRUE);
 			List<SaalMaaliEntity> dataList = getDataList(null, localFilter, "", null,FlushMode.MANUAL,true);
 			if(dataList.size() > 1)
