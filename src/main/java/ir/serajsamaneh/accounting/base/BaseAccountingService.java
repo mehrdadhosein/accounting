@@ -2,14 +2,19 @@ package ir.serajsamaneh.accounting.base;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
+import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
+import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity;
+import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
 import ir.serajsamaneh.accounting.sanadtype.SanadTypeService;
 import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.base.BaseEntityService;
@@ -18,9 +23,9 @@ import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.NoOrganFoundException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.organ.OrganService;
-import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.user.UserService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
+import ir.serajsamaneh.enumeration.SaalMaaliStatusEnum;
 import ir.serajsamaneh.enumeration.YesNoEnum;
 
 public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends Serializable> extends BaseEntityService<T, U>{
@@ -127,6 +132,21 @@ public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends 
 		SaalMaaliEntity currentUserSaalMaaliEntity = getSaalMaaliService().getUserActiveSaalMaali(organVO, /*getTopOrgan(organEntity),*/ userId);
 		
 		return currentUserSaalMaaliEntity;
+	}
+	
+
+	public void checkSaalMaaliIsInProgress(SaalMaaliEntity saalmaali, SanadHesabdariEntity sanadHesabdariEntity) {
+		if(!(saalmaali.getStatus().equals(SaalMaaliStatusEnum.InProgress) || saalmaali.getStatus().equals(SaalMaaliStatusEnum.TemporalAccountsClosed)))
+			throw new FatalException(SerajMessageUtil.getMessage("SaalMaali_operationNotAllowed", saalmaali.getSaal()));
+		
+		if(saalmaali.getStatus().equals(SaalMaaliStatusEnum.TemporalAccountsClosed)){
+			List<SanadHesabdariItemEntity> sanadHesabdariItems = sanadHesabdariEntity.getSanadHesabdariItem();
+			for (SanadHesabdariItemEntity sanadHesabdariItemEntity : sanadHesabdariItems) {
+				HesabKolEntity hesabKol = sanadHesabdariItemEntity.getHesabKol();
+				if(!hesabKol.getHesabGroup().getMahyatGroup().equals(MahyatGroupEnum.TARAZNAMEH))
+					throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_cantDoOperationOnArticleThatArentOfTypeTARAZNAMEH",sanadHesabdariItemEntity));
+			}
+		}
 	}
 
 }
