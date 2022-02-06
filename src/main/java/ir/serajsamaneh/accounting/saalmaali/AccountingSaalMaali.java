@@ -29,6 +29,8 @@ public class AccountingSaalMaali extends SaalMaaliForm {
 	HesabMoeenService hesabMoeenService;
 	@Autowired
 	HesabTafsiliService hesabTafsiliService;
+	@Autowired
+	SaalMaaliService  saalMaaliService;
 
 	public void copyHesabsFromSourceSaalMaaliToDestSaalMaali(){
 		if(getSrcSaalMaali().getId() == null)
@@ -37,7 +39,7 @@ public class AccountingSaalMaali extends SaalMaaliForm {
 //		if(getDestSaalMaali().getId() == null)
 //			throw new RequiredFieldNotSetException(SerajMessageUtil.getMessage("AccountingSystemConfig_destSaalMaali"));
 		
-		srcSaalMaali = getSaalMaaliService().load(getSrcSaalMaali().getId());
+		srcSaalMaali = saalMaaliService.load(getSrcSaalMaali().getId());
 //		destSaalMaali = getSaalMaaliService().load(getDestSaalMaali().getId());
 		
 		hesabKolService.copyHesabKolsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrganVO().getTopOrgansIdList());
