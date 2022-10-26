@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+
+	<groupId>ir.serajsamaneh</groupId>
+	<artifactId>accounting</artifactId>
+	<version>1.100</version>
+	<packaging>jar</packaging>
+
+	<name>accounting</name>
+	<!-- FIXME change it to the project's website -->
+	<url>https://www.serajcloud.ir</url>
+
+	<properties>
+	    <maven.compiler.target>17</maven.compiler.target>
+	    <maven.compiler.source>17</maven.compiler.source>
+	    <failOnMissingWebXml>false</failOnMissingWebXml>
+	    <cxf.version>3.5.2</cxf.version>
+	</properties>	
+	
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
+		    <version>2.6.2</version>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.springframework.boot</groupId>
+		            <artifactId>spring-boot-starter-logging</artifactId>
+		        </exclusion>
+		    </exclusions>		    
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-reactor-netty -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-reactor-netty</artifactId>
+		    <version>2.6.2</version>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.springframework.boot</groupId>
+		            <artifactId>spring-boot-starter-logging</artifactId>
+		        </exclusion>
+		    </exclusions>		    
+		</dependency>
+			
+		<dependency>
+			<groupId>ir.serajsamaneh</groupId>
+			<artifactId>commoncore</artifactId>
+			<version>1.100</version>
+			<!-- scope>provided</scope-->			
+		</dependency>
+		
+		<dependency>
+			<groupId>ir.serajsamaneh</groupId>
+			<artifactId>commonweb</artifactId>
+			<version>1.100</version>
+      		<type>war</type>
+      		<scope>runtime</scope>			
+		</dependency>	
+				
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>4.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api -->
+		<dependency>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>jsp-api</artifactId>
+		    <version>2.2</version>
+		    <scope>provided</scope>
+		</dependency>	
+		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+		<dependency>
+		    <groupId>joda-time</groupId>
+		    <artifactId>joda-time</artifactId>
+		    <version>2.10.13</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.session/spring-session-core -->
+		<dependency>
+		    <groupId>org.springframework.session</groupId>
+		    <artifactId>spring-session-core</artifactId>
+		    <version>2.6.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis -->
+		<dependency>
+		    <groupId>org.springframework.session</groupId>
+		    <artifactId>spring-session-data-redis</artifactId>
+		    <version>2.6.1</version>
+		</dependency>	
+		<!-- https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka -->
+		<dependency>
+		    <groupId>org.springframework.kafka</groupId>
+		    <artifactId>spring-kafka</artifactId>
+		    <version>2.8.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+		<dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>3.8.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>2.6.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-redis</artifactId>
+		    <version>2.6.1</version>
+		</dependency>	
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>8.0.28</version>
+		</dependency>	
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webflux -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webflux</artifactId>
+		    <version>5.3.16</version>
+		</dependency>
+  
+    <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        <version>${cxf.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-transports-http</artifactId>
+        <version>${cxf.version}</version>
+    </dependency>
+        <!-- Jetty is needed if you're are not using the CXFServlet -->
+    <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-transports-http-jetty</artifactId>
+        <version>${cxf.version}</version>
+    </dependency>		
+
+	<dependency>
+	    <groupId>io.jsonwebtoken</groupId>
+	    <artifactId>jjwt</artifactId>
+	    <version>0.9.1</version>
+	</dependency>
+            					
+	</dependencies>
+	<build>
+	    <plugins>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-war-plugin</artifactId>
+	            <version>3.3.2</version>
+	            <configuration>
+	                <failOnMissingWebXml>false</failOnMissingWebXml>
+	            </configuration>
+	        </plugin>
+	    </plugins>
+	</build>
+</project>

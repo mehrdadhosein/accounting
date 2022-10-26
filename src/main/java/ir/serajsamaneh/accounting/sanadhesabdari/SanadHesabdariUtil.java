@@ -18,12 +18,14 @@ import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabkol.HesabKolService;
 import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity;
+import ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliService;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
+import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateService;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
@@ -57,9 +59,11 @@ public class SanadHesabdariUtil {
 	static SanadHesabdariService sanadHesabdariService;
 	static SanadTypeService sanadTypeService;
 	static HesabTafsiliService hesabTafsiliService;
+	static HesabTafsiliTemplateService hesabTafsiliTemplateService;
 	static SaalMaaliService saalMaaliService;
 	static HesabMoeenService hesabMoeenService;
 	static HesabKolService hesabKolService;
+	static HesabKolTemplateService hesabKolTemplateService;
 	static AccountingMarkazService accountingMarkazService;
 	static SystemConfigService systemConfigService;
 	
@@ -90,6 +94,12 @@ public class SanadHesabdariUtil {
 		return hesabKolService;
 	}
 
+	public static HesabKolTemplateService getHesabKolTemplateService() {
+		if(hesabKolTemplateService == null)
+			hesabKolTemplateService = SpringUtils.getBean("hesabKolTemplateService");
+		return hesabKolTemplateService;
+	}
+	
 
 
 
@@ -99,6 +109,12 @@ public class SanadHesabdariUtil {
 		return saalMaaliService;
 	}
 
+	
+	public static HesabTafsiliTemplateService getHesabTafsiliTemplateService() {
+		if(hesabTafsiliTemplateService == null)
+			hesabTafsiliTemplateService = SpringUtils.getBean("hesabTafsiliTemplateService");			
+		return hesabTafsiliTemplateService;
+	}
 
 	public static HesabTafsiliService getHesabTafsiliService() {
 		if(hesabTafsiliService == null)
@@ -422,6 +438,10 @@ public class SanadHesabdariUtil {
 	}
 
 
+	public static HesabKolEntity getHesabKolByTemplateId(Long hesabKolTemplateId, Long saalMaaliId){
+		HesabKolTemplateEntity hesabKolTemplateEntity = getHesabKolTemplateService().load(hesabKolTemplateId);
+		return getHesabKolByTemplate(hesabKolTemplateEntity, saalMaaliId);
+	}
 	public static HesabKolEntity getHesabKolByTemplate(HesabKolTemplateEntity hesabKolTemplateEntity, Long saalMaaliId){
 		return getHesabKolService().loadHesabKolByCode(hesabKolTemplateEntity.getCode(), saalMaaliId);
 	}

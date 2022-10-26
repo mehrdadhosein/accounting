@@ -83,13 +83,13 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			HesabTafsiliTemplateEntity hesabTafsiliTemplateTwo,
 			AccountingMarkazEntity accountingMarkazEntity,
 			String description,
-			SaalMaaliEntity saalMaaliEntity) {
+			Long saalMaaliId) {
 		
-		HesabTafsiliEntity hesabTafsili = getHesabTafsiliByTemplate(hesabTafsiliTemplate, saalMaaliEntity.getId());
-		HesabTafsiliEntity hesabTafsiliTwo = getHesabTafsiliByTemplate(hesabTafsiliTemplateTwo, saalMaaliEntity.getId());
+		HesabTafsiliEntity hesabTafsili = getHesabTafsiliByTemplate(hesabTafsiliTemplate, saalMaaliId);
+		HesabTafsiliEntity hesabTafsiliTwo = getHesabTafsiliByTemplate(hesabTafsiliTemplateTwo, saalMaaliId);
 		
 		return createBedehkarArticle(bedehkarAmount, templateEntity, accountingMarkazEntity,
-				description, saalMaaliEntity, new ArrayList<>(Arrays.asList(hesabTafsili, hesabTafsiliTwo)));
+				description, saalMaaliId, new ArrayList<>(Arrays.asList(hesabTafsili, hesabTafsiliTwo)));
 	}
 	
 	public static SanadHesabdariItemEntity createBedehkarArticle(Double bedehkarAmount,
@@ -136,7 +136,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	protected static SanadHesabdariItemEntity createBedehkarArticle(Double bedehkarAmount,
 			AccountsTemplateEntity templateEntity,
 			AccountingMarkazEntity accountingMarkazEntity, String description,
-			SaalMaaliEntity saalMaaliEntity, List<HesabTafsiliEntity> hesabTafsilis) {
+			Long saalMaaliId, List<HesabTafsiliEntity> hesabTafsilis) {
 		
 		if (bedehkarAmount == null || bedehkarAmount == 0)
 			return null;
@@ -157,9 +157,9 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			throw new FatalException(SerajMessageUtil.getMessage("AccountsTemplate_HesabMoeenNotDefined",
 					templateEntity.getActionName()));
 		
-		HesabKolEntity hesabKolEntity = getHesabKolByTemplate(sanadHesabdariItemTemplateBedehkar.getHesabKolTemplate(),	saalMaaliEntity.getId());
-		HesabMoeenEntity hesabMoeenEntity = getHesabMoeenByTemplate(sanadHesabdariItemTemplateBedehkar.getHesabMoeenTemplate(), saalMaaliEntity.getId());
-		HesabTafsiliEntity hesabTafsiliEntityONE = getHesabTafsiliByTemplate(sanadHesabdariItemTemplateBedehkar.getHesabTafsiliTemplate(), saalMaaliEntity.getId());
+		HesabKolEntity hesabKolEntity = getHesabKolByTemplate(sanadHesabdariItemTemplateBedehkar.getHesabKolTemplate(),	saalMaaliId);
+		HesabMoeenEntity hesabMoeenEntity = getHesabMoeenByTemplate(sanadHesabdariItemTemplateBedehkar.getHesabMoeenTemplate(), saalMaaliId);
+		HesabTafsiliEntity hesabTafsiliEntityONE = getHesabTafsiliByTemplate(sanadHesabdariItemTemplateBedehkar.getHesabTafsiliTemplate(), saalMaaliId);
 		
 		if (hesabKolEntity == null || hesabKolEntity.getId() == null)
 			throw new FatalException(SerajMessageUtil.getMessage("HesabKol_notDefinedForOrgan",
@@ -262,17 +262,17 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	
 	public static SanadHesabdariItemEntity createBestankarArticle(Double bestanKarAmount,
 			AccountsTemplateEntity templateEntity,
-			HesabTafsiliTemplateEntity hesabTafsiliTemplateTWO,
-			HesabTafsiliTemplateEntity hesabShenavarTemlate,
+			Long hesabTafsiliTemplateTWOId,
+			Long hesabShenavarTemlateId,
 			AccountingMarkazEntity accountingMarkazEntity,
 			String description,
-			SaalMaaliEntity saalMaaliEntity) {
+			Long saalMaaliId) {
 		
-		HesabTafsiliEntity hesabTafsiliTWO = getHesabTafsiliByTemplate(hesabTafsiliTemplateTWO, saalMaaliEntity.getId());
-		HesabTafsiliEntity hesabShenavar = getHesabTafsiliByTemplate(hesabShenavarTemlate, saalMaaliEntity.getId());
+		HesabTafsiliEntity hesabTafsiliTWO = getHesabTafsiliByTemplateId(hesabTafsiliTemplateTWOId, saalMaaliId);
+		HesabTafsiliEntity hesabShenavar = getHesabTafsiliByTemplateId(hesabShenavarTemlateId, saalMaaliId);
 
 		return createBestankarArticle(bestanKarAmount, templateEntity,
-				accountingMarkazEntity, description, saalMaaliEntity.getId(), Arrays.asList(hesabTafsiliTWO, hesabShenavar));
+				accountingMarkazEntity, description, saalMaaliId, Arrays.asList(hesabTafsiliTWO, hesabShenavar));
 	}
 	
 	public static SanadHesabdariItemEntity createBestankarArticle(Double bestanKarAmount,

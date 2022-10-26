@@ -5,6 +5,10 @@ import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemT
 
 public class SanadHesabdariItemTemplateVO extends SanadHesabdariItemVO {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8475046614047521834L;
 	String templateType=""; //bedehkar/bestankar
 	String hesabTafsiliTemplateOneCode;
 	String hesabTafsiliTemplateOneName;
