@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    id="WebApp_ID" version="3.0">
+
+	<display-name>Seraj Samaneh Arian ERP System</display-name>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:/config/spring/SpringConfig-*.xml</param-value>
+	</context-param>
+
+	  <context-param>
+	    <param-name>primefaces.THEME</param-name>
+	    <param-value>saga</param-value>
+	  </context-param>	
+<!-- exception-type related error pages -->
+	 
+	<!-- error-page>
+	    <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+	    <location>/access/error.html</location>
+	</error-page> 
+	<error-page>
+	    <exception-type>ir.serajsamaneh.core.exception.FileUploadException</exception-type>
+	    <location>/access/error.html</location>
+	</error-page> 
+	<error-page>
+	    <exception-type>javax.servlet.ServletException.ServletException</exception-type>
+	    <location>/access/error.html</location>
+	</error-page> 
+	<error-page>
+	    <exception-type>java.lang.Exception</exception-type>
+	    <location>/access/error.html</location>
+	</error-page> 
+	<error-page>
+	    <exception-type>ir.serajsamaneh.core.exception.FatalException</exception-type>
+	    <location>/access/error.html</location>
+	</error-page-->	
+	<!-- error-page>
+	    <error-code>404</error-code>
+	    <location>/index.html</location>
+	</error-page-->
+
+   	
+    <servlet>
+        <servlet-name>springMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	    <init-param>
+	        <param-name>contextConfigLocation</param-name>
+	        <param-value>/WEB-INF/classes/config/spring/springMVC-servlet.xml</param-value>
+	    </init-param>        
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springMVC</servlet-name>
+        <url-pattern>/jersey/*</url-pattern>
+        <url-pattern>/rest/*</url-pattern>
+        <url-pattern>/webui/*</url-pattern>
+    </servlet-mapping>
+	
+	
+    <session-config>
+      <session-timeout>360</session-timeout>    <!-- 360 minutes -->
+    </session-config>	
+<!-- Facelete Configuration Start -->
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>/WEB-INF/tomahawk-facelet.xml;/WEB-INF/seraj-facelet.xml</param-value>
+	</context-param>
+
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Production</param-value>
+    </context-param>
+
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>client</param-value>
+	</context-param>
+
+	<context-param>
+	 <param-name>com.sun.faces.numberOfViewsInSession</param-name>
+	 <param-value>30</param-value>
+	</context-param>
+	
+	<context-param>
+	 <param-name>com.sun.faces.numberOfLogicalViews</param-name>
+	 <param-value>30</param-value>
+	</context-param>
+	
+	<security-constraint>
+		<display-name>Restrict XHTML Documents</display-name>
+		<web-resource-collection>
+			<web-resource-name>XHTML</web-resource-name>
+			<url-pattern>*.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<description>Only Let 'developer's access XHTML pages</description>
+			<role-name>developer</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<listener>
+		<listener-class> org.springframework.web.context.ContextLoaderListener 
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener 
+		</listener-class>
+	</listener>
+	 
+	<listener>
+		<listener-class>
+			org.springframework.security.web.session.HttpSessionEventPublisher 
+		</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>FacesServlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FacesServlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+	  <filter-name>springSecurityFilterChain</filter-name>
+	  <url-pattern>/*</url-pattern>
+      <dispatcher>FORWARD</dispatcher>
+	   <dispatcher>REQUEST</dispatcher>	  
+	</filter-mapping>
+
+
+	</web-app>

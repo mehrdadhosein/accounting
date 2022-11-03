@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Contexts>
+	<Context  method="dosubmit">
+		<MenuItem value="گزارشات" separator="true" icon="automation-notepad-2">
+				<MenuItem id="reportview" value="فهرست"  valueClick="../reports/report.view.jsf" separator="true" pagetitle="فهرست" icon="serajicon-report"  permission="report.view_"/>
+				<MenuItem id="QueryBuilderApplet" value="گزارش ساز"  valueClick="../reports/QueryBuilderApplet.html" separator="true" icon="automation-note" permission="report.view_"/>
+		</MenuItem>
+		<MenuItem value="اشخاص" permission=""   icon="serajicon-team-2"  separator="true">
+			<MenuItem id="shakhsHaghighilist" value="شخص حقیقی(سراسری)" valueClick="../shakhshaghighi/shakhsHaghighi.list.jsf"
+				separator="true" permission="shakhsHaghighi.list" icon="serajicon-professor"></MenuItem>
+							
+			<MenuItem id="shakhsHaghighiorganizationalList" value="شخص حقیقی(سلسله مراتبی)"
+				valueClick="../shakhshaghighi/shakhsHaghighi.organizationalList.jsf"
+				separator="true" permission="shakhsHaghighi.organizationalList" icon="serajicon-professor" ></MenuItem>
+			<MenuItem id="shakhsHaghighiProtectedlist" value="شخص حقیقی"
+				icon="serajicon-professor" >
+				<MenuItem value="ساخت" valueClick="../shakhshaghighi/shakhsHaghighi.edit.jsf?newReturnUrl=/shakhshaghighi/shakhsHaghighiProtected.list.jsf" id="shakhsHaghighiedit"
+					pagetitle="ساخت شخص حقیقی"
+					permission="shakhsHaghighi.edit" icon="serajicon-add-1" />
+				<MenuItem value="جستجو" id="shakhsHaghighiProtectedlist"
+					valueClick="../shakhshaghighi/shakhsHaghighiProtected.list.jsf"
+					pagetitle="فهرست شخص حقیقی"
+					permission="shakhsHaghighiProtected.list" icon="serajicon-search-1" />
+			</MenuItem>
+
+			<MenuItem value="شخص حقوقی(سراسری)" valueClick="../shakhshoghoghi/shakhsHoghoghi.list.jsf" id="shakhsHoghoghilist"
+				separator="true" permission="shakhsHoghoghi.list" icon="serajicon-users-2"></MenuItem>			
+			<MenuItem value="شخص حقوقی(سلسله مراتبی)" id="shakhsHoghoghiorganizationalList"
+				valueClick="../shakhshoghoghi/shakhsHoghoghi.organizationalList.jsf"
+				separator="true" permission="shakhsHoghoghi.organizationalList" icon="serajicon-users-2"></MenuItem>
+			<MenuItem value="شخص حقوقی"
+				icon="serajicon-users-2">
+				<MenuItem id="shakhsHoghoghiedit" value="ساخت" valueClick="../shakhshoghoghi/shakhsHoghoghi.edit.jsf?newReturnUrl=/shakhshoghoghi/shakhsHoghoghi.localList.jsf"
+					pagetitle="ساخت شخص حقوقی"
+					permission="shakhsHoghoghi.edit" icon="serajicon-add-1"/>
+				<MenuItem id="shakhsHoghoghilocalList" value="جستجو"
+					valueClick="../shakhshoghoghi/shakhsHoghoghi.localList.jsf"
+					pagetitle="فهرست شخص حقوقی"
+					permission="shakhsHoghoghi.localList" icon="serajicon-search-1"/>
+			</MenuItem>		
+		</MenuItem>
+
+		
+		<MenuItem value="مدیریت" separator="true" icon="serajicon-user-1-1" >	
+			<MenuItem id="organconfigedit"  value="مشخصات سازمان" pagetitle="مشخصات سازمان"  valueClick="../organ/organ.config.edit.jsf"
+				permission="organ.config.edit" icon="Account-time-is-money" />
+		
+			<MenuItem id="contactlocalList" value="مخاطبین"
+			valueClick="../contact/contact.hierarchicalList.jsf" permission="contact.list"
+			icon="BusinessSeoElements-businesswoman-1" />
+			<MenuItem value="اطلاعات پایه"  icon="serajicon-cursor-2" >
+				<MenuItem value="واحد پولی" icon="Anbar-money-bill-and-coins">
+					<MenuItem id="currencyedit" value="ساخت" valueClick="../currency/currency.edit.jsf"
+						pagetitle="ساخت واحد پولی"
+						permission="currency.edit"  icon="serajicon-add-1" />
+					<MenuItem id="currencylist" value="جستجو" valueClick="../currency/currency.list.jsf"
+						pagetitle="فهرست واحد پولی"
+						permission="currency.list" icon="serajicon-search-1"/>
+				</MenuItem>
+				<MenuItem value="کشور" icon="serajicon-map-1">
+					<MenuItem id="countryedit" value="ساخت" valueClick="../country/country.edit.jsf"
+						pagetitle="ساخت کشور"
+						permission="country.edit"  icon="serajicon-add-1" />
+					<MenuItem id="countrylist" value="جستجو" valueClick="../country/country.list.jsf"
+						pagetitle="فهرست کشور"
+						permission="country.list" icon="serajicon-search-1"/>
+				</MenuItem>
+				<MenuItem value="استان" icon="serajicon-map-location">
+					<MenuItem id="ostanedit" value="ساخت" valueClick="../ostan/ostan.edit.jsf"
+						pagetitle="ساخت استان"
+						permission="ostan.edit"  icon="serajicon-add-1" />
+					<MenuItem id="ostanlist" value="جستجو" valueClick="../ostan/ostan.list.jsf"
+						pagetitle="فهرست استان"
+						permission="ostan.list" icon="serajicon-search-1"/>
+				</MenuItem>
+				<MenuItem value="شهرستان" valueClick="../shahrestan/shahrestan.list.jsf"
+					permission="shahrestan.list" icon="serajicon-map-location">
+					<MenuItem id="shahrestanedit" value="ساخت" valueClick="../shahrestan/shahrestan.edit.jsf"
+						pagetitle="ساخت شهرستان"
+						permission="shahrestan.edit"  icon="serajicon-add-1" />
+					<MenuItem id="shahrestanlist" value="جستجو" valueClick="../shahrestan/shahrestan.list.jsf"
+						pagetitle="فهرست شهرستان"
+						permission="shahrestan.list" icon="serajicon-search-1"/>
+				</MenuItem>
+
+				
+				<MenuItem id="projectlocalList" value="پروژه" valueClick="../project/project.localList.jsf"
+					permission="project.list" icon="serajicon-blueprint" />
+			</MenuItem>
+			
+			<MenuItem value="خبر"  icon="serajicon-map-location">
+				<MenuItem id="publicationlocalEdit" value="ساخت خبر" valueClick="../publication/publication.localEdit.jsf?newReturnUrl=/publication/publication.localList.jsf"
+					pagetitle="ساخت خبر"
+					permission="publication.localEdit"  icon="serajicon-add-1" />
+				<MenuItem id="publicationlocalList" value="فهرست خبر" valueClick="../publication/publication.localList.jsf"
+					pagetitle="فهرست خبر"
+					permission="publication.localList" icon="serajicon-search-1"/>
+				<MenuItem id="publicationCategorylocalEdit" value="ساخت دسته بندی خبر" valueClick="../publicationcategory/publicationCategory.localEdit.jsf?newReturnUrl=/publicationcategory/publicationCategory.localList.jsf"
+					pagetitle="ساخت دسته بندی خبر"
+					permission="publicationCategory.localEdit"  icon="serajicon-add-1" />
+				<MenuItem id="publicationCategorylocalList" value="فهرست دسته بندی خبر" valueClick="../publicationcategory/publicationCategory.localList.jsf"
+					pagetitle="فهرست دسته بندی خبر"
+					permission="publicationCategory.localList" icon="serajicon-search-1"/>
+			</MenuItem>
+
+			<MenuItem value="نظر سنجی"  permission=""   icon="serajicon-users-1">
+				<MenuItem id="surveylocalList" value="نظرسنجی" valueClick="../survey/survey.localList.jsf"
+					permission="survey.localList"  icon="Change-group-profile-users"/>
+				<MenuItem id="questionlocalList" value="پرسش نظرسنجی" valueClick="../question/question.localList.jsf"
+					permission="question.localList"  icon="Change-group-profile-users"/>
+				<MenuItem id="questionOptionslocalList" value="گزینه های پرسش" valueClick="../questionoptions/questionOptions.localList.jsf"
+					permission="questionOptions.localList_"  icon="Change-group-profile-users"/>
+				<MenuItem id="surveyResponselocalList" value="نتیجه نظرسنجی" valueClick="../surveyresponse/surveyResponse.localList.jsf"
+					permission="surveyResponse.localList"  icon="serajicon-user-42"/>
+					<MenuItem id="surveyReport" value="گزارش نظرسنجی" valueClick="../surveyresponse/surveyResponse.dashboard.jsf"
+					permission="surveyResponse.localList"  icon="serajicon-user-42"/>
+			</MenuItem>
+
+			<MenuItem value="كاربر"  permission=""   icon="serajicon-users-1">
+				<MenuItem id="userorganizationalList" value="كاربر سلسله مراتبی" valueClick="../secure/user/user.organizationalList.jsf"
+					permission="user.organizationalList"  icon="Change-group-profile-users"/>
+				<MenuItem id="userlist" value="كاربر سراسری" valueClick="../secure/user/user.list.jsf"
+					permission="user.list"  icon="Change-group-profile-users"/>
+				<MenuItem id="userdiabledList" value="كاربران غیر فعال" valueClick="../secure/user/user.diabledList.jsf"
+					permission="user.list"  icon="serajicon-user-42"/>
+			</MenuItem>
+			<MenuItem value="سازمان" permission=""   icon="Anbar-central-bank-building-frontal-view">
+				<MenuItem id="organlist" value="سازمان عمومی" valueClick="../organ/organ.list.jsf"
+					permission="organ.list" icon="Anbar-office-buildings" ></MenuItem>
+				<MenuItem id="disabledOrganlist" value="سازمان های غیرفعال" valueClick="../organ/disabledOrgan.list.jsf"
+					permission="disabledOrgan.list" icon="Anbar-offices-buildings" ></MenuItem>
+			</MenuItem>
+			<MenuItem value="مدیریت دپارتمان" permission="" icon="serajicon-networking">
+				<MenuItem id="departmentlocalList" value="دپارتمان های سازمان" valueClick="../organ/department.localList.jsf"
+					permission="department.localList" icon="serajicon-networking"/>
+				<MenuItem id="disabledDepartmentlocalList" value="دپارتمان های غیرفعال" valueClick="../organ/disabledDepartment.localList.jsf"
+					permission="disabledDepartment.localList" icon="serajicon-networking"></MenuItem>
+				<MenuItem id="departmentlist" value="مدیریت سراسری " valueClick="../organ/department.list.jsf"
+					permission="department.list" icon="serajicon-networking"></MenuItem>
+				<MenuItem id="disabledDepartmentlist" value="دپارتمان های غیرفعال"
+					valueClick="../organ/disabledDepartment.list.jsf" permission="department.list" icon="serajicon-networking"></MenuItem>
+			</MenuItem>			 
+
+			<MenuItem id="rolelist" value="نقش" valueClick="../secure/role/role.list.jsf"
+				permission="role.list" icon="serajicon-scientist-1"/>
+			<MenuItem id="permissionlist" value="حق دسترسی" valueClick="../secure/permission/permission.list.jsf"
+				permission="permission.list"   icon="serajicon-user-49"/>
+			<MenuItem id="classificationlist" value="دسته بندی" valueClick="../classification/classification.list.jsf"
+				permission="classification.list" icon="serajicon-folder-1" />
+			<MenuItem id="actionLoglist" value="فعالیت کاربران" valueClick="../actionlog/actionLog.list.jsf"
+				permission="actionLog.list"   icon="serajicon-presentation-12"/>
+
+			<MenuItem id="mainPagelist" value="صفحه نخست" valueClick="../mainpage/mainPage.list.jsf"
+				permission="mainPage.list"   icon="automation-home"/>
+			<MenuItem id="shakhsHaghighiManagementlist" value="مدیریت شخص حقیقی"
+				valueClick="../shakhshaghighi/shakhsHaghighiManagement.list.jsf"
+				permission="shakhsHaghighiManagement.list" icon="serajicon-user-29"></MenuItem>
+			<MenuItem id="systemConfiglist" value="تنظیمات سیستم" valueClick="../systemconfig/systemConfig.list.jsf"
+				permission="systemconfig.list" icon="images/menu/config-icon.png"/>	 
+			<MenuItem id="fileCorelistJSFj" value="جستجوی فایل" valueClick="../file/file.list.jsf"
+				permission="file.list_"  icon="serajicon-search-1"/>
+			<MenuItem id="fileuploadlist" value="آپلود فایل" valueClick="../file/file.upload.list.jsf"
+				permission="file.upload.list"  icon="serajicon-search-1"/>
+
+		</MenuItem>
+	
+</Context>
+</Contexts>

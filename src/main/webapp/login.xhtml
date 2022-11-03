@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	
+	
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	>
+
+<f:view>
+	<f:loadBundle basename="ApplicationResources_fa" var="messages" />
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<title>#{login.globalAppName}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <!-- link rel="icon" type="image/png"  href="${request.contextPath}/images/logo.gif"/-->
+
+    <!-- Theme CSS -->
+  <link href="${request.contextPath}/css/theme/clean-blog.min.css" rel="stylesheet"	type="text/css" />
+  <link href="${request.contextPath}/css/theme/bootstrap/css/bootstrap.min.css" rel="stylesheet"	type="text/css" />
+  <link href="${request.contextPath}/css/theme/font-awesome/css/font-awesome.min.css" rel="stylesheet"	type="text/css" />
+    
+    
+    <!-- script src='https://www.google.com/recaptcha/api.js'></script-->
+	</h:head>	
+	<body onload="">
+		<div class="bordtop">
+
+</div>
+
+ 
+
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+            <div class="asfhead">
+                  <!-- img src="${request.contextPath}/images/logo.gif"    width="200px"/-->
+                  <h2>#{login.globalAppName}</h2>
+                  <!-- span class="label label-info">نسخه آزمایشی</span-->
+            </div>
+
+          </div>
+      </div>
+  </div>
+<div class="container">
+        <div class="row">
+<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3">
+<div class="frmhldr">
+        <div class="errMsgBox" style="direction:rtl">
+            <p:panelGrid id="messageGrid" width="100%" columns="1" styleClass="ui-panelgrid-blank" style="direction:rtl">
+                <t:messages warnClass="warnClass" replaceIdWithLabel="true" errorClass="errorClass" id="message" infoClass="infoClass" />
+            </p:panelGrid>		
+		</div>
+		<h:form id="serajForm">		
+			<div class="input-group">
+			
+					
+				<span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+				<t:inputText forceId="true" id="j_username" required="true" tabindex="1" styleClass="txtinput form-control" />
+			</div>
+			<div class="input-group">
+				
+				<span class="input-group-addon" id="basic-addon1"><i class="fa fa-lock" aria-hidden="true"></i></span>
+				<t:inputSecret  forceId="true" id="j_password" required="true" styleClass="txtinput form-control" />
+			</div>
+			<t:div class="input-group" rendered="#{login.validateWithGoogleReCaptcha}">
+				
+				<div class="g-recaptcha" data-sitekey="6LfZIDAUAAAAAAyFofoSx8BbeBPuY3sUxwXr7sVf" data-lang="fa"></div>				
+			</t:div>			
+			<div class="input-group">
+			<t:commandButton id="loginBtn" action="#{login.doLogin}" styleClass="btn btn-block btn-primary btn-lg" value="ورود"/>
+			</div>
+			<input type="hidden" id="targetUrl" name="targetUrl" value="/RTL/index.jsp"/>
+            <input type="hidden" name="lt" value="${flowExecutionKey}" /> 
+			<input type="hidden" name="_eventId" value="submit" />			
+			<input type="hidden" name="authenticationType" value="basicAuthenticationType" />
+			<textarea id="loginfo" style="display: none"></textarea>
+		</h:form>		
+    </div>
+    </div>
+    </div>
+    <div class="loginInfoContainer"></div>
+</div>
+<div class="loginFooter">
+			 <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                    <p class="copyright text-muted"> #{login.globalAppName}</p>
+                    <p><span style="">Powered	by </span><!-- a href="http://seraj-samaneh.ir" target="_blank">Seraj Samaneh Arian</a--></p>
+                </div>
+            </div>
+        </div>
+</div>
+	</body>
+</f:view>
+</html>

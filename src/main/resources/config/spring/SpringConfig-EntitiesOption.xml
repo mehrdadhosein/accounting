@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+              http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+              http://www.springframework.org/schema/aop
+              http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+              http://www.springframework.org/schema/tx
+              http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<bean id="entities" class="ir.serajsamaneh.core.common.EntityOptionProvider">
+		<property name="required" value="false"/>
+		<property name="local" value="false"/>
+	</bean>
+	
+	<bean id="localEntities" class="ir.serajsamaneh.core.common.EntityOptionProvider">
+		<property name="required" value="false"/>
+		<property name="local" value="true"/>
+	</bean>
+	
+	<bean id="simpleLocalEntities" class="ir.serajsamaneh.core.common.EntityOptionProvider">
+		<property name="required" value="false"/>
+		<property name="simpleLocal" value="true"/>
+	</bean>
+	
+	<bean id="hierarchicalEntities" class="ir.serajsamaneh.core.common.EntityOptionProvider">
+		<property name="required" value="false"/>
+		<property name="hierarchical" value="true"/>
+	</bean>
+	
+	<bean id="simpleHierarchicalEntities" class="ir.serajsamaneh.core.common.EntityOptionProvider">
+		<property name="required" value="false"/>
+		<property name="simpleHierarchical" value="true"/>
+	</bean>
+	
+	<bean id="upSetEntities" class="ir.serajsamaneh.core.common.EntityOptionProvider">
+		<property name="required" value="false"/>
+		<property name="upSet" value="true"/>
+	</bean>
+	
+	<bean id="simpleUpSetEntities" class="ir.serajsamaneh.core.common.EntityOptionProvider">
+		<property name="required" value="false"/>
+		<property name="simpleUpSet" value="true"/>
+	</bean>
+	
+	<bean id="requiredEntities" class="ir.serajsamaneh.core.common.EntityOptionProvider">
+		<property name="required" value="true"/>
+	</bean>
+	<bean id="cachedEntities" class="ir.serajsamaneh.core.common.EntityOptionProvider">
+		<property name="cached" value="true" />
+	</bean>
+	<bean id="cachedRequiredEntities" class="ir.serajsamaneh.core.common.EntityOptionProvider">
+		<property name="cached" value="true" />
+		<property name="required" value="true" />
+	</bean>	
+</beans>

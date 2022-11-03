@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Contexts>
+	<Context  method="dosubmit">
+		<MenuItem value="تیکت" pagetitle="تیکت"  icon="Info-register">
+			<MenuItem id="organpermittedSendTicketedit" value="مدیریت ارسال تیکت" pagetitle="مدیریت ارسال تیکت" icon="automation-folder-1" valueClick="../organ/organ.permittedSendTicket.edit.jsf"
+				permission="organ.permittedSendTicket.edit"></MenuItem>
+				
+			<MenuItem  value="مدیریت پروژه" pagetitle="مدیریت پروژه"  permission="" icon="Info-list">
+				<MenuItem id="projectedit" value="ساخت" pagetitle="ساخت" icon="automation-folder-1" valueClick="../project/project.localEdit.jsf?newReturnUrl=/project/project.localList.xhtml"
+					permission="Project.create" />
+				<MenuItem id="projectlist" value="جستجو" pagetitle="جستجو" icon="automation-folder-1" valueClick="../project/project.localList.jsf"
+					permission="project.list"></MenuItem>
+			</MenuItem>		
+			<MenuItem id="ticketinbox"  value="تیکت های دریافتی" pagetitle="تیکت های دریافتی" icon="automation-folder-1" valueClick="../ticket/ticket.inbox.jsf"
+				permission="ticket.inbox"></MenuItem>
+			<MenuItem id="ticketcreateNewTicket" value="ارسال تیکت جدید" pagetitle="ارسال تیکت جدید" icon="automation-folder-1" valueClick="../ticket/ticket.createNewTicket.jsf"
+				permission="ticket.createNewTicket"></MenuItem>
+			<MenuItem id="ticketmyInbox"  value="در دست اقدام" pagetitle="در دست اقدام" icon="automation-folder-1" valueClick="../ticket/ticket.myInbox.jsf"
+				permission="ticket.myInbox"></MenuItem>
+			<!--MenuItem id="ticketoutbox"  value="تیکت های ارسالی" pagetitle="تیکت های ارسالی" icon="automation-folder-1"  valueClick="../ticket/ticket.outbox.jsf"
+				permission="ticket.outbox"></MenuItem-->
+			<MenuItem id="ticketarchived"  value="بایگانی کاربر" pagetitle="بایگانی کاربر" icon="automation-folder-1" valueClick="../ticket/ticket.userArchived.jsf"
+				permission="ticket.archived"></MenuItem>
+			<MenuItem id="ticketlocalArchiveList"  value="بایگانی سازمان" pagetitle="بایگانی سازمان" icon="automation-folder-1" valueClick="../ticket/ticket.localArchiveList.jsf"
+				permission="ticket.localArchiveList"></MenuItem>
+			<MenuItem id="Ticketinghtm"  value="راهنما" pagetitle="راهنما" icon="automation-folder-1" valueClick="../doc/Ticketing.htm"
+				permission="Ticketing.htm"></MenuItem>
+		</MenuItem>		
+	</Context>
+</Contexts>

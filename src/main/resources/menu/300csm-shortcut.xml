@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Group id="csm" title="اطلاعات پایه">		
+	<MenuItem id="shakhsHaghighiEdit" title="شخص حقیقی"
+		url="shakhshaghighi/shakhsHaghighi.edit.jsf?newReturnUrl=/shakhshaghighi/shakhsHaghighi.organizationalList.xhtml"
+		permission="shakhsHaghighi.edit" icon="images/menu/application-add-icon.png" />
+		
+	<MenuItem id="organedit" title="سازمان"
+		url="organ/organ.edit.jsf?newReturnUrl=/organ/organ.list.xhtml"
+		permission="organ.edit" icon="images/menu/User-Group-icon.png"></MenuItem>
+	<MenuItem id="projectLocalEdit" title="پروژه"
+		url="project/project.localEdit.jsf?newReturnUrl=/project/project.localList.xhtml"
+		permission="project.edit_" icon="images/menu/project-icon.png" />
+
+	<MenuItem id="unitEdit" title="واحد اندازه گیری"
+		url="unit/unit.edit.jsf?newReturnUrl=/unit/unit.list.xhtml"
+		permission="unit.edit_" icon="images/menu/32px/Units-icon.png" />
+
+	<MenuItem id="creditLocalEdit" title="طرف قرارداد"
+		url="credit/credit.localEdit.jsf?newReturnUrl=/contact/contact.credit.localList.xhtml"
+		permission="credit.list_" icon="images/menu/32px/book-icon.png" />
+		
+ 	<MenuItem id="contactList" title="لیست مخاطبین" 
+	    url="contact/contact.localEdit.jsf?newReturnUrl=/contact/contact.localList.xhtml"
+		permission="contact.list_" icon="images/menu/contact-list-icon.png"/> -->
+
+</Group>

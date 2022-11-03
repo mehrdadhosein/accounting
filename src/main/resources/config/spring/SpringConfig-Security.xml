@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.4.xsd">
+	<sec:http pattern="/images/**" security="none" />
+	<sec:http pattern="/css/**" security="none" />
+	<sec:http pattern="/js/**" security="none" />
+	<sec:http pattern="/**/*.js" security="none" />
+	<sec:http pattern="/**/*.css" security="none" />
+	<sec:http pattern="/scripts/**" security="none" />
+	<sec:http pattern="/*/upload.edit.*"  security="none"/>    
+	
+	<sec:http pattern="/license/licenseExpired.view.jsf" security="none" />    
+	<sec:http pattern="/license/license.list.jsf" security="none" />    
+	<sec:http pattern="/license/license.edit.jsf" security="none" />    
+	<sec:http pattern="/license/license.view.jsf" security="none" />    
+	<sec:http pattern="/logout.jsf"  security="none"/> 
+           
+    <sec:http pattern="/rfRes/**" security="none" />
+    <sec:http pattern="/resources/**" security="none" />
+    
+    <!-- sec:http pattern="/jersey/accountingRestFace/**" security="none" /-->
+    <!-- sec:http pattern="/jersey/sibaarRestFace/**" security="none" /-->
+    <!-- sec:http pattern="/jersey/ProcurementRest/**" security="none" />
+    <sec:http pattern="/jersey/OnlineReservationRest/**" security="none" />
+    <sec:http pattern="/jersey/onlineReservationClientDataProducerRest/**" security="none" />
+    <sec:http pattern="/jersey/ServiceFinderRest/**" security="none" />
+    <sec:http pattern="/jersey/mobileRestFace/**" security="none" /-->
+    <sec:http pattern="/access/accessDenied.jsf" security="none" />
+	<sec:http pattern="/login" security="none" />
+	<sec:http pattern="/index.jsp" security="none" />
+	<!-- <sec:http pattern="/jersey/coreRestFace/*" security="none" /> -->
+    
+	<sec:debug/>
+    <sec:http auto-config="false" create-session="always">
+		
+		<sec:intercept-url pattern="/javax.faces.resource/theme.css.jsf?ln=primefaces-smoothness" access="hasRole('ROLE_USER')" />
+		<sec:intercept-url pattern="/javax.faces.resource/components.css.jsf" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />  		
+		<sec:intercept-url pattern="/javax.faces.resource/jquery/jquery.js.jsf" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />  		
+		<sec:intercept-url pattern="/javax.faces.resource/jquery/jquery-plugins.js.jsf" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />  		
+		<sec:intercept-url pattern="/javax.faces.resource/core.js.jsf" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />  		
+		<sec:intercept-url pattern="/javax.faces.resource/components.js.jsf" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />  		
+    	<sec:intercept-url pattern="/loadstop/lrv.jsf" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
+    	<sec:intercept-url pattern="/jersey/accountingRestFace/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
+    	<sec:intercept-url pattern="/jersey/sibaarRestFace/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
+    	<sec:intercept-url pattern="/jersey/eshopRest/getCurrentShoppingCartItems" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
+    	<sec:intercept-url pattern="/jersey/eshopRest/addToCurrentShoppingCartItems" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
+    	<sec:intercept-url pattern="/jersey/eshopRest/removeFromCurrentShoppingCartItems" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
+		<sec:intercept-url pattern="/login.jsf"  access="hasRole('ROLE_ANONYMOUS')"/>
+		<sec:intercept-url pattern="/login.jsp"  access="hasRole('ROLE_ANONYMOUS')"/>
+    	<sec:intercept-url pattern="/jersey/**" access="hasRole('ROLE_USER')"/>
+		<sec:intercept-url pattern="/public/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
+		<sec:intercept-url pattern="/marketshop1/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
+		<sec:intercept-url pattern="/decoration/**" access="hasAnyRole('ROLE_ANONYMOUS','ROLE_USER')" />
+        <sec:intercept-url pattern="/services/**" access="hasRole('ROLE_ANONYMOUS')" />
+        <sec:intercept-url pattern="/secure/**" access="hasRole('ROLE_USER')"/>
+        <sec:intercept-url pattern="/*.jsf" access="hasRole('ROLE_USER')" />
+        <sec:intercept-url pattern="/*/**.jsf" access="hasRole('ROLE_USER')" />
+        <sec:intercept-url pattern="/*/*/**.jsf" access="hasRole('ROLE_USER')" />
+        <sec:intercept-url pattern="/*.jsp" access="hasRole('ROLE_USER')" />
+        <sec:intercept-url pattern="/*/**.jsp" access="hasRole('ROLE_USER')" />
+        <sec:intercept-url pattern="/*/*/**.jsp" access="hasRole('ROLE_USER')" />
+        <sec:intercept-url pattern="/*/**.jsfUpload" access="hasRole('ROLE_USER')" />
+        <sec:intercept-url pattern="/beanServlet" access="hasRole('ROLE_USER')" />
+
+		<sec:access-denied-handler error-page="/access/accessDenied.jsf" />
+
+        <sec:logout       	success-handler-ref="customLogoutSuccessHandler" logout-url="/j_spring_security_logout"/>
+        <sec:anonymous/>
+        <sec:form-login login-page="/login.jsf" login-processing-url="/j_spring_security_check" 
+        	authentication-failure-handler-ref="failureHandler" 
+        	authentication-success-handler-ref="successHandler"
+        	authentication-failure-url="/login.jsf?error=true"
+        	default-target-url="/RTL/index.jsp" always-use-default-target="false" 
+        	username-parameter="j_username" password-parameter="j_password"
+        	/>
+			
+		<sec:csrf disabled="true"/>
+		<sec:headers>
+			 <sec:frame-options  policy="SAMEORIGIN"></sec:frame-options>
+			 <sec:xss-protection disabled="true"/>
+		</sec:headers>    
+	</sec:http>
+	
+    <bean id="customLogoutSuccessHandler"
+        class="ir.serajsamaneh.core.security.CustomLogoutSuccessHandler" autowire="byName">
+		<property name="targetUrlParameter" value="targetUrl" />        
+		<property name="alwaysUseDefaultTargetUrl" value="false" />        
+		<property name="useReferer" value="true" />        
+     </bean>
+     
+    <bean id="successHandler"
+        class="ir.serajsamaneh.core.security.SuccessfulAuthenticationHandler" autowire="byName">
+		<property name="defaultTargetUrl" value="/RTL/index.jsp" />        
+		<property name="targetUrlParameter" value="targetUrl" />        
+		<property name="alwaysUseDefaultTargetUrl" value="false" />        
+		<property name="useReferer" value="true" />        
+    </bean>
+
+    <bean id="failureHandler"
+        class="ir.serajsamaneh.core.security.FailureAuthenticationHandler" autowire="byName">
+    </bean>
+
+	<sec:global-method-security pre-post-annotations="enabled"/>
+
+	<sec:authentication-manager alias="authenticationManager" >
+		<sec:authentication-provider  ref="serajAuthenticationProvider"/>
+	</sec:authentication-manager>	
+</beans>

@@ -58,7 +58,7 @@ public class AccountingSaalMaali extends SaalMaaliForm {
 	}
 
 	public String importFromHesabKolTemplateList(){
-		hesabKolService.createDefaultAccounts(getEntity().getOrganId(), getEntity().getOrganName());
+		hesabKolService.createDefaultAccounts(getCurrentOrganVO().getId(), getCurrentOrganVO().getName());
 		hesabGroupService.importFromHesabGroupTemplateList(getEntity(), getCurrentOrganVO());
 		hesabKolService.importFromHesabKolTemplateList(getEntity(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
 		hesabMoeenService.importFromHesabMoeenTemplateList(getEntity(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());

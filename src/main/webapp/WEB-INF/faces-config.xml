@@ -7,6 +7,9 @@
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 		<navigation-handler>ir.serajsamaneh.core.base.SerajNavigationHandler</navigation-handler>
 		<message-bundle>javax.faces.FacesMessages</message-bundle>
+		<locale-config>
+			<default-locale>fa</default-locale>
+		</locale-config>
 
 		<action-listener>
 			ir.serajsamaneh.core.base.SerajProcessAction
@@ -126,6 +129,31 @@
 	<lifecycle>
 		<phase-listener>ir.serajsamaneh.core.security.PageAccessControlPhaseListener</phase-listener>
 	</lifecycle>
+	<converter>
+		<converter-id>seraj.converter.KalaQuality</converter-id>
+		<converter-class>ir.serajsamaneh.anbar.converter.KalaQualityConverter</converter-class>
+	</converter>
+
+	<converter>
+		<converter-id>seraj.converter.KalaRegulationState</converter-id>
+		<converter-class>ir.serajsamaneh.anbar.converter.KalaRegulationStateConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>seraj.converter.NoeMalekiyat</converter-id>
+		<converter-class>ir.serajsamaneh.anbar.converter.NoeMalekiyatConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>seraj.converter.DarkhastResultState</converter-id>
+		<converter-class>ir.serajsamaneh.anbar.converter.DarkhastResultStateConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>seraj.converter.KalaType</converter-id>
+		<converter-class>ir.serajsamaneh.anbar.converter.KalaTypeConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>seraj.converter.AnbargardaniType</converter-id>
+		<converter-class>ir.serajsamaneh.anbar.converter.AnbargardaniTypeConverter</converter-class>
+	</converter>
 	<converter>
            <converter-id>seraj.converter.accountingNumberFormatter</converter-id>
             <converter-class>ir.serajsamaneh.accounting.converter.AccountingNumberFormatter</converter-class>

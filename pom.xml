@@ -9,7 +9,7 @@
 	<groupId>ir.serajsamaneh</groupId>
 	<artifactId>accounting</artifactId>
 	<version>1.100</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>accounting</name>
 	<!-- FIXME change it to the project's website -->

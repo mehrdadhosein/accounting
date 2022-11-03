@@ -1326,8 +1326,8 @@ public class SanadHesabdariForm extends
 		this.tarikhSanad = tarikhSanad;
 	}
 
-	public void createSanadEkhtetamieh(String organDesc){
-		getMyService().createSanadEkhtetamieh(getCurrentOrganVO().getId(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali(), getNumberOfDecimals(), getCurrentUser(), organDesc);
+	public void createSanadEkhtetamieh(){
+		getMyService().createSanadEkhtetamieh(getCurrentOrganVO().getId(), getTarikhSanad(), getIsInMultipleLevelMode(), getCurrentUserActiveSaalMaali(), getNumberOfDecimals(), getCurrentUser(), getCurrentOrganVO().getName());
 		addInfoMessage("SUCCESSFUL_SAVE", SerajMessageUtil.getMessage("SanadHesabdari_title"));
 	}
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="accounting-merge" default="Merge erp Properties">
+	<property name="projects" value="commoncore,accounting" />
+ 
+	<taskdef  name="antForm"  classname="com.sardak.antform.AntForm" classpath="../commoncore/lib/ant-extra/antform.jar"/>
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpath="../commoncore/lib/ant-extra/ant-contrib-1.0b3.jar" />
+
+
+	<target name="Merge erp Excel Properties">
+		<echo>salam</echo>
+		<delete file="./src/main/resources/excelExportColumns.properties"></delete>
+		<foreach delimiter="," list="${projects}" param="project" target="appendExcelProperties" />
+	</target>
+
+	<target name="appendExcelProperties">
+		<echo>${project}</echo>
+		<concat append="true" destfile="./src/main/resources/excelExportColumns.properties">
+			<fileset dir="../${project}/src/main/resources">
+				<include name="**/*-excelColumns.properties" />
+			</fileset>
+		</concat>
+	</target>
+	
+	<target name="Merge erp Properties">
+		<echo>salam</echo>
+		<foreach delimiter="," list="${projects}" param="project" target="appendProperties" />
+	</target>
+		
+	<target name="appendProperties">
+		<echo>${project}</echo>
+		<concat append="true" destfile="./src/main/resources/ApplicationResources_fa.properties">
+			<fileset dir="../${project}/src/main/java">
+				<include name="**/*-messages.properties" />
+			</fileset>
+		</concat>
+		<concat append="true" destfile="./src/main/resources/ApplicationResources_en.properties">
+			<fileset dir="../${project}/src/main/java">
+				<include name="**/*-messages_en.properties" />
+			</fileset>
+		</concat>
+	</target>
+
+
+	<target name="Merge erp Access Controls">
+		<echo>salam</echo>
+		<foreach delimiter="," list="${projects}" param="project" target="appendAccessControls" />
+	</target>
+	<target name="appendAccessControls">
+		<echo>${project}</echo>
+		<concat append="true" destfile="./src/main/resources/access-control.properties">
+			<fileset dir="../${project}/src/main/webapp">
+				<include name="**/access-control-*.properties" />
+			</fileset>
+		</concat>
+	</target>
+
+
+
+</project>
+
+
