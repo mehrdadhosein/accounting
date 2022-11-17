@@ -7,11 +7,11 @@
 
 
 	<groupId>ir.serajsamaneh</groupId>
-	<artifactId>accounting</artifactId>
+	<artifactId>accounting-seraj</artifactId>
 	<version>1.100</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
-	<name>accounting</name>
+	<name>accounting-seraj</name>
 	<!-- FIXME change it to the project's website -->
 	<url>https://www.serajcloud.ir</url>
 
@@ -50,18 +50,10 @@
 			
 		<dependency>
 			<groupId>ir.serajsamaneh</groupId>
-			<artifactId>commoncore</artifactId>
+			<artifactId>core-seraj</artifactId>
 			<version>1.100</version>
 			<!-- scope>provided</scope-->			
 		</dependency>
-		
-		<dependency>
-			<groupId>ir.serajsamaneh</groupId>
-			<artifactId>commonweb</artifactId>
-			<version>1.100</version>
-      		<type>war</type>
-      		<scope>runtime</scope>			
-		</dependency>	
 				
 		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
@@ -157,6 +149,7 @@
             					
 	</dependencies>
 	<build>
+		<finalName>accounting-seraj</finalName>
 	    <plugins>
 	        <plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
