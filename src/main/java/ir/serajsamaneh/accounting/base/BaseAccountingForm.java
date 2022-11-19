@@ -203,7 +203,7 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 	private void createNodeChilds(Document doc, Element rootElement, List<HesabVO> childs) {
 		for (HesabVO hesabVO : childs) {
 			Element treeItem = doc.createElement("item");
-			treeItem.setAttribute("id", new Integer(hesabVO.hashCode()).toString());
+			treeItem.setAttribute("id", Integer.valueOf(hesabVO.hashCode()).toString());
 			treeItem.setAttribute("text", hesabVO.getName()+"("+hesabVO.getCode()+")");
 			treeItem.setAttribute("im0", hesabVO.getIcon());
 			treeItem.setAttribute("im1", hesabVO.getIcon());

@@ -20,7 +20,7 @@ public enum HesabMoeenCodingTypeEnum {
 	}
 	
 	public Integer getOrdinal(){
-		return new Integer(this.ordinal());
+		return Integer.valueOf(this.ordinal());
 	}
 	
     public final String nameWithClass() {

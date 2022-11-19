@@ -305,7 +305,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity, Lon
 //			}
 
 			if (StringUtil.hasText(tafsiliLevel)) {
-				getFilter().put("level@eq", new Integer(tafsiliLevel));
+				getFilter().put("level@eq", Integer.valueOf(tafsiliLevel));
 			} else {
 				// throw new FatalException("tafsili level is null");
 				return new ArrayList<>();

@@ -150,7 +150,7 @@ public class HesabTafsiliTemplateForm extends
 			
 			if(!(StringUtil.hasText(showAll) && showAll.equals("true"))) {
 				if (StringUtil.hasText(tafsiliLevel)){
-					getFilter().put("level@eq",new Integer(tafsiliLevel));
+					getFilter().put("level@eq",Integer.valueOf(tafsiliLevel));
 				}else{
 					return new ArrayList<>();
 				}

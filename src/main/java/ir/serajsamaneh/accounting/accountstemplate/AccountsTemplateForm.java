@@ -194,7 +194,7 @@ public class AccountsTemplateForm extends
 				String key = keyValue[0];
 				String value = keyValue[1];
 				
-				Integer level = new Integer(key.substring("hesabTafsili".length()));
+				Integer level = Integer.valueOf(key.substring("hesabTafsili".length()));
 				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
 				articleTafsiliEntity.setHesabTafsili(getHesabTafsiliService().load(new Long(value)));
 				articleTafsiliEntity.setLevel(level);
@@ -217,7 +217,7 @@ public class AccountsTemplateForm extends
 				String key = keyValue[0];
 				String value = keyValue[1];
 				
-				Integer level = new Integer(key.substring("accountingMarkaz".length()));
+				Integer level = Integer.valueOf(key.substring("accountingMarkaz".length()));
 				ArticleTafsiliEntity articleTafsiliEntity = new ArticleTafsiliEntity();
 				articleTafsiliEntity.setAccountingMarkaz(getAccountingMarkazService().load(new Long(value)));
 				articleTafsiliEntity.setLevel(level);

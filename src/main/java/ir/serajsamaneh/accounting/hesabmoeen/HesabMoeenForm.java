@@ -341,7 +341,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		try {
 			incorectItem = "level";
 			if (StringUtils.hasText(tafsiliLevelMap.get("level")))
-				tafsiliLevelVO.setLevel(new Integer(tafsiliLevelMap.get("level")));
+				tafsiliLevelVO.setLevel(Integer.valueOf(tafsiliLevelMap.get("level")));
 
 			incorectItem = "MoeenTafsili_list";
 			if (StringUtils.hasText(tafsiliLevelMap.get("hesabTafsiliIds"))){

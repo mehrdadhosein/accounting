@@ -60,8 +60,8 @@ public class AccountingMarkazGroupService extends BaseEntityService<AccountingMa
 					adjacentCode = groupKalaEntity.getCode().replaceFirst(
 							parentCode, "");
 				if (StringUtils.hasText(adjacentCode)
-						&& new Integer(adjacentCode).intValue() > maxCode)
-					maxCode = new Integer(adjacentCode).intValue();
+						&& Integer.valueOf(adjacentCode).intValue() > maxCode)
+					maxCode = Integer.valueOf(adjacentCode).intValue();
 			}
 			maxCode++;
 			if (maxCode < 10)

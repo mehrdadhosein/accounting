@@ -323,7 +323,7 @@ public class SanadHesabdariUtil {
 //		String maxSanadHesabdariTafsilLevel = systemConfigService.getValue(currentOrgan.getId(), null, "maxSanadHesabdariTafsilLevel");
 //		ArrayList<Integer> levelList = new ArrayList<Integer>();
 //		if(maxSanadHesabdariTafsilLevel!=null){
-//			Integer maxLevels = new Integer(maxSanadHesabdariTafsilLevel);
+//			Integer maxLevels = Integer.valueOf(maxSanadHesabdariTafsilLevel);
 //			for(int i=1; i<=maxLevels; ++i)
 //				levelList.add(i);
 //			return levelList;

@@ -99,21 +99,21 @@ public abstract class BaseAccountingService <T extends BaseEntity<U>, U extends 
 		String validateHesabTafsiliHasChild = systemConfigService.getValue(organ.getId(), null, "validateHesabTafsiliHasChild");
 		if(validateHesabTafsiliHasChild == null)
 			throw new FatalException(SerajMessageUtil.getMessage("Accounting_system_config_is_not_compelete", organ.getDesc()));
-		return YesNoEnum.getName(new Integer(validateHesabTafsiliHasChild)).equals(YesNoEnum.YES);
+		return YesNoEnum.getName(Integer.valueOf(validateHesabTafsiliHasChild)).equals(YesNoEnum.YES);
 	}
 	
 	public Boolean checkIfMustValidateHesabMoeenHasChild(OrganVO organ){
 		String validateHesabMoeenHasChild = systemConfigService.getValue(organ.getId(), null, "validateHesabMoeenHasChild");
 		if(validateHesabMoeenHasChild == null)
 			throw new FatalException(SerajMessageUtil.getMessage("Accounting_system_config_is_not_compelete", organ));
-		return YesNoEnum.getName(new Integer(validateHesabMoeenHasChild)).equals(YesNoEnum.YES);
+		return YesNoEnum.getName(Integer.valueOf(validateHesabMoeenHasChild)).equals(YesNoEnum.YES);
 	}
 	
 	public Boolean checkIfMustValidateHesabMoeenHasMarkaz(OrganVO organ){
 		String validateHesabMoeenHasMarkaz = systemConfigService.getValue(organ.getId(), null, "validateHesabMoeenHasMarkaz");
 		if(validateHesabMoeenHasMarkaz == null)
 			throw new FatalException("validateHesabMoeenHasMarkaz is null");
-		return YesNoEnum.getName(new Integer(validateHesabMoeenHasMarkaz)).equals(YesNoEnum.YES);
+		return YesNoEnum.getName(Integer.valueOf(validateHesabMoeenHasMarkaz)).equals(YesNoEnum.YES);
 	}
 	
 	public SaalMaaliEntity getCurrentUserActiveSaalMaali(Long organId, Long userId) {

@@ -131,7 +131,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public Integer getNumberOfDecimalsConfig() {
 		if(numberOfDecimalsConfig==null)
 			if(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "numberOfDecimals")!=null){
-				numberOfDecimalsConfig= new Integer(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "numberOfDecimals"));
+				numberOfDecimalsConfig= Integer.valueOf(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "numberOfDecimals"));
 			}else	
 				numberOfDecimalsConfig = 0;		
 		return numberOfDecimalsConfig;
@@ -144,7 +144,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public Integer getMaxSanadHesabdariTafsilLevel() {
 		if(maxSanadHesabdariTafsilLevel==null)
 			if(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "maxSanadHesabdariTafsilLevel")!=null){
-				maxSanadHesabdariTafsilLevel= new Integer(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "maxSanadHesabdariTafsilLevel"));
+				maxSanadHesabdariTafsilLevel= Integer.valueOf(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "maxSanadHesabdariTafsilLevel"));
 			}else	
 				maxSanadHesabdariTafsilLevel = 1;
 		return maxSanadHesabdariTafsilLevel;
@@ -157,7 +157,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public YesNoEnum getValidateHesabMoeenHasMarkaz() {
 		if(validateHesabMoeenHasMarkaz==null)
 			if(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "validateHesabMoeenHasMarkaz")!=null){
-				validateHesabMoeenHasMarkaz= YesNoEnum.getName(new Integer(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "validateHesabMoeenHasMarkaz")));
+				validateHesabMoeenHasMarkaz= YesNoEnum.getName(Integer.valueOf(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "validateHesabMoeenHasMarkaz")));
 		}		
 		return validateHesabMoeenHasMarkaz;
 	}
@@ -169,7 +169,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public YesNoEnum getValidateHesabMoeenHasChild() {
 		if(validateHesabMoeenHasChild==null)
 			if(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "validateHesabMoeenHasChild")!=null){
-				validateHesabMoeenHasChild= YesNoEnum.getName(new Integer(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "validateHesabMoeenHasChild")));
+				validateHesabMoeenHasChild= YesNoEnum.getName(Integer.valueOf(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "validateHesabMoeenHasChild")));
 		}			
 		return validateHesabMoeenHasChild;
 	}
@@ -181,7 +181,7 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 	public YesNoEnum getValidateHesabTafsiliHasChild() {
 		if(validateHesabTafsiliHasChild==null)
 			if(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "validateHesabTafsiliHasChild")!=null){
-				validateHesabTafsiliHasChild= YesNoEnum.getName(new Integer(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "validateHesabTafsiliHasChild")));
+				validateHesabTafsiliHasChild= YesNoEnum.getName(Integer.valueOf(systemConfigService.getValue(getCurrentOrganVO().getId(), null, "validateHesabTafsiliHasChild")));
 		}			
 
 		return validateHesabTafsiliHasChild;
@@ -309,13 +309,13 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 		
 		systemConfigService.insertKeyValue("validateHesabMoeenHasChild",	getValidateHesabMoeenHasChild().value().toString(), null, getCurrentOrganVO().getId(),getCurrentUserVO().getDesc());
 		systemConfigService.insertKeyValue("validateHesabTafsiliHasChild",	getValidateHesabTafsiliHasChild().value().toString(), null, getCurrentOrganVO().getId(),getCurrentUserVO().getDesc());
-//		YesNoEnum oldvalidateHesabMoeenHasChildValue = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasChild));
+//		YesNoEnum oldvalidateHesabMoeenHasChildValue = YesNoEnum.getName(Integer.valueOf(oldvalidateHesabMoeenHasChild));
 //		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasChildValue.nameWithClass()));
 //		
 		systemConfigService.insertKeyValue("validateHesabMoeenHasMarkaz",	getValidateHesabMoeenHasMarkaz().value().toString(), null, getCurrentOrganVO().getId(),getCurrentUserVO().getDesc());
 		systemConfigService.insertKeyValue("maxSanadHesabdariTafsilLevel",	getMaxSanadHesabdariTafsilLevel().toString(), null, getCurrentOrganVO().getId(),getCurrentUserVO().getDesc());
 		systemConfigService.insertKeyValue("numberOfDecimals",	getNumberOfDecimalsConfig().toString(), null, getCurrentOrganVO().getId(),getCurrentUserVO().getDesc());
-//		 YesNoEnum oldvalidateHesabMoeenHasMarkazValue = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasMarkaz)); 
+//		 YesNoEnum oldvalidateHesabMoeenHasMarkazValue = YesNoEnum.getName(Integer.valueOf(oldvalidateHesabMoeenHasMarkaz)); 
 //		itemdesc(SerajMessageUtil.getMessage(oldvalidateHesabMoeenHasMarkazValue.nameWithClass()));
 		
 		if(olddefaultSanadTypeId!=null&&!olddefaultSanadTypeId.equals(getDefaultSanadTypeId().toString())){
@@ -336,15 +336,15 @@ public class AccountingSystemConfigForm extends SystemConfigForm{
 			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_hesabSoodVaZyanAnbashtehTafsili")+" : "+oldEntity.getDesc()+"-->"+newEntity.getDesc()+"]";
 		}
 		if(oldvalidateHesabMoeenHasChild!=null&&!oldvalidateHesabMoeenHasChild.equals(getValidateHesabMoeenHasChild().value().toString())){
-			YesNoEnum yesNoEnum = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasChild));
+			YesNoEnum yesNoEnum = YesNoEnum.getName(Integer.valueOf(oldvalidateHesabMoeenHasChild));
 			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_validateHesabMoeenHasChild")+" : "+SerajMessageUtil.getMessage(yesNoEnum.nameWithClass())+"-->"+SerajMessageUtil.getMessage(getValidateHesabMoeenHasChild().nameWithClass())+"]";
 		}
 		if(oldvalidateHesabTafsiliHasChild!=null&&!oldvalidateHesabTafsiliHasChild.equals(getValidateHesabTafsiliHasChild().value().toString())){
-			YesNoEnum yesNoEnum = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasChild));
+			YesNoEnum yesNoEnum = YesNoEnum.getName(Integer.valueOf(oldvalidateHesabMoeenHasChild));
 			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_validateHesabTafsiliHasChild")+" : "+SerajMessageUtil.getMessage(yesNoEnum.nameWithClass())+"-->"+SerajMessageUtil.getMessage(getValidateHesabTafsiliHasChild().nameWithClass())+"]";
 		}
 		if(oldvalidateHesabMoeenHasMarkaz!=null&&!oldvalidateHesabMoeenHasMarkaz.equals(getValidateHesabMoeenHasMarkaz().value().toString())){
-			 YesNoEnum yesNoEnum = YesNoEnum.getName(new Integer(oldvalidateHesabMoeenHasMarkaz)); 
+			 YesNoEnum yesNoEnum = YesNoEnum.getName(Integer.valueOf(oldvalidateHesabMoeenHasMarkaz)); 
 			differences+="["+SerajMessageUtil.getMessage("AccountingSystemConfig_validateHesabMoeenHasMarkaz")+" : "+SerajMessageUtil.getMessage(yesNoEnum.nameWithClass())+"-->"+SerajMessageUtil.getMessage(getValidateHesabMoeenHasMarkaz().nameWithClass())+"]";
 		}
 

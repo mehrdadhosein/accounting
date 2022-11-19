@@ -149,7 +149,7 @@ public class SanadHesabdariTemplateUtil extends BaseForm{
 //				String key = keyValue[0];
 //				String value = keyValue[1];
 //				
-//				Integer level = new Integer(key.substring("hesabTafsiliTemplate".length()));
+//				Integer level = Integer.valueOf(key.substring("hesabTafsiliTemplate".length()));
 //				ArticleTafsiliTemplateEntity articleTafsiliTemplateEntity = new ArticleTafsiliTemplateEntity();
 //				articleTafsiliTemplateEntity.setHesabTafsiliTemplate(getHesabTafsiliTemplateService().load(Long.valueOf(value)));
 //				articleTafsiliTemplateEntity.setLevel(level);
