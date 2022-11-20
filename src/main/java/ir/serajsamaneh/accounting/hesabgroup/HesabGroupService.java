@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.FlushMode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.accounting.hesabgrouptemplate.HesabGroupTemplateEntity;
@@ -15,65 +19,36 @@ import ir.serajsamaneh.core.common.OrganVO;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.exception.FieldMustContainOnlyNumbersException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
+@Service
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class HesabGroupService extends BaseEntityService<HesabGroupEntity, Long> {
 
-public class HesabGroupService extends
-		BaseEntityService<HesabGroupEntity, Long> {
-
-	
-	
 	@Override
 	protected HesabGroupDAO getMyDAO() {
 		return hesabGroupDAO;
 	}
 
+	@Autowired
 	HesabGroupDAO hesabGroupDAO;
-	HesabGroupTemplateService hesabGroupTemplateService; 
-	
-	public HesabGroupTemplateService getHesabGroupTemplateService() {
-		return hesabGroupTemplateService;
-	}
-
-	public void setHesabGroupTemplateService(
-			HesabGroupTemplateService hesabGroupTemplateService) {
-		this.hesabGroupTemplateService = hesabGroupTemplateService;
-	}
-
-	public void setHesabGroupDAO(HesabGroupDAO hesabGroupDAO) {
-		this.hesabGroupDAO = hesabGroupDAO;
-	}
-
-	public HesabGroupDAO getHesabGroupDAO() {
-		return hesabGroupDAO;
-	}
+	@Autowired
+	HesabGroupTemplateService hesabGroupTemplateService;
 
 	@Override
 	public String getDifferences(HesabGroupEntity entity) {
 		String diffes = "";
 		HesabGroupEntity oldEntity = (HesabGroupEntity) entity.getOldEntity();
 
-		if (entity.getType() != null
-				&& !entity.getType().equals(oldEntity.getType()))
-			diffes += "["
-					+ SerajMessageUtil.getMessage("Hesab" + "_"
-							+ HesabGroupEntity.PROP_TYPE) + " : "
-					+ oldEntity.getType() + "" + " --> " + entity.getType()
-					+ "" + "]";
+		if (entity.getType() != null && !entity.getType().equals(oldEntity.getType()))
+			diffes += "[" + SerajMessageUtil.getMessage("Hesab" + "_" + HesabGroupEntity.PROP_TYPE) + " : "
+					+ oldEntity.getType() + "" + " --> " + entity.getType() + "" + "]";
 
-		if (entity.getLength() != null
-				&& !entity.getLength().equals(oldEntity.getLength()))
-			diffes += "["
-					+ SerajMessageUtil.getMessage("HesabGroup" + "_"
-							+ HesabGroupEntity.PROP_LENGTH) + " : "
-					+ oldEntity.getLength() + "" + " --> " + entity.getLength()
-					+ "" + "]";
+		if (entity.getLength() != null && !entity.getLength().equals(oldEntity.getLength()))
+			diffes += "[" + SerajMessageUtil.getMessage("HesabGroup" + "_" + HesabGroupEntity.PROP_LENGTH) + " : "
+					+ oldEntity.getLength() + "" + " --> " + entity.getLength() + "" + "]";
 
-		if (entity.getName() != null
-				&& !entity.getName().equals(oldEntity.getName()))
-			diffes += "["
-					+ SerajMessageUtil.getMessage("HesabGroup" + "_"
-							+ HesabGroupEntity.PROP_NAME) + " : "
-					+ oldEntity.getName() + "" + " --> " + entity.getName()
-					+ "" + "]";
+		if (entity.getName() != null && !entity.getName().equals(oldEntity.getName()))
+			diffes += "[" + SerajMessageUtil.getMessage("HesabGroup" + "_" + HesabGroupEntity.PROP_NAME) + " : "
+					+ oldEntity.getName() + "" + " --> " + entity.getName() + "" + "]";
 
 		return diffes;
 	}
@@ -81,8 +56,7 @@ public class HesabGroupService extends
 	public HesabGroupEntity getHesabGroupByName(String hesabGroupName) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", hesabGroupName);
-		List<HesabGroupEntity> dataList = getDataList(null, localFilter,
-				FlushMode.MANUAL);
+		List<HesabGroupEntity> dataList = getDataList(null, localFilter, FlushMode.MANUAL);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)
@@ -96,8 +70,7 @@ public class HesabGroupService extends
 		return getMyDAO().getHesabGroupByCode(hesabGroupCode);
 	}
 
-	public HesabGroupEntity loadHesabByCode(Long code,
-			SaalMaaliEntity saalMaaliEntity) {
+	public HesabGroupEntity loadHesabByCode(Long code, SaalMaaliEntity saalMaaliEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@eq", saalMaaliEntity.getOrganId());
@@ -106,16 +79,13 @@ public class HesabGroupService extends
 		return hesabGroupEntity;
 	}
 
-
-
 	@Transactional
-	private void commonSave(HesabGroupEntity entity,
-			SaalMaaliEntity activeSaalMaaliEntity, OrganVO organVO) {
+	private void commonSave(HesabGroupEntity entity, SaalMaaliEntity activeSaalMaaliEntity, OrganVO organVO) {
 
-		if(!isLong(entity.getCode()))
+		if (!isLong(entity.getCode()))
 			throw new FieldMustContainOnlyNumbersException(SerajMessageUtil.getMessage("HesabGroup_code"));
-		
-		if (entity.getSaalMaali() == null	|| entity.getSaalMaali().getId() == null)
+
+		if (entity.getSaalMaali() == null || entity.getSaalMaali().getId() == null)
 			entity.setSaalMaali(activeSaalMaaliEntity);
 
 		checkHesabUniqueNess(entity, activeSaalMaaliEntity, organVO.getId());
@@ -123,39 +93,38 @@ public class HesabGroupService extends
 		createHesabGroupTemplateFromHesabGroup(entity, organVO);
 
 	}
-	
 
-	private void checkHesabUniqueNess(HesabGroupEntity entity,
-			SaalMaaliEntity activeSaalMaaliEntity, Long organId) {
+	private void checkHesabUniqueNess(HesabGroupEntity entity, SaalMaaliEntity activeSaalMaaliEntity, Long organId) {
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organId@eq", organId);
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
-		checkUniqueNess(entity, HesabGroupEntity.PROP_NAME, entity.getName(),
-				localFilter, false);
-		checkUniqueNess(entity, HesabGroupEntity.PROP_CODE, entity.getCode(),
-				localFilter, false);
+		checkUniqueNess(entity, HesabGroupEntity.PROP_NAME, entity.getName(), localFilter, false);
+		checkUniqueNess(entity, HesabGroupEntity.PROP_CODE, entity.getCode(), localFilter, false);
 	}
-	
+
 	@Transactional
 	private void createHesabGroupTemplateFromHesabGroup(HesabGroupEntity entity, OrganVO organVO) {
-		HesabGroupTemplateEntity hesabGroupTemplateEntity = getHesabGroupTemplateService().load(entity.getCode(), organVO.getId());
-		if(hesabGroupTemplateEntity == null){
-			getHesabGroupTemplateService().createHesabGroupTemplate(entity.getCode(), entity.getName(), entity.getMahyatGroup().name(), organVO.getId(), organVO.getName());
+		HesabGroupTemplateEntity hesabGroupTemplateEntity = hesabGroupTemplateService.load(entity.getCode(),
+				organVO.getId());
+		if (hesabGroupTemplateEntity == null) {
+			hesabGroupTemplateService.createHesabGroupTemplate(entity.getCode(), entity.getName(),
+					entity.getMahyatGroup().name(), organVO.getId(), organVO.getName());
 		}
 	}
 
 	@Transactional
 	public void importFromHesabGroupTemplateList(SaalMaaliEntity activeSaalMaaliEntity, OrganVO currentOrganVO) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("organId@eq",activeSaalMaaliEntity.getOrganId());
-		List<HesabGroupTemplateEntity> dataList = getHesabGroupTemplateService().getDataList(null, localFilter);
-		
+		localFilter.put("organId@eq", activeSaalMaaliEntity.getOrganId());
+		List<HesabGroupTemplateEntity> dataList = hesabGroupTemplateService.getDataList(null, localFilter);
+
 		for (HesabGroupTemplateEntity hesabGroupTemplateEntity : dataList) {
-			HesabGroupEntity hesabGroupEntity = loadHesabGroupByTemplate(hesabGroupTemplateEntity, activeSaalMaaliEntity);
-			if(hesabGroupEntity == null){
-				try{
+			HesabGroupEntity hesabGroupEntity = loadHesabGroupByTemplate(hesabGroupTemplateEntity,
+					activeSaalMaaliEntity);
+			if (hesabGroupEntity == null) {
+				try {
 					createHesabGroup(activeSaalMaaliEntity, hesabGroupTemplateEntity, currentOrganVO);
-				}catch(DuplicateException e){
+				} catch (DuplicateException e) {
 					System.out.println(e.getMessage());
 //					e.printStackTrace();
 				}
@@ -166,27 +135,27 @@ public class HesabGroupService extends
 	private HesabGroupEntity createHesabGroup(SaalMaaliEntity activeSaalMaaliEntity,
 			HesabGroupTemplateEntity hesabGroupTemplateEntity, OrganVO currentOrganVO) {
 		HesabGroupEntity hesabGroupEntity = loadHesabGroupByTemplate(hesabGroupTemplateEntity, activeSaalMaaliEntity);
-		if(hesabGroupEntity == null){
+		if (hesabGroupEntity == null) {
 			hesabGroupEntity = populateHesabGroupEntity(activeSaalMaaliEntity, hesabGroupTemplateEntity);
 			save(hesabGroupEntity, activeSaalMaaliEntity, currentOrganVO);
 		}
-		return hesabGroupEntity;	
+		return hesabGroupEntity;
 	}
-	
+
 	@Transactional
-	public void save(HesabGroupEntity entity,SaalMaaliEntity activeSaalMaaliEntity, OrganVO currentOrganVO) {
+	public void save(HesabGroupEntity entity, SaalMaaliEntity activeSaalMaaliEntity, OrganVO currentOrganVO) {
 		commonSave(entity, activeSaalMaaliEntity, currentOrganVO);
 
 		save(entity);
-		boolean isNew=(entity.getID()!=null?false:true);
+		boolean isNew = (entity.getID() != null ? false : true);
 		logAction(isNew, entity);
 	}
 
 	private HesabGroupEntity populateHesabGroupEntity(SaalMaaliEntity activeSaalMaaliEntity,
-			HesabGroupTemplateEntity  hesabGroupTemplateEntity) {
+			HesabGroupTemplateEntity hesabGroupTemplateEntity) {
 		HesabGroupEntity hesabGroupEntity;
 		hesabGroupEntity = new HesabGroupEntity();
-		
+
 		hesabGroupEntity.setCode(hesabGroupTemplateEntity.getCode());
 		hesabGroupEntity.setMahyatGroup(hesabGroupTemplateEntity.getMahyatGroup());
 		hesabGroupEntity.setType(hesabGroupTemplateEntity.getType());
@@ -196,13 +165,13 @@ public class HesabGroupService extends
 		hesabGroupEntity.setHesabGroupTemplate(hesabGroupTemplateEntity);
 		return hesabGroupEntity;
 	}
-	
+
 	private HesabGroupEntity loadHesabGroupByTemplate(HesabGroupTemplateEntity hesabGroupTemplateEntity,
 			SaalMaaliEntity activeSaalMaaliEntity) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
-		localFilter.put("hesabGroupTemplate.id@eq",hesabGroupTemplateEntity.getId());
+		localFilter.put("hesabGroupTemplate.id@eq", hesabGroupTemplateEntity.getId());
 //		localFilter.put("organId@eq",activeSaalMaaliEntity.getOrgan().getId());
-		localFilter.put("saalMaali.id@eq",activeSaalMaaliEntity.getId());
+		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
 		HesabGroupEntity hesabGroupEntity = load(null, localFilter);
 		return hesabGroupEntity;
 	}

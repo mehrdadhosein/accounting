@@ -10,18 +10,15 @@ import ir.serajsamaneh.core.base.BaseEntity;
 import serajcomponent.DateConverter;
 import serajcomponent.SerajDateTimePickerType;
 
-
-
 /**
- * This is an object that contains data related to the tb_sanad_hesabdari_item table.
- * Do not modify this class because it will be overwritten if the configuration file
- * related to this class is modified.
+ * This is an object that contains data related to the tb_sanad_hesabdari_item
+ * table. Do not modify this class because it will be overwritten if the
+ * configuration file related to this class is modified.
  *
- * @hibernate.class
- *  table="tb_sanad_hesabdari_item"
+ * @hibernate.class table="tb_sanad_hesabdari_item"
  */
 
-public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<Long>   implements Serializable {
+public abstract class BaseSanadHesabdariItemTemplateEntity extends BaseEntity<Long> implements Serializable {
 
 	/**
 	 * 
@@ -41,16 +38,15 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 	public static String PROP_ID = "id";
 	public static String PROP_BESTANKAR = "bestankar";
 
-
 	// constructors
-	public BaseSanadHesabdariItemTemplateEntity () {
+	public BaseSanadHesabdariItemTemplateEntity() {
 		initialize();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseSanadHesabdariItemTemplateEntity (java.lang.Long id) {
+	public BaseSanadHesabdariItemTemplateEntity(java.lang.Long id) {
 		this.setId(id);
 		initialize();
 	}
@@ -67,9 +63,8 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 //		initialize();
 //	}
 
-	protected void initialize () {}
-
-
+	protected void initialize() {
+	}
 
 	private int hashCode = Integer.MIN_VALUE;
 
@@ -83,11 +78,11 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 	private java.lang.Double bestankar;
 	private java.lang.Double bedehkar;
 	private java.util.Date tarikhArticle;
-	private java.lang.String templateType;  //bedehkar OR bestankar
+	private java.lang.String templateType; // bedehkar OR bestankar
 	Long organId;
 	String organName;
 	// many to one
-	private AccountingMarkazTemplateEntity accountingMarkazTemplate; 
+	private AccountingMarkazTemplateEntity accountingMarkazTemplate;
 //	private ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity sanadHesabdari;
 
 	private HesabKolTemplateEntity hesabKolTemplate;
@@ -96,12 +91,10 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 	private HesabTafsiliTemplateEntity hesabTafsiliTemplateTwo;
 
 //	private java.util.Set<ArticleTafsiliTemplateEntity> articleTafsiliTemplate;
-	
+
 //	OrganEntity organ;
 	// collections
 //	private java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> articleTafsili;
-
-
 
 	public java.lang.String getTemplateType() {
 		return templateType;
@@ -113,27 +106,24 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 
 	/**
 	 * Return the unique identifier of this class
-     * @hibernate.id
-     *  generator-class="increment"
-     *  column="sanad_hesabdari_item_id"
-     */
-	public java.lang.Long getId () {
+	 * 
+	 * @hibernate.id generator-class="increment" column="sanad_hesabdari_item_id"
+	 */
+	public java.lang.Long getId() {
 		return id;
 	}
 
 	/**
 	 * Set the unique identifier of this class
+	 * 
 	 * @param id the new ID
 	 */
-	public void setId (java.lang.Long id) {
+	public void setId(java.lang.Long id) {
 		this.id = id;
 		setID(id);
 		this.hashCode = Integer.MIN_VALUE;
 	}
 
-
-
- 
 	public Long getOrganId() {
 		return organId;
 	}
@@ -162,122 +152,110 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 		return accountingMarkazTemplate;
 	}
 
-	public void setAccountingMarkazTemplate(
-			AccountingMarkazTemplateEntity accountingMarkazTemplate) {
+	public void setAccountingMarkazTemplate(AccountingMarkazTemplateEntity accountingMarkazTemplate) {
 		this.accountingMarkazTemplate = accountingMarkazTemplate;
 	}
 
 	/**
 	 * Return the value associated with the column: row
 	 */
-	public java.lang.Integer getRow () {
+	public java.lang.Integer getRow() {
 		return row;
 	}
 
 	/**
 	 * Set the value related to the column: row
+	 * 
 	 * @param row the row value
 	 */
-	public void setRow (java.lang.Integer row) {
+	public void setRow(java.lang.Integer row) {
 		this.row = row;
 	}
 
-
-
- 
 	/**
 	 * Return the value associated with the column: description
 	 */
-	public java.lang.String getDescription () {
+	public java.lang.String getDescription() {
 		return description;
 	}
 
 	/**
 	 * Set the value related to the column: description
+	 * 
 	 * @param description the description value
 	 */
-	public void setDescription (java.lang.String description) {
+	public void setDescription(java.lang.String description) {
 		this.description = description;
 	}
 
-
-
- 
 	/**
 	 * Return the value associated with the column: type
 	 */
-	public java.lang.String getType () {
+	public java.lang.String getType() {
 		return type;
 	}
 
 	/**
 	 * Set the value related to the column: type
+	 * 
 	 * @param type the type value
 	 */
-	public void setType (java.lang.String type) {
+	public void setType(java.lang.String type) {
 		this.type = type;
 	}
 
-
-
- 
 	/**
 	 * Return the value associated with the column: bestankar
 	 */
-	public java.lang.Double getBestankar () {
+	public java.lang.Double getBestankar() {
 		return bestankar;
 	}
 
 	/**
 	 * Set the value related to the column: bestankar
+	 * 
 	 * @param bestankar the bestankar value
 	 */
-	public void setBestankar (java.lang.Double bestankar) {
+	public void setBestankar(java.lang.Double bestankar) {
 		this.bestankar = bestankar;
 	}
 
-
-
- 
 	/**
 	 * Return the value associated with the column: bedehkar
 	 */
-	public java.lang.Double getBedehkar () {
+	public java.lang.Double getBedehkar() {
 		return bedehkar;
 	}
 
 	/**
 	 * Set the value related to the column: bedehkar
+	 * 
 	 * @param bedehkar the bedehkar value
 	 */
-	public void setBedehkar (java.lang.Double bedehkar) {
+	public void setBedehkar(java.lang.Double bedehkar) {
 		this.bedehkar = bedehkar;
 	}
 
-
-
- 
 	/**
 	 * Return the value associated with the column: tarikh_article
 	 */
-	public java.util.Date getTarikhArticle () {
+	public java.util.Date getTarikhArticle() {
 		return tarikhArticle;
 	}
 
 	/**
 	 * Set the value related to the column: tarikh_article
+	 * 
 	 * @param tarikhArticle the tarikh_article value
 	 */
-	public void setTarikhArticle (java.util.Date tarikhArticle) {
+	public void setTarikhArticle(java.util.Date tarikhArticle) {
 		this.tarikhArticle = tarikhArticle;
 	}
 
-
-
-	public String  getTarikhArticleFA() {
-			if(tarikhArticle == null)
+	public String getTarikhArticleFA() {
+		if (tarikhArticle == null)
 			return null;
-			return DateConverter.toShamsiDate(tarikhArticle,SerajDateTimePickerType.Date );
+		return DateConverter.toShamsiDate(tarikhArticle, SerajDateTimePickerType.Date);
 	}
 
 	public HesabKolTemplateEntity getHesabKolTemplate() {
@@ -300,12 +278,9 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 		return hesabTafsiliTemplate;
 	}
 
-	public void setHesabTafsiliTemplate(
-			HesabTafsiliTemplateEntity hesabTafsiliTemplate) {
+	public void setHesabTafsiliTemplate(HesabTafsiliTemplateEntity hesabTafsiliTemplate) {
 		this.hesabTafsiliTemplate = hesabTafsiliTemplate;
 	}
-
-
 
 //	/**
 //	 * Return the value associated with the column: sanad_hesabdari_id
@@ -321,8 +296,6 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 //	public void setSanadHesabdari (ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariEntity sanadHesabdari) {
 //		this.sanadHesabdari = sanadHesabdari;
 //	}
-
-
 
 //	public java.util.Set<ArticleTafsiliTemplateEntity> getArticleTafsiliTemplate() {
 //		return articleTafsiliTemplate;
@@ -341,30 +314,38 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 	}
 
 	/*	*//**
-	 * Return the value associated with the column: articleTafsili
-	 *//*
-	public java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> getArticleTafsili () {
-		return articleTafsili;
-	}
+			 * Return the value associated with the column: articleTafsili
+			 */
 
-	*//**
-	 * Set the value related to the column: articleTafsili
-	 * @param articleTafsili the articleTafsili value
-	 *//*
-	public void setArticleTafsili (java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity> articleTafsili) {
-		this.articleTafsili = articleTafsili;
-	}*/
+	/*
+	 * public
+	 * java.util.Set<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity>
+	 * getArticleTafsili () { return articleTafsili; }
+	 * 
+	 *//**
+		 * Set the value related to the column: articleTafsili
+		 * 
+		 * @param articleTafsili the articleTafsili value
+		 *//*
+			 * public void setArticleTafsili
+			 * (java.util.Set<ir.serajsamaneh.accounting.articletafsili.
+			 * ArticleTafsiliEntity> articleTafsili) { this.articleTafsili = articleTafsili;
+			 * }
+			 */
 
-/*	public void addToarticleTafsili (ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity articleTafsiliEntity) {
-		if (null == getArticleTafsili()) setArticleTafsili(new java.util.TreeSet<ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity>());
-		getArticleTafsili().add(articleTafsiliEntity);
-	}*/
+	/*
+	 * public void addToarticleTafsili
+	 * (ir.serajsamaneh.accounting.articletafsili.ArticleTafsiliEntity
+	 * articleTafsiliEntity) { if (null == getArticleTafsili())
+	 * setArticleTafsili(new
+	 * java.util.TreeSet<ir.serajsamaneh.accounting.articletafsili.
+	 * ArticleTafsiliEntity>()); getArticleTafsili().add(articleTafsiliEntity); }
+	 */
 
 //	public void addToarticleTafsiliTemplate (ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity articleTafsiliTemplateEntity) {
 //		if (null == getArticleTafsiliTemplate()) setArticleTafsiliTemplate(new java.util.TreeSet<ir.serajsamaneh.accounting.articletafsilitemplate.ArticleTafsiliTemplateEntity>());
 //		getArticleTafsiliTemplate().add(articleTafsiliTemplateEntity);
 //	}
-
 
 //	public boolean equals (Object obj) {
 //		if (null == obj) return false;
@@ -376,9 +357,10 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 //		}
 //	}
 
-	public int hashCode () {
+	public int hashCode() {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getId()) return super.hashCode();
+			if (null == this.getId())
+				return super.hashCode();
 			else {
 				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
@@ -387,10 +369,8 @@ public abstract class BaseSanadHesabdariItemTemplateEntity  extends BaseEntity<L
 		return this.hashCode;
 	}
 
-
-	public String toString () {
+	public String toString() {
 		return super.toString();
 	}
-
 
 }

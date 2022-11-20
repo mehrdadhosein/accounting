@@ -3,29 +3,25 @@ package ir.serajsamaneh.accounting.hesabgrouptemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
 import ir.serajsamaneh.core.base.BaseEntityService;
-
-public class HesabGroupTemplateService extends
-		BaseEntityService<HesabGroupTemplateEntity, Long> {
+@Service
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class HesabGroupTemplateService extends BaseEntityService<HesabGroupTemplateEntity, Long> {
 
 	@Override
 	protected HesabGroupTemplateDAO getMyDAO() {
 		return hesabGroupTemplateDAO;
 	}
 
+	@Autowired
 	HesabGroupTemplateDAO hesabGroupTemplateDAO;
-
-	public void setHesabGroupTemplateDAO(
-			HesabGroupTemplateDAO hesabGroupTemplateDAO) {
-		this.hesabGroupTemplateDAO = hesabGroupTemplateDAO;
-	}
-
-	public HesabGroupTemplateDAO getHesabGroupTemplateDAO() {
-		return hesabGroupTemplateDAO;
-	}
 
 	public HesabGroupTemplateEntity load(Long code, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
@@ -35,10 +31,11 @@ public class HesabGroupTemplateService extends
 	}
 
 	@Transactional(readOnly = false)
-	public void createHesabGroupTemplate(Long hesabGroupCode, String hesabGroupName, String mahyatGroup, Long organId, String organName) {
-		
+	public void createHesabGroupTemplate(Long hesabGroupCode, String hesabGroupName, String mahyatGroup, Long organId,
+			String organName) {
+
 		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(hesabGroupCode, organId);
-		if (hesabGroupTemplateEntity == null){
+		if (hesabGroupTemplateEntity == null) {
 			hesabGroupTemplateEntity = new HesabGroupTemplateEntity();
 		}
 		hesabGroupTemplateEntity.setName(hesabGroupName);
@@ -47,11 +44,12 @@ public class HesabGroupTemplateService extends
 		hesabGroupTemplateEntity.setOrganId(organId);
 		hesabGroupTemplateEntity.setOrganName(organName);
 		saveOrUpdate(hesabGroupTemplateEntity);
-		getLogger().info("hesabGroup created : "+hesabGroupCode);
+		getLogger().info("hesabGroup created : " + hesabGroupCode);
 	}
+
 	@Transactional
 	public void save(HesabGroupTemplateEntity entity) {
-		Boolean isNew=(entity.getId()!=null?false:true);
+		Boolean isNew = (entity.getId() != null ? false : true);
 		super.save(entity);
 		logAction(isNew, entity);
 	}

@@ -1,21 +1,18 @@
 package ir.serajsamaneh.accounting.hesabkol;
 
-import ir.serajsamaneh.core.base.BaseEntity;
-
 import java.io.Serializable;
 
-
+import ir.serajsamaneh.core.base.BaseEntity;
 
 /**
- * This is an object that contains data related to the tb_hesab_kol table.
- * Do not modify this class because it will be overwritten if the configuration file
- * related to this class is modified.
+ * This is an object that contains data related to the tb_hesab_kol table. Do
+ * not modify this class because it will be overwritten if the configuration
+ * file related to this class is modified.
  *
- * @hibernate.class
- *  table="tb_hesab_kol"
+ * @hibernate.class table="tb_hesab_kol"
  */
 
-public abstract class BaseHesabKolEntity  extends BaseEntity<Long>   implements Serializable {
+public abstract class BaseHesabKolEntity extends BaseEntity<Long> implements Serializable {
 
 	/**
 	 * 
@@ -35,24 +32,21 @@ public abstract class BaseHesabKolEntity  extends BaseEntity<Long>   implements 
 	public static String PROP_SAAL_MAALI = "saalMaali";
 	public static String PROP_CODE = "code";
 
-
 	// constructors
-	public BaseHesabKolEntity () {
+	public BaseHesabKolEntity() {
 		initialize();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseHesabKolEntity (java.lang.Long id) {
+	public BaseHesabKolEntity(java.lang.Long id) {
 		this.setId(id);
 		initialize();
 	}
 
-
-	protected void initialize () {}
-
-
+	protected void initialize() {
+	}
 
 	private int hashCode = Integer.MIN_VALUE;
 
@@ -74,135 +68,121 @@ public abstract class BaseHesabKolEntity  extends BaseEntity<Long>   implements 
 	private ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity saalMaali;
 	private ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity hesabKolTemplate;
 
-
-
 	/**
 	 * Return the unique identifier of this class
-     * @hibernate.id
-     *  generator-class="increment"
-     *  column="hesab_kol_id"
-     */
-	public java.lang.Long getId () {
+	 * 
+	 * @hibernate.id generator-class="increment" column="hesab_kol_id"
+	 */
+	public java.lang.Long getId() {
 		return id;
 	}
 
 	/**
 	 * Set the unique identifier of this class
+	 * 
 	 * @param id the new ID
 	 */
-	public void setId (java.lang.Long id) {
+	public void setId(java.lang.Long id) {
 		this.id = id;
 		setID(id);
 		this.hashCode = Integer.MIN_VALUE;
 	}
 
-
-
- 
 	/**
 	 * Return the value associated with the column: code
 	 */
-	public java.lang.String getCode () {
+	public java.lang.String getCode() {
 		return code;
 	}
 
 	/**
 	 * Set the value related to the column: code
+	 * 
 	 * @param code the code value
 	 */
-	public void setCode (java.lang.String code) {
+	public void setCode(java.lang.String code) {
 		this.code = code;
 	}
 
-
-
- 
 	/**
 	 * Return the value associated with the column: name
 	 */
-	public java.lang.String getName () {
+	public java.lang.String getName() {
 		return name;
 	}
 
 	/**
 	 * Set the value related to the column: name
+	 * 
 	 * @param name the name value
 	 */
-	public void setName (java.lang.String name) {
+	public void setName(java.lang.String name) {
 		this.name = name;
 	}
 
-
-
- 
 	/**
 	 * Return the value associated with the column: description
 	 */
-	public java.lang.String getDescription () {
+	public java.lang.String getDescription() {
 		return description;
 	}
 
 	/**
 	 * Set the value related to the column: description
+	 * 
 	 * @param description the description value
 	 */
-	public void setDescription (java.lang.String description) {
+	public void setDescription(java.lang.String description) {
 		this.description = description;
 	}
 
- 
 	/**
 	 * Return the value associated with the column: bedehkar
 	 */
-	public java.lang.Double getBedehkar () {
+	public java.lang.Double getBedehkar() {
 		return bedehkar;
 	}
 
 	/**
 	 * Set the value related to the column: bedehkar
+	 * 
 	 * @param bedehkar the bedehkar value
 	 */
-	public void setBedehkar (java.lang.Double bedehkar) {
+	public void setBedehkar(java.lang.Double bedehkar) {
 		this.bedehkar = bedehkar;
 	}
 
-
-
- 
 	/**
 	 * Return the value associated with the column: bestankr
 	 */
-	public java.lang.Double getBestankr () {
+	public java.lang.Double getBestankr() {
 		return bestankr;
 	}
 
 	/**
 	 * Set the value related to the column: bestankr
+	 * 
 	 * @param bestankr the bestankr value
 	 */
-	public void setBestankr (java.lang.Double bestankr) {
+	public void setBestankr(java.lang.Double bestankr) {
 		this.bestankr = bestankr;
 	}
-
-
-
 
 	/**
 	 * Return the value associated with the column: hesab_group_id
 	 */
-	public ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity getHesabGroup () {
+	public ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity getHesabGroup() {
 		return hesabGroup;
 	}
 
 	/**
 	 * Set the value related to the column: hesab_group_id
+	 * 
 	 * @param hesabGroup the hesab_group_id value
 	 */
-	public void setHesabGroup (ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity hesabGroup) {
+	public void setHesabGroup(ir.serajsamaneh.accounting.hesabgroup.HesabGroupEntity hesabGroup) {
 		this.hesabGroup = hesabGroup;
 	}
-
-
 
 	public Long getOrganId() {
 		return organId;
@@ -227,8 +207,6 @@ public abstract class BaseHesabKolEntity  extends BaseEntity<Long>   implements 
 //		this.organ = organ;
 //	}
 
-
-
 	public String getOrganName() {
 		return organName;
 	}
@@ -240,51 +218,54 @@ public abstract class BaseHesabKolEntity  extends BaseEntity<Long>   implements 
 	/**
 	 * Return the value associated with the column: saal_maali_id
 	 */
-	public ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity getSaalMaali () {
+	public ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity getSaalMaali() {
 		return saalMaali;
 	}
 
 	/**
 	 * Set the value related to the column: saal_maali_id
+	 * 
 	 * @param saalMaali the saal_maali_id value
 	 */
-	public void setSaalMaali (ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity saalMaali) {
+	public void setSaalMaali(ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity saalMaali) {
 		this.saalMaali = saalMaali;
 	}
-
-
 
 	/**
 	 * Return the value associated with the column: hesab_kol_template_id
 	 */
-	public ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity getHesabKolTemplate () {
+	public ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity getHesabKolTemplate() {
 		return hesabKolTemplate;
 	}
 
 	/**
 	 * Set the value related to the column: hesab_kol_template_id
+	 * 
 	 * @param hesabKolTemplate the hesab_kol_template_id value
 	 */
-	public void setHesabKolTemplate (ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity hesabKolTemplate) {
+	public void setHesabKolTemplate(
+			ir.serajsamaneh.accounting.hesabkoltemplate.HesabKolTemplateEntity hesabKolTemplate) {
 		this.hesabKolTemplate = hesabKolTemplate;
 	}
 
-
-
-
-	public boolean equals (Object obj) {
-		if (null == obj) return false;
-		if (!(obj instanceof ir.serajsamaneh.accounting.hesabkol.HesabKolEntity)) return false;
+	public boolean equals(Object obj) {
+		if (null == obj)
+			return false;
+		if (!(obj instanceof ir.serajsamaneh.accounting.hesabkol.HesabKolEntity))
+			return false;
 		else {
 			ir.serajsamaneh.accounting.hesabkol.HesabKolEntity hesabKolEntity = (ir.serajsamaneh.accounting.hesabkol.HesabKolEntity) obj;
-			if (null == this.getId() || null == hesabKolEntity.getId()) return false;
-			else return (this.getId().equals(hesabKolEntity.getId()));
+			if (null == this.getId() || null == hesabKolEntity.getId())
+				return false;
+			else
+				return (this.getId().equals(hesabKolEntity.getId()));
 		}
 	}
 
-	public int hashCode () {
+	public int hashCode() {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getId()) return super.hashCode();
+			if (null == this.getId())
+				return super.hashCode();
 			else {
 				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
@@ -293,10 +274,8 @@ public abstract class BaseHesabKolEntity  extends BaseEntity<Long>   implements 
 		return this.hashCode;
 	}
 
-
-	public String toString () {
+	public String toString() {
 		return super.toString();
 	}
-
 
 }

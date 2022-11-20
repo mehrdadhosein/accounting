@@ -5,17 +5,15 @@ import java.io.Serializable;
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntity;
 
-
 /**
- * This is an object that contains data related to the tb_group_kala table.
- * Do not modify this class because it will be overwritten if the configuration file
- * related to this class is modified.
+ * This is an object that contains data related to the tb_group_kala table. Do
+ * not modify this class because it will be overwritten if the configuration
+ * file related to this class is modified.
  *
- * @hibernate.class
- *  table="tb_group_kala"
+ * @hibernate.class table="tb_group_kala"
  */
 
-public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long>   implements Serializable {
+public abstract class BaseAccountingMarkazGroupEntity extends BaseEntity<Long> implements Serializable {
 
 	/**
 	 * 
@@ -28,24 +26,21 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 	public static String PROP_ORGAN = "organ";
 	public static String PROP_CODE = "code";
 
-
 	// constructors
-	public BaseAccountingMarkazGroupEntity () {
+	public BaseAccountingMarkazGroupEntity() {
 		initialize();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseAccountingMarkazGroupEntity (java.lang.Long id) {
+	public BaseAccountingMarkazGroupEntity(java.lang.Long id) {
 		this.setId(id);
 		initialize();
 	}
-	
 
-	protected void initialize () {}
-
-
+	protected void initialize() {
+	}
 
 	private int hashCode = Integer.MIN_VALUE;
 
@@ -59,35 +54,31 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 	private java.lang.Integer level;
 	Long organId;
 	String organName;
-	
+
 	// many to one
 //	private ir.serajsamaneh.core.organ.OrganEntity organ;
 	private AccountingMarkazGroupEntity parent;
 	private java.util.Set<AccountingMarkazTemplateEntity> accountingMarkazTemplates;
 
-
 	/**
 	 * Return the unique identifier of this class
-     * @hibernate.id
-     *  generator-class="increment"
-     *  column="group_kala_id"
-     */
-	public java.lang.Long getId () {
+	 * 
+	 * @hibernate.id generator-class="increment" column="group_kala_id"
+	 */
+	public java.lang.Long getId() {
 		return id;
 	}
 
 	/**
 	 * Set the unique identifier of this class
+	 * 
 	 * @param id the new ID
 	 */
-	public void setId (java.lang.Long id) {
+	public void setId(java.lang.Long id) {
 		this.id = id;
 		setID(id);
 		this.hashCode = Integer.MIN_VALUE;
 	}
-
-
-
 
 	public java.lang.Integer getLevel() {
 		return level;
@@ -100,19 +91,18 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 	/**
 	 * Return the value associated with the column: name
 	 */
-	public java.lang.String getName () {
+	public java.lang.String getName() {
 		return name;
 	}
 
 	/**
 	 * Set the value related to the column: name
+	 * 
 	 * @param name the name value
 	 */
-	public void setName (java.lang.String name) {
+	public void setName(java.lang.String name) {
 		this.name = name;
 	}
-
-
 
 	public java.lang.String getDescription() {
 		return description;
@@ -125,19 +115,19 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 	/**
 	 * Return the value associated with the column: code
 	 */
-	public java.lang.String getCode () {
+	public java.lang.String getCode() {
 		return code;
 	}
 
 	/**
 	 * Set the value related to the column: code
+	 * 
 	 * @param code the code value
 	 */
-	public void setCode (java.lang.String code) {
+	public void setCode(java.lang.String code) {
 		this.code = code;
 	}
-	
-	
+
 //	/**
 //	 * Return the value associated with the column: organ_id
 //	 */
@@ -152,8 +142,6 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 //	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
 //		this.organ = organ;
 //	}
-
-
 
 	public Long getOrganId() {
 		return organId;
@@ -174,20 +162,18 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 	/**
 	 * Return the value associated with the column: parent_id
 	 */
-	public AccountingMarkazGroupEntity getParent () {
+	public AccountingMarkazGroupEntity getParent() {
 		return parent;
 	}
 
 	/**
 	 * Set the value related to the column: parent_id
+	 * 
 	 * @param parent the parent_id value
 	 */
-	public void setParent (AccountingMarkazGroupEntity parent) {
+	public void setParent(AccountingMarkazGroupEntity parent) {
 		this.parent = parent;
 	}
-
-
-
 
 	public java.util.Set<AccountingMarkazTemplateEntity> getAccountingMarkazTemplates() {
 		return accountingMarkazTemplates;
@@ -197,19 +183,24 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 		this.accountingMarkazTemplates = accountingMarkazTemplates;
 	}
 
-	public boolean equals (Object obj) {
-		if (null == obj) return false;
-		if (!(obj instanceof AccountingMarkazGroupEntity)) return false;
+	public boolean equals(Object obj) {
+		if (null == obj)
+			return false;
+		if (!(obj instanceof AccountingMarkazGroupEntity))
+			return false;
 		else {
 			AccountingMarkazGroupEntity groupKalaEntity = (AccountingMarkazGroupEntity) obj;
-			if (null == this.getId() || null == groupKalaEntity.getId()) return false;
-			else return (this.getId().equals(groupKalaEntity.getId()));
+			if (null == this.getId() || null == groupKalaEntity.getId())
+				return false;
+			else
+				return (this.getId().equals(groupKalaEntity.getId()));
 		}
 	}
 
-	public int hashCode () {
+	public int hashCode() {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getId()) return super.hashCode();
+			if (null == this.getId())
+				return super.hashCode();
 			else {
 				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
@@ -218,10 +209,8 @@ public abstract class BaseAccountingMarkazGroupEntity  extends BaseEntity<Long> 
 		return this.hashCode;
 	}
 
-
-	public String toString () {
+	public String toString() {
 		return super.toString();
 	}
-
 
 }

@@ -1,11 +1,8 @@
 package ir.serajsamaneh.accounting.enumeration;
 
 public enum HesabMoeenCodingTypeEnum {
-	MANUAL,
-	SERIAL,
-	VARIABLE_HIERARCHICAL,
-	CONSTANT_HIERARCHICAL;
-	
+	MANUAL, SERIAL, VARIABLE_HIERARCHICAL, CONSTANT_HIERARCHICAL;
+
 	public Integer value() {
 		return this.ordinal();
 	}
@@ -18,12 +15,12 @@ public enum HesabMoeenCodingTypeEnum {
 		throw new IllegalStateException();
 
 	}
-	
-	public Integer getOrdinal(){
+
+	public Integer getOrdinal() {
 		return Integer.valueOf(this.ordinal());
 	}
-	
-    public final String nameWithClass() {
-        return getClass().getSimpleName()+"_"+name();
-    }
+
+	public final String nameWithClass() {
+		return getClass().getSimpleName() + "_" + name();
+	}
 }

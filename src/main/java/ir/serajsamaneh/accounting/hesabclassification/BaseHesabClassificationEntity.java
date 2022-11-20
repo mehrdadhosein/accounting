@@ -1,21 +1,18 @@
 package ir.serajsamaneh.accounting.hesabclassification;
 
-import ir.serajsamaneh.core.base.BaseEntity;
-
 import java.io.Serializable;
 
-
+import ir.serajsamaneh.core.base.BaseEntity;
 
 /**
- * This is an object that contains data related to the tb_hesab_classification table.
- * Do not modify this class because it will be overwritten if the configuration file
- * related to this class is modified.
+ * This is an object that contains data related to the tb_hesab_classification
+ * table. Do not modify this class because it will be overwritten if the
+ * configuration file related to this class is modified.
  *
- * @hibernate.class
- *  table="tb_hesab_classification"
+ * @hibernate.class table="tb_hesab_classification"
  */
 
-public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   implements Serializable {
+public abstract class BaseHesabClassificationEntity extends BaseEntity<Long> implements Serializable {
 
 	/**
 	 * 
@@ -27,24 +24,21 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 	public static String PROP_ORGAN = "organ";
 	public static String PROP_ID = "id";
 
-
 	// constructors
-	public BaseHesabClassificationEntity () {
+	public BaseHesabClassificationEntity() {
 		initialize();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseHesabClassificationEntity (java.lang.Long id) {
+	public BaseHesabClassificationEntity(java.lang.Long id) {
 		this.setId(id);
 		initialize();
 	}
 
-
-	protected void initialize () {}
-
-
+	protected void initialize() {
+	}
 
 	private int hashCode = Integer.MIN_VALUE;
 
@@ -65,31 +59,26 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 	private java.util.Set<ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity> hesabTafsiliTemplate;
 	private java.util.Set<ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity> hesabMoeenTemplate;
 
-
-
 	/**
 	 * Return the unique identifier of this class
-     * @hibernate.id
-     *  generator-class="increment"
-     *  column="hesab_classification_id"
-     */
-	public java.lang.Long getId () {
+	 * 
+	 * @hibernate.id generator-class="increment" column="hesab_classification_id"
+	 */
+	public java.lang.Long getId() {
 		return id;
 	}
 
 	/**
 	 * Set the unique identifier of this class
+	 * 
 	 * @param id the new ID
 	 */
-	public void setId (java.lang.Long id) {
+	public void setId(java.lang.Long id) {
 		this.id = id;
 		setID(id);
 		this.hashCode = Integer.MIN_VALUE;
 	}
 
-
-
- 
 	public Long getCode() {
 		return code;
 	}
@@ -101,21 +90,19 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 	/**
 	 * Return the value associated with the column: name
 	 */
-	public java.lang.String getName () {
+	public java.lang.String getName() {
 		return name;
 	}
 
 	/**
 	 * Set the value related to the column: name
+	 * 
 	 * @param name the name value
 	 */
-	public void setName (java.lang.String name) {
+	public void setName(java.lang.String name) {
 		this.name = name;
 	}
 
-
-
- 
 	public java.lang.Integer getLevel() {
 		return level;
 	}
@@ -127,20 +114,18 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 	/**
 	 * Return the value associated with the column: description
 	 */
-	public java.lang.String getDescription () {
+	public java.lang.String getDescription() {
 		return description;
 	}
 
 	/**
 	 * Set the value related to the column: description
+	 * 
 	 * @param description the description value
 	 */
-	public void setDescription (java.lang.String description) {
+	public void setDescription(java.lang.String description) {
 		this.description = description;
 	}
-
-
-
 
 	public Long getOrganId() {
 		return organId;
@@ -164,8 +149,6 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 //	public void setOrgan (ir.serajsamaneh.core.organ.OrganEntity organ) {
 //		this.organ = organ;
 //	}
-
-
 
 	public String getOrganName() {
 		return organName;
@@ -193,22 +176,24 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 		this.hesabMoeenTemplate = hesabMoeenTemplate;
 	}
 
-
-
-
-	public boolean equals (Object obj) {
-		if (null == obj) return false;
-		if (!(obj instanceof ir.serajsamaneh.accounting.hesabclassification.HesabClassificationEntity)) return false;
+	public boolean equals(Object obj) {
+		if (null == obj)
+			return false;
+		if (!(obj instanceof ir.serajsamaneh.accounting.hesabclassification.HesabClassificationEntity))
+			return false;
 		else {
 			ir.serajsamaneh.accounting.hesabclassification.HesabClassificationEntity hesabClassificationEntity = (ir.serajsamaneh.accounting.hesabclassification.HesabClassificationEntity) obj;
-			if (null == this.getId() || null == hesabClassificationEntity.getId()) return false;
-			else return (this.getId().equals(hesabClassificationEntity.getId()));
+			if (null == this.getId() || null == hesabClassificationEntity.getId())
+				return false;
+			else
+				return (this.getId().equals(hesabClassificationEntity.getId()));
 		}
 	}
 
-	public int hashCode () {
+	public int hashCode() {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getId()) return super.hashCode();
+			if (null == this.getId())
+				return super.hashCode();
 			else {
 				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
@@ -217,10 +202,8 @@ public abstract class BaseHesabClassificationEntity  extends BaseEntity<Long>   
 		return this.hashCode;
 	}
 
-
-	public String toString () {
+	public String toString() {
 		return super.toString();
 	}
-
 
 }

@@ -17,5 +17,5 @@ public class WrongSerialNumberDasteChequeException extends FatalException {
 	public String getDesc() {
 		return SerajMessageUtil.getMessage("Serial_Number_Validate");
 	}
-	
+
 }

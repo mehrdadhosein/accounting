@@ -3,31 +3,33 @@ package ir.serajsamaneh.accounting.sanadhesabdariitem;
 import ir.serajsamaneh.core.util.NumberUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
-
-
 public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 	private static final long serialVersionUID = 1L;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public SanadHesabdariItemEntity () {
+	/* [CONSTRUCTOR MARKER BEGIN] */
+	public SanadHesabdariItemEntity() {
 		super();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public SanadHesabdariItemEntity (java.lang.Long id) {
+	public SanadHesabdariItemEntity(java.lang.Long id) {
 		super(id);
 	}
 
-/*[CONSTRUCTOR MARKER END]*/
+	/* [CONSTRUCTOR MARKER END] */
 
 	public String toString() {
-		return getBedehkar()>0 ? 
-				(getHesabKol()+"-"+getHesabMoeen()+"["+ SerajMessageUtil.getMessage("SanadHesabdariItem_bedehkar") +"("+ NumberUtil.getBigDecimalFormatted(getBedehkar(),0)+")]") 
-				: (getHesabKol()+"-"+getHesabMoeen()+"["+ SerajMessageUtil.getMessage("SanadHesabdariItem_bestankar") +"("+ NumberUtil.getBigDecimalFormatted(getBestankar(),0)+")]");
+		return getBedehkar() > 0
+				? (getHesabKol() + "-" + getHesabMoeen() + "["
+						+ SerajMessageUtil.getMessage("SanadHesabdariItem_bedehkar") + "("
+						+ NumberUtil.getBigDecimalFormatted(getBedehkar(), 0) + ")]")
+				: (getHesabKol() + "-" + getHesabMoeen() + "["
+						+ SerajMessageUtil.getMessage("SanadHesabdariItem_bestankar") + "("
+						+ NumberUtil.getBigDecimalFormatted(getBestankar(), 0) + ")]");
 	}
-	
+
 	String entityId;
 	Double mandehBedehkarEbtedayDore;
 	Double mandehBestankarEbtedayDore;
@@ -35,10 +37,10 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 	Double operationSummaryBestankar;
 	Double mandehBedehkar;
 	Double mandehBestankar;
-	String mandehByMahiyatHesabStr="";
+	String mandehByMahiyatHesabStr = "";
 	Double mandehByMahiyatHesabDbl = 0d;
 //	MarkazHazineEntity markazHazine;
-	
+
 	public String getHesabKolCode() {
 		return getHesabKol().getCode();
 	}
@@ -46,34 +48,31 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 	public String getHesabMoeenCode() {
 		return getHesabMoeen().getCode();
 	}
-	
+
 	public String getHesabTafsiliCode() {
-		if(getHesabTafsili() == null)
+		if (getHesabTafsili() == null)
 			return "";
 		return getHesabTafsili().getCode().toString();
 	}
-	
+
 	public String getHesabTafsiliTwoCode() {
-		if(getHesabTafsiliTwo() == null)
+		if (getHesabTafsiliTwo() == null)
 			return "";
 		return getHesabTafsiliTwo().getCode().toString();
 	}
-	
+
 	public String getAccountingMarkazCode() {
-		if(getAccountingMarkaz() == null)
+		if (getAccountingMarkaz() == null)
 			return "";
 		return getAccountingMarkaz().getCode();
 	}
-/*
-	
-	public MarkazHazineEntity getMarkazHazine() {
-		return markazHazine;
-	}
-	public void setMarkazHazine(MarkazHazineEntity markazHazine) {
-		this.markazHazine = markazHazine;
-	}*/
-	
-	
+	/*
+	 * 
+	 * public MarkazHazineEntity getMarkazHazine() { return markazHazine; } public
+	 * void setMarkazHazine(MarkazHazineEntity markazHazine) { this.markazHazine =
+	 * markazHazine; }
+	 */
+
 	public Double getOperationSummaryBedehkar() {
 		return operationSummaryBedehkar;
 	}
@@ -89,10 +88,6 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 	public void setOperationSummaryBestankar(Double operationSummaryBestankar) {
 		this.operationSummaryBestankar = operationSummaryBestankar;
 	}
-
-
-
-
 
 	public Double getMandehBedehkarEbtedayDore() {
 		return mandehBedehkarEbtedayDore;
@@ -125,7 +120,6 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 	public void setMandehBestankar(Double mandehBestankar) {
 		this.mandehBestankar = mandehBestankar;
 	}
-
 
 	public String getMandehByMahiyatHesabStr() {
 		return mandehByMahiyatHesabStr;
@@ -190,17 +184,17 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 	public String getHesabTafsiliName() {
 		return getHesabTafsili().getName();
 	}
-	
+
 	public String getHesabTafsiliTwoName() {
 		return getHesabTafsiliTwo().getName();
 	}
-	
+
 	public String getHesabTafsiliTwoDesc() {
-		if(getHesabTafsiliTwo()!=null)
+		if (getHesabTafsiliTwo() != null)
 			return getHesabTafsiliTwo().getDesc();
 		return "";
 	}
-	
+
 //	public String getHesabShenavarName(Integer level) {
 //		if(getArticleTafsili()!= null && !getArticleTafsili().isEmpty()){
 //			for(ArticleTafsiliEntity articleTafsiliEntity : getArticleTafsili()){
@@ -250,7 +244,7 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 //		}
 //		return hesabTafsiliLevelNames;
 //	}
-	
+
 //	public String getArticleAccountingMarkazDesc(){
 //		String accountingMarkazLevelNames="";
 //		if(getArticleAccountingMarkaz()!= null && !getArticleAccountingMarkaz().isEmpty()){
@@ -261,20 +255,20 @@ public class SanadHesabdariItemEntity extends BaseSanadHesabdariItemEntity {
 //		return accountingMarkazLevelNames;
 //	}
 
-	public String getSanadSerial(){
-		if(getSanadHesabdari().getId()!=null && getSanadHesabdari().getSerial()!=null)
+	public String getSanadSerial() {
+		if (getSanadHesabdari().getId() != null && getSanadHesabdari().getSerial() != null)
 			return getSanadHesabdari().getSerial().toString();
 		return "";
 	}
-	
-	public String getTempSanadSerial(){
-		if(getSanadHesabdari().getId()!=null && getSanadHesabdari().getTempSerial()!=null)
+
+	public String getTempSanadSerial() {
+		if (getSanadHesabdari().getId() != null && getSanadHesabdari().getTempSerial() != null)
 			return getSanadHesabdari().getTempSerial().toString();
 		return "";
 	}
-	
-	public String getSanadTarikh(){
-		if(getSanadHesabdari().getId()!=null && getSanadHesabdari().getTarikhSanad()!=null)
+
+	public String getSanadTarikh() {
+		if (getSanadHesabdari().getId() != null && getSanadHesabdari().getTarikhSanad() != null)
 			return getSanadHesabdari().getTarikhSanadFA();
 		return "";
 	}

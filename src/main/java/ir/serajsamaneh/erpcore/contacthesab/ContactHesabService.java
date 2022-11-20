@@ -1,5 +1,15 @@
 package ir.serajsamaneh.erpcore.contacthesab;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.FlushMode;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
 import ir.serajsamaneh.accounting.base.BaseAccountingService;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
@@ -12,16 +22,9 @@ import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.exception.NoRecordFoundException;
 import ir.serajsamaneh.core.organ.OrganEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.hibernate.FlushMode;
-import org.springframework.transaction.annotation.Transactional;
-
-public class ContactHesabService extends
-		BaseAccountingService<ContactHesabEntity, Long> {
+@Service
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class ContactHesabService extends BaseAccountingService<ContactHesabEntity, Long> {
 
 	@Override
 	protected ContactHesabDAO getMyDAO() {
@@ -29,6 +32,7 @@ public class ContactHesabService extends
 	}
 
 	ContactService contactService;
+
 	public ContactService getContactService() {
 		return contactService;
 	}
@@ -48,13 +52,13 @@ public class ContactHesabService extends
 	}
 
 	public HesabTafsiliEntity getHesabTafsiliByContact(ContactEntity contactEntity, SaalMaaliEntity saalMaali) {
-		
-		HashMap<String,Object> localFilter = new HashMap<String, Object>();
+
+		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("contact.id@eq", contactEntity.getId());
 		localFilter.put("saalMaali.id@eq", saalMaali.getId());
 		ContactHesabEntity contactHesabEntity = load(null, localFilter, FlushMode.MANUAL);
-		if(contactHesabEntity == null)
-			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_NoTafsiliDefinedFor",contactEntity));
+		if (contactHesabEntity == null)
+			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_NoTafsiliDefinedFor", contactEntity));
 		return contactHesabEntity.getHesabTafsiliOne();
 	}
 
@@ -67,20 +71,20 @@ public class ContactHesabService extends
 //		SaalMaaliEntity saalMaaliEntity = getActiveSaalMaali(getCurrentOrgan());
 //		return getContactHesabByContactIdAndSaalMaali(contactId, saalMaaliEntity);
 //	}
-	
-	public ContactHesabEntity getContactHesabByContactIdAndSaalMaali(Long contactId,	Long saalMaaliId) {
-		HashMap<String,Object> localFilter = new HashMap<String, Object>();
+
+	public ContactHesabEntity getContactHesabByContactIdAndSaalMaali(Long contactId, Long saalMaaliId) {
+		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("contact.id@eq", contactId);
 		localFilter.put("saalMaali.id@eq", saalMaaliId);
 		ContactHesabEntity contactHesabEntity = load(null, localFilter, FlushMode.MANUAL);
-		if(contactHesabEntity == null) {
-			SaalMaaliEntity saalMaaliEntity = getSaalMaaliService().load(saalMaaliId);
-			throw new NoRecordFoundException(SerajMessageUtil.getMessage("Contact_NoHesabDefinedforSaalMaali",getContactService().load(contactId), saalMaaliEntity.getNameWithOrgan()));
+		if (contactHesabEntity == null) {
+			SaalMaaliEntity saalMaaliEntity = saalMaaliService.load(saalMaaliId);
+			throw new NoRecordFoundException(SerajMessageUtil.getMessage("Contact_NoHesabDefinedforSaalMaali",
+					getContactService().load(contactId), saalMaaliEntity.getNameWithOrgan()));
 		}
 		return contactHesabEntity;
 	}
 
-	
 	@Override
 	public void delete(Long id) {
 		ContactHesabEntity entity = load(id);
@@ -90,57 +94,60 @@ public class ContactHesabService extends
 		getContactService().save(contact);
 		super.delete(id);
 	}
+
 	@Override
 	@Transactional
 	public void save(ContactHesabEntity entity) {
-		if(entity.getHesabTafsiliOne()!=null && entity.getHesabTafsiliOne().getId()!=null){
+		if (entity.getHesabTafsiliOne() != null && entity.getHesabTafsiliOne().getId() != null) {
 			Map<String, Object> localFilter = new HashMap<String, Object>();
-			try{
+			try {
 				localFilter.put("hesabTafsiliOne.id@eq", entity.getHesabTafsiliOne().getId());
 				localFilter.put("saalMaali.id@eq", entity.getSaalMaali().getId());
 				checkUniqueNess(entity, localFilter, false, FlushMode.MANUAL);
 
-			}catch(DuplicateException e){
+			} catch (DuplicateException e) {
 				List<ContactHesabEntity> dataList = getDataList(null, localFilter);
-				throw new DuplicateException(e.getDesc()+" "+dataList);
+				throw new DuplicateException(e.getDesc() + " " + dataList);
 			}
 		}
-		
+
 		Map<String, Object> contactFilter = new HashMap<String, Object>();
 		contactFilter.put("contact.id@eq", entity.getContact().getId());
 		contactFilter.put("saalMaali.id@eq", entity.getSaalMaali().getId());
 		checkUniqueNess(entity, contactFilter, false, FlushMode.MANUAL);
-		
+
 		super.save(entity);
 		ContactEntity contact = entity.getContact();
-		if(entity.getHesabTafsiliOne()!=null && entity.getHesabTafsiliOne().getId()!=null)
+		if (entity.getHesabTafsiliOne() != null && entity.getHesabTafsiliOne().getId() != null)
 			contact.setHesabTafsili(entity.getHesabTafsiliOne().getDesc());
-		
-		if(entity.getHesabMoeen()!=null && entity.getHesabMoeen().getId()!=null)
+
+		if (entity.getHesabMoeen() != null && entity.getHesabMoeen().getId() != null)
 			contact.setHesabMoeen(entity.getHesabMoeen().getDesc());
 		getContactService().save(contact);
-		
+
 	}
 
 	public List<ContactHesabEntity> getListBySaalMaali(SaalMaaliEntity saalMaali) {
-		
-		HashMap<String,Object> localFilter = new HashMap<String, Object>();
+
+		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", saalMaali.getId());
 		List<ContactHesabEntity> dataList = getDataList(null, localFilter);
 		return dataList;
 	}
 
 	public List<ContactHesabEntity> getListBySaalMaali(SaalMaaliEntity saalMaali, OrganEntity organEntity) {
-		
-		HashMap<String,Object> localFilter = new HashMap<String, Object>();
+
+		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", saalMaali.getId());
 		localFilter.put("contact.organId@eq", organEntity.getId());
 		List<ContactHesabEntity> dataList = getDataList(null, localFilter);
 		return dataList;
 	}
-	
+
 	@Transactional
-	public ContactHesabEntity createContactHesab(AccountingMarkazTemplateEntity accountingMarkazTemplate, ContactEntity contact, HesabMoeenEntity hesabMoeen, HesabTafsiliEntity hesabTafsili, SaalMaaliEntity saalMaali){
+	public ContactHesabEntity createContactHesab(AccountingMarkazTemplateEntity accountingMarkazTemplate,
+			ContactEntity contact, HesabMoeenEntity hesabMoeen, HesabTafsiliEntity hesabTafsili,
+			SaalMaaliEntity saalMaali) {
 		ContactHesabEntity contactHesabEntity = new ContactHesabEntity();
 		contactHesabEntity.setAccountingMarkazTemplate(accountingMarkazTemplate);
 		contactHesabEntity.setContact(contact);

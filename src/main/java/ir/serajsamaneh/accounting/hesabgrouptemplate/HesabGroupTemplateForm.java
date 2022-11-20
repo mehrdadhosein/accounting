@@ -1,11 +1,19 @@
 package ir.serajsamaneh.accounting.hesabgrouptemplate;
 
 import javax.faces.model.DataModel;
+import javax.inject.Named;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
-
+@Named("hesabGroupTemplate")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Component
 public class HesabGroupTemplateForm extends BaseAccountingForm<HesabGroupTemplateEntity, Long> {
 
 	@Override

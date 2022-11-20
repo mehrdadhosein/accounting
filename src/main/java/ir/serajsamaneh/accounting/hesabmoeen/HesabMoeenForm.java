@@ -10,9 +10,14 @@ import java.util.StringTokenizer;
 
 import javax.faces.model.DataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.WebApplicationContext;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
@@ -29,111 +34,102 @@ import ir.serajsamaneh.core.exception.InCorrectInputException;
 import ir.serajsamaneh.core.util.JQueryUtil;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
-
-
-public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
-
-
-
+@Named("hesabMoeen")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Component
+public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity, Long> {
 
 //	private static final int TAFSILI_DEPTH = 6;
 
 	HesabTafsiliService hesabTafsiliService;
 	SaalMaaliService saalMaaliService;
 	HesabKolService hesabKolService;
+
 	public HesabKolService getHesabKolService() {
 		return hesabKolService;
 	}
 
-	public List<SelectItem> getLocalHesabMoeenSelectItems(){
-		try{
+	public List<SelectItem> getLocalHesabMoeenSelectItems() {
+		try {
 			Map<String, Object> filter = new HashMap<String, Object>();
-			
+
 			OrganVO organVO = organService.getOrganVO(getCurrentUserActiveSaalMaali().getOrganId());
 			filter.put("organ.code@startlk", organVO.getCode());
-			List<HesabMoeenEntity>  list = getMyService().getDataList(null,filter);
+			List<HesabMoeenEntity> list = getMyService().getDataList(null, filter);
 			List<SelectItem> resultList = new ArrayList<SelectItem>();
-			for (HesabMoeenEntity entity: list){
+			for (HesabMoeenEntity entity : list) {
 				resultList.add(new SelectItem(entity.getId(), entity.getDesc()));
 			}
 			return resultList;
-		}catch(NoSaalMaaliFoundException e){
+		} catch (NoSaalMaaliFoundException e) {
 			e.printStackTrace();
 			return new ArrayList<SelectItem>();
 		}
 	}
+
 	public void setHesabKolService(HesabKolService hesabKolService) {
 		this.hesabKolService = hesabKolService;
 	}
-
 
 	public SaalMaaliService getSaalMaaliService() {
 		return saalMaaliService;
 	}
 
-
 	public void setSaalMaaliService(SaalMaaliService saalMaaliService) {
 		this.saalMaaliService = saalMaaliService;
 	}
-
 
 	public HesabTafsiliService getHesabTafsiliService() {
 		return hesabTafsiliService;
 	}
 
-
 	public void setHesabTafsiliService(HesabTafsiliService hesabTafsiliService) {
 		this.hesabTafsiliService = hesabTafsiliService;
 	}
-
 
 	@Override
 	protected HesabMoeenService getMyService() {
 		return hesabMoeenService;
 	}
 
-
 	@Override
 	public DataModel<HesabMoeenEntity> getDataModel() {
 		setSearchAction(true);
-		//this.getFilter().put("organ.code@startlk", getTopOrgan().getCode());
+		// this.getFilter().put("organ.code@startlk", getTopOrgan().getCode());
 		populateTopOrgansIdListFilter();
 
-		this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+		this.getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		return super.getDataModel();
 	}
-
-
 
 	@Override
 	public DataModel<HesabMoeenEntity> getHierarchicalDataModel() {
 		setSearchAction(true);
-		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		return super.getHierarchicalDataModel();
 	}
-	
+
 	@Override
 	public Integer getHierarchicalDataModelCount() {
-		getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+		getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		return super.getHierarchicalDataModelCount();
 	}
-	
-	public void initMoeenTafsiliItems(HesabMoeenEntity hesabMoeenEntity,
-			String itemsInput) {
+
+	public void initMoeenTafsiliItems(HesabMoeenEntity hesabMoeenEntity, String itemsInput) {
 		if (hesabMoeenEntity.getMoeenTafsili() == null)
 			hesabMoeenEntity.setMoeenTafsili(new HashSet<MoeenTafsiliEntity>());
 		else
 			hesabMoeenEntity.getMoeenTafsili().clear();
 		List<TafsiliLevelVo> tafsiliLevelVOList = getMoeenTafsiliList(itemsInput);
 		for (TafsiliLevelVo tafsiliLevelVo : tafsiliLevelVOList) {
-			
+
 			String hesabTafsiliListIds = tafsiliLevelVo.getHesabTafsiliListIds();
-			StringTokenizer tokenizer = new StringTokenizer(hesabTafsiliListIds,",");
-			while(tokenizer.hasMoreTokens()){
+			StringTokenizer tokenizer = new StringTokenizer(hesabTafsiliListIds, ",");
+			while (tokenizer.hasMoreTokens()) {
 				String hesabTafsiliId = tokenizer.nextToken();
-				
-				HesabTafsiliEntity hesabTafsiliEntity = getHesabTafsiliService().load(new Long(hesabTafsiliId));
-				
+
+				HesabTafsiliEntity hesabTafsiliEntity = hesabTafsiliService.load(Long.valueOf(hesabTafsiliId));
+
 				MoeenTafsiliEntity moeenTafsiliEntity = new MoeenTafsiliEntity();
 				moeenTafsiliEntity.setLevel(tafsiliLevelVo.getLevel());
 				moeenTafsiliEntity.setHesabMoeen(hesabMoeenEntity);
@@ -144,19 +140,18 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		}
 	}
 
-
-	
 	@Override
 	public String save() {
-		if(getEntity().getOrganId() == null) {
+		if (getEntity().getOrganId() == null) {
 			getEntity().setOrganId(getCurrentOrganVO().getId());
 			getEntity().setOrganName(getCurrentOrganVO().getName());
 		}
-		
+
 //		initMoeenTafsiliItems(getEntity(), getTafsiliLevelsXML());
 
-		getEntity().setHesabKol(getHesabKolService().load(getEntity().getHesabKol().getId()));
-		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getOldEntity().getHesabKol(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
+		getEntity().setHesabKol(hesabKolService.load(getEntity().getHesabKol().getId()));
+		getMyService().save(getEntity(), getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
+				getOldEntity().getHesabKol(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
 		resetHesabRelations();
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return getViewUrl();
@@ -172,83 +167,86 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 			HesabRelationsUtil.resetmoeenTafsiliTwoMap(getCurrentUserActiveSaalMaali(), organId);
 			HesabRelationsUtil.resetAccountingMarkazMap(getCurrentUserActiveSaalMaali(), organId);
 			HesabRelationsUtil.resetRootHesabsMap(getCurrentUserActiveSaalMaali(), organId);
-			
+
 		}
 	}
 
-
-	
 	HesabMoeenService hesabMoeenService;
-	
+
 	public void setHesabMoeenService(HesabMoeenService hesabMoeenService) {
 		this.hesabMoeenService = hesabMoeenService;
 	}
-	
+
 	public HesabMoeenService getHesabMoeenService() {
 		return hesabMoeenService;
 	}
-	
+
 	@Override
-	public List<? extends BaseEntity> getJsonList(String property, String term,
-			boolean all, Map<String, String> params) {
-			try{
-				String isHierarchical = params.get("isHierarchical");
-				String hidden = params.get("hidden");
-				String hesabType = params.get("hesabType");
-				
-				if(StringUtils.hasText(hesabType) && hesabType.equals(HesabTypeEnum.EXPENSE.name()))
-					this.getFilter().put("hesabKol.hesabGroup.type@eq",HesabTypeEnum.EXPENSE);
-				
-				if(StringUtils.hasText(hesabType) && hesabType.equals(HesabTypeEnum.INCOME.name()))
-					this.getFilter().put("hesabKol.hesabGroup.type@eq",HesabTypeEnum.INCOME);
-				
-				this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
-				
-				if(StringUtils.hasText(hidden) && hidden.equals("false")){
-					this.getFilter().put("hidden@eq",false);
-				}
-				
-				if (isHierarchical !=null && isHierarchical.equals("true")){
-					
-					List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-					getFilter().put("organId@in", topOrganList);
-					
-	//				this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-					params.put("isLocal","false");
-				}
+	public List<? extends BaseEntity> getJsonList(String property, String term, boolean all,
+			Map<String, String> params) {
+		try {
+			String isHierarchical = params.get("isHierarchical");
+			String hidden = params.get("hidden");
+			String hesabType = params.get("hesabType");
+
+			if (StringUtils.hasText(hesabType) && hesabType.equals(HesabTypeEnum.EXPENSE.name()))
+				this.getFilter().put("hesabKol.hesabGroup.type@eq", HesabTypeEnum.EXPENSE);
+
+			if (StringUtils.hasText(hesabType) && hesabType.equals(HesabTypeEnum.INCOME.name()))
+				this.getFilter().put("hesabKol.hesabGroup.type@eq", HesabTypeEnum.INCOME);
+
+			this.getFilter().put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
+
+			if (StringUtils.hasText(hidden) && hidden.equals("false")) {
+				this.getFilter().put("hidden@eq", false);
+			}
+
+			if (isHierarchical != null && isHierarchical.equals("true")) {
+
+				List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
+				getFilter().put("organId@in", topOrganList);
+
+				// this.getFilter().put("organ.code@startlk",
+				// getCurrentUserActiveSaalMaali().getOrgan().getCode());
+				params.put("isLocal", "false");
+			}
 			return super.getJsonList(property, term, all, params);
-		}catch(NoSaalMaaliFoundException e){
-			//e.printStackTrace();
+		} catch (NoSaalMaaliFoundException e) {
+			// e.printStackTrace();
 			System.out.println(e.getMessage());
 			return new ArrayList<>();
 		}
 	}
-	
-	
+
 	public Map<Long, ListOrderedMap<String, Object>> getMoeenKolMap() {
-		return HesabRelationsUtil.getMoeenKolMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
+		return HesabRelationsUtil.getMoeenKolMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList());
 	}
-	
+
 //	public List<ListOrderedMap<String, Object>> getRootHesabsMap() {
 //		return HesabRelationsUtil.getRootHesabs(getCurrentUserActiveSaalMaali(), getCurrentOrgan());
 //	}
-	
+
 	public Map<Long, List<ListOrderedMap<String, Object>>> getMoeenTafsiliOneMap() {
-		return HesabRelationsUtil.getMoeenTafsiliOneMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
+		return HesabRelationsUtil.getMoeenTafsiliOneMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList());
 	}
-	
+
 	public Map<Long, List<ListOrderedMap<String, Object>>> getMoeenTafsiliTwoMap() {
-		return HesabRelationsUtil.getMoeenTafsiliTwoMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
+		return HesabRelationsUtil.getMoeenTafsiliTwoMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList());
 	}
-	
+
 	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliChildrenMap() {
-		return HesabRelationsUtil.getTafsiliChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
+		return HesabRelationsUtil.getTafsiliChildMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList());
 	}
 
 	public Map<Long, List<ListOrderedMap<String, Object>>> getAccountingMarkazMap() {
-		return HesabRelationsUtil.getAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
+		return HesabRelationsUtil.getAccountingMarkazMap(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList());
 	}
-	
+
 //	private List<TafsiliLevelVo> getTafsiliLevelsList(Long mooenId){
 //		HesabMoeenEntity hesabMoeenEntity = getMyService().load(mooenId);
 //		List<TafsiliLevelVo> tafsiliLevelsList = new ArrayList<TafsiliLevelVo>();
@@ -271,10 +269,10 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 //		return tafsiliLevelsList;
 //	}
 
-
 	String tafsiliLevelsXML = null;
+
 	public String getTafsiliLevelsXML() {
-		if(tafsiliLevelsXML == null)
+		if (tafsiliLevelsXML == null)
 			tafsiliLevelsXML = getXMLString(getEntity().getId());
 		return tafsiliLevelsXML;
 	}
@@ -282,7 +280,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 	public void setTafsiliLevelsXML(String factorItemsXML) {
 		this.tafsiliLevelsXML = factorItemsXML;
 	}
-	
+
 	private String getXMLString(Long hesabMoeenId) {
 
 		if (hesabMoeenId == null)
@@ -297,7 +295,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		Integer index = 1;
 		Set<MoeenTafsiliEntity> moeenTafsiliSet = hesabMoeenEntity.getMoeenTafsili();
 		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsiliSet) {
-			
+
 			xmlString += "<row id='" + index + "'>";
 
 			xmlString += "<cell>" + index + "</cell>";
@@ -313,11 +311,9 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 		xmlString += "</rows>\n";
 		return xmlString;
 	}
-	
 
 	public static List<TafsiliLevelVo> getMoeenTafsiliList(String kalahaInput) {
-		List<Map<String, String>> tafsiliLevelsList = JQueryUtil
-				.convertJQueryXMLToList(kalahaInput);
+		List<Map<String, String>> tafsiliLevelsList = JQueryUtil.convertJQueryXMLToList(kalahaInput);
 		if (tafsiliLevelsList == null)
 			return null;
 
@@ -333,52 +329,49 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity,Long> {
 
 		return tafsiliLevelsVO;
 	}
-	
-	protected static TafsiliLevelVo populateTafsiliLevel(
-			Map<String, String> tafsiliLevelMap, TafsiliLevelVo tafsiliLevelVO, Integer incorrectInputExceptionRow) {
 
-		String incorectItem="";
+	protected static TafsiliLevelVo populateTafsiliLevel(Map<String, String> tafsiliLevelMap,
+			TafsiliLevelVo tafsiliLevelVO, Integer incorrectInputExceptionRow) {
+
+		String incorectItem = "";
 		try {
 			incorectItem = "level";
 			if (StringUtils.hasText(tafsiliLevelMap.get("level")))
 				tafsiliLevelVO.setLevel(Integer.valueOf(tafsiliLevelMap.get("level")));
 
 			incorectItem = "MoeenTafsili_list";
-			if (StringUtils.hasText(tafsiliLevelMap.get("hesabTafsiliIds"))){
+			if (StringUtils.hasText(tafsiliLevelMap.get("hesabTafsiliIds"))) {
 				tafsiliLevelVO.setHesabTafsiliListIds(tafsiliLevelMap.get("hesabTafsiliIds"));
 			}
-			
+
 		} catch (Exception e) {
-			throw new InCorrectInputException("Common_incorrectInput",
-					SerajMessageUtil.getMessage(incorectItem),
+			throw new InCorrectInputException("Common_incorrectInput", SerajMessageUtil.getMessage(incorectItem),
 					incorrectInputExceptionRow);
 		}
 		return tafsiliLevelVO;
 
 	}
 
-
-	
 //	public  Integer getMaxLevel(){
 //		return 5;
 //	}
-	
-	
-	public String importFromHesabMoeenTemplateList(){
-		getMyService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
+
+	public String importFromHesabMoeenTemplateList() {
+		getMyService().importFromHesabMoeenTemplateList(getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
 		setDataModel(null);
 		return null;
 	}
-	
+
 	@Override
 	public String delete() {
-		if(!getIsForMyOrgan())
+		if (!getIsForMyOrgan())
 			throw new FatalException(SerajMessageUtil.getMessage("common_deleteNotAllowed"));
 		return super.delete();
 	}
-	
+
 	public boolean getIsForMyOrgan() {
-		if(getEntity() == null || getEntity().getId() == null)
+		if (getEntity() == null || getEntity().getId() == null)
 			return true;
 		return getEntity().getOrganId().equals(getCurrentOrganVO().getId());
 	}

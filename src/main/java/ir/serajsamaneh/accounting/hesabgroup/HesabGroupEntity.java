@@ -4,28 +4,25 @@ import ir.serajsamaneh.accounting.enumeration.HesabTypeEnum;
 import ir.serajsamaneh.accounting.enumeration.MahyatGroupEnum;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 
-
-
-
 public class HesabGroupEntity extends BaseHesabGroupEntity {
 	private static final long serialVersionUID = 1L;
-	
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public HesabGroupEntity () {
+
+	/* [CONSTRUCTOR MARKER BEGIN] */
+	public HesabGroupEntity() {
 		super();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public HesabGroupEntity (java.lang.Long id) {
+	public HesabGroupEntity(java.lang.Long id) {
 		super(id);
 	}
 
-	/*[CONSTRUCTOR MARKER END]*/
-	
+	/* [CONSTRUCTOR MARKER END] */
+
 	HesabTypeEnum type;
-	
+
 	public HesabTypeEnum getType() {
 		return type;
 	}
@@ -34,10 +31,8 @@ public class HesabGroupEntity extends BaseHesabGroupEntity {
 		this.type = type;
 	}
 
-
-
 	private MahyatGroupEnum mahyatGroup;
-	
+
 	public MahyatGroupEnum getMahyatGroup() {
 		return mahyatGroup;
 	}
@@ -50,13 +45,15 @@ public class HesabGroupEntity extends BaseHesabGroupEntity {
 	public String toString() {
 		return getName();
 	}
-	
+
 	@Override
 	public String getCompleteInfo() {
-		return SerajMessageUtil.getMessage("HesabGroup_code")+":"+this.getCode()+" , "+
-			   SerajMessageUtil.getMessage("HesabGroup_name")+":"+this.getName()+" , "+
-			   SerajMessageUtil.getMessage("HesabGroup_type")+":"+SerajMessageUtil.getMessage(this.getType().nameWithClass())+" , "+
-			   SerajMessageUtil.getMessage("HesabGroup_mahyatGroup")+":"+SerajMessageUtil.getMessage(this.getMahyatGroup().nameWithClass()); 
+		return SerajMessageUtil.getMessage("HesabGroup_code") + ":" + this.getCode() + " , "
+				+ SerajMessageUtil.getMessage("HesabGroup_name") + ":" + this.getName() + " , "
+				+ SerajMessageUtil.getMessage("HesabGroup_type") + ":"
+				+ SerajMessageUtil.getMessage(this.getType().nameWithClass()) + " , "
+				+ SerajMessageUtil.getMessage("HesabGroup_mahyatGroup") + ":"
+				+ SerajMessageUtil.getMessage(this.getMahyatGroup().nameWithClass());
 	}
 
 }

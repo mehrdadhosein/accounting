@@ -3,39 +3,36 @@ package ir.serajsamaneh.accounting.sanadhesabdariitemtemplate;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.enumeration.YesNoEnum;
 
-
-
-
 public class SanadHesabdariItemTemplateEntity extends BaseSanadHesabdariItemTemplateEntity {
 	private static final long serialVersionUID = 1L;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public SanadHesabdariItemTemplateEntity () {
+	/* [CONSTRUCTOR MARKER BEGIN] */
+	public SanadHesabdariItemTemplateEntity() {
 		super();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public SanadHesabdariItemTemplateEntity (java.lang.Long id) {
+	public SanadHesabdariItemTemplateEntity(java.lang.Long id) {
 		super(id);
 	}
 
-/*[CONSTRUCTOR MARKER END]*/
+	/* [CONSTRUCTOR MARKER END] */
 
 	public String toString() {
 //		return getBedehkar()>0 ? 
 //				(getHesabKol()+"["+ SerajMessageUtil.getMessage("SanadHesabdariItem_bedehkar") +"("+ getBedehkar().toString()+")]") 
 //				: (getHesabKol()+"["+ SerajMessageUtil.getMessage("SanadHesabdariItem_bestankar") +"("+ getBestankar().toString()+")]");
-		if(getId()!=null)
+		if (getId() != null)
 			return getId().toString();
 		return "";
 	}
-	
+
 	String entityId;
 	YesNoEnum applyAutomaticTafsili;
 //	MarkazHazineEntity markazHazine;
-	
+
 	public YesNoEnum getApplyAutomaticTafsili() {
 		return applyAutomaticTafsili;
 	}
@@ -51,7 +48,7 @@ public class SanadHesabdariItemTemplateEntity extends BaseSanadHesabdariItemTemp
 	public String getHesabMoeenCode() {
 		return getHesabMoeenTemplate().getCode();
 	}
-	
+
 	public Long getHesabTafsiliCode() {
 		return getHesabTafsiliTemplate().getCode();
 	}
@@ -59,16 +56,13 @@ public class SanadHesabdariItemTemplateEntity extends BaseSanadHesabdariItemTemp
 	public Long getHesabTafsiliTwoCode() {
 		return getHesabTafsiliTemplateTwo().getCode();
 	}
-	
-/*	
-	public MarkazHazineEntity getMarkazHazine() {
-		return markazHazine;
-	}
-	public void setMarkazHazine(MarkazHazineEntity markazHazine) {
-		this.markazHazine = markazHazine;
-	}*/
-	
-	
+
+	/*
+	 * public MarkazHazineEntity getMarkazHazine() { return markazHazine; } public
+	 * void setMarkazHazine(MarkazHazineEntity markazHazine) { this.markazHazine =
+	 * markazHazine; }
+	 */
+
 	public String getEntityId() {
 		return entityId;
 	}
@@ -78,12 +72,13 @@ public class SanadHesabdariItemTemplateEntity extends BaseSanadHesabdariItemTemp
 	}
 
 	String applyAutomaticTafsiliName;
+
 	public String getApplyAutomaticTafsiliName() {
-		if(applyAutomaticTafsiliName == null)
+		if (applyAutomaticTafsiliName == null)
 			applyAutomaticTafsiliName = SerajMessageUtil.getMessage(getApplyAutomaticTafsili().nameWithClass());
 		return applyAutomaticTafsiliName;
 	}
-	
+
 //	public ArticleTafsiliTemplateEntity getArticleTafsiliByLevel(Integer level) {
 //		Set<ArticleTafsiliTemplateEntity> set = getArticleTafsiliTemplate();
 //		if(set == null)

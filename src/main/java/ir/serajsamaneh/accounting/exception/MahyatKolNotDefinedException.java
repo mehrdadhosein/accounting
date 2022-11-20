@@ -7,6 +7,7 @@ import ir.serajsamaneh.core.util.SerajMessageUtil;
 public class MahyatKolNotDefinedException extends SerajException {
 
 	HesabKolEntity hesabKol;
+
 	public HesabKolEntity getHesabKol() {
 		return hesabKol;
 	}
@@ -21,7 +22,7 @@ public class MahyatKolNotDefinedException extends SerajException {
 
 	@Override
 	public String getDesc() {
-		return SerajMessageUtil.getMessage("HesabKol_MahyatKolNotDefined",getHesabKol().getName());
+		return SerajMessageUtil.getMessage("HesabKol_MahyatKolNotDefined", getHesabKol().getName());
 	}
 
 }

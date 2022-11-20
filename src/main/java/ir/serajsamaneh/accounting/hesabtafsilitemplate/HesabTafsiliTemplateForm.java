@@ -6,8 +6,13 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.model.DataModel;
+import javax.inject.Named;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
@@ -17,9 +22,10 @@ import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
-
-public class HesabTafsiliTemplateForm extends
-		BaseAccountingForm<HesabTafsiliTemplateEntity, Long> {
+@Named("hesabTafsiliTemplate")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Component
+public class HesabTafsiliTemplateForm extends BaseAccountingForm<HesabTafsiliTemplateEntity, Long> {
 
 	@Override
 	protected HesabTafsiliTemplateService getMyService() {
@@ -28,8 +34,7 @@ public class HesabTafsiliTemplateForm extends
 
 	HesabTafsiliTemplateService hesabTafsiliTemplateService;
 
-	public void setHesabTafsiliTemplateService(
-			HesabTafsiliTemplateService hesabTafsiliTemplateService) {
+	public void setHesabTafsiliTemplateService(HesabTafsiliTemplateService hesabTafsiliTemplateService) {
 		this.hesabTafsiliTemplateService = hesabTafsiliTemplateService;
 	}
 
@@ -103,8 +108,7 @@ public class HesabTafsiliTemplateForm extends
 	public List<Long> getMoeenIds() {
 		if (moeenIds == null) {
 			moeenIds = new ArrayList<Long>();
-			List<HesabMoeenTemplateEntity> moeens = getEntity()
-					.getHesabMoeenTemplateList();
+			List<HesabMoeenTemplateEntity> moeens = getEntity().getHesabMoeenTemplateList();
 			if (moeens != null) {
 				for (HesabMoeenTemplateEntity moeen : moeens) {
 					moeenIds.add(moeen.getId());
@@ -125,33 +129,32 @@ public class HesabTafsiliTemplateForm extends
 	}
 
 	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliMoeenTemplateMap() {
-		return HesabTemplateRelationsUtil
-				.getTafsiliMoeenTemplateMap(getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
+		return HesabTemplateRelationsUtil.getTafsiliMoeenTemplateMap(getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList());
 	}
 
 	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliChildTemplateMap() {
-		return HesabTemplateRelationsUtil
-				.getTafsiliChildTemplateMap(getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList());
+		return HesabTemplateRelationsUtil.getTafsiliChildTemplateMap(getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList());
 	}
 
 	public Map<Long, List<ListOrderedMap<String, Object>>> getTafsiliAccountingMarkazChildTemplateMap() {
-		return HesabTemplateRelationsUtil
-				.getTafsiliAccountingMarkazChildTemplateMap(getCurrentOrganVO());
+		return HesabTemplateRelationsUtil.getTafsiliAccountingMarkazChildTemplateMap(getCurrentOrganVO());
 	}
 
 	@Override
-	public List<? extends BaseEntity> getJsonList(String property, String term,
-			boolean all, Map<String, String> params) {
+	public List<? extends BaseEntity> getJsonList(String property, String term, boolean all,
+			Map<String, String> params) {
 
-		try{
+		try {
 			String isHierarchical = params.get("isHierarchical");
 			String tafsiliLevel = params.get("tafsiliLevel");
 			String showAll = params.get("showAll");
-			
-			if(!(StringUtil.hasText(showAll) && showAll.equals("true"))) {
-				if (StringUtil.hasText(tafsiliLevel)){
-					getFilter().put("level@eq",Integer.valueOf(tafsiliLevel));
-				}else{
+
+			if (!(StringUtil.hasText(showAll) && showAll.equals("true"))) {
+				if (StringUtil.hasText(tafsiliLevel)) {
+					getFilter().put("level@eq", Integer.valueOf(tafsiliLevel));
+				} else {
 					return new ArrayList<>();
 				}
 			}
@@ -159,15 +162,15 @@ public class HesabTafsiliTemplateForm extends
 			if (isHierarchical != null && isHierarchical.equals("true")) {
 				List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
 				getFilter().put("organId@in", topOrganList);
-				
+
 //				this.getFilter().put("organ.code@startlk",
 //						getCurrentUserActiveSaalMaali().getOrgan().getCode());
 				params.put("isLocal", "false");
 			}
-	
+
 			return super.getJsonList(property, term, all, params);
-		}catch(NoSaalMaaliFoundException e){
-			//e.printStackTrace();
+		} catch (NoSaalMaaliFoundException e) {
+			// e.printStackTrace();
 			System.out.println(e.getMessage());
 			return new ArrayList<>();
 		}
@@ -176,8 +179,7 @@ public class HesabTafsiliTemplateForm extends
 	@Override
 	public String delete() {
 		if (!getIsForMyOrgan())
-			throw new FatalException(
-					SerajMessageUtil.getMessage("common_deleteNotAllowed"));
+			throw new FatalException(SerajMessageUtil.getMessage("common_deleteNotAllowed"));
 		return super.delete();
 	}
 

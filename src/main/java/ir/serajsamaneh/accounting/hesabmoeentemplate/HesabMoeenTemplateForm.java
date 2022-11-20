@@ -1,23 +1,29 @@
 package ir.serajsamaneh.accounting.hesabmoeentemplate;
 
-import ir.serajsamaneh.accounting.base.BaseAccountingForm;
-import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
-import ir.serajsamaneh.core.base.BaseEntity;
-import ir.serajsamaneh.core.exception.FatalException;
-import ir.serajsamaneh.core.util.SerajMessageUtil;
-import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.model.DataModel;
+import javax.inject.Named;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
-public class HesabMoeenTemplateForm extends
-		BaseAccountingForm<HesabMoeenTemplateEntity, Long> {
+import ir.serajsamaneh.accounting.base.BaseAccountingForm;
+import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
+import ir.serajsamaneh.core.base.BaseEntity;
+import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.util.SerajMessageUtil;
+import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
+@Named("hesabMoeenTemplate")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Component
+public class HesabMoeenTemplateForm extends BaseAccountingForm<HesabMoeenTemplateEntity, Long> {
 
 	@Override
 	protected HesabMoeenTemplateService getMyService() {
@@ -25,10 +31,8 @@ public class HesabMoeenTemplateForm extends
 	}
 
 	HesabMoeenTemplateService hesabMoeenTemplateService;
-	
 
-	public void setHesabMoeenTemplateService(
-			HesabMoeenTemplateService hesabMoeenTemplateService) {
+	public void setHesabMoeenTemplateService(HesabMoeenTemplateService hesabMoeenTemplateService) {
 		this.hesabMoeenTemplateService = hesabMoeenTemplateService;
 	}
 
@@ -62,66 +66,68 @@ public class HesabMoeenTemplateForm extends
 //		this.moeenTafsiliInstanceIds = moeenTafsiliInstanceIds;
 //	}
 
-	
 	public Map<Long, ListOrderedMap<String, Object>> getMoeenKolTemplateMap() {
-		try{
-			return HesabTemplateRelationsUtil.getMoeenKolTemplateMap(getCurrentUserActiveSaalMaali().getOrganId(), getCurrentOrganVO().getTopOrgansIdList());
-		}catch(NoSaalMaaliFoundException e){
+		try {
+			return HesabTemplateRelationsUtil.getMoeenKolTemplateMap(getCurrentUserActiveSaalMaali().getOrganId(),
+					getCurrentOrganVO().getTopOrgansIdList());
+		} catch (NoSaalMaaliFoundException e) {
 			return new HashMap<>();
 		}
 	}
-	
+
 	public Map<Long, List<ListOrderedMap<String, Object>>> getMoeenTafsiliTemplateMap() {
-		try{
-			return HesabTemplateRelationsUtil.getMoeenTafsiliTemplateMap(getCurrentUserActiveSaalMaali().getOrganId(), getCurrentOrganVO().getTopOrgansIdList()); 
-		}catch(NoSaalMaaliFoundException e){
+		try {
+			return HesabTemplateRelationsUtil.getMoeenTafsiliTemplateMap(getCurrentUserActiveSaalMaali().getOrganId(),
+					getCurrentOrganVO().getTopOrgansIdList());
+		} catch (NoSaalMaaliFoundException e) {
 			return new HashMap<>();
 		}
 	}
 
 	public Map<Long, List<ListOrderedMap<String, Object>>> getAccountingMarkazTemplateMap() {
-		try{
-			return HesabTemplateRelationsUtil.getAccountingMarkazTemplateMap(getCurrentUserActiveSaalMaali().getOrganId());
-		}catch(NoSaalMaaliFoundException e){
+		try {
+			return HesabTemplateRelationsUtil
+					.getAccountingMarkazTemplateMap(getCurrentUserActiveSaalMaali().getOrganId());
+		} catch (NoSaalMaaliFoundException e) {
 			return new HashMap<Long, List<ListOrderedMap<String, Object>>>();
-		}		
-		
+		}
+
 	}
-	
+
 	@Override
-	public List<? extends BaseEntity> getJsonList(String property, String term,
-			boolean all, Map<String, String> params) {
-		
-		try{
+	public List<? extends BaseEntity> getJsonList(String property, String term, boolean all,
+			Map<String, String> params) {
+
+		try {
 			String isHierarchical = params.get("isHierarchical");
-			
-			params.put("isLocal","false");
-	
-			if (isHierarchical !=null && isHierarchical.equals("true")){
-				
+
+			params.put("isLocal", "false");
+
+			if (isHierarchical != null && isHierarchical.equals("true")) {
+
 				List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
 				getFilter().put("organId@in", topOrganList);
-				
+
 //				getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
-	//			getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
-				params.put("isLocal","false");
+				// getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
+				params.put("isLocal", "false");
 			}
-		}catch(NoSaalMaaliFoundException e){
+		} catch (NoSaalMaaliFoundException e) {
 			return new ArrayList<>();
 		}
-		
+
 		return super.getJsonList(property, term, all, params);
 	}
 
 	@Override
 	public String delete() {
-		if(!getIsForMyOrgan())
+		if (!getIsForMyOrgan())
 			throw new FatalException(SerajMessageUtil.getMessage("common_deleteNotAllowed"));
 		return super.delete();
 	}
-	
+
 	public boolean getIsForMyOrgan() {
-		if(getEntity() == null || getEntity().getId() == null)
+		if (getEntity() == null || getEntity().getId() == null)
 			return true;
 		return getEntity().getOrganId().equals(getCurrentOrganVO().getId());
 	}

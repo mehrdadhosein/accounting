@@ -6,13 +6,16 @@ import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.FlushMode;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
 
-public class AccountingMarkazTemplateDAO extends BaseHibernateDAO<AccountingMarkazTemplateEntity,Long> {
-
-
+@Repository
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class AccountingMarkazTemplateDAO extends BaseHibernateDAO<AccountingMarkazTemplateEntity, Long> {
 
 	public Long getMaxAccountingMarkazCode(Long organId) {
 		Map<String, Object> filter = new HashMap<String, Object>();
@@ -31,8 +34,8 @@ public class AccountingMarkazTemplateDAO extends BaseHibernateDAO<AccountingMark
 		Long maxCode = 0l;
 		for (AccountingMarkazTemplateEntity kalaEntity : list) {
 			String codeStr = kalaEntity.getCode();
-			if(StringUtils.hasText(codeStr)){
-				Long codeLong = new Long(codeStr);
+			if (StringUtils.hasText(codeStr)) {
+				Long codeLong = Long.valueOf(codeStr);
 				maxCode = Math.max(maxCode.longValue(), codeLong.longValue());
 			}
 
@@ -40,10 +43,9 @@ public class AccountingMarkazTemplateDAO extends BaseHibernateDAO<AccountingMark
 		return maxCode;
 
 	}
-	
+
 	private void addLocationFilter(Map<String, Object> filter) {
 
 	}
-
 
 }

@@ -8,12 +8,20 @@ import java.util.Set;
 
 import javax.faces.model.DataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenService;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
-
+@Named("hesabClassification")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Component
 public class HesabClassificationForm extends BaseAccountingForm<HesabClassificationEntity, Long> {
 
 	HesabMoeenService hesabMoeenService;
@@ -45,6 +53,7 @@ public class HesabClassificationForm extends BaseAccountingForm<HesabClassificat
 		setSearchAction(true);
 		return super.getLocalDataModel();
 	}
+
 	public List<SelectItem> getLocalHesabClassification() {
 
 		List<SelectItem> localHesabClassificationList = new ArrayList<SelectItem>();

@@ -6,17 +6,15 @@ import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTempl
 import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntity;
 
-
 /**
- * This is an object that contains data related to the tb_sanad_type table.
- * Do not modify this class because it will be overwritten if the configuration file
- * related to this class is modified.
+ * This is an object that contains data related to the tb_sanad_type table. Do
+ * not modify this class because it will be overwritten if the configuration
+ * file related to this class is modified.
  *
- * @hibernate.class
- *  table="tb_sanad_type"
+ * @hibernate.class table="tb_sanad_type"
  */
 
-public abstract class BaseAccountsTemplateEntity  extends BaseEntity<Long>   implements Serializable {
+public abstract class BaseAccountsTemplateEntity extends BaseEntity<Long> implements Serializable {
 
 	/**
 	 * 
@@ -27,23 +25,21 @@ public abstract class BaseAccountsTemplateEntity  extends BaseEntity<Long>   imp
 	public static String PROP_ACTION_NAME = "actionName";
 	public static String PROP_ID = "id";
 
-
 	// constructors
-	public BaseAccountsTemplateEntity () {
+	public BaseAccountsTemplateEntity() {
 		initialize();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseAccountsTemplateEntity (java.lang.Long id) {
+	public BaseAccountsTemplateEntity(java.lang.Long id) {
 		this.setId(id);
 		initialize();
 	}
 
-	protected void initialize () {}
-
-
+	protected void initialize() {
+	}
 
 	private int hashCode = Integer.MIN_VALUE;
 
@@ -56,19 +52,17 @@ public abstract class BaseAccountsTemplateEntity  extends BaseEntity<Long>   imp
 	private java.lang.String description;
 	Long organId;
 	String organName;
-	private SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBedehkar;  
-	private SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBestankar;  
-	private AccountingMarkazTemplateEntity accountingMarkazTemplate;  
+	private SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBedehkar;
+	private SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBestankar;
+	private AccountingMarkazTemplateEntity accountingMarkazTemplate;
 
 //	private OrganEntity organ;
-
 
 	public AccountingMarkazTemplateEntity getAccountingMarkazTemplate() {
 		return accountingMarkazTemplate;
 	}
 
-	public void setAccountingMarkazTemplate(
-			AccountingMarkazTemplateEntity accountingMarkazTemplate) {
+	public void setAccountingMarkazTemplate(AccountingMarkazTemplateEntity accountingMarkazTemplate) {
 		this.accountingMarkazTemplate = accountingMarkazTemplate;
 	}
 
@@ -89,7 +83,6 @@ public abstract class BaseAccountsTemplateEntity  extends BaseEntity<Long>   imp
 			SanadHesabdariItemTemplateEntity sanadHesabdariItemTemplateBestankar) {
 		this.sanadHesabdariItemTemplateBestankar = sanadHesabdariItemTemplateBestankar;
 	}
-
 
 	public java.lang.String getActionName() {
 		return actionName;
@@ -114,6 +107,7 @@ public abstract class BaseAccountsTemplateEntity  extends BaseEntity<Long>   imp
 	public void setActionId(java.lang.String actionId) {
 		this.actionId = actionId;
 	}
+
 //	public OrganEntity getOrgan() {
 //		return organ;
 //	}
@@ -139,41 +133,42 @@ public abstract class BaseAccountsTemplateEntity  extends BaseEntity<Long>   imp
 
 	/**
 	 * Return the unique identifier of this class
-     * @hibernate.id
-     *  generator-class="increment"
-     *  column="sanad_type_id"
-     */
-	public java.lang.Long getId () {
+	 * 
+	 * @hibernate.id generator-class="increment" column="sanad_type_id"
+	 */
+	public java.lang.Long getId() {
 		return id;
 	}
 
 	/**
 	 * Set the unique identifier of this class
+	 * 
 	 * @param id the new ID
 	 */
-	public void setId (java.lang.Long id) {
+	public void setId(java.lang.Long id) {
 		this.id = id;
 		setID(id);
 		this.hashCode = Integer.MIN_VALUE;
 	}
 
-
-
-
-
-	public boolean equals (Object obj) {
-		if (null == obj) return false;
-		if (!(obj instanceof ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity)) return false;
+	public boolean equals(Object obj) {
+		if (null == obj)
+			return false;
+		if (!(obj instanceof ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity))
+			return false;
 		else {
 			ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity sanadTypeEntity = (ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity) obj;
-			if (null == this.getId() || null == sanadTypeEntity.getId()) return false;
-			else return (this.getId().equals(sanadTypeEntity.getId()));
+			if (null == this.getId() || null == sanadTypeEntity.getId())
+				return false;
+			else
+				return (this.getId().equals(sanadTypeEntity.getId()));
 		}
 	}
 
-	public int hashCode () {
+	public int hashCode() {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getId()) return super.hashCode();
+			if (null == this.getId())
+				return super.hashCode();
 			else {
 				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
@@ -182,10 +177,8 @@ public abstract class BaseAccountsTemplateEntity  extends BaseEntity<Long>   imp
 		return this.hashCode;
 	}
 
-
-	public String toString () {
+	public String toString() {
 		return super.toString();
 	}
-
 
 }

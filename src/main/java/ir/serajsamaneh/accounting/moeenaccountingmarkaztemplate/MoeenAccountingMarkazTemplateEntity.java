@@ -1,20 +1,17 @@
 package ir.serajsamaneh.accounting.moeenaccountingmarkaztemplate;
 
-
-
-
 public class MoeenAccountingMarkazTemplateEntity extends BaseMoeenAccountingMarkazTemplateEntity {
 	private static final long serialVersionUID = 1L;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public MoeenAccountingMarkazTemplateEntity () {
+	/* [CONSTRUCTOR MARKER BEGIN] */
+	public MoeenAccountingMarkazTemplateEntity() {
 		super();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public MoeenAccountingMarkazTemplateEntity (java.lang.Long id) {
+	public MoeenAccountingMarkazTemplateEntity(java.lang.Long id) {
 		super(id);
 	}
 
@@ -22,9 +19,8 @@ public class MoeenAccountingMarkazTemplateEntity extends BaseMoeenAccountingMark
 	 * Constructor for required fields
 	 */
 
+	/* [CONSTRUCTOR MARKER END] */
 
-/*[CONSTRUCTOR MARKER END]*/
-	
 	public String entityId;
 
 	public String getEntityId() {
@@ -34,6 +30,5 @@ public class MoeenAccountingMarkazTemplateEntity extends BaseMoeenAccountingMark
 	public void setEntityId(String entityId) {
 		this.entityId = entityId;
 	}
-
 
 }

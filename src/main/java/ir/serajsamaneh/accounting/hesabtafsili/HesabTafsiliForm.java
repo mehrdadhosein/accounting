@@ -9,9 +9,14 @@ import java.util.Set;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Named;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.WebApplicationContext;
 
 import ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity;
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
@@ -28,7 +33,9 @@ import ir.serajsamaneh.core.util.StringUtil;
 import ir.serajsamaneh.erpcore.contacthesab.ContactHesabService;
 import ir.serajsamaneh.erpcore.util.HesabRelationsUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
-
+@Named("hesabTafsili")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Component
 public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity, Long> {
 
 	@Override
@@ -209,7 +216,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity, Lon
 		getEntity().setOrganName(getCurrentOrganVO().getName());
 		if (getEntity().getHesabClassification() != null && getEntity().getHesabClassification().getId() != null)
 			getEntity().setHesabClassification(
-					getHesabClassificationService().load(getEntity().getHesabClassification().getId()));
+					hesabClassificationService.load(getEntity().getHesabClassification().getId()));
 
 		getMyService().save(getEntity(), getMoeenIds(), getChildTafsiliIds(), getParentTafsiliIds(),
 				getChildAccountingMarkazIds(), getCurrentUserActiveSaalMaali(), getCurrentOrganVO().getId(),
@@ -262,7 +269,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity, Lon
 	}
 
 	public List<SelectItem> getHesabMoeenSelectItems() {
-		List<HesabMoeenEntity> moeenList = getHesabMoeenService().getDataList();
+		List<HesabMoeenEntity> moeenList = hesabMoeenService.getDataList();
 		List<SelectItem> resultList = new ArrayList<SelectItem>();
 
 		for (HesabMoeenEntity hesabMoeenEntity : moeenList) {
@@ -386,7 +393,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity, Lon
 				Map<String, Object> localFilter = new HashMap<>();
 				localFilter.put("level@eq", getEntity().getLevel());
 				localFilter.put("organId@eq", getCurrentOrganVO().getId());
-				hesabClassifications = getHesabClassificationService().getDataList(localFilter);
+				hesabClassifications = hesabClassificationService.getDataList(localFilter);
 			} else
 				hesabClassifications = new ArrayList<>();
 		}

@@ -6,11 +6,19 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.model.DataModel;
+import javax.inject.Named;
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.core.base.BaseEntity;
-
+@Named("accountingMarkazGroup")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Component
 public class AccountingMarkazGroupForm extends BaseAccountingForm<AccountingMarkazGroupEntity, Long> {
 
 	@Override
@@ -20,11 +28,9 @@ public class AccountingMarkazGroupForm extends BaseAccountingForm<AccountingMark
 
 	AccountingMarkazGroupService accountingMarkazGroupService;
 
-	
 	public AccountingMarkazGroupService getAccountingMarkazGroupService() {
 		return accountingMarkazGroupService;
 	}
-
 
 	public void setAccountingMarkazGroupService(AccountingMarkazGroupService accountingMarkazGroupService) {
 		this.accountingMarkazGroupService = accountingMarkazGroupService;
@@ -45,12 +51,12 @@ public class AccountingMarkazGroupForm extends BaseAccountingForm<AccountingMark
 		return accountingMarkazTemplateIds;
 	}
 
-
 	@Override
 	public DataModel<AccountingMarkazGroupEntity> getLocalDataModel() {
 		setSearchAction(true);
 		return super.getLocalDataModel();
 	}
+
 	public void setAccountingMarkazTemplateIds(List<Long> accountingMarkazTemplateIds) {
 		this.accountingMarkazTemplateIds = accountingMarkazTemplateIds;
 	}
@@ -63,15 +69,15 @@ public class AccountingMarkazGroupForm extends BaseAccountingForm<AccountingMark
 	}
 
 	@Override
-	public List<? extends BaseEntity> getJsonList(String property, String term,
-			boolean all, Map<String, String> params) {
+	public List<? extends BaseEntity> getJsonList(String property, String term, boolean all,
+			Map<String, String> params) {
 
 		String isHierarchical = params.get("isHierarchical");
-		if (isHierarchical !=null && isHierarchical.equals("true")){
+		if (isHierarchical != null && isHierarchical.equals("true")) {
 			List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
 			getFilter().put("organId@in", topOrganList);
-			
-			params.put("isLocal","false");
+
+			params.put("isLocal", "false");
 		}
 		return super.getJsonList(property, term, all, params);
 	}

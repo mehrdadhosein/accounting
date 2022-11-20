@@ -1,29 +1,23 @@
 package ir.serajsamaneh.erpcore.contacthesab;
 
-import ir.serajsamaneh.erpcore.contacthesab.BaseContactHesabEntity;
-
-
-
 public class ContactHesabEntity extends BaseContactHesabEntity {
 	private static final long serialVersionUID = 1L;
-	
-//	private ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabShenavar;
-	
 
-	/*[CONSTRUCTOR MARKER BEGIN]*/
-	public ContactHesabEntity () {
+//	private ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabShenavar;
+
+	/* [CONSTRUCTOR MARKER BEGIN] */
+	public ContactHesabEntity() {
 		super();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public ContactHesabEntity (java.lang.Long id) {
+	public ContactHesabEntity(java.lang.Long id) {
 		super(id);
 	}
 
-
-/*[CONSTRUCTOR MARKER END]*/
+	/* [CONSTRUCTOR MARKER END] */
 
 //	public ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity getHesabShenavar() {
 //		return hesabShenavar;
@@ -32,10 +26,10 @@ public class ContactHesabEntity extends BaseContactHesabEntity {
 //	public void setHesabShenavar(ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity hesabShenavar) {
 //		this.hesabShenavar = hesabShenavar;
 //	}
-	
+
 	@Override
 	public String toString() {
-		if(getId()!=null)
+		if (getId() != null)
 			return getContact().getDesc();
 		return "";
 	}

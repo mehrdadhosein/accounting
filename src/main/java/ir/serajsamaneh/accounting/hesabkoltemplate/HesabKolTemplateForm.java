@@ -5,8 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.model.DataModel;
+import javax.inject.Named;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import ir.serajsamaneh.accounting.base.BaseAccountingForm;
 import ir.serajsamaneh.accounting.exception.NoSaalMaaliFoundException;
@@ -14,9 +19,10 @@ import ir.serajsamaneh.core.base.BaseEntity;
 import ir.serajsamaneh.core.exception.FatalException;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
-
-public class HesabKolTemplateForm extends
-		BaseAccountingForm<HesabKolTemplateEntity, Long> {
+@Named("hesabKolTemplate")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Component
+public class HesabKolTemplateForm extends BaseAccountingForm<HesabKolTemplateEntity, Long> {
 
 	@Override
 	protected HesabKolTemplateService getMyService() {
@@ -25,8 +31,7 @@ public class HesabKolTemplateForm extends
 
 	HesabKolTemplateService hesabKolTemplateService;
 
-	public void setHesabKolTemplateService(
-			HesabKolTemplateService hesabKolTemplateService) {
+	public void setHesabKolTemplateService(HesabKolTemplateService hesabKolTemplateService) {
 		this.hesabKolTemplateService = hesabKolTemplateService;
 	}
 
@@ -49,28 +54,29 @@ public class HesabKolTemplateForm extends
 	}
 
 	public Map<Long, List<ListOrderedMap<String, Object>>> getKolMoeenTemplateMap() {
-		try{
-			return HesabTemplateRelationsUtil.getKolMoeenTemplateMap(getCurrentUserActiveSaalMaali().getOrganId(), getCurrentOrganVO().getTopParentCode(), getCurrentOrganVO().getTopOrgansIdList());
-		}catch(NoSaalMaaliFoundException e){
+		try {
+			return HesabTemplateRelationsUtil.getKolMoeenTemplateMap(getCurrentUserActiveSaalMaali().getOrganId(),
+					getCurrentOrganVO().getTopParentCode(), getCurrentOrganVO().getTopOrgansIdList());
+		} catch (NoSaalMaaliFoundException e) {
 			return new HashMap<Long, List<ListOrderedMap<String, Object>>>();
 		}
 	}
 
 	@Override
-	public List<? extends BaseEntity> getJsonList(String property, String term,
-			boolean all, Map<String, String> params) {
+	public List<? extends BaseEntity> getJsonList(String property, String term, boolean all,
+			Map<String, String> params) {
 
 		String isHierarchical = params.get("isHierarchical");
-		
-		params.put("isLocal","false");
 
-		if (isHierarchical !=null && isHierarchical.equals("true")){
+		params.put("isLocal", "false");
+
+		if (isHierarchical != null && isHierarchical.equals("true")) {
 			List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
 			getFilter().put("organId@in", topOrganList);
-			
+
 //			this.getFilter().put("organ.code@startlk", getCurrentUserActiveSaalMaali().getOrgan().getCode());
 //			this.getFilter().put("saalMaali.id@eq",getCurrentUserActiveSaalMaali().getId());
-			params.put("isLocal","false");
+			params.put("isLocal", "false");
 		}
 
 		return super.getJsonList(property, term, all, params);
@@ -78,13 +84,13 @@ public class HesabKolTemplateForm extends
 
 	@Override
 	public String delete() {
-		if(!getIsForMyOrgan())
+		if (!getIsForMyOrgan())
 			throw new FatalException(SerajMessageUtil.getMessage("common_deleteNotAllowed"));
 		return super.delete();
 	}
-	
+
 	public boolean getIsForMyOrgan() {
-		if(getEntity() == null || getEntity().getId() == null)
+		if (getEntity() == null || getEntity().getId() == null)
 			return true;
 		return getEntity().getOrganId().equals(getCurrentOrganVO().getId());
 	}

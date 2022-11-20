@@ -13,17 +13,15 @@ public class CycleInHesabTafsiliException extends SerajException {
 
 	HesabTafsiliEntity mainEntity;
 	HesabTafsiliEntity childEntity;
-	public CycleInHesabTafsiliException(HesabTafsiliEntity mainEntity,
-			HesabTafsiliEntity childEntity) {
-		this.mainEntity= mainEntity;
-		this.childEntity= childEntity;
+
+	public CycleInHesabTafsiliException(HesabTafsiliEntity mainEntity, HesabTafsiliEntity childEntity) {
+		this.mainEntity = mainEntity;
+		this.childEntity = childEntity;
 	}
 
 	@Override
 	public String getDesc() {
 		return SerajMessageUtil.getMessage("HesabTafsili_cycleDetected", mainEntity.getDesc(), childEntity.getDesc());
 	}
-	
-	
 
 }

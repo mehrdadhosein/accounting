@@ -30,42 +30,50 @@ public class AccountingSaalMaali extends SaalMaaliForm {
 	@Autowired
 	HesabTafsiliService hesabTafsiliService;
 	@Autowired
-	SaalMaaliService  saalMaaliService;
+	SaalMaaliService saalMaaliService;
 
-	public void copyHesabsFromSourceSaalMaaliToDestSaalMaali(){
-		if(getSrcSaalMaali().getId() == null)
+	public void copyHesabsFromSourceSaalMaaliToDestSaalMaali() {
+		if (getSrcSaalMaali().getId() == null)
 			throw new RequiredFieldNotSetException(SerajMessageUtil.getMessage("AccountingSystemConfig_srcSaalMaali"));
 
 //		if(getDestSaalMaali().getId() == null)
 //			throw new RequiredFieldNotSetException(SerajMessageUtil.getMessage("AccountingSystemConfig_destSaalMaali"));
-		
+
 		srcSaalMaali = saalMaaliService.load(getSrcSaalMaali().getId());
-//		destSaalMaali = getSaalMaaliService().load(getDestSaalMaali().getId());
-		
-		hesabKolService.copyHesabKolsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrganVO().getTopOrgansIdList());
-		hesabKolService.copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrganVO().getTopOrgansIdList());
-		hesabKolService.copyHesabTafsilissFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode());
-		hesabKolService.copyHesabTafsiliRelatedEntities(getSrcSaalMaali(), getEntity(), getCurrentOrganVO().getTopOrgansIdList());
-		hesabKolService.copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(), getCurrentOrganVO().getTopParentCode());
+//		destSaalMaali = saalMaaliService.load(getDestSaalMaali().getId());
+
+		hesabKolService.copyHesabKolsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(),
+				getCurrentOrganVO().getTopOrgansIdList());
+		hesabKolService.copyHesabMoeensFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(),
+				getCurrentOrganVO().getTopOrgansIdList());
+		hesabKolService.copyHesabTafsilissFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(),
+				getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode());
+		hesabKolService.copyHesabTafsiliRelatedEntities(getSrcSaalMaali(), getEntity(),
+				getCurrentOrganVO().getTopOrgansIdList());
+		hesabKolService.copyAccountingMarkazhaFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity(),
+				getCurrentOrganVO().getTopParentCode());
 		hesabKolService.copycontactHesabsFromSourceSaalMaaliToDestSaalMaali(getSrcSaalMaali(), getEntity());
 		addInfoMessage("SUCCESSFUL_ACTION");
 	}
-	
+
 	@Override
 	public DataModel<SaalMaaliEntity> getLocalDataModel() {
 		setSearchAction(true);
 		return super.getLocalDataModel();
 	}
 
-	public String importFromHesabKolTemplateList(){
+	public String importFromHesabKolTemplateList() {
 		hesabKolService.createDefaultAccounts(getCurrentOrganVO().getId(), getCurrentOrganVO().getName());
 		hesabGroupService.importFromHesabGroupTemplateList(getEntity(), getCurrentOrganVO());
-		hesabKolService.importFromHesabKolTemplateList(getEntity(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
-		hesabMoeenService.importFromHesabMoeenTemplateList(getEntity(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
-		hesabTafsiliService.importFromHesabTafsiliTemplateList(getEntity(), getCurrentOrganVO().getId(), getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode(), getCurrentOrganVO().getName());
-		
+		hesabKolService.importFromHesabKolTemplateList(getEntity(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
+		hesabMoeenService.importFromHesabMoeenTemplateList(getEntity(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getName());
+		hesabTafsiliService.importFromHesabTafsiliTemplateList(getEntity(), getCurrentOrganVO().getId(),
+				getCurrentOrganVO().getTopOrgansIdList(), getCurrentOrganVO().getTopParentCode(),
+				getCurrentOrganVO().getName());
 
-		setDataModel(null); 
+		setDataModel(null);
 		addInfoMessage("SUCCESSFUL_ACTION");
 		return null;
 	}

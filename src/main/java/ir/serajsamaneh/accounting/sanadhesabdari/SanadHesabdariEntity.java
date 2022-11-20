@@ -1,14 +1,14 @@
 package ir.serajsamaneh.accounting.sanadhesabdari;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import ir.serajsamaneh.accounting.enumeration.SanadFunctionEnum;
 import ir.serajsamaneh.accounting.enumeration.SanadStateEnum;
 import ir.serajsamaneh.core.file.FileEntity;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.enumeration.YesNoEnum;
-
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 	private static final long serialVersionUID = 1L;
@@ -33,6 +33,7 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 	private SanadStateEnum state;
 	private SanadFunctionEnum sanadFunction;
 	private YesNoEnum deletable;
+
 	public YesNoEnum getDeletable() {
 		return deletable;
 	}
@@ -42,7 +43,6 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 	}
 
 	private java.util.List<ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity> sanadHesabdariItem;
-
 
 	public SanadFunctionEnum getSanadFunction() {
 		return sanadFunction;
@@ -61,18 +61,19 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 		this.sanadHesabdariItem = sanadHesabdariItem;
 	}
 
-
-	public void addTosanadHesabdariItem (ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity sanadHesabdariItemEntity) {
-		if (null == getSanadHesabdariItem()) setSanadHesabdariItem(new java.util.ArrayList<ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity>());
+	public void addTosanadHesabdariItem(
+			ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity sanadHesabdariItemEntity) {
+		if (null == getSanadHesabdariItem())
+			setSanadHesabdariItem(
+					new java.util.ArrayList<ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity>());
 		getSanadHesabdariItem().add(sanadHesabdariItemEntity);
 	}
-	
+
 	public ir.serajsamaneh.core.user.UserEntity getTanzimKonnadeSanad() {
 		return tanzimKonnadeSanad;
 	}
 
-	public void setTanzimKonnadeSanad(
-			ir.serajsamaneh.core.user.UserEntity tanzimKonnadeSanad) {
+	public void setTanzimKonnadeSanad(ir.serajsamaneh.core.user.UserEntity tanzimKonnadeSanad) {
 		this.tanzimKonnadeSanad = tanzimKonnadeSanad;
 	}
 
@@ -80,8 +81,7 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 		return taiedKonnadeSanad;
 	}
 
-	public void setTaiedKonnadeSanad(
-			ir.serajsamaneh.core.user.UserEntity taiedKonnadeSanad) {
+	public void setTaiedKonnadeSanad(ir.serajsamaneh.core.user.UserEntity taiedKonnadeSanad) {
 		this.taiedKonnadeSanad = taiedKonnadeSanad;
 	}
 
@@ -89,8 +89,7 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 		return daeemKonnadeSanad;
 	}
 
-	public void setDaeemKonnadeSanad(
-			ir.serajsamaneh.core.user.UserEntity daeemKonnadeSanad) {
+	public void setDaeemKonnadeSanad(ir.serajsamaneh.core.user.UserEntity daeemKonnadeSanad) {
 		this.daeemKonnadeSanad = daeemKonnadeSanad;
 	}
 
@@ -99,7 +98,6 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 			return SerajMessageUtil.getMessage(getSanadFunction().nameWithClass());
 		return "";
 	}
-
 
 	public SanadStateEnum getState() {
 		return state;
@@ -129,80 +127,63 @@ public class SanadHesabdariEntity extends BaseSanadHesabdariEntity {
 	public String toString() {
 		if (getSerial() != null)
 			return getSerial().toString();
-		else if(getTempSerial() != null)
+		else if (getTempSerial() != null)
 			return getTempSerial().toString();
 		return getDescription();
 	}
-	
-	public Boolean getIsEkhtetamieh(){
+
+	public Boolean getIsEkhtetamieh() {
 		return getSanadFunction().equals(SanadFunctionEnum.EKHTETAMIE);
 	}
-	
-	public Boolean getIsEftetahieh(){
+
+	public Boolean getIsEftetahieh() {
 		return getSanadFunction().equals(SanadFunctionEnum.EFTETAHIE);
 	}
 
-	public Boolean getIsTemporalSanad(){
+	public Boolean getIsTemporalSanad() {
 		return getSanadFunction().equals(SanadFunctionEnum.BASTAN_HESABHA);
 	}
-	
-	public Boolean getIsSanadDeletable(){
-		if(getDeletable()==null)
+
+	public Boolean getIsSanadDeletable() {
+		if (getDeletable() == null)
 			return true;
 		return getDeletable().equals(YesNoEnum.YES);
 	}
 
-
 	@Override
 	public String getCompleteInfo() {
-		String tempSerial = getTempSerial()!=null ? getTempSerial().toString() : "";
-		String serial = getSerial()!=null ? getSerial().toString() : "";
-		String sanadType = getSanadType()!=null ? getSanadType().getDesc() : "";
-		String completeInfo = "[" 
-				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_"
-						+ SanadHesabdariEntity.PROP_TEMP_SERIAL)
-						+ " : "
-						+ tempSerial
-						+ " \n\r"
-				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_"
-						+ SanadHesabdariEntity.PROP_SERIAL)
-						+ " : "
-						+ serial
-						+ " \n\r"
-				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_"
-						+ SanadHesabdariEntity.PROP_TARIKH_SANAD)
-						+ " : "
-						+ getTarikhSanadFA()
-						+ " \n\r"
-				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_"
-						+ SanadHesabdariEntity.PROP_SANAD_TYPE)
-						+ ":"
-						+ sanadType
-						+ " \n\r"
-				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_"
-						+ SanadHesabdariEntity.PROP_DESCRIPTION)
-						+ ":"
-						+ getDescription()
-						+ " \n\r"
-				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_"
-						+ SanadHesabdariEntity.PROP_SAAL_MAALI) + ":" + getSaalMaali()
-				+ " " + "]";
+		String tempSerial = getTempSerial() != null ? getTempSerial().toString() : "";
+		String serial = getSerial() != null ? getSerial().toString() : "";
+		String sanadType = getSanadType() != null ? getSanadType().getDesc() : "";
+		String completeInfo = "["
+				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_" + SanadHesabdariEntity.PROP_TEMP_SERIAL) + " : "
+				+ tempSerial + " \n\r"
+				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_" + SanadHesabdariEntity.PROP_SERIAL) + " : "
+				+ serial + " \n\r"
+				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_" + SanadHesabdariEntity.PROP_TARIKH_SANAD) + " : "
+				+ getTarikhSanadFA() + " \n\r"
+				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_" + SanadHesabdariEntity.PROP_SANAD_TYPE) + ":"
+				+ sanadType + " \n\r"
+				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_" + SanadHesabdariEntity.PROP_DESCRIPTION) + ":"
+				+ getDescription() + " \n\r"
+				+ SerajMessageUtil.getMessage("SanadHesabdari" + "_" + SanadHesabdariEntity.PROP_SAAL_MAALI) + ":"
+				+ getSaalMaali() + " " + "]";
 
 		return completeInfo;
 	}
 
-	public boolean getIsSanadHesabdariManualyDeletable(){
-		return !getIsEkhtetamieh() && !getIsEftetahieh()  && !getIsTemporalSanad() && getIsSanadDeletable();		
+	public boolean getIsSanadHesabdariManualyDeletable() {
+		return !getIsEkhtetamieh() && !getIsEftetahieh() && !getIsTemporalSanad() && getIsSanadDeletable();
 	}
 
 	public String getBedehkarSumFormatted() {
-		if(getBedehkarSum() == null)
+		if (getBedehkarSum() == null)
 			return "";
 		return new DecimalFormat("###,###").format(getBedehkarSum());
 	}
-	
+
 	public String getBestankarSumFormatted() {
-		if(getBestankarSum() == null)
+		if (getBestankarSum() == null)
 			return "";
 
 		return new DecimalFormat("###,###").format(getBestankarSum());

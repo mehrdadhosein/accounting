@@ -1,27 +1,25 @@
 package ir.serajsamaneh.accounting.hesabtafsilitemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ir.serajsamaneh.accounting.enumeration.HesabScopeEnum;
 import ir.serajsamaneh.accounting.enumeration.TafsilTypeEnum;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.accounting.moeentafsilitemplate.MoeenTafsiliTemplateEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-
 public class HesabTafsiliTemplateEntity extends BaseHesabTafsiliTemplateEntity {
 	private static final long serialVersionUID = 1L;
 
-/*[CONSTRUCTOR MARKER BEGIN]*/
-	public HesabTafsiliTemplateEntity () {
+	/* [CONSTRUCTOR MARKER BEGIN] */
+	public HesabTafsiliTemplateEntity() {
 		super();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public HesabTafsiliTemplateEntity (java.lang.Long id) {
+	public HesabTafsiliTemplateEntity(java.lang.Long id) {
 		super(id);
 	}
 
@@ -29,7 +27,7 @@ public class HesabTafsiliTemplateEntity extends BaseHesabTafsiliTemplateEntity {
 	 * Constructor for required fields
 	 */
 
-/*[CONSTRUCTOR MARKER END]*/
+	/* [CONSTRUCTOR MARKER END] */
 
 	Boolean hidden;
 	private HesabScopeEnum scope;
@@ -61,18 +59,19 @@ public class HesabTafsiliTemplateEntity extends BaseHesabTafsiliTemplateEntity {
 
 	@Override
 	public String toString() {
-		if(getId()!=null)
-			return getName()+" ("+getCode()+")";
+		if (getId() != null)
+			return getName() + " (" + getCode() + ")";
 		return "";
 
 	}
-	
+
 	List<HesabMoeenTemplateEntity> hesabMoeenTemplateList = null;
-	public List<HesabMoeenTemplateEntity> getHesabMoeenTemplateList(){
-		if(hesabMoeenTemplateList == null){
+
+	public List<HesabMoeenTemplateEntity> getHesabMoeenTemplateList() {
+		if (hesabMoeenTemplateList == null) {
 			hesabMoeenTemplateList = new ArrayList<HesabMoeenTemplateEntity>();
-			if(getMoeenTafsiliTemplate()!=null)
-				for(MoeenTafsiliTemplateEntity moeenTafsiliEntity : getMoeenTafsiliTemplate())
+			if (getMoeenTafsiliTemplate() != null)
+				for (MoeenTafsiliTemplateEntity moeenTafsiliEntity : getMoeenTafsiliTemplate())
 					hesabMoeenTemplateList.add(moeenTafsiliEntity.getHesabMoeenTemplate());
 		}
 		return hesabMoeenTemplateList;

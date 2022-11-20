@@ -1,12 +1,20 @@
 package ir.serajsamaneh.accounting.sanadhesabdariitemtemplate;
 
-import ir.serajsamaneh.core.base.BaseEntityForm;
-import ir.serajsamaneh.core.organ.OrganEntity;
-
 import java.util.List;
 
 import javax.faces.model.DataModel;
+import javax.inject.Named;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+
+import ir.serajsamaneh.core.base.BaseEntityForm;
+import ir.serajsamaneh.core.organ.OrganEntity;
+@Named("sanadHesabdariItemTemplate")
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Component
 public class SanadHesabdariItemTemplateForm extends BaseEntityForm<SanadHesabdariItemTemplateEntity, Long> {
 
 	@Override

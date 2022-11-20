@@ -5,18 +5,15 @@ import java.io.Serializable;
 import ir.serajsamaneh.accounting.moeenaccountingmarkaztemplate.MoeenAccountingMarkazTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntity;
 
-
-
 /**
  * This is an object that contains data related to the tb_hesab_tafsili table.
- * Do not modify this class because it will be overwritten if the configuration file
- * related to this class is modified.
+ * Do not modify this class because it will be overwritten if the configuration
+ * file related to this class is modified.
  *
- * @hibernate.class
- *  table="tb_hesab_tafsili"
+ * @hibernate.class table="tb_hesab_tafsili"
  */
 
-public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Long>   implements Serializable {
+public abstract class BaseAccountingMarkazTemplateEntity extends BaseEntity<Long> implements Serializable {
 
 	/**
 	 * 
@@ -36,25 +33,21 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 	public static String PROP_CODE = "code";
 	public static String PROP_SCOPE = "scope";
 
-
 	// constructors
-	public BaseAccountingMarkazTemplateEntity () {
+	public BaseAccountingMarkazTemplateEntity() {
 		initialize();
 	}
 
 	/**
 	 * Constructor for primary key
 	 */
-	public BaseAccountingMarkazTemplateEntity (java.lang.Long id) {
+	public BaseAccountingMarkazTemplateEntity(java.lang.Long id) {
 		this.setId(id);
 		initialize();
 	}
 
-
-
-	protected void initialize () {}
-
-
+	protected void initialize() {
+	}
 
 	private int hashCode = Integer.MIN_VALUE;
 
@@ -77,49 +70,42 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 	private java.util.Set<AccountingMarkazTemplateEntity> parents;
 	private java.util.Set<MoeenAccountingMarkazTemplateEntity> moeenAccountingMarkazTemplate;
 
-
-
 	/**
 	 * Return the unique identifier of this class
-     * @hibernate.id
-     *  generator-class="increment"
-     *  column="hesab_tafsili_id"
-     */
-	public java.lang.Long getId () {
+	 * 
+	 * @hibernate.id generator-class="increment" column="hesab_tafsili_id"
+	 */
+	public java.lang.Long getId() {
 		return id;
 	}
 
 	/**
 	 * Set the unique identifier of this class
+	 * 
 	 * @param id the new ID
 	 */
-	public void setId (java.lang.Long id) {
+	public void setId(java.lang.Long id) {
 		this.id = id;
 		setID(id);
 		this.hashCode = Integer.MIN_VALUE;
 	}
 
-
-
- 
 	/**
 	 * Return the value associated with the column: code
 	 */
-	public java.lang.String getCode () {
+	public java.lang.String getCode() {
 		return code;
 	}
 
 	/**
 	 * Set the value related to the column: code
+	 * 
 	 * @param code the code value
 	 */
-	public void setCode (java.lang.String code) {
+	public void setCode(java.lang.String code) {
 		this.code = code;
 	}
 
-
-
- 
 	public java.lang.Integer getLevel() {
 		return level;
 	}
@@ -131,36 +117,34 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 	/**
 	 * Return the value associated with the column: name
 	 */
-	public java.lang.String getName () {
+	public java.lang.String getName() {
 		return name;
 	}
 
 	/**
 	 * Set the value related to the column: name
+	 * 
 	 * @param name the name value
 	 */
-	public void setName (java.lang.String name) {
+	public void setName(java.lang.String name) {
 		this.name = name;
 	}
 
- 
 	/**
 	 * Return the value associated with the column: description
 	 */
-	public java.lang.String getDescription () {
+	public java.lang.String getDescription() {
 		return description;
 	}
 
 	/**
 	 * Set the value related to the column: description
+	 * 
 	 * @param description the description value
 	 */
-	public void setDescription (java.lang.String description) {
+	public void setDescription(java.lang.String description) {
 		this.description = description;
 	}
-
-
-
 
 	public Long getOrganId() {
 		return organId;
@@ -185,8 +169,6 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 //		this.organ = organ;
 //	}
 
-
-
 	public String getOrganName() {
 		return organName;
 	}
@@ -198,19 +180,19 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 	/**
 	 * Return the value associated with the column: hesab_tafsili_template_id
 	 */
-	public ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity getHesabTafsiliTemplate () {
+	public ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity getHesabTafsiliTemplate() {
 		return hesabTafsiliTemplate;
 	}
 
 	/**
 	 * Set the value related to the column: hesab_tafsili_template_id
+	 * 
 	 * @param hesabTafsiliTemplate the hesab_tafsili_template_id value
 	 */
-	public void setHesabTafsiliTemplate (ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity hesabTafsiliTemplate) {
+	public void setHesabTafsiliTemplate(
+			ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity hesabTafsiliTemplate) {
 		this.hesabTafsiliTemplate = hesabTafsiliTemplate;
 	}
-
-
 
 	public java.util.Set<AccountingMarkazTemplateEntity> getChilds() {
 		return childs;
@@ -228,9 +210,6 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 		this.parents = parents;
 	}
 
-
-
-
 	public java.util.Set<MoeenAccountingMarkazTemplateEntity> getMoeenAccountingMarkazTemplate() {
 		return moeenAccountingMarkazTemplate;
 	}
@@ -240,20 +219,24 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 		this.moeenAccountingMarkazTemplate = moeenAccountingMarkazTemplate;
 	}
 
-
-	public boolean equals (Object obj) {
-		if (null == obj) return false;
-		if (!(obj instanceof ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity)) return false;
+	public boolean equals(Object obj) {
+		if (null == obj)
+			return false;
+		if (!(obj instanceof ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity))
+			return false;
 		else {
 			ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity hesabTafsiliEntity = (ir.serajsamaneh.accounting.accountingmarkaz.AccountingMarkazEntity) obj;
-			if (null == this.getId() || null == hesabTafsiliEntity.getId()) return false;
-			else return (this.getId().equals(hesabTafsiliEntity.getId()));
+			if (null == this.getId() || null == hesabTafsiliEntity.getId())
+				return false;
+			else
+				return (this.getId().equals(hesabTafsiliEntity.getId()));
 		}
 	}
 
-	public int hashCode () {
+	public int hashCode() {
 		if (Integer.MIN_VALUE == this.hashCode) {
-			if (null == this.getId()) return super.hashCode();
+			if (null == this.getId())
+				return super.hashCode();
 			else {
 				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
@@ -262,10 +245,8 @@ public abstract class BaseAccountingMarkazTemplateEntity  extends BaseEntity<Lon
 		return this.hashCode;
 	}
 
-
-	public String toString () {
+	public String toString() {
 		return super.toString();
 	}
-
 
 }

@@ -33,8 +33,7 @@ import ir.serajsamaneh.core.user.UserEntity;
 import ir.serajsamaneh.core.user.UserService;
 import ir.serajsamaneh.core.util.XMLUtil;
 
-public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Serializable>
-		extends BaseEntityForm<T, U> {
+public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Serializable> extends BaseEntityForm<T, U> {
 //	@Override
 //	public Boolean getSearchAction() {
 //		return true;
@@ -43,148 +42,117 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 	protected UserService userService;
 	@Autowired
 	protected OrganService organService;
-	
-	SaalMaaliService saalMaaliService;
-	HesabKolService hesabKolService;
-	HesabMoeenService hesabMoeenService;
-	HesabTafsiliService hesabTafsiliService;
+	@Autowired
+	public SaalMaaliService saalMaaliService;
+	@Autowired
+	public HesabKolService hesabKolService;
+	@Autowired
+	public HesabMoeenService hesabMoeenService;
+	@Autowired
+	public HesabTafsiliService hesabTafsiliService;
 
-	
-	public HesabKolService getHesabKolService() {
-		return hesabKolService;
-	}
-
-	public void setHesabKolService(HesabKolService hesabKolService) {
-		this.hesabKolService = hesabKolService;
-	}
-
-	public HesabMoeenService getHesabMoeenService() {
-		return hesabMoeenService;
-	}
-
-	public void setHesabMoeenService(HesabMoeenService hesabMoeenService) {
-		this.hesabMoeenService = hesabMoeenService;
-	}
-
-	public HesabTafsiliService getHesabTafsiliService() {
-		return hesabTafsiliService;
-	}
-
-	public void setHesabTafsiliService(HesabTafsiliService hesabTafsiliService) {
-		this.hesabTafsiliService = hesabTafsiliService;
-	}
-
-	public SaalMaaliService getSaalMaaliService() {
-		return saalMaaliService;
-	}
-
-	public void setSaalMaaliService(SaalMaaliService saalMaaliService) {
-		this.saalMaaliService = saalMaaliService;
-	}
-	
 	@Override
 	public DataModel<T> getLocalDataModel() {
-		if(getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
+		if (getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			return getEmptyDataModel();
-		getFilter().put("organId@eq",	getCurrentOrganVO().getId());
+		getFilter().put("organId@eq", getCurrentOrganVO().getId());
 		return getDataModel();
 	}
-	
+
 	@Override
 	public Integer getLocalDataModelCount() {
-		if(getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
+		if (getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			return -1;
-		getFilter().put("organId@eq",	getCurrentOrganVO().getId());
+		getFilter().put("organId@eq", getCurrentOrganVO().getId());
 		return getMyService().getRowCount(null, getFilter());
 	}
-	
+
 	@Override
 	public DataModel<T> getUpsetDataModel() {
-		
+
 		if (getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			return getEmptyDataModel();
 
-		if(getSelectedOrganId()!=null)
-			getFilter().put("organId@eq", getSelectedOrganId());		
+		if (getSelectedOrganId() != null)
+			getFilter().put("organId@eq", getSelectedOrganId());
 		else
 			getFilter().put("organId@eq", null);
-		
+
 		List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-		
+
 		getFilter().put("organId@in", topOrganList);
 		return getDataModel();
 	}
-	
+
 	@Override
 	public Integer getUpsetDataModelCount() {
-		
+
 		if (getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			return -1;
-		
-		if(getSelectedOrganId()!=null)
-			getFilter().put("organId@eq", getSelectedOrganId());		
+
+		if (getSelectedOrganId() != null)
+			getFilter().put("organId@eq", getSelectedOrganId());
 		else
 			getFilter().put("organId@eq", null);
-		
+
 		List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
-		
+
 		getFilter().put("organId@in", topOrganList);
 		return getDataModelCount();
 	}
-	
+
 	@Override
 	public DataModel<T> getHierarchicalDataModel() {
-		if(getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
+		if (getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			return getEmptyDataModel();
-		if(getSelectedOrganId()!=null)
-			getFilter().put("organId@eq", getSelectedOrganId());		
+		if (getSelectedOrganId() != null)
+			getFilter().put("organId@eq", getSelectedOrganId());
 		else
 			getFilter().put("organId@eq", null);
-		getFilter().put("organId@in",	getCurrentOrganVO().getTopOrgansIdList());
+		getFilter().put("organId@in", getCurrentOrganVO().getTopOrgansIdList());
 		return getDataModel();
 	}
-	
+
 	@Override
 	public Integer getHierarchicalDataModelCount() {
-		if(getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
+		if (getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			return -1;
-		if(getSelectedOrganId()!=null)
-			getFilter().put("organId@eq", getSelectedOrganId());		
+		if (getSelectedOrganId() != null)
+			getFilter().put("organId@eq", getSelectedOrganId());
 		else
-			getFilter().put("organId@eq", null);		
-		getFilter().put("organId@in",	getCurrentOrganVO().getTopOrgansIdList());
+			getFilter().put("organId@eq", null);
+		getFilter().put("organId@in", getCurrentOrganVO().getTopOrgansIdList());
 		return getDataModelCount();
 	}
-	
-	protected String createDHTMLXTreeXML(List<HesabVO> list) {
 
+	protected String createDHTMLXTreeXML(List<HesabVO> list) {
 
 		try {
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			
+
 			// root elements
 			Document doc = docBuilder.newDocument();
-			
+
 			Element treeElement = doc.createElement("tree");
-			treeElement.setAttribute("id","0");
+			treeElement.setAttribute("id", "0");
 			doc.appendChild(treeElement);
-			
+
 			for (HesabVO hesabVO : list) {
 				Element rootElement = doc.createElement("item");
 				rootElement.setAttribute("id", hesabVO.getCode());
-				rootElement.setAttribute("text", hesabVO.getName()+"("+hesabVO.getCode()+")");
+				rootElement.setAttribute("text", hesabVO.getName() + "(" + hesabVO.getCode() + ")");
 				rootElement.setAttribute("im0", hesabVO.getIcon());
 				rootElement.setAttribute("im1", hesabVO.getIcon());
 				rootElement.setAttribute("im2", hesabVO.getIcon());
-				
+
 				createUserDataElements(doc, hesabVO, rootElement);
-				
+
 				treeElement.appendChild(rootElement);
-				
+
 				List<HesabVO> childs = hesabVO.getChilds();
-				if(childs!=null)
-					createNodeChilds(doc, rootElement, childs);				
+				if (childs != null)
+					createNodeChilds(doc, rootElement, childs);
 			}
 
 			// write the content into xml file
@@ -198,36 +166,34 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 			return null;
 		}
 	}
-	
 
 	private void createNodeChilds(Document doc, Element rootElement, List<HesabVO> childs) {
 		for (HesabVO hesabVO : childs) {
 			Element treeItem = doc.createElement("item");
 			treeItem.setAttribute("id", Integer.valueOf(hesabVO.hashCode()).toString());
-			treeItem.setAttribute("text", hesabVO.getName()+"("+hesabVO.getCode()+")");
+			treeItem.setAttribute("text", hesabVO.getName() + "(" + hesabVO.getCode() + ")");
 			treeItem.setAttribute("im0", hesabVO.getIcon());
 			treeItem.setAttribute("im1", hesabVO.getIcon());
 			treeItem.setAttribute("im2", hesabVO.getIcon());
 			rootElement.appendChild(treeItem);
-			
+
 			createUserDataElements(doc, hesabVO, treeItem);
-			
+
 			createNodeChilds(doc, treeItem, hesabVO.getChilds());
 		}
 	}
-	
 
 	private void createUserDataElements(Document doc, HesabVO hesabVO, Element treeItem) {
 		Element hesabTypeElem = doc.createElement("userdata");
 		hesabTypeElem.setAttribute("name", "hesabType");
 		hesabTypeElem.setTextContent(hesabVO.getHesabType());
 		treeItem.appendChild(hesabTypeElem);
-		
+
 		Element hesabIdElem = doc.createElement("userdata");
 		hesabIdElem.setAttribute("name", "entityId");
 		hesabIdElem.setTextContent(hesabVO.getEntityId());
 		treeItem.appendChild(hesabIdElem);
-		
+
 		Element codeElem = doc.createElement("userdata");
 		codeElem.setAttribute("name", "code");
 		codeElem.setTextContent(hesabVO.getCode());
@@ -235,27 +201,27 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 	}
 
 	public SaalMaaliEntity getCurrentUserActiveSaalMaali() {
-		if(getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
+		if (getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			throw new NoOrganFoundException("");
-		SaalMaaliEntity currentUserSaalMaaliEntity = getSaalMaaliService().getUserActiveSaalMaali(getCurrentOrganVO(), getCurrentUserVO().getId());
-		
+		SaalMaaliEntity currentUserSaalMaaliEntity = saalMaaliService.getUserActiveSaalMaali(getCurrentOrganVO(),
+				getCurrentUserVO().getId());
+
 		return currentUserSaalMaaliEntity;
 	}
-	
+
 	public Boolean getIsCurrentUserActiveSaalMaaliConfigured() {
-		if(getCurrentOrganVO().getId() == null)
+		if (getCurrentOrganVO().getId() == null)
 			return false;
 		try {
-			getSaalMaaliService().getUserActiveSaalMaali(getCurrentOrganVO(), getCurrentUserVO().getId());
-		}catch(SerajException e) { 
+			saalMaaliService.getUserActiveSaalMaali(getCurrentOrganVO(), getCurrentUserVO().getId());
+		} catch (SerajException e) {
 			System.out.println(e.getDesc());
 			return false;
 		}
-		
+
 		return true;
 	}
 
-	
 	protected void populateTopOrgansIdListFilter() {
 		List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
 		getFilter().put("organId@in", topOrganList);
@@ -264,23 +230,23 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 	public UserEntity getCurrentUser() {
 		return userService.loadUserByUsername(SecurityUtil.getUsername());
 	}
-	
+
 	public OrganEntity getCurrentOrgan() {
 		return organService.load(getCurrentUserVO().getOrgan().getId());
 	}
-	
-	public List<Long> getRelatedOrganIds(){
+
+	public List<Long> getRelatedOrganIds() {
 		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("code@startlk",	getCurrentOrganVO().getTopParentCode());
+		filter.put("code@startlk", getCurrentOrganVO().getTopParentCode());
 		List<OrganEntity> dataList = organService.getDataList(filter);
-		
+
 		List<Long> organIds = new ArrayList<Long>();
 		for (OrganEntity entity : dataList) {
 			organIds.add(entity.getId());
 		}
 		return organIds;
 	}
-	
+
 	@Override
 	protected void localFilterPopulation() {
 		getFilter().put("organId@eq", getCurrentOrganVO().getId());

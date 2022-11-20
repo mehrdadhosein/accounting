@@ -5,34 +5,30 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.FlushMode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ir.serajsamaneh.accounting.hesabgroup.HesabGroupDAO;
 import ir.serajsamaneh.core.base.BaseHibernateDAO;
 import ir.serajsamaneh.erpcore.util.HesabTemplateRelationsUtil;
 
-public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntity,Long> {
+@Repository
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class HesabKolTemplateDAO extends BaseHibernateDAO<HesabKolTemplateEntity, Long> {
 
+	@Autowired
 	HesabGroupDAO hesabGroupDAO;
 
-	public HesabGroupDAO getHesabGroupDAO() {
-		return hesabGroupDAO;
-	}
-
-	public void setHesabGroupDAO(HesabGroupDAO hesabGroupDAO) {
-		this.hesabGroupDAO = hesabGroupDAO;
-	}
-
-
-
-	
 	@Transactional
 	public HesabKolTemplateEntity getHesabKolTemplateByCode(String hesabCode, Long organId) {
 
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
 		localFilter.put("organId@eq", organId);
-		List<HesabKolTemplateEntity> dataList = getDataList(null, localFilter,null, null, FlushMode.MANUAL,false);
+		List<HesabKolTemplateEntity> dataList = getDataList(null, localFilter, null, null, FlushMode.MANUAL, false);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)
@@ -40,7 +36,7 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 		else
 			throw new IllegalStateException();
 	}
-	
+
 	public HesabKolTemplateEntity getHesabKolTemplateByName(String hesabKolName, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", hesabKolName);
@@ -49,17 +45,17 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 		return hesabKolTemplateEntity;
 
 	}
-	
+
 	@Override
 	public void saveOrUpdate(HesabKolTemplateEntity entity) {
-		if(entity.getHidden() == null)
+		if (entity.getHidden() == null)
 			entity.setHidden(false);
 
-		if(entity.getOrganId()!=null)
+		if (entity.getOrganId() != null)
 			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrganId());
 
 		checkHesabTemplateUniqueNess(entity);
-		
+
 		super.saveOrUpdate(entity);
 	}
 
@@ -72,17 +68,15 @@ public class HesabKolTemplateDAO  extends BaseHibernateDAO<HesabKolTemplateEntit
 
 	@Override
 	public void save(HesabKolTemplateEntity entity) {
-		if(entity.getHidden() == null)
+		if (entity.getHidden() == null)
 			entity.setHidden(false);
 
-		if(entity.getOrganId()!=null)
+		if (entity.getOrganId() != null)
 			HesabTemplateRelationsUtil.resetKolMoeenTemplateMap(entity.getOrganId());
 
 		checkHesabTemplateUniqueNess(entity);
-		
+
 		super.save(entity);
 	}
-
-
 
 }

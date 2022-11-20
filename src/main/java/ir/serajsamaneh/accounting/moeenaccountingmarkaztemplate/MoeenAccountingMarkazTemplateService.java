@@ -1,39 +1,28 @@
 package ir.serajsamaneh.accounting.moeenaccountingmarkaztemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.hibernate.FlushMode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import ir.serajsamaneh.accounting.accountingmarkaztemplate.AccountingMarkazTemplateEntity;
 import ir.serajsamaneh.accounting.hesabmoeentemplate.HesabMoeenTemplateEntity;
 import ir.serajsamaneh.core.base.BaseEntityService;
-import ir.serajsamaneh.core.exception.FatalException;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.hibernate.FlushMode;
-
-public class MoeenAccountingMarkazTemplateService extends
-		BaseEntityService<MoeenAccountingMarkazTemplateEntity, Long> {
+@Service
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class MoeenAccountingMarkazTemplateService extends BaseEntityService<MoeenAccountingMarkazTemplateEntity, Long> {
 
 	@Override
 	protected MoeenAccountingMarkazTemplateDAO getMyDAO() {
 		return moeenAccountingMarkazTemplateDAO;
 	}
 
+	@Autowired
 	MoeenAccountingMarkazTemplateDAO moeenAccountingMarkazTemplateDAO;
-
-
-	public MoeenAccountingMarkazTemplateDAO getMoeenAccountingMarkazTemplateDAO() {
-		return moeenAccountingMarkazTemplateDAO;
-	}
-
-
-	public void setMoeenAccountingMarkazTemplateDAO(
-			MoeenAccountingMarkazTemplateDAO moeenAccountingMarkazTemplateDAO) {
-		this.moeenAccountingMarkazTemplateDAO = moeenAccountingMarkazTemplateDAO;
-	}
-
-
 
 	public MoeenAccountingMarkazTemplateEntity load(AccountingMarkazTemplateEntity accountingMarkazEntity,
 			HesabMoeenTemplateEntity hesabMoeenEntity, Integer level, FlushMode flushMode) {
