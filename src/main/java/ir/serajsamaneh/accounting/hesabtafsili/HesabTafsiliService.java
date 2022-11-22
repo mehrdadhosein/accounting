@@ -342,7 +342,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 			filter.put("hesabTafsili.id@eq", entity.getId());
 			filter.put("hesabTafsiliTwo.id@eq", hesabTafsiliEntity.getId());
 
-			Integer rowCount = sanadHesabdariItemService.getRowCount(null, filter);
+			Integer rowCount = sanadHesabdariItemService.getRowCount(filter);
 			if (rowCount > 0)
 				throw new FatalException(
 						SerajMessageUtil.getMessage("HesabTafsili_childIsUsedInSomeArticles", hesabTafsiliEntity));
@@ -366,7 +366,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 			filter.put("hesabTafsili.id@eq", hesabTafsiliEntity.getId());
 			filter.put("articleTafsili.hesabTafsili.id@eq", entity.getId());
 			filter.put("articleTafsili.level@eq", 1);
-			Integer rowCount = sanadHesabdariItemService.getRowCount(null, filter);
+			Integer rowCount = sanadHesabdariItemService.getRowCount(filter);
 			if (rowCount > 0)
 				throw new FatalException(
 						SerajMessageUtil.getMessage("HesabTafsili_parentIsUsedInSomeArticles", hesabTafsiliEntity));
@@ -386,7 +386,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 			filter.put("sanadHesabdari.saalMaali.id@eq", entity.getSaalMaali().getId());
 			filter.put("hesabMoeen.id@eq", hesabMoeenEntity.getId());
 			filter.put("hesabTafsili.id@eq", entity.getId());
-			Integer rowCount = sanadHesabdariItemService.getRowCount(null, filter);
+			Integer rowCount = sanadHesabdariItemService.getRowCount(filter);
 			if (rowCount > 0)
 				throw new FatalException(
 						SerajMessageUtil.getMessage("HesabTafsili_moeenIsUsedInSomeArticles", hesabMoeenEntity));

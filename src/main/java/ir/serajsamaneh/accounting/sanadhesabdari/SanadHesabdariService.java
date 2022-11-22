@@ -231,7 +231,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 //		Map<String, Object> filter = new HashMap<String, Object>();
 //		filter.put("serial@eq", newSerial);
 //		filter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-//		Integer rowCount = getRowCount(null, filter);
+//		Integer rowCount = getRowCount(filter);
 //		if (rowCount >0)
 //			throw new FatalException("serial_already_generated");
 //	}
@@ -1409,7 +1409,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		localFilter.put("organId@eq", organId);
 		localFilter.put("state@in", Arrays.asList(SanadStateEnum.MOVAGHAT, SanadStateEnum.BARRESI_SHODE,
 				SanadStateEnum.YADDASHT, SanadStateEnum.TEMP));
-		Integer rowCount = getRowCount(null, localFilter);
+		Integer rowCount = getRowCount(localFilter);
 		if (rowCount > 0)
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_SanadDaemiNashodeExists"));
 
@@ -1420,7 +1420,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("organId@eq", organId);
 		localFilter.put("state@in", Arrays.asList(SanadStateEnum.TEMP));
-		Integer rowCount = getRowCount(null, localFilter);
+		Integer rowCount = getRowCount(localFilter);
 		if (rowCount > 0)
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_SanadTempExists"));
 
@@ -1435,7 +1435,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 				SanadStateEnum.YADDASHT, SanadStateEnum.TEMP));
 		localFilter.put("tarikhSanad@ge", fromDate);
 		localFilter.put("tarikhSanad@le", toDate);
-		Integer rowCount = getRowCount(null, localFilter);
+		Integer rowCount = getRowCount(localFilter);
 		if (rowCount > 0)
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_SanadDaemiNashodeExists"));
 
@@ -1448,7 +1448,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 	 * localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 	 * localFilter.put("organId@eq", organEntity.getId());
 	 * localFilter.put("mahyatKol@eq", MahyatKolEnum.Undefined); Integer rowCount =
-	 * hesabKolService.getRowCount(null, localFilter); if(rowCount > 0) return
+	 * hesabKolService.getRowCount(localFilter); if(rowCount > 0) return
 	 * false; return true; }
 	 */
 

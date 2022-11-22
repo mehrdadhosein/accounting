@@ -64,7 +64,7 @@ public abstract class BaseAccountingForm<T extends BaseEntity<U>, U extends Seri
 		if (getCurrentOrganVO() == null || getCurrentOrganVO().getId() == null)
 			return -1;
 		getFilter().put("organId@eq", getCurrentOrganVO().getId());
-		return getMyService().getRowCount(null, getFilter());
+		return getMyService().getRowCount(getFilter());
 	}
 
 	@Override

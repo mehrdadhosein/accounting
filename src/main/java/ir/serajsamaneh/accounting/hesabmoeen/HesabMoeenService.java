@@ -84,7 +84,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 		filter.put("sanadHesabdari.saalMaali.id@eq", entity.getSaalMaali().getId());
 		filter.put("hesabMoeen.id@eq", entity.getId());
 		filter.put("hesabKol.id@eq", oldHesabKolEntity.getId());
-		Integer rowCount = sanadHesabdariItemService.getRowCount(null, filter);
+		Integer rowCount = sanadHesabdariItemService.getRowCount(filter);
 		if (rowCount > 0)
 			throw new FatalException(
 					SerajMessageUtil.getMessage("HesabMoeen_KolIsUsedInSomeArticles", oldHesabKolEntity));
