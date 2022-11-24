@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -40,88 +41,21 @@ public class SanadHesabdariItemService extends BaseEntityService<SanadHesabdariI
 		return sanadHesabdariItemDAO;
 	}
 
+	@Autowired
 	SanadHesabdariItemDAO sanadHesabdariItemDAO;
+	@Autowired
 	HesabKolService hesabKolService;
+	@Autowired
 	HesabMoeenService hesabMoeenService;
+	@Autowired
 	HesabTafsiliService hesabTafsiliService;
+	@Autowired
 	SaalMaaliService saalMaaliService;
+	@Autowired
 	SanadHesabdariService sanadHesabdariService;
+	@Autowired
 	AccountingMarkazService accountingMarkazService;
-//	ArticleTafsiliService articleTafsiliService;
-//	ArticleAccountingMarkazService articleAccountingMarkazService;
-//
-//	public ArticleAccountingMarkazService getArticleAccountingMarkazService() {
-//		return articleAccountingMarkazService;
-//	}
-//
-//	public void setArticleAccountingMarkazService(
-//			ArticleAccountingMarkazService articleAccountingMarkazService) {
-//		this.articleAccountingMarkazService = articleAccountingMarkazService;
-//	}
-//
-//	public ArticleTafsiliService getArticleTafsiliService() {
-//		return articleTafsiliService;
-//	}
-//
-//	public void setArticleTafsiliService(ArticleTafsiliService articleTafsiliService) {
-//		this.articleTafsiliService = articleTafsiliService;
-//	}
 
-	public AccountingMarkazService getAccountingMarkazService() {
-		return accountingMarkazService;
-	}
-
-	public void setAccountingMarkazService(AccountingMarkazService accountingMarkazService) {
-		this.accountingMarkazService = accountingMarkazService;
-	}
-
-	public SanadHesabdariService getSanadHesabdariService() {
-		return sanadHesabdariService;
-	}
-
-	public void setSanadHesabdariService(SanadHesabdariService sanadHesabdariService) {
-		this.sanadHesabdariService = sanadHesabdariService;
-	}
-
-	public SaalMaaliService getSaalMaaliService() {
-		return saalMaaliService;
-	}
-
-	public void setSaalMaaliService(SaalMaaliService saalMaaliService) {
-		this.saalMaaliService = saalMaaliService;
-	}
-
-	public HesabTafsiliService getHesabTafsiliService() {
-		return hesabTafsiliService;
-	}
-
-	public void setHesabTafsiliService(HesabTafsiliService hesabTafsiliService) {
-		this.hesabTafsiliService = hesabTafsiliService;
-	}
-
-	public HesabMoeenService getHesabMoeenService() {
-		return hesabMoeenService;
-	}
-
-	public void setHesabMoeenService(HesabMoeenService hesabMoeenService) {
-		this.hesabMoeenService = hesabMoeenService;
-	}
-
-	public HesabKolService getHesabKolService() {
-		return hesabKolService;
-	}
-
-	public void setHesabKolService(HesabKolService hesabKolService) {
-		this.hesabKolService = hesabKolService;
-	}
-
-	public void setSanadHesabdariItemDAO(SanadHesabdariItemDAO sanadHesabdariItemDAO) {
-		this.sanadHesabdariItemDAO = sanadHesabdariItemDAO;
-	}
-
-	public SanadHesabdariItemDAO getSanadHesabdariItemDAO() {
-		return sanadHesabdariItemDAO;
-	}
 
 	@Transactional(readOnly = true)
 	public List<SanadHesabdariItemVO> getTarazKolAzmayeshi(SaalMaaliEntity saalMaaliEntity, Date fromDate, Date toDate,
@@ -255,7 +189,7 @@ public class SanadHesabdariItemService extends BaseEntityService<SanadHesabdariI
 	@Transactional(readOnly = true)
 	private void applySanadEftetahiehOnTarazKolAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazKolAzmayeshiMap,
 			SaalMaaliEntity saalMaaliEntity, int numberOfDecimals) {
-		List<SanadHesabdariEntity> sanadEftetahiehha = getSanadHesabdariService().getSanadEftetahiehha(saalMaaliEntity);
+		List<SanadHesabdariEntity> sanadEftetahiehha = sanadHesabdariService.getSanadEftetahiehha(saalMaaliEntity);
 		for (SanadHesabdariEntity sanadEftetahieh : sanadEftetahiehha) {
 			applySanadEftetahiehOnTarazKolAzmayeshiMandeh(tarazKolAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
 		}
@@ -264,7 +198,7 @@ public class SanadHesabdariItemService extends BaseEntityService<SanadHesabdariI
 	@Transactional(readOnly = true)
 	private void applySanadEftetahiehOnTarazKolAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazKolAzmayeshiMap,
 			SaalMaaliEntity saalMaaliEntity, Long organId, int numberOfDecimals) {
-		SanadHesabdariEntity sanadEftetahieh = getSanadHesabdariService().getSanadEftetahieh(saalMaaliEntity, organId);
+		SanadHesabdariEntity sanadEftetahieh = sanadHesabdariService.getSanadEftetahieh(saalMaaliEntity, organId);
 		if (sanadEftetahieh == null || sanadEftetahieh.getSanadHesabdariItem() == null)
 			return;
 		applySanadEftetahiehOnTarazKolAzmayeshiMandeh(tarazKolAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
@@ -293,7 +227,7 @@ public class SanadHesabdariItemService extends BaseEntityService<SanadHesabdariI
 	@Transactional(readOnly = true)
 	private void applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMoeenAzmayeshiMap,
 			SaalMaaliEntity saalMaaliEntity, int numberOfDecimals) {
-		List<SanadHesabdariEntity> sanadEftetahiehha = getSanadHesabdariService().getSanadEftetahiehha(saalMaaliEntity);
+		List<SanadHesabdariEntity> sanadEftetahiehha = sanadHesabdariService.getSanadEftetahiehha(saalMaaliEntity);
 		for (SanadHesabdariEntity sanadEftetahieh : sanadEftetahiehha) {
 			applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(tarazMoeenAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
 		}
@@ -302,7 +236,7 @@ public class SanadHesabdariItemService extends BaseEntityService<SanadHesabdariI
 	@Transactional(readOnly = true)
 	private void applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(Map<Long, SanadHesabdariItemVO> tarazMoeenAzmayeshiMap,
 			SaalMaaliEntity saalMaaliEntity, Long organId, int numberOfDecimals) {
-		SanadHesabdariEntity sanadEftetahieh = getSanadHesabdariService().getSanadEftetahieh(saalMaaliEntity, organId);
+		SanadHesabdariEntity sanadEftetahieh = sanadHesabdariService.getSanadEftetahieh(saalMaaliEntity, organId);
 		if (sanadEftetahieh == null || sanadEftetahieh.getSanadHesabdariItem() == null)
 			return;
 		applySanadEftetahiehOnTarazMoeenAzmayeshiMandeh(tarazMoeenAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
@@ -333,7 +267,7 @@ public class SanadHesabdariItemService extends BaseEntityService<SanadHesabdariI
 	private void applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(
 			Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMap, SaalMaaliEntity saalMaaliEntity,
 			int numberOfDecimals) {
-		List<SanadHesabdariEntity> sanadEftetahiehha = getSanadHesabdariService().getSanadEftetahiehha(saalMaaliEntity);
+		List<SanadHesabdariEntity> sanadEftetahiehha = sanadHesabdariService.getSanadEftetahiehha(saalMaaliEntity);
 		for (SanadHesabdariEntity sanadEftetahieh : sanadEftetahiehha) {
 			applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, sanadEftetahieh,
 					numberOfDecimals);
@@ -344,7 +278,7 @@ public class SanadHesabdariItemService extends BaseEntityService<SanadHesabdariI
 	private void applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(
 			Map<Long, SanadHesabdariItemVO> tarazTafsiliAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, Long organId,
 			int numberOfDecimals) {
-		SanadHesabdariEntity sanadEftetahieh = getSanadHesabdariService().getSanadEftetahieh(saalMaaliEntity, organId);
+		SanadHesabdariEntity sanadEftetahieh = sanadHesabdariService.getSanadEftetahieh(saalMaaliEntity, organId);
 		if (sanadEftetahieh == null || sanadEftetahieh.getSanadHesabdariItem() == null)
 			return;
 		applySanadEftetahiehOnTarazTafsiliAzmayeshiMandeh(tarazTafsiliAzmayeshiMap, sanadEftetahieh, numberOfDecimals);
@@ -379,7 +313,7 @@ public class SanadHesabdariItemService extends BaseEntityService<SanadHesabdariI
 	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(
 			Map<Long, SanadHesabdariItemVO> tarazMarkazAzmayeshiMap, SaalMaaliEntity saalMaaliEntity,
 			int numberOfDecimals) {
-		List<SanadHesabdariEntity> sanadEftetahiehha = getSanadHesabdariService().getSanadEftetahiehha(saalMaaliEntity);
+		List<SanadHesabdariEntity> sanadEftetahiehha = sanadHesabdariService.getSanadEftetahiehha(saalMaaliEntity);
 		for (SanadHesabdariEntity sanadEftetahieh : sanadEftetahiehha) {
 			applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazMarkazAzmayeshiMap, sanadEftetahieh,
 					numberOfDecimals);
@@ -390,7 +324,7 @@ public class SanadHesabdariItemService extends BaseEntityService<SanadHesabdariI
 	private void applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(
 			Map<Long, SanadHesabdariItemVO> tarazMarkazAzmayeshiMap, SaalMaaliEntity saalMaaliEntity, Long organId,
 			int numberOfDecimals) {
-		SanadHesabdariEntity sanadEftetahieh = getSanadHesabdariService().getSanadEftetahieh(saalMaaliEntity, organId);
+		SanadHesabdariEntity sanadEftetahieh = sanadHesabdariService.getSanadEftetahieh(saalMaaliEntity, organId);
 		if (sanadEftetahieh == null || sanadEftetahieh.getSanadHesabdariItem() == null)
 			return;
 		applySanadEftetahiehOnTarazMarkazAzmayeshiMandeh(tarazMarkazAzmayeshiMap, sanadEftetahieh, numberOfDecimals);

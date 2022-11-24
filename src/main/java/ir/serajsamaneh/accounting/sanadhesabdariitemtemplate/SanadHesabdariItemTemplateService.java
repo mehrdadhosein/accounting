@@ -1,5 +1,6 @@
 package ir.serajsamaneh.accounting.sanadhesabdariitemtemplate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -14,14 +15,6 @@ public class SanadHesabdariItemTemplateService extends BaseEntityService<SanadHe
 		return sanadHesabdariItemTemplateDAO;
 	}
 
+	@Autowired
 	SanadHesabdariItemTemplateDAO sanadHesabdariItemTemplateDAO;
-
-	public SanadHesabdariItemTemplateDAO getSanadHesabdariItemTemplateDAO() {
-		return sanadHesabdariItemTemplateDAO;
-	}
-
-	public void setSanadHesabdariItemTemplateDAO(SanadHesabdariItemTemplateDAO sanadHesabdariItemTemplateDAO) {
-		this.sanadHesabdariItemTemplateDAO = sanadHesabdariItemTemplateDAO;
-	}
-
 }

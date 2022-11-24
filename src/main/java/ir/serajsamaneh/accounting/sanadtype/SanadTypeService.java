@@ -1,5 +1,6 @@
 package ir.serajsamaneh.accounting.sanadtype;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,8 @@ public class SanadTypeService extends BaseAccountingService<SanadTypeEntity, Lon
 	protected SanadTypeDAO getMyDAO() {
 		return sanadTypeDAO;
 	}
-
+	@Autowired
 	SanadTypeDAO sanadTypeDAO;
-
-	public void setSanadTypeDAO(SanadTypeDAO sanadTypeDAO) {
-		this.sanadTypeDAO = sanadTypeDAO;
-	}
-
-	public SanadTypeDAO getSanadTypeDAO() {
-		return sanadTypeDAO;
-	}
 
 	@Override
 	public String getDifferences(SanadTypeEntity entity) {

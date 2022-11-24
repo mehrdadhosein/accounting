@@ -60,7 +60,7 @@ public class ContactHesabForm extends BaseAccountingForm<ContactHesabEntity, Lon
 					Long contactHesabId = contactHesabByContactId.getId();
 					setID(contactHesabId);
 				} else {
-					entity.setContact(getContactService().load(Long.valueOf(contactId)));
+					entity.setContact(contactService.load(Long.valueOf(contactId)));
 				}
 			}
 		}

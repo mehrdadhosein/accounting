@@ -225,16 +225,16 @@ public class SanadHesabdariUtil {
 		totalSanadHesabdariEntity.setDeletable(deletable);
 
 		if (sanadStateEnum == null)
-			getSanadHesabdariService().saveMovaghat(totalSanadHesabdariEntity, null, organId, saalMaaliEntity,
+			sanadHesabdariService.saveMovaghat(totalSanadHesabdariEntity, null, organId, saalMaaliEntity,
 					validateSaalMaaliInProgress, currentUser, organDesc);
 		else if (sanadStateEnum.equals(SanadStateEnum.TEMP))
-			getSanadHesabdariService().saveTemp(totalSanadHesabdariEntity, null, organId, saalMaaliEntity,
+			sanadHesabdariService.saveTemp(totalSanadHesabdariEntity, null, organId, saalMaaliEntity,
 					validateSaalMaaliInProgress, currentUser, organDesc);
 		else if (sanadStateEnum.equals(SanadStateEnum.MOVAGHAT))
-			getSanadHesabdariService().saveMovaghat(totalSanadHesabdariEntity, null, organId, saalMaaliEntity,
+			sanadHesabdariService.saveMovaghat(totalSanadHesabdariEntity, null, organId, saalMaaliEntity,
 					validateSaalMaaliInProgress, currentUser, organDesc);
 		else if (sanadStateEnum.equals(SanadStateEnum.BARRESI_SHODE))
-			getSanadHesabdariService().saveBarrasiShode(totalSanadHesabdariEntity, organId, true,
+			sanadHesabdariService.saveBarrasiShode(totalSanadHesabdariEntity, organId, true,
 					validateSaalMaaliInProgress, numberOfDecimals, currentUser, organDesc);
 		return totalSanadHesabdariEntity;
 	}
@@ -459,7 +459,7 @@ public class SanadHesabdariUtil {
 		localFilter.put("sanadType.id@eq", sanadTypeId);
 		localFilter.put("organId@eq", organId);
 		localFilter.put("state@neq", SanadStateEnum.EBTAL);
-		SanadHesabdariEntity sanadHesabdariEntity = getSanadHesabdariService().load(null, localFilter);
+		SanadHesabdariEntity sanadHesabdariEntity = sanadHesabdariService.load(null, localFilter);
 		return sanadHesabdariEntity;
 	}
 

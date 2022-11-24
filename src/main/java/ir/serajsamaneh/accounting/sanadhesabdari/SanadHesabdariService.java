@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.hibernate.FlushMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -72,116 +73,31 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		return sanadHesabdariDAO;
 	}
 
+	@Autowired
 	SanadHesabdariDAO sanadHesabdariDAO;
+	@Autowired
 	HesabTafsiliDAO hesabTafsiliDAO;
+	@Autowired
 	HesabMoeenDAO hesabMoeenDAO;
+	@Autowired
 	SaalMaaliService saalMaaliService;
+	@Autowired
 	HesabKolService hesabKolService;
+	@Autowired
 	HesabMoeenService hesabMoeenService;
+	@Autowired
 	HesabTafsiliService hesabTafsiliService;
+	@Autowired
 	HesabMoeenTemplateService hesabMoeenTemplateService;
+	@Autowired
 	HesabTafsiliTemplateService hesabTafsiliTemplateService;
+	@Autowired
 	AccountingMarkazService accountingMarkazService;
+	@Autowired
 	SanadHesabdariItemService sanadHesabdariItemService;
+	@Autowired
 	MonthService monthService;
 
-//	ArticleTafsiliService articleTafsiliService;
-//	
-//	public ArticleTafsiliService getArticleTafsiliService() {
-//		return articleTafsiliService;
-//	}
-//
-//	public void setArticleTafsiliService(ArticleTafsiliService articleTafsiliService) {
-//		this.articleTafsiliService = articleTafsiliService;
-//	}
-
-	public MonthService getMonthService() {
-		return monthService;
-	}
-
-	public void setMonthService(MonthService monthService) {
-		this.monthService = monthService;
-	}
-
-	public SanadHesabdariItemService getSanadHesabdariItemService() {
-		return sanadHesabdariItemService;
-	}
-
-	public void setSanadHesabdariItemService(SanadHesabdariItemService sanadHesabdariItemService) {
-		this.sanadHesabdariItemService = sanadHesabdariItemService;
-	}
-
-	public AccountingMarkazService getAccountingMarkazService() {
-		return accountingMarkazService;
-	}
-
-	public void setAccountingMarkazService(AccountingMarkazService accountingMarkazService) {
-		this.accountingMarkazService = accountingMarkazService;
-	}
-
-	public HesabTafsiliTemplateService getHesabTafsiliTemplateService() {
-		return hesabTafsiliTemplateService;
-	}
-
-	public void setHesabTafsiliTemplateService(HesabTafsiliTemplateService hesabTafsiliTemplateService) {
-		this.hesabTafsiliTemplateService = hesabTafsiliTemplateService;
-	}
-
-	public HesabMoeenTemplateService getHesabMoeenTemplateService() {
-		return hesabMoeenTemplateService;
-	}
-
-	public void setHesabMoeenTemplateService(HesabMoeenTemplateService hesabMoeenTemplateService) {
-		this.hesabMoeenTemplateService = hesabMoeenTemplateService;
-	}
-
-	public HesabKolService getHesabKolService() {
-		return hesabKolService;
-	}
-
-	public void setHesabKolService(HesabKolService hesabKolService) {
-		this.hesabKolService = hesabKolService;
-	}
-
-	public HesabMoeenService getHesabMoeenService() {
-		return hesabMoeenService;
-	}
-
-	public void setHesabMoeenService(HesabMoeenService hesabMoeenService) {
-		this.hesabMoeenService = hesabMoeenService;
-	}
-
-	public HesabTafsiliService getHesabTafsiliService() {
-		return hesabTafsiliService;
-	}
-
-	public void setHesabTafsiliService(HesabTafsiliService hesabTafsiliService) {
-		this.hesabTafsiliService = hesabTafsiliService;
-	}
-
-	public SaalMaaliService getSaalMaaliService() {
-		return saalMaaliService;
-	}
-
-	public void setSaalMaaliService(SaalMaaliService saalMaaliService) {
-		this.saalMaaliService = saalMaaliService;
-	}
-
-	public void setHesabTafsiliDAO(HesabTafsiliDAO hesabTafsiliDAO) {
-		this.hesabTafsiliDAO = hesabTafsiliDAO;
-	}
-
-	public void setHesabMoeenDAO(HesabMoeenDAO hesabMoeenDAO) {
-		this.hesabMoeenDAO = hesabMoeenDAO;
-	}
-
-	public void setSanadHesabdariDAO(SanadHesabdariDAO sanadHesabdariDAO) {
-		this.sanadHesabdariDAO = sanadHesabdariDAO;
-	}
-
-	public SanadHesabdariDAO getSanadHesabdariDAO() {
-		return sanadHesabdariDAO;
-	}
 
 	protected static Map<Long, Long> organSanadHesabdariIds = new HashMap<Long, Long>();
 
@@ -189,7 +105,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 	public synchronized Long getNextSanadHesabdariSerial(SaalMaaliEntity saalMaaliEntity, Long organId) {
 //		if (organSanadHesabdariIds.get(saalMaaliEntity.getId()) == null) {
 //			Long maxSerial = null;
-//			maxSerial = getSanadHesabdariDAO().getMaxSanadSerial(saalMaaliEntity);
+//			maxSerial = sanadHesabdariDAO.getMaxSanadSerial(saalMaaliEntity);
 //			if (maxSerial == null) {
 //				maxSerial = 1l;
 //			} else
@@ -203,7 +119,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 //		return currentMaxSerial;
 
 		Long maxSerial = null;
-		maxSerial = getSanadHesabdariDAO().getMaxSanadSerial(saalMaaliEntity, organId);
+		maxSerial = sanadHesabdariDAO.getMaxSanadSerial(saalMaaliEntity, organId);
 		return ++maxSerial;
 	}
 
@@ -213,7 +129,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 	public synchronized Long getNextTempSanadHesabdariSerial(SaalMaaliEntity saalMaaliEntity) {
 		if (organTempSanadHesabdariIds.get(saalMaaliEntity.getId()) == null) {
 			Long maxTempSerial = null;
-			maxTempSerial = getSanadHesabdariDAO().getMaxTempSanadSerial(saalMaaliEntity);
+			maxTempSerial = sanadHesabdariDAO.getMaxTempSanadSerial(saalMaaliEntity);
 			if (maxTempSerial == null) {
 				maxTempSerial = 1l;
 			} else
@@ -1740,7 +1656,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 	@Transactional
 	public void createMonthlySummarySanad(SaalMaaliEntity saalMaaliEntity, Long organId, UserEntity currentUser,
 			String organDesc) {
-		List<MonthEntity> list = getMonthService().getList(saalMaaliEntity.getId());
+		List<MonthEntity> list = monthService.getList(saalMaaliEntity.getId());
 		for (MonthEntity monthEntity : list) {
 
 			if (monthEntity.getStartDate() == null || monthEntity.getEndDate() == null)

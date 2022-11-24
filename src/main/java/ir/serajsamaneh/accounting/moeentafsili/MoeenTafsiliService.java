@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.FlushMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,8 @@ public class MoeenTafsiliService extends BaseEntityService<MoeenTafsiliEntity, L
 		return moeenTafsiliDAO;
 	}
 
+	@Autowired
 	MoeenTafsiliDAO moeenTafsiliDAO;
-
-	public void setMoeenTafsiliDAO(MoeenTafsiliDAO moeenTafsiliDAO) {
-		this.moeenTafsiliDAO = moeenTafsiliDAO;
-	}
-
-	public MoeenTafsiliDAO getMoeenTafsiliDAO() {
-		return moeenTafsiliDAO;
-	}
 
 	public MoeenTafsiliEntity load(HesabTafsiliEntity hesabTafsiliEntity, HesabMoeenEntity hesabMoeenEntity,
 			Integer level, FlushMode flushMode) {

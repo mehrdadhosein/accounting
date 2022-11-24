@@ -1,5 +1,6 @@
 package ir.serajsamaneh.accounting.moeentafsilitemplate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -13,15 +14,7 @@ public class MoeenTafsiliTemplateService extends BaseEntityService<MoeenTafsiliT
 	protected MoeenTafsiliTemplateDAO getMyDAO() {
 		return moeenTafsiliTemplateDAO;
 	}
-
+	@Autowired
 	MoeenTafsiliTemplateDAO moeenTafsiliTemplateDAO;
-
-	public void setMoeenTafsiliTemplateDAO(MoeenTafsiliTemplateDAO moeenTafsiliTemplateDAO) {
-		this.moeenTafsiliTemplateDAO = moeenTafsiliTemplateDAO;
-	}
-
-	public MoeenTafsiliTemplateDAO getMoeenTafsiliTemplateDAO() {
-		return moeenTafsiliTemplateDAO;
-	}
 
 }

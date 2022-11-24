@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.FlushMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -30,26 +31,10 @@ public class ContactHesabService extends BaseAccountingService<ContactHesabEntit
 	protected ContactHesabDAO getMyDAO() {
 		return contactHesabDAO;
 	}
-
+	@Autowired
 	ContactService contactService;
-
-	public ContactService getContactService() {
-		return contactService;
-	}
-
-	public void setContactService(ContactService contactService) {
-		this.contactService = contactService;
-	}
-
+	@Autowired
 	ContactHesabDAO contactHesabDAO;
-
-	public void setContactHesabDAO(ContactHesabDAO contactHesabDAO) {
-		this.contactHesabDAO = contactHesabDAO;
-	}
-
-	public ContactHesabDAO getContactHesabDAO() {
-		return contactHesabDAO;
-	}
 
 	public HesabTafsiliEntity getHesabTafsiliByContact(ContactEntity contactEntity, SaalMaaliEntity saalMaali) {
 
@@ -80,7 +65,7 @@ public class ContactHesabService extends BaseAccountingService<ContactHesabEntit
 		if (contactHesabEntity == null) {
 			SaalMaaliEntity saalMaaliEntity = saalMaaliService.load(saalMaaliId);
 			throw new NoRecordFoundException(SerajMessageUtil.getMessage("Contact_NoHesabDefinedforSaalMaali",
-					getContactService().load(contactId), saalMaaliEntity.getNameWithOrgan()));
+					contactService.load(contactId), saalMaaliEntity.getNameWithOrgan()));
 		}
 		return contactHesabEntity;
 	}
@@ -88,10 +73,10 @@ public class ContactHesabService extends BaseAccountingService<ContactHesabEntit
 	@Override
 	public void delete(Long id) {
 		ContactHesabEntity entity = load(id);
-		ContactEntity contact = getContactService().load(entity.getContact().getId());
+		ContactEntity contact = contactService.load(entity.getContact().getId());
 		contact.setHesabTafsili(null);
 		contact.setHesabMoeen(null);
-		getContactService().save(contact);
+		contactService.save(contact);
 		super.delete(id);
 	}
 
@@ -123,7 +108,7 @@ public class ContactHesabService extends BaseAccountingService<ContactHesabEntit
 
 		if (entity.getHesabMoeen() != null && entity.getHesabMoeen().getId() != null)
 			contact.setHesabMoeen(entity.getHesabMoeen().getDesc());
-		getContactService().save(contact);
+		contactService.save(contact);
 
 	}
 
