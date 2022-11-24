@@ -142,7 +142,7 @@ public class HesabTemplateRelationsUtil {
 		if (moeenKolTemplateMap == null) {
 			moeenKolTemplateMap = new HashMap<Long, ListOrderedMap<String, Object>>();
 
-			List<HesabMoeenTemplateEntity> list = hesabMoeenTemplateService.getActiveMoeens(topOrganList);
+			List<HesabMoeenTemplateEntity> list = getHesabMoeenTemplateService().getActiveMoeens(topOrganList);
 			for (HesabMoeenTemplateEntity hesabMoeenTemplateEntity : list) {
 				ListOrderedMap<String, Object> moeenItemTemplateMap = new ListOrderedMap<String, Object>();
 				if (hesabMoeenTemplateEntity.getHesabKolTemplate() == null)
