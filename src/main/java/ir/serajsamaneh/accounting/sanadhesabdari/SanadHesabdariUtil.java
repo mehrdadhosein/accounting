@@ -184,17 +184,6 @@ public class SanadHesabdariUtil {
 		return mergedArticles;
 	}
 
-//	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
-//			Date sanadHesabdariDate,
-//			List<SanadHesabdariItemEntity> articles, String description, SanadStateEnum sanadStateEnum) {
-//		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, sanadStateEnum, true);
-//	}
-
-//	public static SanadHesabdariEntity createSanadHesabdari(OrganEntity organEntity,
-//			Date sanadHesabdariDate,
-//			List<SanadHesabdariItemEntity> articles, String description, SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress) {
-//		return createSanadHesabdari(organEntity, sanadHesabdariDate, articles, description, null, sanadStateEnum, validateSaalMaaliInProgress, null);
-//	}
 
 	public static SanadHesabdariEntity createSanadHesabdari(Long organId, Date sanadHesabdariDate,
 			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType,
@@ -204,6 +193,15 @@ public class SanadHesabdariUtil {
 				null, saalMaaliEntity, deletable, numberOfDecimals, currentUser, organDesc);
 	}
 
+	public static SanadHesabdariEntity createSanadHesabdari(Long organId, Date sanadHesabdariDate,
+			List<SanadHesabdariItemEntity> articles, String description, Long sanadTypeId,
+			SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, String sanadRole,
+			Long saalMaaliId, YesNoEnum deletable, int numberOfDecimals, UserEntity currentUser,
+			String organDesc) {
+		SaalMaaliEntity saalMaaliEntity = saalMaaliService.load(saalMaaliId);
+		SanadTypeEntity sanadType = sanadTypeService.load(sanadTypeId);
+		return createSanadHesabdari(organId, sanadHesabdariDate, articles, description, sanadType, sanadStateEnum, validateSaalMaaliInProgress, sanadRole, saalMaaliEntity, deletable, numberOfDecimals, currentUser, organDesc);
+	}
 	public static SanadHesabdariEntity createSanadHesabdari(Long organId, Date sanadHesabdariDate,
 			List<SanadHesabdariItemEntity> articles, String description, SanadTypeEntity sanadType,
 			SanadStateEnum sanadStateEnum, boolean validateSaalMaaliInProgress, String sanadRole,

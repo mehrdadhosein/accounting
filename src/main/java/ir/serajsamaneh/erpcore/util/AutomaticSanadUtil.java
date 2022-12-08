@@ -74,6 +74,15 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 			accountsTemplateService = SpringUtils.getBean("accountsTemplateService");
 		return accountsTemplateService;
 	}
+	
+	protected static SanadHesabdariItemEntity createBedehkarArticle(Double bedehkarAmount,
+			AccountsTemplateEntity accountsTemplateEntity, Long hesabTafsiliTemplateId,
+			Long hesabTafsiliTemplateTwoId, AccountingMarkazEntity accountingMarkazEntity,
+			String description, Long saalMaaliId) {
+		HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity = getHesabTafsiliTemplateService().load(hesabTafsiliTemplateId);
+		HesabTafsiliTemplateEntity hesabTafsiliTemplateTwoEntity = getHesabTafsiliTemplateService().load(hesabTafsiliTemplateTwoId);
+		return createBedehkarArticle(bedehkarAmount, accountsTemplateEntity, hesabTafsiliTemplateEntity, hesabTafsiliTemplateTwoEntity, accountingMarkazEntity, description, saalMaaliId);
+	}
 
 	protected static SanadHesabdariItemEntity createBedehkarArticle(Double bedehkarAmount,
 			AccountsTemplateEntity templateEntity, HesabTafsiliTemplateEntity hesabTafsiliTemplate,

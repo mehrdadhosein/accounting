@@ -180,8 +180,8 @@ public class AccountsTemplateService extends BaseAccountingService<AccountsTempl
 		String automaticSanadTemplateName = automaticSanadTemplateElem.getAttribute("actionName");
 		String automaticSanadTemplateActionId = automaticSanadTemplateElem.getAttribute("actionId");
 		String automaticSanadTemplateDescription = automaticSanadTemplateElem.getAttribute("description");
-		Boolean createBedehkar = new Boolean(automaticSanadTemplateElem.getAttribute("createBedehkar"));
-		Boolean createBestankar = new Boolean(automaticSanadTemplateElem.getAttribute("createBestankar"));
+		Boolean createBedehkar = Boolean.valueOf(automaticSanadTemplateElem.getAttribute("createBedehkar"));
+		Boolean createBestankar = Boolean.valueOf(automaticSanadTemplateElem.getAttribute("createBestankar"));
 
 		AccountsTemplateEntity accountsTemplateEntity = getAccountsTemplateByActionId(automaticSanadTemplateActionId,
 				organId);
