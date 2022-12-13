@@ -13,13 +13,14 @@ import ir.serajsamaneh.accounting.hesabkol.HesabKolEntity;
 import ir.serajsamaneh.accounting.hesabmoeen.HesabMoeenEntity;
 import ir.serajsamaneh.accounting.hesabtafsili.HesabTafsiliEntity;
 import ir.serajsamaneh.accounting.hesabtafsilitemplate.HesabTafsiliTemplateEntity;
-import ir.serajsamaneh.accounting.saalmaali.SaalMaaliEntity;
 import ir.serajsamaneh.accounting.sanadhesabdari.SanadHesabdariUtil;
 import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
 import ir.serajsamaneh.accounting.sanadhesabdariitemtemplate.SanadHesabdariItemTemplateEntity;
 import ir.serajsamaneh.accounting.sanadtype.SanadTypeService;
+import ir.serajsamaneh.core.common.SaalMaaliVO;
 import ir.serajsamaneh.core.contact.contact.ContactService;
 import ir.serajsamaneh.core.exception.FatalException;
+import ir.serajsamaneh.core.organ.OrganService;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.util.SerajMessageUtil;
 import ir.serajsamaneh.core.util.SpringUtils;
@@ -34,17 +35,17 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 	static ContactHesabService contactHesabService;
 	static SanadTypeService sanadTypeService;
 
-//	static OrganService organService;
+	static OrganService organService;
 
 //	public static UserService getUserService() {
 //		return SpringUtils.getBean("userService");
 //	}
 
-//	public static OrganService getOrganService() {
-//		if(organService == null)
-//			organService = SpringUtils.getBean("organService");
-//		return organService;
-//	}
+	public static OrganService getOrganService() {
+		if(organService == null)
+			organService = SpringUtils.getBean("organService");
+		return organService;
+	}
 	public static SanadTypeService getSanadTypeService() {
 		if (sanadTypeService == null)
 			sanadTypeService = SpringUtils.getBean("sanadTypeService");
@@ -562,7 +563,7 @@ public class AutomaticSanadUtil extends SanadHesabdariUtil {
 
 	protected static KolMoeenTafsiliVO extractKolMoeenTafsili(HesabMoeenEntity hesabMoeenParam,
 			HesabTafsiliEntity hesabTafsiliParam, HesabTafsiliEntity hesabShenavarParam,
-			ContactHesabEntity contactHesab, SaalMaaliEntity saalMaaliEntity) {
+			ContactHesabEntity contactHesab, SaalMaaliVO saalMaaliEntity) {
 		KolMoeenTafsiliVO kolMoeenTafsiliVO = extractKolMoeenTafsili(hesabMoeenParam, hesabTafsiliParam,
 				hesabShenavarParam, contactHesab);
 

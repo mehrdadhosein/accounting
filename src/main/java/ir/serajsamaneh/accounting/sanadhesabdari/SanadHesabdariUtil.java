@@ -31,6 +31,7 @@ import ir.serajsamaneh.accounting.saalmaali.SaalMaaliService;
 import ir.serajsamaneh.accounting.sanadhesabdariitem.SanadHesabdariItemEntity;
 import ir.serajsamaneh.accounting.sanadtype.SanadTypeEntity;
 import ir.serajsamaneh.accounting.sanadtype.SanadTypeService;
+import ir.serajsamaneh.core.common.SaalMaaliVO;
 import ir.serajsamaneh.core.exception.DuplicateException;
 import ir.serajsamaneh.core.systemconfig.SystemConfigService;
 import ir.serajsamaneh.core.user.UserEntity;
@@ -471,7 +472,7 @@ public class SanadHesabdariUtil {
 		return hesabKolService.loadHesabKolByCode(hesabKolTemplateEntity.getCode(), saalMaaliId);
 	}
 
-	public static HesabKolEntity getHesabKolByCodeAndSaalMaali(String code, SaalMaaliEntity saalMaaliEntity) {
+	public static HesabKolEntity getHesabKolByCodeAndSaalMaali(String code, SaalMaaliVO saalMaaliEntity) {
 		return hesabKolService.loadHesabKolByCode(code, saalMaaliEntity.getId());
 	}
 
@@ -484,7 +485,7 @@ public class SanadHesabdariUtil {
 		return hesabMoeenService.loadHesabMoeenByTemplateId(hesabMoeenTemplateId, saalMaaliId);
 	}
 
-	public static HesabMoeenEntity getHesabMoeenByCodeAndSaalMaali(String code, SaalMaaliEntity saalMaaliEntity) {
+	public static HesabMoeenEntity getHesabMoeenByCodeAndSaalMaali(String code, SaalMaaliVO saalMaaliEntity) {
 		return hesabMoeenService.loadHesabMoeenByCode(code, saalMaaliEntity.getId());
 	}
 
@@ -502,7 +503,7 @@ public class SanadHesabdariUtil {
 		return hesabTafsiliService.loadHesabTafsiliByTemplateId(hesabTafsiliTemplateId, saalMaaliId);
 	}
 
-	public static HesabTafsiliEntity getHesabTafsiliByCodeAndSaalMaali(Long code, SaalMaaliEntity saalMaaliEntity) {
+	public static HesabTafsiliEntity getHesabTafsiliByCodeAndSaalMaali(Long code, SaalMaaliVO saalMaaliEntity) {
 		return hesabTafsiliService.loadHesabTafsiliByCode(code, saalMaaliEntity.getId());
 	}
 
