@@ -96,21 +96,6 @@
 		</classification>
 	
 		<classification id="4" name="اطلاعات پایه">
-			<classification id="41" name="سال مالی">
-				<permission id="411" action="SaalMaali.create" name="ساخت سال مالی"						role="1" />
-				<permission id="412" action="SaalMaali.delete" name="حذف سال مالی"						role="1" />
-				<permission id="413" action="SaalMaali.view" name="مشاهده سال مالی"						role="1" />
-				<permission id="414" action="saalMaali.edit" name="صفحه ویرایش سال مالی"				role="1" />
-				<permission id="415" action="saalMaali.list" name="صفحه فهرست سال مالی"					role="1" />
-				<permission id="416" action="saalMaali.lov" name="صفحه انتخاب سال مالی"					role="1" />
-				<permission id="417" action="saalMaali.quickCreate" name="صفحه ساخت سریع سال مالی"		role="1" />
-				<permission id="418" action="saalMaali.view" name="صفحه مشاهده سال مالی"				role="1" />
-				<permission id="419" action="saalMaali.localList" name="صفحه فهرست محلی سال مالی"		role="1" />
-				<permission id="420" action="saalMaali.localEdit" name="صفحه ویرایش محلی سال مالی"		role="1" />
-				<permission id="421" action="saalMaali.localView" name="صفحه مشاهده محلی سال مالی"		role="1" />
-				<permission id="422" action="SaalMaali.change" name="تغییر سال مالی"					role="1" />
-				<permission id="423" action="accounting.view" name="نمایش حسابداری در کارتابل "					role="1" />
-			</classification>
 		</classification>
 	
 		<classification id="5" name="گزارش اکسل حسابداری">
