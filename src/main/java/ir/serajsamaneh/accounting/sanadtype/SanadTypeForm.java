@@ -35,7 +35,7 @@ public class SanadTypeForm extends BaseAccountingForm<SanadTypeEntity, Long> {
 	public List<SelectItem> getSanadType() {
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("organId@eq", getCurrentOrganVO().getId());
-		List<SanadTypeEntity> list = sanadTypeService.getDataList(null, filter);
+		List<SanadTypeEntity> list = sanadTypeService.getDataList(filter);
 
 		List<SelectItem> selectItemList = new ArrayList<SelectItem>();
 		selectItemList.add(new SelectItem("", "------------"));

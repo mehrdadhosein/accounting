@@ -199,7 +199,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 	private void updateRelatedHesbMoeens(HesabMoeenTemplateEntity hesabMoeenTemplateEntity) {
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("hesabMoeenTemplate.id@eq", hesabMoeenTemplateEntity.getId());
-		List<HesabMoeenEntity> dataList = getDataList(null, filter);
+		List<HesabMoeenEntity> dataList = getDataList(filter);
 		for (HesabMoeenEntity hesabMoeenEntity : dataList) {
 			hesabMoeenEntity.setCode(hesabMoeenTemplateEntity.getCode());
 			hesabMoeenEntity.setName(hesabMoeenTemplateEntity.getName());
@@ -269,7 +269,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 //		Map<String, Object> localFilter = new HashMap<String, Object>();
 //		localFilter.put("code@eq", hesabCode);
 //		localFilter.put("organId@eq", getCurrentOrgan().getId());
-//		List<HesabMoeenEntity> dataList = getDataList(null, localFilter,
+//		List<HesabMoeenEntity> dataList = getDataList(localFilter,
 //				FlushMode.MANUAL);
 //		if (dataList.size() == 1)
 //			return dataList.get(0);
@@ -284,7 +284,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		HesabMoeenEntity hesabMoeenEntity = load(null, localFilter);
+		HesabMoeenEntity hesabMoeenEntity = load(localFilter);
 		return hesabMoeenEntity;
 	}
 
@@ -318,7 +318,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("hesabKol.id@eq", hesabKolId);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	public List<HesabMoeenEntity> getActiveMoeens(SaalMaaliEntity currentSaalMaali, List<Long> topOrganList) {
@@ -328,7 +328,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	public List<HesabTafsiliEntity> getActiveTafsilies(HesabMoeenEntity hesabMoeenEntity,
@@ -348,7 +348,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 
 		localFilter.put("hesabMoeen.id@eq", hesabMoeenEntity.getId());
 //		localFilter.put("hesabTafsili.isShenavar@eq", Boolean.FALSE);
-		List<MoeenTafsiliEntity> dataList = moeenTafsiliService.getDataList(null, localFilter);
+		List<MoeenTafsiliEntity> dataList = moeenTafsiliService.getDataList(localFilter);
 
 		List<HesabTafsiliEntity> hesabTafsiliEntities = new ArrayList<HesabTafsiliEntity>();
 		for (MoeenTafsiliEntity moeenTafsiliEntity : dataList) {
@@ -363,7 +363,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	@Transactional(readOnly = false)
@@ -371,7 +371,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 			List<Long> topOrganList, String currentOrganName) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organId@eq", activeSaalMaaliEntity.getOrganId());
-		List<HesabMoeenTemplateEntity> dataList = hesabMoeenTemplateService.getDataList(null, localFilter);
+		List<HesabMoeenTemplateEntity> dataList = hesabMoeenTemplateService.getDataList(localFilter);
 		for (HesabMoeenTemplateEntity hesabMoeenTemplateEntity : dataList) {
 			HesabMoeenEntity hesabMoeen = loadHesabMoeenByTemplate(hesabMoeenTemplateEntity, activeSaalMaaliEntity);
 			if (hesabMoeen == null) {
@@ -497,7 +497,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 		localFilter.put("hesabMoeenTemplate.id@eq", moeenTemplateEntity.getId());
 		localFilter.put("organId@eq", activeSaalMaaliEntity.getOrganId());
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
-		HesabMoeenEntity hesabMoeenEntity = load(null, localFilter);
+		HesabMoeenEntity hesabMoeenEntity = load(localFilter);
 		return hesabMoeenEntity;
 	}
 
@@ -515,7 +515,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 		localFilter.put("code@eq", code);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", saalMaaliId);
-		HesabMoeenEntity hesabMoeenEntity = load(null, localFilter, flushModel);
+		HesabMoeenEntity hesabMoeenEntity = load(localFilter, flushModel);
 		return hesabMoeenEntity;
 	}
 
@@ -525,7 +525,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@eq", organId);
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		HesabMoeenEntity hesabMoeenEntity = load(null, localFilter, flushModel);
+		HesabMoeenEntity hesabMoeenEntity = load(localFilter, flushModel);
 		return hesabMoeenEntity;
 	}
 
@@ -534,7 +534,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 		localFilter.put("name@eq", name);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		HesabMoeenEntity hesabMoeenEntity = load(null, localFilter, flushModel);
+		HesabMoeenEntity hesabMoeenEntity = load(localFilter, flushModel);
 		return hesabMoeenEntity;
 	}
 
@@ -544,7 +544,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 		localFilter.put("name@eq", name);
 		localFilter.put("organId@eq", organId);
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		HesabMoeenEntity hesabMoeenEntity = load(null, localFilter, flushModel);
+		HesabMoeenEntity hesabMoeenEntity = load(localFilter, flushModel);
 		return hesabMoeenEntity;
 	}
 
@@ -573,7 +573,7 @@ public class HesabMoeenService extends BaseEntityService<HesabMoeenEntity, Long>
 
 		Map<String, Object> moeenTafsiliFilter = new HashMap<String, Object>();
 		moeenTafsiliFilter.put("hesabMoeen.saalMaali.id@eq", saalMaaliEntity.getId());
-		List<MoeenTafsiliEntity> moeenTafsiliList = moeenTafsiliService.getDataList(null, moeenTafsiliFilter);
+		List<MoeenTafsiliEntity> moeenTafsiliList = moeenTafsiliService.getDataList(moeenTafsiliFilter);
 
 		for (MoeenTafsiliEntity moeenTafsiliEntity : moeenTafsiliList) {
 			HesabMoeenEntity hesabMoeenEntity = moeenTafsiliEntity.getHesabMoeen();

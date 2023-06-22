@@ -945,7 +945,7 @@ public class SanadHesabdariItemForm extends BaseAccountingForm<SanadHesabdariIte
 
 		List<String> orderByCols = Arrays.asList("hesabMoeen.id", "sanadHesabdari.tarikhSanad",
 				"sanadHesabdari.tempSerial", "id");
-		List<SanadHesabdariItemEntity> daftarMoeenList = getMyService().getDataList(null, getFilter(), orderByCols,
+		List<SanadHesabdariItemEntity> daftarMoeenList = getMyService().getDataList(getFilter(), orderByCols,
 				getDefaultSortType(), FlushMode.MANUAL, false);
 		List<SanadHesabdariItemEntity> itemListSortedByMahiat = getSanadHesabdariItemListSortedByMahiat(
 				daftarMoeenList);
@@ -1002,7 +1002,7 @@ public class SanadHesabdariItemForm extends BaseAccountingForm<SanadHesabdariIte
 		createDaftarLocalFilter(getCurrentOrganVO().getId());
 		List<String> orderByCols = Arrays.asList("hesabKol.id", "sanadHesabdari.tarikhSanad",
 				"sanadHesabdari.tempSerial", "id");
-		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols,
+		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(getFilter(), orderByCols,
 				getDefaultSortType(), FlushMode.MANUAL, false);
 		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getSanadHesabdariItemListSortedByMahiat(
 				daftarKolList);
@@ -1014,7 +1014,7 @@ public class SanadHesabdariItemForm extends BaseAccountingForm<SanadHesabdariIte
 		createDaftarHierarchicalFilter();
 		List<String> orderByCols = Arrays.asList("hesabKol.id", "sanadHesabdari.tarikhSanad",
 				"sanadHesabdari.tempSerial", "id");
-		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols,
+		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(getFilter(), orderByCols,
 				getDefaultSortType(), FlushMode.MANUAL, false);
 		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getSanadHesabdariItemListSortedByMahiat(
 				daftarKolList);
@@ -1026,7 +1026,7 @@ public class SanadHesabdariItemForm extends BaseAccountingForm<SanadHesabdariIte
 
 		List<String> orderByCols = Arrays.asList("hesabKol.id", "sanadHesabdari.tarikhSanad", "sanadHesabdari.serial",
 				"id");
-		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(null, getFilter(), orderByCols,
+		List<SanadHesabdariItemEntity> daftarKolList = getMyService().getDataList(getFilter(), orderByCols,
 				getDefaultSortType(), FlushMode.MANUAL, false);
 		List<SanadHesabdariItemEntity> daftarKolListSortedByMahiat = getDaftarKolSummaryListSortedByMahiat(
 				daftarKolList);
@@ -1153,7 +1153,7 @@ public class SanadHesabdariItemForm extends BaseAccountingForm<SanadHesabdariIte
 		setDefaultSortType(true);
 
 		List<String> orderByCols = Arrays.asList("sanadHesabdari.tarikhSanad", "sanadHesabdari.tempSerial", "id");
-		List<SanadHesabdariItemEntity> daftarRooznamehList = getMyService().getDataList(null, getFilter(), orderByCols,
+		List<SanadHesabdariItemEntity> daftarRooznamehList = getMyService().getDataList(getFilter(), orderByCols,
 				getDefaultSortType(), FlushMode.MANUAL, false);
 		setFromDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@ge"));
 		setToDate((Date) getFilter().get("sanadHesabdari.tarikhSanad@le"));
@@ -1182,7 +1182,7 @@ public class SanadHesabdariItemForm extends BaseAccountingForm<SanadHesabdariIte
 		setDefaultSortType(true);
 
 		List<String> orderByCols = Arrays.asList("sanadHesabdari.tarikhSanad", "hesabKol.id");
-		List<SanadHesabdariItemEntity> daftarRooznamehList = getMyService().getDataList(null, getFilter(), orderByCols,
+		List<SanadHesabdariItemEntity> daftarRooznamehList = getMyService().getDataList(getFilter(), orderByCols,
 				getDefaultSortType(), FlushMode.MANUAL, false);
 
 		Collections.sort(daftarRooznamehList, new Comparator<SanadHesabdariItemEntity>() {
@@ -1266,7 +1266,7 @@ public class SanadHesabdariItemForm extends BaseAccountingForm<SanadHesabdariIte
 
 		List<String> orderByCols = Arrays.asList("hesabTafsili.id", "sanadHesabdari.tarikhSanad",
 				"sanadHesabdari.tempSerial", "id");
-		List<SanadHesabdariItemEntity> daftarTafsiliList = getMyService().getDataList(null, getFilter(), orderByCols,
+		List<SanadHesabdariItemEntity> daftarTafsiliList = getMyService().getDataList(getFilter(), orderByCols,
 				getDefaultSortType(), FlushMode.MANUAL, false);
 		List<SanadHesabdariItemEntity> itemListSortedByMahiat = getSanadHesabdariItemListSortedByMahiat(
 				daftarTafsiliList);
@@ -1300,7 +1300,7 @@ public class SanadHesabdariItemForm extends BaseAccountingForm<SanadHesabdariIte
 //		setDefaultSortType(true);
 //		
 //		List<String> orderByCols = Arrays.asList("sanadHesabdari.tarikhSanad","sanadHesabdari.tempSerial","id");
-//		List<SanadHesabdariItemEntity> daftarTafsiliList = getMyService().getDataList(null, getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
+//		List<SanadHesabdariItemEntity> daftarTafsiliList = getMyService().getDataList(getFilter(), orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
 //		return daftarTafsiliList;
 //	}
 //	
@@ -1324,7 +1324,7 @@ public class SanadHesabdariItemForm extends BaseAccountingForm<SanadHesabdariIte
 
 		List<String> orderByCols = Arrays.asList("accountingMarkaz.id", "sanadHesabdari.tarikhSanad",
 				"sanadHesabdari.tempSerial", "id");
-		List<SanadHesabdariItemEntity> daftarAccountingMarkazList = getMyService().getDataList(null, getFilter(),
+		List<SanadHesabdariItemEntity> daftarAccountingMarkazList = getMyService().getDataList(getFilter(),
 				orderByCols, getDefaultSortType(), FlushMode.MANUAL, false);
 		for (SanadHesabdariItemEntity sanadHesabdariItemEntity : daftarAccountingMarkazList) {
 			if (sanadHesabdariItemEntity.getAccountingMarkaz() != null)
@@ -1969,7 +1969,7 @@ public class SanadHesabdariItemForm extends BaseAccountingForm<SanadHesabdariIte
 			if (getSelectedSaalMaali() != null)
 				mandehFilter.put("sanadHesabdari.tarikhSanad@ge", getSelectedSaalMaali().getStartDate());
 
-			List<SanadHesabdariItemEntity> mandehAzGhablList = getMyService().getDataList(null, mandehFilter,
+			List<SanadHesabdariItemEntity> mandehAzGhablList = getMyService().getDataList(mandehFilter,
 					getDefaultSortCol(), getDefaultSortType(), FlushMode.MANUAL, false);
 
 			if (mandehAzGhablList != null)

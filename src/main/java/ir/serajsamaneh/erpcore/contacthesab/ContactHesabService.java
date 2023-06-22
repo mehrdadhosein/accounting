@@ -41,7 +41,7 @@ public class ContactHesabService extends BaseAccountingService<ContactHesabEntit
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("contact.id@eq", contactEntity.getId());
 		localFilter.put("saalMaali.id@eq", saalMaali.getId());
-		ContactHesabEntity contactHesabEntity = load(null, localFilter, FlushMode.MANUAL);
+		ContactHesabEntity contactHesabEntity = load(localFilter, FlushMode.MANUAL);
 		if (contactHesabEntity == null)
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_NoTafsiliDefinedFor", contactEntity));
 		return contactHesabEntity.getHesabTafsiliOne();
@@ -61,7 +61,7 @@ public class ContactHesabService extends BaseAccountingService<ContactHesabEntit
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("contact.id@eq", contactId);
 		localFilter.put("saalMaali.id@eq", saalMaaliId);
-		ContactHesabEntity contactHesabEntity = load(null, localFilter, FlushMode.MANUAL);
+		ContactHesabEntity contactHesabEntity = load(localFilter, FlushMode.MANUAL);
 		if (contactHesabEntity == null) {
 			SaalMaaliEntity saalMaaliEntity = saalMaaliService.load(saalMaaliId);
 			throw new NoRecordFoundException(SerajMessageUtil.getMessage("Contact_NoHesabDefinedforSaalMaali",
@@ -91,7 +91,7 @@ public class ContactHesabService extends BaseAccountingService<ContactHesabEntit
 				checkUniqueNess(entity, localFilter, false, FlushMode.MANUAL);
 
 			} catch (DuplicateException e) {
-				List<ContactHesabEntity> dataList = getDataList(null, localFilter);
+				List<ContactHesabEntity> dataList = getDataList(localFilter);
 				throw new DuplicateException(e.getDesc() + " " + dataList);
 			}
 		}
@@ -116,7 +116,7 @@ public class ContactHesabService extends BaseAccountingService<ContactHesabEntit
 
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", saalMaali.getId());
-		List<ContactHesabEntity> dataList = getDataList(null, localFilter);
+		List<ContactHesabEntity> dataList = getDataList(localFilter);
 		return dataList;
 	}
 
@@ -125,7 +125,7 @@ public class ContactHesabService extends BaseAccountingService<ContactHesabEntit
 		HashMap<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", saalMaali.getId());
 		localFilter.put("contact.organId@eq", organEntity.getId());
-		List<ContactHesabEntity> dataList = getDataList(null, localFilter);
+		List<ContactHesabEntity> dataList = getDataList(localFilter);
 		return dataList;
 	}
 

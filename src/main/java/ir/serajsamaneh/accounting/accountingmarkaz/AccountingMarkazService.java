@@ -291,7 +291,7 @@ public class AccountingMarkazService extends BaseEntityService<AccountingMarkazE
 
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	public List<AccountingMarkazEntity> getActiveAccountingMarkaz(SaalMaaliEntity currentSaalMaali) {
@@ -299,7 +299,7 @@ public class AccountingMarkazService extends BaseEntityService<AccountingMarkazE
 
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	@Transactional
@@ -340,7 +340,7 @@ public class AccountingMarkazService extends BaseEntityService<AccountingMarkazE
 		localFilter.put("code@eq", code);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", saalMaaliId);
-		List<AccountingMarkazEntity> dataList = getDataList(null, localFilter, flushMode);
+		List<AccountingMarkazEntity> dataList = getDataList(localFilter, flushMode);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		if (dataList.size() == 0)
@@ -413,7 +413,7 @@ public class AccountingMarkazService extends BaseEntityService<AccountingMarkazE
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		AccountingMarkazEntity accountingMarkazEntity = load(null, localFilter);
+		AccountingMarkazEntity accountingMarkazEntity = load(localFilter);
 		return accountingMarkazEntity;
 	}
 

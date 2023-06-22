@@ -282,7 +282,7 @@ public class HesabTafsiliForm extends BaseAccountingForm<HesabTafsiliEntity, Lon
 	public List<SelectItem> getLocalHesabTafsiliSelectItems() {
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("organId@eq", getCurrentOrganVO().getId());
-		List<HesabTafsiliEntity> list = getMyService().getDataList(null, filter);
+		List<HesabTafsiliEntity> list = getMyService().getDataList(filter);
 		List<SelectItem> resultList = new ArrayList<SelectItem>();
 		for (HesabTafsiliEntity entity : list) {
 			resultList.add(new SelectItem(entity.getId(), entity.getName()));

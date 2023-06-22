@@ -30,7 +30,7 @@ public class MoeenAccountingMarkazTemplateService extends BaseEntityService<Moee
 		localFilter.put("accountingMarkazTemplate.id@eq", accountingMarkazEntity.getId());
 		localFilter.put("hesabMoeenTemplate.id@eq", hesabMoeenEntity.getId());
 		localFilter.put("level@eq", level);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 }

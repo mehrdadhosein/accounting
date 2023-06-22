@@ -123,7 +123,7 @@ public class AccountsTemplateForm extends BaseAccountingForm<AccountsTemplateEnt
 	 * public List<SelectItem> getSanadType(){ Map<String, Object> filter=new
 	 * HashMap<String, Object>();
 	 * filter.put("organId@eq",getCurrentOrgan().getId());
-	 * List<AccountsTemplateEntity> list =sanadTypeService.getDataList(null,
+	 * List<AccountsTemplateEntity> list =sanadTypeService.getDataList(
 	 * filter);
 	 * 
 	 * List<SelectItem> selectItemList = new ArrayList<SelectItem>();

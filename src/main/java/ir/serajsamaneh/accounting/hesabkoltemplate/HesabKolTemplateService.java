@@ -178,14 +178,14 @@ public class HesabKolTemplateService extends BaseEntityService<HesabKolTemplateE
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organ.code@startlk", topOrganCode);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	public HesabKolTemplateEntity loadLocal(String code, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@eq", organId);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	public List<HesabKolTemplateEntity> getCurrentHesabKolTemplateList(List<Long> topOrganList) {
@@ -193,7 +193,7 @@ public class HesabKolTemplateService extends BaseEntityService<HesabKolTemplateE
 		// localFilter.put("organId@eq",organId);
 		localFilter.put("organId@in", topOrganList);
 		localFilter.put("hidden@eq", Boolean.FALSE);
-		List<HesabKolTemplateEntity> hesabKolList = getDataList(null, localFilter, HesabKolEntity.PROP_CODE, true,
+		List<HesabKolTemplateEntity> hesabKolList = getDataList(localFilter, HesabKolEntity.PROP_CODE, true,
 				false);
 		return hesabKolList;
 	}
@@ -209,14 +209,14 @@ public class HesabKolTemplateService extends BaseEntityService<HesabKolTemplateE
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@eq", organId);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	public HesabKolTemplateEntity loadByNameInCurrentOrgan(String name, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
 		localFilter.put("organId@eq", organId);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	@Transactional(readOnly = true)

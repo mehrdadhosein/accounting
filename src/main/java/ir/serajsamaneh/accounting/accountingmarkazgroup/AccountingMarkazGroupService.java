@@ -43,7 +43,7 @@ public class AccountingMarkazGroupService extends BaseEntityService<AccountingMa
 				filter.put("parent.id@isNull", "ding");
 			else
 				filter.put("parent.id@eq", entity.getParent().getId());
-			List<AccountingMarkazGroupEntity> adjacentList = getDataList(null, filter, "", null, FlushMode.MANUAL,
+			List<AccountingMarkazGroupEntity> adjacentList = getDataList(filter, "", null, FlushMode.MANUAL,
 					false);
 			AccountingMarkazGroupEntity parentEntity = null;
 			if (entity.getParent() != null && entity.getParent().getID() != null)

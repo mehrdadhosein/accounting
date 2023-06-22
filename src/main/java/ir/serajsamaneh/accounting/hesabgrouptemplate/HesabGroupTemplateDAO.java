@@ -20,7 +20,7 @@ public class HesabGroupTemplateDAO extends BaseHibernateDAO<HesabGroupTemplateEn
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabGroupCode);
 		localFilter.put("organId@eq", organId);
-		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(null, localFilter, FlushMode.MANUAL, false);
+		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(localFilter, FlushMode.MANUAL, false);
 		return hesabGroupTemplateEntity;
 	}
 
@@ -29,7 +29,7 @@ public class HesabGroupTemplateDAO extends BaseHibernateDAO<HesabGroupTemplateEn
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabGroupCode);
 		localFilter.put("organId@isNull", "ding");
-		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(null, localFilter, FlushMode.MANUAL, false);
+		HesabGroupTemplateEntity hesabGroupTemplateEntity = load(localFilter, FlushMode.MANUAL, false);
 		return hesabGroupTemplateEntity;
 	}
 

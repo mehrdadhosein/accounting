@@ -152,7 +152,7 @@ public class AccountingMarkazTemplateService extends BaseEntityService<Accountin
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organId@eq", organId);
 		localFilter.put("hidden@eq", Boolean.FALSE);
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	public AccountingMarkazTemplateEntity loadAccountingMarkazTemplateByCode(String code, Long organId) {
@@ -164,7 +164,7 @@ public class AccountingMarkazTemplateService extends BaseEntityService<Accountin
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@eq", organId);
-		List<AccountingMarkazTemplateEntity> dataList = getDataList(null, localFilter, flushMode);
+		List<AccountingMarkazTemplateEntity> dataList = getDataList(localFilter, flushMode);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		if (dataList.size() == 0)
@@ -176,7 +176,7 @@ public class AccountingMarkazTemplateService extends BaseEntityService<Accountin
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@eq", organId);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	@Transactional
@@ -196,7 +196,7 @@ public class AccountingMarkazTemplateService extends BaseEntityService<Accountin
 	 * importFromHesabTafsiliTemplateList(SaalMaaliEntity activeSaalMaaliEntity){
 	 * Map<String, Object> localFilter = new HashMap<String, Object>();
 	 * List<HesabTafsiliTemplateEntity> dataList =
-	 * hesabTafsiliTemplateService.getDataList(null, localFilter ); for
+	 * hesabTafsiliTemplateService.getDataList(localFilter ); for
 	 * (HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity : dataList) {
 	 * AccountingMarkazEntity hesabTafsili =
 	 * loadHesabTafsiliByTemplate(hesabTafsiliTemplateEntity,
@@ -344,7 +344,7 @@ public class AccountingMarkazTemplateService extends BaseEntityService<Accountin
 	 * localFilter.put("code@eq",code);
 	 * localFilter.put("organId@eq",organEntity.getId());
 	 * localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
-	 * List<AccountingMarkazEntity> dataList = getDataList(null, localFilter,
+	 * List<AccountingMarkazEntity> dataList = getDataList(localFilter,
 	 * flushMode); if(dataList.size() == 1) return dataList.get(0);
 	 * if(dataList.size() == 0) return null; throw new
 	 * FatalException("More Than one Recore Found"); }

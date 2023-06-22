@@ -1182,7 +1182,7 @@ public class SanadHesabdariItemService extends BaseEntityService<SanadHesabdariI
 		hesabKolfilter.put("id@eq", hesabKolId);
 		hesabKolfilter.put("hesabGroup.type@eq", hesabTypeEnum);
 		List<SanadHesabdariItemEntity> items = new ArrayList<SanadHesabdariItemEntity>();
-		List<HesabKolEntity> kolList = hesabKolService.getDataList(null, hesabKolfilter);
+		List<HesabKolEntity> kolList = hesabKolService.getDataList(hesabKolfilter);
 		for (HesabKolEntity kol : kolList) {
 			Double[] aggregate = getMyDAO().getHesabAggregate(kol.getId(), hesabTypeEnum, from, to, filter);
 			SanadHesabdariItemEntity item = new SanadHesabdariItemEntity();

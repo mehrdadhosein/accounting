@@ -113,7 +113,7 @@ public class SanadHesabdariForm extends BaseAccountingForm<SanadHesabdariEntity,
 			List<Long> topOrganList = getCurrentOrganVO().getTopOrgansIdList();
 			localFilter.put("organId@in", topOrganList);
 
-			List<SanadTypeEntity> sanadTypeList = sanadTypeService.getDataList(null, localFilter);
+			List<SanadTypeEntity> sanadTypeList = sanadTypeService.getDataList(localFilter);
 //			sanadTypes.add(new SelectItem(null, "-------------"));
 			for (SanadTypeEntity entity : sanadTypeList)
 				sanadTypes.add(new SelectItem(entity.getId(), entity.getName()));
@@ -535,7 +535,7 @@ public class SanadHesabdariForm extends BaseAccountingForm<SanadHesabdariEntity,
 		localFilter.put("saalMaali.id@eq", getCurrentUserActiveSaalMaali().getId());
 		localFilter.put("sanadFunction@neq", SanadFunctionEnum.EFTETAHIE);
 		localFilter.put("organId@neq", getCurrentOrganVO().getId());
-		if (getMyService().getDataList(null, localFilter).size() > 0) {
+		if (getMyService().getDataList(localFilter).size() > 0) {
 			throw new FatalException(SerajMessageUtil.getMessage("SanadHesabdari_allready_sanad_created",
 					saalMaaliService.load(getEntity().getSaalMaali().getId())));
 		}
@@ -1118,7 +1118,7 @@ public class SanadHesabdariForm extends BaseAccountingForm<SanadHesabdariEntity,
 		localFilter.put("saalMaali.id@eq", activeSaalmaali.getId());
 		localFilter.put("organId@eq", getCurrentOrganVO().getId());
 		localFilter.put("state@eq", SanadStateEnum.BARRESI_SHODE);
-		List<SanadHesabdariEntity> dataList = getMyService().getDataList(null, localFilter,
+		List<SanadHesabdariEntity> dataList = getMyService().getDataList(localFilter,
 				SanadHesabdariEntity.PROP_TARIKH_SANAD, true, false);
 		for (SanadHesabdariEntity sanadHesabdariEntity : dataList) {
 			System.out.println(sanadHesabdariEntity.getTarikhSanadFA());
@@ -1188,9 +1188,9 @@ public class SanadHesabdariForm extends BaseAccountingForm<SanadHesabdariEntity,
 	public List<TempUploadedFileEntity> getTemporalZamimeha() {
 		if (temporalZamimeha == null) {
 			temporalZamimeha = new ArrayList<TempUploadedFileEntity>();
-			TempUploadedFileEntity localExample = new TempUploadedFileEntity();
-			localExample.setGuid(getUniqueGUID());
-			temporalZamimeha = getTempUploadedFileService().getDataList(localExample, null);
+			Map<String, Object> localFilter = new HashMap<String, Object>();
+			localFilter.put("guid@eq", getUniqueGUID());
+			temporalZamimeha = getTempUploadedFileService().getDataList(localFilter);
 		}
 		return temporalZamimeha;
 	}

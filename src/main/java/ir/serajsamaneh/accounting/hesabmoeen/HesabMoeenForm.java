@@ -55,7 +55,7 @@ public class HesabMoeenForm extends BaseAccountingForm<HesabMoeenEntity, Long> {
 
 			OrganVO organVO = organService.getOrganVO(getCurrentUserActiveSaalMaali().getOrganId());
 			filter.put("organ.code@startlk", organVO.getCode());
-			List<HesabMoeenEntity> list = getMyService().getDataList(null, filter);
+			List<HesabMoeenEntity> list = getMyService().getDataList(filter);
 			List<SelectItem> resultList = new ArrayList<SelectItem>();
 			for (HesabMoeenEntity entity : list) {
 				resultList.add(new SelectItem(entity.getId(), entity.getDesc()));

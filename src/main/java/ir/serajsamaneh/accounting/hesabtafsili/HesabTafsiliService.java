@@ -486,7 +486,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 	private void updateRelatedHesbTafsilies(HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity) {
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("hesabTafsiliTemplate.id@eq", hesabTafsiliTemplateEntity.getId());
-		List<HesabTafsiliEntity> dataList = getDataList(null, filter);
+		List<HesabTafsiliEntity> dataList = getDataList(filter);
 		for (HesabTafsiliEntity hesabTafsiliEntity : dataList) {
 			hesabTafsiliEntity.setCode(Long.valueOf(hesabTafsiliTemplateEntity.getCode()));
 			hesabTafsiliEntity.setName(hesabTafsiliTemplateEntity.getName());
@@ -516,7 +516,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 //		Map<String, Object> localFilter = new HashMap<String, Object>();
 //		localFilter.put("code@eq", hesabCode);
 //		localFilter.put("organId@eq", currentOrganEntity.getId());
-//		List<HesabTafsiliEntity> dataList = getDataList(null, localFilter, FlushMode.MANUAL);
+//		List<HesabTafsiliEntity> dataList = getDataList(localFilter, FlushMode.MANUAL);
 //		if(dataList.size() == 1)
 //			return dataList.get(0);
 //		else if(dataList.size() == 0)
@@ -528,7 +528,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter);
+		HesabTafsiliEntity hesabTafsiliEntity = load(localFilter);
 		return hesabTafsiliEntity;
 	}
 
@@ -541,7 +541,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	public List<HesabTafsiliEntity> getActiveTafsilis(SaalMaaliEntity currentSaalMaali) {
@@ -549,7 +549,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	public List<HesabTafsiliEntity> getActiveTafsilis(SaalMaaliEntity currentSaalMaali, Integer level) {
@@ -558,7 +558,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 		localFilter.put("level@eq", level);
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", currentSaalMaali.getId());
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	@Transactional(readOnly = false)
@@ -566,7 +566,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 			List<Long> topOrganList, String topOrganCode, String currentOrganName) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organId@eq", activeSaalMaaliEntity.getOrganId());
-		List<HesabTafsiliTemplateEntity> dataList = hesabTafsiliTemplateService.getDataList(null, localFilter);
+		List<HesabTafsiliTemplateEntity> dataList = hesabTafsiliTemplateService.getDataList(localFilter);
 		for (HesabTafsiliTemplateEntity hesabTafsiliTemplateEntity : dataList) {
 			HesabTafsiliEntity hesabTafsili = loadHesabTafsiliByTemplate(hesabTafsiliTemplateEntity,
 					activeSaalMaaliEntity);
@@ -818,7 +818,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 		localFilter.put("hesabTafsiliTemplate.id@eq", tafsiliTemplateEntity.getId());
 		localFilter.put("organId@eq", activeSaalMaaliEntity.getOrganId());
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
-		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter);
+		HesabTafsiliEntity hesabTafsiliEntity = load(localFilter);
 		return hesabTafsiliEntity;
 	}
 
@@ -845,7 +845,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 		localFilter.put("code@eq", code);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", saalMaaliId);
-		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
+		HesabTafsiliEntity hesabTafsiliEntity = load(localFilter, flushMode);
 		return hesabTafsiliEntity;
 	}
 
@@ -854,7 +854,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 //		localFilter.put("code@eq",code);
 ////		localFilter.put("organId@eq",organId);
 //		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
-//		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
+//		HesabTafsiliEntity hesabTafsiliEntity = load(localFilter, flushMode);
 //		return hesabTafsiliEntity;
 //	}
 
@@ -864,7 +864,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 		localFilter.put("name@eq", name);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
+		HesabTafsiliEntity hesabTafsiliEntity = load(localFilter, flushMode);
 		return hesabTafsiliEntity;
 	}
 
@@ -873,7 +873,7 @@ public class HesabTafsiliService extends BaseEntityService<HesabTafsiliEntity, L
 //		localFilter.put("name@eq",name);
 //		localFilter.put("organId@eq",organId);
 //		localFilter.put("saalMaali.id@eq",saalMaaliEntity.getId());
-//		HesabTafsiliEntity hesabTafsiliEntity = load(null, localFilter, flushMode);
+//		HesabTafsiliEntity hesabTafsiliEntity = load(localFilter, flushMode);
 //		return hesabTafsiliEntity;
 //	}
 

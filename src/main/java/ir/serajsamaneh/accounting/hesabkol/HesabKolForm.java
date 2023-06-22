@@ -133,7 +133,7 @@ public class HesabKolForm extends BaseAccountingForm<HesabKolEntity, Long> {
 	public List<SelectItem> getHesabGroup() {
 		Map<String, Object> filter = new HashMap<String, Object>();
 		// filter.put("organId@eq",getCurrentOrgan().getId());
-		List<HesabGroupEntity> list = hesabGroupService.getDataList(null, filter);
+		List<HesabGroupEntity> list = hesabGroupService.getDataList(filter);
 
 		List<SelectItem> selectItemList = new ArrayList<SelectItem>();
 		selectItemList.add(new SelectItem("", "------------"));

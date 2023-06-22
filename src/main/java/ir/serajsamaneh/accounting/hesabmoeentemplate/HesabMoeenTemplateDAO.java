@@ -21,7 +21,7 @@ public class HesabMoeenTemplateDAO extends BaseHibernateDAO<HesabMoeenTemplateEn
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
 		localFilter.put("organId@eq", organId);
-		List<HesabMoeenTemplateEntity> dataList = getDataList(null, localFilter, null, null, FlushMode.MANUAL, false);
+		List<HesabMoeenTemplateEntity> dataList = getDataList(localFilter, null, null, FlushMode.MANUAL, false);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)

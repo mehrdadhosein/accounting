@@ -98,7 +98,7 @@ public class AccountsTemplateService extends BaseAccountingService<AccountsTempl
 		localFilter.put("actionId@eq", actionId);
 		localFilter.put("organId@eq", organId);
 		localFilter.put("accountingMarkaz.id@eq", accountingMarkaz.getId());
-		List<AccountsTemplateEntity> dataList = getDataList(null, localFilter, FlushMode.MANUAL, true);
+		List<AccountsTemplateEntity> dataList = getDataList(localFilter, FlushMode.MANUAL, true);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)
@@ -111,7 +111,7 @@ public class AccountsTemplateService extends BaseAccountingService<AccountsTempl
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("actionId@eq", actionId);
 		localFilter.put("organId@eq", organId);
-		List<AccountsTemplateEntity> dataList = getDataList(null, localFilter, FlushMode.MANUAL, true);
+		List<AccountsTemplateEntity> dataList = getDataList(localFilter, FlushMode.MANUAL, true);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)
@@ -220,7 +220,7 @@ public class AccountsTemplateService extends BaseAccountingService<AccountsTempl
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("actionId@eq", automaticSanadTemplateActionId);
 		localFilter.put("organId@eq", organId);
-		List<AccountsTemplateEntity> dataList = getDataList(null, localFilter, "", null, FlushMode.MANUAL, false);
+		List<AccountsTemplateEntity> dataList = getDataList(localFilter, "", null, FlushMode.MANUAL, false);
 		return (ir.serajsamaneh.accounting.accountstemplate.AccountsTemplateEntity) getUniqueResult(dataList);
 	}
 }

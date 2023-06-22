@@ -91,7 +91,7 @@ public class HesabTafsiliTemplateDAO extends BaseHibernateDAO<HesabTafsiliTempla
 	public HesabTafsiliTemplateEntity getGlobalHesabTafsiliByCode(Long hesabCode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
-		List<HesabTafsiliTemplateEntity> dataList = getDataList(null, localFilter, null, null, FlushMode.MANUAL, false);
+		List<HesabTafsiliTemplateEntity> dataList = getDataList(localFilter, null, null, FlushMode.MANUAL, false);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)

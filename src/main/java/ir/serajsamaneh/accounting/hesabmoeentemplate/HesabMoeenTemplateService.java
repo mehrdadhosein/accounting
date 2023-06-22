@@ -96,28 +96,28 @@ public class HesabMoeenTemplateService extends BaseEntityService<HesabMoeenTempl
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", organCode);
 		localFilter.put("organ.code@startlk", topOrganCode);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	public HesabMoeenTemplateEntity loadByName(String name, String topOrganCode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
 		localFilter.put("organ.code@startlk", topOrganCode);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	public HesabMoeenTemplateEntity loadByCodeInCurrentOrgan(String code, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@eq", organId);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	public HesabMoeenTemplateEntity loadByNameInCurrentOrgan(String name, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
 		localFilter.put("organId@eq", organId);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	public List<HesabMoeenTemplateEntity> getActiveMoeens(List<Long> topOrganList) {
@@ -126,7 +126,7 @@ public class HesabMoeenTemplateService extends BaseEntityService<HesabMoeenTempl
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organId@in", topOrganList);
 		localFilter.put("hidden@eq", Boolean.FALSE);
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	public List<HesabMoeenTemplateEntity> getActiveMoeens(Long hesabKolTemplateId, List<Long> topOrganList) {
@@ -136,7 +136,7 @@ public class HesabMoeenTemplateService extends BaseEntityService<HesabMoeenTempl
 		localFilter.put("organId@in", topOrganList);
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("hesabKolTemplate.id@eq", hesabKolTemplateId);
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	@Transactional(readOnly = true)
@@ -149,7 +149,7 @@ public class HesabMoeenTemplateService extends BaseEntityService<HesabMoeenTempl
 
 		Map<String, Object> moeenTafsiliFilter = new HashMap<String, Object>();
 		moeenTafsiliFilter.put("hesabMoeenTemplate.organId@eq", organId);
-		List<MoeenTafsiliTemplateEntity> moeenTafsiliList = moeenTafsiliTemplateService.getDataList(null,
+		List<MoeenTafsiliTemplateEntity> moeenTafsiliList = moeenTafsiliTemplateService.getDataList(
 				moeenTafsiliFilter);
 
 		for (MoeenTafsiliTemplateEntity moeenTafsiliEntity : moeenTafsiliList) {

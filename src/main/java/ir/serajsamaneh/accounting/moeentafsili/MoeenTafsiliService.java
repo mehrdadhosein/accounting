@@ -32,7 +32,7 @@ public class MoeenTafsiliService extends BaseEntityService<MoeenTafsiliEntity, L
 		localFilter.put("hesabTafsili.id@eq", hesabTafsiliEntity.getId());
 		localFilter.put("hesabMoeen.id@eq", hesabMoeenEntity.getId());
 		localFilter.put("level@eq", level);
-		List<MoeenTafsiliEntity> dataList = getDataList(null, localFilter, flushMode);
+		List<MoeenTafsiliEntity> dataList = getDataList(localFilter, flushMode);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)

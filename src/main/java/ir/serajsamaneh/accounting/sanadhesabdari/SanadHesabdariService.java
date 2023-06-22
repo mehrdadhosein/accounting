@@ -806,7 +806,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 //		localFilter.put("tarikhSanad@le", tarikhSanadTo);
 //		localFilter.put("saalMaali.id@eq", activeSaalmaali.getId());
 //		localFilter.put("state@eq", SanadStateEnum.BARRESI_SHODE);
-//		List<SanadHesabdariEntity> dataList = getDataList(null, localFilter);
+//		List<SanadHesabdariEntity> dataList = getDataList(localFilter);
 //		for (SanadHesabdariEntity sanadHesabdariEntity : dataList) {
 //			tabdilBeDaemi(sanadHesabdariEntity, currentOrgan);
 //		}
@@ -848,7 +848,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		localFilter.put("serial@le", serialSanadTo);
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("state@eq", SanadStateEnum.BARRESI_SHODE);
-		List<SanadHesabdariEntity> dataList = getDataList(null, localFilter);
+		List<SanadHesabdariEntity> dataList = getDataList(localFilter);
 		for (SanadHesabdariEntity sanadHesabdariEntity : dataList) {
 			tabdilBeDaemi(sanadHesabdariEntity, saalMaaliEntity, organId, currentUser, organDesc);
 		}
@@ -951,7 +951,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("organId@eq", organId);
 		localFilter.put("sanadFunction@eq", SanadFunctionEnum.BASTAN_HESABHA);
-		SanadHesabdariEntity sanadHesabdariCloseTemporalAccountsEntity = load(null, localFilter);
+		SanadHesabdariEntity sanadHesabdariCloseTemporalAccountsEntity = load(localFilter);
 		if (sanadHesabdariCloseTemporalAccountsEntity != null) {
 			// deleteWithoutDeletableValidation(sanadHesabdariCloseTemporalAccountsEntity.getId());
 			super.delete(sanadHesabdariCloseTemporalAccountsEntity.getId());
@@ -1212,7 +1212,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("organId@eq", organId);
 		localFilter.put("state@eq", SanadStateEnum.DAEM);
-		List<SanadHesabdariEntity> sanadHesabdariList = getDataList(null, localFilter,
+		List<SanadHesabdariEntity> sanadHesabdariList = getDataList(localFilter,
 				SanadHesabdariEntity.PROP_TARIKH_SANAD, true, false);
 		return sanadHesabdariList;
 	}
@@ -1226,7 +1226,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		localFilter.put("sanadFunction@eq", SanadFunctionEnum.OMOMI);
 		localFilter.put("tarikhSanad@ge", fromDate);
 		localFilter.put("tarikhSanad@lt", toDate);
-		List<SanadHesabdariEntity> sanadHesabdariList = getDataList(null, localFilter,
+		List<SanadHesabdariEntity> sanadHesabdariList = getDataList(localFilter,
 				SanadHesabdariEntity.PROP_TARIKH_SANAD, true, false);
 		return sanadHesabdariList;
 	}
@@ -1373,7 +1373,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("organId@eq", organId);
 		localFilter.put("sanadFunction@eq", SanadFunctionEnum.EFTETAHIE);
-		SanadHesabdariEntity sanadHesabdariEntity = load(null, localFilter);
+		SanadHesabdariEntity sanadHesabdariEntity = load(localFilter);
 		return sanadHesabdariEntity;
 	}
 
@@ -1381,7 +1381,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("sanadFunction@eq", SanadFunctionEnum.EFTETAHIE);
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	public SanadHesabdariEntity getSanadEkhtetamieh(SaalMaaliEntity saalMaaliEntity, Long organId) {
@@ -1389,7 +1389,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 		localFilter.put("organId@eq", organId);
 		localFilter.put("sanadFunction@eq", SanadFunctionEnum.EKHTETAMIE);
-		SanadHesabdariEntity sanadHesabdariEntity = load(null, localFilter);
+		SanadHesabdariEntity sanadHesabdariEntity = load(localFilter);
 		return sanadHesabdariEntity;
 	}
 
@@ -1529,7 +1529,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		filter.put("tarikhSanad@le", toDate);
 		filter.put("organId@eq", organId);
 		filter.put("sanadType.id@eq", sanadType.getId());
-		List<SanadHesabdariEntity> dataList = getDataList(null, filter);
+		List<SanadHesabdariEntity> dataList = getDataList(filter);
 		return dataList;
 
 	}
@@ -1598,7 +1598,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		localFilter.put("organId@eq", currentOrganId);
 		localFilter.put("saalMaali.id@eq", activeSaalMaali.getId());
 		localFilter.put("state@notIn", Arrays.asList(SanadStateEnum.EBTAL, SanadStateEnum.MonthlySummary));
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	@Transactional
@@ -1669,7 +1669,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 			sanadFilter.put("tarikhSanad@eq", monthEntity.getEndDate());
 			sanadFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
 			sanadFilter.put("organId@eq", organId);
-			SanadHesabdariEntity monthlySummarySanad = load(null, sanadFilter);
+			SanadHesabdariEntity monthlySummarySanad = load(sanadFilter);
 			if (monthlySummarySanad != null)
 				continue;
 
@@ -1857,7 +1857,7 @@ public class SanadHesabdariService extends BaseAccountingService<SanadHesabdariE
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("saalMaali.id@eq", activeSaalmaali.getId());
 		localFilter.put("organId@eq", organId);
-		List<SanadHesabdariEntity> dataList = getDataList(null, localFilter, SanadHesabdariEntity.PROP_TARIKH_SANAD,
+		List<SanadHesabdariEntity> dataList = getDataList(localFilter, SanadHesabdariEntity.PROP_TARIKH_SANAD,
 				true, false);
 		for (SanadHesabdariEntity sanadHesabdariEntity : dataList) {
 			sanadHesabdariEntity.setSerial(null);

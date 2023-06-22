@@ -28,7 +28,7 @@ public class HesabKolTemplateDAO extends BaseHibernateDAO<HesabKolTemplateEntity
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabCode);
 		localFilter.put("organId@eq", organId);
-		List<HesabKolTemplateEntity> dataList = getDataList(null, localFilter, null, null, FlushMode.MANUAL, false);
+		List<HesabKolTemplateEntity> dataList = getDataList(localFilter, null, null, FlushMode.MANUAL, false);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)
@@ -41,7 +41,7 @@ public class HesabKolTemplateDAO extends BaseHibernateDAO<HesabKolTemplateEntity
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", hesabKolName);
 		localFilter.put("organId@eq", organId);
-		HesabKolTemplateEntity hesabKolTemplateEntity = load(null, localFilter, FlushMode.MANUAL, false);
+		HesabKolTemplateEntity hesabKolTemplateEntity = load(localFilter, FlushMode.MANUAL, false);
 		return hesabKolTemplateEntity;
 
 	}

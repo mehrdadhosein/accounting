@@ -102,28 +102,28 @@ public class HesabTafsiliTemplateService extends BaseEntityService<HesabTafsiliT
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@in", topOrganList);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	public HesabTafsiliTemplateEntity loadByCodeInCurrentOrgan(Long code, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@eq", organId);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	public HesabTafsiliTemplateEntity loadByName(String name, String topOrganCode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
 		localFilter.put("organ.code@startlk", topOrganCode);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	public HesabTafsiliTemplateEntity loadByNameInCurrentOrgan(String name, Long organId) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", name);
 		localFilter.put("organId@eq", organId);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	@Transactional(readOnly = true)
@@ -135,7 +135,7 @@ public class HesabTafsiliTemplateService extends BaseEntityService<HesabTafsiliT
 		localFilter.put("organId@in", topOrganList);
 
 		localFilter.put("hidden@eq", Boolean.FALSE);
-		return getDataList(null, localFilter);
+		return getDataList(localFilter);
 	}
 
 	@Transactional(readOnly = true)

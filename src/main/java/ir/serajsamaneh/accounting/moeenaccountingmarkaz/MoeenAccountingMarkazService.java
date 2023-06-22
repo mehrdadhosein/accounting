@@ -32,7 +32,7 @@ public class MoeenAccountingMarkazService extends BaseEntityService<MoeenAccount
 		localFilter.put("accountingMarkaz.id@eq", accountingMarkazEntity.getId());
 		localFilter.put("hesabMoeen.id@eq", hesabMoeenEntity.getId());
 		localFilter.put("level@eq", level);
-		List<MoeenAccountingMarkazEntity> dataList = getDataList(null, localFilter, flushMode);
+		List<MoeenAccountingMarkazEntity> dataList = getDataList(localFilter, flushMode);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)
@@ -44,7 +44,7 @@ public class MoeenAccountingMarkazService extends BaseEntityService<MoeenAccount
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("accountingMarkaz.id@eq", accountingMarkazEntity.getId());
 		localFilter.put("hesabMoeen.id@eq", moeenId);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 }

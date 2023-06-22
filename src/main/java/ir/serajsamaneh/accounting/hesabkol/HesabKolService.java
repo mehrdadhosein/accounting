@@ -230,7 +230,7 @@ public class HesabKolService extends BaseEntityService<HesabKolEntity, Long> {
 //		Map<String, Object> localFilter = new HashMap<String, Object>();
 //		localFilter.put("code@eq", hesabCode);
 //		localFilter.put("organId@eq", organEntity.getId());
-//		List<HesabKolEntity> dataList = getDataList(null, localFilter,
+//		List<HesabKolEntity> dataList = getDataList(localFilter,
 //				FlushMode.MANUAL);
 //		if (dataList.size() == 1)
 //			return dataList.get(0);
@@ -262,7 +262,7 @@ public class HesabKolService extends BaseEntityService<HesabKolEntity, Long> {
 
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organId@eq", activeSaalMaaliEntity.getOrganId());
-		List<HesabKolTemplateEntity> dataList = hesabKolTemplateService.getDataList(null, localFilter);
+		List<HesabKolTemplateEntity> dataList = hesabKolTemplateService.getDataList(localFilter);
 
 		for (HesabKolTemplateEntity hesabKolTemplateEntity : dataList) {
 			HesabKolEntity loadHesabKol = loadHesabKolByTemplate(hesabKolTemplateEntity, activeSaalMaaliEntity);
@@ -378,7 +378,7 @@ public class HesabKolService extends BaseEntityService<HesabKolEntity, Long> {
 		localFilter.put("hesabKolTemplate.id@eq", hesabKolTemplateEntity.getId());
 //		localFilter.put("organId@eq",activeSaalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
-		HesabKolEntity hesabKolEntity = load(null, localFilter);
+		HesabKolEntity hesabKolEntity = load(localFilter);
 		return hesabKolEntity;
 	}
 
@@ -391,8 +391,8 @@ public class HesabKolService extends BaseEntityService<HesabKolEntity, Long> {
 		localFilter.put("code@eq", code);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", saalMaaliId);
-		return load(null, localFilter, flushMode);
-//		List<HesabKolEntity> dataList = getDataList(null, localFilter, flushMode);
+		return load(localFilter, flushMode);
+//		List<HesabKolEntity> dataList = getDataList(localFilter, flushMode);
 //		if(dataList.size() == 1)
 //			return dataList.get(0);
 //		if(dataList.size() == 0)
@@ -405,8 +405,8 @@ public class HesabKolService extends BaseEntityService<HesabKolEntity, Long> {
 		localFilter.put("name@eq", name);
 //		localFilter.put("organId@eq",saalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		return load(null, localFilter, flushMode);
-//		List<HesabKolEntity> dataList = getDataList(null, localFilter, flushMode);
+		return load(localFilter, flushMode);
+//		List<HesabKolEntity> dataList = getDataList(localFilter, flushMode);
 //		if(dataList.size() == 1)
 //			return dataList.get(0);
 //		if(dataList.size() == 0)
@@ -438,7 +438,7 @@ public class HesabKolService extends BaseEntityService<HesabKolEntity, Long> {
 
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		List<HesabKolEntity> hesabKolList = getDataList(null, localFilter, HesabKolEntity.PROP_CODE, true, false);
+		List<HesabKolEntity> hesabKolList = getDataList(localFilter, HesabKolEntity.PROP_CODE, true, false);
 		return hesabKolList;
 	}
 
@@ -447,7 +447,7 @@ public class HesabKolService extends BaseEntityService<HesabKolEntity, Long> {
 
 		localFilter.put("hidden@eq", Boolean.FALSE);
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		List<HesabKolEntity> hesabKolList = getDataList(null, localFilter, HesabKolEntity.PROP_CODE, true, false);
+		List<HesabKolEntity> hesabKolList = getDataList(localFilter, HesabKolEntity.PROP_CODE, true, false);
 		return hesabKolList;
 	}
 

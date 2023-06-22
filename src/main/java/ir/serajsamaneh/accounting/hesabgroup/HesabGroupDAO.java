@@ -20,7 +20,7 @@ public class HesabGroupDAO extends BaseHibernateDAO<HesabGroupEntity, Long> {
 	public HesabGroupEntity getHesabGroupByCode(String hesabGroupCode) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", hesabGroupCode);
-		List<HesabGroupEntity> dataList = getDataList(null, localFilter, null, null, FlushMode.MANUAL, false);
+		List<HesabGroupEntity> dataList = getDataList(localFilter, null, null, FlushMode.MANUAL, false);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)

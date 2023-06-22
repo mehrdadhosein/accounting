@@ -56,7 +56,7 @@ public class HesabGroupService extends BaseEntityService<HesabGroupEntity, Long>
 	public HesabGroupEntity getHesabGroupByName(String hesabGroupName) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("name@eq", hesabGroupName);
-		List<HesabGroupEntity> dataList = getDataList(null, localFilter, FlushMode.MANUAL);
+		List<HesabGroupEntity> dataList = getDataList(localFilter, FlushMode.MANUAL);
 		if (dataList.size() == 1)
 			return dataList.get(0);
 		else if (dataList.size() == 0)
@@ -75,7 +75,7 @@ public class HesabGroupService extends BaseEntityService<HesabGroupEntity, Long>
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@eq", saalMaaliEntity.getOrganId());
 		localFilter.put("saalMaali.id@eq", saalMaaliEntity.getId());
-		HesabGroupEntity hesabGroupEntity = load(null, localFilter);
+		HesabGroupEntity hesabGroupEntity = load(localFilter);
 		return hesabGroupEntity;
 	}
 
@@ -116,7 +116,7 @@ public class HesabGroupService extends BaseEntityService<HesabGroupEntity, Long>
 	public void importFromHesabGroupTemplateList(SaalMaaliEntity activeSaalMaaliEntity, OrganVO currentOrganVO) {
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("organId@eq", activeSaalMaaliEntity.getOrganId());
-		List<HesabGroupTemplateEntity> dataList = hesabGroupTemplateService.getDataList(null, localFilter);
+		List<HesabGroupTemplateEntity> dataList = hesabGroupTemplateService.getDataList(localFilter);
 
 		for (HesabGroupTemplateEntity hesabGroupTemplateEntity : dataList) {
 			HesabGroupEntity hesabGroupEntity = loadHesabGroupByTemplate(hesabGroupTemplateEntity,
@@ -172,7 +172,7 @@ public class HesabGroupService extends BaseEntityService<HesabGroupEntity, Long>
 		localFilter.put("hesabGroupTemplate.id@eq", hesabGroupTemplateEntity.getId());
 //		localFilter.put("organId@eq",activeSaalMaaliEntity.getOrgan().getId());
 		localFilter.put("saalMaali.id@eq", activeSaalMaaliEntity.getId());
-		HesabGroupEntity hesabGroupEntity = load(null, localFilter);
+		HesabGroupEntity hesabGroupEntity = load(localFilter);
 		return hesabGroupEntity;
 	}
 

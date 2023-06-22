@@ -27,7 +27,7 @@ public class HesabGroupTemplateService extends BaseEntityService<HesabGroupTempl
 		Map<String, Object> localFilter = new HashMap<String, Object>();
 		localFilter.put("code@eq", code);
 		localFilter.put("organId@eq", organId);
-		return load(null, localFilter);
+		return load(localFilter);
 	}
 
 	@Transactional(readOnly = false)
