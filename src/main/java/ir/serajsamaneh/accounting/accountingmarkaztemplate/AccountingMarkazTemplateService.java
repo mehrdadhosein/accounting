@@ -322,7 +322,7 @@ public class AccountingMarkazTemplateService extends BaseEntityService<Accountin
 	 * localFilter.put("hesabTafsiliTemplate.id@eq",tafsiliTemplateEntity.getId());
 	 * localFilter.put("organId@eq",activeSaalMaaliEntity.getOrgan().getId());
 	 * localFilter.put("saalMaali.id@eq",activeSaalMaaliEntity.getId());
-	 * List<AccountingMarkazEntity> dataList = getDataList(null, localFilter );
+	 * List<AccountingMarkazEntity> dataList = getDataList(localFilter );
 	 * if(dataList.size() == 1) return dataList.get(0); if(dataList.size() == 0)
 	 * return null; throw new
 	 * FatalException("More Than one AccountingMarkaz Found");
